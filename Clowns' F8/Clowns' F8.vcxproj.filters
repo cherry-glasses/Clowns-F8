@@ -16,12 +16,12 @@
     <Filter Include="EntitiesCharacters">
       <UniqueIdentifier>{95254d9f-16f5-466a-b3ff-dda5c9e2b9c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Containers">
+      <UniqueIdentifier>{10ff2286-74fd-4dd7-b8ce-d9ccebf037e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Clowns%27 F8\Application.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Clowns%27 F8\Animation.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="..\Clowns%27 F8\Module.h">
@@ -45,6 +45,12 @@
     <ClInclude Include="..\Clowns%27 F8\Globals.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\MemLeaks.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Animation.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -65,10 +71,10 @@
     <ClCompile Include="..\Clowns%27 F8\ModuleAudio.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="..\Clowns%27 F8\Main.cpp">
+    <ClCompile Include="..\Clowns%27 F8\Globals.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\Clowns%27 F8\Globals.cpp">
+    <ClCompile Include="..\Clowns%27 F8\Main.cpp">
       <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
