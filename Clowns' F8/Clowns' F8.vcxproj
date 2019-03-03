@@ -124,10 +124,9 @@
   <ItemGroup>
     <ClInclude Include="..\Clowns%27 F8\Animation.h" />
     <ClInclude Include="..\Clowns%27 F8\Application.h" />
+    <ClInclude Include="..\Clowns%27 F8\ModuleEntityManager.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleMap.h" />
     <ClInclude Include="..\Clowns%27 F8\PerfTimer.h" />
-    <ClInclude Include="..\Clowns%27 F8\pugiconfig.hpp" />
-    <ClInclude Include="..\Clowns%27 F8\pugixml.hpp" />
     <ClInclude Include="..\Clowns%27 F8\Scene.h" />
     <ClInclude Include="..\Clowns%27 F8\Timer.h" />
     <ClInclude Include="ModuleFonts.h" />
@@ -142,9 +141,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\ModuleEntityManager.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleMap.cpp" />
     <ClCompile Include="..\Clowns%27 F8\PerfTimer.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\pugixml.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Scene.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Timer.cpp" />
     <ClCompile Include="ModuleFonts.cpp" />

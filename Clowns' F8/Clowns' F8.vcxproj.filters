@@ -22,9 +22,6 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{f47f629b-00eb-4cdf-94b4-a6b27b055ae2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Containers\pugiXML">
-      <UniqueIdentifier>{559b039e-8b6c-4f07-be53-2b53d9338ab6}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Clowns%27 F8\Application.h">
@@ -69,14 +66,11 @@
     <ClInclude Include="..\Clowns%27 F8\Timer.h">
       <Filter>Containers</Filter>
     </ClInclude>
-    <ClInclude Include="..\Clowns%27 F8\pugixml.hpp">
-      <Filter>Containers\pugiXML</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Clowns%27 F8\pugiconfig.hpp">
-      <Filter>Containers\pugiXML</Filter>
-    </ClInclude>
     <ClInclude Include="..\Clowns%27 F8\PerfTimer.h">
       <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ModuleEntityManager.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -116,11 +110,11 @@
     <ClCompile Include="..\Clowns%27 F8\Timer.cpp">
       <Filter>Containers</Filter>
     </ClCompile>
-    <ClCompile Include="..\Clowns%27 F8\pugixml.cpp">
-      <Filter>Containers\pugiXML</Filter>
-    </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\PerfTimer.cpp">
       <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ModuleEntityManager.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

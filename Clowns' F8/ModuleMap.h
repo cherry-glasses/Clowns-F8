@@ -1,7 +1,7 @@
 #ifndef __MODULEMAP_H_
 #define __MODULEMAP_H_
 
-//#include "PugiXml/src/pugixml.hpp"
+#include "PugiXml/src/pugixml.hpp"
 #include "Module.h"
 
 // ----------------------------------------------------
