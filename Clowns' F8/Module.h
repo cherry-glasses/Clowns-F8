@@ -37,6 +37,9 @@ public:
 			CleanUp();
 		}
 	}
+
+	// Callbacks------------
+	virtual void OnFade() {}
 };
 
 #endif // __MODULE_H__
