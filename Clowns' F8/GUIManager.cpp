@@ -78,7 +78,7 @@ bool GUIManager::Update(float dt)
 // Called before quitting
 bool GUIManager::CleanUp()
 {
-	LOG("Freeing all gui elements");
+	//LOG("Freeing all gui elements");
 	/*
 	for (uint i = 0; i < gui_elements.Count(); ++i)
 	{
@@ -203,7 +203,7 @@ void GUIManager::DeleteGUIElement(GUIElement* e)
 
 void GUIManager::DeleteAllGUIElements()
 {
-	for (uint i = 0; i < gui_elements.Count(); ++i)
+	for (unsigned int i = 0; i < gui_elements.Count(); ++i)
 	{
 		if (gui_elements[i] != nullptr)
 		{

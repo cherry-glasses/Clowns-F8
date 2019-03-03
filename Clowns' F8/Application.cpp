@@ -9,6 +9,7 @@
 #include "ModuleMap.h"
 #include "ModuleEntityManager.h"
 #include "Scene.h"
+#include "GUIManager.h"
 
 
 Application::Application()
@@ -24,7 +25,7 @@ Application::Application()
 	modules[i++] = scene = new Scene();
 	modules[i++] = map = new ModuleMap();
 	modules[i++] = entity_manager = new ModuleEntityManager();
-	
+	modules[i++] = gui = new GUIManager();
 
 }
 

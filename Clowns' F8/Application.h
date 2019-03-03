@@ -3,7 +3,7 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 11
+#define NUM_MODULES 12
 
 class ModuleWindow;
 class ModuleInput;
@@ -16,6 +16,7 @@ class ModuleMap;
 class ModuleEntityManager;
 class Module;
 class Scene;
+class j1GUIManager;
 
 
 
@@ -34,6 +35,7 @@ public:
 	Scene* scene = nullptr;
 	ModuleMap* map = nullptr;
 	ModuleEntityManager* entity_manager = nullptr;
+	GUIManager* gui = nullptr;
 
 public:
 

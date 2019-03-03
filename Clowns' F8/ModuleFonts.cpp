@@ -5,7 +5,7 @@
 #include "ModuleFonts.h"
 
 #include <stdio.h>
-#include<string.h>
+#include <string.h>
 
 // Constructor
 ModuleFonts::ModuleFonts() : Module()
@@ -22,7 +22,7 @@ int ModuleFonts::Load(const char* texture_path, const char* characters, uint row
 
 	if (texture_path == nullptr || characters == nullptr || rows == 0)
 	{
-		LOG("Could not load font");
+		//LOG("Could not load font");
 		return id;
 	}
 
@@ -30,7 +30,7 @@ int ModuleFonts::Load(const char* texture_path, const char* characters, uint row
 
 	if (tex == nullptr || strlen(characters) >= MAX_FONT_CHARS)
 	{
-		LOG("Could not load font at %s with characters '%s'", texture_path, characters);
+		//LOG("Could not load font at %s with characters '%s'", texture_path, characters);
 		return id;
 	}
 
@@ -41,12 +41,12 @@ int ModuleFonts::Load(const char* texture_path, const char* characters, uint row
 
 	if (id == MAX_FONTS)
 	{
-		LOG("Cannot load font %s. Array is full (max %d).", texture_path, MAX_FONTS);
+		//LOG("Cannot load font %s. Array is full (max %d).", texture_path, MAX_FONTS);
 		return id;
 	}
 
 
-	uint width, height;
+	unsigned int width, height;
 	App->textures->GetSize(tex, width, height);
 
 
@@ -59,7 +59,7 @@ int ModuleFonts::Load(const char* texture_path, const char* characters, uint row
 	strcpy_s(fonts[id].table, characters);
 
 
-	LOG("Successfully loaded BMP font from %s", texture_path);
+	//LOG("Successfully loaded BMP font from %s", texture_path);
 
 	return id;
 }
@@ -70,7 +70,7 @@ void ModuleFonts::UnLoad(int font_id)
 	{
 		App->textures->Unload(fonts[font_id].graphic);
 		fonts[font_id].graphic = nullptr;
-		LOG("Successfully Unloaded BMP font_id %d", font_id);
+		//LOG("Successfully Unloaded BMP font_id %d", font_id);
 	}
 }
 
@@ -79,18 +79,18 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 {
 	if (text == nullptr || font_id < 0 || font_id >= MAX_FONTS || fonts[font_id].graphic == nullptr)
 	{
-		LOG("Unable to render text with bmp font id %d", font_id);
+		//LOG("Unable to render text with bmp font id %d", font_id);
 		return;
 	}
 
 	const Font* font = &fonts[font_id];
 	SDL_Rect rect;
-	uint len = strlen(text);
+	unsigned int len = strlen(text);
 
 	rect.w = font->char_w;
 	rect.h = font->char_h;
 
-	for (uint i = 0; i < len; ++i)
+	for (unsigned int i = 0; i < len; ++i)
 	{
 		for (int z = 0; z < font->len; z++) {
 			if (font->table[z] == text[i]) {

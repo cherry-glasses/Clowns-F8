@@ -2,7 +2,7 @@
 #define __GUIElement_H__
 
 #include "p2Point.h"
-#include "j1GUIManager.h"
+#include "GUIManager.h"
 
 #include "SDL/include/SDL_rect.h"
 
