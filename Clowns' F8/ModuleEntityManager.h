@@ -5,11 +5,11 @@
 #include "Globals.h"
 
 
-class j1EntityManager : public Module
+class ModuleEntityManager : public Module
 {
 public:
 
-	j1EntityManager();
+	ModuleEntityManager();
 
 	//bool Awake(pugi::xml_node &);
 	bool Start();
