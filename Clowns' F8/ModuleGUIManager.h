@@ -1,5 +1,5 @@
-#ifndef __j1GUIManager_H__
-#define __j1GUIManager_H__
+#ifndef __ModuleGUIManager_H__
+#define __ModuleGUIManager_H__
 
 #include "Module.h"
 //#include "p2DynArray.h"
@@ -21,12 +21,12 @@ enum class GUI_ELEMENT_TYPE
 	GUI_SLIDER
 };
 
-class GUIManager : public Module
+class ModuleGUIManager : public Module
 {
 public:
 
-	GUIManager();
-	virtual ~GUIManager();
+	ModuleGUIManager();
+	virtual ~ModuleGUIManager();
 
 	//bool Awake(pugi::xml_node& config);
 
@@ -64,4 +64,4 @@ private:
 	SDL_Texture* slider_textures = nullptr;*/
 };
 
-#endif // __j1GUIManager_H__
+#endif // __ModuleGUIManager_H__

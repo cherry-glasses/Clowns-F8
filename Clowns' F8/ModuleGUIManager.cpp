@@ -1,7 +1,7 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
-#include "GUIManager.h"
+#include "ModuleGUIManager.h"
 #include "ModuleTextures.h"
 /*#include "p2Defs.h"
 #include "p2Log.h"*/
@@ -13,13 +13,13 @@
 //#include "GUIPanel.h"
 #include "ModuleAudio.h"
 
-GUIManager::GUIManager()
+ModuleGUIManager::ModuleGUIManager()
 {
 	//name.create("gui");
 }
 
 // Destructor
-GUIManager::~GUIManager()
+ModuleGUIManager::~ModuleGUIManager()
 {
 
 }
@@ -29,13 +29,13 @@ GUIManager::~GUIManager()
 return true;
 }*/
 
-bool GUIManager::Start()
+bool ModuleGUIManager::Start()
 {
 	return true;
 }
 
 // Called before render is available
-bool GUIManager::Update(float dt)
+bool ModuleGUIManager::Update(float dt)
 {
 	/*
 	for (uint i = 0; i < gui_elements.Count(); ++i)
@@ -76,7 +76,7 @@ bool GUIManager::Update(float dt)
 }
 
 // Called before quitting
-bool GUIManager::CleanUp()
+bool ModuleGUIManager::CleanUp()
 {
 	//LOG("Freeing all gui elements");
 	/*
@@ -92,7 +92,7 @@ bool GUIManager::CleanUp()
 	return true;
 }
 
-GUIElement* GUIManager::CreateGUIImage(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, GUIElement* son)
+GUIElement* ModuleGUIManager::CreateGUIImage(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, GUIElement* son)
 {
 	/*GUIElement* ret = nullptr;
 
@@ -104,7 +104,7 @@ GUIElement* GUIManager::CreateGUIImage(GUI_ELEMENT_TYPE type, int x, int y, SDL_
 	return ret;*/
 }
 
-GUIElement* GUIManager::CreateGUIButton(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1, SDL_Rect a_2, GUIElement* son)
+GUIElement* ModuleGUIManager::CreateGUIButton(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1, SDL_Rect a_2, GUIElement* son)
 {
 	/*GUIElement* ret = nullptr;
 
@@ -116,7 +116,7 @@ GUIElement* GUIManager::CreateGUIButton(GUI_ELEMENT_TYPE type, int x, int y, SDL
 	return ret;*/
 }
 
-GUIElement* GUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, p2SString text, SDL_Color color, _TTF_Font* font, GUIElement* son)
+GUIElement* ModuleGUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, p2SString text, SDL_Color color, _TTF_Font* font, GUIElement* son)
 {
 	/*GUIElement* ret = nullptr;
 
@@ -129,7 +129,7 @@ GUIElement* GUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, p2SS
 	return ret;*/
 }
 
-GUIElement* GUIManager::CreateGUIPanel(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, GUIElement* son)
+GUIElement* ModuleGUIManager::CreateGUIPanel(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, GUIElement* son)
 {
 	/*GUIElement* ret = nullptr;
 
@@ -188,7 +188,7 @@ return true;
 return true;
 }*/
 
-void GUIManager::DeleteGUIElement(GUIElement* e)
+void ModuleGUIManager::DeleteGUIElement(GUIElement* e)
 {
 	for (int i = 0; i < gui_elements.Count(); ++i)
 	{
@@ -201,7 +201,7 @@ void GUIManager::DeleteGUIElement(GUIElement* e)
 	}
 }
 
-void GUIManager::DeleteAllGUIElements()
+void ModuleGUIManager::DeleteAllGUIElements()
 {
 	for (unsigned int i = 0; i < gui_elements.Count(); ++i)
 	{

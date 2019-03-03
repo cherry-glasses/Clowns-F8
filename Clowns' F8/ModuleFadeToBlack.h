@@ -1,5 +1,5 @@
-#ifndef __MODULEFADETOBLACK_H__
-#define __MODULEFADETOBLACK_H__
+#ifndef __ModuleFadeToBlack_H__
+#define __ModuleFadeToBlack_H__
 
 #include "Module.h"
 #include "SDL\include\SDL_rect.h"
@@ -30,4 +30,4 @@ private:
 	Module* module_disable = nullptr;
 };
 
-#endif //__MODULEFADETOBLACK_H__
+#endif //__ModuleFadeToBlack_H__

@@ -133,7 +133,7 @@
     <ClInclude Include="GUIElement.h" />
     <ClInclude Include="GUIImage.h" />
     <ClInclude Include="GUILabel.h" />
-    <ClInclude Include="GUIManager.h" />
+    <ClInclude Include="ModuleGUIManager.h" />
     <ClInclude Include="ModuleFonts.h" />
     <ClInclude Include="..\Clowns%27 F8\MemLeaks.h" />
     <ClInclude Include="..\Clowns%27 F8\Module.h" />
@@ -155,7 +155,7 @@
     <ClCompile Include="GUIElement.cpp" />
     <ClCompile Include="GUIImage.cpp" />
     <ClCompile Include="GUILabel.cpp" />
-    <ClCompile Include="GUIManager.cpp" />
+    <ClCompile Include="ModuleGUIManager.cpp" />
     <ClCompile Include="ModuleFonts.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Main.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleAudio.cpp" />
