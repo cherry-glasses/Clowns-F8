@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "Globals.h"
 #include "MemLeaks.h"
 
 #include "SDL/include/SDL.h"

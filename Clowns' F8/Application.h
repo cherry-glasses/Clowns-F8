@@ -1,13 +1,15 @@
 #ifndef __APPLICATION_H__
 #define __APPLICATION_H__
 
+#include <list>
+#include "Defs.h"
+#include "Module.h"
 #include "PerfTimer.h"
 #include "Timer.h"
-#include <list>
 #include "PugiXml\src\pugixml.hpp"
 
-#define NUM_MODULES 11
-
+//Modules
+typedef std::list<Module*> ModuleList;
 class ModuleWindow;
 class ModuleInput;
 class ModuleTextures;
@@ -18,9 +20,7 @@ class ModuleFonts;
 class ModuleMap;
 class ModuleEntityManager;
 class ModuleGUIManager;
-class Module;
 class Scene;
-
 
 
 class Application
@@ -28,8 +28,11 @@ class Application
 
 public:
 
-	Application();
-	~Application();
+	// Constructor
+	Application(int argc, char* args[]);
+
+	// Destructor
+	virtual ~Application();
 
 	// Called before render is available
 	bool Awake();
@@ -44,7 +47,7 @@ public:
 	bool CleanUp();
 
 	// Add a new module to handle
-	void AddModule(Module* module, bool active = true);
+	void AddModule(Module* module);
 
 	// Exposing some properties for reading
 	int GetArgc() const;
@@ -86,7 +89,6 @@ private:
 
 public:
 
-	Module * modules[NUM_MODULES] = { nullptr };
 	ModuleWindow* window = nullptr;
 	ModuleRender* render = nullptr;
 	ModuleInput* input = nullptr;
@@ -99,6 +101,16 @@ public:
 	ModuleEntityManager* entity_manager = nullptr;
 	ModuleGUIManager* gui_manager = nullptr;
 
+private:
+
+	ModuleList			modules;
+	int					argc;
+	char**				args;
+	std::string			title;
+	std::string			organization;
+	uint32				frame_rate;
+
+	
 
 };
 

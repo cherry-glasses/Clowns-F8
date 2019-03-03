@@ -90,6 +90,9 @@
     <ClInclude Include="ModuleGUIManager.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Defs.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">

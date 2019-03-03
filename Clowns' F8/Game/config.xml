@@ -3,8 +3,8 @@
 <config>
   <app>
     <framerate_cap rate="33" enabled="true"/>
-    <title>Fire and Ice</title>
-    <organization>UPC - DevRookies</organization>
+    <title>Clowns' F8</title>
+    <organization>UPC - CITM - Cherry Glasses</organization>
     <save>save_game.xml</save>
   </app>
 	

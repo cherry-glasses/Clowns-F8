@@ -124,6 +124,7 @@
   <ItemGroup>
     <ClInclude Include="..\Clowns%27 F8\Animation.h" />
     <ClInclude Include="..\Clowns%27 F8\Application.h" />
+    <ClInclude Include="..\Clowns%27 F8\Defs.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleEntityManager.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleMap.h" />
     <ClInclude Include="..\Clowns%27 F8\PerfTimer.h" />
