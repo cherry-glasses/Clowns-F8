@@ -104,13 +104,22 @@ public:
 private:
 
 	ModuleList			modules;
+	float				dt = .0f;
 	int					argc;
 	char**				args;
 	std::string			title;
 	std::string			organization;
 	uint32				frame_rate;
+	std::string			load_game;
+	std::string			save_game;
 
-	
+	bool				want_to_save = false;
+	bool				want_to_load = false;
+	bool				want_to_quit = false;
+
+	uint64				frame_count = 0;
+	Timer				frame_time;
+	uint32				last_sec_frame_count = 0;
 
 };
 

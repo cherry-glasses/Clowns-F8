@@ -2,11 +2,11 @@
 #define __ModuleInput_H__
 
 #include "Module.h"
-#include "Globals.h"
 #include "SDL\include\SDL_scancode.h"
 #include "SDL/include/SDL_gamecontroller.h"
 
 #define MAX_KEYS 300
+
 
 
 enum KEY_STATE
@@ -19,13 +19,29 @@ enum KEY_STATE
 
 class ModuleInput : public Module
 {
-public:
-	ModuleInput();
-	~ModuleInput();
+	class ModuleInput : public Module
+	{
+	public:
 
-	bool Init();
-	update_status PreUpdate();
-	bool CleanUp();
+		ModuleInput();
+
+		// Destructor
+		virtual ~ModuleInput();
+
+		// Called before render is available
+		bool Awake(pugi::xml_node&) override;
+
+		// Called before the first frame
+		bool Start() override;
+
+		// Called each loop iteration
+		bool PreUpdate() override;
+
+		bool Update(float dt) override;
+
+		// Called before quitting
+		bool CleanUp(pugi::xml_node&) override;
+
 
 public:
 	SDL_GameController * controller;

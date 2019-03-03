@@ -47,9 +47,30 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 Application::~Application()
 {
 	for (ModuleList::reverse_iterator item = modules.rbegin(); item != modules.rend(); item++) {
-		//Utils::Release(*item);
+		RELEASE(*item);
 	}
 	modules.clear();
+}
+
+void Application::AddModule(Module* module)
+{
+	module->Init();
+	modules.push_back(module);
+}
+
+// ---------------------------------------------
+pugi::xml_node Application::LoadConfig(pugi::xml_document& config_file) const
+{
+	pugi::xml_node ret;
+
+	pugi::xml_parse_result result = config_file.load_file("config.xml");
+
+	if (result == NULL)
+		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());
+	else
+		ret = config_file.child("config");
+
+	return ret;
 }
 
 bool Application::Awake()
@@ -67,24 +88,19 @@ bool Application::Awake()
 		// self-config
 		ret = true;
 		app_config = config.child("app");
-		title.(app_config.child("title").child_value());
-		organization.create(app_config.child("organization").child_value());
+		title = (app_config.child("title").child_value());
+		organization = (app_config.child("organization").child_value());
 		frame_rate = app_config.child("framerate_cap").attribute("rate").as_uint();
-		framerate_cap_enabled = app_config.child("framerate_cap").attribute("enabled").as_bool();
-		save_game.create(app_config.child("save").child_value());
+		save_game = (app_config.child("save").child_value());
 		load_game = save_game;
 
 	}
 
 	if (ret == true)
 	{
-		p2List_item<Module*>* item;
-		item = modules.start;
-
-		while (item != NULL && ret == true)
-		{
-			ret = item->data->Awake(config.child(item->data->name.GetString()));
-			item = item->next;
+		for (ModuleList::iterator item = modules.begin(); item != modules.end() && ret == true; item++) {
+			pugi::xml_node node = config.child((*item)->name.c_str());
+			ret = (*item)->Awake(node);
 		}
 	}
 
@@ -95,38 +111,157 @@ bool Application::Start()
 {
 	bool ret = true;
 
-	for (int i = 0; i < NUM_MODULES && ret == true; ++i)
-		ret = modules[i]->Init();
-
-	for (int i = 0; i < NUM_MODULES && ret == true; ++i)
-		ret = modules[i]->IsEnabled() ? modules[i]->Start() : true;
+	for (ModuleList::iterator item = modules.begin(); item != modules.end() && ret == true; item++) {
+		ret = (*item)->Start();
+	}
 
 	return ret;
 }
 
-update_status Application::Update()
+bool Application::Update()
 {
-	update_status ret = UPDATE_CONTINUE;
+	bool ret = true;
 
-	for (int i = 0; i < NUM_MODULES && ret == UPDATE_CONTINUE; ++i)
-		ret = modules[i]->IsEnabled() ? modules[i]->PreUpdate() : UPDATE_CONTINUE;
+	PrepareUpdate();
 
-	for (int i = 0; i < NUM_MODULES && ret == UPDATE_CONTINUE; ++i)
-		ret = modules[i]->IsEnabled() ? modules[i]->Update() : UPDATE_CONTINUE;
+	if (want_to_quit == true)
+		ret = false;
 
-	for (int i = 0; i < NUM_MODULES && ret == UPDATE_CONTINUE; ++i)
-		ret = modules[i]->IsEnabled() ? modules[i]->PostUpdate() : UPDATE_CONTINUE;
+	if (ret == true)
+		ret = PreUpdate();
+
+	if (ret == true)
+		ret = DoUpdate();
+
+	if (ret == true)
+		ret = PostUpdate();
+
+	FinishUpdate();
 
 	return ret;
 }
 
+void Application::PrepareUpdate()
+{
+	frame_count++;
+	last_sec_frame_count++;
+
+	dt = frame_time.ReadSec();
+	frame_time.Start();
+}
+
+
+void Application::FinishUpdate()
+{
+	//if (want_to_save == true)
+	//	SavegameNow();
+
+	//if (want_to_load == true)
+	//	LoadGameNow();
+
+	//// Framerate calculations --
+	//if (last_sec_frame_time.Read() > 1000)
+	//{
+	//	last_sec_frame_time.Start();
+	//	prev_last_sec_frame_count = last_sec_frame_count;
+	//	last_sec_frame_count = 0;
+	//}
+
+	//float avg_fps = float(frame_count) / startup_time.ReadSec();
+	//seconds_since_startup = startup_time.ReadSec();
+	//if (aux_seconds < seconds_since_startup) {
+	//	aux_seconds++;
+	//	App->scene->HUDUpdate();
+	//}
+
+
+	//uint32 last_frame_ms = frame_time.Read();
+	//uint32 frames_on_last_update = prev_last_sec_frame_count;
+
+	//BROFILER_CATEGORY("Waiting", Profiler::Color::SeaGreen);
+
+	//if (last_frame_ms < frame_rate && framerate_cap_enabled)
+	//{
+	//	PerfTimer delay_timer;
+	//	SDL_Delay(frame_rate - last_frame_ms);
+	//	LOG("waited for: %.2f ms expected time: %u ms", delay_timer.ReadMs(), frame_rate - last_frame_ms);
+	//}
+
+	//static char title[256];
+	//sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
+	//	avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
+	//App->win->SetTitle(title);
+}
+
+bool Application::PreUpdate()
+{
+	bool ret = true;
+
+	ModuleList::iterator item;
+	item = modules.begin();
+	Module* p_module = NULL;
+
+	for (item = modules.begin(); item != modules.end() && ret == true; item++)
+	{
+		p_module = *item;
+
+		if (p_module->active == false) {
+			continue;
+		}
+
+		ret = (*item)->PreUpdate();
+	}
+
+	return ret;
+}
+
+bool Application::DoUpdate()
+{
+	bool ret = true;
+	Module* p_module = NULL;
+
+	for (ModuleList::iterator item = modules.begin(); item != modules.end() && ret == true; item++)
+	{
+		p_module = *item;
+
+		if (p_module->active == false) {
+			continue;
+		}
+
+		ret = p_module->Update(dt);
+	}
+
+	return ret;
+}
+
+bool Application::PostUpdate()
+{
+	bool ret = true;
+	ModuleList::iterator item;
+	Module* p_module = NULL;
+
+	for (item = modules.begin(); item != modules.end() && ret == true; item++)
+	{
+		p_module = *item;
+
+		if (p_module->active == false) {
+			continue;
+		}
+
+		ret = (*item)->PostUpdate();
+	}
+
+	return ret;
+}
 
 bool Application::CleanUp()
 {
 	bool ret = true;
 
-	for (int i = NUM_MODULES - 1; i >= 0 && ret == true; --i)
-		ret = modules[i]->CleanUp();
+	for (ModuleList::reverse_iterator item = modules.rbegin(); item != modules.rend() && ret == true; item++)
+	{
+		ret = (*item)->CleanUp();
+	}
 
 	return ret;
 }

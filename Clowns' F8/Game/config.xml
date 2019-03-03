@@ -2,7 +2,7 @@
 
 <config>
   <app>
-    <framerate_cap rate="33" enabled="true"/>
+    <framerate_cap rate="33"/>
     <title>Clowns' F8</title>
     <organization>UPC - CITM - Cherry Glasses</organization>
     <save>save_game.xml</save>

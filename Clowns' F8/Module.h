@@ -1,45 +1,73 @@
 #ifndef __MODULE_H__
 #define __MODULE_H__
 
-#include "Globals.h"
 
 class Module
 {
-private:
-	bool enabled = true;
-
 public:
-	virtual ~Module() {}
 
-	virtual bool Init() { return true; }
-	virtual bool Start() { return true; }
-	virtual update_status PreUpdate() { return update_status::UPDATE_CONTINUE; }
-	virtual update_status Update() { return update_status::UPDATE_CONTINUE; }
-	virtual update_status PostUpdate() { return update_status::UPDATE_CONTINUE; }
-	virtual bool CleanUp() { return true; }
+	Module() : active(false)
+	{}
 
-	bool IsEnabled() const { return enabled; }
-
-	void Enable()
+	virtual void Init()
 	{
-		if (enabled == false)
-		{
-			enabled = true;
-			Start();
-		}
+		active = true;
 	}
 
-	void Disable()
+	// Called before render is available
+	virtual bool Awake(pugi::xml_node&)
 	{
-		if (enabled == true)
-		{
-			enabled = false;
-			CleanUp();
-		}
+		return true;
+	}
+
+	// Called before the first frame
+	virtual bool Start()
+	{
+		return true;
+	}
+
+	// Called each loop iteration
+	virtual bool PreUpdate()
+	{
+		return true;
+	}
+
+	// Called each loop iteration
+	virtual bool Update(float dt)
+	{
+		return true;
+	}
+
+	// Called each loop iteration
+	virtual bool PostUpdate()
+	{
+		return true;
+	}
+
+	// Called before quitting
+	virtual bool CleanUp()
+	{
+		return true;
+	}
+
+	virtual bool Load(pugi::xml_node&)
+	{
+		return true;
+	}
+
+	virtual bool Save(pugi::xml_node&) const
+	{
+		return true;
 	}
 
 	// Callbacks------------
 	virtual void OnFade() {}
+
+
+public:
+
+	std::string	name;
+	bool		active;
 };
 
 #endif // __MODULE_H__
