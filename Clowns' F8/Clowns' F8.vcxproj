@@ -124,6 +124,7 @@
   <ItemGroup>
     <ClInclude Include="..\Clowns%27 F8\Animation.h" />
     <ClInclude Include="..\Clowns%27 F8\Application.h" />
+    <ClInclude Include="..\Clowns%27 F8\Scene.h" />
     <ClInclude Include="ModuleFonts.h" />
     <ClInclude Include="..\Clowns%27 F8\Globals.h" />
     <ClInclude Include="..\Clowns%27 F8\MemLeaks.h" />
@@ -137,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Scene.cpp" />
     <ClCompile Include="ModuleFonts.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Globals.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Main.cpp" />

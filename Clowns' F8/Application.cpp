@@ -6,6 +6,7 @@
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleFonts.h"
+#include "Scene.h"
 
 
 Application::Application()
@@ -18,6 +19,7 @@ Application::Application()
 	modules[i++] = audio = new ModuleAudio();
 	modules[i++] = fade_to_black = new ModuleFadeToBlack();
 	modules[i++] = fonts = new ModuleFonts();
+	modules[i++] = scene = new Scene();
 
 }
 

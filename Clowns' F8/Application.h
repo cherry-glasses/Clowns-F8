@@ -13,6 +13,7 @@ class ModuleAudio;
 class ModuleFadeToBlack;
 class ModuleFonts;
 class Module;
+class Scene;
 
 
 class Application
@@ -27,6 +28,7 @@ public:
 	ModuleAudio* audio = nullptr;
 	ModuleFadeToBlack* fade_to_black = nullptr;
 	ModuleFonts* fonts = nullptr;
+	Scene* scene = nullptr;
 
 public:
 
