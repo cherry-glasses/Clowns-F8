@@ -3,6 +3,7 @@
 
 #include "PerfTimer.h"
 #include "Timer.h"
+#include <list>
 #include "PugiXml\src\pugixml.hpp"
 
 #define NUM_MODULES 11
@@ -42,10 +43,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-
-	bool Init();
-	update_status Update();
-	bool CleanUp();
+	// Add a new module to handle
+	void AddModule(Module* module, bool active = true);
 
 	// Exposing some properties for reading
 	int GetArgc() const;
@@ -55,7 +54,7 @@ public:
 
 	void LoadGame();
 	void SaveGame() const;
-	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
+	void GetSaveGames(std::list<std::string>& list_to_fill) const;
 
 	void GetContinueState();
 
