@@ -11,6 +11,7 @@ class ModuleTextures;
 class ModuleRender;
 class ModuleAudio;
 class ModuleFadeToBlack;
+class ModuleFonts;
 class Module;
 
 
@@ -25,6 +26,7 @@ public:
 	ModuleTextures* textures = nullptr;
 	ModuleAudio* audio = nullptr;
 	ModuleFadeToBlack* fade_to_black = nullptr;
+	ModuleFonts* fonts = nullptr;
 
 public:
 
