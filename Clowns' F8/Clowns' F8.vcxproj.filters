@@ -51,6 +51,9 @@
     <ClInclude Include="..\Clowns%27 F8\Animation.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ModuleFadeToBlack.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -76,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Main.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ModuleFadeToBlack.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@ class ModuleInput;
 class ModuleTextures;
 class ModuleRender;
 class ModuleAudio;
+class ModuleFadeToBlack;
 class Module;
 
 
@@ -23,6 +24,7 @@ public:
 	ModuleInput* input = nullptr;
 	ModuleTextures* textures = nullptr;
 	ModuleAudio* audio = nullptr;
+	ModuleFadeToBlack* fade_to_black = nullptr;
 
 public:
 
