@@ -22,6 +22,9 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{f47f629b-00eb-4cdf-94b4-a6b27b055ae2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUIElements">
+      <UniqueIdentifier>{08608b2a-7fe2-4a3f-b9d7-97114c75e14c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Clowns%27 F8\Application.h">
@@ -72,6 +75,21 @@
     <ClInclude Include="..\Clowns%27 F8\ModuleEntityManager.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="GUIButton.h">
+      <Filter>GUIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIElement.h">
+      <Filter>GUIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIImage.h">
+      <Filter>GUIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="GUILabel.h">
+      <Filter>GUIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -114,6 +132,21 @@
       <Filter>Containers</Filter>
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\ModuleEntityManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIButton.cpp">
+      <Filter>GUIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIElement.cpp">
+      <Filter>GUIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIImage.cpp">
+      <Filter>GUIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="GUILabel.cpp">
+      <Filter>GUIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIManager.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
