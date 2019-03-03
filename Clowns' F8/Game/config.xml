@@ -1,0 +1,59 @@
+<!-- Config file for the game -->
+
+<config>
+  <app>
+    <framerate_cap rate="33" enabled="true"/>
+    <title>Fire and Ice</title>
+    <organization>UPC - DevRookies</organization>
+    <save>save_game.xml</save>
+  </app>
+	
+  <render>
+    <vsync value="false"/>
+    <camera x="0" y="0" speed="100" max="5119"/>
+    <start_time value ="90"/>
+  </render>
+
+  <window>
+    <resolution width="1280" height="960" scale="1"/>
+    <fullscreen value="true"/>
+    <borderless value="false"/>
+    <resizable value="false"/>
+    <fullscreen_window value="false"/>
+  </window>
+
+  <file_system>
+    <path>data.zip</path>
+  </file_system>
+
+  <gui>
+    <atlas file="gui/atlas.png"/>
+  </gui>
+  
+  <map>
+    <folder>maps/</folder>
+    <parallax_speed value="1"/>
+  </map>
+  
+  <scene>
+    
+  </scene>
+
+  <audio>
+    <default_music_fade_time value="2.0"/>
+    <volume value="100"/>
+	  <volume_change_ratio value="10"/>
+    <mute value="false"/>
+	  <music> 
+      <folder>audio/music/</folder>
+    </music>
+   	<sfx> 
+      <folder>audio/fx/</folder>
+    </sfx>
+  </audio>
+
+  <entitymanager>
+    
+  </entitymanager>
+
+</config>
