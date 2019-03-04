@@ -1,15 +1,11 @@
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
-#include "ModuleInput.h"
 #include "SDL/include/SDL.h"
 
 ModuleRender::ModuleRender() : Module()
 {
-	camera.x = camera.y = 0;
-	camera.w = SCREEN_WIDTH;
-	camera.h = SCREEN_HEIGHT;
+	name = "render";
 }
 
 // Destructor
@@ -17,140 +13,136 @@ ModuleRender::~ModuleRender()
 {}
 
 // Called before render is available
-bool ModuleRender::Init()
+bool ModuleRender::Awake(pugi::xml_node& _config)
 {
-	LOG("Creating Renderer context");
+	LOG("Create SDL rendering context");
 	bool ret = true;
-	Uint32 flags = 0;
+	// load flags
+	Uint32 flags = SDL_RENDERER_ACCELERATED;
 
-	if (REN_VSYNC == true)
+	if (_config.child("vsync").attribute("value").as_bool(true) == true)
 	{
 		flags |= SDL_RENDERER_PRESENTVSYNC;
+		LOG("Using vsync");
 	}
 
 	renderer = SDL_CreateRenderer(App->window->window, -1, flags);
 
 	if (renderer == NULL)
 	{
-		LOG("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
+		LOG("Could not create the renderer! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
-	SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+	else
+	{
+		camera.w = App->window->screen_surface->w;
+		camera.h = App->window->screen_surface->h;
+		camera.x = _config.child("camera").attribute("x").as_int();
+		camera.y = _config.child("camera").attribute("y").as_int();
+	}
+
 	return ret;
 }
 
-// Called every draw update
-update_status ModuleRender::PreUpdate()
+// Called before the first frame
+bool ModuleRender::Start()
 {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+	LOG("render start");
+	// back background
+	SDL_RenderGetViewport(renderer, &viewport);
+
+	return true;
+}
+
+// Called each loop iteration
+bool ModuleRender::PreUpdate()
+{
 	SDL_RenderClear(renderer);
 
-	return update_status::UPDATE_CONTINUE;
+	return true;
 }
 
-update_status ModuleRender::Update()
+bool ModuleRender::Update(float _dt)
 {
-	return update_status::UPDATE_CONTINUE;
+	return true;
 }
 
-update_status ModuleRender::PostUpdate()
+bool ModuleRender::PostUpdate()
 {
+	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.b, background.a);
 	SDL_RenderPresent(renderer);
-	return update_status::UPDATE_CONTINUE;
+	return true;
 }
 
 // Called before quitting
 bool ModuleRender::CleanUp()
 {
-	LOG("Destroying renderer");
+	LOG("Destroying SDL render");
+	SDL_DestroyRenderer(renderer);
+	return true;
+}
 
-	//Destroy window
-	if (renderer != nullptr)
-		SDL_DestroyRenderer(renderer);
+// Load Game State
+bool ModuleRender::Load(pugi::xml_node& _data)
+{
+	return true;
+}
 
+// Save Game State
+bool ModuleRender::Save(pugi::xml_node& _data) const
+{
 	return true;
 }
 
 // Blit to screen
-bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed, bool use_camera)
+bool ModuleRender::Blit(SDL_Texture* _texture, int _x, int _y, const SDL_Rect* _section, float _speed, bool _flipX, double _angle, int _pivot_x, int _pivot_y) const
 {
 	bool ret = true;
+	uint scale = App->window->GetScale();
+
 	SDL_Rect rect;
+	rect.x = (int)(camera.x * _speed) + _x * scale;
+	rect.y = (int)(camera.y * _speed) + _y * scale;
 
-	if (use_camera)
+	if (_section != NULL)
 	{
-		rect.x = (int)(-camera.x * speed) + x * SCREEN_SIZE;
-		rect.y = (int)(-camera.y * speed) + y * SCREEN_SIZE;
+		rect.w = _section->w;
+		rect.h = _section->h;
 	}
 	else
 	{
-		rect.x = x * SCREEN_SIZE;
-		rect.y = y * SCREEN_SIZE;
+		SDL_QueryTexture(_texture, NULL, NULL, &rect.w, &rect.h);
 	}
 
-	if (section != NULL)
+	rect.w *= scale;
+	rect.h *= scale;
+
+	//Don't blit if not on screen
+	uint width, height = 0;
+	App->window->GetWindowSize(width, height);
+
+	if (rect.x + 100 + rect.w < 0 || rect.y + rect.h < 0 || rect.x >(int)width || rect.y >(int)height)
 	{
-		rect.w = section->w;
-		rect.h = section->h;
+		return false;
 	}
-	else
+
+	SDL_Point* p = NULL;
+	SDL_Point pivot;
+
+	if (_pivot_x != INT_MAX && _pivot_y != INT_MAX)
 	{
-		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+		pivot.x = _pivot_x;
+		pivot.y = _pivot_y;
+		p = &pivot;
 	}
-
-	rect.w *= SCREEN_SIZE;
-	rect.h *= SCREEN_SIZE;
-
-	if (SDL_RenderCopy(renderer, texture, section, &rect) != 0)
-	{
-		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
-		ret = false;
-	}
-
-	return ret;
-}
-
-// Blit to screen
-bool ModuleRender::BlitFlipped(SDL_Texture* texture, int x, int y, SDL_Rect* section, bool flipX, bool flipY, double angle, SDL_Point center, float speed, bool use_camera)
-{
-	bool ret = true;
-	SDL_Rect rect;
-
-	if (use_camera)
-	{
-		rect.x = (int)(-camera.x * speed) + x * SCREEN_SIZE;
-		rect.y = (int)(-camera.y * speed) + y * SCREEN_SIZE;
-	}
-	else
-	{
-		rect.x = x * SCREEN_SIZE;
-		rect.y = y * SCREEN_SIZE;
-	}
-
-	if (section != NULL)
-	{
-		rect.w = section->w;
-		rect.h = section->h;
-	}
-	else
-	{
-		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
-	}
-
-	rect.w *= SCREEN_SIZE;
-	rect.h *= SCREEN_SIZE;
 
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
-	if (flipX)
+	if (_flipX) 
 	{
-		if (flipY) flip = (SDL_RendererFlip)(SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL);
-		else flip = SDL_FLIP_HORIZONTAL;
-	}
-	else {
-		if (flipY) flip = SDL_FLIP_VERTICAL;
+		flip = SDL_FLIP_HORIZONTAL;
 	}
 
-	if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, &center, flip))
+	if (SDL_RenderCopyEx(renderer, _texture, _section, &rect, _angle, p, flip) != 0)
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		ret = false;
@@ -160,44 +152,3 @@ bool ModuleRender::BlitFlipped(SDL_Texture* texture, int x, int y, SDL_Rect* sec
 }
 
 
-bool ModuleRender::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera)
-{
-	bool ret = true;
-
-	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-	SDL_SetRenderDrawColor(renderer, r, g, b, a);
-
-	SDL_Rect rec(rect);
-	if (use_camera)
-	{
-		rec.x = (int)(-camera.x + rect.x * SCREEN_SIZE);
-		rec.y = (int)(-camera.y + rect.y * SCREEN_SIZE);
-		rec.w *= SCREEN_SIZE;
-		rec.h *= SCREEN_SIZE;
-	}
-
-	if (SDL_RenderFillRect(renderer, &rec) != 0)
-	{
-		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
-		ret = false;
-	}
-
-	return ret;
-}
-
-void ModuleRender::ResetCamera()
-{
-	camera.x = 0;
-	camera.y = 0;
-}
-
-void ModuleRender::SetCameraPosition(int x, int y)
-{
-	camera.x = x;
-	camera.y = y;
-}
-
-void ModuleRender::setAlpha(SDL_Texture* texture, int alpha)
-{
-	SDL_SetTextureAlphaMod(texture, alpha);
-}

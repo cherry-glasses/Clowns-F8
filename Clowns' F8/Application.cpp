@@ -171,7 +171,7 @@ void Application::FinishUpdate()
 	seconds_since_startup = startup_time.ReadSec();
 	if (aux_seconds < seconds_since_startup) {
 		aux_seconds++;
-		App->scene->HUDUpdate();
+		//App->scene->HUDUpdate();
 	}
 
 

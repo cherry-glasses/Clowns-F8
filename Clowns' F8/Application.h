@@ -11,9 +11,9 @@
 //Modules
 typedef std::list<Module*> ModuleList;
 class ModuleWindow;
+class ModuleRender;
 class ModuleInput;
 class ModuleTextures;
-class ModuleRender;
 class ModuleAudio;
 class ModuleFadeToBlack;
 class ModuleFonts;

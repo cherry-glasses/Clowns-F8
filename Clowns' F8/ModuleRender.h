@@ -10,26 +10,44 @@ struct SDL_Texture;
 class ModuleRender : public Module
 {
 public:
+
 	ModuleRender();
-	~ModuleRender();
-	
-	bool Init();
-	update_status PostUpdate();
-	update_status Update();
-	update_status PreUpdate();
+
+	// Destructor
+	virtual ~ModuleRender();
+
+	// Called before render is available
+	bool Awake(pugi::xml_node&);
+
+	// Called before the first frame
+	bool Start();
+
+	// Called each loop iteration
+	bool PreUpdate();
+	bool Update(float dt);
+	bool PostUpdate();
+
+	// Called before quitting
 	bool CleanUp();
 
-	bool Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed = 1.0f, bool use_camera = true);
-	bool BlitFlipped(SDL_Texture* texture, int x, int y, SDL_Rect* section, bool flipX, bool flipY, double angle = 0.0, SDL_Point center = { 0,0 }, float speed = 1.0f, bool use_camera = true);
-	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera = true);
-	void setAlpha(SDL_Texture* texture, int alpha);
+	// Load / Save
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
 
-	void ResetCamera();
-	void SetCameraPosition(int x, int y);
+	// Blit
+	void SetViewPort(const SDL_Rect& rect);
+	void ResetViewPort();
+	SDL_Point ScreenToWorld(int x, int y) const;
+
+	bool Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float speed = 1.0f, bool flipX = false, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX) const;
+	
 
 public:
-	SDL_Renderer * renderer = nullptr;
-	SDL_Rect camera;
+
+	SDL_Renderer *  renderer;
+	SDL_Rect		camera = { 0,0,0,0 };
+	SDL_Rect		viewport = { 0,0,0,0 };
+	SDL_Color		background = { 0,0,0,0 };
 };
 
 #endif //__ModuleRender_H__

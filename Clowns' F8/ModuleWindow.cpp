@@ -1,13 +1,12 @@
 #include "Application.h"
 #include "ModuleWindow.h"
-//#include "Defs.h"
 #include "SDL/include/SDL.h"
 
 ModuleWindow::ModuleWindow() : Module()
 {
 	window = NULL;
 	screen_surface = NULL;
-	name = ("window");
+	name = "window";
 }
 
 // Destructor
@@ -90,5 +89,16 @@ bool ModuleWindow::CleanUp()
 	//Quit SDL subsystems
 	SDL_Quit();
 	return true;
+}
+
+void ModuleWindow::GetWindowSize(uint& _width, uint& _height) const
+{
+	_width = width;
+	_height = height;
+}
+
+uint ModuleWindow::GetScale() const
+{
+	return scale;
 }
 

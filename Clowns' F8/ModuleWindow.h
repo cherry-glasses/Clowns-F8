@@ -1,6 +1,7 @@
 #ifndef __ModuleWindow_H__
 #define __ModuleWindow_H__
 
+#include "Defs.h"
 #include "Module.h"
 
 struct SDL_Window;
@@ -23,6 +24,12 @@ public:
 
 	// Changae title
 	void SetTitle(const char* new_title);
+
+	// Retrive window size
+	void GetWindowSize(uint& _width, uint& _height) const;
+
+	// Retrieve window scale
+	uint GetScale() const;
 
 public:
 	//The window we'll be rendering to
