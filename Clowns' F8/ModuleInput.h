@@ -2,12 +2,17 @@
 #define __ModuleInput_H__
 
 #include "Module.h"
-#include "SDL\include\SDL_scancode.h"
-#include "SDL/include/SDL_gamecontroller.h"
 
+#define NUM_MOUSE_BUTTONS 5
 #define MAX_KEYS 300
 
-
+enum EVENT_WINDOW
+{
+	EW_QUIT = 0,
+	EW_HIDE = 1,
+	EW_SHOW = 2,
+	EW_COUNT
+};
 
 enum KEY_STATE
 {
@@ -19,36 +24,54 @@ enum KEY_STATE
 
 class ModuleInput : public Module
 {
-	class ModuleInput : public Module
-	{
-	public:
-
-		ModuleInput();
-
-		// Destructor
-		virtual ~ModuleInput();
-
-		// Called before render is available
-		bool Awake(pugi::xml_node&) override;
-
-		// Called before the first frame
-		bool Start() override;
-
-		// Called each loop iteration
-		bool PreUpdate() override;
-
-		bool Update(float dt) override;
-
-		// Called before quitting
-		bool CleanUp(pugi::xml_node&) override;
-
-
 public:
-	SDL_GameController * controller;
-	KEY_STATE keyboard[MAX_KEYS];
-	KEY_STATE controller_A_button;
-	KEY_STATE controller_Y_button;
-	KEY_STATE controller_START_button;
+
+	ModuleInput();
+
+	// Destructor
+	virtual ~ModuleInput();
+
+	// Called before render is available
+	bool Awake(pugi::xml_node&);
+
+	// Called before the first frame
+	bool Start();
+
+	// Called each loop iteration
+	bool PreUpdate();
+
+	// Called before quitting
+	bool CleanUp();
+
+	// Gather relevant win events
+	bool GetWindowEvent(EVENT_WINDOW ev);
+
+	// Check key states (includes mouse and joy buttons)
+	KEY_STATE GetKey(int id) const
+	{
+		return keyboard[id];
+	}
+
+	KEY_STATE GetMouseButtonDown(int id) const
+	{
+		return mouse_buttons[id - 1];
+	}
+
+	// Check if a certain window event happened
+	bool GetWindowEvent(int code);
+
+	// Get mouse / axis position
+	void GetMousePosition(int &x, int &y);
+	void GetMouseMotion(int& x, int& y);
+
+private:
+	bool		windowEvents[EW_COUNT];
+	KEY_STATE*	keyboard;
+	KEY_STATE	mouse_buttons[NUM_MOUSE_BUTTONS];
+	int			mouse_motion_x;
+	int			mouse_motion_y;
+	int			mouse_x;
+	int			mouse_y;
 };
 
 #endif // __ModuleInput_H__
