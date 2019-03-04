@@ -25,6 +25,9 @@
     <Filter Include="GUIElements">
       <UniqueIdentifier>{08608b2a-7fe2-4a3f-b9d7-97114c75e14c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Containers\pugiXML">
+      <UniqueIdentifier>{958ec225-47de-43bf-9055-89d2005a6946}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Clowns%27 F8\Application.h">
@@ -93,6 +96,12 @@
     <ClInclude Include="..\Clowns%27 F8\Defs.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\PugiXml\src\pugiconfig.hpp">
+      <Filter>Containers\pugiXML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\PugiXml\src\pugixml.hpp">
+      <Filter>Containers\pugiXML</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -151,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="ModuleGUIManager.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\PugiXml\src\pugixml.cpp">
+      <Filter>Containers\pugiXML</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 #ifndef __MODULE_H__
 #define __MODULE_H__
 
+#include "PugiXml\src\pugixml.hpp"
 
 class Module
 {

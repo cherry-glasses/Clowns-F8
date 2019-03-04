@@ -14,12 +14,12 @@ class ModuleWindow;
 class ModuleInput;
 class ModuleTextures;
 class ModuleRender;
-class ModuleAudio;
-class ModuleFadeToBlack;
-class ModuleFonts;
-class ModuleMap;
-class ModuleEntityManager;
-class ModuleGUIManager;
+//class ModuleAudio;
+//class ModuleFadeToBlack;
+//class ModuleFonts;
+//class ModuleMap;
+//class ModuleEntityManager;
+//class ModuleGUIManager;
 class Scene;
 
 
@@ -93,13 +93,13 @@ public:
 	ModuleRender* render = nullptr;
 	ModuleInput* input = nullptr;
 	ModuleTextures* textures = nullptr;
-	ModuleAudio* audio = nullptr;
+	/*ModuleAudio* audio = nullptr;
 	ModuleFadeToBlack* fade_to_black = nullptr;
-	ModuleFonts* fonts = nullptr;
+	ModuleFonts* fonts = nullptr;*/
 	Scene* scene = nullptr;
-	ModuleMap* map = nullptr;
+	/*ModuleMap* map = nullptr;
 	ModuleEntityManager* entity_manager = nullptr;
-	ModuleGUIManager* gui_manager = nullptr;
+	ModuleGUIManager* gui_manager = nullptr;*/
 
 private:
 
@@ -117,9 +117,14 @@ private:
 	bool				want_to_load = false;
 	bool				want_to_quit = false;
 
-	uint64				frame_count = 0;
+	int					aux_seconds = 0;
+	Timer				startup_time;
 	Timer				frame_time;
+	Timer				last_sec_frame_time;
+	uint64				frame_count = 0;
 	uint32				last_sec_frame_count = 0;
+	uint32				prev_last_sec_frame_count = 0;
+	float				seconds_since_startup;
 
 };
 

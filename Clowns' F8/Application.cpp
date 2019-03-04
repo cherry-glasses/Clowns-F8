@@ -1,20 +1,20 @@
 #include "Application.h"
-#include "ModuleWindow.h"
-#include "ModuleRender.h"
-#include "ModuleInput.h"
-#include "ModuleTextures.h"
-#include "ModuleAudio.h"
-#include "ModuleFadeToBlack.h"
-#include "ModuleFonts.h"
-#include "ModuleMap.h"
-#include "ModuleEntityManager.h"
-#include "Scene.h"
-#include "ModuleGUIManager.h"
+//#include "ModuleWindow.h"
+//#include "ModuleRender.h"
+//#include "ModuleInput.h"
+//#include "ModuleTextures.h"
+//#include "ModuleAudio.h"
+//#include "ModuleFadeToBlack.h"
+//#include "ModuleFonts.h"
+//#include "ModuleMap.h"
+//#include "ModuleEntityManager.h"
+//#include "Scene.h"
+//#include "ModuleGUIManager.h"
 
 
 Application::Application(int argc, char* args[]) : argc(argc), args(args)
 {
-	window = new ModuleWindow();
+	/*window = new ModuleWindow();
 	render = new ModuleRender();
 	input = new ModuleInput();
 	textures = new ModuleTextures();
@@ -24,11 +24,11 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	scene = new Scene();
 	map = new ModuleMap();
 	entity_manager = new ModuleEntityManager();
-	gui_manager = new ModuleGUIManager();
+	gui_manager = new ModuleGUIManager();*/
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
-	AddModule(window);
+	/*AddModule(window);
 	AddModule(input);
 	AddModule(textures);
 	AddModule(audio);
@@ -37,10 +37,10 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(map);
 	AddModule(entity_manager);
-	AddModule(gui_manager);
+	AddModule(gui_manager);*/
 
 	// render last to swap buffer
-	AddModule(render);
+	//AddModule(render);
 
 }
 
@@ -153,44 +153,44 @@ void Application::PrepareUpdate()
 
 void Application::FinishUpdate()
 {
-	//if (want_to_save == true)
-	//	SavegameNow();
+	if (want_to_save == true)
+		SavegameNow();
 
-	//if (want_to_load == true)
-	//	LoadGameNow();
+	if (want_to_load == true)
+		LoadGameNow();
 
-	//// Framerate calculations --
-	//if (last_sec_frame_time.Read() > 1000)
-	//{
-	//	last_sec_frame_time.Start();
-	//	prev_last_sec_frame_count = last_sec_frame_count;
-	//	last_sec_frame_count = 0;
-	//}
+	// Framerate calculations --
+	if (last_sec_frame_time.Read() > 1000)
+	{
+		last_sec_frame_time.Start();
+		prev_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
 
-	//float avg_fps = float(frame_count) / startup_time.ReadSec();
-	//seconds_since_startup = startup_time.ReadSec();
-	//if (aux_seconds < seconds_since_startup) {
-	//	aux_seconds++;
-	//	App->scene->HUDUpdate();
-	//}
+	float avg_fps = float(frame_count) / startup_time.ReadSec();
+	seconds_since_startup = startup_time.ReadSec();
+	if (aux_seconds < seconds_since_startup) {
+		aux_seconds++;
+		App->scene->HUDUpdate();
+	}
 
 
-	//uint32 last_frame_ms = frame_time.Read();
-	//uint32 frames_on_last_update = prev_last_sec_frame_count;
+	uint32 last_frame_ms = frame_time.Read();
+	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
 	//BROFILER_CATEGORY("Waiting", Profiler::Color::SeaGreen);
 
-	//if (last_frame_ms < frame_rate && framerate_cap_enabled)
-	//{
-	//	PerfTimer delay_timer;
-	//	SDL_Delay(frame_rate - last_frame_ms);
-	//	LOG("waited for: %.2f ms expected time: %u ms", delay_timer.ReadMs(), frame_rate - last_frame_ms);
-	//}
+	if (last_frame_ms < frame_rate && framerate_cap_enabled)
+	{
+		PerfTimer delay_timer;
+		SDL_Delay(frame_rate - last_frame_ms);
+		LOG("waited for: %.2f ms expected time: %u ms", delay_timer.ReadMs(), frame_rate - last_frame_ms);
+	}
 
-	//static char title[256];
-	//sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
-	//	avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
-	//App->win->SetTitle(title);
+	static char title[256];
+	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
+		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
+	App->win->SetTitle(title);
 }
 
 bool Application::PreUpdate()

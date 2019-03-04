@@ -128,6 +128,8 @@
     <ClInclude Include="..\Clowns%27 F8\ModuleEntityManager.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleMap.h" />
     <ClInclude Include="..\Clowns%27 F8\PerfTimer.h" />
+    <ClInclude Include="..\Clowns%27 F8\PugiXml\src\pugiconfig.hpp" />
+    <ClInclude Include="..\Clowns%27 F8\PugiXml\src\pugixml.hpp" />
     <ClInclude Include="..\Clowns%27 F8\Scene.h" />
     <ClInclude Include="..\Clowns%27 F8\Timer.h" />
     <ClInclude Include="GUIButton.h" />
@@ -150,6 +152,7 @@
     <ClCompile Include="..\Clowns%27 F8\ModuleEntityManager.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleMap.cpp" />
     <ClCompile Include="..\Clowns%27 F8\PerfTimer.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\PugiXml\src\pugixml.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Scene.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Timer.cpp" />
     <ClCompile Include="GUIButton.cpp" />
