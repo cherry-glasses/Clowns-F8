@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleWindow.h"
+
 #include "SDL/include/SDL.h"
 
 ModuleWindow::ModuleWindow() : Module()
@@ -89,6 +90,13 @@ bool ModuleWindow::CleanUp()
 	//Quit SDL subsystems
 	SDL_Quit();
 	return true;
+}
+
+// Set new window title
+void ModuleWindow::SetTitle(const char* new_title)
+{
+	//title.create(new_title);
+	SDL_SetWindowTitle(window, new_title);
 }
 
 void ModuleWindow::GetWindowSize(uint& _width, uint& _height) const

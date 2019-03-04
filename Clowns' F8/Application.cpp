@@ -3,13 +3,16 @@
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
-#include "ModuleAudio.h"
-#include "ModuleFadeToBlack.h"
-#include "ModuleFonts.h"
-#include "ModuleMap.h"
-#include "ModuleEntityManager.h"
-#include "Scene.h"
-#include "ModuleGUIManager.h"
+//#include "ModuleAudio.h"
+//#include "ModuleFadeToBlack.h"
+//#include "ModuleFonts.h"
+//#include "ModuleMap.h"
+//#include "ModuleEntityManager.h"
+//#include "Scene.h"
+//#include "ModuleGUIManager.h"
+
+
+#include "SDL\include\SDL_timer.h"
 
 
 Application::Application(int argc, char* args[]) : argc(argc), args(args)
@@ -18,26 +21,26 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	render = new ModuleRender();
 	input = new ModuleInput();
 	textures = new ModuleTextures();
-	audio = new ModuleAudio();
+	/*audio = new ModuleAudio();
 	fade_to_black = new ModuleFadeToBlack();
 	fonts = new ModuleFonts();
 	scene = new Scene();
 	map = new ModuleMap();
 	entity_manager = new ModuleEntityManager();
-	gui_manager = new ModuleGUIManager();
+	gui_manager = new ModuleGUIManager();*/
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(window);
 	AddModule(input);
 	AddModule(textures);
-	AddModule(audio);
+	/*AddModule(audio);
 	AddModule(fade_to_black);
 	AddModule(fonts);
 	AddModule(scene);
 	AddModule(map);
 	AddModule(entity_manager);
-	AddModule(gui_manager);
+	AddModule(gui_manager);*/
 
 	// render last to swap buffer
 	AddModule(render);
@@ -153,12 +156,16 @@ void Application::PrepareUpdate()
 
 void Application::FinishUpdate()
 {
-	if (want_to_save == true)
-		SavegameNow();
-
+	if (want_to_save == true) 
+	{
+		//SavegameNow();
+	}
+		
 	if (want_to_load == true)
-		LoadGameNow();
-
+	{
+		//LoadGameNow();
+	}
+		
 	// Framerate calculations --
 	if (last_sec_frame_time.Read() > 1000)
 	{
@@ -169,7 +176,8 @@ void Application::FinishUpdate()
 
 	float avg_fps = float(frame_count) / startup_time.ReadSec();
 	seconds_since_startup = startup_time.ReadSec();
-	if (aux_seconds < seconds_since_startup) {
+	if (aux_seconds < seconds_since_startup) 
+	{
 		aux_seconds++;
 		//App->scene->HUDUpdate();
 	}
@@ -264,5 +272,120 @@ bool Application::CleanUp()
 	}
 
 	return ret;
+}
+
+// Load / Save
+void Application::LoadGame()
+{
+	// we should be checking if that file actually exist
+	// from the "GetSaveGames" list
+	want_to_load = true;
+}
+
+// ---------------------------------------
+void Application::SaveGame() const
+{
+	// we should be checking if that file actually exist
+	// from the "GetSaveGames" list ... should we overwrite ?
+	want_to_save = true;
+}
+
+// ---------------------------------------
+void Application::GetSaveGames(std::list<std::string>& list_to_fill) const
+{
+	// need to add functionality to file_system module for this to work
+}
+
+bool Application::LoadGameNow()
+{
+	bool ret = false;
+
+	pugi::xml_document data;
+	pugi::xml_node root;
+
+	pugi::xml_parse_result result = data.load_file((char*)load_game.c_str());
+
+	if (result != NULL)
+	{
+		LOG("Loading new Game State from %s...", load_game.c_str());
+
+		root = data.child("game_state");
+
+
+		ret = true;
+		ModuleList::iterator item;
+
+		for (item = modules.begin(); item != modules.end() && ret == true; item++)
+		{
+			pugi::xml_node node = root.child((*item)->name.c_str());
+			ret = (*item)->Load(node);
+		}
+
+		data.reset();
+		if (ret == true)
+			LOG("...finished loading");
+		else
+			LOG("...loading process interrupted with error on module %s", (*item != nullptr) ? (*item)->name.c_str() : "unknown");
+	}
+	else
+		LOG("Could not parse game state xml file %s. pugi error: %s", load_game.c_str(), result.description());
+
+	want_to_load = false;
+	return ret;
+}
+
+bool Application::SavegameNow() const
+{
+	bool ret = true;
+
+	LOG("Saving Game State to %s...", save_game.c_str());
+
+	// xml object were we will store all data
+	pugi::xml_document data;
+	pugi::xml_node root;
+
+	root = data.append_child("game_state");
+
+	ModuleList::const_iterator item = modules.begin();
+
+	for (; item != modules.end() && ret == true; item++)
+	{
+		pugi::xml_node node = root.append_child((*item)->name.c_str());
+		ret = (*item)->Save(node);
+
+	}
+
+	if (ret == true)
+	{
+		data.save_file((char*)save_game.c_str(), "\t");
+		LOG("... finished saving", );
+	}
+	else
+		LOG("Save process halted from an error in module %s", (*item != nullptr) ? (*item)->name.c_str() : "unknown");
+
+	data.reset();
+	want_to_save = false;
+	return ret;
+}
+
+// ---------------------------------------
+int Application::GetArgc() const
+{
+	return argc;
+}
+
+// ---------------------------------------
+const char* Application::GetArgv(int index) const
+{
+	if (index < argc)
+		return args[index];
+	else
+		return NULL;
+}
+
+// ---------------------------------------
+const char* Application::GetTitle() const
+{
+	return title.c_str();
 }
 

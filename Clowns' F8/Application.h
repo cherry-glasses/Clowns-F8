@@ -3,6 +3,7 @@
 
 #include <list>
 #include "Defs.h"
+#include "Log.h"
 #include "Module.h"
 #include "PerfTimer.h"
 #include "Timer.h"
@@ -10,22 +11,22 @@
 
 //Modules
 typedef std::list<Module*> ModuleList;
+
 class ModuleWindow;
 class ModuleRender;
 class ModuleInput;
 class ModuleTextures;
-class ModuleAudio;
-class ModuleFadeToBlack;
-class ModuleFonts;
-class ModuleMap;
-class ModuleEntityManager;
-class ModuleGUIManager;
-class Scene;
+//class ModuleAudio;
+//class ModuleFadeToBlack;
+//class ModuleFonts;
+//class ModuleMap;
+//class ModuleEntityManager;
+//class ModuleGUIManager;
+//class Scene;
 
 
 class Application
 {
-
 public:
 
 	// Constructor
@@ -53,13 +54,10 @@ public:
 	int GetArgc() const;
 	const char* GetArgv(int index) const;
 	const char* GetTitle() const;
-	const char* GetOrganization() const;
 
 	void LoadGame();
 	void SaveGame() const;
-	void GetSaveGames(std::list<std::string>& list_to_fill) const;
-
-	void GetContinueState();
+	
 
 
 private:
@@ -85,6 +83,7 @@ private:
 	// Load / Save
 	bool LoadGameNow();
 	bool SavegameNow() const;
+	void GetSaveGames(std::list<std::string>& list_to_fill) const;
 
 
 public:
@@ -93,13 +92,13 @@ public:
 	ModuleRender* render = nullptr;
 	ModuleInput* input = nullptr;
 	ModuleTextures* textures = nullptr;
-	ModuleAudio* audio = nullptr;
+	/*ModuleAudio* audio = nullptr;
 	ModuleFadeToBlack* fade_to_black = nullptr;
 	ModuleFonts* fonts = nullptr;
 	Scene* scene = nullptr;
 	ModuleMap* map = nullptr;
 	ModuleEntityManager* entity_manager = nullptr;
-	ModuleGUIManager* gui_manager = nullptr;
+	ModuleGUIManager* gui_manager = nullptr;*/
 
 private:
 
@@ -112,8 +111,7 @@ private:
 	uint32				frame_rate;
 	std::string			load_game;
 	std::string			save_game;
-
-	bool				want_to_save = false;
+	mutable bool		want_to_save = false;
 	bool				want_to_load = false;
 	bool				want_to_quit = false;
 

@@ -44,7 +44,7 @@ public:
 	bool CleanUp();
 
 	// Gather relevant win events
-	bool GetWindowEvent(EVENT_WINDOW ev);
+	bool GetWindowEvent(EVENT_WINDOW _ev);
 
 	// Check key states (includes mouse and joy buttons)
 	KEY_STATE GetKey(int id) const
@@ -52,13 +52,10 @@ public:
 		return keyboard[id];
 	}
 
-	KEY_STATE GetMouseButtonDown(int id) const
+	KEY_STATE GetMouseButtonDown(int _id) const
 	{
-		return mouse_buttons[id - 1];
+		return mouse_buttons[_id - 1];
 	}
-
-	// Check if a certain window event happened
-	bool GetWindowEvent(int code);
 
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);

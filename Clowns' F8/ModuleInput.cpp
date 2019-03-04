@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleInput.h"
+#include "ModuleWindow.h"
 #include "SDL/include/SDL.h"
 
 ModuleInput::ModuleInput() : Module()

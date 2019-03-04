@@ -24,7 +24,7 @@ public:
 
 	// Called each loop iteration
 	bool PreUpdate();
-	bool Update(float dt);
+	bool Update(float _dt);
 	bool PostUpdate();
 
 	// Called before quitting
@@ -35,11 +35,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	// Blit
-	void SetViewPort(const SDL_Rect& rect);
-	void ResetViewPort();
-	SDL_Point ScreenToWorld(int x, int y) const;
-
-	bool Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float speed = 1.0f, bool flipX = false, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX) const;
+	bool Blit(SDL_Texture* _texture, int _x, int _y, const SDL_Rect* _section = NULL, float _speed = 1.0f, bool _flipX = false, double _angle = 0, int _pivot_x = INT_MAX, int _pivot_y = INT_MAX) const;
 	
 
 public:

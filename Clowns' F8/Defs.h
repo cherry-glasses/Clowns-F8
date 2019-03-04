@@ -66,9 +66,4 @@ inline const char* const PATH(const char* folder, const char* file)
 #define PERF_START(timer) timer.Start()
 #define PERF_PEEK(timer) LOG("%s took %f ms", __FUNCTION__, timer.ReadMs())
 
-// LOGS
-#define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__)
-void log(const char file[], int line, const char* format, ...);
-
-
 #endif // __DEFS_H__

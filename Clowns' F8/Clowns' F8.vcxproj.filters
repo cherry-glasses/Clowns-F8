@@ -102,6 +102,9 @@
     <ClInclude Include="..\Clowns%27 F8\PugiXml\src\pugixml.hpp">
       <Filter>Containers\pugiXML</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Log.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -163,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\PugiXml\src\pugixml.cpp">
       <Filter>Containers\pugiXML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Log.cpp">
+      <Filter>Containers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
