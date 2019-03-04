@@ -2,7 +2,7 @@
 #define __GUILabel_H__
 
 #include "GUIElement.h"
-#include "Fonts.h"
+#include "ModuleFonts.h"
 #include "p2SString.h"
 #include "ModuleTextures.h"
 
