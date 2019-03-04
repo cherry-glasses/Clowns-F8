@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "GUIManager.h"
+#include "ModuleGUIManager.h"
 #include "GUIElement.h"
 #include "GUILabel.h"
 #include "ModuleRender.h"

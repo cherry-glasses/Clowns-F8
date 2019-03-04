@@ -1,6 +1,6 @@
 #include "Application.h"
 #include "ModuleInput.h"
-#include "GUIManager.h"
+#include "ModuleGUIManager.h"
 #include "GUIElement.h"
 #include "GUIButton.h"
 #include "ModuleAudio.h"
