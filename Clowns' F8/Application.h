@@ -14,12 +14,12 @@ class ModuleWindow;
 class ModuleInput;
 class ModuleTextures;
 class ModuleRender;
-//class ModuleAudio;
-//class ModuleFadeToBlack;
-//class ModuleFonts;
-//class ModuleMap;
-//class ModuleEntityManager;
-//class ModuleGUIManager;
+class ModuleAudio;
+class ModuleFadeToBlack;
+class ModuleFonts;
+class ModuleMap;
+class ModuleEntityManager;
+class ModuleGUIManager;
 class Scene;
 
 
@@ -93,13 +93,13 @@ public:
 	ModuleRender* render = nullptr;
 	ModuleInput* input = nullptr;
 	ModuleTextures* textures = nullptr;
-	/*ModuleAudio* audio = nullptr;
+	ModuleAudio* audio = nullptr;
 	ModuleFadeToBlack* fade_to_black = nullptr;
-	ModuleFonts* fonts = nullptr;*/
+	ModuleFonts* fonts = nullptr;
 	Scene* scene = nullptr;
-	/*ModuleMap* map = nullptr;
+	ModuleMap* map = nullptr;
 	ModuleEntityManager* entity_manager = nullptr;
-	ModuleGUIManager* gui_manager = nullptr;*/
+	ModuleGUIManager* gui_manager = nullptr;
 
 private:
 

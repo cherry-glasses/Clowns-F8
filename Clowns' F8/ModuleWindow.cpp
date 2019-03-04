@@ -1,10 +1,13 @@
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
+//#include "Defs.h"
 #include "SDL/include/SDL.h"
 
 ModuleWindow::ModuleWindow() : Module()
 {
+	window = NULL;
+	screen_surface = NULL;
+	name = ("window");
 }
 
 // Destructor
@@ -13,37 +16,50 @@ ModuleWindow::~ModuleWindow()
 }
 
 // Called before render is available
-bool ModuleWindow::Init()
+bool ModuleWindow::Awake(pugi::xml_node& _config)
 {
 	LOG("Init SDL window & surface");
 	bool ret = true;
 
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		LOG("SDL_VIDEO could not initialize! SDL_Error:\n");
-		LOG(SDL_GetError());
+		LOG("SDL_VIDEO could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
 	else
 	{
 		//Create window
-		int width = SCREEN_WIDTH * SCREEN_SIZE;
-		int height = SCREEN_HEIGHT * SCREEN_SIZE;
 		Uint32 flags = SDL_WINDOW_SHOWN;
+		bool fullscreen = _config.child("fullscreen").attribute("value").as_bool(false);
+		bool borderless = _config.child("borderless").attribute("value").as_bool(false);
+		bool resizable = _config.child("resizable").attribute("value").as_bool(false);
+		bool fullscreen_window = _config.child("fullscreen_window").attribute("value").as_bool(false);
 
-		if (WIN_FULLSCREEN == true)
+		width = _config.child("resolution").attribute("width").as_int(640);
+		height = _config.child("resolution").attribute("height").as_int(480);
+		scale = _config.child("resolution").attribute("scale").as_int(1);
+
+		if (fullscreen == true)
+		{
 			flags |= SDL_WINDOW_FULLSCREEN;
+		}
 
-		if (WIN_BORDERLESS == true)
+		if (borderless == true)
+		{
 			flags |= SDL_WINDOW_BORDERLESS;
+		}
 
-		if (WIN_RESIZABLE == true)
+		if (resizable == true)
+		{
 			flags |= SDL_WINDOW_RESIZABLE;
+		}
 
-		if (WIN_FULLSCREEN_DESKTOP == true)
+		if (fullscreen_window == true)
+		{
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+		}
 
-		window = SDL_CreateWindow("Clowns' F8", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		window = SDL_CreateWindow(App->GetTitle(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 		if (window == NULL)
 		{
@@ -67,7 +83,9 @@ bool ModuleWindow::CleanUp()
 
 	//Destroy window
 	if (window != NULL)
+	{
 		SDL_DestroyWindow(window);
+	}
 
 	//Quit SDL subsystems
 	SDL_Quit();

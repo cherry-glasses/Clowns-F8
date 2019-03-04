@@ -1,20 +1,20 @@
 #include "Application.h"
-//#include "ModuleWindow.h"
-//#include "ModuleRender.h"
-//#include "ModuleInput.h"
-//#include "ModuleTextures.h"
-//#include "ModuleAudio.h"
-//#include "ModuleFadeToBlack.h"
-//#include "ModuleFonts.h"
-//#include "ModuleMap.h"
-//#include "ModuleEntityManager.h"
-//#include "Scene.h"
-//#include "ModuleGUIManager.h"
+#include "ModuleWindow.h"
+#include "ModuleRender.h"
+#include "ModuleInput.h"
+#include "ModuleTextures.h"
+#include "ModuleAudio.h"
+#include "ModuleFadeToBlack.h"
+#include "ModuleFonts.h"
+#include "ModuleMap.h"
+#include "ModuleEntityManager.h"
+#include "Scene.h"
+#include "ModuleGUIManager.h"
 
 
 Application::Application(int argc, char* args[]) : argc(argc), args(args)
 {
-	/*window = new ModuleWindow();
+	window = new ModuleWindow();
 	render = new ModuleRender();
 	input = new ModuleInput();
 	textures = new ModuleTextures();
@@ -24,11 +24,11 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	scene = new Scene();
 	map = new ModuleMap();
 	entity_manager = new ModuleEntityManager();
-	gui_manager = new ModuleGUIManager();*/
+	gui_manager = new ModuleGUIManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
-	/*AddModule(window);
+	AddModule(window);
 	AddModule(input);
 	AddModule(textures);
 	AddModule(audio);
@@ -37,10 +37,10 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(map);
 	AddModule(entity_manager);
-	AddModule(gui_manager);*/
+	AddModule(gui_manager);
 
 	// render last to swap buffer
-	//AddModule(render);
+	AddModule(render);
 
 }
 
@@ -52,23 +52,23 @@ Application::~Application()
 	modules.clear();
 }
 
-void Application::AddModule(Module* module)
+void Application::AddModule(Module* _module)
 {
-	module->Init();
-	modules.push_back(module);
+	_module->Init();
+	modules.push_back(_module);
 }
 
 // ---------------------------------------------
-pugi::xml_node Application::LoadConfig(pugi::xml_document& config_file) const
+pugi::xml_node Application::LoadConfig(pugi::xml_document& _config_file) const
 {
 	pugi::xml_node ret;
 
-	pugi::xml_parse_result result = config_file.load_file("config.xml");
+	pugi::xml_parse_result result = _config_file.load_file("config.xml");
 
 	if (result == NULL)
 		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());
 	else
-		ret = config_file.child("config");
+		ret = _config_file.child("config");
 
 	return ret;
 }
@@ -180,17 +180,17 @@ void Application::FinishUpdate()
 
 	//BROFILER_CATEGORY("Waiting", Profiler::Color::SeaGreen);
 
-	if (last_frame_ms < frame_rate && framerate_cap_enabled)
+	if (last_frame_ms < frame_rate)
 	{
 		PerfTimer delay_timer;
 		SDL_Delay(frame_rate - last_frame_ms);
 		LOG("waited for: %.2f ms expected time: %u ms", delay_timer.ReadMs(), frame_rate - last_frame_ms);
 	}
 
-	static char title[256];
+	/*static char title[256];
 	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
 		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
-	App->win->SetTitle(title);
+	App->window->SetTitle(title);*/
 }
 
 bool Application::PreUpdate()
