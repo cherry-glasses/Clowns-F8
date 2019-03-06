@@ -3,7 +3,7 @@
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
-//#include "ModuleAudio.h"
+#include "ModuleAudio.h"
 //#include "ModuleFadeToBlack.h"
 //#include "ModuleFonts.h"
 //#include "ModuleMap.h"
@@ -21,8 +21,8 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	render = new ModuleRender();
 	input = new ModuleInput();
 	textures = new ModuleTextures();
-	/*audio = new ModuleAudio();
-	fade_to_black = new ModuleFadeToBlack();
+	audio = new ModuleAudio();
+	/*fade_to_black = new ModuleFadeToBlack();
 	fonts = new ModuleFonts();
 	scene = new Scene();
 	map = new ModuleMap();
@@ -34,8 +34,8 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(window);
 	AddModule(input);
 	AddModule(textures);
-	/*AddModule(audio);
-	AddModule(fade_to_black);
+	AddModule(audio);
+	/*AddModule(fade_to_black);
 	AddModule(fonts);
 	AddModule(scene);
 	AddModule(map);

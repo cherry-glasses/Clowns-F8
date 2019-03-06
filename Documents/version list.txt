@@ -1,0 +1,73 @@
+
+Sprints 
+
+Preproduction
+(01 March 2019)
+	- El listado de tareas generales que tenemos en Parte 1 del HacknPlan
+
+(08 March 2019)
+	- UML and STL code organization
+	- Y el resto de mierdas q se nos ocurran que hacen falta para esta fecha.
+
+Version list
+
+- 0.1 (15 March 2019)
+	- Global map and first battle map (Kevin, Eric)
+	- Isometric perspective camera (Aleix)
+	- Enemy Entities base (Guillem, Cere)
+	- Characters Entities base (Guillem, Cere)
+	- XML templates (Cere)
+	- UI Start Menu (Martí, Eric)
+	
+
+- 0.2 (22 March 2019)
+	- The first Character movement (Kevin, Guillem) 
+	- The first Enemy movement (Kevin, Cere)
+	- Pathfinding system (Guillem, Cere)
+	- UI hud and movement (Martí, Eric)
+	- Inputs (Aleix)
+
+- 0.3 (05 April 2019)
+	- Enemies AI (Cere)
+	- New Character and attack (Kevin, Guillem)
+	- New Enemy and attack (Kevin, Aleix)
+	- UI Battle Menu (Martí, Eric)
+	
+- 0.4 (12 April 2019)
+	- New 2 Character (Kevin, Guillem)
+	- The first hability for the characters (Kevin, Cere, Aleix)
+	- Cut Scenes (Kevin, Gerard, Eric)
+	- UI Option Menu (Martí, Eric)
+
+- 0.5 (19 April 2019) 22 April Vertical Slide
+	- Cut Scenes (Kevin, Gerard, Eric)
+	- Do Vertical Slide demostration (Guillem, Cere)
+	- Objects. Posible ? (Aleix)
+	- UI win/lose condition and time (Martí, Eric)
+	
+
+- 0.6 (03 May 2019)
+	- Cut Scenes (Kevin, Gerard, Eric)
+	- New map (Kevin, Eric)
+	- New 2 Characters (Kevin, Guillem)
+	- New Enemy (Kevin, Aleix)
+	- Habilities tree (Cere)
+
+- 0.7 (10 May 2019)
+	- Cut Scenes (Kevin, Gerard, Eric)
+	- New map (Kevin, Eric)
+	- New 2 Characters (Kevin, Guillem)
+	- Minibosses (Kevin, Cere)
+
+- 0.8 (17 May 2019) 19 May Alpha
+	- New map (Kevin, Eric)
+	- Final Boss (Kevin, Guillem)
+	- Special Habilities (Kevin, Gerard, Cere, Aleix)
+
+- 0.9 (24 May 2019) 
+	- Balance stadistics (TO DIOS)
+	- Bugfix (TO DIOS)
+
+- 1.0 (31 May 2019) 2 June Gold Versión
+	- Bugfix (TO DIOS)
+
