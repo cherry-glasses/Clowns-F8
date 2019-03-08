@@ -28,6 +28,7 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	map = new ModuleMap();
 	entity_manager = new ModuleEntityManager();
 	gui_manager = new ModuleGUIManager();*/
+	//holi
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
