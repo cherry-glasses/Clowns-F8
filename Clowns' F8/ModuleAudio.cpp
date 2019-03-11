@@ -1,3 +1,4 @@
+#include "Log.h"
 #include "Application.h"
 #include "ModuleAudio.h"
 

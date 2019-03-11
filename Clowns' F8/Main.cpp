@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "Log.h"
 #include "Application.h"
 
 
