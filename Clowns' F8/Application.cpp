@@ -8,9 +8,9 @@
 #include "ModuleAudio.h"
 #include "ModuleFonts.h"
 #include "ModuleMap.h"
-//#include "ModuleFadeToBlack.h"
+#include "ModuleFadeToBlack.h"
+#include "Scene.h"
 //#include "ModuleEntityManager.h"
-//#include "Scene.h"
 //#include "ModuleGUIManager.h"
 
 

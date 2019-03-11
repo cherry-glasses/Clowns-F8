@@ -18,10 +18,11 @@ class ModuleTextures;
 class ModuleAudio;
 class ModuleFonts;
 class ModuleMap;
-//class ModuleFadeToBlack;
+class ModuleFadeToBlack;
+class Scene;
 //class ModuleEntityManager;
 //class ModuleGUIManager;
-//class Scene;
+
 
 
 class Application
@@ -94,9 +95,9 @@ public:
 	ModuleAudio* audio = nullptr;
 	ModuleFonts* fonts = nullptr;
 	ModuleMap* map = nullptr;
-	/*ModuleFadeToBlack* fade_to_black = nullptr;
+	ModuleFadeToBlack* fade_to_black = nullptr;
 	Scene* scene = nullptr;
-	ModuleEntityManager* entity_manager = nullptr;
+	/*ModuleEntityManager* entity_manager = nullptr;
 	ModuleGUIManager* gui_manager = nullptr;*/
 
 private:
