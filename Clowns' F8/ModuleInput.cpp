@@ -81,21 +81,18 @@ bool ModuleInput::PreUpdate()
 		switch (event.type)
 		{
 		case SDL_QUIT:
-			LOG("INPUT QUITTING");
 			windowEvents[EW_QUIT] = true;
 			break;
 
 		case SDL_WINDOWEVENT:
 			switch (event.window.event)
 			{
-				//case SDL_WINDOWEVENT_LEAVE:
 			case SDL_WINDOWEVENT_HIDDEN:
 			case SDL_WINDOWEVENT_MINIMIZED:
 			case SDL_WINDOWEVENT_FOCUS_LOST:
 				windowEvents[EW_HIDE] = true;
 				break;
 
-				//case SDL_WINDOWEVENT_ENTER:
 			case SDL_WINDOWEVENT_SHOWN:
 			case SDL_WINDOWEVENT_FOCUS_GAINED:
 			case SDL_WINDOWEVENT_MAXIMIZED:
