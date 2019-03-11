@@ -2,8 +2,6 @@
 #define __ModuleMap_H_
 
 #include "Module.h"
-#include "SDL\include\SDL_rect.h"
-#include "SDL/include/SDL.h"
 
 
 // ----------------------------------------------------
@@ -11,18 +9,21 @@ struct Properties
 {
 	struct Property
 	{
-		std::string	 name;
+		std::string name;
 		int value;
 	};
 
 	~Properties()
 	{
-		
-		
-		for (std::list<Property*>::iterator item = list.begin(); item != list.end(); item++) {
+		std::list<Property*>::iterator item;
+		item = list.begin();
+
+		while (item != list.end())
+		{
 			RELEASE(*item);
+			++item;
 		}
-		
+
 		list.clear();
 	}
 
@@ -34,6 +35,12 @@ struct Properties
 // ----------------------------------------------------
 struct MapLayer
 {
+	std::string	name;
+	int			width;
+	int			height;
+	uint*		data;
+	Properties	properties;
+
 	MapLayer() : data(NULL)
 	{}
 
@@ -46,12 +53,6 @@ struct MapLayer
 	{
 		return data[(_y*width) + _x];
 	}
-
-	std::string	name;
-	uint			width;
-	uint			height;
-	uint*		data;
-	Properties	properties;
 };
 
 // ----------------------------------------------------
@@ -60,18 +61,18 @@ struct TileSet
 	SDL_Rect GetTileRect(int _id) const;
 
 	std::string			name;
-	uint					firstgid;
-	uint					margin;
-	uint					spacing;
-	uint					tile_width;
-	uint					tile_height;
+	int					firstgid;
+	int					margin;
+	int					spacing;
+	int					tile_width;
+	int					tile_height;
 	SDL_Texture*		texture;
-	uint					tex_width;
-	uint					tex_height;
-	uint					num_tiles_width;
-	uint					num_tiles_height;
-	uint					offset_x;
-	uint					offset_y;
+	int					tex_width;
+	int					tex_height;
+	int					num_tiles_width;
+	int					num_tiles_height;
+	int					offset_x;
+	int					offset_y;
 };
 
 enum MapTypes
@@ -91,7 +92,7 @@ struct MapData
 	SDL_Color			background_color;
 	MapTypes			type;
 	std::list<TileSet*>	tilesets;
-	std::list<MapLayer*>layers;
+	std::list<MapLayer*> layers;
 };
 
 // ----------------------------------------------------
@@ -105,7 +106,7 @@ public:
 	virtual ~ModuleMap();
 
 	// Called before render is available
-	bool Awake(pugi::xml_node& _conf);
+	bool Awake(pugi::xml_node& _config);
 
 	// Called each loop iteration
 	void Draw();
@@ -138,7 +139,7 @@ private:
 
 	pugi::xml_document	map_file;
 	std::string			folder;
-	bool				map_loaded;
+	bool				map_loaded = false;
 };
 
 #endif // __ModuleMap_H_

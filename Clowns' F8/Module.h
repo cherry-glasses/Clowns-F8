@@ -1,5 +1,5 @@
-#ifndef __MODULE_H__
-#define __MODULE_H__
+#ifndef __Module_H__
+#define __Module_H__
 
 #include "PugiXml\src\pugixml.hpp"
 
@@ -71,4 +71,4 @@ public:
 	bool		active;
 };
 
-#endif // __MODULE_H__
+#endif // __Module_H__

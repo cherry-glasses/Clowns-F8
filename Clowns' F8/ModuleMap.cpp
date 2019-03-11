@@ -4,7 +4,9 @@
 #include "ModuleTextures.h"
 #include "ModuleMap.h"
 
-ModuleMap::ModuleMap() : Module(), map_loaded(false)
+#include "SDL/include/SDL.h"
+
+ModuleMap::ModuleMap() : Module()
 {
 	name= "map";
 }
@@ -26,16 +28,20 @@ bool ModuleMap::Awake(pugi::xml_node& _config)
 
 void ModuleMap::Draw()
 {
-	if (map_loaded == false)
+	if (map_loaded == false) 
+	{
 		return;
-
+	}
+		
 	for (std::list<MapLayer*>::iterator item = data.layers.begin(); item != data.layers.end(); ++item)
 	{
 		MapLayer* layer = *item;
 
-		if (layer->properties.Get("Nodraw") != 0)
+		if (layer->properties.Get("Nodraw") != 0) 
+		{
 			continue;
-
+		}
+			
 		for (int y = 0; y < data.height; ++y)
 		{
 			for (int x = 0; x < data.width; ++x)
@@ -55,13 +61,13 @@ void ModuleMap::Draw()
 	}
 }
 
-int Properties::Get(const char* _value, int _default_value) const
+int Properties::Get(const char* _name, int _default_value) const
 {
 	std::list<Property*>::const_iterator item = list.begin();
 
 	while (item != list.end())
 	{
-		if ((*item)->name == _value)
+		if ((*item)->name == _name)
 			return (*item)->value;
 		++item;
 	}
@@ -292,20 +298,25 @@ bool ModuleMap::LoadMap()
 		if (bg_color.size() > 0)
 		{
 			std::string red, green, blue;
-			/*bg_color.SubString(1, 2, red);
-			bg_color.SubString(3, 4, green);
-			bg_color.SubString(5, 6, blue);*/
-
 			int v = 0;
 
 			sscanf_s(red.c_str(), "%x", &v);
-			if (v >= 0 && v <= 255) data.background_color.r = v;
+			if (v >= 0 && v <= 255)
+			{
+				data.background_color.r = v;
+			}
 
 			sscanf_s(green.c_str(), "%x", &v);
-			if (v >= 0 && v <= 255) data.background_color.g = v;
+			if (v >= 0 && v <= 255)
+			{
+				data.background_color.g = v;
+			}
 
 			sscanf_s(blue.c_str(), "%x", &v);
-			if (v >= 0 && v <= 255) data.background_color.b = v;
+			if (v >= 0 && v <= 255)
+			{
+				data.background_color.b = v;
+			}
 		}
 
 		std::string orientation(map.attribute("orientation").as_string());

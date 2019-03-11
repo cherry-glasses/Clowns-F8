@@ -81,6 +81,7 @@ bool ModuleInput::PreUpdate()
 		switch (event.type)
 		{
 		case SDL_QUIT:
+			LOG("INPUT QUITTING");
 			windowEvents[EW_QUIT] = true;
 			break;
 
