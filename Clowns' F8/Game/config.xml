@@ -52,8 +52,8 @@
     </sfx>
   </audio>
 
-  <entitymanager>
+  <entity_manager>
     
-  </entitymanager>
+  </entity_manager>
 
 </config>
