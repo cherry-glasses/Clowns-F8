@@ -2,6 +2,7 @@
 #define __ModuleEntityManager_H__
 
 #include "Module.h"
+#include "Entity.h"
 
 
 class ModuleEntityManager : public Module
@@ -29,10 +30,10 @@ public:
 	// Load / Save
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
-	//bool CreateEntity(ENTITY_TYPE type);
-	//bool DeleteEntity(Entity* entity);
+	bool CreateEntity(ENTITY_TYPE type);
+	bool DeleteEntity(Entity* entity);
 
 private:
-	//std::list<Entity*> entities;
+	std::list<Entity*> entities;
 };
 #endif // __ModuleEntityManager_H__
