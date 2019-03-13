@@ -84,7 +84,7 @@ bool ModuleEntityManager::Save(pugi::xml_node & _data) const
 	return true;
 }
 
-//bool ModuleEntityManager::CreateEntity(EntityType type, fPoint position, Card* card)
+//bool ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 //{
 //	std::string id = std::to_string(id_count);
 //	switch (type)

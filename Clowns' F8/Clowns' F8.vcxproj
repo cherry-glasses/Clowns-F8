@@ -129,6 +129,7 @@
     <ClInclude Include="..\Clowns%27 F8\Animation.h" />
     <ClInclude Include="..\Clowns%27 F8\Application.h" />
     <ClInclude Include="..\Clowns%27 F8\Defs.h" />
+    <ClInclude Include="..\Clowns%27 F8\Enemy.h" />
     <ClInclude Include="..\Clowns%27 F8\Entity.h" />
     <ClInclude Include="..\Clowns%27 F8\Log.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleEntityManager.h" />

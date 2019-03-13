@@ -30,8 +30,9 @@ public:
 	// Load / Save
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
-	bool CreateEntity(ENTITY_TYPE type);
-	bool DeleteEntity(Entity* entity);
+
+	/*bool CreateEntity(ENTITY_TYPE type);
+	bool DeleteEntity(Entity* entity);*/
 
 private:
 	std::list<Entity*> entities;

@@ -17,14 +17,25 @@ class Entity
 public:
 	Entity();
 	Entity(ENTITY_TYPE _type);
+
+	// Destructor
 	~Entity();
+
+	// Called before render is available
 	virtual bool Awake(pugi::xml_node & _config) { return true; };
+
+	// Called before the first frame
 	virtual bool Start(uint _i) { return true; };
-	virtual bool Restart(uint _i) { return true; };
+
+	// Called each loop iteration
 	virtual bool PreUpdate() { return true; };
 	virtual bool Update(float _dt) { return true; };
 	virtual bool PostUpdate() { return true; };
+
+	// Called before quitting
 	virtual bool CleanUp() { return true; };
+
+	// Load / Save
 	virtual bool Save(pugi::xml_node& _file) const;
 	virtual bool Load(pugi::xml_node& _file);
 
