@@ -30,28 +30,28 @@ void GUIButton::Click()
 
 	if (is_inside)
 	{
-	if (App->input->GetMouseButtonDown(1) == SDL_PRESSED && can_change)
-	{
+		if (App->input->GetMouseButtonDown(1) == SDL_PRESSED && can_change)
+		{
 
-	can_change = false;
-	has_been_clicked = !has_been_clicked;
-	}
-	else if (App->input->GetMouseButtonDown(1) == SDL_RELEASED)
-	{
-	can_change = true;
-	}
+			can_change = false;
+			has_been_clicked = !has_been_clicked;
+		}
+		else if (App->input->GetMouseButtonDown(1) == SDL_RELEASED)
+		{
+			can_change = true;
+		}
 
-	if (has_been_clicked)
-	{
-	area = img_area_pressed;
-	}
-	if (can_change)
-	{
-	area = img_area_hover;
-	}
+		if (has_been_clicked)
+		{
+			area = img_area_pressed;
+		}
+		if (can_change)
+		{
+			area = img_area_hover;
+		}
 	}
 	else
 	{
-	area = initial_area;
+		area = initial_area;
 	}
 }

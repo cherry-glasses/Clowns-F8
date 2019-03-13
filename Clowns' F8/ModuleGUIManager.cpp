@@ -29,6 +29,7 @@ return true;
 bool ModuleGUIManager::Start()
 {
 	image_textures = App->textures->Load("Assets/Sprites/UI/cherry_logo.png");
+	button_textures = App->textures->Load("Assets/Sprites/UI/main_menu_choices.png");
 	return true;
 }
 

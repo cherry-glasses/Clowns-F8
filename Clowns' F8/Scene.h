@@ -4,6 +4,7 @@
 #include "Module.h"
 
 class GUIImage;
+class GUIButton;
 struct SDL_Texture;
 
 class Scene : public Module {
@@ -52,6 +53,12 @@ public:
 
 	bool game_start = false;
 	GUIImage* cherry_glasses_logo = nullptr;
+	GUIButton* new_game_button = nullptr;
+	GUIButton* load_game_button = nullptr;
+	GUIButton* options_button = nullptr;
+	GUIButton* credits_button = nullptr;
+	GUIButton* exit_button = nullptr;
+	
 };
 
 #endif //_SCENE_H_
