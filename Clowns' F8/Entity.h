@@ -1,65 +1,95 @@
-#ifndef __Entity_H__
-#define __Entity_H__
+#ifndef _ENTITY_H__
+#define _ENTITY_H__
 
+#include "ModuleEntityManager.h"
 #include "Animation.h"
-#include "ModuleTextures.h"
 
-enum class ENTITY_TYPE
-{
-	ENTITY_CHARACTER,
-	ENTITY_ENEMY,
-	ENTITY_BOSS,
-	NO_TYPE
+struct SDL_Texture;
+struct SDL_Rect;
+
+// to know where is the entity looking.
+enum Direction_State {
+	UP_LEFT,
+	UP_RIGHT,
+	DOWN_LEFT,
+	DOWN_RIGHT,
+	STOP
 };
 
-class Entity
+
+typedef struct {
+	int Hp;
+	int Mp;
+	int Mana;
+	int Cp;
+
+	float DefS;
+	float AtkS;
+	float DefF;
+	float AtkF;
+	int Crit_hit; // Options to get a critical hit.
+} Stats;
+
+
+
+class Entity : public ModuleEntityManager
 {
 public:
-	Entity();
-	Entity(ENTITY_TYPE _type);
+	
+	Entity(/*iPoint pos,*/ Types type, int id);
 
 	// Destructor
-	~Entity();
+	virtual ~Entity() {
 
-	// Called before render is available
-	virtual bool Awake(pugi::xml_node & _config) { return true; };
+	}
 
-	// Called before the first frame
-	virtual bool Start(uint _i) { return true; };
+	virtual bool PreUpdate() {
+		return true;
+	}
 
-	// Called each loop iteration
-	virtual bool PreUpdate() { return true; };
-	virtual bool Update(float _dt) { return true; };
-	virtual bool PostUpdate() { return true; };
 
-	// Called before quitting
-	virtual bool CleanUp() { return true; };
+	virtual void Draw() {
 
-	// Load / Save
-	virtual bool Save(pugi::xml_node& _file) const;
-	virtual bool Load(pugi::xml_node& _file);
+	}
 
-	void		AddFX(const int _channel, const int _repeat) const;
-	bool		LoadAnimation(pugi::xml_node &_node, Animation &_anim);
+	virtual bool Update(float dt) {
+		return true;
+	}
 
-	virtual std::pair<float, float> GetPosition();
-	virtual void SetPosition(const float &_x, const float &_y);
+	virtual bool PostUpdate() {
+		return true;
+	}
+
+	virtual bool Load(pugi::xml_node& node) {
+		return true;
+	}
+	virtual bool Save(pugi::xml_node& node) const {
+		return true;
+
+	}
+
+	// we can change the Entity* by the id of that entity.
+	virtual void Skill(Entity* objective, int skill_id) {
+
+	}
+
 
 public:
-	ENTITY_TYPE type;
-	std::pair<float, float>  position;
-	Animation* current_animation = nullptr;
-	SDL_Texture* texture = nullptr;
-	SDL_Rect	current = { 0,0,0,0 };
 
-protected:
-	enum MOVEMENT { IDLE, LEFTUP, LEFTDOWN, RIGHTUP, RIGHTDOWN };
-	enum STATE { ALIVE, DEATH };
+	int my_id;
+	Stats Default_States;
+	Stats Current_States;
+	Stats Modifiers;
+	/*iPoint position;*/
+	Types type;
+	SDL_Texture* tex = nullptr;
+	Animation* animation = nullptr;
+	Direction_State e_state;
 
-	STATE current_state = ALIVE;
-	MOVEMENT last_movement;
-	MOVEMENT current_movement = IDLE;
 
 };
 
-#endif // __Entity_H_
+
+
+#endif // !_ENTITY_H_
+

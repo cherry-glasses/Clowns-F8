@@ -5,6 +5,12 @@
 #include "Entity.h"
 
 
+enum Types {
+	ENEMY,
+	CHARACTER,
+	BOSS
+};
+
 class ModuleEntityManager : public Module
 {
 public:
@@ -35,6 +41,6 @@ public:
 	bool DeleteEntity(Entity* entity);*/
 
 private:
-	std::list<Entity*> entities;
+	//std::list<Entity*> entities;
 };
 #endif // __ModuleEntityManager_H__
