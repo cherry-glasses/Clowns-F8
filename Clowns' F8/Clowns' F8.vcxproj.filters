@@ -9,13 +9,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="EntitiesEnemies">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="EntitiesCharacters">
-      <UniqueIdentifier>{95254d9f-16f5-466a-b3ff-dda5c9e2b9c4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Containers">
       <UniqueIdentifier>{10ff2286-74fd-4dd7-b8ce-d9ccebf037e2}</UniqueIdentifier>
     </Filter>
@@ -27,6 +20,16 @@
     </Filter>
     <Filter Include="Containers\pugiXML">
       <UniqueIdentifier>{958ec225-47de-43bf-9055-89d2005a6946}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Containers\Entities">
+      <UniqueIdentifier>{88b6f719-97b4-4b10-8577-32f32ea11bbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Containers\Entities\EntitiesCharacters">
+      <UniqueIdentifier>{95254d9f-16f5-466a-b3ff-dda5c9e2b9c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Containers\Entities\EntitiesEnemies">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +108,9 @@
     <ClInclude Include="..\Clowns%27 F8\Log.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Entity.h">
+      <Filter>Containers\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -169,6 +175,9 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Log.cpp">
       <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Entity.cpp">
+      <Filter>Containers\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
