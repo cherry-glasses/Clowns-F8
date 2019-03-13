@@ -7,6 +7,7 @@
 #include "GUIElement.h"
 #include "GUIImage.h"
 #include "GUIButton.h"
+//#include "GUILabel.h"
 #include "ModuleAudio.h"
 
 ModuleGUIManager::ModuleGUIManager()
@@ -42,9 +43,9 @@ bool ModuleGUIManager::Update(float dt)
 	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_IMAGE)
 	gui_elements[i]->Draw(image_textures);
 
-	for (uint i = 0; i < gui_elements.size(); ++i)
+	/*for (uint i = 0; i < gui_elements.size(); ++i)
 	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_PANEL)
-	gui_elements[i]->Draw(image_textures);
+	gui_elements[i]->Draw(image_textures);*/
 
 	for (uint i = 0; i < gui_elements.size(); ++i)
 	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_BUTTON)
@@ -63,9 +64,9 @@ bool ModuleGUIManager::Update(float dt)
 	{
 	gui_elements[i]->Draw(inputbox_textures);
 	gui_elements[i]->DrawInputBox();
-	}
+	}*/
 
-	for (uint i = 0; i < gui_elements.size(); ++i)
+	/*for (uint i = 0; i < gui_elements.size(); ++i)
 	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_LABEL)
 	gui_elements[i]->DrawLabel();*/
 
@@ -100,7 +101,7 @@ GUIElement* ModuleGUIManager::CreateGUIImage(GUI_ELEMENT_TYPE type, int x, int y
 
 	return ret;
 }
-/*
+
 GUIElement* ModuleGUIManager::CreateGUIButton(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1, SDL_Rect a_2, GUIElement* son)
 {
 	GUIElement* ret = nullptr;
@@ -108,12 +109,12 @@ GUIElement* ModuleGUIManager::CreateGUIButton(GUI_ELEMENT_TYPE type, int x, int 
 	ret = new GUIButton(x, y, a, a_1, a_2, son);
 
 	if (ret != nullptr)
-	gui_elements.PushBack(ret);
+	gui_elements.push_back(ret);
 
 	return ret;
 }
 
-GUIElement* ModuleGUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, std::string text, SDL_Color color, _TTF_Font* font, GUIElement* son)
+/*GUIElement* ModuleGUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, std::string text, SDL_Color color, _TTF_Font* font, GUIElement* son)
 {
 	GUIElement* ret = nullptr;
 
@@ -121,7 +122,7 @@ GUIElement* ModuleGUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y
 
 
 	if (ret != nullptr)
-	gui_elements.PushBack(ret);
+	gui_elements.push_back(ret);
 
 	return ret;
 }*/
@@ -175,15 +176,15 @@ gui_elements.PushBack(ret);
 return ret;
 }*/
 
-/*bool GUIManager::Load(pugi::xml_node& save)
+bool ModuleGUIManager::Load(pugi::xml_node& save)
 {
 return true;
-}*/
+}
 
-/*bool GUIManager::Save(pugi::xml_node& save) const
+bool ModuleGUIManager::Save(pugi::xml_node& save) const
 {
 return true;
-}*/
+}
 
 void ModuleGUIManager::DeleteGUIElement(GUIElement* e)
 {
