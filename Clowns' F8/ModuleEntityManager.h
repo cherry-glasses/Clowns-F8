@@ -3,22 +3,6 @@
 
 #include "Module.h"
 
-enum Movement_Type {
-	PAWN,
-	TOWER,
-	KING,
-	QUEEN,
-	HORSE,
-	BISHOP
-};
-//Cere Hemos de crear una enumaricón (jeje soy mongolo m'he he equivocado y me ha mucha gracia <3) de types mas larga
-
-enum Type {
-	ENEMY,
-	CHARACTER,
-	BOSS
-
-};
 
 class ModuleEntityManager : public Module
 {

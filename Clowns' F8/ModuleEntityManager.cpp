@@ -2,9 +2,6 @@
 #include "Application.h"
 #include "ModuleEntityManager.h"
 
-
-
-
 ModuleEntityManager::ModuleEntityManager() : Module()
 {
 	name = "entity_manager";
