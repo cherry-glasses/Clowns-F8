@@ -3,6 +3,9 @@
 
 #include "Module.h"
 
+class GUIImage;
+struct SDL_Texture;
+
 class Scene : public Module {
 
 
@@ -38,6 +41,17 @@ public:
 	//Save
 	bool Save(pugi::xml_node& data) const;
 
+private:
+	void CreateMainMenu();
+	void DeleteMainMenu();
+
+private:
+	SDL_Texture* main_menu_background = nullptr;
+
+public:
+
+	bool game_start = false;
+	GUIImage* cherry_glasses_logo = nullptr;
 };
 
 #endif //_SCENE_H_
