@@ -1,3 +1,4 @@
+#include "Log.h"
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"

@@ -37,6 +37,9 @@ public:
 	//The surface contained by the window
 	SDL_Surface* screen_surface;
 
+	int GetScreenWidth() { return width; }
+	int GetScreenHeight() { return height; }
+
 private:
 	uint		width = 0u;
 	uint		height = 0u;

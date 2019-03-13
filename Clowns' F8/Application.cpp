@@ -1,33 +1,35 @@
+#include "Log.h"
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
-//#include "ModuleFadeToBlack.h"
-//#include "ModuleFonts.h"
-//#include "ModuleMap.h"
-//#include "ModuleEntityManager.h"
-//#include "Scene.h"
+#include "ModuleFonts.h"
+#include "ModuleMap.h"
+#include "ModuleFadeToBlack.h"
+#include "Scene.h"
+#include "ModuleEntityManager.h"
 //#include "ModuleGUIManager.h"
 
 
 #include "SDL\include\SDL_timer.h"
 
 
-Application::Application(int argc, char* args[]) : argc(argc), args(args)
+Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 {
 	window = new ModuleWindow();
 	render = new ModuleRender();
 	input = new ModuleInput();
 	textures = new ModuleTextures();
 	audio = new ModuleAudio();
-	/*fade_to_black = new ModuleFadeToBlack();
 	fonts = new ModuleFonts();
-	scene = new Scene();
 	map = new ModuleMap();
+	fade_to_black = new ModuleFadeToBlack();
+	scene = new Scene();
 	entity_manager = new ModuleEntityManager();
-	gui_manager = new ModuleGUIManager();*/
+	//gui_manager = new ModuleGUIManager();
+	
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -35,12 +37,12 @@ Application::Application(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(textures);
 	AddModule(audio);
-	/*AddModule(fade_to_black);
 	AddModule(fonts);
-	AddModule(scene);
 	AddModule(map);
+	AddModule(fade_to_black);
+	AddModule(scene);
 	AddModule(entity_manager);
-	AddModule(gui_manager);*/
+	//AddModule(gui_manager);
 
 	// render last to swap buffer
 	AddModule(render);

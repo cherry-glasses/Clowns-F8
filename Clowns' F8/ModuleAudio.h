@@ -2,7 +2,6 @@
 #define __ModuleAudio_H__
 
 #include "Module.h"
-#include <vector>
 
 #define MAX_MUSICS 50
 #define MAX_SFX 100

@@ -1,9 +1,8 @@
-#ifndef __APPLICATION_H__
-#define __APPLICATION_H__
+#ifndef __Application_H__
+#define __Application_H__
 
 #include <list>
-#include "Defs.h"
-#include "Log.h"
+#include <vector>
 #include "Module.h"
 #include "PerfTimer.h"
 #include "Timer.h"
@@ -17,12 +16,13 @@ class ModuleRender;
 class ModuleInput;
 class ModuleTextures;
 class ModuleAudio;
-//class ModuleFadeToBlack;
-//class ModuleFonts;
-//class ModuleMap;
-//class ModuleEntityManager;
+class ModuleFonts;
+class ModuleMap;
+class ModuleFadeToBlack;
+class Scene;
+class ModuleEntityManager;
 //class ModuleGUIManager;
-//class Scene;
+
 
 
 class Application
@@ -30,7 +30,7 @@ class Application
 public:
 
 	// Constructor
-	Application(int argc, char* args[]);
+	Application(int _argc, char* _args[]);
 
 	// Destructor
 	virtual ~Application();
@@ -48,11 +48,11 @@ public:
 	bool CleanUp();
 
 	// Add a new module to handle
-	void AddModule(Module* module);
+	void AddModule(Module* _module);
 
 	// Exposing some properties for reading
 	int GetArgc() const;
-	const char* GetArgv(int index) const;
+	const char* GetArgv(int _index) const;
 	const char* GetTitle() const;
 
 	void LoadGame();
@@ -83,7 +83,7 @@ private:
 	// Load / Save
 	bool LoadGameNow();
 	bool SavegameNow() const;
-	void GetSaveGames(std::list<std::string>& list_to_fill) const;
+	void GetSaveGames(std::list<std::string>& _list_to_fill) const;
 
 
 public:
@@ -93,12 +93,12 @@ public:
 	ModuleInput* input = nullptr;
 	ModuleTextures* textures = nullptr;
 	ModuleAudio* audio = nullptr;
-	/*ModuleFadeToBlack* fade_to_black = nullptr;
 	ModuleFonts* fonts = nullptr;
-	Scene* scene = nullptr;
 	ModuleMap* map = nullptr;
+	ModuleFadeToBlack* fade_to_black = nullptr;
+	Scene* scene = nullptr;
 	ModuleEntityManager* entity_manager = nullptr;
-	ModuleGUIManager* gui_manager = nullptr;*/
+	//ModuleGUIManager* gui_manager = nullptr;
 
 private:
 
@@ -129,4 +129,4 @@ private:
 // Global var made extern for Application ---
 extern Application* App;
 
-#endif // __APPLICATION_H__
+#endif // __Application_H__
