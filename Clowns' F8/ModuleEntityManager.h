@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Entity.h"
+#include <list>
 
 
 enum Types {
@@ -36,6 +37,7 @@ public:
 	// Load / Save
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
+
 
 	/*bool CreateEntity(ENTITY_TYPE type);
 	bool DeleteEntity(Entity* entity);*/

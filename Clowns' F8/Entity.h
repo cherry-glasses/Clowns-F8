@@ -3,19 +3,20 @@
 
 #include "ModuleEntityManager.h"
 #include "Animation.h"
+#include "Module.h"
 
 struct SDL_Texture;
 struct SDL_Rect;
 
 // to know where is the entity looking.
-enum Direction_State {
-	UP_LEFT,
-	UP_RIGHT,
-	DOWN_LEFT,
-	DOWN_RIGHT,
-	STOP
-};
 
+enum class ENTITY_TYPE
+{
+	ENTITY_CHARACTER,
+	ENTITY_ENEMY,
+	ENTITY_BOSS,
+	NO_TYPE
+};
 
 typedef struct {
 	int Hp;
@@ -32,11 +33,14 @@ typedef struct {
 
 
 
-class Entity : public ModuleEntityManager
+class Entity
 {
+
 public:
 	
-	Entity(/*iPoint pos,*/ Types type, int id);
+	Entity();
+
+	Entity(ENTITY_TYPE _type);
 
 	// Destructor
 	virtual ~Entity() {
@@ -60,19 +64,22 @@ public:
 		return true;
 	}
 
-	virtual bool Load(pugi::xml_node& node) {
-		return true;
-	}
-	virtual bool Save(pugi::xml_node& node) const {
-		return true;
+	virtual bool Load(pugi::xml_node& node);
+	virtual bool Save(pugi::xml_node& node) const;
+	
 
-	}
+	virtual bool CleanUp() { return true; };
 
 	// we can change the Entity* by the id of that entity.
 	virtual void Skill(Entity* objective, int skill_id) {
 
 	}
 
+	void AddFX(const int _channel, const int _repeat) const;
+	bool LoadAnimation(pugi::xml_node &_node, Animation &_anim);
+
+	virtual std::pair<float, float> GetPosition();
+	virtual void SetPosition(const float &_x, const float &_y);
 
 public:
 
@@ -80,12 +87,20 @@ public:
 	Stats Default_States;
 	Stats Current_States;
 	Stats Modifiers;
-	/*iPoint position;*/
-	Types type;
-	SDL_Texture* tex = nullptr;
-	Animation* animation = nullptr;
-	Direction_State e_state;
+	ENTITY_TYPE type;
+	std::pair<float, float>  position;
+	Animation* current_animation = nullptr;
+	SDL_Texture* texture = nullptr;
+	SDL_Rect	current = { 0,0,0,0 };
 
+protected:
+
+	enum MOVEMENT { IDLE, LEFTUP, LEFTDOWN, RIGHTUP, RIGHTDOWN };
+	enum STATE { ALIVE, DEATH };
+
+	STATE current_state = ALIVE;
+	MOVEMENT last_movement;
+	MOVEMENT current_movement = IDLE;
 
 };
 
