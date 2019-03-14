@@ -1,16 +1,9 @@
-#include "Entity.h"
 #include "Application.h"
+#include "Entity.h"
 #include "ModuleAudio.h"
 
 
-
-
-
 Entity::Entity()
-{
-}
-
-Entity::Entity(ENTITY_TYPE _type) : type(_type)
 {
 }
 
@@ -43,7 +36,7 @@ std::pair<float, float> Entity::GetPosition()
 	return position;
 }
 
-void Entity::SetPosition(const float &x, const float &y)
+void Entity::SetPosition(const float &_x, const float &_y)
 {
 
 }

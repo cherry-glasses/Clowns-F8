@@ -7,7 +7,7 @@
 class Bulldog : public Enemy
 {
 public:
-	Bulldog(ENTITY_TYPE _type);
+	Bulldog();
 
 	// Destructor
 	~Bulldog();
@@ -42,4 +42,4 @@ private:
 	Animation dead;
 };
 
-#endif // __Bulldog_H__
+#endif // !__Bulldog_H__

@@ -1,22 +1,10 @@
-#ifndef _ENTITY_H__
-#define _ENTITY_H__
+#ifndef _Entity_H__
+#define _Entity_H__
 
-#include "ModuleEntityManager.h"
 #include "Animation.h"
-#include "Module.h"
 
 struct SDL_Texture;
 struct SDL_Rect;
-
-// to know where is the entity looking.
-
-enum class ENTITY_TYPE
-{
-	ENTITY_CHARACTER,
-	ENTITY_ENEMY,
-	ENTITY_BOSS,
-	NO_TYPE
-};
 
 typedef struct {
 	int Hp;
@@ -31,8 +19,6 @@ typedef struct {
 	int Crit_hit; // Options to get a critical hit.
 } Stats;
 
-
-
 class Entity
 {
 
@@ -40,38 +26,26 @@ public:
 	
 	Entity();
 
-	Entity(ENTITY_TYPE _type);
-
 	// Destructor
-	virtual ~Entity() {
+	virtual ~Entity() {}
 
-	}
+	// Called each loop iteration
+	virtual bool PreUpdate() {return true;}
+	virtual bool Update(float _dt) {return true;}
+	virtual bool PostUpdate() {return true;}
 
-	virtual bool PreUpdate() {
-		return true;
-	}
 
-
-	virtual void Draw() {
-
-	}
-
-	virtual bool Update(float dt) {
-		return true;
-	}
-
-	virtual bool PostUpdate() {
-		return true;
-	}
-
-	virtual bool Load(pugi::xml_node& node);
-	virtual bool Save(pugi::xml_node& node) const;
+	virtual bool Load(pugi::xml_node& _node);
+	virtual bool Save(pugi::xml_node& _node) const;
 	
+	// Called before quitting
+	virtual bool CleanUp() { return true;}
 
-	virtual bool CleanUp() { return true; };
+
+	virtual void Draw() {}
 
 	// we can change the Entity* by the id of that entity.
-	virtual void Skill(Entity* objective, int skill_id) {
+	virtual void Skill(Entity* _objective, int _skill_id) {
 
 	}
 
@@ -87,7 +61,6 @@ public:
 	Stats Default_States;
 	Stats Current_States;
 	Stats Modifiers;
-	ENTITY_TYPE type;
 	std::pair<float, float>  position;
 	Animation* current_animation = nullptr;
 	SDL_Texture* texture = nullptr;
@@ -104,7 +77,5 @@ protected:
 
 };
 
-
-
-#endif // !_ENTITY_H_
+#endif // !_Entity_H_
 

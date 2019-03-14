@@ -2,33 +2,31 @@
 #define __Enemy_H__
 
 #include "Animation.h"
-#include "Module.h"
 #include "Entity.h"
 
 class Enemy : public Entity
 {
 public:
-	Enemy(ENTITY_TYPE type);
+	Enemy() : Entity(){}
 
 	// Destructor
-	virtual ~Enemy();
+	virtual ~Enemy() {}
 
 	// Called before the first frame
-	virtual bool Start();
+	virtual bool Start() { return false; }
 
 	// Called each loop iteration
-	virtual bool PreUpdate();
-	virtual bool Update(float dt);
-	virtual bool PostUpdate();
+	virtual bool PreUpdate() { return false; }
+	virtual bool Update(float _dt) { return false; }
+	virtual bool PostUpdate() { return false; }
 
 	// Called before quitting
-	virtual bool CleanUp();
+	virtual bool CleanUp() { return false; }
 
 	//Save and Load
-	virtual bool Load(pugi::xml_node&);
-	virtual bool Save(pugi::xml_node&) const;
-
+	virtual bool Load(pugi::xml_node&) { return false; }
+	virtual bool Save(pugi::xml_node&) const { return false; }
 
 };
 
-#endif // __ENEMY_H__
+#endif // !__Enemy_H__

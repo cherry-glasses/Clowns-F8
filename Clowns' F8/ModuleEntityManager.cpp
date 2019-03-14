@@ -1,6 +1,7 @@
 #include "Log.h"
 #include "Application.h"
 #include "ModuleEntityManager.h"
+#include "Enemy.h"
 
 
 ModuleEntityManager::ModuleEntityManager() : Module()
@@ -30,20 +31,20 @@ bool ModuleEntityManager::Start()
 // Called each loop iteration
 bool ModuleEntityManager::PreUpdate()
 {
-	/*for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
+	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
 		(*entity)->PreUpdate();
-	}*/
+	}
 
 	return true;
 }
 
 bool ModuleEntityManager::Update(float _dt)
 {
-	/*for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
+	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
 		(*entity)->Update(_dt);
-	}*/
+	}
 
 	return true;
 }
@@ -52,10 +53,10 @@ bool ModuleEntityManager::Update(float _dt)
 
 bool ModuleEntityManager::PostUpdate()
 {
-	/*for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
+	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
 		(*entity)->PostUpdate();
-	}*/
+	}
 
 	return true;
 }
@@ -63,12 +64,12 @@ bool ModuleEntityManager::PostUpdate()
 // Called before quitting
 bool ModuleEntityManager::CleanUp()
 {
-	/*for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
+	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
 		(*entity)->CleanUp();
 		entity = entities.erase(entity);
 	}
-	entities.clear();*/
+	entities.clear();
 
 	return true;
 }
@@ -85,31 +86,29 @@ bool ModuleEntityManager::Save(pugi::xml_node & _data) const
 	return true;
 }
 
-//bool ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
-//{
-//	std::string id = std::to_string(id_count);
-//	switch (type)
-//	{
-//	case EntityType::TROOP:
-//	{
-//		id += "_" + card->name;
-//		DynamicEntity* entity = new DynamicEntity();
-//		entity->SetCard(card);
-//		entities.push_back(entity);
-//	}
-//	break;
-//	case EntityType::BUILDING:
-//		//TODO
-//		break;
-//	}
-//
-//	id_count++;
-//
-//	return true;
-//}
-//
-//bool ModuleEntityManager::DeleteEntity(Entity * entity)
-//{
-//	entities.remove(entity);
-//	return true;
-//}
+Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
+{
+	Entity* tmp = nullptr;
+
+	switch (_type)
+	{
+	case ENTITY_TYPE::ENTITY_CHARACTER:
+		//TODO
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY:
+		tmp = new Enemy();
+		entities.push_back(tmp);
+		break;
+	case ENTITY_TYPE::ENTITY_BOSS:
+		//TODO
+		break;
+	}
+
+	return tmp;
+}
+
+bool ModuleEntityManager::DeleteEntity(Entity * entity)
+{
+	entities.remove(entity);
+	return true;
+}
