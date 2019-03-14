@@ -52,6 +52,7 @@ private:
 public:
 
 	bool game_start = false;
+	bool map_loaded = false;
 	GUIImage* cherry_glasses_logo = nullptr;
 	GUIButton* new_game_button = nullptr;
 	GUIButton* load_game_button = nullptr;

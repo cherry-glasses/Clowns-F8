@@ -4,6 +4,7 @@
 #include "ModuleGUIManager.h"
 #include "GUIImage.h"
 #include "GUIButton.h"
+#include "ModuleMap.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 
@@ -67,6 +68,15 @@ bool Scene::Update(float _dt)
 	{
 		ShellExecuteA(NULL, "open", "https://github.com/cherry-glasses/Clowns-F8/wiki", NULL, NULL, SW_SHOWNORMAL);
 	}
+	if (game_start) {
+		if (!map_loaded) {
+			map_loaded = true;
+			App->map->Load("iso_walk.tmx");
+		}
+
+
+	}
+	App->map->Draw();
 	return ret;
 }
 
