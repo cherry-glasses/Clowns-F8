@@ -31,7 +31,7 @@
   </gui>
   
   <map>
-    <folder>maps/</folder>
+    <folder>Assets/Maps/</folder>
     <parallax_speed value="1"/>
   </map>
   

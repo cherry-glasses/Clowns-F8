@@ -1,37 +1,36 @@
-//#ifndef __GUILabel_H__
-//#define __GUILabel_H__
+//#ifndef __guilabel_h__
+//#define __guilabel_h__
 //
 //#include "GUIElement.h"
 //#include "ModuleFonts.h"
-//#include "p2SString.h"
 //#include "ModuleTextures.h"
 //
 //#include "SDL/include/SDL_pixels.h"
 //
-//struct _TTF_Font;
-//struct SDL_Texture;
+//struct _ttf_font;
+//struct sdl_texture;
 //
 //class GUILabel : public GUIElement
 //{
 //public:
-//	GUILabel(int x, int y, p2SString text, SDL_Color color, _TTF_Font* font, GUIElement* son);
+//	GUILabel(int x, int y, std::string text, SDL_Color color, _ttf_font* font, GUIElement* son);
 //	~GUILabel()
 //	{
-//		App->textures->Unload(tex);
+//		App->textures->UnLoad(tex);
 //	};
 //
 //	void Update(float dt);
 //	void DrawLabel();
 //
-//	void SetText(p2SString text);
-//	void AddChar(p2SString c);
+//	void SetText(std::string text);
+//	void AddChar(std::string c);
 //	void DeleteLastChar();
 //
 //public:
-//	_TTF_Font* font = nullptr;
+//	_ttf_font* font = nullptr;
 //	SDL_Texture* tex = nullptr;
-//	p2SString text;
+//	std::string text;
 //	SDL_Color color;
 //};
 //
-//#endif // __GUILabel_H__
+//#endif // __guilabel_h__
