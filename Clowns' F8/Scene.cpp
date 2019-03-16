@@ -32,11 +32,9 @@ bool Scene::Awake(pugi::xml_node& _config)
 // Called before the first frame
 bool Scene::Start()
 {
-	if (!game_start)
-	{
-		main_menu_background = App->textures->Load("Assets/Sprites/UI/main_menu_bg.png");
-		CreateMainMenu();
-	}
+	main_menu_background = App->textures->Load("Assets/Sprites/UI/main_menu_bg.png");
+	CreateMainMenu();
+	
 	return true;
 }
 
@@ -51,31 +49,40 @@ bool Scene::PreUpdate()
 bool Scene::Update(float _dt)
 {
 	bool ret = true;
-	if (!game_start)
+
+	switch (current_scene)
 	{
+	case Scene::MAIN_MENU:
 		App->render->Blit(main_menu_background, 160, 0);
-		if (exit_button->has_been_clicked)
-		{
-			ret = false;
-		}
+		
 		if (new_game_button->has_been_clicked)
 		{
-			game_start = true;
+			current_scene = GLOBAL_MAP;
 			DeleteMainMenu();
+		}else if (credits_button->has_been_clicked)
+		{
+
+		}else if (exit_button->has_been_clicked)
+		{
+			ret = false;
+		}else if (cherry_glasses_logo != nullptr && cherry_glasses_logo->has_been_clicked)
+		{
+			ShellExecuteA(NULL, "open", "https://github.com/cherry-glasses/Clowns-F8/wiki", NULL, NULL, SW_SHOWNORMAL);
 		}
-	}
-	if (cherry_glasses_logo != nullptr && cherry_glasses_logo->has_been_clicked)
-	{
-		ShellExecuteA(NULL, "open", "https://github.com/cherry-glasses/Clowns-F8/wiki", NULL, NULL, SW_SHOWNORMAL);
-	}
-	if (game_start) {
+
+		break;
+	case Scene::GLOBAL_MAP:
 		if (!map_loaded) {
 			map_loaded = true;
 			App->map->Load("iso_walk.tmx");
 		}
-
-
+		break;
+	case Scene::FIRST_BATTLE:
+		break;
+	default:
+		break;
 	}
+	
 	App->map->Draw();
 	return ret;
 }
