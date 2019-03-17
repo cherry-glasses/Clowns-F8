@@ -10,7 +10,7 @@
 #include "ModuleFadeToBlack.h"
 #include "Scene.h"
 #include "ModuleEntityManager.h"
-//#include "ModuleGUIManager.h"
+#include "ModuleGUIManager.h"
 
 
 #include "SDL\include\SDL_timer.h"
@@ -28,7 +28,7 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	fade_to_black = new ModuleFadeToBlack();
 	scene = new Scene();
 	entity_manager = new ModuleEntityManager();
-	//gui_manager = new ModuleGUIManager();
+	gui_manager = new ModuleGUIManager();
 	
 
 	// Ordered for awake / Start / Update
@@ -42,7 +42,7 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	AddModule(fade_to_black);
 	AddModule(scene);
 	AddModule(entity_manager);
-	//AddModule(gui_manager);
+	AddModule(gui_manager);
 
 	// render last to swap buffer
 	AddModule(render);

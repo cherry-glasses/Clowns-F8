@@ -2,7 +2,15 @@
 #define __ModuleEntityManager_H__
 
 #include "Module.h"
+#include "Entity.h"
 
+enum class ENTITY_TYPE
+{
+	ENTITY_CHARACTER,
+	ENTITY_ENEMY,
+	ENTITY_BOSS,
+	NO_TYPE
+};
 
 class ModuleEntityManager : public Module
 {
@@ -29,10 +37,12 @@ public:
 	// Load / Save
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
-	//bool CreateEntity(ENTITY_TYPE type);
-	//bool DeleteEntity(Entity* entity);
+
+	// Entity Manager
+	Entity* CreateEntity(ENTITY_TYPE type);
+	bool DeleteEntity(Entity* entity);
 
 private:
-	//std::list<Entity*> entities;
+	std::list<Entity*> entities;
 };
-#endif // __ModuleEntityManager_H__
+#endif // !__ModuleEntityManager_H__
