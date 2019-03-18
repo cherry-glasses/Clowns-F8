@@ -13,13 +13,13 @@ public:
 
 	void Click();
 
-	SDL_Rect initial_area;
+public:
 
+	SDL_Rect initial_area;
 	SDL_Rect img_area_hover;
 	SDL_Rect img_area_pressed;
 
 	bool has_been_clicked = false;
-	bool can_change = true;
 };
 
 #endif // __GUIButton_H__
