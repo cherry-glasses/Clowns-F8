@@ -2,6 +2,7 @@
 #define __SCENE_H__
 
 #include "Module.h"
+#include <vector>
 
 class GUIImage;
 class GUIButton;
@@ -46,6 +47,10 @@ private:
 	void CreateMainMenu();
 	void DeleteMainMenu();
 
+	void SelectUp();
+	void SelectDown();
+	void Select();
+
 private:
 	SDL_Texture* main_menu_background = nullptr;
 	enum SCENES { MAIN_MENU, GLOBAL_MAP, FIRST_BATTLE };
@@ -61,7 +66,11 @@ public:
 	GUIButton* options_button = nullptr;
 	GUIButton* credits_button = nullptr;
 	GUIButton* exit_button = nullptr;
-	
+
+	GUIButton* selected_button = nullptr;
+	std::vector<GUIButton*> buttons;
+
+	bool exitpressed = false;
 };
 
 #endif //_SCENE_H_

@@ -3,6 +3,18 @@
 
 #include "GUIElement.h"
 
+enum STATE
+{
+
+	NONE,
+	NORMAL,
+	SELECTED,
+	PRESSED
+
+
+};
+
+
 class GUIButton : public GUIElement
 {
 public:
@@ -13,6 +25,8 @@ public:
 
 	void Click();
 
+	void Select(STATE press);
+
 public:
 
 	SDL_Rect initial_area;
@@ -20,6 +34,8 @@ public:
 	SDL_Rect img_area_pressed;
 
 	bool has_been_clicked = false;
+
+	STATE current_state = NONE;
 };
 
 #endif // __GUIButton_H__

@@ -13,6 +13,7 @@ GUIButton::GUIButton(int x, int y, SDL_Rect image_area, SDL_Rect image_area_hove
 
 	img_area_hover = image_area_hover;
 	img_area_pressed = image_area_pressed;
+	current_state = STATE::NORMAL;
 }
 
 void GUIButton::Update(float dt)
@@ -26,7 +27,8 @@ void GUIButton::Click()
 	int x, y;
 	App->input->GetMousePosition(x, y);
 
-	if (x > position.first && x < position.first + initial_area.w && y > position.second && y < position.second + initial_area.h)
+
+	if (x > position.first && x < position.first + initial_area.w && y > position.second && y < position.second + initial_area.h )
 	{
 		if (App->input->GetMouseButtonDown(1) == SDL_PRESSED)
 		{
@@ -43,5 +45,26 @@ void GUIButton::Click()
 	else
 	{
 		area = initial_area;
+	}
+}
+//new_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 400.0f, { 0, 62, 178, 62 }, { 0, 186, 178, 62 }, { 0, 310, 178, 62 });
+void GUIButton::Select(STATE press) {
+
+	switch (press)
+	{
+	case NORMAL:
+		area = initial_area;
+		current_state = STATE::NORMAL;
+		break;
+
+	case PRESSED:
+		area = img_area_pressed;
+		current_state = STATE::PRESSED;
+		break;
+	case SELECTED:
+		area = img_area_hover;
+		current_state = STATE::SELECTED;
+		break;
+
 	}
 }
