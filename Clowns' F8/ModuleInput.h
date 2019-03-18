@@ -22,6 +22,29 @@ enum KEY_STATE
 	KEY_UP
 };
 
+enum CONTROLLER_STATE
+{
+	BUTTON_IDLE = 0,
+	BUTTON_DOWN,
+	BUTTON_REPEAT,
+	BUTTON_UP
+};
+
+struct Gamepad 
+{
+	CONTROLLER_STATE A;
+	CONTROLLER_STATE B;
+	CONTROLLER_STATE Y;
+	CONTROLLER_STATE X;
+	CONTROLLER_STATE START;
+	CONTROLLER_STATE DPAD_UP;
+	CONTROLLER_STATE DPAD_DOWN;
+	CONTROLLER_STATE DPAD_LEFT;
+	CONTROLLER_STATE DPAD_RIGHT;
+	std::pair<float, float> left_joystick;
+};
+
+
 class ModuleInput : public Module
 {
 public:
@@ -60,6 +83,7 @@ public:
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
+	void InputGamepad();
 
 private:
 	bool		windowEvents[EW_COUNT];
@@ -69,6 +93,8 @@ private:
 	int			mouse_motion_y;
 	int			mouse_x;
 	int			mouse_y;
+
+	int time = 0;
 };
 
 #endif // __ModuleInput_H__
