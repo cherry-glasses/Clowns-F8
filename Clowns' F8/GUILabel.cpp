@@ -4,9 +4,9 @@
 //#include "GUILabel.h"
 //#include "ModuleRender.h"
 //
-////#include "SDL_ttf/include/SDL_ttf.h"
+//#include "SDL_ttf/include/SDL_ttf.h"
 //
-//GUILabel::GUILabel(int x, int y, p2SString text, SDL_Color color, _TTF_Font* font, GUIElement* son) : GUIElement(type, x, y, area, son)
+//GUILabel::GUILabel(int x, int y, std::string text, SDL_Color color, _TTF_Font* font, GUIElement* son) : GUIElement(type, x, y, area, son)
 //{
 //	type = GUI_ELEMENT_TYPE::GUI_LABEL;
 //
@@ -24,8 +24,8 @@
 //	area.x = 0;
 //	area.y = 0;
 //
-//	position.x = x;
-//	position.y = y;
+//	position.first = x;
+//	position.second = y;
 //}
 //
 //void GUILabel::Update(float dt)
@@ -35,11 +35,11 @@
 //
 //void GUILabel::DrawLabel()
 //{
-//	App->render->Blit(tex, position.x, position.y, &area, 0.0f);
+//	App->render->Blit(tex, position.first, position.second, &area, 0.0f);
 //}
 //
 //// Note: see SDL_RenderSetClip() for clipping
-//void GUILabel::SetText(p2SString text)
+//void GUILabel::SetText(std::string text)
 //{
 //	this->text = text;
 //

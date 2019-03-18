@@ -21,7 +21,7 @@ class ModuleMap;
 class ModuleFadeToBlack;
 class Scene;
 class ModuleEntityManager;
-//class ModuleGUIManager;
+class ModuleGUIManager;
 
 
 
@@ -98,7 +98,7 @@ public:
 	ModuleFadeToBlack* fade_to_black = nullptr;
 	Scene* scene = nullptr;
 	ModuleEntityManager* entity_manager = nullptr;
-	//ModuleGUIManager* gui_manager = nullptr;
+	ModuleGUIManager* gui_manager = nullptr;
 
 private:
 

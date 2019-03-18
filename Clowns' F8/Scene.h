@@ -3,6 +3,10 @@
 
 #include "Module.h"
 
+class GUIImage;
+class GUIButton;
+struct SDL_Texture;
+
 class Scene : public Module {
 
 
@@ -38,6 +42,26 @@ public:
 	//Save
 	bool Save(pugi::xml_node& data) const;
 
+private:
+	void CreateMainMenu();
+	void DeleteMainMenu();
+
+private:
+	SDL_Texture* main_menu_background = nullptr;
+	enum SCENES { MAIN_MENU, GLOBAL_MAP, FIRST_BATTLE };
+
+	SCENES current_scene = MAIN_MENU;
+
+public:
+
+	bool map_loaded = false;
+	GUIImage* cherry_glasses_logo = nullptr;
+	GUIButton* new_game_button = nullptr;
+	GUIButton* load_game_button = nullptr;
+	GUIButton* options_button = nullptr;
+	GUIButton* credits_button = nullptr;
+	GUIButton* exit_button = nullptr;
+	
 };
 
 #endif //_SCENE_H_
