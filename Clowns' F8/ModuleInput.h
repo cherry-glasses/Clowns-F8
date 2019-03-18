@@ -2,6 +2,8 @@
 #define __ModuleInput_H__
 
 #include "Module.h"
+#include "SDL\include\SDL_scancode.h"
+#include "SDL/include/SDL.h"
 
 #define NUM_MOUSE_BUTTONS 5
 #define MAX_KEYS 300
@@ -80,20 +82,34 @@ public:
 		return mouse_buttons[_id - 1];
 	}
 
+
+
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
 	void InputGamepad();
+	Gamepad gamepad;
+
+	bool joystick_up;
+	bool joystick_down;
+	bool joystick_left;
+	bool joystick_right;
+
+	bool joystick_left_repeat;
+	bool joystick_right_repeat;
+
 
 private:
 	bool		windowEvents[EW_COUNT];
 	KEY_STATE*	keyboard;
 	KEY_STATE	mouse_buttons[NUM_MOUSE_BUTTONS];
+
 	int			mouse_motion_x;
 	int			mouse_motion_y;
 	int			mouse_x;
 	int			mouse_y;
 
+	SDL_GameController* controller;
 	int time = 0;
 };
 
