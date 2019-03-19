@@ -1,5 +1,4 @@
 #include "Log.h"
-#include "Scene.h"
 #include "Application.h"
 #include "ModuleGUIManager.h"
 #include "GUIImage.h"
@@ -8,6 +7,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleInput.h"
+#include "Scene.h"
 
 Scene::Scene() : Module()
 {
@@ -33,7 +33,7 @@ bool Scene::Awake(pugi::xml_node& _config)
 bool Scene::Start()
 {
 	main_menu_background = App->textures->Load("Assets/Sprites/UI/main_menu_bg.png");
-	CreateMainMenu();
+	
 	
 	return true;
 }
@@ -54,38 +54,48 @@ bool Scene::Update(float _dt)
 	{
 	case Scene::MAIN_MENU:
 
+		if (!main_menu_created) {
+			main_menu_created = true;
+			CreateMainMenu();
+		}
 		App->render->Blit(main_menu_background, 160, 0);
 		
 		if (new_game_button->has_been_clicked)
 		{
 			current_scene = GLOBAL_MAP;
 			DeleteMainMenu();
-		}else if (credits_button->has_been_clicked )
+		}
+		else if (load_game_button->has_been_clicked)
 		{
-
-		}else if (exit_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+			current_scene = GLOBAL_MAP;
+			DeleteMainMenu();
+		}
+		else if (options_button->has_been_clicked)
+		{
+			current_scene = GLOBAL_MAP;
+			DeleteMainMenu();
+		}
+		else if (credits_button->has_been_clicked )
+		{
+			current_scene = GLOBAL_MAP;
+			DeleteMainMenu();
+		}
+		else if (exit_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
 			ret = false;
-		}else if (cherry_glasses_logo != nullptr && cherry_glasses_logo->has_been_clicked)
+		}
+		else if (cherry_glasses_logo != nullptr && cherry_glasses_logo->has_been_clicked)
 		{
 			ShellExecuteA(NULL, "open", "https://github.com/cherry-glasses/Clowns-F8/wiki", NULL, NULL, SW_SHOWNORMAL);
 		}
 		
-		if (exitpressed == true)
-		{
-			ret = false;
-		}
 		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->gamepad.CROSS_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN)
 		{
-			NavigateDown(buttons);
-			
-
+			NavigateDown();
 		}
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN)
 		{
-			NavigateUp(buttons);
-			
-
+			NavigateUp();
 		}
 		
 
@@ -93,7 +103,12 @@ bool Scene::Update(float _dt)
 	case Scene::GLOBAL_MAP:
 		if (!map_loaded) {
 			map_loaded = true;
+			main_menu_created = false;
 			App->map->Load("iso_walk.tmx");
+		}
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		{
+			ret = false;
 		}
 		break;
 	case Scene::FIRST_BATTLE:
@@ -187,11 +202,12 @@ void Scene::DeleteMainMenu()
 	}
 }
 
-void Scene::NavigateDown(std::vector<GUIButton*> &current_vector) {
-	std::vector<GUIButton*>::const_iterator it_vector = current_vector.begin();
-	while (it_vector != current_vector.end()) {
+void Scene::NavigateDown() 
+{
+	for (std::list<GUIButton*>::const_iterator it_vector = buttons.begin(); it_vector != buttons.end(); ++it_vector)
+	{
 		if ((*it_vector)->current_state == SELECTED) {
-			if ((*it_vector) != current_vector.back()) {
+			if ((*it_vector) != buttons.back()) {
 				(*it_vector)->Select(NORMAL);
 				it_vector++;
 				(*it_vector)->Select(SELECTED);
@@ -200,35 +216,33 @@ void Scene::NavigateDown(std::vector<GUIButton*> &current_vector) {
 			else
 			{
 				(*it_vector)->Select(NORMAL);
-				it_vector = current_vector.begin();
+				it_vector = buttons.begin();
 				(*it_vector)->Select(SELECTED);
-				
 			}
 		}
-		it_vector++;
 	}
 }
 
-void Scene::NavigateUp(std::vector<GUIButton*> &current_vector) {
-	std::vector<GUIButton*>::const_iterator it_vector = current_vector.begin();
-	while (it_vector != current_vector.end()) {
+void Scene::NavigateUp() 
+{
+	for (std::list<GUIButton*>::const_iterator it_vector = buttons.begin(); it_vector != buttons.end(); ++it_vector)
+	{
 		if ((*it_vector)->current_state == SELECTED) {
-			if ((*it_vector) != current_vector.front()) {
+			if ((*it_vector) != buttons.front()) {
 				(*it_vector)->Select(NORMAL);
 				it_vector--;
 				(*it_vector)->Select(SELECTED);
-				
+
 				break;
 			}
 			else
 			{
 				(*it_vector)->Select(NORMAL);
-				it_vector = current_vector.end() - 1;
+				it_vector = buttons.end();
+				it_vector--;
 				(*it_vector)->Select(SELECTED);
-			
 			}
 		}
-		it_vector++;
 	}
 }
 
