@@ -75,16 +75,17 @@ bool Scene::Update(float _dt)
 		{
 			ret = false;
 		}
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN )
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->gamepad.CROSS_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN)
 		{
 			NavigateDown(buttons);
 			
 
 		}
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN )
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN)
 		{
 			NavigateUp(buttons);
 			
+
 		}
 		
 

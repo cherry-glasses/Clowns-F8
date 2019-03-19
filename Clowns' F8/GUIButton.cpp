@@ -53,7 +53,7 @@ void GUIButton::Click()
 			area = initial_area;
 		}
 	}
-	if (current_state == SELECTED && App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || App->input->gamepad.A == BUTTON_DOWN)
+	if (current_state == SELECTED && (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || App->input->gamepad.A == BUTTON_DOWN))
 	{
 		Select(PRESSED);
 
