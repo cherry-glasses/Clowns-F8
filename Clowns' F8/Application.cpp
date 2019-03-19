@@ -127,6 +127,11 @@ bool Application::Update()
 {
 	bool ret = true;
 
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		debug = !debug;
+	}
+
 	PrepareUpdate();
 
 	if (want_to_quit == true)
@@ -140,6 +145,8 @@ bool Application::Update()
 
 	if (ret == true)
 		ret = PostUpdate();
+
+
 
 	FinishUpdate();
 

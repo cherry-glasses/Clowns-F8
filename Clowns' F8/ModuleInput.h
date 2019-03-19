@@ -2,6 +2,8 @@
 #define __ModuleInput_H__
 
 #include "Module.h"
+#include "SDL\include\SDL_scancode.h"
+#include "SDL/include/SDL.h"
 
 #define NUM_MOUSE_BUTTONS 5
 #define MAX_KEYS 300
@@ -21,6 +23,44 @@ enum KEY_STATE
 	KEY_REPEAT,
 	KEY_UP
 };
+
+enum CONTROLLER_STATE
+{
+	BUTTON_IDLE = 0,
+	BUTTON_DOWN,
+	BUTTON_REPEAT,
+	BUTTON_UP
+};
+
+enum GAMEPAD_STATE
+{
+	PAD_BUTTON_IDLE = 0,
+	PAD_BUTTON_DOWN,
+	PAD_BUTTON_REPEAT,
+	PAD_BUTTON_KEY_UP
+};
+
+struct Gamepad {
+
+	GAMEPAD_STATE A = PAD_BUTTON_IDLE;
+	GAMEPAD_STATE B;
+	GAMEPAD_STATE Y;
+	GAMEPAD_STATE X;
+
+	GAMEPAD_STATE CROSS_UP;
+	GAMEPAD_STATE CROSS_DOWN;
+	GAMEPAD_STATE CROSS_LEFT;
+	GAMEPAD_STATE CROSS_RIGHT;
+
+	GAMEPAD_STATE JOYSTICK_UP;
+	GAMEPAD_STATE JOYSTICK_DOWN;
+	GAMEPAD_STATE JOYSTICK_LEFT;
+	GAMEPAD_STATE JOYSTICK_RIGHT;
+
+	GAMEPAD_STATE START;
+
+};
+
 
 class ModuleInput : public Module
 {
@@ -57,18 +97,45 @@ public:
 		return mouse_buttons[_id - 1];
 	}
 
+
+	GAMEPAD_STATE GetGamepadButton(int key)
+	{
+		if (key == 0)
+			return gamepad.A;
+		else if (key == 1)
+			return gamepad.B;
+		else if (key == 2)
+			return gamepad.Y;
+		else if (key == 3)
+			return gamepad.X;
+
+	}
+
+
+
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
+
+	Gamepad gamepad;
+	void buttonForGamepad();
+
+	
+
+
 
 private:
 	bool		windowEvents[EW_COUNT];
 	KEY_STATE*	keyboard;
 	KEY_STATE	mouse_buttons[NUM_MOUSE_BUTTONS];
+
 	int			mouse_motion_x;
 	int			mouse_motion_y;
 	int			mouse_x;
 	int			mouse_y;
+
+	SDL_GameController* controller;
+	SDL_Joystick *joystick;
 };
 
 #endif // __ModuleInput_H__

@@ -100,6 +100,8 @@ public:
 	ModuleEntityManager* entity_manager = nullptr;
 	ModuleGUIManager* gui_manager = nullptr;
 
+	bool debug = false;
+
 private:
 
 	ModuleList			modules;
@@ -123,6 +125,8 @@ private:
 	uint32				last_sec_frame_count = 0;
 	uint32				prev_last_sec_frame_count = 0;
 	float				seconds_since_startup;
+
+
 
 };
 

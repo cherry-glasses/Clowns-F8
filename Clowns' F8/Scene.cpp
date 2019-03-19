@@ -7,7 +7,7 @@
 #include "ModuleMap.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-
+#include "ModuleInput.h"
 
 Scene::Scene() : Module()
 {
@@ -53,22 +53,41 @@ bool Scene::Update(float _dt)
 	switch (current_scene)
 	{
 	case Scene::MAIN_MENU:
+
 		App->render->Blit(main_menu_background, 160, 0);
 		
 		if (new_game_button->has_been_clicked)
 		{
 			current_scene = GLOBAL_MAP;
 			DeleteMainMenu();
-		}else if (credits_button->has_been_clicked)
+		}else if (credits_button->has_been_clicked )
 		{
 
-		}else if (exit_button->has_been_clicked)
+		}else if (exit_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
 			ret = false;
 		}else if (cherry_glasses_logo != nullptr && cherry_glasses_logo->has_been_clicked)
 		{
 			ShellExecuteA(NULL, "open", "https://github.com/cherry-glasses/Clowns-F8/wiki", NULL, NULL, SW_SHOWNORMAL);
 		}
+		
+		if (exitpressed == true)
+		{
+			ret = false;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->gamepad.CROSS_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN)
+		{
+			NavigateDown(buttons);
+			
+
+		}
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN)
+		{
+			NavigateUp(buttons);
+			
+
+		}
+		
 
 		break;
 	case Scene::GLOBAL_MAP:
@@ -117,12 +136,21 @@ bool Scene::Save(pugi::xml_node& _data) const
 
 void Scene::CreateMainMenu()
 {
+
 	new_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 400.0f, { 0, 62, 178, 62 }, { 0, 186, 178, 62 }, { 0, 310, 178, 62 });
+	buttons.push_back(new_game_button);
 	load_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 500.0f, { 356, 0, 178, 62 }, { 356, 124, 178, 62 }, { 356, 248, 178, 62 });
+	buttons.push_back(load_game_button);
 	options_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 600.0f, { 178, 62, 178, 62 }, { 178, 186, 178, 62 }, { 178, 310, 178, 62 });
+	buttons.push_back(options_button);
 	credits_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 700.0f, { 178, 0, 178, 62 }, { 178, 124, 178, 62 }, { 178, 248, 178, 62 });
+	buttons.push_back(credits_button);
 	exit_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 800.0f, { 0, 0, 178, 62 }, { 0, 124, 178, 62 }, { 0, 248, 178, 62 });
+	buttons.push_back(exit_button);
 	cherry_glasses_logo = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1050.0f, 800.0f, { 0, 0, 178, 101 });
+	
+	new_game_button->Select(SELECTED);
+
 }
 
 void Scene::DeleteMainMenu()
@@ -158,3 +186,50 @@ void Scene::DeleteMainMenu()
 		exit_button = nullptr;
 	}
 }
+
+void Scene::NavigateDown(std::vector<GUIButton*> &current_vector) {
+	std::vector<GUIButton*>::const_iterator it_vector = current_vector.begin();
+	while (it_vector != current_vector.end()) {
+		if ((*it_vector)->current_state == SELECTED) {
+			if ((*it_vector) != current_vector.back()) {
+				(*it_vector)->Select(NORMAL);
+				it_vector++;
+				(*it_vector)->Select(SELECTED);
+				break;
+			}
+			else
+			{
+				(*it_vector)->Select(NORMAL);
+				it_vector = current_vector.begin();
+				(*it_vector)->Select(SELECTED);
+				
+			}
+		}
+		it_vector++;
+	}
+}
+
+void Scene::NavigateUp(std::vector<GUIButton*> &current_vector) {
+	std::vector<GUIButton*>::const_iterator it_vector = current_vector.begin();
+	while (it_vector != current_vector.end()) {
+		if ((*it_vector)->current_state == SELECTED) {
+			if ((*it_vector) != current_vector.front()) {
+				(*it_vector)->Select(NORMAL);
+				it_vector--;
+				(*it_vector)->Select(SELECTED);
+				
+				break;
+			}
+			else
+			{
+				(*it_vector)->Select(NORMAL);
+				it_vector = current_vector.end() - 1;
+				(*it_vector)->Select(SELECTED);
+			
+			}
+		}
+		it_vector++;
+	}
+}
+
+
