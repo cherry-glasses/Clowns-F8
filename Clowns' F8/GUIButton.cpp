@@ -59,6 +59,7 @@ void GUIButton::Select(STATE press)
 	{
 	case NORMAL:
 		area = initial_area;
+		has_been_clicked = false;
 		current_state = STATE::NORMAL;
 		break;
 	case PRESSED:
