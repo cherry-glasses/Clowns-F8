@@ -2,7 +2,6 @@
 #define __SCENE_H__
 
 #include "Module.h"
-#include <vector>
 
 class GUIImage;
 class GUIButton;
@@ -12,7 +11,6 @@ class Scene : public Module {
 
 
 public:
-
 
 	Scene();
 
@@ -47,11 +45,8 @@ private:
 	void CreateMainMenu();
 	void DeleteMainMenu();
 
-	void NavigateDown(std::vector<GUIButton*> &current_vector);
-	void NavigateUp(std::vector<GUIButton*> &current_vector);
-
-
-
+	void NavigateDown();
+	void NavigateUp();
 
 private:
 	SDL_Texture* main_menu_background = nullptr;
@@ -59,23 +54,17 @@ private:
 
 	SCENES current_scene = MAIN_MENU;
 
-public:
-
+	bool main_menu_created = false;
 	bool map_loaded = false;
-	GUIButton* cherry_glasses_logo = nullptr;
+
+	GUIImage* cherry_glasses_logo = nullptr;
 	GUIButton* new_game_button = nullptr;
 	GUIButton* load_game_button = nullptr;
 	GUIButton* options_button = nullptr;
 	GUIButton* credits_button = nullptr;
 	GUIButton* exit_button = nullptr;
 
-	GUIButton* selected_button = nullptr;
-	std::vector<GUIButton*> buttons;
-
-	bool exitpressed = false;
-
-
-	int key_select = -1;
+	std::list<GUIButton*> buttons;
 
 };
 

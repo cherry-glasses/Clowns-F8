@@ -1,5 +1,4 @@
 #include "Log.h"
-#include "Scene.h"
 #include "Application.h"
 #include "ModuleGUIManager.h"
 #include "GUIImage.h"
@@ -8,6 +7,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleInput.h"
+#include "Scene.h"
 
 Scene::Scene() : Module()
 {
@@ -33,7 +33,7 @@ bool Scene::Awake(pugi::xml_node& _config)
 bool Scene::Start()
 {
 	main_menu_background = App->textures->Load("Assets/Sprites/UI/main_menu_bg.png");
-	CreateMainMenu();
+	
 	
 	return true;
 }
@@ -54,6 +54,10 @@ bool Scene::Update(float _dt)
 	{
 	case Scene::MAIN_MENU:
 
+		if (!main_menu_created) {
+			main_menu_created = true;
+			CreateMainMenu();
+		}
 		App->render->Blit(main_menu_background, 160, 0);
 		
 		if (new_game_button->has_been_clicked)
@@ -61,9 +65,20 @@ bool Scene::Update(float _dt)
 			current_scene = GLOBAL_MAP;
 			DeleteMainMenu();
 		}
+		else if (load_game_button->has_been_clicked)
+		{
+			current_scene = GLOBAL_MAP;
+			DeleteMainMenu();
+		}
+		else if (options_button->has_been_clicked)
+		{
+			current_scene = GLOBAL_MAP;
+			DeleteMainMenu();
+		}
 		else if (credits_button->has_been_clicked )
 		{
-
+			current_scene = GLOBAL_MAP;
+			DeleteMainMenu();
 		}
 		else if (exit_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
@@ -72,24 +87,15 @@ bool Scene::Update(float _dt)
 		else if (cherry_glasses_logo != nullptr && cherry_glasses_logo->has_been_clicked)
 		{
 			ShellExecuteA(NULL, "open", "https://github.com/cherry-glasses/Clowns-F8/wiki", NULL, NULL, SW_SHOWNORMAL);
-			cherry_glasses_logo->has_been_clicked = false;
 		}
 		
-		if (exitpressed == true)
-		{
-			ret = false;
-		}
 		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->gamepad.CROSS_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN)
 		{
-			NavigateDown(buttons);
-			
-
+			NavigateDown();
 		}
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN)
 		{
-			NavigateUp(buttons);
-			
-
+			NavigateUp();
 		}
 		
 
@@ -97,7 +103,12 @@ bool Scene::Update(float _dt)
 	case Scene::GLOBAL_MAP:
 		if (!map_loaded) {
 			map_loaded = true;
+			main_menu_created = false;
 			App->map->Load("iso_walk.tmx");
+		}
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		{
+			ret = false;
 		}
 		break;
 	case Scene::FIRST_BATTLE:
@@ -141,18 +152,18 @@ bool Scene::Save(pugi::xml_node& _data) const
 void Scene::CreateMainMenu()
 {
 
-	new_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 300.0f, { 0, 62, 178, 62 }, { 0, 186, 178, 62 }, { 0, 310, 178, 62 });
+	new_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 400.0f, { 0, 62, 178, 62 }, { 0, 186, 178, 62 }, { 0, 310, 178, 62 });
 	buttons.push_back(new_game_button);
-	load_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 400.0f, { 356, 0, 178, 62 }, { 356, 124, 178, 62 }, { 356, 248, 178, 62 });
+	load_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 500.0f, { 356, 0, 178, 62 }, { 356, 124, 178, 62 }, { 356, 248, 178, 62 });
 	buttons.push_back(load_game_button);
-	options_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 500.0f, { 178, 62, 178, 62 }, { 178, 186, 178, 62 }, { 178, 310, 178, 62 });
+	options_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 600.0f, { 178, 62, 178, 62 }, { 178, 186, 178, 62 }, { 178, 310, 178, 62 });
 	buttons.push_back(options_button);
-	credits_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 600.0f, { 178, 0, 178, 62 }, { 178, 124, 178, 62 }, { 178, 248, 178, 62 });
+	credits_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 700.0f, { 178, 0, 178, 62 }, { 178, 124, 178, 62 }, { 178, 248, 178, 62 });
 	buttons.push_back(credits_button);
-	exit_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 700.0f, { 0, 0, 178, 62 }, { 0, 124, 178, 62 }, { 0, 248, 178, 62 });
+	exit_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 800.0f, { 0, 0, 178, 62 }, { 0, 124, 178, 62 }, { 0, 248, 178, 62 });
 	buttons.push_back(exit_button);
-	cherry_glasses_logo = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 800.0f, { 356, 62, 178, 62 }, { 356, 186, 178, 62 }, { 356, 310, 178, 62 });
-	buttons.push_back(cherry_glasses_logo);
+	cherry_glasses_logo = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1050.0f, 800.0f, { 0, 0, 178, 101 });
+	
 	new_game_button->Select(SELECTED);
 
 }
@@ -191,11 +202,12 @@ void Scene::DeleteMainMenu()
 	}
 }
 
-void Scene::NavigateDown(std::vector<GUIButton*> &current_vector) {
-	std::vector<GUIButton*>::const_iterator it_vector = current_vector.begin();
-	while (it_vector != current_vector.end()) {
+void Scene::NavigateDown() 
+{
+	for (std::list<GUIButton*>::const_iterator it_vector = buttons.begin(); it_vector != buttons.end(); ++it_vector)
+	{
 		if ((*it_vector)->current_state == SELECTED) {
-			if ((*it_vector) != current_vector.back()) {
+			if ((*it_vector) != buttons.back()) {
 				(*it_vector)->Select(NORMAL);
 				it_vector++;
 				(*it_vector)->Select(SELECTED);
@@ -204,35 +216,33 @@ void Scene::NavigateDown(std::vector<GUIButton*> &current_vector) {
 			else
 			{
 				(*it_vector)->Select(NORMAL);
-				it_vector = current_vector.begin();
+				it_vector = buttons.begin();
 				(*it_vector)->Select(SELECTED);
-				
 			}
 		}
-		it_vector++;
 	}
 }
 
-void Scene::NavigateUp(std::vector<GUIButton*> &current_vector) {
-	std::vector<GUIButton*>::const_iterator it_vector = current_vector.begin();
-	while (it_vector != current_vector.end()) {
+void Scene::NavigateUp() 
+{
+	for (std::list<GUIButton*>::const_iterator it_vector = buttons.begin(); it_vector != buttons.end(); ++it_vector)
+	{
 		if ((*it_vector)->current_state == SELECTED) {
-			if ((*it_vector) != current_vector.front()) {
+			if ((*it_vector) != buttons.front()) {
 				(*it_vector)->Select(NORMAL);
 				it_vector--;
 				(*it_vector)->Select(SELECTED);
-				
+
 				break;
 			}
 			else
 			{
 				(*it_vector)->Select(NORMAL);
-				it_vector = current_vector.end() - 1;
+				it_vector = buttons.end();
+				it_vector--;
 				(*it_vector)->Select(SELECTED);
-			
 			}
 		}
-		it_vector++;
 	}
 }
 
