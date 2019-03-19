@@ -56,17 +56,17 @@ bool Scene::Update(float _dt)
 
 		App->render->Blit(main_menu_background, 160, 0);
 		
-		if (new_game_button->has_been_clicked)
+		if (new_game_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || App->input->gamepad.A == BUTTON_DOWN)
 		{
 			current_scene = GLOBAL_MAP;
 			DeleteMainMenu();
-		}else if (credits_button->has_been_clicked)
+		}else if (credits_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || App->input->gamepad.X == BUTTON_DOWN)
 		{
 
-		}else if (exit_button->has_been_clicked)
+		}else if (exit_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->gamepad.B == BUTTON_DOWN)
 		{
 			ret = false;
-		}else if (cherry_glasses_logo != nullptr && cherry_glasses_logo->has_been_clicked)
+		}else if (cherry_glasses_logo != nullptr && cherry_glasses_logo->has_been_clicked || App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || App->input->gamepad.Y == BUTTON_DOWN)
 		{
 			ShellExecuteA(NULL, "open", "https://github.com/cherry-glasses/Clowns-F8/wiki", NULL, NULL, SW_SHOWNORMAL);
 		}
@@ -75,7 +75,7 @@ bool Scene::Update(float _dt)
 		{
 			ret = false;
 		}
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->joystick_down || App->input->gamepad.DPAD_DOWN == CONTROLLER_STATE::BUTTON_DOWN)
+		/*if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->joystick_down || App->input->gamepad.DPAD_DOWN == CONTROLLER_STATE::BUTTON_DOWN)
 		{
 
 			SelectDown();
@@ -92,7 +92,7 @@ bool Scene::Update(float _dt)
 
 			Select();
 
-		}
+		}*/
 
 		break;
 	case Scene::GLOBAL_MAP:
