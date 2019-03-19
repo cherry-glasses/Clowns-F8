@@ -57,7 +57,7 @@ private:
 	bool main_menu_created = false;
 	bool map_loaded = false;
 
-	GUIImage* cherry_glasses_logo = nullptr;
+	GUIButton* cherry_glasses_logo = nullptr;
 	GUIButton* new_game_button = nullptr;
 	GUIButton* load_game_button = nullptr;
 	GUIButton* options_button = nullptr;
