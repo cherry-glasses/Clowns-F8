@@ -75,24 +75,24 @@ bool Scene::Update(float _dt)
 		{
 			ret = false;
 		}
-		/*if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->joystick_down || App->input->gamepad.DPAD_DOWN == CONTROLLER_STATE::BUTTON_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN )
 		{
 
 			SelectDown();
 
 		}
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->joystick_up || App->input->gamepad.DPAD_UP == CONTROLLER_STATE::BUTTON_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN || App->input->gamepad.JOYSTICK_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN)
 		{
 
 			SelectUp();
 
 		}
-		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || App->input->gamepad.A)
+		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || App->input->GetGamepadButton(key_select) == GAMEPAD_STATE::PAD_BUTTON_DOWN)
 		{
 
 			Select();
 
-		}*/
+		}
 
 		break;
 	case Scene::GLOBAL_MAP:

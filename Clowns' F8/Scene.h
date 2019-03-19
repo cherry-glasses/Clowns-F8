@@ -71,6 +71,10 @@ public:
 	std::vector<GUIButton*> buttons;
 
 	bool exitpressed = false;
+
+
+	int key_select = -1;
+
 };
 
 #endif //_SCENE_H_

@@ -32,18 +32,33 @@ enum CONTROLLER_STATE
 	BUTTON_UP
 };
 
-struct Gamepad 
+enum GAMEPAD_STATE
 {
-	CONTROLLER_STATE A;
-	CONTROLLER_STATE B;
-	CONTROLLER_STATE Y;
-	CONTROLLER_STATE X;
-	CONTROLLER_STATE START;
-	CONTROLLER_STATE DPAD_UP;
-	CONTROLLER_STATE DPAD_DOWN;
-	CONTROLLER_STATE DPAD_LEFT;
-	CONTROLLER_STATE DPAD_RIGHT;
-	std::pair<float, float> left_joystick;
+	PAD_BUTTON_IDLE = 0,
+	PAD_BUTTON_DOWN,
+	PAD_BUTTON_REPEAT,
+	PAD_BUTTON_KEY_UP
+};
+
+struct Gamepad {
+
+	GAMEPAD_STATE A = PAD_BUTTON_IDLE;
+	GAMEPAD_STATE B;
+	GAMEPAD_STATE Y;
+	GAMEPAD_STATE X;
+
+	GAMEPAD_STATE CROSS_UP;
+	GAMEPAD_STATE CROSS_DOWN;
+	GAMEPAD_STATE CROSS_LEFT;
+	GAMEPAD_STATE CROSS_RIGHT;
+
+	GAMEPAD_STATE JOYSTICK_UP;
+	GAMEPAD_STATE JOYSTICK_DOWN;
+	GAMEPAD_STATE JOYSTICK_LEFT;
+	GAMEPAD_STATE JOYSTICK_RIGHT;
+
+	GAMEPAD_STATE START;
+
 };
 
 
@@ -82,23 +97,31 @@ public:
 		return mouse_buttons[_id - 1];
 	}
 
-	
+
+	GAMEPAD_STATE GetGamepadButton(int key)
+	{
+		if (key == 0)
+			return gamepad.A;
+		else if (key == 1)
+			return gamepad.B;
+		else if (key == 2)
+			return gamepad.Y;
+		else if (key == 3)
+			return gamepad.X;
+
+	}
 
 
 
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
-	void InputGamepad();
+
 	Gamepad gamepad;
+	void buttonForGamepad();
 
-	bool joystick_up;
-	bool joystick_down;
-	bool joystick_left;
-	bool joystick_right;
+	
 
-	bool joystick_left_repeat;
-	bool joystick_right_repeat;
 
 
 private:
@@ -112,7 +135,7 @@ private:
 	int			mouse_y;
 
 	SDL_GameController* controller;
-	int time = 0;
+	SDL_Joystick *joystick;
 };
 
 #endif // __ModuleInput_H__
