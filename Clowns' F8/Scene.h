@@ -47,9 +47,11 @@ private:
 	void CreateMainMenu();
 	void DeleteMainMenu();
 
-	void SelectUp();
-	void SelectDown();
-	void Select();
+	void NavigateDown(std::vector<GUIButton*> &current_vector);
+	void NavigateUp(std::vector<GUIButton*> &current_vector);
+
+
+
 
 private:
 	SDL_Texture* main_menu_background = nullptr;

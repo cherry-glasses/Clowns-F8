@@ -6,7 +6,7 @@
 enum STATE
 {
 
-	NONE,
+	
 	NORMAL,
 	SELECTED,
 	PRESSED
@@ -35,7 +35,7 @@ public:
 
 	bool has_been_clicked = false;
 
-	STATE current_state = NONE;
+	STATE current_state = NORMAL;
 };
 
 #endif // __GUIButton_H__

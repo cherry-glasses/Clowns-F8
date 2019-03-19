@@ -56,17 +56,17 @@ bool Scene::Update(float _dt)
 
 		App->render->Blit(main_menu_background, 160, 0);
 		
-		if (new_game_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || App->input->gamepad.A == BUTTON_DOWN)
+		if (new_game_button->has_been_clicked)
 		{
 			current_scene = GLOBAL_MAP;
 			DeleteMainMenu();
-		}else if (credits_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN || App->input->gamepad.X == BUTTON_DOWN)
+		}else if (credits_button->has_been_clicked )
 		{
 
-		}else if (exit_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->input->gamepad.B == BUTTON_DOWN)
+		}else if (exit_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
 			ret = false;
-		}else if (cherry_glasses_logo != nullptr && cherry_glasses_logo->has_been_clicked || App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || App->input->gamepad.Y == BUTTON_DOWN)
+		}else if (cherry_glasses_logo != nullptr && cherry_glasses_logo->has_been_clicked)
 		{
 			ShellExecuteA(NULL, "open", "https://github.com/cherry-glasses/Clowns-F8/wiki", NULL, NULL, SW_SHOWNORMAL);
 		}
@@ -77,22 +77,16 @@ bool Scene::Update(float _dt)
 		}
 		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN )
 		{
-
-			SelectDown();
+			NavigateDown(buttons);
+			
 
 		}
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN || App->input->gamepad.JOYSTICK_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN )
 		{
-
-			SelectUp();
-
+			NavigateUp(buttons);
+			
 		}
-		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || App->input->GetGamepadButton(key_select) == GAMEPAD_STATE::PAD_BUTTON_DOWN)
-		{
-
-			Select();
-
-		}
+		
 
 		break;
 	case Scene::GLOBAL_MAP:
@@ -145,17 +139,16 @@ void Scene::CreateMainMenu()
 	new_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 400.0f, { 0, 62, 178, 62 }, { 0, 186, 178, 62 }, { 0, 310, 178, 62 });
 	buttons.push_back(new_game_button);
 	load_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 500.0f, { 356, 0, 178, 62 }, { 356, 124, 178, 62 }, { 356, 248, 178, 62 });
-	buttons.push_back(new_game_button);
+	buttons.push_back(load_game_button);
 	options_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 600.0f, { 178, 62, 178, 62 }, { 178, 186, 178, 62 }, { 178, 310, 178, 62 });
-	buttons.push_back(new_game_button);
+	buttons.push_back(options_button);
 	credits_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 700.0f, { 178, 0, 178, 62 }, { 178, 124, 178, 62 }, { 178, 248, 178, 62 });
-	buttons.push_back(new_game_button);
+	buttons.push_back(credits_button);
 	exit_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 800.0f, { 0, 0, 178, 62 }, { 0, 124, 178, 62 }, { 0, 248, 178, 62 });
-	buttons.push_back(new_game_button);
+	buttons.push_back(exit_button);
 	cherry_glasses_logo = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1050.0f, 800.0f, { 0, 0, 178, 101 });
-	buttons.push_back(new_game_button);
-	selected_button = exit_button;
-	selected_button->Select(SELECTED);
+	
+	new_game_button->Select(SELECTED);
 
 }
 
@@ -193,100 +186,49 @@ void Scene::DeleteMainMenu()
 	}
 }
 
-
-void Scene::SelectUp()
-{
-
-	std::vector<GUIButton*>::const_iterator it_vector = buttons.begin();
-
-	while (it_vector != buttons.end())
-	{
-		if ((*it_vector)->current_state == SELECTED)
-		{
-			if ((*it_vector) != buttons.front())
-			{
-				(*it_vector)->Select(NORMAL);
-				it_vector--;
-				(*it_vector)->Select(SELECTED);
-				selected_button = *it_vector;
-				break;
-			}
-			else
-			{
-				(*it_vector)->Select(NORMAL);
-				it_vector = buttons.end()-1;
-				(*it_vector)->Select(SELECTED);
-				selected_button = *it_vector;
-
-			}
-
-		}
-		it_vector++;
-
-	}
-
-
-}
-
-void Scene::SelectDown()
-{
-
-	std::vector<GUIButton*>::const_iterator it_vector = buttons.begin();
-
-	while (it_vector != buttons.end())
-	{
-		if ((*it_vector)->current_state == SELECTED)
-		{
-			if ((*it_vector) != buttons.back())
-			{
+void Scene::NavigateDown(std::vector<GUIButton*> &current_vector) {
+	std::vector<GUIButton*>::const_iterator it_vector = current_vector.begin();
+	while (it_vector != current_vector.end()) {
+		if ((*it_vector)->current_state == SELECTED) {
+			if ((*it_vector) != current_vector.back()) {
 				(*it_vector)->Select(NORMAL);
 				it_vector++;
 				(*it_vector)->Select(SELECTED);
-				selected_button = *it_vector;
 				break;
 			}
 			else
 			{
 				(*it_vector)->Select(NORMAL);
-				it_vector = buttons.begin();
+				it_vector = current_vector.begin();
 				(*it_vector)->Select(SELECTED);
-				selected_button = *it_vector;
-
+				
 			}
-
 		}
-		
 		it_vector++;
 	}
-
 }
 
-void Scene::Select()
-{
-	selected_button->Select(PRESSED);
-
-	if (selected_button == new_game_button)
-	{
-		current_scene = GLOBAL_MAP;
-		DeleteMainMenu();
-		
+void Scene::NavigateUp(std::vector<GUIButton*> &current_vector) {
+	std::vector<GUIButton*>::const_iterator it_vector = current_vector.begin();
+	while (it_vector != current_vector.end()) {
+		if ((*it_vector)->current_state == SELECTED) {
+			if ((*it_vector) != current_vector.front()) {
+				(*it_vector)->Select(NORMAL);
+				it_vector--;
+				(*it_vector)->Select(SELECTED);
+				
+				break;
+			}
+			else
+			{
+				(*it_vector)->Select(NORMAL);
+				it_vector = current_vector.end() - 1;
+				(*it_vector)->Select(SELECTED);
+			
+			}
+		}
+		it_vector++;
 	}
-
-	else if (selected_button == load_game_button)
-	{
-
-	}
-	else if (selected_button == options_button)
-	{
-
-	}
-	else if (cherry_glasses_logo != nullptr && selected_button == credits_button)
-	{
-		ShellExecuteA(NULL, "open", "https://github.com/cherry-glasses/Clowns-F8/wiki", NULL, NULL, SW_SHOWNORMAL);
-	}
-	else if (selected_button == exit_button)
-	{
-		exitpressed = true;
-	}
-
 }
+
+
