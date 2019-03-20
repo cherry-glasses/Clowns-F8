@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{22D3C7EC-C963-4AD1-8C4A-8FCD551EE143}</ProjectGuid>
     <RootNamespace>ClownsF8</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>Clowns' F8</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -144,6 +144,7 @@
     <ClInclude Include="..\Clowns%27 F8\Log.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleEntityManager.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleMap.h" />
+    <ClInclude Include="..\Clowns%27 F8\ModulePathfinding.h" />
     <ClInclude Include="..\Clowns%27 F8\PerfTimer.h" />
     <ClInclude Include="..\Clowns%27 F8\PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="..\Clowns%27 F8\PugiXml\src\pugixml.hpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="..\Clowns%27 F8\Log.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleEntityManager.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleMap.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\ModulePathfinding.cpp" />
     <ClCompile Include="..\Clowns%27 F8\PerfTimer.cpp" />
     <ClCompile Include="..\Clowns%27 F8\PugiXml\src\pugixml.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Scene.cpp" />
