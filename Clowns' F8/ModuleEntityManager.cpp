@@ -3,6 +3,7 @@
 #include "ModuleEntityManager.h"
 #include "Enemy.h"
 #include "Character.h"
+#include "CharacterIris.h"
 
 
 ModuleEntityManager::ModuleEntityManager() : Module()
@@ -95,6 +96,10 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 	{
 	case ENTITY_TYPE::ENTITY_CHARACTER:
 		tmp = new Character();
+		entities.push_back(tmp);
+		break;
+	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
+		tmp = new CharacterIris();
 		entities.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY:

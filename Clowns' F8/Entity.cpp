@@ -27,7 +27,16 @@ void Entity::AddFX(const int _channel, const int _repeat) const
 //LoadAnimation with LoadCollider structure
 bool Entity::LoadAnimation(pugi::xml_node &_node, Animation &_anim)
 {
+	for (; _node; _node = _node.next_sibling("frame")) {
+		SDL_Rect frame_rect;
+		frame_rect.x = _node.attribute("x").as_int();
+		frame_rect.y = _node.attribute("y").as_int();
+		frame_rect.w = _node.attribute("width").as_int();
+		frame_rect.h = _node.attribute("height").as_int();
+		_anim.PushBack(frame_rect);
+	}
 	return true;
+
 }
 
 
@@ -38,5 +47,5 @@ std::pair<float, float> Entity::GetPosition()
 
 void Entity::SetPosition(const float &_x, const float &_y)
 {
-
+	
 }

@@ -120,6 +120,9 @@
     <ClInclude Include="..\Clowns%27 F8\Character.h">
       <Filter>Entities\EntitiesCharacters</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\CharacterIris.h">
+      <Filter>Entities\EntitiesCharacters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -190,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Bulldog.cpp">
       <Filter>Entities\EntitiesEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterIris.cpp">
+      <Filter>Entities\EntitiesCharacters</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

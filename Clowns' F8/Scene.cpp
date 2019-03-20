@@ -8,6 +8,7 @@
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "Scene.h"
+#include "ModuleEntityManager.h"
 
 Scene::Scene() : Module()
 {
@@ -106,7 +107,9 @@ bool Scene::Update(float _dt)
 			map_loaded = true;
 			main_menu_created = false;
 			App->map->Load("iso_walk.tmx");
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
 		}
+		
 
 		// Camera Movment in map
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) 

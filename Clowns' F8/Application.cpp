@@ -201,7 +201,7 @@ void Application::FinishUpdate()
 	{
 		PerfTimer delay_timer;
 		SDL_Delay(frame_rate - last_frame_ms);
-		LOG("waited for: %.2f ms expected time: %u ms", delay_timer.ReadMs(), frame_rate - last_frame_ms);
+		//LOG("waited for: %.2f ms expected time: %u ms", delay_timer.ReadMs(), frame_rate - last_frame_ms);
 	}
 
 	/*static char title[256];
