@@ -60,10 +60,6 @@ bool CharacterIris::Update(float _dt) {
 		Wheremove();
 		int a = (rand() % 8);
 		position = App->map->MapToWorld((possible_mov[a].first), possible_mov[a].second);
-		
-		std::pair<int, int> coso = App->map->WorldToMap((int)position.first, (int)position.second);
-		LOG("AHHHHH, %i %i", coso.first, coso.second);
-		LOG("AHHHHH, %i", a);
 	}
 	
 	return true;
@@ -71,7 +67,7 @@ bool CharacterIris::Update(float _dt) {
 
 bool CharacterIris::PostUpdate() {
 
-	App->render->Blit(Iris_tex, position.first, position.second, &current, 1.0f);
+	App->render->Blit(Iris_tex, position.first, position.second, &current, 1.0f); //Bug: Problem with the blit a close the game. Render
 	
 	return true;
 }
