@@ -34,7 +34,14 @@ public:
 	virtual bool Update(float _dt) {return true;}
 	virtual bool PostUpdate() {return true;}
 
+	//Move and Attack
+	virtual void Walk(const std::list<std::pair<int,int>> *_path) {}
+	virtual void Attack() {}
+	virtual void Hability_1() {}
+	virtual void Hability_2() {}
+	virtual void Hability_3() {}
 
+	// Load and Save
 	virtual bool Load(pugi::xml_node& _node);
 	virtual bool Save(pugi::xml_node& _node) const;
 	
@@ -61,10 +68,7 @@ public:
 	Stats Default_States;
 	Stats Current_States;
 	Stats Modifiers;
-	std::pair<float, float>  position;
-	Animation* current_animation = nullptr;
-	SDL_Texture* texture = nullptr;
-	SDL_Rect	current = { 0,0,0,0 };
+	
 
 protected:
 
@@ -74,6 +78,21 @@ protected:
 	STATE current_state = ALIVE;
 	MOVEMENT last_movement;
 	MOVEMENT current_movement = IDLE;
+
+	Animation*	current_animation = nullptr;
+	Animation idle;
+	Animation walk;
+	Animation attack;
+	Animation hability_1;
+	Animation hability_2;
+	Animation dead;
+
+	SDL_Rect	current = { 0,0,0,0 };
+	SDL_Texture * entity_texture = nullptr;
+	std::string   string_texture;
+	std::pair<float, float>  position;
+	bool moving = true;
+	bool attacking = false;
 
 };
 
