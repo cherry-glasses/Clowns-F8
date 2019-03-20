@@ -1,63 +1,201 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\Clowns%27 F8\Application.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\Bulldog.cpp" />
-    <ClCompile Include="CharacterIris.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\Entity.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\Log.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\ModuleEntityManager.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\ModuleMap.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\ModulePathfinding.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\PerfTimer.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\PugiXml\src\pugixml.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\Scene.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\Timer.cpp" />
-    <ClCompile Include="GUIButton.cpp" />
-    <ClCompile Include="GUIElement.cpp" />
-    <ClCompile Include="GUIImage.cpp" />
-    <ClCompile Include="GUILabel.cpp" />
-    <ClCompile Include="ModuleGUIManager.cpp" />
-    <ClCompile Include="ModuleFonts.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\Main.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\ModuleAudio.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\ModuleFadeToBlack.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\ModuleInput.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\ModuleRender.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\ModuleTextures.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\ModuleWindow.cpp" />
+    <Filter Include="Core">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Modules">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Containers">
+      <UniqueIdentifier>{10ff2286-74fd-4dd7-b8ce-d9ccebf037e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{f47f629b-00eb-4cdf-94b4-a6b27b055ae2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUIElements">
+      <UniqueIdentifier>{08608b2a-7fe2-4a3f-b9d7-97114c75e14c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Containers\pugiXML">
+      <UniqueIdentifier>{958ec225-47de-43bf-9055-89d2005a6946}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{e80d13d5-83bc-4766-83db-6047cf6654e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\EntitiesCharacters">
+      <UniqueIdentifier>{95254d9f-16f5-466a-b3ff-dda5c9e2b9c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\EntitiesEnemies">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Clowns%27 F8\Animation.h" />
-    <ClInclude Include="..\Clowns%27 F8\Application.h" />
-    <ClInclude Include="..\Clowns%27 F8\Bulldog.h" />
-    <ClInclude Include="..\Clowns%27 F8\Character.h" />
-    <ClInclude Include="..\Clowns%27 F8\CharacterIris.h" />
-    <ClInclude Include="..\Clowns%27 F8\Defs.h" />
-    <ClInclude Include="..\Clowns%27 F8\Enemy.h" />
-    <ClInclude Include="..\Clowns%27 F8\Entity.h" />
-    <ClInclude Include="..\Clowns%27 F8\Log.h" />
-    <ClInclude Include="..\Clowns%27 F8\ModuleEntityManager.h" />
-    <ClInclude Include="..\Clowns%27 F8\ModuleMap.h" />
-    <ClInclude Include="..\Clowns%27 F8\ModulePathfinding.h" />
-    <ClInclude Include="..\Clowns%27 F8\PerfTimer.h" />
-    <ClInclude Include="..\Clowns%27 F8\PugiXml\src\pugiconfig.hpp" />
-    <ClInclude Include="..\Clowns%27 F8\PugiXml\src\pugixml.hpp" />
-    <ClInclude Include="..\Clowns%27 F8\Scene.h" />
-    <ClInclude Include="..\Clowns%27 F8\Timer.h" />
-    <ClInclude Include="GUIButton.h" />
-    <ClInclude Include="GUIElement.h" />
-    <ClInclude Include="GUIImage.h" />
-    <ClInclude Include="GUILabel.h" />
-    <ClInclude Include="ModuleGUIManager.h" />
-    <ClInclude Include="ModuleFonts.h" />
-    <ClInclude Include="..\Clowns%27 F8\MemLeaks.h" />
-    <ClInclude Include="..\Clowns%27 F8\Module.h" />
-    <ClInclude Include="..\Clowns%27 F8\ModuleAudio.h" />
-    <ClInclude Include="..\Clowns%27 F8\ModuleFadeToBlack.h" />
-    <ClInclude Include="..\Clowns%27 F8\ModuleInput.h" />
-    <ClInclude Include="..\Clowns%27 F8\ModuleRender.h" />
-    <ClInclude Include="..\Clowns%27 F8\ModuleTextures.h" />
-    <ClInclude Include="..\Clowns%27 F8\ModuleWindow.h" />
+    <ClInclude Include="..\Clowns%27 F8\Application.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Module.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ModuleWindow.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ModuleRender.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ModuleInput.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ModuleTextures.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ModuleAudio.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\MemLeaks.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Animation.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ModuleFadeToBlack.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleFonts.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ModuleMap.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Timer.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\PerfTimer.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ModuleEntityManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIButton.h">
+      <Filter>GUIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIElement.h">
+      <Filter>GUIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIImage.h">
+      <Filter>GUIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="GUILabel.h">
+      <Filter>GUIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleGUIManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Defs.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\PugiXml\src\pugiconfig.hpp">
+      <Filter>Containers\pugiXML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\PugiXml\src\pugixml.hpp">
+      <Filter>Containers\pugiXML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Log.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Entity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Enemy.h">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Bulldog.h">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Character.h">
+      <Filter>Entities\EntitiesCharacters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\CharacterIris.h">
+      <Filter>Entities\EntitiesCharacters</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Clowns%27 F8\Application.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ModuleWindow.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ModuleRender.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ModuleInput.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ModuleTextures.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ModuleAudio.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Main.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ModuleFadeToBlack.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFonts.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Scene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ModuleMap.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Timer.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\PerfTimer.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ModuleEntityManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIButton.cpp">
+      <Filter>GUIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIElement.cpp">
+      <Filter>GUIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIImage.cpp">
+      <Filter>GUIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="GUILabel.cpp">
+      <Filter>GUIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleGUIManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\PugiXml\src\pugixml.cpp">
+      <Filter>Containers\pugiXML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Log.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Entity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Bulldog.cpp">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterIris.cpp">
+      <Filter>Entities\EntitiesCharacters</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

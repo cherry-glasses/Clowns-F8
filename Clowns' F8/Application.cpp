@@ -7,7 +7,6 @@
 #include "ModuleAudio.h"
 #include "ModuleFonts.h"
 #include "ModuleMap.h"
-#include "ModulePathfinding.h"
 #include "ModuleFadeToBlack.h"
 #include "Scene.h"
 #include "ModuleEntityManager.h"
@@ -26,7 +25,6 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	audio = new ModuleAudio();
 	fonts = new ModuleFonts();
 	map = new ModuleMap();
-	pathfinding = new ModulePathfinding();
 	fade_to_black = new ModuleFadeToBlack();
 	scene = new Scene();
 	entity_manager = new ModuleEntityManager();
@@ -41,7 +39,6 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(fonts);
 	AddModule(map);
-	AddModule(pathfinding);
 	AddModule(fade_to_black);
 	AddModule(scene);
 	AddModule(entity_manager);

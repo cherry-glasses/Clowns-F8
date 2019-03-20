@@ -18,7 +18,6 @@ class ModuleTextures;
 class ModuleAudio;
 class ModuleFonts;
 class ModuleMap;
-class ModulePathfinding;
 class ModuleFadeToBlack;
 class Scene;
 class ModuleEntityManager;
@@ -96,7 +95,6 @@ public:
 	ModuleAudio* audio = nullptr;
 	ModuleFonts* fonts = nullptr;
 	ModuleMap* map = nullptr;
-	ModulePathfinding* pathfinding = nullptr;
 	ModuleFadeToBlack* fade_to_black = nullptr;
 	Scene* scene = nullptr;
 	ModuleEntityManager* entity_manager = nullptr;

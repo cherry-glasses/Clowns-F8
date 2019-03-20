@@ -23,13 +23,6 @@ public:
 	bool	Update(float _dt);
 	bool	PostUpdate();
 
-	//Move and Attack
-	void Walk(const std::list<std::pair<int, int>> *_path);
-	void Attack() {}
-	void Hability_1() {}
-	void Hability_2() {}
-	void Hability_3() {}
-
 
 	//Save and Load
 	bool Load(pugi::xml_node&);
@@ -40,6 +33,13 @@ private:
 
 	bool CleanUp();
 
+private:
+	SDL_Texture * bulldog_tex = nullptr;
+
+	Animation*	current_animation = nullptr;
+	Animation idle;
+	Animation walk;
+	Animation dead;
 };
 
 #endif // !__Bulldog_H__
