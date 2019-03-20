@@ -12,10 +12,10 @@ typedef struct {
 	int Mana;
 	int Cp;
 
-	float DefS;
-	float AtkS;
-	float DefF;
-	float AtkF;
+	int DefS;
+	int AtkS;
+	int DefF;
+	int AtkF;
 	int Crit_hit; // Options to get a critical hit.
 } Stats;
 

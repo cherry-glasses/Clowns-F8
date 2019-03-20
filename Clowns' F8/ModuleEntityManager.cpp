@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleEntityManager.h"
 #include "Enemy.h"
+#include "Character.h"
 
 
 ModuleEntityManager::ModuleEntityManager() : Module()
@@ -93,7 +94,8 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 	switch (_type)
 	{
 	case ENTITY_TYPE::ENTITY_CHARACTER:
-		//TODO
+		tmp = new Character();
+		entities.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY:
 		tmp = new Enemy();

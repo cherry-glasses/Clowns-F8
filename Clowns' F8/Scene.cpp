@@ -107,6 +107,17 @@ bool Scene::Update(float _dt)
 			main_menu_created = false;
 			App->map->Load("iso_walk.tmx");
 		}
+
+		// Camera Movment in map
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) 
+			App->render->camera.y += 4;
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			App->render->camera.x += 4;
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+			App->render->camera.y -= 4;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			App->render->camera.x -= 4;
+
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
 			ret = false;
