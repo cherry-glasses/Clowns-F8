@@ -107,7 +107,7 @@ bool Scene::Update(float _dt)
 			map_loaded = true;
 			main_menu_created = false;
 			App->map->Load("iso_walk.tmx");
-			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
+			//App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
 		}
 		
 

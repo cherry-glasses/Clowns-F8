@@ -28,7 +28,7 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	void move();
+
 	void Wheremove();
 
 	//bool LoadAnimation(pugi::xml_node &_node, Animation &_anim);
@@ -40,6 +40,10 @@ private:
 	SDL_Texture * Iris_tex = nullptr;
 	bool flag = false;
 	Animation*	current_animation = nullptr;
+	int mov_x_first;
+	int mov_y_first;
+	int mov_x_last;
+	int mov_y_last;
 	Animation idle;
 	Animation walk;
 	Animation dead;

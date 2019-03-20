@@ -20,7 +20,27 @@ CharacterIris::~CharacterIris() {
 
 bool CharacterIris::Awake(pugi::xml_node & _config) {
 
-	
+	/*Stats::Hp = { config.child("Hp").value.as_int()};
+	Stats::Mp = { config.child("Mp").value.as_int() };
+	Stats::Mana = { config.child("Mana").value.as_int() };
+	Stats::Cp = { config.child("Cp").value.as_int() };
+	Stats::AtkF = { config.child("AtkF").value.as_int() };
+	Stats::AtkS = { config.child("AtkS").value.as_int() };
+	Stats::DefF = { config.child("DefF").value.as_int() };
+	Stats::DefS = { config.child("DefS").value.as_int() };
+	Stats::Crit_hit = { config.child("Crit_hit").value.as_int() };*/
+
+	/*LoadAnimation(config.child("animations").child("idle").child("frame"), idle);
+	idle.speed = config.child("animations").child("idle").attribute("speed").as_float();
+	idle.loop = config.child("animations").child("idle").attribute("loop").as_bool(true);*/
+
+	/*LoadAnimation(config.child("animations").child("walk").child("frame"), walk);
+	walk.speed = config.child("animations").child("walk").attribute("speed").as_float();
+	walk.loop = config.child("animations").child("walk").attribute("loop").as_bool(true);
+
+	LoadAnimation(config.child("animations").child("die").child("frame"), dead);
+	dead.speed = config.child("animations").child("die").attribute("speed").as_float();
+	dead.speed = config.child("animations").child("die").attribute("loop").as_bool(false);*/
 
 	return true;
 	
@@ -60,6 +80,56 @@ bool CharacterIris::Update(float _dt) {
 		Wheremove();
 		int a = (rand() % 8);
 		position = App->map->MapToWorld((possible_mov[a].first), possible_mov[a].second);
+		switch (a) {
+		case 0:
+			mov_x_first = 0;
+			mov_y_first = 1;
+			mov_x_last = 1;
+			mov_y_last = 0;
+			break;
+		case 1:
+			mov_x_first = 1;
+			mov_y_first = 0;
+			mov_x_last = 0;
+			mov_y_last = 1;
+			break;
+		case 2:
+			mov_x_first = 1;
+			mov_y_first = 0;
+			mov_x_last = 0;
+			mov_y_last = -1;
+			break;
+		case 3:
+			mov_x_first = 0;
+			mov_y_first = -1;
+			mov_x_last = 1;
+			mov_y_last = 0;
+			break;
+		case 4:
+			mov_x_first = 0;
+			mov_y_first = -1;
+			mov_x_last = -1;
+			mov_y_last = 0;
+			break;
+		case 5:
+			mov_x_first = -1;
+			mov_y_first = 0;
+			mov_x_last = 0;
+			mov_y_last = -1;
+			break;
+		case 6:
+			mov_x_first = -1;
+			mov_y_first = 0;
+			mov_x_last = 0;
+			mov_y_last = 1;
+			break;
+		case 7:
+			mov_x_first = 0;
+			mov_y_first = 1;
+			mov_x_last = -1;
+			mov_y_last = 0;
+			break;
+		}
 	}
 	
 	return true;
@@ -78,10 +148,6 @@ bool CharacterIris::Load(pugi::xml_node& node) {
 
 bool CharacterIris::Save(pugi::xml_node& node) const{
 	return true;
-}
-
-void CharacterIris::move() {
-
 }
 
 void CharacterIris::Wheremove() {
