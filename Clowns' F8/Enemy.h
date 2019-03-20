@@ -20,6 +20,13 @@ public:
 	virtual bool Update(float _dt) { return false; }
 	virtual bool PostUpdate() { return false; }
 
+	//Move and Attack
+	virtual void Walk(const std::list<std::pair<int, int>> *_path) {}
+	virtual void Attack() {}
+	virtual void Hability_1() {}
+	virtual void Hability_2() {}
+	virtual void Hability_3() {}
+	
 	// Called before quitting
 	virtual bool CleanUp() { return false; }
 

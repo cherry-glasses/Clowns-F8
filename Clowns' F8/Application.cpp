@@ -11,6 +11,7 @@
 #include "Scene.h"
 #include "ModuleEntityManager.h"
 #include "ModuleGUIManager.h"
+#include "ModulePathfinding.h"
 
 
 #include "SDL\include\SDL_timer.h"
@@ -29,6 +30,7 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	scene = new Scene();
 	entity_manager = new ModuleEntityManager();
 	gui_manager = new ModuleGUIManager();
+	pathfinding = new ModulePathfinding();
 	
 
 	// Ordered for awake / Start / Update
@@ -39,6 +41,7 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(fonts);
 	AddModule(map);
+	AddModule(pathfinding);
 	AddModule(fade_to_black);
 	AddModule(scene);
 	AddModule(entity_manager);

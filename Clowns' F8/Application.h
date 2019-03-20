@@ -22,6 +22,7 @@ class ModuleFadeToBlack;
 class Scene;
 class ModuleEntityManager;
 class ModuleGUIManager;
+class ModulePathfinding;
 
 
 
@@ -99,6 +100,7 @@ public:
 	Scene* scene = nullptr;
 	ModuleEntityManager* entity_manager = nullptr;
 	ModuleGUIManager* gui_manager = nullptr;
+	ModulePathfinding* pathfinding = nullptr;
 
 	bool debug = false;
 

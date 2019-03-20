@@ -145,6 +145,7 @@
     <ClInclude Include="..\Clowns%27 F8\Log.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleEntityManager.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleMap.h" />
+    <ClInclude Include="..\Clowns%27 F8\ModulePathfinding.h" />
     <ClInclude Include="..\Clowns%27 F8\PerfTimer.h" />
     <ClInclude Include="..\Clowns%27 F8\PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="..\Clowns%27 F8\PugiXml\src\pugixml.hpp" />
@@ -168,6 +169,7 @@
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Bulldog.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\ModulePathfinding.cpp" />
     <ClCompile Include="CharacterIris.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Entity.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Log.cpp" />
