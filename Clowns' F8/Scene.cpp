@@ -32,9 +32,11 @@ bool Scene::Awake(pugi::xml_node& _config)
 // Called before the first frame
 bool Scene::Start()
 {
-	main_menu_background = App->textures->Load("Assets/Sprites/UI/main_menu_bg.png");
-	
-	
+	main_menu_background = App->textures->Load("Assets/Sprites/UI/Main_menu_art_shot.png");
+	health_bar_tex = App->textures->Load("Assets/Sprites/UI/UI_Health_Bar.png");
+	mana_bar_tex = App->textures->Load("Assets/Sprites/UI/UI_Mana_Bar.png");
+	portrait_tex = App->textures->Load("Assets/Sprites/UI/UI_Portrait_Box.png");
+
 	return true;
 }
 
@@ -58,7 +60,7 @@ bool Scene::Update(float _dt)
 			main_menu_created = true;
 			CreateMainMenu();
 		}
-		App->render->Blit(main_menu_background, 160, 0);
+		App->render->Blit(main_menu_background, -160, 0);
 		
 		if (new_game_button->has_been_clicked)
 		{
@@ -102,16 +104,34 @@ bool Scene::Update(float _dt)
 
 		break;
 	case Scene::GLOBAL_MAP:
+		App->render->Blit(portrait_tex, 870, 25);
+		App->render->Blit(health_bar_tex, 1000, 30);
+		App->render->Blit(mana_bar_tex, 1000, 90);
+
+		App->render->Blit(portrait_tex, 20, 25);
+		App->render->Blit(health_bar_tex, 150, 30);
+		App->render->Blit(mana_bar_tex, 150, 90);
+
+		App->render->Blit(portrait_tex, 20, 805);
+		App->render->Blit(health_bar_tex, 150, 810);
+		App->render->Blit(mana_bar_tex, 150, 870);
+
+		App->render->Blit(portrait_tex, 870, 805);
+		App->render->Blit(health_bar_tex, 1000, 810);
+		App->render->Blit(mana_bar_tex, 1000, 870);
 		if (!map_loaded) {
 			map_loaded = true;
 			main_menu_created = false;
 			App->map->Load("iso_walk.tmx");
 		}
+
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
 			ret = false;
 		}
+
 		break;
+
 	case Scene::FIRST_BATTLE:
 		break;
 	default:

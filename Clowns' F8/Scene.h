@@ -50,6 +50,10 @@ private:
 
 private:
 	SDL_Texture* main_menu_background = nullptr;
+	SDL_Texture* health_bar_tex = nullptr;
+	SDL_Texture* mana_bar_tex = nullptr;
+	SDL_Texture* portrait_tex = nullptr;
+
 	enum SCENES { MAIN_MENU, GLOBAL_MAP, FIRST_BATTLE };
 
 	SCENES current_scene = MAIN_MENU;
