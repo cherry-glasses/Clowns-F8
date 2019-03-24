@@ -44,8 +44,10 @@ public:
 
 private:
 	void CreateMainMenu();
-	void DeleteMainMenu();
+	void DeleteMenu();
+	void CreateMMOptions();
 
+	void Navigate();
 	void NavigateDown();
 	void NavigateUp();
 
@@ -61,8 +63,10 @@ private:
 	SCENES current_scene = MAIN_MENU;
 
 	bool main_menu_created = false;
+	bool mm_options_created = false;
 	bool map_loaded = false;
 
+	//Main menu UI
 	GUIButton* cherry_glasses_logo_button = nullptr;
 	GUIButton* new_game_button = nullptr;
 	GUIButton* load_game_button = nullptr;
@@ -76,7 +80,24 @@ private:
 	GUILabel* credits_label = nullptr;
 	GUILabel* exit_label = nullptr;
 
+	//Main menu options UI
+	GUIButton* english_button = nullptr;
+	GUIButton* spanish_button = nullptr;
+	GUIButton* volume_up_button = nullptr;
+	GUIButton* volume_down_button = nullptr;
+	GUIButton* back_button = nullptr;
+	GUILabel* english_label = nullptr;
+	GUILabel* spanish_label = nullptr;
+	GUILabel* volume_up_label = nullptr;
+	GUILabel* volume_down_label = nullptr;
+	GUILabel* back_label = nullptr;
+	GUILabel* language_label = nullptr;
+	GUILabel* volume_label = nullptr;
+	
 	std::list<GUIButton*> buttons;
+
+public:
+	bool language = true; //true = English; false = Spanish
 
 };
 

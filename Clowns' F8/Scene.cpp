@@ -8,6 +8,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleInput.h"
+#include "ModuleAudio.h"
 #include "Scene.h"
 
 Scene::Scene() : Module()
@@ -62,27 +63,27 @@ bool Scene::Update(float _dt)
 			main_menu_created = true;
 			CreateMainMenu();
 		}
-		App->render->Blit(main_menu_background, -160, 0);
+		App->render->Blit(main_menu_background, -200, 0);
 		
 		if (new_game_button->has_been_clicked)
 		{
 			current_scene = GLOBAL_MAP;
-			DeleteMainMenu();
+			DeleteMenu();
 		}
 		else if (load_game_button->has_been_clicked)
 		{
 			current_scene = GLOBAL_MAP;
-			DeleteMainMenu();
+			DeleteMenu();
 		}
 		else if (options_button->has_been_clicked)
 		{
 			current_scene = MM_OPTIONS;
-			DeleteMainMenu();
+			DeleteMenu();
 		}
 		else if (credits_button->has_been_clicked )
 		{
 			current_scene = GLOBAL_MAP;
-			DeleteMainMenu();
+			DeleteMenu();
 		}
 		else if (exit_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
@@ -93,18 +94,9 @@ bool Scene::Update(float _dt)
 			ShellExecuteA(NULL, "open", "https://github.com/cherry-glasses/Clowns-F8/wiki", NULL, NULL, SW_SHOWNORMAL);
 			cherry_glasses_logo_button->Select(SELECTED);
 		}
-		
-		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->gamepad.CROSS_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN)
-		{
-			NavigateDown();
-		}
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN)
-		{
-			NavigateUp();
-		}
-		
-
+		Navigate();
 		break;
+
 	case Scene::GLOBAL_MAP:
 		App->render->Blit(portrait_tex, 870, 25);
 		App->render->Blit(health_bar_tex, 1000, 30);
@@ -133,9 +125,55 @@ bool Scene::Update(float _dt)
 		}
 
 		break;
+
 	case Scene::MM_OPTIONS:
 		App->render->Blit(main_menu_background, -160, 0);
-		App->render->Blit(options_background, 350, 130);
+		App->render->Blit(options_background, 365, 130);
+		if (!mm_options_created)
+		{
+			mm_options_created = true;
+			CreateMMOptions();
+		}
+		main_menu_created = false;
+		if (english_button->has_been_clicked)
+		{
+			if (!language)
+			{
+				language = true;
+				DeleteMenu();
+				CreateMMOptions();
+			}
+			english_button->Select(SELECTED);
+		}
+		else if (spanish_button->has_been_clicked)
+		{
+			if (language) 
+			{
+				language = false;
+				DeleteMenu();
+				CreateMMOptions();
+				spanish_button->Select(NORMAL);
+			}
+			else spanish_button->Select(SELECTED);
+		}
+		else if (volume_up_button->has_been_clicked)
+		{
+			App->audio->VolumeUp();
+			volume_up_button->Select(SELECTED);
+		}
+		else if (volume_down_button->has_been_clicked)
+		{
+			App->audio->VolumeDown();
+			volume_down_button->Select(SELECTED);
+		}
+		else if (back_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		{
+			mm_options_created = false;
+			current_scene = MAIN_MENU;
+			DeleteMenu();
+		}
+
+		Navigate();
 		break;
 
 	case Scene::FIRST_BATTLE:
@@ -159,6 +197,10 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	App->textures->UnLoad(main_menu_background);
+	App->textures->UnLoad(mana_bar_tex);
+	App->textures->UnLoad(health_bar_tex);
+	App->textures->UnLoad(portrait_tex);
+	App->textures->UnLoad(options_background);
 	return true;
 }
 
@@ -179,64 +221,92 @@ bool Scene::Save(pugi::xml_node& _data) const
 void Scene::CreateMainMenu()
 {
 
-	new_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 570.0f, 300.0f, { 0, 0, 192, 64 }, { 0, 64, 192, 64 }, { 0, 128, 192, 64 });
+	new_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 497.0f, 300.0f, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(new_game_button);
-	load_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 570.0f, 400.0f, { 0, 0, 192, 64 }, { 0, 64, 192, 64 }, { 0, 128, 192, 64 });
+	load_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 497.0f, 400.0f, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(load_game_button);
-	options_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 570.0f, 500.0f, { 0, 0, 192, 64 }, { 0, 64, 192, 64 }, { 0, 128, 192, 64 });
+	options_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 497.0f, 500.0f, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(options_button);
-	credits_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 570.0f, 600.0f, { 0, 0, 192, 64 }, { 0, 64, 192, 64 }, { 0, 128, 192, 64 });
+	credits_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 497.0f, 600.0f, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(credits_button);
-	exit_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 570.0f, 700.0f, { 0, 0, 192, 64 }, { 0, 64, 192, 64 }, { 0, 128, 192, 64 });
+	exit_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 497.0f, 700.0f, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(exit_button);
-	cherry_glasses_logo_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 1000.0f, 800.0f, { 0, 0, 192, 64 }, { 0, 64, 192, 64 }, { 0, 128, 192, 64 });
+	cherry_glasses_logo_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 952.0f, 800.0f, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(cherry_glasses_logo_button);
 
-	new_game_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 585.0f, 310.0f, "NEW GAME", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	load_game_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 580.0f, 410.0f, "LOAD GAME", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	options_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 598.0f, 510.0f, "OPTIONS", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	credits_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 605.0f, 610.0f, "CREDITS", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	exit_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 635.0f, 710.0f, "EXIT", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	if (language)
+	{
+		new_game_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 560.0f, 310.0f, "NEW GAME", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		load_game_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 555.0f, 410.0f, "LOAD GAME", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		options_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 573.0f, 510.0f, "OPTIONS", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		credits_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 580.0f, 610.0f, "CREDITS", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		exit_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 610.0f, 710.0f, "EXIT", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	}
+	else
+	{
+		new_game_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 525.0f, 310.0f, "NUEVA PARTIDA", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		load_game_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 520.0f, 410.0f, "CARGAR PARTIDA", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		options_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 568.0f, 510.0f, "OPCIONES", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		credits_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 572.0f, 610.0f, "CREDIT0S", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		exit_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 603.0f, 710.0f, "SALIR", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	}
 	cherry_glasses_logo_image = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1042.0f, 803.0f, { 0, 0, 102, 58 });
 	new_game_button->Select(SELECTED);
 
 }
 
-void Scene::DeleteMainMenu()
+void Scene::CreateMMOptions()
 {
-	/*if (cherry_glasses_logo_button != nullptr)
+	english_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 497.0f, 270.0f, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	buttons.push_back(english_button);
+	spanish_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 497.0f, 340.0f, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	buttons.push_back(spanish_button);
+	volume_up_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 497.0f, 500.0f, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	buttons.push_back(volume_up_button);
+	volume_down_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 497.0f, 570.0f, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	buttons.push_back(volume_down_button);
+	back_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 497.0f, 710.0f, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	buttons.push_back(back_button);
+
+	volume_up_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 632.0f, 510.0f, "+", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	volume_up_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 635.0f, 580.0f, "-", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+
+	if (language)
 	{
-		App->gui_manager->DeleteGUIElement(cherry_glasses_logo_button);
-		cherry_glasses_logo_button = nullptr;
+		english_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 575.0f, 280.0f, "ENGLISH", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		spanish_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 580.0f, 350.0f, "SPANISH", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		back_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 605.0f, 720.0f, "BACK", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		language_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 495.0f, 205.0f, "CHOOSE LANGUAGE", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		volume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 520.0f, 440.0f, "ADJUST VOLUME", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	}
-	if (new_game_button != nullptr)
+	else
 	{
-		App->gui_manager->DeleteGUIElement(new_game_button);
-		new_game_button = nullptr;
+		english_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 588.0f, 280.0f, "INGLÉS", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		spanish_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 577.0f, 350.0f, "ESPAÑOL", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		back_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 600.0f, 720.0f, "ATRÁS", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		language_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 515.0f, 205.0f, "ESCOJER LENGUA", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		volume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 505.0f, 440.0f, "AJUSTAR VOLUMEN", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	}
-	if (load_game_button != nullptr)
-	{
-		App->gui_manager->DeleteGUIElement(load_game_button);
-		load_game_button = nullptr;
-	}
-	if (options_button != nullptr)
-	{
-		App->gui_manager->DeleteGUIElement(options_button);
-		options_button = nullptr;
-	}
-	if (credits_button != nullptr)
-	{
-		App->gui_manager->DeleteGUIElement(credits_button);
-		credits_button = nullptr;
-	}
-	if (exit_button != nullptr)
-	{
-		App->gui_manager->DeleteGUIElement(exit_button);
-		exit_button = nullptr;
-	}*/
-	App->gui_manager->DeleteAllGUIElements();
+	english_button->Select(SELECTED);
 }
 
+void Scene::DeleteMenu()
+{
+	App->gui_manager->DeleteAllGUIElements();
+	buttons.clear();
+}
+
+void Scene::Navigate()
+{
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->gamepad.CROSS_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN)
+	{
+		NavigateDown();
+	}
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN)
+	{
+		NavigateUp();
+	}
+}
 void Scene::NavigateDown() 
 {
 	for (std::list<GUIButton*>::const_iterator it_vector = buttons.begin(); it_vector != buttons.end(); ++it_vector)
