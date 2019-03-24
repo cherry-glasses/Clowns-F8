@@ -63,13 +63,18 @@ private:
 	bool main_menu_created = false;
 	bool map_loaded = false;
 
-	GUIButton* cherry_glasses_logo = nullptr;
+	GUIButton* cherry_glasses_logo_button = nullptr;
 	GUIButton* new_game_button = nullptr;
 	GUIButton* load_game_button = nullptr;
 	GUIButton* options_button = nullptr;
 	GUIButton* credits_button = nullptr;
 	GUIButton* exit_button = nullptr;
-	GUILabel* label_test = nullptr;
+	GUIImage* cherry_glasses_logo_image = nullptr;
+	GUILabel* new_game_label = nullptr;
+	GUILabel* load_game_label = nullptr;
+	GUILabel* options_label = nullptr;
+	GUILabel* credits_label = nullptr;
+	GUILabel* exit_label = nullptr;
 
 	std::list<GUIButton*> buttons;
 

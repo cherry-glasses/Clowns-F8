@@ -29,7 +29,7 @@ return true;
 bool ModuleGUIManager::Start()
 {
 	image_textures = App->textures->Load("Assets/Sprites/UI/cherry_logo.png");
-	button_textures = App->textures->Load("Assets/Sprites/UI/main_menu_choices.png");
+	button_textures = App->textures->Load("Assets/Sprites/UI/buttons.png");
 	return true;
 }
 
@@ -40,10 +40,6 @@ bool ModuleGUIManager::Update(float dt)
 	for (uint i = 0; i < gui_elements.size(); ++i)
 	if (gui_elements[i] != nullptr) gui_elements[i]->Update(dt);
 
-	for (uint i = 0; i < gui_elements.size(); ++i)
-	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_IMAGE)
-	gui_elements[i]->Draw(image_textures);
-
 	/*for (uint i = 0; i < gui_elements.size(); ++i)
 	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_PANEL)
 	gui_elements[i]->Draw(image_textures);*/
@@ -51,6 +47,10 @@ bool ModuleGUIManager::Update(float dt)
 	for (uint i = 0; i < gui_elements.size(); ++i)
 	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_BUTTON)
 	gui_elements[i]->Draw(button_textures);
+
+	for (uint i = 0; i < gui_elements.size(); ++i)
+		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_IMAGE)
+			gui_elements[i]->Draw(image_textures);
 
 	/*for (uint i = 0; i < gui_elements.size(); ++i)
 	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_SLIDER)
