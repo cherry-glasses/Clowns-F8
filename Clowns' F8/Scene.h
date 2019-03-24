@@ -5,6 +5,7 @@
 
 class GUIImage;
 class GUIButton;
+class GUILabel;
 struct SDL_Texture;
 
 class Scene : public Module {
@@ -53,8 +54,9 @@ private:
 	SDL_Texture* health_bar_tex = nullptr;
 	SDL_Texture* mana_bar_tex = nullptr;
 	SDL_Texture* portrait_tex = nullptr;
+	SDL_Texture* options_background = nullptr;
 
-	enum SCENES { MAIN_MENU, GLOBAL_MAP, FIRST_BATTLE };
+	enum SCENES { MAIN_MENU, GLOBAL_MAP, FIRST_BATTLE, MM_OPTIONS };
 
 	SCENES current_scene = MAIN_MENU;
 
@@ -67,6 +69,7 @@ private:
 	GUIButton* options_button = nullptr;
 	GUIButton* credits_button = nullptr;
 	GUIButton* exit_button = nullptr;
+	GUILabel* label_test = nullptr;
 
 	std::list<GUIButton*> buttons;
 

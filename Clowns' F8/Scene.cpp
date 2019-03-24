@@ -3,6 +3,7 @@
 #include "ModuleGUIManager.h"
 #include "GUIImage.h"
 #include "GUIButton.h"
+#include "GUILabel.h"
 #include "ModuleMap.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
@@ -36,6 +37,7 @@ bool Scene::Start()
 	health_bar_tex = App->textures->Load("Assets/Sprites/UI/UI_Health_Bar.png");
 	mana_bar_tex = App->textures->Load("Assets/Sprites/UI/UI_Mana_Bar.png");
 	portrait_tex = App->textures->Load("Assets/Sprites/UI/UI_Portrait_Box.png");
+	options_background = App->textures->Load("Assets/Sprites/UI/4259708641.png");
 
 	return true;
 }
@@ -61,6 +63,7 @@ bool Scene::Update(float _dt)
 			CreateMainMenu();
 		}
 		App->render->Blit(main_menu_background, -160, 0);
+		label_test = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 500.0f, 50.0f, "THIS IS A TEST.", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 		
 		if (new_game_button->has_been_clicked)
 		{
@@ -74,7 +77,7 @@ bool Scene::Update(float _dt)
 		}
 		else if (options_button->has_been_clicked)
 		{
-			current_scene = GLOBAL_MAP;
+			current_scene = MM_OPTIONS;
 			DeleteMainMenu();
 		}
 		else if (credits_button->has_been_clicked )
@@ -131,6 +134,10 @@ bool Scene::Update(float _dt)
 		}
 
 		break;
+	case Scene::MM_OPTIONS:
+		App->render->Blit(main_menu_background, -160, 0);
+		App->render->Blit(options_background, 350, 130);
+		break;
 
 	case Scene::FIRST_BATTLE:
 		break;
@@ -183,7 +190,7 @@ void Scene::CreateMainMenu()
 	buttons.push_back(credits_button);
 	exit_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 700.0f, { 0, 0, 178, 62 }, { 0, 124, 178, 62 }, { 0, 248, 178, 62 });
 	buttons.push_back(exit_button);
-	cherry_glasses_logo = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 550.0f, 800.0f, { 356, 62, 178, 62 }, { 356, 186, 178, 62 }, { 356, 310, 178, 62 });
+	cherry_glasses_logo = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 1000.0f, 800.0f, { 356, 62, 178, 62 }, { 356, 186, 178, 62 }, { 356, 310, 178, 62 });
 	buttons.push_back(cherry_glasses_logo);
 	
 	new_game_button->Select(SELECTED);
