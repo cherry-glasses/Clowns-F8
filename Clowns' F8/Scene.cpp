@@ -39,6 +39,7 @@ bool Scene::Start()
 	mana_bar_tex = App->textures->Load("Assets/Sprites/UI/UI_Mana_Bar.png");
 	portrait_tex = App->textures->Load("Assets/Sprites/UI/UI_Portrait_Box.png");
 	options_background = App->textures->Load("Assets/Sprites/UI/4259708641.png");
+	credits_page = App->textures->Load("Assets/Sprites/UI/credits_done.png");
 
 	return true;
 }
@@ -82,7 +83,7 @@ bool Scene::Update(float _dt)
 		}
 		else if (credits_button->has_been_clicked )
 		{
-			current_scene = GLOBAL_MAP;
+			current_scene = MM_CREDITS;
 			DeleteMenu();
 		}
 		else if (exit_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
@@ -175,6 +176,35 @@ bool Scene::Update(float _dt)
 
 		Navigate();
 		break;
+
+	case Scene::MM_CREDITS:
+		App->render->Blit(main_menu_background, -160, 0);
+		App->render->Blit(credits_page, 365, 130);
+		main_menu_created = false;
+		if (back_button == nullptr)
+		{
+			back_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 497.0f, 710.0f, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+			buttons.push_back(back_button);
+			back_button->Select(SELECTED);
+			if (language)
+			{
+				back_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 605.0f, 720.0f, "BACK", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+			}
+			else
+			{
+				back_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 600.0f, 720.0f, "ATRÁS", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+			}
+		}
+		if (back_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		{
+			current_scene = MAIN_MENU;
+			back_button->Select(SELECTED);
+			DeleteMenu();
+
+		}
+
+		break;
+
 
 	case Scene::FIRST_BATTLE:
 		break;
