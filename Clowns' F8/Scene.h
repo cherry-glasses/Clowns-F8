@@ -65,6 +65,7 @@ private:
 
 	bool main_menu_created = false;
 	bool mm_options_created = false;
+	bool mm_credits_created = false;
 	bool map_loaded = false;
 
 	//Main menu UI

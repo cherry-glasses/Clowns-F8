@@ -181,7 +181,7 @@ bool Scene::Update(float _dt)
 		App->render->Blit(main_menu_background, -160, 0);
 		App->render->Blit(credits_page, 365, 130);
 		main_menu_created = false;
-		if (back_button == nullptr)
+		if (mm_credits_created == false)
 		{
 			back_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 497.0f, 710.0f, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 			buttons.push_back(back_button);
@@ -194,11 +194,13 @@ bool Scene::Update(float _dt)
 			{
 				back_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 600.0f, 720.0f, "ATRÁS", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 			}
+			mm_credits_created = true;
 		}
 		if (back_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
 			current_scene = MAIN_MENU;
 			back_button->Select(SELECTED);
+			mm_credits_created = false;
 			DeleteMenu();
 
 		}
@@ -231,6 +233,7 @@ bool Scene::CleanUp()
 	App->textures->UnLoad(health_bar_tex);
 	App->textures->UnLoad(portrait_tex);
 	App->textures->UnLoad(options_background);
+	App->textures->UnLoad(credits_page);
 	return true;
 }
 
