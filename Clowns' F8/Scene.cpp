@@ -128,7 +128,7 @@ bool Scene::Update(float _dt)
 		break;
 
 	case Scene::MM_OPTIONS:
-		App->render->Blit(main_menu_background, -160, 0);
+		App->render->Blit(main_menu_background, -200, 0);
 		App->render->Blit(options_background, 365, 130);
 		if (!mm_options_created)
 		{
@@ -178,7 +178,7 @@ bool Scene::Update(float _dt)
 		break;
 
 	case Scene::MM_CREDITS:
-		App->render->Blit(main_menu_background, -160, 0);
+		App->render->Blit(main_menu_background, -200, 0);
 		App->render->Blit(credits_page, 365, 130);
 		main_menu_created = false;
 		if (mm_credits_created == false)
