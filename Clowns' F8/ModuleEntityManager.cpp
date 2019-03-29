@@ -27,6 +27,10 @@ bool ModuleEntityManager::Awake(pugi::xml_node & _config)
 // Called before the first frame
 bool ModuleEntityManager::Start()
 {
+	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
+	{
+		(*entity)->Start();
+	}
 	return true;
 }
 
@@ -88,7 +92,7 @@ bool ModuleEntityManager::Save(pugi::xml_node & _data) const
 	return true;
 }
 
-Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
+bool ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 {
 	Entity* tmp = nullptr;
 
@@ -108,10 +112,11 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		break;
 	case ENTITY_TYPE::ENTITY_BOSS:
 		//TODO
+		tmp = nullptr;
 		break;
 	}
 
-	return tmp;
+	return true;
 }
 
 bool ModuleEntityManager::DeleteEntity(Entity * entity)

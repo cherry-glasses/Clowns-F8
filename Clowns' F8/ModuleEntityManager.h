@@ -40,7 +40,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	// Entity Manager
-	Entity* CreateEntity(ENTITY_TYPE type);
+	bool CreateEntity(ENTITY_TYPE type);
 	bool DeleteEntity(Entity* entity);
 
 private:

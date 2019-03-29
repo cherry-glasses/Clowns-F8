@@ -29,6 +29,7 @@ public:
 	// Destructor
 	virtual ~Entity() {}
 
+	virtual bool Start() { return true;}
 	// Called each loop iteration
 	virtual bool PreUpdate() {return true;}
 	virtual bool Update(float _dt) {return true;}

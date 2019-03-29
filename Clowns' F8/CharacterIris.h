@@ -37,7 +37,6 @@ private:
 	bool CleanUp();
 
 private:
-	SDL_Texture * Iris_tex = nullptr;
 	bool flag = false;
 	Animation*	current_animation = nullptr;
 	int mov_x_first;

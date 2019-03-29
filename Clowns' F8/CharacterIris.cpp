@@ -54,7 +54,7 @@ bool CharacterIris::Start() {
 bool CharacterIris::PreUpdate() {
 
 	if (!flag) {
-		Iris_tex = App->textures->Load("Assets/Sprites/Main_Characters/Iris_Spritesheet.png");
+		char_tex = App->textures->Load("Assets/Sprites/Main_Characters/Iris_Spritesheet.png");
 		SDL_Rect rect;
 		rect.h = 65;
 		rect.w = 40;
@@ -78,57 +78,14 @@ bool CharacterIris::PreUpdate() {
 bool CharacterIris::Update(float _dt) {
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		Wheremove();
-		int a = (rand() % 8);
+		
+		/*int a = (rand() % 8);
 		position = App->map->MapToWorld((possible_mov[a].first), possible_mov[a].second);
-		switch (a) {
-		case 0:
-			mov_x_first = 0;
-			mov_y_first = 1;
-			mov_x_last = 1;
-			mov_y_last = 0;
-			break;
-		case 1:
-			mov_x_first = 1;
-			mov_y_first = 0;
-			mov_x_last = 0;
-			mov_y_last = 1;
-			break;
-		case 2:
-			mov_x_first = 1;
-			mov_y_first = 0;
-			mov_x_last = 0;
-			mov_y_last = -1;
-			break;
-		case 3:
-			mov_x_first = 0;
-			mov_y_first = -1;
-			mov_x_last = 1;
-			mov_y_last = 0;
-			break;
-		case 4:
-			mov_x_first = 0;
-			mov_y_first = -1;
-			mov_x_last = -1;
-			mov_y_last = 0;
-			break;
-		case 5:
-			mov_x_first = -1;
-			mov_y_first = 0;
-			mov_x_last = 0;
-			mov_y_last = -1;
-			break;
-		case 6:
-			mov_x_first = -1;
-			mov_y_first = 0;
-			mov_x_last = 0;
-			mov_y_last = 1;
-			break;
-		case 7:
-			mov_x_first = 0;
-			mov_y_first = 1;
-			mov_x_last = -1;
-			mov_y_last = 0;
-			break;
+		
+*/
+		for (int i = 0; i < 7; i++) {
+			possible_mov[i].first = NULL;
+			possible_mov[i].second = NULL;
 		}
 	}
 	
@@ -136,8 +93,10 @@ bool CharacterIris::Update(float _dt) {
 }
 
 bool CharacterIris::PostUpdate() {
-
-	App->render->Blit(Iris_tex, position.first, position.second, &current, 1.0f); //Bug: Problem with the blit a close the game. Render
+	if (char_tex != nullptr) {
+		App->render->Blit(char_tex, position.first, position.second, &current, 1.0f); //Bug: Problem with the blit a close the game. Render
+	}
+	
 	
 	return true;
 }
@@ -151,6 +110,7 @@ bool CharacterIris::Save(pugi::xml_node& node) const{
 }
 
 void CharacterIris::Wheremove() {
+
 
 	std::pair<int, int> tmp;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
@@ -207,12 +167,15 @@ void CharacterIris::Wheremove() {
 			possible_mov[i] = App->map->WorldToMap((int)position.first, (int)position.second);
 		}
 	}
+
+	tmp.first = NULL;
+	tmp.second = NULL;
 }
 
 bool CharacterIris::CleanUp() {
 
-	App->textures->UnLoad(Iris_tex);
-	Iris_tex = nullptr;
+	App->textures->UnLoad(char_tex);
+	char_tex = nullptr;
 
 	return true;
 }

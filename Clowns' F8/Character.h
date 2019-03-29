@@ -27,6 +27,9 @@ public:
 	virtual bool Load(pugi::xml_node&) { return false; }
 	virtual bool Save(pugi::xml_node&) const { return false; }
 
+public:
+
+	SDL_Texture *char_tex;
 };
 
 #endif // !__Character_H__
