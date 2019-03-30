@@ -162,7 +162,7 @@ void CharacterIris::Wheremove() {
 		possible_mov[7] = tmp;
 
 
-	for (int i = 0; i < 7; i++) {
+	for (int i = 0; i < 8; i++) {
 		if (possible_mov[i].first == 0 && possible_mov[i].second == 0) {
 			possible_mov[i] = App->map->WorldToMap((int)position.first, (int)position.second);
 		}
@@ -172,13 +172,6 @@ void CharacterIris::Wheremove() {
 	tmp.second = NULL;
 }
 
-//bool CharacterIris::CleanUp() {
-//
-//	App->textures->UnLoad(entity_texture);
-//	entity_texture = nullptr;
-//
-//	return true;
-//}
 
 
 

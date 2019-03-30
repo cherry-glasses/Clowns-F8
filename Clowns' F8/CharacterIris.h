@@ -44,7 +44,7 @@ private:
 	Animation walk;
 	Animation dead;
 
-	std::pair<int, int> possible_mov[7];
+	std::pair<int, int> possible_mov[8];
 };
 
 #endif // !__CharacterIris_H__

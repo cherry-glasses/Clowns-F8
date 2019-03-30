@@ -20,8 +20,6 @@ public:
 	virtual bool Update(float _dt) { return true; }
 	virtual bool PostUpdate() { return true; }
 
-	// Called before quitting
-	virtual bool CleanUp() { return true; }
 
 	//Save and Load
 	virtual bool Load(pugi::xml_node&) { return true; }
