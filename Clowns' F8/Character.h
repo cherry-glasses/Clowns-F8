@@ -13,19 +13,19 @@ public:
 	virtual ~Character() {}
 
 	// Called before the first frame
-	virtual bool Start() { return false; }
+	virtual bool Start() { return true; }
 
 	// Called each loop iteration
-	virtual bool PreUpdate() { return false; }
-	virtual bool Update(float _dt) { return false; }
-	virtual bool PostUpdate() { return false; }
+	virtual bool PreUpdate() { return true; }
+	virtual bool Update(float _dt) { return true; }
+	virtual bool PostUpdate() { return true; }
 
 	// Called before quitting
-	virtual bool CleanUp() { return false; }
+	virtual bool CleanUp() { return true; }
 
 	//Save and Load
-	virtual bool Load(pugi::xml_node&) { return false; }
-	virtual bool Save(pugi::xml_node&) const { return false; }
+	virtual bool Load(pugi::xml_node&) { return true; }
+	virtual bool Save(pugi::xml_node&) const { return true; }
 
 public:
 
