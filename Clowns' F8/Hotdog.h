@@ -1,16 +1,16 @@
-#ifndef _Bulldog_H__
-#define _Bulldog_H__
+#ifndef _Hotdog_H__
+#define _Hotdog_H__
 
 #include "Enemy.h"
 #include "Animation.h"
 
-class Bulldog : public Enemy
+class Hotdog : public Enemy
 {
 public:
-	Bulldog();
+	Hotdog(ENTITY_TYPE _type);
 
 	// Destructor
-	~Bulldog();
+	~Hotdog();
 
 	// Called before render is available
 	bool	Awake(pugi::xml_node & _config);
@@ -41,4 +41,4 @@ private:
 
 };
 
-#endif // !__Bulldog_H__
+#endif // !__Hotdog_H__

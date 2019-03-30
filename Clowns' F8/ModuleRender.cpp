@@ -119,7 +119,8 @@ bool ModuleRender::Blit(SDL_Texture* _texture, int _x, int _y, const SDL_Rect* _
 	rect.h *= scale;
 
 	//Don't blit if not on screen
-	uint width, height = 0;
+	uint width = 0;
+	uint height = 0;
 	App->window->GetWindowSize(width, height);
 
 	if (rect.x + 100 + rect.w < 0 || rect.y + rect.h < 0 || rect.x >(int)width || rect.y >(int)height)

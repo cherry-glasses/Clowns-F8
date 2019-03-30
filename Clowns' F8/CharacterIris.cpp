@@ -10,8 +10,8 @@
 
 
 
-CharacterIris::CharacterIris() {
-
+CharacterIris::CharacterIris(ENTITY_TYPE _type) : Character(_type)
+{
 }
 
 CharacterIris::~CharacterIris() {
@@ -54,7 +54,7 @@ bool CharacterIris::Start() {
 bool CharacterIris::PreUpdate() {
 
 	if (!flag) {
-		char_tex = App->textures->Load("Assets/Sprites/Main_Characters/Iris_Spritesheet.png");
+		entity_texture = App->textures->Load("Assets/Sprites/Main_Characters/Iris_Spritesheet.png");
 		SDL_Rect rect;
 		rect.h = 65;
 		rect.w = 40;
@@ -93,8 +93,8 @@ bool CharacterIris::Update(float _dt) {
 }
 
 bool CharacterIris::PostUpdate() {
-	if (char_tex != nullptr) {
-		App->render->Blit(char_tex, position.first, position.second, &current, 1.0f); //Bug: Problem with the blit a close the game. Render
+	if (entity_texture != nullptr) {
+		App->render->Blit(entity_texture, position.first, position.second, &current, 1.0f); //Bug: Problem with the blit a close the game. Render
 	}
 	
 	
@@ -172,13 +172,13 @@ void CharacterIris::Wheremove() {
 	tmp.second = NULL;
 }
 
-bool CharacterIris::CleanUp() {
-
-	App->textures->UnLoad(char_tex);
-	char_tex = nullptr;
-
-	return true;
-}
+//bool CharacterIris::CleanUp() {
+//
+//	App->textures->UnLoad(entity_texture);
+//	entity_texture = nullptr;
+//
+//	return true;
+//}
 
 
 

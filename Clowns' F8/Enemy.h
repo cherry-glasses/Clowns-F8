@@ -7,7 +7,7 @@
 class Enemy : public Entity
 {
 public:
-	Enemy() : Entity(){}
+	Enemy(ENTITY_TYPE _type) : Entity(_type) {}
 
 	// Destructor
 	virtual ~Enemy() {}

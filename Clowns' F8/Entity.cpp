@@ -1,10 +1,12 @@
 #include "Application.h"
-#include "Entity.h"
+#include "ModuleTextures.h"
 #include "ModuleAudio.h"
+#include "Entity.h"
 
 
-Entity::Entity()
+Entity::Entity(ENTITY_TYPE _type)
 {
+	type = _type;
 }
 
 // Destructor
@@ -39,6 +41,15 @@ bool Entity::LoadAnimation(pugi::xml_node &_node, Animation &_anim)
 
 }
 
+bool Entity::CleanUp()
+{
+	if (entity_texture) 
+	{
+		App->textures->UnLoad(entity_texture);
+		entity_texture = nullptr;
+	}
+	return true;
+}
 
 std::pair<float, float> Entity::GetPosition()
 {
@@ -47,5 +58,10 @@ std::pair<float, float> Entity::GetPosition()
 
 void Entity::SetPosition(const float &_x, const float &_y)
 {
-	
+	position = { _x, _y };
+}
+
+ENTITY_TYPE Entity::GetType()
+{
+	return type;
 }

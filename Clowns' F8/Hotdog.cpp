@@ -1,21 +1,20 @@
 #include "Log.h"
 #include "Application.h"
-#include "Bulldog.h"
+#include "Hotdog.h"
 #include "ModulePathfinding.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleMap.h"
 
 
-Bulldog::Bulldog() : Enemy()
-{
-
-}
-Bulldog::~Bulldog()
+Hotdog::Hotdog(ENTITY_TYPE _type) : Enemy(_type)
 {
 }
+Hotdog::~Hotdog()
+{
+}
 
-bool Bulldog::Awake(pugi::xml_node & _config)
+bool Hotdog::Awake(pugi::xml_node & _config)
 {
 	pugi::xml_node config = _config.child("Bulldog");
 
@@ -45,7 +44,7 @@ bool Bulldog::Awake(pugi::xml_node & _config)
 	return true;
 }
 
-bool Bulldog::Start(uint i)
+bool Hotdog::Start(uint i)
 {
 	entity_texture = App->textures->Load(string_texture.c_str());
 	position.first = 300;
@@ -54,7 +53,7 @@ bool Bulldog::Start(uint i)
 	return true;
 }
 
-bool Bulldog::PreUpdate()
+bool Hotdog::PreUpdate()
 {
 	bool ret = true;
 	if (current_movement == IDLE) {
@@ -76,10 +75,8 @@ bool Bulldog::PreUpdate()
 	return ret;
 }
 
-bool Bulldog::Update(float dt)
+bool Hotdog::Update(float dt)
 {
-	bool ret = true;
-
 	if (current_movement == IDLE)
 	{
 		current_animation = &idle;
@@ -104,7 +101,7 @@ bool Bulldog::Update(float dt)
 	return true;
 }
 
-bool Bulldog::PostUpdate()
+bool Hotdog::PostUpdate()
 {
 
 	App->render->Blit(entity_texture, position.first, position.second, &current, 1.0f);
@@ -112,14 +109,14 @@ bool Bulldog::PostUpdate()
 	return true;
 }
 
-bool Bulldog::CleanUp()
+bool Hotdog::CleanUp()
 {
 	App->textures->UnLoad(entity_texture);
 	entity_texture = nullptr;
 	return true;
 }
 
-bool Bulldog::Load(pugi::xml_node& node)
+bool Hotdog::Load(pugi::xml_node& node)
 {
 	bool ret = true;
 
@@ -129,7 +126,7 @@ bool Bulldog::Load(pugi::xml_node& node)
 	return ret;
 }
 
-bool Bulldog::Save(pugi::xml_node& node) const
+bool Hotdog::Save(pugi::xml_node& node) const
 {
 	bool ret = true;
 
@@ -142,7 +139,7 @@ bool Bulldog::Save(pugi::xml_node& node) const
 }
 
 
-bool Bulldog::LoadAnimation(pugi::xml_node &node, Animation &anim) {
+bool Hotdog::LoadAnimation(pugi::xml_node &node, Animation &anim) {
 
 	for (; node; node = node.next_sibling("frame")) {
 		SDL_Rect frame_rect;
@@ -156,7 +153,7 @@ bool Bulldog::LoadAnimation(pugi::xml_node &node, Animation &anim) {
 }
 
 
-void Bulldog::Walk(const std::list<std::pair<int, int>> *_path)
+void Hotdog::Walk(const std::list<std::pair<int, int>> *_path)
 {
 	if (_path->size() > 0)
 	{

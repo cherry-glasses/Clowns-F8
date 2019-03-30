@@ -7,7 +7,7 @@
 class CharacterIris : public Character
 {
 public:
-	CharacterIris();
+	CharacterIris(ENTITY_TYPE _type);
 
 	// Destructor
 	~CharacterIris();
@@ -32,9 +32,6 @@ public:
 	void Wheremove();
 
 	//bool LoadAnimation(pugi::xml_node &_node, Animation &_anim);
-private:
-
-	bool CleanUp();
 
 private:
 	bool flag = false;

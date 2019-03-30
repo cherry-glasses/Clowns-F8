@@ -4,14 +4,6 @@
 #include "Module.h"
 #include "Entity.h"
 
-enum class ENTITY_TYPE
-{
-	ENTITY_CHARACTER,
-	ENTITY_CHARACTER_IRIS,
-	ENTITY_ENEMY,
-	ENTITY_BOSS,
-	NO_TYPE
-};
 
 class ModuleEntityManager : public Module
 {

@@ -6,6 +6,14 @@
 struct SDL_Texture;
 struct SDL_Rect;
 
+enum class ENTITY_TYPE
+{
+	ENTITY_CHARACTER_IRIS,
+	ENTITY_ENEMY_HOTDOG,
+	ENTITY_ENEMY_BURGDOG,
+	NO_TYPE
+};
+
 typedef struct {
 	int Hp;
 	int Mp;
@@ -24,7 +32,7 @@ class Entity
 
 public:
 	
-	Entity();
+	Entity(ENTITY_TYPE _type);
 
 	// Destructor
 	virtual ~Entity() {}
@@ -47,7 +55,7 @@ public:
 	virtual bool Save(pugi::xml_node& _node) const;
 	
 	// Called before quitting
-	virtual bool CleanUp() { return true;}
+	virtual bool CleanUp();
 
 
 	virtual void Draw() {}
@@ -62,6 +70,7 @@ public:
 
 	virtual std::pair<float, float> GetPosition();
 	virtual void SetPosition(const float &_x, const float &_y);
+	virtual ENTITY_TYPE GetType();
 
 public:
 
@@ -88,10 +97,11 @@ protected:
 	Animation hability_2;
 	Animation dead;
 
+	ENTITY_TYPE type = ENTITY_TYPE::NO_TYPE;
 	SDL_Rect	current = { 0,0,0,0 };
-	SDL_Texture * entity_texture = nullptr;
+	SDL_Texture* entity_texture = nullptr;
 	std::string   string_texture;
-	std::pair<float, float>  position;
+	std::pair<int, int>  position;
 	bool moving = true;
 	bool attacking = false;
 

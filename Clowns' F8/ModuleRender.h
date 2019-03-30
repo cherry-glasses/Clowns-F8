@@ -40,7 +40,7 @@ public:
 
 public:
 
-	SDL_Renderer *  renderer;
+	SDL_Renderer*   renderer;
 	SDL_Rect		camera = { 0,0,0,0 };
 	SDL_Rect		viewport = { 0,0,0,0 };
 	SDL_Color		background = { 0,0,0,0 };

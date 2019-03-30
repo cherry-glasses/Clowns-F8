@@ -7,7 +7,7 @@
 class Character : public Entity
 {
 public:
-	Character() : Entity() {}
+	Character(ENTITY_TYPE _type) : Entity(_type) {}
 
 	// Destructor
 	virtual ~Character() {}
@@ -29,7 +29,7 @@ public:
 
 public:
 
-	SDL_Texture *char_tex;
+	//SDL_Texture *char_tex;
 };
 
 #endif // !__Character_H__

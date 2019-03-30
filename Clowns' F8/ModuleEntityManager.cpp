@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "Character.h"
 #include "CharacterIris.h"
+#include "Hotdog.h"
 
 
 ModuleEntityManager::ModuleEntityManager() : Module()
@@ -98,21 +99,19 @@ bool ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 
 	switch (_type)
 	{
-	case ENTITY_TYPE::ENTITY_CHARACTER:
-		tmp = new Character();
-		entities.push_back(tmp);
-		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
-		tmp = new CharacterIris();
+		tmp = new CharacterIris(_type);
 		entities.push_back(tmp);
 		break;
-	case ENTITY_TYPE::ENTITY_ENEMY:
-		tmp = new Enemy();
+	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
+		tmp = new Hotdog(_type);
 		entities.push_back(tmp);
 		break;
-	case ENTITY_TYPE::ENTITY_BOSS:
-		//TODO
-		tmp = nullptr;
+	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
+		tmp = new CharacterIris(_type);
+		entities.push_back(tmp);
+		break;
+	default:
 		break;
 	}
 
