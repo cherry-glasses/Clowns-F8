@@ -3,6 +3,7 @@
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
 #include "ModuleMap.h"
+#include "ModuleWindow.h"
 
 #include "SDL/include/SDL.h"
 
@@ -54,7 +55,7 @@ void ModuleMap::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					std::pair<int, int> pos = MapToWorld(x, y);
 
-					App->render->Blit(tileset->texture, pos.first + 960, pos.second + 120, &r);
+					App->render->Blit(tileset->texture, pos.first + App->window->GetScreenWidth()/2 , pos.second + App->window->GetScreenHeight()/8, &r);
 				}
 			}
 		}
