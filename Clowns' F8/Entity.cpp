@@ -8,7 +8,7 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 {
 	type = _type;
 
-	string_texture = _config.child("texture").attribute("path").as_string();
+	string_texture = _config.child("texture").attribute("value").as_string();
 	entity_texture = App->textures->Load(string_texture.c_str());
 }
 

@@ -52,7 +52,9 @@
   </audio>
 
   <entity_manager>
-    <iris></iris>
+    <iris>
+      <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
+    </iris>
     <hotdog>
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
     </hotdog>

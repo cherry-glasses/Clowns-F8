@@ -38,8 +38,6 @@ public:
 private:
 	std::list<Entity*> entities;
 	pugi::xml_node entity_configs;
-public:
-	
 	
 };
 #endif // !__ModuleEntityManager_H__

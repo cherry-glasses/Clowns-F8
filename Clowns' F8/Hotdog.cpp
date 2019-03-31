@@ -33,7 +33,7 @@ Hotdog::Hotdog(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config
 	dead.speed = config.child("animations").child("die").attribute("speed").as_float();
 	dead.speed = config.child("animations").child("die").attribute("loop").as_bool(false);*/
 
-	entity_texture = App->textures->Load(string_texture.c_str());
+	//entity_texture = App->textures->Load(string_texture.c_str());
 	debug_texture = App->textures->Load("Assets/Maps/meta.png");
 	position.first = 300;
 	position.second = 200;
