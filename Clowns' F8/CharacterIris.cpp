@@ -21,7 +21,7 @@ CharacterIris::~CharacterIris() {
 bool CharacterIris::PreUpdate() {
 
 	if (!flag) {
-		entity_texture = App->textures->Load("Assets/Sprites/Main_Characters/Iris_Spritesheet.png");
+		//entity_texture = App->textures->Load("Assets/Sprites/Main_Characters/Iris_Spritesheet.png");
 		SDL_Rect rect;
 		rect.h = 65;
 		rect.w = 40;

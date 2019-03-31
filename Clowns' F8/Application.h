@@ -128,6 +128,8 @@ private:
 	uint32				prev_last_sec_frame_count = 0;
 	float				seconds_since_startup;
 
+	pugi::xml_document	config_file;
+
 
 
 };
