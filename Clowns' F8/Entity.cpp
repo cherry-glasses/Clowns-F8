@@ -4,12 +4,14 @@
 #include "Entity.h"
 
 
-Entity::Entity(ENTITY_TYPE _type)
+Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 {
 	type = _type;
+
+	string_texture = _config.child("texture").attribute("path").as_string();
+	entity_texture = App->textures->Load(string_texture.c_str());
 }
 
-// Destructor
 
 bool Entity::Load(pugi::xml_node & _file)
 {
@@ -47,6 +49,11 @@ bool Entity::CleanUp()
 	{
 		App->textures->UnLoad(entity_texture);
 		entity_texture = nullptr;
+	}
+	if (debug_texture)
+	{
+		App->textures->UnLoad(debug_texture);
+		debug_texture = nullptr;
 	}
 	return true;
 }

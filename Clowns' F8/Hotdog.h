@@ -7,16 +7,10 @@
 class Hotdog : public Enemy
 {
 public:
-	Hotdog(ENTITY_TYPE _type);
+	Hotdog(ENTITY_TYPE _type, pugi::xml_node _config);
 
 	// Destructor
 	~Hotdog();
-
-	// Called before render is available
-	bool	Awake(pugi::xml_node & _config);
-
-	// Called before the first frame
-	bool	Start(uint _i);
 
 	// Called each loop iteration
 	bool	PreUpdate();
@@ -24,7 +18,7 @@ public:
 	bool	PostUpdate();
 
 	//Move and Attack
-	void Walk(const std::list<std::pair<int, int>> *_path);
+	void Walk(const std::vector<std::pair<int, int>> *_path);
 	void Attack() {}
 	void Hability_1() {}
 	void Hability_2() {}
@@ -34,10 +28,6 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	bool LoadAnimation(pugi::xml_node &_node, Animation &_anim);
-private:
-
-	bool CleanUp();
 
 };
 

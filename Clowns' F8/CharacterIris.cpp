@@ -10,45 +10,12 @@
 
 
 
-CharacterIris::CharacterIris(ENTITY_TYPE _type) : Character(_type)
+CharacterIris::CharacterIris(ENTITY_TYPE _type, pugi::xml_node _config) : Character(_type, _config)
 {
 }
 
 CharacterIris::~CharacterIris() {
 
-}
-
-bool CharacterIris::Awake(pugi::xml_node & _config) {
-
-	/*Stats::Hp = { config.child("Hp").value.as_int()};
-	Stats::Mp = { config.child("Mp").value.as_int() };
-	Stats::Mana = { config.child("Mana").value.as_int() };
-	Stats::Cp = { config.child("Cp").value.as_int() };
-	Stats::AtkF = { config.child("AtkF").value.as_int() };
-	Stats::AtkS = { config.child("AtkS").value.as_int() };
-	Stats::DefF = { config.child("DefF").value.as_int() };
-	Stats::DefS = { config.child("DefS").value.as_int() };
-	Stats::Crit_hit = { config.child("Crit_hit").value.as_int() };*/
-
-	/*LoadAnimation(config.child("animations").child("idle").child("frame"), idle);
-	idle.speed = config.child("animations").child("idle").attribute("speed").as_float();
-	idle.loop = config.child("animations").child("idle").attribute("loop").as_bool(true);*/
-
-	/*LoadAnimation(config.child("animations").child("walk").child("frame"), walk);
-	walk.speed = config.child("animations").child("walk").attribute("speed").as_float();
-	walk.loop = config.child("animations").child("walk").attribute("loop").as_bool(true);
-
-	LoadAnimation(config.child("animations").child("die").child("frame"), dead);
-	dead.speed = config.child("animations").child("die").attribute("speed").as_float();
-	dead.speed = config.child("animations").child("die").attribute("loop").as_bool(false);*/
-
-	return true;
-	
-}
-
-bool CharacterIris::Start() {
-	
-	return true;
 }
 
 bool CharacterIris::PreUpdate() {

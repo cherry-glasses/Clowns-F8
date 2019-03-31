@@ -26,7 +26,7 @@ public:
 	int CreatePath(const std::pair<int, int>& origin, const std::pair<int, int>& destination);
 
 	// To request all tiles involved in the last generated path
-	const std::list<std::pair<int, int>>* GetLastPath() const;
+	const std::vector<std::pair<int, int>>* GetLastPath() const;
 
 	// Utility: return true if pos is inside the map boundaries
 	bool CheckBoundaries(const std::pair<int, int>& pos) const;
@@ -45,7 +45,7 @@ private:
 	// all map walkability values [0..255]
 	uchar* map;
 	// we store the created path here
-	std::list<std::pair<int, int>> last_path;
+	std::vector<std::pair<int, int>> last_path;
 };
 
 // forward declaration

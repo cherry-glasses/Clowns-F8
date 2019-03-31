@@ -7,16 +7,10 @@
 class CharacterIris : public Character
 {
 public:
-	CharacterIris(ENTITY_TYPE _type);
+	CharacterIris(ENTITY_TYPE _type, pugi::xml_node _config);
 
 	// Destructor
 	~CharacterIris();
-
-	// Called before render is available
-	bool	Awake(pugi::xml_node & _config);
-
-	// Called before the first frame
-	bool	Start();
 
 	// Called each loop iteration
 	bool	PreUpdate();

@@ -57,7 +57,7 @@ uchar ModulePathfinding::GetTileAt(const std::pair<int, int>& pos) const
 }
 
 // To request all tiles involved in the last generated path
-const std::list<std::pair<int, int>>* ModulePathfinding::GetLastPath() const
+const std::vector<std::pair<int, int>>* ModulePathfinding::GetLastPath() const
 {
 	return &last_path;
 }
@@ -178,7 +178,7 @@ int ModulePathfinding::CreatePath(const std::pair<int, int>& origin, const std::
 
 	PathNode node_origin;
 	node_origin.g = 0;
-	node_origin.h = (((origin.first - origin.first) ^ 2) + ((origin.second - destination.second) ^ 2));
+	node_origin.h = (((origin.first - origin.first) * (origin.first - origin.first)) + ((origin.second - destination.second) * (origin.second - destination.second)));
 	node_origin.pos = origin;
 	node_origin.parent = nullptr;
 	open.list.push_back(node_origin);

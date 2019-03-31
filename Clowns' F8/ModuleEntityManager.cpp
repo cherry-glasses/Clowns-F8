@@ -20,9 +20,8 @@ ModuleEntityManager::~ModuleEntityManager()
 bool ModuleEntityManager::Awake(pugi::xml_node & _config)
 {
 	LOG("Loading Entities");
-	bool ret = true;
-
-	return ret;
+	entity_configs = _config;
+	return true;
 }
 
 // Called before the first frame
@@ -100,16 +99,14 @@ bool ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 	switch (_type)
 	{
 	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
-		tmp = new CharacterIris(_type);
+		tmp = new CharacterIris(_type, entity_configs.child("iris"));
 		entities.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
-		tmp = new Hotdog(_type);
+		tmp = new Hotdog(_type, entity_configs.child("hotdog"));
 		entities.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
-		tmp = new CharacterIris(_type);
-		entities.push_back(tmp);
 		break;
 	default:
 		break;

@@ -32,7 +32,7 @@ class Entity
 
 public:
 	
-	Entity(ENTITY_TYPE _type);
+	Entity(ENTITY_TYPE _type, pugi::xml_node _config);
 
 	// Destructor
 	virtual ~Entity() {}
@@ -100,9 +100,11 @@ protected:
 	ENTITY_TYPE type = ENTITY_TYPE::NO_TYPE;
 	SDL_Rect	current = { 0,0,0,0 };
 	SDL_Texture* entity_texture = nullptr;
+	SDL_Texture* debug_texture = nullptr;
 	std::string   string_texture;
 	std::pair<int, int>  position;
-	bool moving = true;
+	bool turn = false;
+	bool moving = false;
 	bool attacking = false;
 
 };

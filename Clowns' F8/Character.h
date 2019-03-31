@@ -7,7 +7,7 @@
 class Character : public Entity
 {
 public:
-	Character(ENTITY_TYPE _type) : Entity(_type) {}
+	Character(ENTITY_TYPE _type, pugi::xml_node _config) : Entity(_type, _config) {}
 
 	// Destructor
 	virtual ~Character() {}

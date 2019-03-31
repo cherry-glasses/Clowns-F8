@@ -7,7 +7,7 @@
 class Enemy : public Entity
 {
 public:
-	Enemy(ENTITY_TYPE _type) : Entity(_type) {}
+	Enemy(ENTITY_TYPE _type, pugi::xml_node _config) : Entity(_type, _config) {}
 
 	// Destructor
 	virtual ~Enemy() {}
