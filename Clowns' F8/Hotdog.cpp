@@ -23,12 +23,8 @@ bool Hotdog::PreUpdate()
 		if (current_turn == MOVE)
 		{
 			App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(position.first + 1, position.second));
-			Walk(App->pathfinding->GetLastPath());
 		}
-		else {
-			current_movement = IDLE;
-			current_animation = &idle;
-		}
+		
 	}
 
 	return ret;
@@ -39,6 +35,12 @@ bool Hotdog::Update(float dt)
 	
 	if (current_movement == IDLE)
 	{
+		if (current_turn == MOVE)
+		{
+			App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(position.first + 1, position.second));
+			Walk(App->pathfinding->GetLastPath());
+		}
+		current_movement = IDLE;
 		current_animation = &idle;
 	}
 	else if (current_movement == LEFTUP)
@@ -67,7 +69,6 @@ bool Hotdog::PostUpdate()
 	{
 		App->render->Blit(entity_texture, position.first, position.second, &current, 1.0f);
 	}
-	
 
 	return true;
 }
@@ -102,6 +103,7 @@ void Hotdog::Walk(const std::vector<std::pair<int, int>> *_path)
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first -= 1;
 	tmp.second += 0;
+	tmp = App->map->MapToWorld((int)tmp.first, (int)tmp.second);
 	App->render->Blit(debug_texture, tmp.first, tmp.second, &debug_green);
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
 	{
@@ -114,6 +116,7 @@ void Hotdog::Walk(const std::vector<std::pair<int, int>> *_path)
 				
 			}
 		}
+		tmp = App->map->WorldToMap((int)tmp.first, (int)tmp.second);
 		position = App->map->MapToWorld(tmp.first, tmp.second);
 		current_turn = END_TURN;
 	}

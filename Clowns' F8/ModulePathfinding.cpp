@@ -178,7 +178,7 @@ int ModulePathfinding::CreatePath(const std::pair<int, int>& origin, const std::
 
 	PathNode node_origin;
 	node_origin.g = 0;
-	node_origin.h = (((origin.first - origin.first) * (origin.first - origin.first)) + ((origin.second - destination.second) * (origin.second - destination.second)));
+	node_origin.h = (((origin.first - destination.first) * (origin.first - destination.first)) + ((origin.second - destination.second) * (origin.second - destination.second)));
 	node_origin.pos = origin;
 	node_origin.parent = nullptr;
 	open.list.push_back(node_origin);
