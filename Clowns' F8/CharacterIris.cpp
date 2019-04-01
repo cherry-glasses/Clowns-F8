@@ -15,6 +15,7 @@ CharacterIris::CharacterIris(ENTITY_TYPE _type, pugi::xml_node _config) : Charac
 	std::pair<int, int> coso = App->map->WorldToMap((int)position.first, (int)position.second);
 	position = App->map->MapToWorld(coso.first, coso.second);
 	coso = App->map->WorldToMap((int)position.first, (int)position.second);
+	current_turn = MOVE;
 }
 
 CharacterIris::~CharacterIris() {
@@ -36,7 +37,7 @@ bool CharacterIris::PreUpdate() {
 bool CharacterIris::Update(float _dt) {
 	
 	//if we press start the cycle iniciate
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && Def != Move_Steps::SELECT)
+	if (current_turn == MOVE && Def == Move_Steps::IDLE)
 		Def = Move_Steps::SEARCH;
 	//this switch will have the different steps of the cycle
 	switch (Def) {
@@ -75,15 +76,10 @@ bool CharacterIris::Update(float _dt) {
 		case Move_Steps::MOVE:
 			position = App->map->MapToWorld((possible_mov[Cap].first), possible_mov[Cap].second);
 			Def = Move_Steps::IDLE;
+			current_turn = END_TURN;
 			break;
 		}
 
-
-	
-		
-		
-	
-	
 	return true;
 }
 
@@ -91,7 +87,6 @@ bool CharacterIris::PostUpdate() {
 	if (entity_texture != nullptr) {
 		App->render->Blit(entity_texture, position.first, position.second, &current, 1.0f); //Bug: Problem with the blit a close the game. Render
 	}
-	
 	
 	return true;
 }

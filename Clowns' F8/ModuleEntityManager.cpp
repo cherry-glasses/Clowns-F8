@@ -39,6 +39,20 @@ bool ModuleEntityManager::PreUpdate()
 {
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
+		if ((*entity)->current_turn == Entity::TURN::END_TURN) 
+		{
+			(*entity)->current_turn = Entity::TURN::NONE;
+			if (*entity != entities.back()) 
+			{
+				entity++;
+				(*entity)->current_turn = Entity::TURN::MOVE;
+				entity--;
+			}
+			else {
+				entities.front()->current_turn = Entity::TURN::MOVE;
+			}
+			
+		}
 		(*entity)->PreUpdate();
 	}
 

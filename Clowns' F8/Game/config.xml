@@ -70,7 +70,7 @@
       <debug_texture value="Assets/Maps/meta.png"/>
       <debug_1 x="0" y="0" width="64" height="64"/>
       <debug_2 x="64" y="0" width="64" height="64"/>
-      <position x="50" y="3"/>
+      <position x="40" y="3"/>
       <stats hp="" mana="" cp="" atk_f="" atk_s="" def_f="" def_s="" crit=""/>
       <animations>
         <idle speed="0" loop="true">

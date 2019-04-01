@@ -77,16 +77,19 @@ public:
 	Stats Default_States;
 	Stats Current_States;
 	Stats Modifiers;
-	
+
+	enum TURN { MOVE, ATTACK, END_TURN, NONE };
+	TURN current_turn = NONE;
 
 protected:
 
 	enum MOVEMENT { IDLE, LEFTUP, LEFTDOWN, RIGHTUP, RIGHTDOWN };
 	enum STATE { ALIVE, DEATH };
-
+	
 	STATE current_state = ALIVE;
 	MOVEMENT last_movement;
 	MOVEMENT current_movement = IDLE;
+	
 
 	Animation*	current_animation = nullptr;
 	Animation idle;
@@ -103,9 +106,7 @@ protected:
 	SDL_Rect debug_1;
 	SDL_Rect debug_2;
 	std::pair<int, int>  position;
-	bool turn = false;
-	bool moving = false;
-	bool attacking = false;
+	
 
 };
 
