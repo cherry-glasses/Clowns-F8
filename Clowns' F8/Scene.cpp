@@ -127,8 +127,8 @@ bool Scene::Update(float _dt)
 			main_menu_created = false;
 			App->map->Load("iso_walk.tmx");
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
-			App->render->camera.x = App->window->GetScreenWidth() / 2;
-			App->render->camera.y = App->window->GetScreenHeight() / 8;
+			/*App->render->camera.x = App->window->GetScreenWidth() / 2;
+			App->render->camera.y = App->window->GetScreenHeight() / 8;*/
 			//App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_HOTDOG);
 		}
 		

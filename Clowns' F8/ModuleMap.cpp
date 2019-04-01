@@ -55,7 +55,7 @@ void ModuleMap::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					std::pair<int, int> pos = MapToWorld(x, y);
 
-					App->render->Blit(tileset->texture, pos.first, pos.second, &r);
+					App->render->Blit(tileset->texture, pos.first + App->window->GetScreenWidth() / 2, pos.second + App->window->GetScreenHeight() / 8, &r);
 				}
 			}
 		}

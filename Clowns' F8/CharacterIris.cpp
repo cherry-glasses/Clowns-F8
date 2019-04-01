@@ -29,7 +29,7 @@ bool CharacterIris::PreUpdate() {
 		rect.y = 0;
 		idle.PushBack(rect);
 		idle.speed = 0;
-		position = App->map->MapToWorld(12,12);
+		position = App->map->MapToWorld(30,3);
 		std::pair<int, int> coso = App->map->WorldToMap((int)position.first, (int)position.second);
 		position = App->map->MapToWorld(coso.first, coso.second);
 		coso = App->map->WorldToMap((int)position.first, (int)position.second);
