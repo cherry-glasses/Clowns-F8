@@ -107,21 +107,21 @@ bool Scene::Update(float _dt)
 		break;
 
 	case Scene::GLOBAL_MAP:
-		App->render->Blit(portrait_tex, 870, 25);
-		App->render->Blit(health_bar_tex, 1000, 30);
-		App->render->Blit(mana_bar_tex, 1000, 90);
+		App->render->Blit(portrait_tex, 1510, 25);
+		App->render->Blit(health_bar_tex, 1640, 30);
+		App->render->Blit(mana_bar_tex, 1640, 90);
 
 		App->render->Blit(portrait_tex, 20, 25);
 		App->render->Blit(health_bar_tex, 150, 30);
 		App->render->Blit(mana_bar_tex, 150, 90);
 
-		App->render->Blit(portrait_tex, 20, 805);
-		App->render->Blit(health_bar_tex, 150, 810);
-		App->render->Blit(mana_bar_tex, 150, 870);
+		App->render->Blit(portrait_tex, 20, 905);
+		App->render->Blit(health_bar_tex, 150, 910);
+		App->render->Blit(mana_bar_tex, 150, 970);
 
-		App->render->Blit(portrait_tex, 870, 805);
-		App->render->Blit(health_bar_tex, 1000, 810);
-		App->render->Blit(mana_bar_tex, 1000, 870);
+		App->render->Blit(portrait_tex, 1510, 905);
+		App->render->Blit(health_bar_tex, 1640, 910);
+		App->render->Blit(mana_bar_tex, 1640, 970);
 		if (!map_loaded) {
 			map_loaded = true;
 			main_menu_created = false;
