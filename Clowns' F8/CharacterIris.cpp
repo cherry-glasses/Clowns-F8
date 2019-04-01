@@ -64,10 +64,10 @@ bool CharacterIris::Update(float _dt) {
 				int j = 0;
 				possible_mov_map[i] = App->map->MapToWorld((possible_mov[i].first), possible_mov[i].second);
 				if (i != Cap) 
-					App->render->Blit(debug_texture, possible_mov_map[i].first, possible_mov_map[i].second, &debug_1);
+					App->render->Blit(debug_texture, possible_mov_map[i].first, possible_mov_map[i].second, &debug_green);
 				
 			}
-			App->render->Blit(debug_texture, possible_mov_map[Cap].first, possible_mov_map[Cap].second, &debug_2);
+			App->render->Blit(debug_texture, possible_mov_map[Cap].first, possible_mov_map[Cap].second, &debug_red);
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 				Def = Move_Steps::MOVE;
 			break;

@@ -106,7 +106,7 @@ void Hotdog::Walk(const std::vector<std::pair<int, int>> *_path)
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first -= 1;
 	tmp.second += 0;
-	App->render->Blit(debug_texture, tmp.first, tmp.second, &debug_1);
+	App->render->Blit(debug_texture, tmp.first, tmp.second, &debug_green);
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
 	{
 		if (_path->size() > 0)
@@ -114,7 +114,7 @@ void Hotdog::Walk(const std::vector<std::pair<int, int>> *_path)
 			for (uint i = 0; i < _path->size(); ++i)
 			{
 				std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
-				App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_1);
+				App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_green);
 				
 			}
 		}

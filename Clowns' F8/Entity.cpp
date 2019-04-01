@@ -11,10 +11,12 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 
 	entity_texture = App->textures->Load(_config.child("texture").attribute("value").as_string());
 	debug_texture = App->textures->Load(_config.child("debug_texture").attribute("value").as_string());
-	debug_1 = { _config.child("debug_1").attribute("x").as_int(), _config.child("debug_1").attribute("y").as_int(),
-		_config.child("debug_1").attribute("width").as_int(), _config.child("debug_1").attribute("height").as_int() };
-	debug_2 = { _config.child("debug_2").attribute("x").as_int(), _config.child("debug_2").attribute("y").as_int(),
-		_config.child("debug_2").attribute("width").as_int(), _config.child("debug_2").attribute("height").as_int() };
+	debug_green = { _config.parent().child("debug_green").attribute("x").as_int(), _config.parent().child("debug_green").attribute("y").as_int(),
+		_config.parent().child("debug_green").attribute("width").as_int(), _config.parent().child("debug_green").attribute("height").as_int() };
+	debug_red = { _config.parent().child("debug_red").attribute("x").as_int(), _config.parent().child("debug_red").attribute("y").as_int(),
+		_config.parent().child("debug_red").attribute("width").as_int(), _config.parent().child("debug_red").attribute("height").as_int() };
+	debug_blue = { _config.parent().child("debug_blue").attribute("x").as_int(), _config.parent().child("debug_blue").attribute("y").as_int(),
+		_config.parent().child("debug_blue").attribute("width").as_int(), _config.parent().child("debug_blue").attribute("height").as_int() };
 
 	position = App->map->MapToWorld(_config.child("position").attribute("x").as_int(), _config.child("position").attribute("y").as_int());
 	Default_States.Hp = _config.child("stats").attribute("hp").as_int();

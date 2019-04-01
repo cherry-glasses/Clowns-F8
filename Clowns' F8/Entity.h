@@ -103,8 +103,9 @@ protected:
 	SDL_Rect	current = { 0,0,0,0 };
 	SDL_Texture* entity_texture = nullptr;
 	SDL_Texture* debug_texture = nullptr;
-	SDL_Rect debug_1;
-	SDL_Rect debug_2;
+	SDL_Rect debug_green;
+	SDL_Rect debug_red;
+	SDL_Rect debug_blue;
 	std::pair<int, int>  position;
 	
 
