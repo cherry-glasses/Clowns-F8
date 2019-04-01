@@ -16,7 +16,6 @@ enum class ENTITY_TYPE
 
 typedef struct {
 	int Hp;
-	int Mp;
 	int Mana;
 	int Cp;
 
@@ -24,7 +23,7 @@ typedef struct {
 	int AtkS;
 	int DefF;
 	int AtkF;
-	int Crit_hit; // Options to get a critical hit.
+	int Crit;
 } Stats;
 
 class Entity
@@ -66,7 +65,7 @@ public:
 	}
 
 	void AddFX(const int _channel, const int _repeat) const;
-	bool LoadAnimation(pugi::xml_node &_node, Animation &_anim);
+	bool LoadAnimation(pugi::xml_node _node, Animation &_anim);
 
 	virtual std::pair<float, float> GetPosition();
 	virtual void SetPosition(const float &_x, const float &_y);
@@ -101,7 +100,8 @@ protected:
 	SDL_Rect	current = { 0,0,0,0 };
 	SDL_Texture* entity_texture = nullptr;
 	SDL_Texture* debug_texture = nullptr;
-	std::string   string_texture;
+	SDL_Rect debug_1;
+	SDL_Rect debug_2;
 	std::pair<int, int>  position;
 	bool turn = false;
 	bool moving = false;

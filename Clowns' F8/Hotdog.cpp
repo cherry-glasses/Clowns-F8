@@ -9,43 +9,8 @@
 
 Hotdog::Hotdog(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
 {
-	//string_texture = _config.child("texture").attribute("path").as_string();
 
-	/*Default_States.Hp = _config.child("Hp").value.as_int(2);
-	Default_States.Mp = _config.child("Mp").value.as_int(2);
-	Default_States.Mana = _config.child("Mana").value.as_int(2);
-	Default_States.Cp = _config.child("Cp").value.as_int();
-	Default_States.AtkF = _config.child("AtkF").value.as_int();
-	Default_States.AtkS = _config.child("AtkS").value.as_int();
-	Default_States.DefF = _config.child("DefF").value.as_int();
-	Default_States.DefS = _config.child("DefS").value.as_int();
-	Default_States.Crit_hit = _config.child("Crit_hit").value.as_int();*/
-
-	/*LoadAnimation(config.child("animations").child("idle").child("frame"), idle);
-	idle.speed = config.child("animations").child("idle").attribute("speed").as_float();
-	idle.loop = config.child("animations").child("idle").attribute("loop").as_bool(true);*/
-
-	/*LoadAnimation(config.child("animations").child("walk").child("frame"), walk);
-	walk.speed = config.child("animations").child("walk").attribute("speed").as_float();
-	walk.loop = config.child("animations").child("walk").attribute("loop").as_bool(true);
-
-	LoadAnimation(config.child("animations").child("die").child("frame"), dead);
-	dead.speed = config.child("animations").child("die").attribute("speed").as_float();
-	dead.speed = config.child("animations").child("die").attribute("loop").as_bool(false);*/
-
-	//entity_texture = App->textures->Load(string_texture.c_str());
-	debug_texture = App->textures->Load("Assets/Maps/meta.png");
-	position.first = 300;
-	position.second = 200;
-	SDL_Rect rect;
-	rect.h = 65;
-	rect.w = 40;
-	rect.x = 0;
-	rect.y = 0;
-	idle.PushBack(rect);
-	idle.speed = 0;
-	current_animation = &idle;
-	current = current_animation->GetCurrentFrame();
+	
 
 	moving = true;
 
@@ -146,7 +111,7 @@ void Hotdog::Walk(const std::vector<std::pair<int, int>> *_path)
 		for (uint i = 0; i < _path->size(); ++i)
 		{
 			std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
-			App->render->Blit(debug_texture, pos_debug.first, pos_debug.second);
+			App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_1);
 		}
 	}
 }

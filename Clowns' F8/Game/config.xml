@@ -54,9 +54,29 @@
   <entity_manager>
     <iris>
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
+      <debug_texture value="Assets/Maps/meta.png"/>
+      <debug_1 x="0" y="0" width="64" height="64"/>
+      <debug_2 x="64" y="0" width="64" height="64"/>
+      <position x="30" y="3"/>
+      <stats hp="" mana="" cp="" atk_f="" atk_s="" def_f="" def_s="" crit=""/>
+      <animations>
+        <idle speed="0" loop="true">
+          <frame x="0" y="0" width="40" height="65"/>
+        </idle>
+      </animations>
     </iris>
     <hotdog>
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
+      <debug_texture value="Assets/Maps/meta.png"/>
+      <debug_1 x="0" y="0" width="64" height="64"/>
+      <debug_2 x="64" y="0" width="64" height="64"/>
+      <position x="50" y="3"/>
+      <stats hp="" mana="" cp="" atk_f="" atk_s="" def_f="" def_s="" crit=""/>
+      <animations>
+        <idle speed="0" loop="true">
+          <frame x="0" y="0" width="40" height="65"/>
+        </idle>
+      </animations>
     </hotdog>
   </entity_manager>
 
