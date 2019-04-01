@@ -101,8 +101,8 @@ bool CharacterIris::Save(pugi::xml_node& node) const{
 
 void CharacterIris::Wheremove() {
 
-
 	std::pair<int, int> tmp;
+
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first += 1;
 	tmp.second += 2;  //first i get where the hell i can be

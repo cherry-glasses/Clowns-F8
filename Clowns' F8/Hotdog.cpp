@@ -1,6 +1,7 @@
 #include "Log.h"
 #include "Application.h"
 #include "Hotdog.h"
+#include "ModuleEntityManager.h"
 #include "ModulePathfinding.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
@@ -10,9 +11,10 @@
 
 Hotdog::Hotdog(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
 {
-
+	std::pair<int, int> coso = App->map->WorldToMap((int)position.first, (int)position.second);
+	position = App->map->MapToWorld(coso.first, coso.second);
+	coso = App->map->WorldToMap((int)position.first, (int)position.second);
 	
-
 }
 Hotdog::~Hotdog()
 {
@@ -24,13 +26,7 @@ bool Hotdog::PreUpdate()
 	if (current_movement == IDLE) {
 		if (current_turn == MOVE)
 		{
-			App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(position.first + 100, position.second));
-			Walk(App->pathfinding->GetLastPath());
-			App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(position.first - 10, position.second));
-			Walk(App->pathfinding->GetLastPath());
-			App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(position.first, position.second + 100));
-			Walk(App->pathfinding->GetLastPath());
-			App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(position.first, position.second - 10));
+			App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(position.first + 1, position.second));
 			Walk(App->pathfinding->GetLastPath());
 		}
 		else {
@@ -108,21 +104,22 @@ void Hotdog::Walk(const std::vector<std::pair<int, int>> *_path)
 {
 	std::pair<int, int> tmp;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	tmp.first += 1;
-	tmp.second += 2;
-
+	tmp.first -= 1;
+	tmp.second += 0;
 	App->render->Blit(debug_texture, tmp.first, tmp.second, &debug_1);
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
 	{
+		if (_path->size() > 0)
+		{
+			for (uint i = 0; i < _path->size(); ++i)
+			{
+				std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
+				App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_1);
+				
+			}
+		}
+		position = App->map->MapToWorld(tmp.first, tmp.second);
 		current_turn = END_TURN;
 	}
 
-	/*if (_path->size() > 0)
-	{
-		for (uint i = 0; i < _path->size(); ++i)
-		{
-			std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
-			App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_1);
-		}
-	}*/
 }
