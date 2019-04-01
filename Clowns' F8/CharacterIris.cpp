@@ -12,9 +12,6 @@
 
 CharacterIris::CharacterIris(ENTITY_TYPE _type, pugi::xml_node _config) : Character(_type, _config)
 {
-	std::pair<int, int> coso = App->map->WorldToMap((int)position.first, (int)position.second);
-	position = App->map->MapToWorld(coso.first, coso.second);
-	coso = App->map->WorldToMap((int)position.first, (int)position.second);
 	current_turn = MOVE;
 }
 
@@ -61,7 +58,6 @@ bool CharacterIris::Update(float _dt) {
 			}
 
 			for (int i = 0; i < 8; i++) {
-				int j = 0;
 				possible_mov_map[i] = App->map->MapToWorld((possible_mov[i].first), possible_mov[i].second);
 				if (i != Cap) 
 					App->render->Blit(debug_texture, possible_mov_map[i].first, possible_mov_map[i].second, &debug_green);

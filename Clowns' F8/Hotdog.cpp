@@ -11,10 +11,6 @@
 
 Hotdog::Hotdog(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
 {
-	std::pair<int, int> coso = App->map->WorldToMap((int)position.first, (int)position.second);
-	position = App->map->MapToWorld(coso.first, coso.second);
-	coso = App->map->WorldToMap((int)position.first, (int)position.second);
-	
 }
 Hotdog::~Hotdog()
 {
