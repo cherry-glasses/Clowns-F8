@@ -22,6 +22,7 @@ class ModuleFadeToBlack;
 class Scene;
 class ModuleEntityManager;
 class ModuleGUIManager;
+class ModulePathfinding;
 
 
 
@@ -99,8 +100,10 @@ public:
 	Scene* scene = nullptr;
 	ModuleEntityManager* entity_manager = nullptr;
 	ModuleGUIManager* gui_manager = nullptr;
+	ModulePathfinding* pathfinding = nullptr;
 
 	bool debug = false;
+
 
 private:
 
@@ -125,6 +128,10 @@ private:
 	uint32				last_sec_frame_count = 0;
 	uint32				prev_last_sec_frame_count = 0;
 	float				seconds_since_startup;
+
+
+	pugi::xml_document	config_file;
+
 
 
 

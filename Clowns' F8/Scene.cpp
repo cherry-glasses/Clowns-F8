@@ -10,6 +10,9 @@
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
 #include "Scene.h"
+#include "ModuleEntityManager.h"
+#include "ModuleWindow.h"
+
 
 Scene::Scene() : Module()
 {
@@ -34,6 +37,7 @@ bool Scene::Awake(pugi::xml_node& _config)
 // Called before the first frame
 bool Scene::Start()
 {
+
 	main_menu_background = App->textures->Load("Assets/Sprites/UI/Main_menu_art_shot.png");
 	health_bar_tex = App->textures->Load("Assets/Sprites/UI/UI_Health_Bar.png");
 	mana_bar_tex = App->textures->Load("Assets/Sprites/UI/UI_Mana_Bar.png");
@@ -64,16 +68,19 @@ bool Scene::Update(float _dt)
 			main_menu_created = true;
 			CreateMainMenu();
 		}
+
 		App->render->Blit(main_menu_background, -200, 0);
-		
+
 		if (new_game_button->has_been_clicked)
 		{
 			current_scene = GLOBAL_MAP;
 			DeleteMenu();
+
 		}
 		else if (load_game_button->has_been_clicked)
 		{
 			current_scene = GLOBAL_MAP;
+
 			DeleteMenu();
 		}
 		else if (options_button->has_been_clicked)
@@ -90,6 +97,7 @@ bool Scene::Update(float _dt)
 		{
 			ret = false;
 		}
+
 		else if (cherry_glasses_logo_button->has_been_clicked)
 		{
 			ShellExecuteA(NULL, "open", "https://github.com/cherry-glasses/Clowns-F8/wiki", NULL, NULL, SW_SHOWNORMAL);
@@ -118,6 +126,26 @@ bool Scene::Update(float _dt)
 			map_loaded = true;
 			main_menu_created = false;
 			App->map->Load("iso_walk.tmx");
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
+			App->render->camera.x = App->window->GetScreenWidth() / 2;
+			App->render->camera.y = App->window->GetScreenHeight() / 8;
+			//App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_HOTDOG);
+		}
+		
+
+		// Camera Movment in map
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) 
+			App->render->camera.y += 4;
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			App->render->camera.x += 4;
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+			App->render->camera.y -= 4;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			App->render->camera.x -= 4;
+
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		{
+			ret = false;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
@@ -253,6 +281,7 @@ bool Scene::Save(pugi::xml_node& _data) const
 
 void Scene::CreateMainMenu()
 {
+
 
 	new_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 497.0f, 300.0f, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(new_game_button);

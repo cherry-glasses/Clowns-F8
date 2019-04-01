@@ -15,7 +15,7 @@
   </render>
 
   <window>
-    <resolution width="1280" height="960" scale="1"/>
+    <resolution width="1920" height="1080" scale="1"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>
@@ -32,7 +32,6 @@
   
   <map>
     <folder>Assets/Maps/</folder>
-    <parallax_speed value="1"/>
   </map>
   
   <scene>
@@ -53,7 +52,12 @@
   </audio>
 
   <entity_manager>
-    
+    <iris>
+      <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
+    </iris>
+    <hotdog>
+      <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
+    </hotdog>
   </entity_manager>
 
 </config>
