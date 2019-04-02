@@ -116,9 +116,11 @@ void Hotdog::Walk(const std::vector<std::pair<int, int>> *_path)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
 	{
-		
-		/*tmp = App->map->WorldToMap((int)tmp.first, (int)tmp.second);*/
-		position = App->map->MapToWorld(_path->at(1).first, _path->at(1).second);;
+		if (_path->size() > 0) 
+		{
+			/*tmp = App->map->WorldToMap((int)tmp.first, (int)tmp.second);*/
+			position = App->map->MapToWorld(_path->at(1).first, _path->at(1).second);
+		}
 		current_turn = END_TURN;
 	}
 
