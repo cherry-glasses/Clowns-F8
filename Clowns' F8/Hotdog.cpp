@@ -22,7 +22,7 @@ bool Hotdog::PreUpdate()
 	if (current_movement == IDLE) {
 		if (current_turn == MOVE)
 		{
-			App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(position.first + 1, position.second));
+ 			
 		}
 		
 	}
@@ -37,11 +37,13 @@ bool Hotdog::Update(float dt)
 	{
 		if (current_turn == MOVE)
 		{
-			App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(position.first + 1, position.second));
+			current_movement = IDLE;
+			current_animation = &idle;
+			std::pair<int,int> nearposition = App->entity_manager->NearestCharacter(position);
+			App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
 			Walk(App->pathfinding->GetLastPath());
 		}
-		current_movement = IDLE;
-		current_animation = &idle;
+		
 	}
 	else if (current_movement == LEFTUP)
 	{
@@ -59,6 +61,7 @@ bool Hotdog::Update(float dt)
 	{
 		current_animation = &walk;
 	}
+	
 
 	return true;
 }
@@ -104,20 +107,18 @@ void Hotdog::Walk(const std::vector<std::pair<int, int>> *_path)
 	tmp.first -= 1;
 	tmp.second += 0;
 	tmp = App->map->MapToWorld((int)tmp.first, (int)tmp.second);
-	App->render->Blit(debug_texture, tmp.first, tmp.second, &debug_green);
+	//App->render->Blit(debug_texture, tmp.first, tmp.second, &debug_green);
+	for (uint i = 0; i < _path->size(); ++i)
+	{
+		std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
+		App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_green);
+
+	}
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
 	{
-		if (_path->size() > 0)
-		{
-			for (uint i = 0; i < _path->size(); ++i)
-			{
-				std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
-				App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_green);
-				
-			}
-		}
-		tmp = App->map->WorldToMap((int)tmp.first, (int)tmp.second);
-		position = App->map->MapToWorld(tmp.first, tmp.second);
+		
+		/*tmp = App->map->WorldToMap((int)tmp.first, (int)tmp.second);*/
+		position = App->map->MapToWorld(_path->at(1).first, _path->at(1).second);;
 		current_turn = END_TURN;
 	}
 

@@ -67,7 +67,7 @@ public:
 	void AddFX(const int _channel, const int _repeat) const;
 	bool LoadAnimation(pugi::xml_node _node, Animation &_anim);
 
-	virtual std::pair<float, float> GetPosition();
+	virtual std::pair<int, int> GetPosition();
 	virtual void SetPosition(const float &_x, const float &_y);
 	virtual ENTITY_TYPE GetType();
 

@@ -92,7 +92,7 @@ bool Entity::CleanUp()
 	return true;
 }
 
-std::pair<float, float> Entity::GetPosition()
+std::pair<int, int> Entity::GetPosition()
 {
 	return position;
 }

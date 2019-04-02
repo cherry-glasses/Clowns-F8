@@ -4,6 +4,7 @@
 #include "ModuleTextures.h"
 #include "ModuleMap.h"
 #include "ModuleWindow.h"
+#include "ModulePathfinding.h"
 
 #include "SDL/include/SDL.h"
 
@@ -55,7 +56,7 @@ void ModuleMap::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					std::pair<int, int> pos = MapToWorld(x, y);
 
-					App->render->Blit(tileset->texture, pos.first + App->window->GetScreenWidth() / 2, pos.second + App->window->GetScreenHeight() / 8, &r);
+					App->render->Blit(tileset->texture, pos.first, pos.second, &r);
 				}
 			}
 		}
@@ -194,6 +195,10 @@ bool ModuleMap::Load(const char* _file_name)
 	bool ret = true;
 	std::string tmp_string = folder + _file_name;
 
+	int w, h;
+	uchar* dat = NULL;
+	
+
 	pugi::xml_parse_result result = map_file.load_file(tmp_string.c_str());
 
 	if (result == NULL)
@@ -266,6 +271,9 @@ bool ModuleMap::Load(const char* _file_name)
 			++item_layer;
 		}
 	}
+
+	if (App->map->CreateWalkabilityMap(w, h, &dat))
+		App->pathfinding->SetMap(w, h, dat);
 
 	map_loaded = ret;
 
