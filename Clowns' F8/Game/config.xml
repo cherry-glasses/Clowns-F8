@@ -63,48 +63,35 @@
       <animations>
         <idle_left_back speed="0" loop="true">
           <frame x="0" y="0" width="41" height="65"/>
+          <frame x="82" y="0" width="41" height="65"/>
         </idle_left_back>
-        .>
         <idle_right_back speed="0" loop="true">
           <frame x="41" y="0" width="41" height="65"/>
-        </idle_right_back>
-       <idle_left_back2 speed="0" loop="true">
-          <frame x="82" y="0" width="41" height="65"/>
-        </idle_left_back2>
-       <idle_right_back2 speed="0" loop="true">
           <frame x="123" y="0" width="41" height="65"/>
-        </idle_right_back2>
-      <idle_front_left speed="0" loop="true">
+        </idle_right_back>
+        <idle_front_left speed="0" loop="true">
           <frame x="0" y="75" width="39" height="66"/>
-        </idle_front_left>
-      <idle_front_right speed="0" loop="true">
-          <frame x="39" y="75" width="39" height="66"/>
-        </idle_front_right>
-      <idle_front_left2 speed="0" loop="true">
           <frame x="82" y="75" width="38" height="61"/>
-        </idle_front_left2>
-       <idle_front_left2 speed="0" loop="true">
+        </idle_front_left>
+        <idle_front_right speed="0" loop="true">
+          <frame x="39" y="75" width="39" height="66"/>
           <frame x="120" y="75" width="38" height="61"/>
-        </idle_front_left2>
-       <walk_back_left speed="0" loop="true">
+        </idle_front_right>
+        <walk_back_left speed="0" loop="true">
           <frame x="164" y="4" width="37" height="65"/>
+          <frame x="165" y="77" width="35" height="57"/>
         </walk_back_left>
         <walk_back_right speed="0" loop="true">
           <frame x="200" y="4" width="35" height="65"/>
-        </walk_back_right>
-        <walk_front_left2 speed="0" loop="true">
-          <frame x="165" y="77" width="35" height="57"/>
-        </walk_front_left2>
-        <walk_front_right2 speed="0" loop="true">
           <frame x="201" y="77" width="34" height="57"/>
-        </walk_front_right2>
+        </walk_back_right>
         <hit_back_left speed="0" loop="true">
           <frame x="0" y="137" width="37" height="63"/>
         </hit_back_left>
-       <hit_back_right speed="0" loop="true">
+        <hit_back_right speed="0" loop="true">
           <frame x="43" y="137" width="43" height="63"/>
         </hit_back_right>
-       <hit_front_left speed="0" loop="true">
+        <hit_front_left speed="0" loop="true">
           <frame x="0" y="202" width="43" height="66"/>
         </hit_front_left>
        <hit_front_right speed="0" loop="true">
@@ -112,16 +99,12 @@
         </hit_front_right>
        <die_back_left speed="0" loop="true">
           <frame x="87" y="138" width="56" height="62"/>
+          <frame x="87" y="202" width="56" height="62"/>
         </die_back_left>
       <die_back_right speed="0" loop="true">
           <frame x="143" y="138" width="56" height="62"/>
-        </die_back_right>
-      <die_back_left2 speed="0" loop="true">
-          <frame x="87" y="202" width="56" height="62"/>
-        </die_back_left2>
-      <die_back_right2 speed="0" loop="true">
           <frame x="143" y="202" width="56" height="62"/>
-        </die_back_right2>
+        </die_back_right>
       </animations>
     </iris>
     <sapphire>
