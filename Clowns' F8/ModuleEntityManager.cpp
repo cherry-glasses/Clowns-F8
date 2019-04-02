@@ -45,11 +45,11 @@ bool ModuleEntityManager::PreUpdate()
 			if (*entity != entities.back()) 
 			{
 				entity++;
-				(*entity)->current_turn = Entity::TURN::MOVE;
+				(*entity)->current_turn = Entity::TURN::SEARCH_MOVE;
 				entity--;
 			}
 			else {
-				entities.front()->current_turn = Entity::TURN::MOVE;
+				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
 			}
 			
 		}

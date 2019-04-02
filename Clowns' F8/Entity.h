@@ -43,8 +43,9 @@ public:
 	virtual bool PostUpdate() {return true;}
 	
 	//Move and Attack
-	virtual void Walk(const std::list<std::pair<int, int>> *_path) {}
-	virtual void Attack() {}
+	virtual void SearchWalk(const std::vector<std::pair<int, int>> *_path) {}
+	virtual void Walk(const std::vector<std::pair<int, int>> *_path) {}
+	virtual void Attack(const std::vector<std::pair<int, int>> *_path) {}
 	virtual void Hability_1() {}
 	virtual void Hability_2() {}
 	virtual void Hability_3() {}
@@ -78,26 +79,50 @@ public:
 	Stats Current_States;
 	Stats Modifiers;
 
-	enum TURN { MOVE, ATTACK, END_TURN, NONE };
+	enum TURN { SEARCH_MOVE, MOVE, SEARCH_ATTACK, ATTACK, END_TURN, NONE };
 	TURN current_turn = NONE;
 
 protected:
 
-	enum MOVEMENT { IDLE, LEFTUP, LEFTDOWN, RIGHTUP, RIGHTDOWN };
+	enum MOVEMENT { IDLE_LEFT_BACK, IDLE_RIGHT_BACK, IDLE_LEFT_FRONT, IDLE_RIGHT_FRONT, 
+		WALK_LEFT_BACK, WALK_RIGHT_BACK, WALK_LEFT_FRONT, WALK_RIGHT_FRONT,
+		ATTACK_LEFT_BACK, ATTACK_RIGHT_BACK, ATTACK_LEFT_FRONT, ATTACK_RIGHT_FRONT,
+		HABILITY_1_LEFT_BACK, HABILITY_1_RIGHT_BACK, HABILITY_1_LEFT_FRONT, HABILITY_1_RIGHT_FRONT,
+		HABILITY_2_LEFT_BACK, HABILITY_2_RIGHT_BACK, HABILITY_2_LEFT_FRONT, HABILITY_2_RIGHT_FRONT,
+		DIE_LEFT_BACK, DIE_RIGHT_BACK, DIE_LEFT_FRONT, DIE_RIGHT_FRONT,
+	};
 	enum STATE { ALIVE, DEATH };
 	
 	STATE current_state = ALIVE;
 	MOVEMENT last_movement;
-	MOVEMENT current_movement = IDLE;
+	MOVEMENT current_movement = IDLE_LEFT_BACK;
 	
 
 	Animation*	current_animation = nullptr;
-	Animation idle;
-	Animation walk;
-	Animation attack;
-	Animation hability_1;
-	Animation hability_2;
-	Animation dead;
+	Animation idle_left_back;
+	Animation idle_right_back;
+	Animation idle_left_front;
+	Animation idle_right_front;
+	Animation walk_left_back;
+	Animation walk_right_back;
+	Animation walk_left_front;
+	Animation walk_right_front;
+	Animation attack_left_back;
+	Animation attack_right_back;
+	Animation attack_left_front;
+	Animation attack_right_front;
+	Animation hability_1_left_back;
+	Animation hability_1_right_back;
+	Animation hability_1_left_front;
+	Animation hability_1_right_front;
+	Animation hability_2_left_back;
+	Animation hability_2_right_back;
+	Animation hability_2_left_front;
+	Animation hability_2_right_front;
+	Animation dead_left_back;
+	Animation dead_right_back;
+	Animation dead_left_front;
+	Animation dead_right_front;
 
 	ENTITY_TYPE type = ENTITY_TYPE::NO_TYPE;
 	SDL_Rect	current = { 0,0,0,0 };
@@ -107,6 +132,7 @@ protected:
 	SDL_Rect debug_red;
 	SDL_Rect debug_blue;
 	std::pair<int, int>  position;
+	std::pair<int, int>  new_position;
 	
 
 };

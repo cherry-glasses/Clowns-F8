@@ -19,6 +19,7 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 		_config.parent().child("debug_blue").attribute("width").as_int(), _config.parent().child("debug_blue").attribute("height").as_int() };
 
 	position = App->map->MapToWorld(_config.child("position").attribute("x").as_int(), _config.child("position").attribute("y").as_int());
+	new_position = position;
 	Default_States.Hp = _config.child("stats").attribute("hp").as_int();
 	Default_States.Mana = _config.child("stats").attribute("mana").as_int();
 	Default_States.Cp = _config.child("stats").attribute("cp").as_int();
@@ -28,22 +29,38 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	Default_States.DefS = _config.child("stats").attribute("def_s").as_int();
 	Default_States.Crit = _config.child("stats").attribute("crit").as_int();
 
-	LoadAnimation(_config.child("animations").child("idle").child("frame"), idle);
-	idle.speed = _config.child("animations").child("idle").attribute("speed").as_float();
-	idle.loop = _config.child("animations").child("idle").attribute("loop").as_bool(true);
+	LoadAnimation(_config.child("animations").child("idle_left_front").child("frame"), idle_left_front);
+	idle_left_front.speed = _config.child("animations").child("idle_left_front").attribute("speed").as_float();
+	idle_left_front.loop = _config.child("animations").child("idle_left_front").attribute("loop").as_bool(true);
 
-	/*LoadAnimation(config.child("animations").child("walk").child("frame"), walk);
-	walk.speed = config.child("animations").child("walk").attribute("speed").as_float();
-	walk.loop = config.child("animations").child("walk").attribute("loop").as_bool(true);
+	LoadAnimation(_config.child("animations").child("idle_right_front").child("frame"), idle_right_front);
+	idle_right_front.speed = _config.child("animations").child("idle_right_front").attribute("speed").as_float();
+	idle_right_front.loop = _config.child("animations").child("idle_right_front").attribute("loop").as_bool(true);
 
-	LoadAnimation(config.child("animations").child("die").child("frame"), dead);
-	dead.speed = config.child("animations").child("die").attribute("speed").as_float();
-	dead.speed = config.child("animations").child("die").attribute("loop").as_bool(false);*/
+	LoadAnimation(_config.child("animations").child("idle_left_back").child("frame"), idle_left_back);
+	idle_left_back.speed = _config.child("animations").child("idle_left_back").attribute("speed").as_float();
+	idle_left_back.loop = _config.child("animations").child("idle_left_back").attribute("loop").as_bool(true);
 
-	current_animation = &idle;
-	current = current_animation->GetCurrentFrame();
+	LoadAnimation(_config.child("animations").child("idle_right_back").child("frame"), idle_right_back);
+	idle_right_back.speed = _config.child("animations").child("idle_right_back").attribute("speed").as_float();
+	idle_right_back.loop = _config.child("animations").child("idle_right_back").attribute("loop").as_bool(true);
 
-	
+	LoadAnimation(_config.child("animations").child("walk_left_front").child("frame"), walk_left_front);
+	walk_left_front.speed = _config.child("animations").child("walk_left_front").attribute("speed").as_float();
+	walk_left_front.loop = _config.child("animations").child("walk_left_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("walk_right_front").child("frame"), walk_right_front);
+	walk_right_front.speed = _config.child("animations").child("walk_right_front").attribute("speed").as_float();
+	walk_right_front.loop = _config.child("animations").child("walk_right_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("walk_left_back").child("frame"), walk_left_back);
+	walk_left_back.speed = _config.child("animations").child("walk_left_back").attribute("speed").as_float();
+	walk_left_back.loop = _config.child("animations").child("walk_left_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("walk_right_back").child("frame"), walk_right_back);
+	walk_right_back.speed = _config.child("animations").child("walk_right_back").attribute("speed").as_float();
+	walk_right_back.loop = _config.child("animations").child("walk_right_back").attribute("loop").as_bool(true);
+
 }
 
 

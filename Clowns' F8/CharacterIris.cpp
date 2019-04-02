@@ -12,7 +12,11 @@
 
 CharacterIris::CharacterIris(ENTITY_TYPE _type, pugi::xml_node _config) : Character(_type, _config)
 {
-	current_turn = MOVE;
+	current_movement = IDLE_RIGHT_FRONT;
+	current_animation = &idle_right_front;
+	current = current_animation->GetCurrentFrame();
+
+	current_turn = SEARCH_MOVE;
 }
 
 CharacterIris::~CharacterIris() {
@@ -34,7 +38,7 @@ bool CharacterIris::PreUpdate() {
 bool CharacterIris::Update(float _dt) {
 	
 	//if we press start the cycle iniciate
-	if (current_turn == MOVE && Def == Move_Steps::IDLE)
+	if (current_turn == SEARCH_MOVE && Def == Move_Steps::IDLE)
 		Def = Move_Steps::SEARCH;
 	//this switch will have the different steps of the cycle
 	switch (Def) {
@@ -60,10 +64,10 @@ bool CharacterIris::Update(float _dt) {
 			for (int i = 0; i < 8; i++) {
 				possible_mov_map[i] = App->map->MapToWorld((possible_mov[i].first), possible_mov[i].second);
 				if (i != Cap) 
-					App->render->Blit(debug_texture, possible_mov_map[i].first, possible_mov_map[i].second, &debug_green);
+					App->render->Blit(debug_texture, possible_mov_map[i].first, possible_mov_map[i].second, &debug_blue);
 				
 			}
-			App->render->Blit(debug_texture, possible_mov_map[Cap].first, possible_mov_map[Cap].second, &debug_red);
+			App->render->Blit(debug_texture, possible_mov_map[Cap].first, possible_mov_map[Cap].second, &debug_green);
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 				Def = Move_Steps::MOVE;
 			break;
@@ -81,7 +85,8 @@ bool CharacterIris::Update(float _dt) {
 
 bool CharacterIris::PostUpdate() {
 	if (entity_texture != nullptr) {
-		App->render->Blit(entity_texture, position.first, position.second, &current, 1.0f); //Bug: Problem with the blit a close the game. Render
+		//App->render->Blit(entity_texture, ((position.first / (current.w / 2) + position.second / (current.h / 2)) / 2), ((position.second / (current.h / 2) - position.first / (current.w / 2)) / 2), &current, 1.0f); 
+		App->render->Blit(entity_texture, position.first , position.second  - (current.h / 3), &current, 1.0f); 
 	}
 	
 	return true;

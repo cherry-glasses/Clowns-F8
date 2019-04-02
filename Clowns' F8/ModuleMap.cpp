@@ -133,7 +133,7 @@ std::pair<int, int> ModuleMap::WorldToMap(int _x, int _y) const
 
 		float half_width = data.tile_width * 0.5f;
 		float half_height = data.tile_height * 0.5f;
-		ret.first = int((_x / half_width + _y / half_height) / 2);
+		ret.first = int((_x / half_width + (_y / half_height)) / 2);
 		ret.second = int((_y / half_height - (_x / half_width)) / 2);
 	}
 	else
