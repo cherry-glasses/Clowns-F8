@@ -86,7 +86,7 @@ bool CharacterIris::Update(float _dt) {
 bool CharacterIris::PostUpdate() {
 	if (entity_texture != nullptr) {
 		//App->render->Blit(entity_texture, ((position.first / (current.w / 2) + position.second / (current.h / 2)) / 2), ((position.second / (current.h / 2) - position.first / (current.w / 2)) / 2), &current, 1.0f); 
-		App->render->Blit(entity_texture, position.first , position.second  - (current.h / 3), &current, 1.0f); 
+		App->render->Blit(entity_texture, position.first , position.second  - (current.h / 3), &current_animation->GetCurrentFrame(), 1.0f); 
 	}
 	
 	return true;
