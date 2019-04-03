@@ -3,6 +3,8 @@
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
 #include "ModuleMap.h"
+#include "ModuleWindow.h"
+#include "ModulePathfinding.h"
 
 #include "SDL/include/SDL.h"
 
@@ -131,7 +133,7 @@ std::pair<int, int> ModuleMap::WorldToMap(int _x, int _y) const
 
 		float half_width = data.tile_width * 0.5f;
 		float half_height = data.tile_height * 0.5f;
-		ret.first = int((_x / half_width + _y / half_height) / 2) - 1;
+		ret.first = int((_x / half_width + (_y / half_height)) / 2);
 		ret.second = int((_y / half_height - (_x / half_width)) / 2);
 	}
 	else
@@ -192,6 +194,10 @@ bool ModuleMap::Load(const char* _file_name)
 {
 	bool ret = true;
 	std::string tmp_string = folder + _file_name;
+
+	int w, h;
+	uchar* dat = NULL;
+	
 
 	pugi::xml_parse_result result = map_file.load_file(tmp_string.c_str());
 
@@ -265,6 +271,9 @@ bool ModuleMap::Load(const char* _file_name)
 			++item_layer;
 		}
 	}
+
+	if (App->map->CreateWalkabilityMap(w, h, &dat))
+		App->pathfinding->SetMap(w, h, dat);
 
 	map_loaded = ret;
 

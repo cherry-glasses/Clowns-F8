@@ -5,13 +5,13 @@
 
 class GUIImage;
 class GUIButton;
+class GUILabel;
 struct SDL_Texture;
 
 class Scene : public Module {
 
 
 public:
-
 
 	Scene();
 
@@ -44,24 +44,68 @@ public:
 
 private:
 	void CreateMainMenu();
-	void DeleteMainMenu();
+	void DeleteMenu();
+	void CreateMMOptions();
+
+	void Navigate();
+	void NavigateDown();
+	void NavigateUp();
+
 
 private:
 	SDL_Texture* main_menu_background = nullptr;
-	enum SCENES { MAIN_MENU, GLOBAL_MAP, FIRST_BATTLE };
+	SDL_Texture* health_bar_tex = nullptr;
+	SDL_Texture* mana_bar_tex = nullptr;
+	SDL_Texture* portrait_tex = nullptr;
+	SDL_Texture* options_background = nullptr;
+	SDL_Texture* credits_page = nullptr;
+
+	enum SCENES { MAIN_MENU, GLOBAL_MAP, FIRST_BATTLE, MM_OPTIONS, MM_CREDITS };
+
 
 	SCENES current_scene = MAIN_MENU;
 
-public:
-
+	bool main_menu_created = false;
+	bool mm_options_created = false;
+	bool mm_credits_created = false;
 	bool map_loaded = false;
-	GUIImage* cherry_glasses_logo = nullptr;
+
+	//Main menu UI
+	GUIButton* cherry_glasses_logo_button = nullptr;
+
 	GUIButton* new_game_button = nullptr;
 	GUIButton* load_game_button = nullptr;
 	GUIButton* options_button = nullptr;
 	GUIButton* credits_button = nullptr;
 	GUIButton* exit_button = nullptr;
+
+	GUIImage* cherry_glasses_logo_image = nullptr;
+	GUILabel* new_game_label = nullptr;
+	GUILabel* load_game_label = nullptr;
+	GUILabel* options_label = nullptr;
+	GUILabel* credits_label = nullptr;
+	GUILabel* exit_label = nullptr;
+
+	//Main menu options UI
+	GUIButton* english_button = nullptr;
+	GUIButton* spanish_button = nullptr;
+	GUIButton* volume_up_button = nullptr;
+	GUIButton* volume_down_button = nullptr;
+	GUIButton* back_button = nullptr;
+	GUILabel* english_label = nullptr;
+	GUILabel* spanish_label = nullptr;
+	GUILabel* volume_up_label = nullptr;
+	GUILabel* volume_down_label = nullptr;
+	GUILabel* back_label = nullptr;
+	GUILabel* language_label = nullptr;
+	GUILabel* volume_label = nullptr;
 	
+	std::list<GUIButton*> buttons;
+
+public:
+	bool language = true; //true = English; false = Spanish
+
+
 };
 
 #endif //_SCENE_H_

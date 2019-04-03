@@ -2,6 +2,9 @@
 #include "Application.h"
 #include "ModuleEntityManager.h"
 #include "Enemy.h"
+#include "Character.h"
+#include "CharacterIris.h"
+#include "Hotdog.h"
 
 
 ModuleEntityManager::ModuleEntityManager() : Module()
@@ -17,14 +20,17 @@ ModuleEntityManager::~ModuleEntityManager()
 bool ModuleEntityManager::Awake(pugi::xml_node & _config)
 {
 	LOG("Loading Entities");
-	bool ret = true;
-
-	return ret;
+	entity_configs = _config;
+	return true;
 }
 
 // Called before the first frame
 bool ModuleEntityManager::Start()
 {
+	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
+	{
+		(*entity)->Start();
+	}
 	return true;
 }
 
@@ -33,6 +39,20 @@ bool ModuleEntityManager::PreUpdate()
 {
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
+		if ((*entity)->current_turn == Entity::TURN::END_TURN) 
+		{
+			(*entity)->current_turn = Entity::TURN::NONE;
+			if (*entity != entities.back()) 
+			{
+				entity++;
+				(*entity)->current_turn = Entity::TURN::SEARCH_MOVE;
+				entity--;
+			}
+			else {
+				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
+			}
+			
+		}
 		(*entity)->PreUpdate();
 	}
 
@@ -86,25 +106,44 @@ bool ModuleEntityManager::Save(pugi::xml_node & _data) const
 	return true;
 }
 
-Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
+std::pair<int, int> ModuleEntityManager::NearestCharacter(std::pair<int, int> myposition){
+	std::pair<int, int> tmp;
+	std::pair<int, int> tmp_allied;
+	int tmp_result;
+	int tmp_result_2 = 30000;
+
+	for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character) {
+		tmp_allied = (*character)->GetPosition();
+		tmp_result = sqrt(((tmp_allied.first - myposition.first)*(tmp_allied.first - myposition.first)) + ((tmp_allied.second - myposition.second)*(tmp_allied.second - myposition.second)));
+		if (tmp_result < tmp_result_2)
+			tmp = tmp_allied;
+	}
+	return tmp;
+
+}
+
+bool ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 {
 	Entity* tmp = nullptr;
 
 	switch (_type)
 	{
-	case ENTITY_TYPE::ENTITY_CHARACTER:
-		//TODO
+	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
+		tmp = new CharacterIris(_type, entity_configs.child("iris"));
+		entities.push_back(tmp);
+		characters.push_back(tmp);
 		break;
-	case ENTITY_TYPE::ENTITY_ENEMY:
-		tmp = new Enemy();
+	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
+		tmp = new Hotdog(_type, entity_configs.child("hotdog"));
 		entities.push_back(tmp);
 		break;
-	case ENTITY_TYPE::ENTITY_BOSS:
-		//TODO
+	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
+		break;
+	default:
 		break;
 	}
 
-	return tmp;
+	return true;
 }
 
 bool ModuleEntityManager::DeleteEntity(Entity * entity)

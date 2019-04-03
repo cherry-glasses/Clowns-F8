@@ -4,13 +4,6 @@
 #include "Module.h"
 #include "Entity.h"
 
-enum class ENTITY_TYPE
-{
-	ENTITY_CHARACTER,
-	ENTITY_ENEMY,
-	ENTITY_BOSS,
-	NO_TYPE
-};
 
 class ModuleEntityManager : public Module
 {
@@ -39,10 +32,13 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	// Entity Manager
-	Entity* CreateEntity(ENTITY_TYPE type);
+	bool CreateEntity(ENTITY_TYPE type);
 	bool DeleteEntity(Entity* entity);
-
+	std::pair<int,int> NearestCharacter(std::pair<int, int> myposition);
 private:
 	std::list<Entity*> entities;
+	std::list<Entity*> characters;
+	pugi::xml_node entity_configs;
+	
 };
 #endif // !__ModuleEntityManager_H__

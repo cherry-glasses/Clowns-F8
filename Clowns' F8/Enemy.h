@@ -7,7 +7,7 @@
 class Enemy : public Entity
 {
 public:
-	Enemy() : Entity(){}
+	Enemy(ENTITY_TYPE _type, pugi::xml_node _config) : Entity(_type, _config) {}
 
 	// Destructor
 	virtual ~Enemy() {}
@@ -20,6 +20,14 @@ public:
 	virtual bool Update(float _dt) { return false; }
 	virtual bool PostUpdate() { return false; }
 
+	//Move and Attack
+	virtual void SearchWalk(const std::vector<std::pair<int, int>> *_path) {}
+	virtual void Walk(const std::vector<std::pair<int, int>> *_path) {}
+	virtual void Attack(const std::vector<std::pair<int, int>> *_path) {}
+	virtual void Hability_1() {}
+	virtual void Hability_2() {}
+	virtual void Hability_3() {}
+	
 	// Called before quitting
 	virtual bool CleanUp() { return false; }
 

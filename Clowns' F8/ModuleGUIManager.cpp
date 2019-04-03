@@ -7,7 +7,7 @@
 #include "GUIElement.h"
 #include "GUIImage.h"
 #include "GUIButton.h"
-//#include "GUILabel.h"
+#include "GUILabel.h"
 #include "ModuleAudio.h"
 
 ModuleGUIManager::ModuleGUIManager()
@@ -29,7 +29,7 @@ return true;
 bool ModuleGUIManager::Start()
 {
 	image_textures = App->textures->Load("Assets/Sprites/UI/cherry_logo.png");
-	button_textures = App->textures->Load("Assets/Sprites/UI/main_menu_choices.png");
+	button_textures = App->textures->Load("Assets/Sprites/UI/buttons.png");
 	return true;
 }
 
@@ -40,10 +40,6 @@ bool ModuleGUIManager::Update(float dt)
 	for (uint i = 0; i < gui_elements.size(); ++i)
 	if (gui_elements[i] != nullptr) gui_elements[i]->Update(dt);
 
-	for (uint i = 0; i < gui_elements.size(); ++i)
-	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_IMAGE)
-	gui_elements[i]->Draw(image_textures);
-
 	/*for (uint i = 0; i < gui_elements.size(); ++i)
 	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_PANEL)
 	gui_elements[i]->Draw(image_textures);*/
@@ -51,6 +47,10 @@ bool ModuleGUIManager::Update(float dt)
 	for (uint i = 0; i < gui_elements.size(); ++i)
 	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_BUTTON)
 	gui_elements[i]->Draw(button_textures);
+
+	for (uint i = 0; i < gui_elements.size(); ++i)
+		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_IMAGE)
+			gui_elements[i]->Draw(image_textures);
 
 	/*for (uint i = 0; i < gui_elements.size(); ++i)
 	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_SLIDER)
@@ -67,9 +67,9 @@ bool ModuleGUIManager::Update(float dt)
 	gui_elements[i]->DrawInputBox();
 	}*/
 
-	/*for (uint i = 0; i < gui_elements.size(); ++i)
+	for (uint i = 0; i < gui_elements.size(); ++i)
 	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_LABEL)
-	gui_elements[i]->DrawLabel();*/
+	gui_elements[i]->DrawLabel();
 
 	return true;
 }
@@ -115,7 +115,7 @@ GUIElement* ModuleGUIManager::CreateGUIButton(GUI_ELEMENT_TYPE type, int x, int 
 	return ret;
 }
 
-/*GUIElement* ModuleGUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, std::string text, SDL_Color color, _TTF_Font* font, GUIElement* son)
+GUIElement* ModuleGUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, std::string text, SDL_Color color, _TTF_Font* font, GUIElement* son)
 {
 	GUIElement* ret = nullptr;
 
@@ -126,7 +126,7 @@ GUIElement* ModuleGUIManager::CreateGUIButton(GUI_ELEMENT_TYPE type, int x, int 
 	gui_elements.push_back(ret);
 
 	return ret;
-}*/
+}
 
 /*GUIElement* ModuleGUIManager::CreateGUIPanel(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, GUIElement* son)
 {
