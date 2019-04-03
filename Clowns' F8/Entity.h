@@ -45,6 +45,7 @@ public:
 	//Move and Attack
 	virtual void SearchWalk(const std::vector<std::pair<int, int>> *_path) {}
 	virtual void Walk(const std::vector<std::pair<int, int>> *_path) {}
+	virtual void SearchAttack(const std::vector<std::pair<int, int>> *_path) {}
 	virtual void Attack(const std::vector<std::pair<int, int>> *_path) {}
 	virtual void Hability_1() {}
 	virtual void Hability_2() {}
@@ -84,12 +85,12 @@ public:
 
 protected:
 
-	enum MOVEMENT { IDLE_LEFT_BACK, IDLE_RIGHT_BACK, IDLE_LEFT_FRONT, IDLE_RIGHT_FRONT, 
-		WALK_LEFT_BACK, WALK_RIGHT_BACK, WALK_LEFT_FRONT, WALK_RIGHT_FRONT,
-		ATTACK_LEFT_BACK, ATTACK_RIGHT_BACK, ATTACK_LEFT_FRONT, ATTACK_RIGHT_FRONT,
-		HABILITY_1_LEFT_BACK, HABILITY_1_RIGHT_BACK, HABILITY_1_LEFT_FRONT, HABILITY_1_RIGHT_FRONT,
-		HABILITY_2_LEFT_BACK, HABILITY_2_RIGHT_BACK, HABILITY_2_LEFT_FRONT, HABILITY_2_RIGHT_FRONT,
-		DIE_LEFT_BACK, DIE_RIGHT_BACK, DIE_LEFT_FRONT, DIE_RIGHT_FRONT,
+	enum MOVEMENT {	IDLE_LEFT_FRONT, IDLE_RIGHT_FRONT, IDLE_LEFT_BACK, IDLE_RIGHT_BACK,
+		WALK_LEFT_FRONT, WALK_RIGHT_FRONT,  WALK_LEFT_BACK, WALK_RIGHT_BACK,
+		ATTACK_LEFT_FRONT, ATTACK_RIGHT_FRONT, ATTACK_LEFT_BACK, ATTACK_RIGHT_BACK,
+		HABILITY_1_LEFT_FRONT, HABILITY_1_RIGHT_FRONT, HABILITY_1_LEFT_BACK, HABILITY_1_RIGHT_BACK,
+		HABILITY_2_LEFT_FRONT, HABILITY_2_RIGHT_FRONT, HABILITY_2_LEFT_BACK, HABILITY_2_RIGHT_BACK,
+		DIE_LEFT_FRONT, DIE_RIGHT_FRONT, DIE_LEFT_BACK, DIE_RIGHT_BACK
 	};
 	enum STATE { ALIVE, DEATH };
 	
@@ -132,7 +133,7 @@ protected:
 	SDL_Rect debug_red;
 	SDL_Rect debug_blue;
 	std::pair<int, int>  position;
-	std::pair<int, int>  new_position;
+	std::pair<int, int>  objective_position;
 	
 
 };

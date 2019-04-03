@@ -89,30 +89,30 @@
         <walk_right_back speed="0" loop="true">
           <frame x="320" y="64" width="64" height="64"/>
         </walk_right_back>
-        <hit_back_left speed="0" loop="true">
+        <attack_left_front speed="0" loop="true">
           <frame x="0" y="128" width="64" height="64"/>
-        </hit_back_left>
-        <hit_back_right speed="0" loop="true">
+        </attack_left_front>
+        <attack_right_front speed="0" loop="true">
           <frame x="64" y="128" width="64" height="64"/>
-        </hit_back_right>
-        <hit_front_left speed="0" loop="true">
+        </attack_right_front>
+        <attack_left_back speed="0" loop="true">
           <frame x="0" y="192" width="64" height="64"/>
-        </hit_front_left>
-        <hit_front_right speed="0" loop="true">
+        </attack_left_back>
+        <attack_right_back speed="0" loop="true">
           <frame x="64" y="192" width="64" height="64"/>
-        </hit_front_right>
-        <die_back_left speed="0" loop="true">
+        </attack_right_back>
+        <die_left_front speed="0" loop="true">
           <frame x="128" y="128" width="64" height="64"/>
-        </die_back_left>
-        <die_back_right speed="0" loop="true">
+        </die_left_front>
+        <die_right_front speed="0" loop="true">
           <frame x="192" y="128" width="64" height="64"/>
-        </die_back_right>
-        <die_back_left speed="0" loop="true">
+        </die_right_front>
+        <die_left_back speed="0" loop="true">
           <frame x="128" y="192" width="64" height="64"/>
-        </die_back_left>
-        <die_back_right speed="0" loop="true">
+        </die_left_back>
+        <die_right_back speed="0" loop="true">
           <frame x="192" y="192" width="64" height="64"/>
-        </die_back_right>
+        </die_right_back>
       </animations>
     </iris>
     <sapphire>
@@ -226,6 +226,30 @@
         <walk_right_back speed="0" loop="true">
           <frame x="320" y="64" width="64" height="64"/>
         </walk_right_back>
+        <attack_left_front speed="0" loop="true">
+          <frame x="0" y="128" width="64" height="64"/>
+        </attack_left_front>
+        <attack_right_front speed="0" loop="true">
+          <frame x="64" y="128" width="64" height="64"/>
+        </attack_right_front>
+        <attack_left_back speed="0" loop="true">
+          <frame x="0" y="192" width="64" height="64"/>
+        </attack_left_back>
+        <attack_right_back speed="0" loop="true">
+          <frame x="64" y="192" width="64" height="64"/>
+        </attack_right_back>
+        <die_left_front speed="0" loop="true">
+          <frame x="128" y="128" width="64" height="64"/>
+        </die_left_front>
+        <die_right_front speed="0" loop="true">
+          <frame x="192" y="128" width="64" height="64"/>
+        </die_right_front>
+        <die_left_back speed="0" loop="true">
+          <frame x="128" y="192" width="64" height="64"/>
+        </die_left_back>
+        <die_right_back speed="0" loop="true">
+          <frame x="192" y="192" width="64" height="64"/>
+        </die_right_back>
       </animations>
     </hotdog>
     <bulldog>

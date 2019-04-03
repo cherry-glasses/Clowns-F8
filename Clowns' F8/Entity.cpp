@@ -19,7 +19,7 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 		_config.parent().child("debug_blue").attribute("width").as_int(), _config.parent().child("debug_blue").attribute("height").as_int() };
 
 	position = App->map->MapToWorld(_config.child("position").attribute("x").as_int(), _config.child("position").attribute("y").as_int());
-	new_position = position;
+	objective_position = position;
 	Default_States.Hp = _config.child("stats").attribute("hp").as_int();
 	Default_States.Mana = _config.child("stats").attribute("mana").as_int();
 	Default_States.Cp = _config.child("stats").attribute("cp").as_int();
@@ -60,6 +60,22 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	LoadAnimation(_config.child("animations").child("walk_right_back").child("frame"), walk_right_back);
 	walk_right_back.speed = _config.child("animations").child("walk_right_back").attribute("speed").as_float();
 	walk_right_back.loop = _config.child("animations").child("walk_right_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("attack_left_front").child("frame"), attack_left_front);
+	attack_left_front.speed = _config.child("animations").child("attack_left_front").attribute("speed").as_float();
+	attack_left_front.loop = _config.child("animations").child("attack_left_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("attack_right_front").child("frame"), attack_right_front);
+	attack_right_front.speed = _config.child("animations").child("attack_right_front").attribute("speed").as_float();
+	attack_right_front.loop = _config.child("animations").child("attack_right_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("attack_left_back").child("frame"), attack_left_back);
+	attack_left_back.speed = _config.child("animations").child("attack_left_back").attribute("speed").as_float();
+	attack_left_back.loop = _config.child("animations").child("attack_left_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("attack_right_back").child("frame"), attack_right_back);
+	attack_right_back.speed = _config.child("animations").child("attack_right_back").attribute("speed").as_float();
+	attack_right_back.loop = _config.child("animations").child("attack_right_back").attribute("loop").as_bool(true);
 
 }
 

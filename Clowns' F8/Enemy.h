@@ -23,6 +23,7 @@ public:
 	//Move and Attack
 	virtual void SearchWalk(const std::vector<std::pair<int, int>> *_path) {}
 	virtual void Walk(const std::vector<std::pair<int, int>> *_path) {}
+	virtual void SearchAttack(const std::vector<std::pair<int, int>> *_path) {}
 	virtual void Attack(const std::vector<std::pair<int, int>> *_path) {}
 	virtual void Hability_1() {}
 	virtual void Hability_2() {}

@@ -20,10 +20,12 @@ public:
 	//Move and Attack
 	void SearchWalk(const std::vector<std::pair<int, int>> *_path);
 	void Walk(const std::vector<std::pair<int, int>> *_path);
+	void SearchAttack(const std::vector<std::pair<int, int>> *_path);
 	void Attack(const std::vector<std::pair<int, int>> *_path);
 	void Hability_1() {}
 	void Hability_2() {}
 	void Hability_3() {}
+	void CurrentMovement(MOVEMENT _movement);
 
 	//Save and Load
 	bool Load(pugi::xml_node&);
