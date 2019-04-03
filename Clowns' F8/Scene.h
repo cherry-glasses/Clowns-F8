@@ -51,6 +51,7 @@ private:
 	void NavigateDown();
 	void NavigateUp();
 
+
 private:
 	SDL_Texture* main_menu_background = nullptr;
 	SDL_Texture* health_bar_tex = nullptr;
@@ -61,6 +62,7 @@ private:
 
 	enum SCENES { MAIN_MENU, GLOBAL_MAP, FIRST_BATTLE, MM_OPTIONS, MM_CREDITS };
 
+
 	SCENES current_scene = MAIN_MENU;
 
 	bool main_menu_created = false;
@@ -70,11 +72,13 @@ private:
 
 	//Main menu UI
 	GUIButton* cherry_glasses_logo_button = nullptr;
+
 	GUIButton* new_game_button = nullptr;
 	GUIButton* load_game_button = nullptr;
 	GUIButton* options_button = nullptr;
 	GUIButton* credits_button = nullptr;
 	GUIButton* exit_button = nullptr;
+
 	GUIImage* cherry_glasses_logo_image = nullptr;
 	GUILabel* new_game_label = nullptr;
 	GUILabel* load_game_label = nullptr;
@@ -100,6 +104,7 @@ private:
 
 public:
 	bool language = true; //true = English; false = Spanish
+
 
 };
 

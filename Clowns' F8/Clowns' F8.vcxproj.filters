@@ -114,7 +114,16 @@
     <ClInclude Include="..\Clowns%27 F8\Enemy.h">
       <Filter>Entities\EntitiesEnemies</Filter>
     </ClInclude>
-    <ClInclude Include="..\Clowns%27 F8\Bulldog.h">
+    <ClInclude Include="..\Clowns%27 F8\Character.h">
+      <Filter>Entities\EntitiesCharacters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\CharacterIris.h">
+      <Filter>Entities\EntitiesCharacters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ModulePathfinding.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Hotdog.h">
       <Filter>Entities\EntitiesEnemies</Filter>
     </ClInclude>
   </ItemGroup>
@@ -185,7 +194,13 @@
     <ClCompile Include="..\Clowns%27 F8\Entity.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\Clowns%27 F8\Bulldog.cpp">
+    <ClCompile Include="CharacterIris.cpp">
+      <Filter>Entities\EntitiesCharacters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ModulePathfinding.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Hotdog.cpp">
       <Filter>Entities\EntitiesEnemies</Filter>
     </ClCompile>
   </ItemGroup>

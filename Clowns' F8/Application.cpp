@@ -11,6 +11,7 @@
 #include "Scene.h"
 #include "ModuleEntityManager.h"
 #include "ModuleGUIManager.h"
+#include "ModulePathfinding.h"
 
 
 #include "SDL\include\SDL_timer.h"
@@ -29,6 +30,7 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	scene = new Scene();
 	entity_manager = new ModuleEntityManager();
 	gui_manager = new ModuleGUIManager();
+	pathfinding = new ModulePathfinding();
 	
 
 	// Ordered for awake / Start / Update
@@ -39,6 +41,7 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(fonts);
 	AddModule(map);
+	AddModule(pathfinding);
 	AddModule(fade_to_black);
 	AddModule(scene);
 	AddModule(entity_manager);
@@ -82,7 +85,7 @@ bool Application::Awake()
 {
 	bool ret = false;
 
-	pugi::xml_document	config_file;
+	
 	pugi::xml_node		config;
 	pugi::xml_node		app_config;
 
@@ -201,7 +204,7 @@ void Application::FinishUpdate()
 	{
 		PerfTimer delay_timer;
 		SDL_Delay(frame_rate - last_frame_ms);
-		LOG("waited for: %.2f ms expected time: %u ms", delay_timer.ReadMs(), frame_rate - last_frame_ms);
+		//LOG("waited for: %.2f ms expected time: %u ms", delay_timer.ReadMs(), frame_rate - last_frame_ms);
 	}
 
 	/*static char title[256];

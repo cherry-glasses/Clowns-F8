@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{22D3C7EC-C963-4AD1-8C4A-8FCD551EE143}</ProjectGuid>
     <RootNamespace>ClownsF8</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>Clowns' F8</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -136,13 +136,16 @@
   <ItemGroup>
     <ClInclude Include="..\Clowns%27 F8\Animation.h" />
     <ClInclude Include="..\Clowns%27 F8\Application.h" />
-    <ClInclude Include="..\Clowns%27 F8\Bulldog.h" />
+    <ClInclude Include="Hotdog.h" />
+    <ClInclude Include="..\Clowns%27 F8\Character.h" />
+    <ClInclude Include="..\Clowns%27 F8\CharacterIris.h" />
     <ClInclude Include="..\Clowns%27 F8\Defs.h" />
     <ClInclude Include="..\Clowns%27 F8\Enemy.h" />
     <ClInclude Include="..\Clowns%27 F8\Entity.h" />
     <ClInclude Include="..\Clowns%27 F8\Log.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleEntityManager.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleMap.h" />
+    <ClInclude Include="..\Clowns%27 F8\ModulePathfinding.h" />
     <ClInclude Include="..\Clowns%27 F8\PerfTimer.h" />
     <ClInclude Include="..\Clowns%27 F8\PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="..\Clowns%27 F8\PugiXml\src\pugixml.hpp" />
@@ -165,7 +168,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\Bulldog.cpp" />
+    <ClCompile Include="Hotdog.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\ModulePathfinding.cpp" />
+    <ClCompile Include="CharacterIris.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Entity.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Log.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleEntityManager.cpp" />
