@@ -255,14 +255,16 @@ void ModuleAudio::StopMusic(int _mut)
 
 }
 
-void ModuleAudio::VolumeUp(int _vol)
+void ModuleAudio::VolumeUp()
 {
-	
+	if (volume <= 120)
+		Mix_VolumeMusic(volume += 8);
 }
 
-void ModuleAudio::VolumeDown(int _vol)
+void ModuleAudio::VolumeDown()
 {
-	
+	if (volume >= 8)
+		Mix_VolumeMusic(volume -= 8);
 }
 
 void ModuleAudio::SliderVolumeFx(int _vol)

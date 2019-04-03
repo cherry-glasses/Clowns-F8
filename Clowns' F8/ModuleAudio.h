@@ -34,8 +34,8 @@ public:
 
 	//Change Volume	
 	void StopMusic(int _mut);
-	void VolumeUp(int _vol);
-	void VolumeDown(int _vol);
+	void VolumeUp();
+	void VolumeDown();
 	void SliderVolumeFx(int _vol);
 
 	//Save & Load volume

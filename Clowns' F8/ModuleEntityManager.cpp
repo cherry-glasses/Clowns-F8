@@ -39,6 +39,20 @@ bool ModuleEntityManager::PreUpdate()
 {
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
+		if ((*entity)->current_turn == Entity::TURN::END_TURN) 
+		{
+			(*entity)->current_turn = Entity::TURN::NONE;
+			if (*entity != entities.back()) 
+			{
+				entity++;
+				(*entity)->current_turn = Entity::TURN::SEARCH_MOVE;
+				entity--;
+			}
+			else {
+				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
+			}
+			
+		}
 		(*entity)->PreUpdate();
 	}
 
@@ -92,6 +106,22 @@ bool ModuleEntityManager::Save(pugi::xml_node & _data) const
 	return true;
 }
 
+std::pair<int, int> ModuleEntityManager::NearestCharacter(std::pair<int, int> myposition){
+	std::pair<int, int> tmp;
+	std::pair<int, int> tmp_allied;
+	int tmp_result;
+	int tmp_result_2 = 30000;
+
+	for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character) {
+		tmp_allied = (*character)->GetPosition();
+		tmp_result = sqrt(((tmp_allied.first - myposition.first)*(tmp_allied.first - myposition.first)) + ((tmp_allied.second - myposition.second)*(tmp_allied.second - myposition.second)));
+		if (tmp_result < tmp_result_2)
+			tmp = tmp_allied;
+	}
+	return tmp;
+
+}
+
 bool ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 {
 	Entity* tmp = nullptr;
@@ -101,6 +131,7 @@ bool ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
 		tmp = new CharacterIris(_type, entity_configs.child("iris"));
 		entities.push_back(tmp);
+		characters.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
 		tmp = new Hotdog(_type, entity_configs.child("hotdog"));

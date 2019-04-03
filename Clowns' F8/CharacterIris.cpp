@@ -12,6 +12,11 @@
 
 CharacterIris::CharacterIris(ENTITY_TYPE _type, pugi::xml_node _config) : Character(_type, _config)
 {
+	current_movement = IDLE_RIGHT_FRONT;
+	current_animation = &idle_right_front;
+	current = current_animation->GetCurrentFrame();
+
+	current_turn = SEARCH_MOVE;
 }
 
 CharacterIris::~CharacterIris() {
@@ -21,31 +26,9 @@ CharacterIris::~CharacterIris() {
 bool CharacterIris::PreUpdate() {
 
 	if (!flag) {
-		//entity_texture = App->textures->Load("Assets/Sprites/Main_Characters/Iris_Spritesheet.png");
-		SDL_Rect rect;
-		rect.h = 65;
-		rect.w = 40;
-		rect.x = 0;
-		rect.y = 0;
-		idle.PushBack(rect);
-		idle.speed = 0;
-		position = App->map->MapToWorld(12,12);
-		std::pair<int, int> coso = App->map->WorldToMap((int)position.first, (int)position.second);
-		position = App->map->MapToWorld(coso.first, coso.second);
-		coso = App->map->WorldToMap((int)position.first, (int)position.second);
-		current_animation = &idle;
-		current = current_animation->GetCurrentFrame();
+		
 		flag = true;
 		srand(time(NULL));
-		debug_texture = App->textures->Load("Assets/Maps/meta.png");
-		debug_1.x = 0;
-		debug_1.y = 0;
-		debug_1.w = 64;
-		debug_1.h = 64;
-		debug_2.x = 64;
-		debug_2.y = 0;
-		debug_2.w = 64;
-		debug_2.h = 64;
 		
 	}
 	
@@ -55,7 +38,7 @@ bool CharacterIris::PreUpdate() {
 bool CharacterIris::Update(float _dt) {
 	
 	//if we press start the cycle iniciate
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	if (current_turn == SEARCH_MOVE && Def == Move_Steps::IDLE)
 		Def = Move_Steps::SEARCH;
 	//this switch will have the different steps of the cycle
 	switch (Def) {
@@ -67,26 +50,25 @@ bool CharacterIris::Update(float _dt) {
 
 		//Now we need to 1. Highlight the possibles options 2. Highlight the current option 3. Let the player chose the option.
 		case Move_Steps::SELECT:
-			if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) {
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
 				Cap--;
 				if (Cap < 0)
 					Cap = 7;
 			}
-			else if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN) {
+			else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
 				Cap++;
 				if (Cap > 7)
 					Cap = 0;
 			}
 
 			for (int i = 0; i < 8; i++) {
-				int j = 0;
 				possible_mov_map[i] = App->map->MapToWorld((possible_mov[i].first), possible_mov[i].second);
 				if (i != Cap) 
-					App->render->Blit(debug_texture, possible_mov_map[i].first, possible_mov_map[i].second, &debug_1);
+					App->render->Blit(debug_texture, possible_mov_map[i].first, possible_mov_map[i].second, &debug_blue);
 				
 			}
-			App->render->Blit(debug_texture, possible_mov_map[Cap].first, possible_mov_map[Cap].second, &debug_2);
-			if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+			App->render->Blit(debug_texture, possible_mov_map[Cap].first, possible_mov_map[Cap].second, &debug_green);
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 				Def = Move_Steps::MOVE;
 			break;
 
@@ -94,23 +76,18 @@ bool CharacterIris::Update(float _dt) {
 		case Move_Steps::MOVE:
 			position = App->map->MapToWorld((possible_mov[Cap].first), possible_mov[Cap].second);
 			Def = Move_Steps::IDLE;
+			current_turn = END_TURN;
 			break;
 		}
 
-
-	
-		
-		
-	
-	
 	return true;
 }
 
 bool CharacterIris::PostUpdate() {
 	if (entity_texture != nullptr) {
-		App->render->Blit(entity_texture, position.first, position.second, &current, 1.0f); //Bug: Problem with the blit a close the game. Render
+		//App->render->Blit(entity_texture, ((position.first / (current.w / 2) + position.second / (current.h / 2)) / 2), ((position.second / (current.h / 2) - position.first / (current.w / 2)) / 2), &current, 1.0f); 
+		App->render->Blit(entity_texture, position.first , position.second  - (current.h / 3), &current_animation->GetCurrentFrame(), 1.0f); 
 	}
-	
 	
 	return true;
 }
@@ -125,8 +102,8 @@ bool CharacterIris::Save(pugi::xml_node& node) const{
 
 void CharacterIris::Wheremove() {
 
-
 	std::pair<int, int> tmp;
+
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first += 1;
 	tmp.second += 2;  //first i get where the hell i can be

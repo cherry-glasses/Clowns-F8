@@ -41,7 +41,7 @@ public:
 public:
 	GUIElement* CreateGUIImage(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, GUIElement* son = nullptr);
 	GUIElement* CreateGUIButton(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1 = { NULL }, SDL_Rect a_2 = { NULL }, GUIElement* son = nullptr);
-	//GUIElement* CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, std::string text, SDL_Color color, _TTF_Font* font, GUIElement* son = nullptr);
+	GUIElement* CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, std::string text, SDL_Color color, _TTF_Font* font, GUIElement* son = nullptr);
 	/*GUIElement* CreateGUIPanel(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, GUIElement* son = nullptr);
 	GUIElement* CreateGUIInputBox(GUI_ELEMENT_TYPE type, int x, int y, SDL_Color color, _TTF_Font* font, SDL_Rect a, GUIElement* son = nullptr);
 	GUIElement* CreateGUIThumb(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1 = { NULL }, SDL_Rect a_2 = { NULL }, GUIElement* son = nullptr);
@@ -51,7 +51,7 @@ public:
 	void DeleteAllGUIElements();
 
 public:
-	//_TTF_Font* default_font_used = nullptr;
+	_TTF_Font* default_font_used = nullptr;
 	bool debug_gui = false;
 
 private:

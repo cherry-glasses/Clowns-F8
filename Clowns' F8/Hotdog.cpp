@@ -1,7 +1,9 @@
 #include "Log.h"
 #include "Application.h"
 #include "Hotdog.h"
+#include "ModuleEntityManager.h"
 #include "ModulePathfinding.h"
+#include "ModuleInput.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleMap.h"
@@ -9,46 +11,9 @@
 
 Hotdog::Hotdog(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
 {
-	//string_texture = _config.child("texture").attribute("path").as_string();
-
-	/*Default_States.Hp = _config.child("Hp").value.as_int(2);
-	Default_States.Mp = _config.child("Mp").value.as_int(2);
-	Default_States.Mana = _config.child("Mana").value.as_int(2);
-	Default_States.Cp = _config.child("Cp").value.as_int();
-	Default_States.AtkF = _config.child("AtkF").value.as_int();
-	Default_States.AtkS = _config.child("AtkS").value.as_int();
-	Default_States.DefF = _config.child("DefF").value.as_int();
-	Default_States.DefS = _config.child("DefS").value.as_int();
-	Default_States.Crit_hit = _config.child("Crit_hit").value.as_int();*/
-
-	/*LoadAnimation(config.child("animations").child("idle").child("frame"), idle);
-	idle.speed = config.child("animations").child("idle").attribute("speed").as_float();
-	idle.loop = config.child("animations").child("idle").attribute("loop").as_bool(true);*/
-
-	/*LoadAnimation(config.child("animations").child("walk").child("frame"), walk);
-	walk.speed = config.child("animations").child("walk").attribute("speed").as_float();
-	walk.loop = config.child("animations").child("walk").attribute("loop").as_bool(true);
-
-	LoadAnimation(config.child("animations").child("die").child("frame"), dead);
-	dead.speed = config.child("animations").child("die").attribute("speed").as_float();
-	dead.speed = config.child("animations").child("die").attribute("loop").as_bool(false);*/
-
-	//entity_texture = App->textures->Load(string_texture.c_str());
-	debug_texture = App->textures->Load("Assets/Maps/meta.png");
-	position.first = 300;
-	position.second = 200;
-	SDL_Rect rect;
-	rect.h = 65;
-	rect.w = 40;
-	rect.x = 0;
-	rect.y = 0;
-	idle.PushBack(rect);
-	idle.speed = 0;
-	current_animation = &idle;
+	current_movement = IDLE_LEFT_FRONT;
+	current_animation = &idle_left_front;
 	current = current_animation->GetCurrentFrame();
-
-	moving = true;
-
 }
 Hotdog::~Hotdog()
 {
@@ -57,22 +22,19 @@ Hotdog::~Hotdog()
 bool Hotdog::PreUpdate()
 {
 	bool ret = true;
-	if (current_movement == IDLE) {
-		if (moving)
-		{
-			App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(position.first + 100, position.second));
-			Walk(App->pathfinding->GetLastPath());
-			App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(position.first - 10, position.second));
-			Walk(App->pathfinding->GetLastPath());
-			App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(position.first, position.second + 100));
-			Walk(App->pathfinding->GetLastPath());
-			App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(position.first, position.second - 10));
-			Walk(App->pathfinding->GetLastPath());
-		}
-		else {
-			current_movement = IDLE;
-			current_animation = &idle;
-		}
+
+	if (current_turn == SEARCH_MOVE)
+	{
+		std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
+		App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
+		SearchWalk(App->pathfinding->GetLastPath());
+		current_turn = MOVE;
+	}
+	else if (current_turn == SEARCH_ATTACK)
+	{
+		std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
+		App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
+		current_turn = ATTACK;
 	}
 
 	return ret;
@@ -80,26 +42,76 @@ bool Hotdog::PreUpdate()
 
 bool Hotdog::Update(float dt)
 {
-	if (current_movement == IDLE)
+	if (current_turn == NONE)
 	{
-		current_animation = &idle;
+		if (current_movement == IDLE_LEFT_FRONT) 
+		{
+			current_animation = &idle_left_front;
+		}
+		else if(current_movement == IDLE_RIGHT_FRONT) 
+		{
+			current_animation = &idle_right_front;
+		} 
+		else if (current_movement == IDLE_LEFT_BACK) 
+		{
+			current_animation = &idle_left_back;
+		}
+		else {
+			current_animation = &idle_right_back;
+		}
 	}
-	else if (current_movement == LEFTUP)
+	else if (current_turn == MOVE)
 	{
-		current_animation = &walk;
+		Walk(App->pathfinding->GetLastPath());
+
+		if (current_movement == WALK_LEFT_FRONT) 
+		{
+			current_animation = &walk_left_front;
+			position.first -= 2;
+			position.second++;
+		}
+		else if (current_movement == WALK_RIGHT_FRONT) 
+		{
+			current_animation = &walk_right_front;
+			position.first += 2;
+			position.second++;
+		}
+		else if (current_movement == WALK_LEFT_BACK) 
+		{
+			current_animation = &walk_left_back;
+			position.first -= 2;
+			position.second--;
+		}
+		else 
+		{
+			current_animation = &walk_right_back;
+			position.first += 2;
+			position.second--;
+		}
 	}
-	else if (current_movement == LEFTDOWN)
+	else if (current_turn == ATTACK)
 	{
-		current_animation = &walk;
+		
+		Attack(App->pathfinding->GetLastPath());
+
+		if (current_movement == ATTACK_LEFT_FRONT)
+		{
+			current_animation = &attack_left_front;
+		}
+		else if (current_movement == ATTACK_RIGHT_FRONT)
+		{
+			current_animation = &attack_right_front;
+		}
+		else if (current_movement == ATTACK_LEFT_BACK)
+		{
+			current_animation = &attack_left_back;
+		}
+		else
+		{
+			current_animation = &attack_right_back;
+		}
 	}
-	else if (current_movement == RIGHTUP)
-	{
-		current_animation = &walk;
-	}
-	else if (current_movement == RIGHTDOWN)
-	{
-		current_animation = &walk;
-	}
+	
 
 	return true;
 }
@@ -108,14 +120,13 @@ bool Hotdog::PostUpdate()
 {
 	if (entity_texture != nullptr) 
 	{
-		App->render->Blit(entity_texture, position.first, position.second, &current, 1.0f);
+		App->render->Blit(entity_texture, position.first, position.second - (current.h / 3), &current_animation->GetCurrentFrame(), 1.0f);
 	}
-	
 
 	return true;
 }
 
-
+// Load and Save
 bool Hotdog::Load(pugi::xml_node& node)
 {
 	bool ret = true;
@@ -138,15 +149,90 @@ bool Hotdog::Save(pugi::xml_node& node) const
 	return ret;
 }
 
+// Actions (SearchWalk, Walk, Attack, Hability 1, Hability 2, Die)
+void Hotdog::SearchWalk(const std::vector<std::pair<int, int>> *_path)
+{
+	if (_path->size() > 2 && (_path->at(0).first == _path->at(2).first || _path->at(0).second == _path->at(2).second))
+	{
+		new_position = App->map->MapToWorld(_path->at(2).first, _path->at(2).second);
+	}
+	else if (_path->size() > 1)
+	{
+		new_position = App->map->MapToWorld(_path->at(1).first, _path->at(1).second);
+	}
+
+	if (_path->size() > 1) {
+		if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
+			current_movement = WALK_LEFT_FRONT;
+		}
+		else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+			current_movement = WALK_RIGHT_FRONT;
+		}
+		else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+			current_movement = WALK_LEFT_BACK;
+		}
+		else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
+			current_movement = WALK_RIGHT_BACK;
+		}
+		current_turn = MOVE;
+	}
+	else {
+		current_turn = SEARCH_ATTACK;
+	}
+
+	
+}
 
 void Hotdog::Walk(const std::vector<std::pair<int, int>> *_path)
 {
-	if (_path->size() > 0)
+	for (uint i = 0; i < _path->size(); ++i)
 	{
-		for (uint i = 0; i < _path->size(); ++i)
-		{
-			std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
-			App->render->Blit(debug_texture, pos_debug.first, pos_debug.second);
-		}
+		std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
+		App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_green);
 	}
+
+	if (new_position.first == position.first || new_position.second == position.second) {
+		current_turn = SEARCH_ATTACK;
+	}
+	
+}
+
+void Hotdog::Attack(const std::vector<std::pair<int, int>> *_path)
+{
+	/*for (uint i = 0; i < _path->size(); ++i)
+	{
+		std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
+		App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_green);
+
+	}
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+
+		if (_path->size() > 2 && (_path->at(0).first == _path->at(2).first || _path->at(0).second == _path->at(2).second))
+		{
+			position = App->map->MapToWorld(_path->at(2).first, _path->at(2).second);
+		}
+		else if (_path->size() > 1)
+		{
+			position = App->map->MapToWorld(_path->at(1).first, _path->at(1).second);
+		}
+		if (_path->size() > 1) {
+			if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
+				current_movement = WALK_LEFT_FRONT;
+			}
+			else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+				current_movement = WALK_RIGHT_FRONT;
+			}
+			else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+				current_movement = WALK_LEFT_BACK;
+			}
+			else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
+				current_movement = WALK_RIGHT_BACK;
+			}
+		}
+		current_turn = END_TURN;
+	}*/
+
+	current_turn = END_TURN;
+	current_movement = IDLE_LEFT_FRONT;
+	
 }

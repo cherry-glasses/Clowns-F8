@@ -115,6 +115,7 @@ PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), 
 // ----------------------------------------------------------------------------------
 uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
 {
+	//Gollim: Esto nos lo hemos de mirar bien porque estoy haciendo muchsa trampas, cuidado con los ifs.
 	std::pair<int, int> cell;
 	uint before = list_to_fill.list.size();
 
@@ -171,28 +172,30 @@ int ModulePathfinding::CreatePath(const std::pair<int, int>& origin, const std::
 {
 	last_path.clear();
 
-	if (!IsWalkable(origin) || !IsWalkable(destination)) return -1;
+	//if (!IsWalkable(origin) || !IsWalkable(destination)) return -1;
 
 	PathList open;
 	PathList close;
 
 	PathNode node_origin;
 	node_origin.g = 0;
-	node_origin.h = (((origin.first - origin.first) * (origin.first - origin.first)) + ((origin.second - destination.second) * (origin.second - destination.second)));
+	node_origin.h = (((origin.first - destination.first) * (origin.first - destination.first)) + ((origin.second - destination.second) * (origin.second - destination.second)));
 	node_origin.pos = origin;
 	node_origin.parent = nullptr;
 	open.list.push_back(node_origin);
 
-	while (open.list.size() != 0)
+	while (open.list.size() > 0)
 	{
 		const PathNode* current_node = open.GetNodeLowestScore();
 		// TODO 3: Move the lowest score cell from open list to the closed list
 		close.list.push_back(*current_node);
 
+
+
 		// TODO 4: If we just added the destination, we are done!
 		// Backtrack to create the final path
 		// Use the Pathnode::parent and Flip() the path when you are finish
-		if (current_node->pos == destination)
+		if (close.list.back().pos == destination)
 		{
 			const PathNode* node = nullptr;
 			for (node = &(*current_node); node->pos != origin; node = node->parent) {

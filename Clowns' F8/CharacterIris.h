@@ -36,8 +36,6 @@ public:
 
 private:
 	int Cap = 0;
-	SDL_Rect debug_2;
-	SDL_Rect debug_1;
 	bool flag = false;
 	Move_Steps Def = Move_Steps::IDLE;
 	Animation*	current_animation = nullptr;
@@ -45,9 +43,6 @@ private:
 	int mov_y_first;
 	int mov_x_last;
 	int mov_y_last;
-	Animation idle;
-	Animation walk;
-	Animation dead;
 
 	std::pair<int, int> possible_mov[8];
 	std::pair<int, int> possible_mov_map[8];
