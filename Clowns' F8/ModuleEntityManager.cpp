@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "Character.h"
 #include "CharacterIris.h"
+#include "Boneyman.h"
 #include "Hotdog.h"
 
 
@@ -63,10 +64,10 @@ bool ModuleEntityManager::PreUpdate()
 	
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
-		if ((*entity)->current_turn == Entity::TURN::END_TURN) 
+		if ((*entity)->current_turn == Entity::TURN::END_TURN)
 		{
 			(*entity)->current_turn = Entity::TURN::NONE;
-			if (*entity != entities.back()) 
+			if (*entity != entities.back())
 			{
 				entity++;
 				(*entity)->current_turn = Entity::TURN::SEARCH_MOVE;
@@ -75,8 +76,9 @@ bool ModuleEntityManager::PreUpdate()
 			else {
 				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
 			}
-			
+
 		}
+
 		(*entity)->PreUpdate();
 	}
 
@@ -160,9 +162,15 @@ bool ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		entities.push_back(tmp);
 		characters.push_back(tmp);
 		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
+		tmp = new Boneyman(_type, entity_configs.child("boneyman"));
+		entities.push_back(tmp);
+		enemies.push_back(tmp);
+		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
 		tmp = new Hotdog(_type, entity_configs.child("hotdog"));
 		entities.push_back(tmp);
+		enemies.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
 		break;

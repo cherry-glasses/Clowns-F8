@@ -28,6 +28,7 @@ public:
 	virtual void Hability_1() {}
 	virtual void Hability_2() {}
 	virtual void Hability_3() {}
+	virtual void Die() {}
 	
 	// Called before quitting
 	virtual bool CleanUp() { return false; }

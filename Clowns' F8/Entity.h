@@ -9,6 +9,7 @@ struct SDL_Rect;
 enum class ENTITY_TYPE
 {
 	ENTITY_CHARACTER_IRIS,
+	ENTITY_ENEMY_BONEYMAN,
 	ENTITY_ENEMY_HOTDOG,
 	ENTITY_ENEMY_BURGDOG,
 	NO_TYPE
@@ -51,6 +52,7 @@ public:
 	virtual void Hability_1() {}
 	virtual void Hability_2() {}
 	virtual void Hability_3() {}
+	virtual void Die() {}
 
 	// Load and Save
 	virtual bool Load(pugi::xml_node& _node);
@@ -58,7 +60,6 @@ public:
 	
 	// Called before quitting
 	virtual bool CleanUp();
-
 
 	virtual void Draw() {}
 
@@ -81,7 +82,10 @@ public:
 	Stats current_stats;
 	Stats modifiers;
 
+	enum STATE { ALIVE, DEATH };
 	enum TURN { SEARCH_MOVE, MOVE, SEARCH_ATTACK, ATTACK, END_TURN, NONE };
+
+	STATE current_state = ALIVE;
 	TURN current_turn = NONE;
 
 protected:
@@ -91,15 +95,12 @@ protected:
 		ATTACK_LEFT_FRONT, ATTACK_RIGHT_FRONT, ATTACK_LEFT_BACK, ATTACK_RIGHT_BACK,
 		HABILITY_1_LEFT_FRONT, HABILITY_1_RIGHT_FRONT, HABILITY_1_LEFT_BACK, HABILITY_1_RIGHT_BACK,
 		HABILITY_2_LEFT_FRONT, HABILITY_2_RIGHT_FRONT, HABILITY_2_LEFT_BACK, HABILITY_2_RIGHT_BACK,
-		DIE_LEFT_FRONT, DIE_RIGHT_FRONT, DIE_LEFT_BACK, DIE_RIGHT_BACK
+		DEAD_LEFT_FRONT, DEAD_RIGHT_FRONT, DEAD_LEFT_BACK, DEAD_RIGHT_BACK
 	};
-	enum STATE { ALIVE, DEATH };
 	
-	STATE current_state = ALIVE;
 	MOVEMENT last_movement;
 	MOVEMENT current_movement = IDLE_LEFT_BACK;
 	
-
 	Animation*	current_animation = nullptr;
 	Animation idle_left_back;
 	Animation idle_right_back;
@@ -136,7 +137,6 @@ protected:
 	std::pair<int, int>  position;
 	std::vector<std::pair<int, int>>  objective_position;
 	
-
 };
 
 #endif // !_Entity_H_

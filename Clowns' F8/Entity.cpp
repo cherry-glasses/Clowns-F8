@@ -79,6 +79,24 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	attack_right_back.speed = _config.child("animations").child("attack_right_back").attribute("speed").as_float();
 	attack_right_back.loop = _config.child("animations").child("attack_right_back").attribute("loop").as_bool(true);
 
+	// Habilities HERE.
+
+	LoadAnimation(_config.child("animations").child("dead_left_front").child("frame"), dead_left_front);
+	dead_left_front.speed = _config.child("animations").child("dead_left_front").attribute("speed").as_float();
+	dead_left_front.loop = _config.child("animations").child("dead_left_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("dead_right_front").child("frame"), dead_right_front);
+	dead_right_front.speed = _config.child("animations").child("dead_right_front").attribute("speed").as_float();
+	dead_right_front.loop = _config.child("animations").child("dead_right_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("dead_left_back").child("frame"), dead_left_back);
+	dead_left_back.speed = _config.child("animations").child("dead_left_back").attribute("speed").as_float();
+	dead_left_back.loop = _config.child("animations").child("dead_left_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("dead_right_back").child("frame"), dead_right_back);
+	dead_right_back.speed = _config.child("animations").child("dead_right_back").attribute("speed").as_float();
+	dead_right_back.loop = _config.child("animations").child("dead_right_back").attribute("loop").as_bool(true);
+
 	current_turn = NONE;
 
 }

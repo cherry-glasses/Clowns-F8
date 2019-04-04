@@ -1,16 +1,16 @@
-#ifndef _Hotdog_H__
-#define _Hotdog_H__
+#ifndef _Boneyman_H__
+#define _Boneyman_H__
 
 #include "Enemy.h"
 #include "Animation.h"
 
-class Hotdog : public Enemy
+class Boneyman : public Enemy
 {
 public:
-	Hotdog(ENTITY_TYPE _type, pugi::xml_node _config);
+	Boneyman(ENTITY_TYPE _type, pugi::xml_node _config);
 
 	// Destructor
-	~Hotdog();
+	~Boneyman();
 
 	// Called each loop iteration
 	bool	PreUpdate();
@@ -33,6 +33,7 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+
 };
 
-#endif // !__Hotdog_H__
+#endif // !__Boneyman_H__

@@ -41,6 +41,7 @@ public:
 private:
 	std::list<Entity*> entities;
 	std::list<Entity*> characters;
+	std::list<Entity*> enemies;
 	pugi::xml_node entity_configs;
 
 	bool starting = true;

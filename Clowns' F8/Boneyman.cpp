@@ -1,6 +1,6 @@
 #include "Log.h"
 #include "Application.h"
-#include "Hotdog.h"
+#include "Boneyman.h"
 #include "ModuleEntityManager.h"
 #include "ModulePathfinding.h"
 #include "ModuleInput.h"
@@ -9,16 +9,16 @@
 #include "ModuleMap.h"
 
 
-Hotdog::Hotdog(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
+Boneyman::Boneyman(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
 {
 	CurrentMovement(IDLE_LEFT_FRONT);
 	current = current_animation->GetCurrentFrame();
 }
-Hotdog::~Hotdog()
+Boneyman::~Boneyman()
 {
 }
 
-bool Hotdog::PreUpdate()
+bool Boneyman::PreUpdate()
 {
 	bool ret = true;
 
@@ -51,16 +51,16 @@ bool Hotdog::PreUpdate()
 	{
 		current_turn == END_TURN;
 	}
-	
+
 
 	return ret;
 }
 
-bool Hotdog::Update(float dt)
+bool Boneyman::Update(float dt)
 {
 	if (current_turn == NONE)
 	{
-		
+
 	}
 	else if (current_turn == MOVE)
 	{
@@ -74,9 +74,9 @@ bool Hotdog::Update(float dt)
 	return true;
 }
 
-bool Hotdog::PostUpdate()
+bool Boneyman::PostUpdate()
 {
-	if (entity_texture != nullptr) 
+	if (entity_texture != nullptr)
 	{
 		App->render->Blit(entity_texture, position.first, position.second - (current.h / 3), &current_animation->GetCurrentFrame(), 1.0f);
 	}
@@ -85,7 +85,7 @@ bool Hotdog::PostUpdate()
 }
 
 // Load and Save
-bool Hotdog::Load(pugi::xml_node& node)
+bool Boneyman::Load(pugi::xml_node& node)
 {
 	bool ret = true;
 
@@ -95,7 +95,7 @@ bool Hotdog::Load(pugi::xml_node& node)
 	return ret;
 }
 
-bool Hotdog::Save(pugi::xml_node& node) const
+bool Boneyman::Save(pugi::xml_node& node) const
 {
 	bool ret = true;
 
@@ -108,14 +108,14 @@ bool Hotdog::Save(pugi::xml_node& node) const
 }
 
 // Actions (SearchWalk, Walk, Attack, Hability 1, Hability 2, Die)
-void Hotdog::SearchWalk(const std::vector<std::pair<int, int>> *_path)
+void Boneyman::SearchWalk(const std::vector<std::pair<int, int>> *_path)
 {
-	
+
 }
 
-void Hotdog::Walk(const std::vector<std::pair<int, int>> *_path)
+void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 {
-	if (App->debug) 
+	if (App->debug)
 	{
 		for (uint i = 0; i < _path->size(); ++i)
 		{
@@ -173,14 +173,14 @@ void Hotdog::Walk(const std::vector<std::pair<int, int>> *_path)
 	}
 }
 
-void Hotdog::SearchAttack(const std::vector<std::pair<int, int>> *_path)
+void Boneyman::SearchAttack(const std::vector<std::pair<int, int>> *_path)
 {
-	
+
 }
 
-void Hotdog::Attack(const std::vector<std::pair<int, int>> *_path)
+void Boneyman::Attack(const std::vector<std::pair<int, int>> *_path)
 {
-	if (App->debug) 
+	if (App->debug)
 	{
 		for (uint i = 0; i < _path->size() && 2 == _path->size(); ++i)
 		{
@@ -209,10 +209,10 @@ void Hotdog::Attack(const std::vector<std::pair<int, int>> *_path)
 	{
 		current_turn = END_TURN;
 	}
-	
+
 }
 
-void Hotdog::Die()
+void Boneyman::Die()
 {
 	current_state = DEATH;
 	current_turn = END_TURN;
@@ -234,7 +234,7 @@ void Hotdog::Die()
 	}
 }
 
-void Hotdog::CurrentMovement(MOVEMENT _movement) {
+void Boneyman::CurrentMovement(MOVEMENT _movement) {
 
 	switch (_movement)
 	{
