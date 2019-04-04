@@ -13,7 +13,7 @@ Boneyman::Boneyman(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Enemy
 {
 	CurrentMovement(IDLE_LEFT_FRONT);
 	current = current_animation->GetCurrentFrame();
-	position = { _copy + position.first, (_copy * 64) + position.second };
+	position = { position.first, (_copy * 32) + position.second };
 }
 Boneyman::~Boneyman()
 {
@@ -174,7 +174,7 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 
 void Boneyman::SearchAttack(const std::vector<std::pair<int, int>> *_path)
 {
-
+	//IA Attack. Into range of position + attack. If enemy is near to dead. If enemy def.
 }
 
 void Boneyman::Attack(const std::vector<std::pair<int, int>> *_path)
@@ -279,22 +279,22 @@ void Boneyman::CurrentMovement(MOVEMENT _movement) {
 	case Entity::ATTACK_LEFT_FRONT:
 		current_movement = ATTACK_LEFT_FRONT;
 		current_animation = &attack_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_HOTDOG);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		break;
 	case Entity::ATTACK_RIGHT_FRONT:
 		current_movement = ATTACK_RIGHT_FRONT;
 		current_animation = &attack_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_HOTDOG);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		break;
 	case Entity::ATTACK_LEFT_BACK:
 		current_movement = ATTACK_LEFT_BACK;
 		current_animation = &attack_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_HOTDOG);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		break;
 	case Entity::ATTACK_RIGHT_BACK:
 		current_movement = ATTACK_RIGHT_BACK;
 		current_animation = &attack_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_HOTDOG);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		break;
 	case Entity::HABILITY_1_LEFT_FRONT:
 		break;
