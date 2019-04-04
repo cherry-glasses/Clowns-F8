@@ -163,7 +163,7 @@ bool ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		characters.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
-		tmp = new Boneyman(_type, entity_configs.child("boneyman"));
+		tmp = new Boneyman(_type, entity_configs.child("boneyman"), enemies.size());
 		entities.push_back(tmp);
 		enemies.push_back(tmp);
 		break;

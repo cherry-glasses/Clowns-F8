@@ -9,10 +9,11 @@
 #include "ModuleMap.h"
 
 
-Boneyman::Boneyman(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
+Boneyman::Boneyman(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Enemy(_type, _config)
 {
 	CurrentMovement(IDLE_LEFT_FRONT);
 	current = current_animation->GetCurrentFrame();
+	position = { _copy + position.first, (_copy * 64) + position.second };
 }
 Boneyman::~Boneyman()
 {

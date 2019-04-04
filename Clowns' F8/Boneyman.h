@@ -7,7 +7,7 @@
 class Boneyman : public Enemy
 {
 public:
-	Boneyman(ENTITY_TYPE _type, pugi::xml_node _config);
+	Boneyman(ENTITY_TYPE _type, pugi::xml_node _config, int _copy);
 
 	// Destructor
 	~Boneyman();
