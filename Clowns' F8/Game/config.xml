@@ -345,17 +345,17 @@
         </idle>
       </animations>
     </polarpath>
-    <flyingcrow>
+    <boneyman>
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="9" y="12"/>
-      <stats hp="70" mana="70" atk_f="70" atk_s="70" def_f="70" def_s="70" crit="0.3" agi="8"/>
+      <stats hp="70" mana="75" atk_f="75" atk_s="75" def_f="65" def_s="65" crit="0.3" agi="8"/>
       <animations>
         <idle speed="0" loop="true">
           <frame x="0" y="0" width="40" height="65"/>
         </idle>
       </animations>
-    </flyingcrow>
+    </boneyman>
     <pinkking>
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
