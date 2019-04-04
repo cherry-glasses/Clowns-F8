@@ -40,13 +40,13 @@ bool CompareByPosition(Entity* first, Entity* second) {
 }
 
 bool CompareByAgility(Entity* first, Entity* second) {
-	return (first->Current_States.Agi > second->Current_States.Agi);
+	return (first->current_stats.Agi > second->current_stats.Agi);
 }
 
 // Called each loop iteration
 bool ModuleEntityManager::PreUpdate()
 {
-	if (entities.size() > 0) 
+	if (entities.size() > 1) 
 	{
 		entities.sort(CompareByAgility);
 		if (starting) 
@@ -96,7 +96,10 @@ bool ModuleEntityManager::Update(float _dt)
 
 bool ModuleEntityManager::PostUpdate()
 {
-	entities.sort(CompareByPosition);
+	if (entities.size() > 1)
+	{
+		entities.sort(CompareByPosition);
+	}
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
 		(*entity)->PostUpdate();
@@ -176,5 +179,34 @@ bool ModuleEntityManager::DeleteEntity(Entity * entity)
 	return true;
 }
 
+
+
+void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _positions, int _damage, ENTITY_TYPE _type)
+{
+	switch (_type)
+	{
+	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position) 
+			{
+				if ((*character)->GetPosition() == (*position)) 
+				{
+					(*character)->current_stats.Hp -= (_damage - (*character)->current_stats.DefF);
+				}
+			}
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
+		break;
+	case ENTITY_TYPE::NO_TYPE:
+		break;
+	default:
+		break;
+	}
+	
+}
 
 

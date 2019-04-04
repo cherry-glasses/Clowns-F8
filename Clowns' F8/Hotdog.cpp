@@ -22,6 +22,9 @@ bool Hotdog::PreUpdate()
 {
 	bool ret = true;
 
+	objective_position.clear();
+	objective_position.push_back(position);
+
 	if (current_turn == SEARCH_MOVE)
 	{
 		std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
@@ -99,19 +102,22 @@ void Hotdog::SearchWalk(const std::vector<std::pair<int, int>> *_path)
 
 void Hotdog::Walk(const std::vector<std::pair<int, int>> *_path)
 {
-	for (uint i = 0; i < _path->size(); ++i)
+	if (App->debug) 
 	{
-		std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
-		App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_green);
+		for (uint i = 0; i < _path->size(); ++i)
+		{
+			std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
+			App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_green);
+		}
 	}
 
 	if (_path->size() > 2 && (_path->at(0).first == _path->at(2).first || _path->at(0).second == _path->at(2).second))
 	{
-		objective_position = App->map->MapToWorld(_path->at(2).first, _path->at(2).second);
+		objective_position.push_back(App->map->MapToWorld(_path->at(2).first, _path->at(2).second));
 	}
 	else if (_path->size() > 1)
 	{
-		objective_position = App->map->MapToWorld(_path->at(1).first, _path->at(1).second);
+		objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
 	}
 
 	if (_path->size() > 2) {
@@ -133,7 +139,7 @@ void Hotdog::Walk(const std::vector<std::pair<int, int>> *_path)
 		current_turn = SEARCH_ATTACK;
 	}
 
-	if (objective_position.first == position.first || objective_position.second == position.second) {
+	if (objective_position.back().first == position.first || objective_position.back().second == position.second) {
 		if (current_movement == WALK_LEFT_FRONT)
 		{
 			CurrentMovement(IDLE_LEFT_FRONT);
@@ -161,29 +167,30 @@ void Hotdog::SearchAttack(const std::vector<std::pair<int, int>> *_path)
 
 void Hotdog::Attack(const std::vector<std::pair<int, int>> *_path)
 {
-	for (uint i = 0; i < _path->size() && 2 == _path->size(); ++i)
+	if (App->debug) 
 	{
-		std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
-		App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_green);
+		for (uint i = 0; i < _path->size() && 2 == _path->size(); ++i)
+		{
+			std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
+			App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_green);
+		}
 	}
 
 	if (_path->size() == 2) {
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-
-			if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
-				CurrentMovement(ATTACK_LEFT_FRONT);
-			}
-			else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-				CurrentMovement(ATTACK_RIGHT_FRONT);
-			}
-			else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-				CurrentMovement(ATTACK_LEFT_BACK);
-			}
-			else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
-				CurrentMovement(ATTACK_RIGHT_BACK);
-			}
-			current_turn = END_TURN;
+		objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
+		if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
+			CurrentMovement(ATTACK_LEFT_FRONT);
 		}
+		else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+			CurrentMovement(ATTACK_RIGHT_FRONT);
+		}
+		else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+			CurrentMovement(ATTACK_LEFT_BACK);
+		}
+		else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
+			CurrentMovement(ATTACK_RIGHT_BACK);
+		}
+		current_turn = END_TURN;
 	}
 	else
 	{
@@ -239,18 +246,22 @@ void Hotdog::CurrentMovement(MOVEMENT _movement) {
 	case Entity::ATTACK_LEFT_FRONT:
 		current_movement = ATTACK_LEFT_FRONT;
 		current_animation = &attack_left_front;
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_HOTDOG);
 		break;
 	case Entity::ATTACK_RIGHT_FRONT:
 		current_movement = ATTACK_RIGHT_FRONT;
 		current_animation = &attack_right_front;
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_HOTDOG);
 		break;
 	case Entity::ATTACK_LEFT_BACK:
 		current_movement = ATTACK_LEFT_BACK;
 		current_animation = &attack_left_back;
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_HOTDOG);
 		break;
 	case Entity::ATTACK_RIGHT_BACK:
 		current_movement = ATTACK_RIGHT_BACK;
 		current_animation = &attack_right_back;
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_HOTDOG);
 		break;
 	case Entity::HABILITY_1_LEFT_FRONT:
 		break;

@@ -77,9 +77,9 @@ public:
 public:
 
 	int my_id;
-	Stats Default_States;
-	Stats Current_States;
-	Stats Modifiers;
+	Stats default_stats;
+	Stats current_stats;
+	Stats modifiers;
 
 	enum TURN { SEARCH_MOVE, MOVE, SEARCH_ATTACK, ATTACK, END_TURN, NONE };
 	TURN current_turn = NONE;
@@ -134,7 +134,7 @@ protected:
 	SDL_Rect debug_red;
 	SDL_Rect debug_blue;
 	std::pair<int, int>  position;
-	std::pair<int, int>  objective_position;
+	std::vector<std::pair<int, int>>  objective_position;
 	
 
 };
