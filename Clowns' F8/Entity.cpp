@@ -28,6 +28,9 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	Default_States.DefF = _config.child("stats").attribute("def_f").as_int();
 	Default_States.DefS = _config.child("stats").attribute("def_s").as_int();
 	Default_States.Crit = _config.child("stats").attribute("crit").as_int();
+	Default_States.Agi = _config.child("stats").attribute("agi").as_int();
+
+	Current_States = Default_States;
 
 	LoadAnimation(_config.child("animations").child("idle_left_front").child("frame"), idle_left_front);
 	idle_left_front.speed = _config.child("animations").child("idle_left_front").attribute("speed").as_float();
@@ -76,6 +79,8 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	LoadAnimation(_config.child("animations").child("attack_right_back").child("frame"), attack_right_back);
 	attack_right_back.speed = _config.child("animations").child("attack_right_back").attribute("speed").as_float();
 	attack_right_back.loop = _config.child("animations").child("attack_right_back").attribute("loop").as_bool(true);
+
+	current_turn = NONE;
 
 }
 

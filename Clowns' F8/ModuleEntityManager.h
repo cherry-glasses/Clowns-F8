@@ -35,10 +35,13 @@ public:
 	bool CreateEntity(ENTITY_TYPE type);
 	bool DeleteEntity(Entity* entity);
 	std::pair<int,int> NearestCharacter(std::pair<int, int> myposition);
+
 private:
 	std::list<Entity*> entities;
 	std::list<Entity*> characters;
 	pugi::xml_node entity_configs;
+
+	bool starting = true;
 	
 };
 #endif // !__ModuleEntityManager_H__

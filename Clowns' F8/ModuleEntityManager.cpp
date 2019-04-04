@@ -31,12 +31,36 @@ bool ModuleEntityManager::Start()
 	{
 		(*entity)->Start();
 	}
+
 	return true;
+}
+
+bool CompareByPosition(Entity* first, Entity* second) {
+	return (first->GetPosition().second < second->GetPosition().second);
+}
+
+bool CompareByAgility(Entity* first, Entity* second) {
+	return (first->Current_States.Agi > second->Current_States.Agi);
 }
 
 // Called each loop iteration
 bool ModuleEntityManager::PreUpdate()
 {
+	if (entities.size() > 0) 
+	{
+		entities.sort(CompareByAgility);
+		if (starting) 
+		{
+			std::list<Entity*>::iterator entityfirst = entities.begin();
+			(*entityfirst)->current_turn = Entity::TURN::SEARCH_MOVE;
+			starting = false;
+		}
+	}
+	else
+	{
+		starting = true;
+	}
+	
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
 		if ((*entity)->current_turn == Entity::TURN::END_TURN) 
@@ -70,9 +94,9 @@ bool ModuleEntityManager::Update(float _dt)
 }
 
 
-
 bool ModuleEntityManager::PostUpdate()
 {
+	entities.sort(CompareByPosition);
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
 		(*entity)->PostUpdate();
@@ -151,3 +175,6 @@ bool ModuleEntityManager::DeleteEntity(Entity * entity)
 	entities.remove(entity);
 	return true;
 }
+
+
+

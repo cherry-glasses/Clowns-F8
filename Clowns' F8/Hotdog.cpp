@@ -182,6 +182,7 @@ void Hotdog::Attack(const std::vector<std::pair<int, int>> *_path)
 			else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
 				CurrentMovement(ATTACK_RIGHT_BACK);
 			}
+			current_turn = END_TURN;
 		}
 	}
 	else

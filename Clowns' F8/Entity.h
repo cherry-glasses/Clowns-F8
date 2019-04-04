@@ -24,6 +24,7 @@ typedef struct {
 	int DefF;
 	int AtkF;
 	int Crit;
+	int Agi;
 } Stats;
 
 class Entity

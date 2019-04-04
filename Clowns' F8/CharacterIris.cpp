@@ -16,7 +16,6 @@ CharacterIris::CharacterIris(ENTITY_TYPE _type, pugi::xml_node _config) : Charac
 	current_animation = &idle_right_front;
 	current = current_animation->GetCurrentFrame();
 
-	current_turn = SEARCH_MOVE;
 }
 
 CharacterIris::~CharacterIris() {
