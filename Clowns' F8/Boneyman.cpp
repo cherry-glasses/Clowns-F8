@@ -52,7 +52,6 @@ bool Boneyman::PreUpdate()
 		current_turn == END_TURN;
 	}
 
-
 	return ret;
 }
 
@@ -102,7 +101,6 @@ bool Boneyman::Save(pugi::xml_node& node) const
 	pugi::xml_node pos = node.append_child("position");
 	pos.append_attribute("x") = position.first;
 	pos.append_attribute("y") = position.second;
-
 
 	return ret;
 }
@@ -209,7 +207,6 @@ void Boneyman::Attack(const std::vector<std::pair<int, int>> *_path)
 	{
 		current_turn = END_TURN;
 	}
-
 }
 
 void Boneyman::Die()
