@@ -13,7 +13,7 @@ Boneyman::Boneyman(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Enemy
 {
 	CurrentMovement(IDLE_LEFT_FRONT);
 	current = current_animation->GetCurrentFrame();
-	position = { position.first, (_copy * 32) + position.second };
+	position = { position.first, (_copy * 64) + position.second };
 	current_stats.Agi -= _copy;
 }
 Boneyman::~Boneyman()
