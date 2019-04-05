@@ -160,7 +160,7 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 		{
 			CurrentMovement(IDLE_LEFT_BACK);
 		}
-		else
+		else if (current_movement == WALK_RIGHT_BACK)
 		{
 			CurrentMovement(IDLE_RIGHT_BACK);
 		}
