@@ -18,9 +18,9 @@ public:
 	bool	PostUpdate();
 
 	//Move and Attack
-	void SearchWalk(const std::vector<std::pair<int, int>> *_path);
+	void SearchWalk();
 	void Walk(const std::vector<std::pair<int, int>> *_path);
-	void SearchAttack(const std::vector<std::pair<int, int>> *_path);
+	void SearchAttack();
 	void Attack(const std::vector<std::pair<int, int>> *_path);
 	void Hability_1() {}
 	void Hability_2() {}
