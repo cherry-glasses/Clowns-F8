@@ -120,6 +120,7 @@ public:
 	std::pair<int, int> MapToWorld(int _x, int _y) const;
 	std::pair<int, int> WorldToMap(int _x, int _y) const;
 	bool CreateWalkabilityMap(int& _width, int& _height, uchar** _buffer) const;
+	void DrawWalkability();
 
 private:
 
@@ -136,7 +137,9 @@ public:
 	MapData data;
 
 private:
-
+	SDL_Texture* debug_texture = nullptr;
+	SDL_Rect debug_green;
+	SDL_Rect debug_red;
 	pugi::xml_document	map_file;
 	std::string			folder;
 	bool				map_loaded = false;

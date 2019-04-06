@@ -223,7 +223,8 @@ bool Scene::Update(float _dt)
 			App->render->camera.y -= 4;
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 			App->render->camera.x -= 4;
-
+		
+		App->map->DrawWalkability();
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
 			ret = false;
@@ -233,7 +234,9 @@ bool Scene::Update(float _dt)
 		break;
 	}
 	
-	App->map->Draw();
+	//App->map->Draw();
+
+
 	return ret;
 }
 

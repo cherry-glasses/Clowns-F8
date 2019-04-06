@@ -5,6 +5,7 @@
 #include "ModuleMap.h"
 #include "ModuleWindow.h"
 #include "ModulePathfinding.h"
+#include "ModuleEntityManager.h"
 
 #include "SDL/include/SDL.h"
 
@@ -22,6 +23,18 @@ bool ModuleMap::Awake(pugi::xml_node& _config)
 {
 	LOG("Loading Map Parser");
 	bool ret = true;
+
+
+
+	debug_green.h = 64;
+	debug_green.w = 64;
+	debug_green.x = 0;
+	debug_green.y = 0;
+
+	debug_red.h = 64;
+	debug_red.w = 64;
+	debug_red.x = 64;
+	debug_red.y = 0;
 
 	folder = _config.child("folder").child_value();
 
@@ -194,7 +207,7 @@ bool ModuleMap::Load(const char* _file_name)
 {
 	bool ret = true;
 	std::string tmp_string = folder + _file_name;
-
+	debug_texture = App->textures->Load("Assets/Maps/meta.png");
 	int w, h;
 	uchar* dat = NULL;
 	
@@ -493,7 +506,15 @@ bool ModuleMap::CreateWalkabilityMap(int& _width, int& _height, uchar** _buffer)
 
 				if (tileset != NULL)
 				{
-					map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
+					std::pair<int, int> pos;
+					pos.first = x;
+					pos.second = y;
+					if (App->entity_manager->UpdateWalk(pos)) {
+						map[i] = 0;
+					}
+					else {
+						map[i] = ((tile_id - tileset->firstgid) > 0) ? 0 : 1;
+					}
 					/*TileType* ts = tileset->GetTileType(tile_id);
 					if(ts != NULL)
 					{
@@ -512,4 +533,48 @@ bool ModuleMap::CreateWalkabilityMap(int& _width, int& _height, uchar** _buffer)
 	}
 
 	return ret;
+}
+
+void ModuleMap::DrawWalkability() {
+	if (map_loaded == false)
+	{
+		return;
+	}
+
+	for (std::list<MapLayer*>::iterator item = data.layers.begin(); item != data.layers.end(); ++item)
+	{
+		MapLayer* layer = *item;
+
+		if (layer->properties.Get("Nodraw") != 0)
+		{
+			for (int y = 0; y < data.height; ++y)
+			{
+				for (int x = 0; x < data.width; ++x)
+				{
+					int tile_id = layer->Get(x, y);
+					if (tile_id > 0)
+					{
+						std::pair<int, int> prepos;
+						prepos.first = x;
+						prepos.second = y;
+						
+						
+
+						std::pair<int, int> pos = MapToWorld(x, y);
+						if (App->pathfinding->IsWalkable(prepos)) {
+							App->render->Blit(debug_texture, pos.first, pos.second, &debug_green);
+
+						}
+						else {
+							App->render->Blit(debug_texture, pos.first, pos.second, &debug_red);
+						}
+
+						
+					}
+				}
+			}
+		}
+
+		
+	}
 }

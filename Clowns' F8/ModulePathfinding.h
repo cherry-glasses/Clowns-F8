@@ -37,6 +37,8 @@ public:
 	// Utility: return the walkability value of a tile
 	uchar GetTileAt(const std::pair<int, int>& pos) const;
 
+
+
 private:
 
 	// size of the map

@@ -115,7 +115,7 @@ PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), 
 // ----------------------------------------------------------------------------------
 uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
 {
-	//Gollim: Esto nos lo hemos de mirar bien porque estoy haciendo muchsa trampas, cuidado con los ifs.
+	
 	std::pair<int, int> cell;
 	uint before = list_to_fill.list.size();
 

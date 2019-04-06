@@ -6,6 +6,8 @@
 #include "CharacterIris.h"
 #include "Boneyman.h"
 #include "Hotdog.h"
+#include "ModulePathfinding.h"
+#include "ModuleMap.h"
 
 
 ModuleEntityManager::ModuleEntityManager() : Module()
@@ -80,6 +82,11 @@ bool ModuleEntityManager::PreUpdate()
 		(*entity)->PreUpdate();
 	}
 
+	int w, h;
+	uchar* dat = NULL;
+
+	if (App->map->CreateWalkabilityMap(w, h, &dat))
+		App->pathfinding->SetMap(w, h, dat);
 	return true;
 }
 
@@ -142,8 +149,11 @@ std::pair<int, int> ModuleEntityManager::NearestCharacter(std::pair<int, int> my
 	for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character) {
 		tmp_allied = (*character)->GetPosition();
 		tmp_result = sqrt(((tmp_allied.first - myposition.first)*(tmp_allied.first - myposition.first)) + ((tmp_allied.second - myposition.second)*(tmp_allied.second - myposition.second)));
-		if (tmp_result < tmp_result_2)
+		if (tmp_result < tmp_result_2) {
 			tmp = tmp_allied;
+			tmp_result_2 = tmp_result;
+		}
+			
 	}
 	return tmp;
 
@@ -228,3 +238,19 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 }
 
 
+bool ModuleEntityManager::UpdateWalk(std::pair<int, int> tile_id) {
+	bool ret = false;
+	std::pair<int, int> tmp;
+	for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie) {
+		tmp = (*enemie)->GetPosition();
+		tmp = App->map->WorldToMap(tmp.first, tmp.second);
+		if (tile_id == tmp) {
+			ret = true;
+		}
+
+	}
+
+
+	
+	return ret;
+}

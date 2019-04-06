@@ -36,6 +36,8 @@ public:
 	bool DeleteEntity(Entity* entity);
 	std::pair<int,int> NearestCharacter(std::pair<int, int> myposition);
 
+	bool UpdateWalk(std::pair<int, int> tile_id);
+
 	void ThrowAttack(std::vector<std::pair<int,int>> _positions, int _damage, ENTITY_TYPE _type);
 
 private:
