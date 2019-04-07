@@ -72,7 +72,6 @@ bool CharacterIris::Update(float _dt) {
 					else
 						App->render->Blit(debug_texture, possible_mov_map[i].first, possible_mov_map[i].second, &debug_red);
 				}
-					
 				else if (i == Cap){
 					if (!App->pathfinding->IsWalkable(possible_mov[i])) {
 						if (Cap_2 == 1) {
@@ -107,8 +106,8 @@ bool CharacterIris::Update(float _dt) {
 }
 
 bool CharacterIris::PostUpdate() {
-	if (entity_texture != nullptr) {
-		//App->render->Blit(entity_texture, ((position.first / (current.w / 2) + position.second / (current.h / 2)) / 2), ((position.second / (current.h / 2) - position.first / (current.w / 2)) / 2), &current, 1.0f); 
+	if (entity_texture != nullptr) 
+	{
 		App->render->Blit(entity_texture, position.first , position.second  - (current.h / 3), &current_animation->GetCurrentFrame(), 1.0f); 
 	}
 	
