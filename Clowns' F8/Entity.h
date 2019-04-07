@@ -132,6 +132,7 @@ protected:
 	SDL_Rect debug_red;
 	SDL_Rect debug_blue;
 	std::pair<int, int>  position;
+	std::pair<int, int>  position_margin;
 	std::vector<std::pair<int, int>>  objective_position;
 	
 };

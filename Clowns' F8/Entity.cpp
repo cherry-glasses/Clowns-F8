@@ -18,6 +18,7 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	debug_blue = { _config.parent().child("debug_blue").attribute("x").as_int(), _config.parent().child("debug_blue").attribute("y").as_int(),
 		_config.parent().child("debug_blue").attribute("width").as_int(), _config.parent().child("debug_blue").attribute("height").as_int() };
 
+	position_margin = { _config.parent().child("position_margin").attribute("x").as_int(), _config.parent().child("position_margin").attribute("y").as_int() };
 	position =  App->map->MapToWorld(_config.child("position").attribute("x").as_int(), _config.child("position").attribute("y").as_int());
 	
 	default_stats.Hp = _config.child("stats").attribute("hp").as_int();

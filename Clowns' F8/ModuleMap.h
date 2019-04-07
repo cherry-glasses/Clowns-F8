@@ -120,7 +120,6 @@ public:
 	std::pair<int, int> MapToWorld(int _x, int _y) const;
 	std::pair<int, int> WorldToMap(int _x, int _y) const;
 	bool CreateWalkabilityMap(int& _width, int& _height, uchar** _buffer) const;
-	void DrawWalkability();
 
 private:
 
