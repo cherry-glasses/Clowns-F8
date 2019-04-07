@@ -52,11 +52,13 @@ bool CharacterIris::Update(float _dt) {
 		case Move_Steps::SELECT:
 			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
 				Cap--;
+				Cap_2 = -1;
 				if (Cap < 0)
 					Cap = 7;
 			}
 			else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
 				Cap++;
+				Cap_2 = 1;
 				if (Cap > 7)
 					Cap = 0;
 			}
@@ -73,9 +75,17 @@ bool CharacterIris::Update(float _dt) {
 					
 				else if (i == Cap){
 					if (!App->pathfinding->IsWalkable(possible_mov[i])) {
-						Cap++;
-						if (Cap > 7)
-							Cap = 0;
+						if (Cap_2 == 1) {
+							Cap++;
+							if (Cap > 7)
+								Cap = 0;
+						}
+						else {
+							Cap--;
+							if (Cap < 0)
+								Cap = 7;
+						}
+						
 					}
 				}
 				
@@ -120,57 +130,51 @@ void CharacterIris::Wheremove() {
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first += 1;
 	tmp.second += 2;  //first i get where the hell i can be
-	//if (tmp.first >= 0 && tmp.first <= App->map->data.height && tmp.second >= 0 && tmp.second <= App->map->data.width)  //then i check if this var is in the map (and we will need to do the same if it's walkeable or not)
-		possible_mov[0] = tmp;
+	
+	possible_mov[0] = tmp;
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first += 2;
 	tmp.second += 1;
-	//if (tmp.first >= 0 && tmp.first <= App->map->data.height && tmp.second >= 0 && tmp.second <= App->map->data.width)
+	
 		possible_mov[1] = tmp;
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first += 2;
 	tmp.second -= 1;
-	//if (tmp.first >= 0 && tmp.first <= App->map->data.height && tmp.second >= 0 && tmp.second <= App->map->data.width) 
-		possible_mov[2] = tmp;
+	
+	possible_mov[2] = tmp;
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first += 1;
 	tmp.second -= 2;
-	//if (tmp.first >= 0 && tmp.first <= App->map->data.height && tmp.second >= 0 && tmp.second <= App->map->data.width)
-		possible_mov[3] = tmp;
+	
+	possible_mov[3] = tmp;
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first -= 1;
 	tmp.second -= 2;
-	//if (tmp.first >= 0 && tmp.first <= App->map->data.height && tmp.second >= 0 && tmp.second <= App->map->data.width)
-		possible_mov[4] = tmp;
+	
+	possible_mov[4] = tmp;
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first -= 2;
 	tmp.second -= 1;
-	//if (tmp.first >= 0 && tmp.first <= App->map->data.height && tmp.second >= 0 && tmp.second <= App->map->data.width)
-		possible_mov[5] = tmp;
+	
+	possible_mov[5] = tmp;
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first -= 2;
 	tmp.second += 1;
-	//if (tmp.first >= 0 && tmp.first <= App->map->data.height && tmp.second >= 0 && tmp.second <= App->map->data.width)
-		possible_mov[6] = tmp;
+	
+	possible_mov[6] = tmp;
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first -= 1;
 	tmp.second += 2;
-	//if (tmp.first >= 0 && tmp.first <= App->map->data.height && tmp.second >= 0 && tmp.second <= App->map->data.width)
-		possible_mov[7] = tmp;
+	
+	possible_mov[7] = tmp;
 
-
-	for (int i = 0; i < 7; i++) {
-		if (possible_mov[i].first == 0 && possible_mov[i].second == 0) {
-			possible_mov[i] = App->map->WorldToMap((int)position.first, (int)position.second);
-		}
-	}
 
 	tmp.first = NULL;
 	tmp.second = NULL;
