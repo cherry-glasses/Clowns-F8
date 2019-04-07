@@ -236,8 +236,6 @@ bool Scene::Update(float _dt)
 	
 	App->map->Draw();
 	
-
-
 	return ret;
 }
 

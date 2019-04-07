@@ -52,9 +52,9 @@
   </audio>
 
   <entity_manager>
-    <debug_green x="0" y="0" width="64" height="64"/>
-    <debug_red x="64" y="0" width="64" height="64"/>
-    <debug_blue x="128" y="0" width="64" height="64"/>
+    <debug_green x="0" y="0" width="64" height="32"/>
+    <debug_red x="64" y="0" width="64" height="32"/>
+    <debug_blue x="128" y="0" width="64" height="32"/>
     <iris>
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
