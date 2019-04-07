@@ -32,7 +32,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	// Entity Manager
-	bool CreateEntity(ENTITY_TYPE type);
+	Entity* CreateEntity(ENTITY_TYPE type);
 	bool DeleteEntity(Entity* entity);
 	std::pair<int,int> NearestCharacter(std::pair<int, int> myposition);
 

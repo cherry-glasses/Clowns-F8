@@ -159,7 +159,7 @@ std::pair<int, int> ModuleEntityManager::NearestCharacter(std::pair<int, int> my
 
 }
 
-bool ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
+Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 {
 	Entity* tmp = nullptr;
 
@@ -186,7 +186,7 @@ bool ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		break;
 	}
 
-	return true;
+	return tmp;
 }
 
 bool ModuleEntityManager::DeleteEntity(Entity * entity)

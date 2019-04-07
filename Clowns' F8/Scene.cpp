@@ -99,39 +99,8 @@ bool Scene::Update(float _dt)
 		Navigate();
 		break;
 
-	/*case Scene::GLOBAL_MAP:
-
-
-		if (!map_loaded) {
-			map_loaded = true;
-			main_menu_created = false;
-			App->map->Load("iso_walk.tmx");
-			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
-			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_HOTDOG);
-			App->render->camera.x = App->window->GetScreenWidth() / 2;
-			App->render->camera.y = App->window->GetScreenHeight() / 8;
-		}
-		
-		
-
-		// Camera Movment in map
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) 
-			App->render->camera.y += 4;
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			App->render->camera.x += 4;
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-			App->render->camera.y -= 4;
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-			App->render->camera.x -= 4;
-
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		{
-			App->gui_manager->DeleteAllGUIElements();
-			portraits_created = false;
-			ret = false;
-		}
-
-		break;*/
+	case Scene::GLOBAL_MAP:
+		break;
 
 	case Scene::MM_OPTIONS:
 		App->render->Blit(main_menu_background, 0, 0);
@@ -228,8 +197,8 @@ bool Scene::Update(float _dt)
 
 		}
 
-		//life_x = (124 * Iris->default_stats.Hp)/Iris->current_stats.Hp;
-		//mana_x = (124 * Iris->default_stats.Mana) / Iris->current_stats.Mana;
+		life_x = (124 * Iris->default_stats.Hp)/Iris->current_stats.Hp;
+		mana_x = (124 * Iris->default_stats.Mana) / Iris->current_stats.Mana;
 		if (life_x != 124 || mana_x != 124 || !portraits_created)
 		{
 			if (portraits_created)
