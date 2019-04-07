@@ -202,8 +202,8 @@ bool Scene::Update(float _dt)
 
 		}
 
-		life_x = (124 * Iris->default_stats.Hp)/Iris->current_stats.Hp;
-		mana_x = (124 * Iris->default_stats.Mana) / Iris->current_stats.Mana;
+		life_x = (124 * Iris->current_stats.Hp)/Iris->default_stats.Hp;
+		mana_x = (124 * Iris->current_stats.Mana) / Iris->default_stats.Mana;
 		if (life_x != 124 || mana_x != 124 || !portraits_created)
 		{
 			if (portraits_created)

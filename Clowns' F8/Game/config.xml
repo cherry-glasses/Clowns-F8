@@ -199,7 +199,7 @@
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="14" y="3"/>
-      <stats hp="70" mana="75" atk_f="75" atk_s="75" def_f="65" def_s="65" crit="0.3" agi="8"/>
+      <stats hp="70" mana="75" atk_f="85" atk_s="75" def_f="65" def_s="65" crit="0.3" agi="8"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>
