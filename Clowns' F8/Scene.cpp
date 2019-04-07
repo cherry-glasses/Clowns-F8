@@ -224,7 +224,7 @@ bool Scene::Update(float _dt)
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 			App->render->camera.x -= 4;
 		
-		App->map->DrawWalkability();
+		App->map->Draw();
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
 			ret = false;

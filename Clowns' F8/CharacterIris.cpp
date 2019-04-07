@@ -5,6 +5,7 @@
 #include "ModuleTextures.h"
 #include "ModuleMap.h"
 #include "ModuleInput.h"
+#include "ModulePathfinding.h"
 #include <time.h>
 
 
@@ -62,8 +63,21 @@ bool CharacterIris::Update(float _dt) {
 
 			for (int i = 0; i < 8; i++) {
 				possible_mov_map[i] = App->map->MapToWorld((possible_mov[i].first), possible_mov[i].second);
-				if (i != Cap) 
-					App->render->Blit(debug_texture, possible_mov_map[i].first, possible_mov_map[i].second, &debug_blue);
+				
+				if (i != Cap) {
+					if (App->pathfinding->IsWalkable(possible_mov[i]))
+						App->render->Blit(debug_texture, possible_mov_map[i].first, possible_mov_map[i].second, &debug_blue);
+					else
+						App->render->Blit(debug_texture, possible_mov_map[i].first, possible_mov_map[i].second, &debug_red);
+				}
+					
+				else if (i == Cap){
+					if (!App->pathfinding->IsWalkable(possible_mov[i])) {
+						Cap++;
+						if (Cap > 7)
+							Cap = 0;
+					}
+				}
 				
 			}
 			App->render->Blit(debug_texture, possible_mov_map[Cap].first, possible_mov_map[Cap].second, &debug_green);
