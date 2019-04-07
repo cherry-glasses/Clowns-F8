@@ -160,7 +160,7 @@ int PathNode::Score() const
 int PathNode::CalculateF(const std::pair<int, int>& destination)
 {
 	g = parent->g + 1;
-	h = sqrtf(((pos.first - destination.first) ^ 2) - ((pos.second - destination.second) ^ 2));
+	h = sqrt(((pos.first - destination.first) * (pos.first - destination.first)) + ((pos.second - destination.second) * (pos.second - destination.second)));
 
 	return g + h;
 }
@@ -195,7 +195,7 @@ int ModulePathfinding::CreatePath(const std::pair<int, int>& origin, const std::
 		// TODO 4: If we just added the destination, we are done!
 		// Backtrack to create the final path
 		// Use the Pathnode::parent and Flip() the path when you are finish
-		if (close.list.back().pos == destination)
+		if (current_node->pos == destination)
 		{
 			const PathNode* node = nullptr;
 			for (node = &(*current_node); node->pos != origin; node = node->parent) {
