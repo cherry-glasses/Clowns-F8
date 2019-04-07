@@ -235,9 +235,6 @@ bool Scene::Update(float _dt)
 	}
 	
 	App->map->Draw();
-	if (App->debug) {
-		App->map->DrawWalkability();
-	}
 	
 
 

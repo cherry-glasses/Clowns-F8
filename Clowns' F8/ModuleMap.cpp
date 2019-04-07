@@ -52,7 +52,7 @@ void ModuleMap::Draw()
 	{
 		MapLayer* layer = *item;
 
-		if (layer->properties.Get("Nodraw") != 0) 
+		if(!App->debug && layer->properties.Get("Nodraw") != 0)
 		{
 			continue;
 		}
@@ -545,7 +545,7 @@ void ModuleMap::DrawWalkability() {
 	{
 		MapLayer* layer = *item;
 
-		if (layer->properties.Get("Nodraw") != 0)
+		if (layer->properties.Get("Navigation") != 0)
 		{
 			for (int y = 0; y < data.height; ++y)
 			{
