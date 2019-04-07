@@ -6,6 +6,7 @@
 class GUIImage;
 class GUIButton;
 class GUILabel;
+class CharacterIris;
 struct SDL_Texture;
 
 class Scene : public Module {
@@ -54,9 +55,6 @@ private:
 
 private:
 	SDL_Texture* main_menu_background = nullptr;
-	SDL_Texture* health_bar_tex = nullptr;
-	SDL_Texture* mana_bar_tex = nullptr;
-	SDL_Texture* portrait_tex = nullptr;
 	SDL_Texture* options_background = nullptr;
 	SDL_Texture* credits_page = nullptr;
 
@@ -69,6 +67,7 @@ private:
 	bool mm_options_created = false;
 	bool mm_credits_created = false;
 	bool map_loaded = false;
+	bool portraits_created = false;
 
 	//Main menu UI
 	GUIButton* cherry_glasses_logo_button = nullptr;
@@ -99,12 +98,18 @@ private:
 	GUILabel* back_label = nullptr;
 	GUILabel* language_label = nullptr;
 	GUILabel* volume_label = nullptr;
+
+	GUIImage* life = nullptr;
+	GUIImage* portrait_1 = nullptr;
+	GUIImage* portrait_2 = nullptr;
+	GUIImage* portrait_3 = nullptr;
+	GUIImage* portrait_4 = nullptr;
 	
 	std::list<GUIButton*> buttons;
 
 public:
 	bool language = true; //true = English; false = Spanish
-
+	CharacterIris* Iris;
 
 };
 

@@ -12,6 +12,7 @@
 #include "Scene.h"
 #include "ModuleEntityManager.h"
 #include "ModuleWindow.h"
+#include "CharacterIris.h"
 
 
 Scene::Scene() : Module()
@@ -39,9 +40,6 @@ bool Scene::Start()
 {
 
 	main_menu_background = App->textures->Load("Assets/Sprites/UI/Main_menu_art_shot.png");
-	health_bar_tex = App->textures->Load("Assets/Sprites/UI/UI_Health_Bar.png");
-	mana_bar_tex = App->textures->Load("Assets/Sprites/UI/UI_Mana_Bar.png");
-	portrait_tex = App->textures->Load("Assets/Sprites/UI/UI_Portrait_Box.png");
 	options_background = App->textures->Load("Assets/Sprites/UI/4259708641.png");
 	credits_page = App->textures->Load("Assets/Sprites/UI/credits_done.png");
 
@@ -107,32 +105,28 @@ bool Scene::Update(float _dt)
 		break;
 
 	case Scene::GLOBAL_MAP:
-		App->render->Blit(portrait_tex, 550, -125);
-		App->render->Blit(health_bar_tex, 680, -120);
-		App->render->Blit(mana_bar_tex, 680, -60);
 
-		App->render->Blit(portrait_tex, -940, -125);
-		App->render->Blit(health_bar_tex, -810, -120);
-		App->render->Blit(mana_bar_tex, -810, -60);
 
-		App->render->Blit(portrait_tex, -940, 755);
-		App->render->Blit(health_bar_tex, -810, 760);
-		App->render->Blit(mana_bar_tex, -810, 820);
-
-		App->render->Blit(portrait_tex, 550, 755);
-		App->render->Blit(health_bar_tex, 680, 760);
-		App->render->Blit(mana_bar_tex, 680, 820);
 		if (!map_loaded) {
 			map_loaded = true;
 			main_menu_created = false;
 			App->map->Load("iso_walk.tmx");
-			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
+			Iris = (CharacterIris*) App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_HOTDOG);
 			App->render->camera.x = App->window->GetScreenWidth() / 2;
 			App->render->camera.y = App->window->GetScreenHeight() / 8;
-			
 		}
+		//App->render->Blit(red_tex, -810, -60, Life);
+		//life = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, -810.0f, -60.0f, { 0, 58, 92, 22 });
+		life = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 79.0f, { 0, 58, 124, 28 });
 		
+		if (!portraits_created)
+		{
+			portrait_1 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 12.0f, { 0, 115, 256, 128 });
+			portrait_2 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 902.0f, { 0, 115, 256, 128 });
+			portrait_3 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1510.0f, 12.0f, { 0, 115, 256, 128 });
+			portrait_4 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1510.0f, 902.0f, { 0, 115, 256, 128 });
+		}
 
 		// Camera Movment in map
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) 
@@ -146,6 +140,8 @@ bool Scene::Update(float _dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
+			App->gui_manager->DeleteAllGUIElements();
+			portraits_created = false;
 			ret = false;
 		}
 
@@ -253,9 +249,6 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	App->textures->UnLoad(main_menu_background);
-	App->textures->UnLoad(mana_bar_tex);
-	App->textures->UnLoad(health_bar_tex);
-	App->textures->UnLoad(portrait_tex);
 	App->textures->UnLoad(options_background);
 	App->textures->UnLoad(credits_page);
 	return true;
