@@ -35,7 +35,9 @@
   </map>
   
   <scene>
-    
+    <buttons width="288" height="192"/>
+    <main_menu start_pos="300"/>
+    <options_menu start_pos="270"/>
   </scene>
 
   <audio>

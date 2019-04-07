@@ -63,6 +63,9 @@ private:
 
 	SCENES current_scene = MAIN_MENU;
 
+	int width, height;
+	int button_half_width, button_half_height;
+	int first_button_height, options_first_height;
 	bool main_menu_created = false;
 	bool mm_options_created = false;
 	bool mm_credits_created = false;
