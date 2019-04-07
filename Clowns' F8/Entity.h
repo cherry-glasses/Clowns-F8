@@ -9,6 +9,7 @@ struct SDL_Rect;
 enum class ENTITY_TYPE
 {
 	ENTITY_CHARACTER_IRIS,
+	ENTITY_ENEMY_BONEYMAN,
 	ENTITY_ENEMY_HOTDOG,
 	ENTITY_ENEMY_BURGDOG,
 	NO_TYPE
@@ -24,6 +25,7 @@ typedef struct {
 	int DefF;
 	int AtkF;
 	int Crit;
+	int Agi;
 } Stats;
 
 class Entity
@@ -43,12 +45,14 @@ public:
 	virtual bool PostUpdate() {return true;}
 	
 	//Move and Attack
-	virtual void SearchWalk(const std::vector<std::pair<int, int>> *_path) {}
+	virtual void SearchWalk() {}
 	virtual void Walk(const std::vector<std::pair<int, int>> *_path) {}
+	virtual void SearchAttack() {}
 	virtual void Attack(const std::vector<std::pair<int, int>> *_path) {}
 	virtual void Hability_1() {}
 	virtual void Hability_2() {}
 	virtual void Hability_3() {}
+	virtual void Die() {}
 
 	// Load and Save
 	virtual bool Load(pugi::xml_node& _node);
@@ -56,7 +60,6 @@ public:
 	
 	// Called before quitting
 	virtual bool CleanUp();
-
 
 	virtual void Draw() {}
 
@@ -74,30 +77,27 @@ public:
 
 public:
 
-	int my_id;
-	Stats Default_States;
-	Stats Current_States;
-	Stats Modifiers;
+	Stats default_stats;
+	Stats current_stats;
 
+	enum STATE { ALIVE, DEATH };
 	enum TURN { SEARCH_MOVE, MOVE, SEARCH_ATTACK, ATTACK, END_TURN, NONE };
+
+	STATE current_state = ALIVE;
 	TURN current_turn = NONE;
 
 protected:
 
-	enum MOVEMENT { IDLE_LEFT_BACK, IDLE_RIGHT_BACK, IDLE_LEFT_FRONT, IDLE_RIGHT_FRONT, 
-		WALK_LEFT_BACK, WALK_RIGHT_BACK, WALK_LEFT_FRONT, WALK_RIGHT_FRONT,
-		ATTACK_LEFT_BACK, ATTACK_RIGHT_BACK, ATTACK_LEFT_FRONT, ATTACK_RIGHT_FRONT,
-		HABILITY_1_LEFT_BACK, HABILITY_1_RIGHT_BACK, HABILITY_1_LEFT_FRONT, HABILITY_1_RIGHT_FRONT,
-		HABILITY_2_LEFT_BACK, HABILITY_2_RIGHT_BACK, HABILITY_2_LEFT_FRONT, HABILITY_2_RIGHT_FRONT,
-		DIE_LEFT_BACK, DIE_RIGHT_BACK, DIE_LEFT_FRONT, DIE_RIGHT_FRONT,
+	enum MOVEMENT {	IDLE_LEFT_FRONT, IDLE_RIGHT_FRONT, IDLE_LEFT_BACK, IDLE_RIGHT_BACK,
+		WALK_LEFT_FRONT, WALK_RIGHT_FRONT,  WALK_LEFT_BACK, WALK_RIGHT_BACK,
+		ATTACK_LEFT_FRONT, ATTACK_RIGHT_FRONT, ATTACK_LEFT_BACK, ATTACK_RIGHT_BACK,
+		ABILITY_1_LEFT_FRONT, ABILITY_1_RIGHT_FRONT, ABILITY_1_LEFT_BACK, ABILITY_1_RIGHT_BACK,
+		ABILITY_2_LEFT_FRONT, ABILITY_2_RIGHT_FRONT, ABILITY_2_LEFT_BACK, ABILITY_2_RIGHT_BACK,
+		DEAD_LEFT_FRONT, DEAD_RIGHT_FRONT, DEAD_LEFT_BACK, DEAD_RIGHT_BACK
 	};
-	enum STATE { ALIVE, DEATH };
-	
-	STATE current_state = ALIVE;
-	MOVEMENT last_movement;
+
 	MOVEMENT current_movement = IDLE_LEFT_BACK;
 	
-
 	Animation*	current_animation = nullptr;
 	Animation idle_left_back;
 	Animation idle_right_back;
@@ -132,9 +132,9 @@ protected:
 	SDL_Rect debug_red;
 	SDL_Rect debug_blue;
 	std::pair<int, int>  position;
-	std::pair<int, int>  new_position;
+	std::pair<int, int>  position_margin;
+	std::vector<std::pair<int, int>>  objective_position;
 	
-
 };
 
 #endif // !_Entity_H_

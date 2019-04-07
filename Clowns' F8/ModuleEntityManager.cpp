@@ -4,7 +4,10 @@
 #include "Enemy.h"
 #include "Character.h"
 #include "CharacterIris.h"
+#include "Boneyman.h"
 #include "Hotdog.h"
+#include "ModulePathfinding.h"
+#include "ModuleMap.h"
 
 
 ModuleEntityManager::ModuleEntityManager() : Module()
@@ -31,31 +34,59 @@ bool ModuleEntityManager::Start()
 	{
 		(*entity)->Start();
 	}
+
 	return true;
+}
+
+bool CompareByPosition(Entity* first, Entity* second) {
+	return (first->GetPosition().second < second->GetPosition().second);
+}
+
+bool CompareByAgility(Entity* first, Entity* second) {
+	return (first->current_stats.Agi > second->current_stats.Agi);
 }
 
 // Called each loop iteration
 bool ModuleEntityManager::PreUpdate()
 {
+	if (entities.size() > 1) 
+	{
+		entities.sort(CompareByAgility);
+		if (starting) 
+		{
+			std::list<Entity*>::iterator entityfirst = entities.begin();
+			(*entityfirst)->current_turn = Entity::TURN::SEARCH_MOVE;
+			starting = false;
+		}
+	}
+	else
+	{
+		starting = true;
+	}
+	
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
-		if ((*entity)->current_turn == Entity::TURN::END_TURN) 
+		if ((*entity)->current_turn == Entity::TURN::END_TURN)
 		{
 			(*entity)->current_turn = Entity::TURN::NONE;
-			if (*entity != entities.back()) 
+			if (*entity != entities.back())
 			{
 				entity++;
 				(*entity)->current_turn = Entity::TURN::SEARCH_MOVE;
-				entity--;
 			}
 			else {
 				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
 			}
-			
 		}
+
 		(*entity)->PreUpdate();
 	}
 
+	int w, h;
+	uchar* dat = NULL;
+
+	if (App->map->CreateWalkabilityMap(w, h, &dat))
+		App->pathfinding->SetMap(w, h, dat);
 	return true;
 }
 
@@ -70,9 +101,12 @@ bool ModuleEntityManager::Update(float _dt)
 }
 
 
-
 bool ModuleEntityManager::PostUpdate()
 {
+	if (entities.size() > 1)
+	{
+		entities.sort(CompareByPosition);
+	}
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
 		(*entity)->PostUpdate();
@@ -115,8 +149,11 @@ std::pair<int, int> ModuleEntityManager::NearestCharacter(std::pair<int, int> my
 	for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character) {
 		tmp_allied = (*character)->GetPosition();
 		tmp_result = sqrt(((tmp_allied.first - myposition.first)*(tmp_allied.first - myposition.first)) + ((tmp_allied.second - myposition.second)*(tmp_allied.second - myposition.second)));
-		if (tmp_result < tmp_result_2)
+		if (tmp_result < tmp_result_2) {
 			tmp = tmp_allied;
+			tmp_result_2 = tmp_result;
+		}
+			
 	}
 	return tmp;
 
@@ -133,9 +170,15 @@ bool ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		entities.push_back(tmp);
 		characters.push_back(tmp);
 		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
+		tmp = new Boneyman(_type, entity_configs.child("boneyman"), enemies.size());
+		entities.push_back(tmp);
+		enemies.push_back(tmp);
+		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
 		tmp = new Hotdog(_type, entity_configs.child("hotdog"));
 		entities.push_back(tmp);
+		enemies.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
 		break;
@@ -150,4 +193,64 @@ bool ModuleEntityManager::DeleteEntity(Entity * entity)
 {
 	entities.remove(entity);
 	return true;
+}
+
+
+
+void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _positions, int _damage, ENTITY_TYPE _type)
+{
+	switch (_type)
+	{
+	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				if ((*character)->GetPosition() == (*position))
+				{
+					(*character)->current_stats.Hp -= (_damage - (*character)->current_stats.DefF);
+				}
+			}
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position) 
+			{
+				if ((*character)->GetPosition() == (*position)) 
+				{
+					(*character)->current_stats.Hp -= (_damage - (*character)->current_stats.DefF);
+				}
+			}
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
+		break;
+	case ENTITY_TYPE::NO_TYPE:
+		break;
+	default:
+		break;
+	}
+	
+}
+
+
+bool ModuleEntityManager::UpdateWalk(std::pair<int, int> tile_id) {
+	bool ret = false;
+	std::pair<int, int> tmp;
+	for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie) {
+		tmp = (*enemie)->GetPosition();
+		tmp = App->map->WorldToMap(tmp.first, tmp.second);
+		if (tile_id == tmp) {
+			ret = true;
+		}
+
+	}
+
+
+	
+	return ret;
 }

@@ -35,10 +35,18 @@ public:
 	bool CreateEntity(ENTITY_TYPE type);
 	bool DeleteEntity(Entity* entity);
 	std::pair<int,int> NearestCharacter(std::pair<int, int> myposition);
+
+	bool UpdateWalk(std::pair<int, int> tile_id);
+
+	void ThrowAttack(std::vector<std::pair<int,int>> _positions, int _damage, ENTITY_TYPE _type);
+
 private:
 	std::list<Entity*> entities;
 	std::list<Entity*> characters;
+	std::list<Entity*> enemies;
 	pugi::xml_node entity_configs;
+
+	bool starting = true;
 	
 };
 #endif // !__ModuleEntityManager_H__

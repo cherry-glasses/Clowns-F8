@@ -136,7 +136,9 @@ public:
 	MapData data;
 
 private:
-
+	SDL_Texture* debug_texture = nullptr;
+	SDL_Rect debug_green;
+	SDL_Rect debug_red;
 	pugi::xml_document	map_file;
 	std::string			folder;
 	bool				map_loaded = false;

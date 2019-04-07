@@ -52,14 +52,15 @@
   </audio>
 
   <entity_manager>
-    <debug_green x="0" y="0" width="64" height="64"/>
-    <debug_red x="64" y="0" width="64" height="64"/>
-    <debug_blue x="128" y="0" width="64" height="64"/>
+    <debug_green x="0" y="0" width="64" height="32"/>
+    <debug_red x="64" y="0" width="64" height="32"/>
+    <debug_blue x="128" y="0" width="64" height="32"/>
+    <position_margin x="0" y="18"/>
     <iris>
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="4" y="20"/>
-      <stats hp="74" mana="85" atk_f="82" atk_s="60" def_f="78" def_s="70" crit="0.2"/>
+      <stats hp="74" mana="85" atk_f="82" atk_s="60" def_f="78" def_s="70" crit="0.2" agi="12"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>
@@ -89,37 +90,37 @@
         <walk_right_back speed="0" loop="true">
           <frame x="320" y="64" width="64" height="64"/>
         </walk_right_back>
-        <hit_back_left speed="0" loop="true">
+        <attack_left_front speed="0" loop="true">
           <frame x="0" y="128" width="64" height="64"/>
-        </hit_back_left>
-        <hit_back_right speed="0" loop="true">
+        </attack_left_front>
+        <attack_right_front speed="0" loop="true">
           <frame x="64" y="128" width="64" height="64"/>
-        </hit_back_right>
-        <hit_front_left speed="0" loop="true">
+        </attack_right_front>
+        <attack_left_back speed="0" loop="true">
           <frame x="0" y="192" width="64" height="64"/>
-        </hit_front_left>
-        <hit_front_right speed="0" loop="true">
+        </attack_left_back>
+        <attack_right_back speed="0" loop="true">
           <frame x="64" y="192" width="64" height="64"/>
-        </hit_front_right>
-        <die_back_left speed="0" loop="true">
+        </attack_right_back>
+        <dead_left_front speed="0" loop="true">
           <frame x="128" y="128" width="64" height="64"/>
-        </die_back_left>
-        <die_back_right speed="0" loop="true">
+        </dead_left_front>
+        <dead_right_front speed="0" loop="true">
           <frame x="192" y="128" width="64" height="64"/>
-        </die_back_right>
-        <die_back_left speed="0" loop="true">
+        </dead_right_front>
+        <dead_left_back speed="0" loop="true">
           <frame x="128" y="192" width="64" height="64"/>
-        </die_back_left>
-        <die_back_right speed="0" loop="true">
+        </dead_left_back>
+        <dead_right_back speed="0" loop="true">
           <frame x="192" y="192" width="64" height="64"/>
-        </die_back_right>
+        </dead_right_back>
       </animations>
     </iris>
     <sapphire>
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="" y=""/>
-      <stats hp="79" mana="120" atk_f="60" atk_s="84" def_f="70" def_s="80" crit="0.1"/>
+      <stats hp="79" mana="120" atk_f="60" atk_s="84" def_f="70" def_s="80" crit="0.1"  agi="10"/>
       <animations>
         <idle speed="0" loop="true">
           <frame x="0" y="0" width="40" height="65"/>
@@ -130,7 +131,7 @@
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="" y=""/>
-      <stats hp="76" mana="80" atk_f="84" atk_s="60" def_f="78" def_s="70" crit="0.2"/>
+      <stats hp="76" mana="80" atk_f="84" atk_s="60" def_f="78" def_s="70" crit="0.2"  agi="9"/>
       <animations>
         <idle speed="0" loop="true">
           <frame x="0" y="0" width="40" height="65"/>
@@ -141,7 +142,7 @@
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="" y=""/>
-      <stats hp="90" mana="85" atk_f="75" atk_s="74" def_f="85" def_s="70" crit="0.2"/>
+      <stats hp="90" mana="85" atk_f="75" atk_s="74" def_f="85" def_s="70" crit="0.2"  agi="7"/>
       <animations>
         <idle speed="0" loop="true">
           <frame x="0" y="0" width="40" height="65"/>
@@ -152,7 +153,7 @@
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="" y=""/>
-      <stats hp="75" mana="95" atk_f="75" atk_s="75" def_f="75" def_s="75" crit="0.08"/>
+      <stats hp="75" mana="95" atk_f="75" atk_s="75" def_f="75" def_s="75" crit="0.08"  agi="10"/>
       <animations>
         <idle speed="0" loop="true">
           <frame x="0" y="0" width="40" height="65"/>
@@ -163,7 +164,7 @@
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="" y=""/>
-      <stats hp="75" mana="110" atk_f="60" atk_s="82" def_f="75" def_s="75" crit="0.1"/>
+      <stats hp="75" mana="110" atk_f="60" atk_s="82" def_f="75" def_s="75" crit="0.1"  agi="10"/>
       <animations>
         <idle speed="0" loop="true">
           <frame x="0" y="0" width="40" height="65"/>
@@ -174,7 +175,7 @@
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="" y=""/>
-      <stats hp="80" mana="90" atk_f="82" atk_s="75" def_f="76" def_s="76" crit="0.15"/>
+      <stats hp="80" mana="90" atk_f="82" atk_s="75" def_f="76" def_s="76" crit="0.15"  agi="10"/>
       <animations>
         <idle speed="0" loop="true">
           <frame x="0" y="0" width="40" height="65"/>
@@ -185,18 +186,18 @@
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="" y=""/>
-      <stats hp="100" mana="0" atk_f="80" atk_s="75" def_f="90" def_s="90" crit="0"/>
+      <stats hp="100" mana="0" atk_f="80" atk_s="75" def_f="90" def_s="90" crit="0"  agi="6"/>
       <animations>
         <idle speed="0" loop="true">
           <frame x="0" y="0" width="40" height="65"/>
         </idle>
       </animations>
     </hektor>
-    <hotdog>
+    <boneyman>
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
-      <position x="18" y="6"/>
-      <stats hp="120" mana="120" atk_f="85" atk_s="85" def_f="85" def_s="85" crit="0.02"/>
+      <position x="14" y="3"/>
+      <stats hp="70" mana="75" atk_f="75" atk_s="75" def_f="65" def_s="65" crit="0.3" agi="8"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>
@@ -226,13 +227,108 @@
         <walk_right_back speed="0" loop="true">
           <frame x="320" y="64" width="64" height="64"/>
         </walk_right_back>
+        <attack_left_front speed="0" loop="true">
+          <frame x="0" y="128" width="64" height="64"/>
+        </attack_left_front>
+        <attack_right_front speed="0" loop="true">
+          <frame x="64" y="128" width="64" height="64"/>
+        </attack_right_front>
+        <attack_left_back speed="0" loop="true">
+          <frame x="0" y="192" width="64" height="64"/>
+        </attack_left_back>
+        <attack_right_back speed="0" loop="true">
+          <frame x="64" y="192" width="64" height="64"/>
+        </attack_right_back>
+        <dead_left_front speed="0" loop="true">
+          <frame x="128" y="128" width="64" height="64"/>
+        </dead_left_front>
+        <dead_right_front speed="0" loop="true">
+          <frame x="192" y="128" width="64" height="64"/>
+        </dead_right_front>
+        <dead_left_back speed="0" loop="true">
+          <frame x="128" y="192" width="64" height="64"/>
+        </dead_left_back>
+        <dead_right_back speed="0" loop="true">
+          <frame x="192" y="192" width="64" height="64"/>
+        </dead_right_back>
+      </animations>
+    </boneyman>
+    <pinkking>
+      <texture value=""/>
+      <debug_texture value="Assets/Maps/meta.png"/>
+      <position x="9" y="12"/>
+      <stats hp="90" mana="90" atk_f="90" atk_s="90" def_f="90" def_s="90" crit="0.3" agi="9"/>
+      <animations>
+        <idle speed="0" loop="true">
+          <frame x="0" y="0" width="40" height="65"/>
+        </idle>
+      </animations>
+    </pinkking>
+    <hotdog>
+      <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
+      <debug_texture value="Assets/Maps/meta.png"/>
+      <position x="18" y="6"/>
+      <stats hp="120" mana="120" atk_f="85" atk_s="85" def_f="85" def_s="85" crit="0.02" agi="6"/>
+      <animations>
+        <idle_left_front speed="0.2f" loop="true">
+          <frame x="0" y="0" width="64" height="64"/>
+          <frame x="128" y="0" width="64" height="64"/>
+        </idle_left_front>
+        <idle_right_front speed="0.2f" loop="true">
+          <frame x="64" y="0" width="64" height="64"/>
+          <frame x="192" y="0" width="64" height="64"/>
+        </idle_right_front>
+        <idle_left_back speed="0.2f" loop="true">
+          <frame x="0" y="64" width="64" height="64"/>
+          <frame x="128" y="64" width="64" height="64"/>
+        </idle_left_back>
+        <idle_right_back speed="0.2f" loop="true">
+          <frame x="64" y="64" width="64" height="64"/>
+          <frame x="192" y="64" width="64" height="64"/>
+        </idle_right_back>
+        <walk_left_front speed="0.2f" loop="true">
+          <frame x="256" y="0" width="64" height="64"/>
+        </walk_left_front>
+        <walk_right_front speed="0.2f" loop="true">
+          <frame x="320" y="0" width="64" height="64"/>
+        </walk_right_front>
+        <walk_left_back speed="0.2f" loop="true">
+          <frame x="256" y="64" width="64" height="64"/>
+        </walk_left_back>
+        <walk_right_back speed="0" loop="true">
+          <frame x="320" y="64" width="64" height="64"/>
+        </walk_right_back>
+        <attack_left_front speed="0" loop="true">
+          <frame x="0" y="128" width="64" height="64"/>
+        </attack_left_front>
+        <attack_right_front speed="0" loop="true">
+          <frame x="64" y="128" width="64" height="64"/>
+        </attack_right_front>
+        <attack_left_back speed="0" loop="true">
+          <frame x="0" y="192" width="64" height="64"/>
+        </attack_left_back>
+        <attack_right_back speed="0" loop="true">
+          <frame x="64" y="192" width="64" height="64"/>
+        </attack_right_back>
+        <dead_left_front speed="0" loop="true">
+          <frame x="128" y="128" width="64" height="64"/>
+        </dead_left_front>
+        <dead_right_front speed="0" loop="true">
+          <frame x="192" y="128" width="64" height="64"/>
+        </dead_right_front>
+        <dead_left_back speed="0" loop="true">
+          <frame x="128" y="192" width="64" height="64"/>
+        </dead_left_back>
+        <dead_right_back speed="0" loop="true">
+          <frame x="192" y="192" width="64" height="64"/>
+        </dead_right_back>
       </animations>
     </hotdog>
     <bulldog>
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="22" y="12"/>
-      <stats hp="80" mana="90" atk_f="75" atk_s="75" def_f="78" def_s="78" crit="0.1"/>
+      <stats hp="80" mana="90" atk_f="75" atk_s="75" def_f="78" def_s="78" crit="0.1"  agi="4"/>
       <animations>
         <idle speed="0" loop="true">
           <frame x="0" y="0" width="40" height="65"/>
@@ -243,7 +339,7 @@
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="9" y="12"/>
-      <stats hp="100" mana="90" atk_f="80" atk_s="80" def_f="80" def_s="80" crit="0.1"/>
+      <stats hp="100" mana="90" atk_f="80" atk_s="80" def_f="80" def_s="80" crit="0.1"  agi="4"/>
       <animations>
         <idle speed="0" loop="true">
           <frame x="0" y="0" width="40" height="65"/>
@@ -254,40 +350,18 @@
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="9" y="12"/>
-      <stats hp="150" mana="120" atk_f="85" atk_s="85" def_f="90" def_s="90" crit="0.2"/>
+      <stats hp="150" mana="120" atk_f="85" atk_s="85" def_f="90" def_s="90" crit="0.2"  agi="6"/>
       <animations>
         <idle speed="0" loop="true">
           <frame x="0" y="0" width="40" height="65"/>
         </idle>
       </animations>
     </polarpath>
-    <flyingcrow>
-      <texture value=""/>
-      <debug_texture value="Assets/Maps/meta.png"/>
-      <position x="9" y="12"/>
-      <stats hp="70" mana="70" atk_f="70" atk_s="70" def_f="70" def_s="70" crit="0.3"/>
-      <animations>
-        <idle speed="0" loop="true">
-          <frame x="0" y="0" width="40" height="65"/>
-        </idle>
-      </animations>
-    </flyingcrow>
-    <pinkking>
-      <texture value=""/>
-      <debug_texture value="Assets/Maps/meta.png"/>
-      <position x="9" y="12"/>
-      <stats hp="90" mana="90" atk_f="90" atk_s="90" def_f="90" def_s="90" crit="0.3"/>
-      <animations>
-        <idle speed="0" loop="true">
-          <frame x="0" y="0" width="40" height="65"/>
-        </idle>
-      </animations>
-    </pinkking>
     <cherryblackglasses>
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="9" y="12"/>
-      <stats hp="150" mana="95" atk_f="95" atk_s="95" def_f="95" def_s="95" crit="0.35"/>
+      <stats hp="150" mana="95" atk_f="95" atk_s="95" def_f="95" def_s="95" crit="0.35" agi="10"/>
       <animations>
         <idle speed="0" loop="true">
           <frame x="0" y="0" width="40" height="65"/>

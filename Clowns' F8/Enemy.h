@@ -21,12 +21,14 @@ public:
 	virtual bool PostUpdate() { return false; }
 
 	//Move and Attack
-	virtual void SearchWalk(const std::vector<std::pair<int, int>> *_path) {}
+	virtual void SearchWalk() {}
 	virtual void Walk(const std::vector<std::pair<int, int>> *_path) {}
+	virtual void SearchAttack() {}
 	virtual void Attack(const std::vector<std::pair<int, int>> *_path) {}
 	virtual void Hability_1() {}
 	virtual void Hability_2() {}
 	virtual void Hability_3() {}
+	virtual void Die() {}
 	
 	// Called before quitting
 	virtual bool CleanUp() { return false; }
