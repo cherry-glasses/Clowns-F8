@@ -70,10 +70,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ExecutablePath>C:\Users\Martí\Desktop\Clowns-F8\Clowns%27 F8\SDL_ttf\libx86;C:\Users\Martí\Desktop\Clowns-F8\Clowns%27 F8\SDL_mixer\libx86;C:\Users\Martí\Desktop\Clowns-F8\Clowns%27 F8\SDL_image\libx86;C:\Users\Martí\Desktop\Clowns-F8\Clowns%27 F8\SDL\libx86;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>C:\Users\Martí\Desktop\Clowns-F8\Clowns%27 F8\SDL_ttf\include;C:\Users\Martí\Desktop\Clowns-F8\Clowns%27 F8\SDL_mixer\include;C:\Users\Martí\Desktop\Clowns-F8\Clowns%27 F8\SDL_image\include;C:\Users\Martí\Desktop\Clowns-F8\Clowns%27 F8\SDL\include;$(IncludePath)</IncludePath>
-  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ExecutablePath>C:\Users\Martí\Desktop\Clowns-F8\Clowns%27 F8\SDL_ttf\libx86;C:\Users\Martí\Desktop\Clowns-F8\Clowns%27 F8\SDL_mixer\libx86;C:\Users\Martí\Desktop\Clowns-F8\Clowns%27 F8\SDL_image\libx86;C:\Users\Martí\Desktop\Clowns-F8\Clowns%27 F8\SDL\libx86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>C:\Users\Martí\Desktop\Clowns-F8\Clowns%27 F8\SDL_ttf\include;C:\Users\Martí\Desktop\Clowns-F8\Clowns%27 F8\SDL_mixer\include;C:\Users\Martí\Desktop\Clowns-F8\Clowns%27 F8\SDL_image\include;C:\Users\Martí\Desktop\Clowns-F8\Clowns%27 F8\SDL\include;$(IncludePath)</IncludePath>
@@ -136,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="..\Clowns%27 F8\Animation.h" />
     <ClInclude Include="..\Clowns%27 F8\Application.h" />
+    <ClInclude Include="..\Clowns%27 F8\Boneyman.h" />
     <ClInclude Include="Hotdog.h" />
     <ClInclude Include="..\Clowns%27 F8\Character.h" />
     <ClInclude Include="..\Clowns%27 F8\CharacterIris.h" />
@@ -168,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Boneyman.cpp" />
     <ClCompile Include="Hotdog.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModulePathfinding.cpp" />
     <ClCompile Include="CharacterIris.cpp" />

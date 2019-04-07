@@ -36,6 +36,7 @@ public:
 
 private:
 	int Cap = 0;
+	int Cap_2 = -1;
 	bool flag = false;
 	Move_Steps Def = Move_Steps::IDLE;
 	Animation*	current_animation = nullptr;

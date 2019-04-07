@@ -28,7 +28,6 @@ Scene::~Scene()
 // Called before render is available
 bool Scene::Awake(pugi::xml_node& _config)
 {
-
 	LOG("Loading Scene");
 	bool ret = true;
 	return ret;
@@ -37,7 +36,10 @@ bool Scene::Awake(pugi::xml_node& _config)
 // Called before the first frame
 bool Scene::Start()
 {
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 2f7c62952f93e7802a06c187b622b5f94c94e59b
 	main_menu_background = App->textures->Load("Assets/Sprites/UI/Main_menu_art_shot.png");
 	options_background = App->textures->Load("Assets/Sprites/UI/4259708641.png");
 	credits_page = App->textures->Load("Assets/Sprites/UI/credits_done.png");
@@ -70,14 +72,13 @@ bool Scene::Update(float _dt)
 
 		if (new_game_button->has_been_clicked)
 		{
-			current_scene = GLOBAL_MAP;
+			current_scene = FIRST_BATTLE;
 			DeleteMenu();
 
 		}
 		else if (load_game_button->has_been_clicked)
 		{
-			current_scene = GLOBAL_MAP;
-
+			current_scene = FIRST_BATTLE;
 			DeleteMenu();
 		}
 		else if (options_button->has_been_clicked)
@@ -94,7 +95,6 @@ bool Scene::Update(float _dt)
 		{
 			ret = false;
 		}
-
 		else if (cherry_glasses_logo_button->has_been_clicked)
 		{
 			ShellExecuteA(NULL, "open", "https://github.com/cherry-glasses/Clowns-F8/wiki", NULL, NULL, SW_SHOWNORMAL);
@@ -237,24 +237,69 @@ bool Scene::Update(float _dt)
 			DeleteMenu();
 
 		}
-
 		break;
 
+	case Scene::GLOBAL_MAP:
+		break;
 
 	case Scene::FIRST_BATTLE:
+		App->render->Blit(portrait_tex, 550, -125);
+		App->render->Blit(health_bar_tex, 680, -120);
+		App->render->Blit(mana_bar_tex, 680, -60);
+
+		App->render->Blit(portrait_tex, -940, -125);
+		App->render->Blit(health_bar_tex, -810, -120);
+		App->render->Blit(mana_bar_tex, -810, -60);
+
+		App->render->Blit(portrait_tex, -940, 755);
+		App->render->Blit(health_bar_tex, -810, 760);
+		App->render->Blit(mana_bar_tex, -810, 820);
+
+		App->render->Blit(portrait_tex, 550, 755);
+		App->render->Blit(health_bar_tex, 680, 760);
+		App->render->Blit(mana_bar_tex, 680, 820);
+		if (!map_loaded) {
+			map_loaded = true;
+			main_menu_created = false;
+			App->map->Load("iso_walk.tmx");
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+			App->render->camera.x = App->window->GetScreenWidth() / 2;
+			App->render->camera.y = App->window->GetScreenHeight() / 8;
+
+		}
+
+		// Camera Movment in map
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+			App->render->camera.y += 4;
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			App->render->camera.x += 4;
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+			App->render->camera.y -= 4;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			App->render->camera.x -= 4;
+		
+		
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		{
+			ret = false;
+		}
 		break;
 	default:
 		break;
 	}
 	
 	App->map->Draw();
+	
 	return ret;
 }
 
 // Called before all Updates
 bool Scene::PostUpdate()
 {
-
 	return true;
 }
 
@@ -271,7 +316,6 @@ bool Scene::CleanUp()
 // Load
 bool Scene::Load(pugi::xml_node& savegame)
 {
-
 	return true;
 }
 
@@ -283,8 +327,6 @@ bool Scene::Save(pugi::xml_node& _data) const
 
 void Scene::CreateMainMenu()
 {
-
-
 	new_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 817.0f, 300.0f, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(new_game_button);
 	load_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 817.0f, 400.0f, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
@@ -316,7 +358,6 @@ void Scene::CreateMainMenu()
 	}
 	cherry_glasses_logo_image = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1642.0f, 953.0f, { 0, 0, 102, 58 });
 	new_game_button->Select(SELECTED);
-
 }
 
 void Scene::CreateMMOptions()

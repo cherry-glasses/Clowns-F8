@@ -126,6 +126,9 @@
     <ClInclude Include="Hotdog.h">
       <Filter>Entities\EntitiesEnemies</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Boneyman.h">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -201,6 +204,9 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="Hotdog.cpp">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Boneyman.cpp">
       <Filter>Entities\EntitiesEnemies</Filter>
     </ClCompile>
   </ItemGroup>
