@@ -100,11 +100,14 @@ private:
 	GUILabel* volume_label = nullptr;
 
 	GUIImage* life = nullptr;
+	GUIImage* mana = nullptr;
 	GUIImage* portrait_1 = nullptr;
 	GUIImage* portrait_2 = nullptr;
 	GUIImage* portrait_3 = nullptr;
 	GUIImage* portrait_4 = nullptr;
-	
+	GUIImage* iris_port = nullptr;
+	int life_x = 124;
+	int mana_x = 124;
 	std::list<GUIButton*> buttons;
 
 public:

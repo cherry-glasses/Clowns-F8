@@ -31,14 +31,13 @@ bool Scene::Awake(pugi::xml_node& _config)
 
 	LOG("Loading Scene");
 	bool ret = true;
-
 	return ret;
 }
 
 // Called before the first frame
 bool Scene::Start()
 {
-
+	
 	main_menu_background = App->textures->Load("Assets/Sprites/UI/Main_menu_art_shot.png");
 	options_background = App->textures->Load("Assets/Sprites/UI/4259708641.png");
 	credits_page = App->textures->Load("Assets/Sprites/UI/credits_done.png");
@@ -116,16 +115,27 @@ bool Scene::Update(float _dt)
 			App->render->camera.x = App->window->GetScreenWidth() / 2;
 			App->render->camera.y = App->window->GetScreenHeight() / 8;
 		}
-		//App->render->Blit(red_tex, -810, -60, Life);
-		//life = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, -810.0f, -60.0f, { 0, 58, 92, 22 });
-		life = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 79.0f, { 0, 58, 124, 28 });
 		
+		//life_x = (124 * Iris->Default_States.Hp )/Iris->Current_States.Hp;
+		//mana_x = (124 * Iris->Default_States.Mana) / Iris->Current_States.Mana;
+		if (life_x != 124 || mana_x != 124 || !portraits_created)
+		{
+			if (portraits_created)
+			{
+				App->gui_manager->DeleteGUIElement(life);
+				App->gui_manager->DeleteGUIElement(mana);
+			}
+			life = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 79.0f, { 0, 58, life_x, 29 });
+			mana = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 110.0f, { 0, 86, 124, 29 });
+		}
 		if (!portraits_created)
 		{
+			iris_port = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, { 124, 0, 64, 67 });
 			portrait_1 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 12.0f, { 0, 115, 256, 128 });
 			portrait_2 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 902.0f, { 0, 115, 256, 128 });
 			portrait_3 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1510.0f, 12.0f, { 0, 115, 256, 128 });
 			portrait_4 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1510.0f, 902.0f, { 0, 115, 256, 128 });
+			portraits_created = true;
 		}
 
 		// Camera Movment in map
