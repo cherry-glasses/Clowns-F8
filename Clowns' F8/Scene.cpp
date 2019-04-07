@@ -205,9 +205,11 @@ bool Scene::Update(float _dt)
 			{
 				App->gui_manager->DeleteGUIElement(life);
 				App->gui_manager->DeleteGUIElement(mana);
+				App->gui_manager->DeleteGUIElement(portrait_1);
 			}
 			life = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 79.0f, { 0, 58, life_x, 29 });
 			mana = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 110.0f, { 0, 86, 124, 29 });
+			portrait_1 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 12.0f, { 0, 115, 256, 128 });
 		}
 
 		if (!portraits_created)
