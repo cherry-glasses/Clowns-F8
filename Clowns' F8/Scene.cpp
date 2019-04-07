@@ -128,6 +128,7 @@ bool Scene::Update(float _dt)
 			life = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 79.0f, { 0, 58, life_x, 29 });
 			mana = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 110.0f, { 0, 86, 124, 29 });
 		}
+
 		if (!portraits_created)
 		{
 			iris_port = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, { 124, 0, 64, 67 });
@@ -135,7 +136,9 @@ bool Scene::Update(float _dt)
 			portrait_2 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 902.0f, { 0, 115, 256, 128 });
 			portrait_3 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1510.0f, 12.0f, { 0, 115, 256, 128 });
 			portrait_4 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1510.0f, 902.0f, { 0, 115, 256, 128 });
+			action_menu = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 145.0f, { 0, 243, 256, 101 });
 			portraits_created = true;
+			action_menu_created = true;
 		}
 
 		// Camera Movment in map

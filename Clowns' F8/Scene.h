@@ -68,7 +68,7 @@ private:
 	bool mm_credits_created = false;
 	bool map_loaded = false;
 	bool portraits_created = false;
-
+	bool action_menu_created = false;
 	//Main menu UI
 	GUIButton* cherry_glasses_logo_button = nullptr;
 
@@ -99,6 +99,10 @@ private:
 	GUILabel* language_label = nullptr;
 	GUILabel* volume_label = nullptr;
 
+	GUIImage* action_menu = nullptr;
+	GUIButton* attack_button = nullptr;
+	GUIButton* abbility_button = nullptr;
+	GUIButton* defend_button = nullptr;
 	GUIImage* life = nullptr;
 	GUIImage* mana = nullptr;
 	GUIImage* portrait_1 = nullptr;
