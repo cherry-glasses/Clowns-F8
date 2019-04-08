@@ -20,12 +20,27 @@ public:
 	virtual bool Update(float _dt) { return true; }
 	virtual bool PostUpdate() { return true; }
 
+	// Character thinks
+	virtual void SearchAttack() {}
 
 	//Save and Load
 	virtual bool Load(pugi::xml_node&) { return true; }
 	virtual bool Save(pugi::xml_node&) const { return true; }
 
-public:
+protected:
+	enum Move_Steps {
+		SEARCH,
+		SELECT,
+		MOVE,
+		IDLE
+	};
+
+	enum Attack_Steps {
+		SELECT_A,
+		SEARCH_A,
+		ATTACK_A,
+		IDLE_A
+	};
 
 	//SDL_Texture *char_tex;
 };

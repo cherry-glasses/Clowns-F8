@@ -202,6 +202,18 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 	switch (_type)
 	{
 	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
+		// We can swap to all entiotyes for Hector.
+		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				if ((*enemie)->GetPosition() == (*position))
+				{
+					(*enemie)->current_stats.Hp -= (_damage - (*enemie)->current_stats.DefF);
+				}
+			}
+		}
+
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
 		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
