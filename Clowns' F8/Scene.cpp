@@ -83,7 +83,6 @@ bool Scene::Update(float _dt)
 		{
 			current_scene = FIRST_BATTLE;
 			DeleteMenu();
-
 		}
 		else if (load_game_button->has_been_clicked)
 		{
@@ -118,12 +117,13 @@ bool Scene::Update(float _dt)
 	case Scene::MM_OPTIONS:
 		App->render->Blit(main_menu_background, 0, 0);
 		App->render->Blit(options_background, (screen_width / 2) - (option_background.w / 2), (screen_height / 2) - (option_background.h / 2));
+
 		if (!mm_options_created)
 		{
 			mm_options_created = true;
 			CreateMMOptions();
 		}
-		main_menu_created = false;
+
 		if (english_button->has_been_clicked)
 		{
 			if (!language)
@@ -168,7 +168,7 @@ bool Scene::Update(float _dt)
 	case Scene::MM_CREDITS:
 		App->render->Blit(main_menu_background, 0, 0);
 		App->render->Blit(credits_page, (screen_width / 2) - (option_background.w / 2), (screen_height / 2) - (option_background.h / 2));
-		main_menu_created = false;
+	
 		if (mm_credits_created == false)
 		{
 			back_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), (screen_height / 2) + (option_background.h / 2) - button.h, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
@@ -184,32 +184,32 @@ bool Scene::Update(float _dt)
 			}
 			mm_credits_created = true;
 		}
+
 		if (back_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
 			current_scene = MAIN_MENU;
 			back_button->Select(SELECTED);
 			mm_credits_created = false;
 			DeleteMenu();
-
 		}
+
 		break;
 
 	case Scene::FIRST_BATTLE:
 		
 		if (!map_loaded) {
 			map_loaded = true;
-			main_menu_created = false;
 			App->map->Load("iso_walk.tmx");
 			Iris = (CharacterIris*)App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 			App->render->camera.x = App->window->GetScreenWidth() / 2;
 			App->render->camera.y = App->window->GetScreenHeight() / 8;
-
+			life_x = (124 * Iris->current_stats.Hp) / Iris->default_stats.Hp;
+			mana_x = (124 * Iris->current_stats.Mana) / Iris->default_stats.Mana;
 		}
 
-		life_x = (124 * Iris->current_stats.Hp)/Iris->default_stats.Hp;
-		mana_x = (124 * Iris->current_stats.Mana) / Iris->default_stats.Mana;
-		if (life_x != 124 || mana_x != 124 || !portraits_created)
+		if (life_x != ((124 * Iris->current_stats.Hp) / Iris->default_stats.Hp) 
+			|| mana_x != ((124 * Iris->current_stats.Mana) / Iris->default_stats.Mana) || !portraits_created)
 		{
 			if (portraits_created)
 			{
@@ -217,6 +217,8 @@ bool Scene::Update(float _dt)
 				App->gui_manager->DeleteGUIElement(mana);
 				App->gui_manager->DeleteGUIElement(portrait_1);
 			}
+			life_x = (124 * Iris->current_stats.Hp) / Iris->default_stats.Hp;
+			mana_x = (124 * Iris->current_stats.Mana) / Iris->default_stats.Mana;
 			life = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 79.0f, { 0, 58, life_x, 29 });
 			mana = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 110.0f, { 0, 86, mana_x, 29 });
 			portrait_1 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 12.0f, { 0, 115, 256, 128 });
@@ -289,7 +291,6 @@ bool Scene::Save(pugi::xml_node& _data) const
 
 void Scene::CreateMainMenu()
 {
-	
 	new_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), (screen_height / 2) - ((button_margin * 2) + (button.h * 2) + (button.h /2)), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(new_game_button);
 	load_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), new_game_button->position.second + (button_margin + button.h), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
@@ -362,6 +363,7 @@ void Scene::DeleteMenu()
 {
 	App->gui_manager->DeleteAllGUIElements();
 	buttons.clear();
+	main_menu_created = false;
 }
 
 void Scene::Navigate()
