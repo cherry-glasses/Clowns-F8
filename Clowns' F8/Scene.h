@@ -2,6 +2,7 @@
 #define __SCENE_H__
 
 #include "Module.h"
+#include "SDL/include/SDL.h"
 
 class GUIImage;
 class GUIButton;
@@ -63,9 +64,14 @@ private:
 
 	SCENES current_scene = MAIN_MENU;
 
-	int width, height;
-	int button_half_width, button_half_height;
-	int first_button_height, options_first_height;
+	SDL_Rect button;
+	SDL_Rect label;
+	SDL_Rect option_background;
+	int button_margin;
+	int label_margin;
+	int screen_width, screen_height;
+	/*int button_half_width, button_half_height;
+	int first_button_height, options_first_height;*/
 	bool main_menu_created = false;
 	bool mm_options_created = false;
 	bool mm_credits_created = false;

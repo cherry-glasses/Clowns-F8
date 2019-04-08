@@ -28,6 +28,7 @@
 
   <gui>
     <atlas file="gui/atlas.png"/>
+    
   </gui>
   
   <map>
@@ -35,7 +36,9 @@
   </map>
   
   <scene>
-    <buttons width="288" height="192"/>
+    <button x="0" y="0" w="192" h="96" margin="30"/>
+    <label x="0" y="0" w="177" h="62" margin="100"/>
+    <option_background x="0" y="0" w="551" h="720"/>
     <main_menu start_pos="300"/>
     <options_menu start_pos="270"/>
   </scene>
