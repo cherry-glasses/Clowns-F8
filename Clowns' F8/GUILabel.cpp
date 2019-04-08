@@ -24,8 +24,8 @@ GUILabel::GUILabel(int x, int y, std::string text, SDL_Color color, _TTF_Font* f
 	area.x = 0;
 	area.y = 0;
 
-	position.first = x;
-	position.second = y;
+	position.first = x - (area.w/2) ;
+	position.second = y - (area.h / 2);
 }
 
 void GUILabel::Update(float dt)

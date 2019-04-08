@@ -65,10 +65,9 @@ private:
 	SCENES current_scene = MAIN_MENU;
 
 	SDL_Rect button;
-	SDL_Rect label;
+	SDL_Rect cherry_glasses_logo;
 	SDL_Rect option_background;
 	int button_margin;
-	int label_margin;
 	int screen_width, screen_height;
 	/*int button_half_width, button_half_height;
 	int first_button_height, options_first_height;*/
