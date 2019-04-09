@@ -86,7 +86,7 @@ bool Scene::Update(float _dt)
 		}
 		else if (load_game_button->has_been_clicked)
 		{
-			current_scene = FIRST_BATTLE;
+			current_scene = SECOND_BATTLE;
 			DeleteMenu();
 		}
 		else if (options_button->has_been_clicked)
@@ -199,7 +199,7 @@ bool Scene::Update(float _dt)
 		
 		if (!map_loaded) {
 			map_loaded = true;
-			App->map->Load("iso_walk.tmx");
+			App->map->Load("map_level1.tmx");
 			Iris = (CharacterIris*)App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 			App->render->camera.x = App->window->GetScreenWidth() / 2;
@@ -247,6 +247,62 @@ bool Scene::Update(float _dt)
 			App->render->camera.x -= 4;
 		
 		
+		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		{
+			ret = false;
+		}
+		break;
+	case SECOND_BATTLE:
+		if (!map_loaded) {
+			map_loaded = true;
+			App->map->Load("map_level2.tmx");
+			Iris = (CharacterIris*)App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+			App->render->camera.x = App->window->GetScreenWidth() / 2;
+			App->render->camera.y = App->window->GetScreenHeight() / 8;
+			life_x = (124 * Iris->current_stats.Hp) / Iris->default_stats.Hp;
+			mana_x = (124 * Iris->current_stats.Mana) / Iris->default_stats.Mana;
+		}
+
+		if (life_x != ((124 * Iris->current_stats.Hp) / Iris->default_stats.Hp)
+			|| mana_x != ((124 * Iris->current_stats.Mana) / Iris->default_stats.Mana) || !portraits_created)
+		{
+			if (portraits_created)
+			{
+				App->gui_manager->DeleteGUIElement(life);
+				App->gui_manager->DeleteGUIElement(mana);
+				App->gui_manager->DeleteGUIElement(portrait_1);
+			}
+			life_x = (124 * Iris->current_stats.Hp) / Iris->default_stats.Hp;
+			mana_x = (124 * Iris->current_stats.Mana) / Iris->default_stats.Mana;
+			life = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 79.0f, { 0, 58, life_x, 29 });
+			mana = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 110.0f, { 0, 86, mana_x, 29 });
+			portrait_1 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 12.0f, { 0, 115, 256, 128 });
+		}
+
+		if (!portraits_created)
+		{
+			iris_port = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, { 124, 0, 64, 67 });
+			portrait_1 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 12.0f, { 0, 115, 256, 128 });
+			portrait_2 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, screen_height - 168, { 0, 115, 256, 128 });
+			portrait_3 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, 12.0f, { 0, 115, 256, 128 });
+			portrait_4 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, screen_height - 168, { 0, 115, 256, 128 });
+			action_menu = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 145.0f, { 0, 243, 256, 101 });
+			portraits_created = true;
+			action_menu_created = true;
+		}
+
+		// Camera Movment in map
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+			App->render->camera.y += 4;
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			App->render->camera.x += 4;
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+			App->render->camera.y -= 4;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			App->render->camera.x -= 4;
+
+
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
 			ret = false;

@@ -59,7 +59,7 @@ private:
 	SDL_Texture* options_background = nullptr;
 	SDL_Texture* credits_page = nullptr;
 
-	enum SCENES { MAIN_MENU, GLOBAL_MAP, FIRST_BATTLE, MM_OPTIONS, MM_CREDITS };
+	enum SCENES { MAIN_MENU, GLOBAL_MAP, MM_OPTIONS, MM_CREDITS, FIRST_BATTLE, SECOND_BATTLE, THIRD_BATTLE, FOURTH_BATTLE };
 
 
 	SCENES current_scene = MAIN_MENU;

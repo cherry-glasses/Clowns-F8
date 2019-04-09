@@ -67,17 +67,28 @@ bool CharacterIris::Update(float _dt) {
 
 			//Now we need to 1. Highlight the possibles options 2. Highlight the current option 3. Let the player chose the option.
 		case Move_Steps::SELECT:
-			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+			while (!App->pathfinding->IsWalkable(possible_mov[Cap])) {
 				Cap--;
-				Cap_2 = -1;
 				if (Cap < 0)
 					Cap = 7;
+			 }
+
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+				do
+				{
+					Cap--;
+					if (Cap < 0)
+						Cap = 7;
+				} while (!App->pathfinding->IsWalkable(possible_mov[Cap]));
 			}
 			else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
-				Cap++;
-				Cap_2 = 1;
-				if (Cap > 7)
-					Cap = 0;
+				do
+				{
+					Cap++;
+					if (Cap > 7)
+						Cap = 0;
+				} while (!App->pathfinding->IsWalkable(possible_mov[Cap]));
+				
 			}
 
 			for (int i = 0; i < 8; i++) {
@@ -89,24 +100,9 @@ bool CharacterIris::Update(float _dt) {
 					else
 						App->render->Blit(debug_texture, possible_mov_map[i].first, possible_mov_map[i].second, &debug_red);
 				}
-				else if (i == Cap) {
-					if (!App->pathfinding->IsWalkable(possible_mov[i])) {
-						if (Cap_2 == 1) {
-							Cap++;
-							if (Cap > 7)
-								Cap = 0;
-						}
-						else {
-							Cap--;
-							if (Cap < 0)
-								Cap = 7;
-						}
-
-					}
-				}
-
 			}
 			App->render->Blit(debug_texture, possible_mov_map[Cap].first, possible_mov_map[Cap].second, &debug_green);
+
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 				Def = Move_Steps::MOVE;
 			break;
