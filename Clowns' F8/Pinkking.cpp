@@ -1,6 +1,6 @@
 #include "Log.h"
 #include "Application.h"
-#include "Boneyman.h"
+#include "Pinkking.h"
 #include "ModuleEntityManager.h"
 #include "ModulePathfinding.h"
 #include "ModuleInput.h"
@@ -9,18 +9,16 @@
 #include "ModuleMap.h"
 
 
-Boneyman::Boneyman(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Enemy(_type, _config)
+Pinkking::Pinkking(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
 {
 	CurrentMovement(IDLE_LEFT_FRONT);
 	current = current_animation->GetCurrentFrame();
-	position = { position.first, (_copy * 128) + position.second };
-	current_stats.Agi -= _copy;
 }
-Boneyman::~Boneyman()
+Pinkking::~Pinkking()
 {
 }
 
-bool Boneyman::PreUpdate()
+bool Pinkking::PreUpdate()
 {
 	bool ret = true;
 
@@ -51,7 +49,7 @@ bool Boneyman::PreUpdate()
 	return ret;
 }
 
-bool Boneyman::Update(float dt)
+bool Pinkking::Update(float dt)
 {
 	if (current_turn == NONE)
 	{
@@ -68,7 +66,7 @@ bool Boneyman::Update(float dt)
 	return true;
 }
 
-bool Boneyman::PostUpdate()
+bool Pinkking::PostUpdate()
 {
 	if (entity_texture != nullptr)
 	{
@@ -79,7 +77,7 @@ bool Boneyman::PostUpdate()
 }
 
 // Load and Save
-bool Boneyman::Load(pugi::xml_node& node)
+bool Pinkking::Load(pugi::xml_node& node)
 {
 	bool ret = true;
 
@@ -89,7 +87,7 @@ bool Boneyman::Load(pugi::xml_node& node)
 	return ret;
 }
 
-bool Boneyman::Save(pugi::xml_node& node) const
+bool Pinkking::Save(pugi::xml_node& node) const
 {
 	bool ret = true;
 
@@ -101,14 +99,14 @@ bool Boneyman::Save(pugi::xml_node& node) const
 }
 
 // Actions (SearchWalk, Walk, Attack, Hability 1, Hability 2, Die)
-void Boneyman::SearchWalk()
+void Pinkking::SearchWalk()
 {
 	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
 	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
 	current_turn = MOVE;
 }
 
-void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
+void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 {
 	if (App->debug)
 	{
@@ -168,7 +166,7 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 	}
 }
 
-void Boneyman::SearchAttack()
+void Pinkking::SearchAttack()
 {
 	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
 	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
@@ -176,7 +174,7 @@ void Boneyman::SearchAttack()
 	//IA Attack. Into range of position + attack. If enemy is near to dead. If enemy def.
 }
 
-void Boneyman::Attack(const std::vector<std::pair<int, int>> *_path)
+void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 {
 	if (App->debug)
 	{
@@ -208,7 +206,7 @@ void Boneyman::Attack(const std::vector<std::pair<int, int>> *_path)
 	}
 }
 
-void Boneyman::Die()
+void Pinkking::Die()
 {
 	if (current_movement == IDLE_LEFT_FRONT)
 	{
@@ -228,7 +226,7 @@ void Boneyman::Die()
 	}
 }
 
-void Boneyman::CurrentMovement(MOVEMENT _movement) {
+void Pinkking::CurrentMovement(MOVEMENT _movement) {
 
 	switch (_movement)
 	{

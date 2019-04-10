@@ -134,6 +134,8 @@
     <ClInclude Include="..\Clowns%27 F8\Animation.h" />
     <ClInclude Include="..\Clowns%27 F8\Application.h" />
     <ClInclude Include="..\Clowns%27 F8\Boneyman.h" />
+    <ClInclude Include="..\Clowns%27 F8\CharacterSapphire.h" />
+    <ClInclude Include="..\Clowns%27 F8\Pinkking.h" />
     <ClInclude Include="Hotdog.h" />
     <ClInclude Include="..\Clowns%27 F8\Character.h" />
     <ClInclude Include="..\Clowns%27 F8\CharacterIris.h" />
@@ -167,6 +169,8 @@
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Boneyman.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\CharacterSapphire.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Pinkking.cpp" />
     <ClCompile Include="Hotdog.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModulePathfinding.cpp" />
     <ClCompile Include="CharacterIris.cpp" />

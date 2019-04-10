@@ -3,8 +3,10 @@
 #include "ModuleEntityManager.h"
 #include "Enemy.h"
 #include "Character.h"
+#include "CharacterSapphire.h"
 #include "CharacterIris.h"
 #include "Boneyman.h"
+#include "Pinkking.h"
 #include "Hotdog.h"
 #include "ModulePathfinding.h"
 #include "ModuleMap.h"
@@ -165,6 +167,11 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 
 	switch (_type)
 	{
+	case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
+		tmp = new CharacterSapphire(_type, entity_configs.child("sapphire"));
+		entities.push_back(tmp);
+		characters.push_back(tmp);
+		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
 		tmp = new CharacterIris(_type, entity_configs.child("iris"));
 		entities.push_back(tmp);
@@ -177,6 +184,11 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 			entities.push_back(tmp);
 			enemies.push_back(tmp);
 		}
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_PINKKING:
+		tmp = new Pinkking(_type, entity_configs.child("pinkking"));
+		entities.push_back(tmp);
+		enemies.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
 		tmp = new Hotdog(_type, entity_configs.child("hotdog"));

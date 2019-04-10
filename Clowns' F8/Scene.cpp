@@ -200,8 +200,10 @@ bool Scene::Update(float _dt)
 		if (!map_loaded) {
 			map_loaded = true;
 			App->map->Load("map_level1.tmx");
+			Sapphire = (CharacterSapphire*)App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
 			Iris = (CharacterIris*)App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 			App->render->camera.x = App->window->GetScreenWidth() / 2;
 			App->render->camera.y = App->window->GetScreenHeight() / 8;
 			life_x = (124 * Iris->current_stats.Hp) / Iris->default_stats.Hp;
@@ -258,6 +260,7 @@ bool Scene::Update(float _dt)
 			App->map->Load("map_level2.tmx");
 			Iris = (CharacterIris*)App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 			App->render->camera.x = App->window->GetScreenWidth() / 2;
 			App->render->camera.y = App->window->GetScreenHeight() / 8;
 			life_x = (124 * Iris->current_stats.Hp) / Iris->default_stats.Hp;
