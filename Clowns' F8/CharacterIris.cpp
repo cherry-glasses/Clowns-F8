@@ -47,14 +47,15 @@ bool CharacterIris::Update(float _dt) {
 	switch (current_turn)
 	{
 	case Entity::SEARCH_MOVE:
+		
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 			Def = Move_Steps::SEARCH;
 			current_turn = Entity::MOVE;
 		}
-		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+		/*if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
 			Attk = Attack_Steps::SEARCH_A;
 			current_turn = Entity::ATTACK;
-		}
+		}*/
 		break;
 	case Entity::MOVE:
 
@@ -110,15 +111,19 @@ bool CharacterIris::Update(float _dt) {
 			//Now we need to move the player to that position
 		case Move_Steps::MOVE:
 			position = App->map->MapToWorld((possible_mov[Cap].first), possible_mov[Cap].second);
+			current_turn = SELECT_ACTION;
+			Def = Move_Steps::IDLE;
+			Attk = Attack_Steps::SEARCH_A;
+			/*
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 				current_turn = END_TURN;
-				Def = Move_Steps::IDLE;
+				
 			}
 			else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
 				current_turn = Entity::ATTACK;
-				Attk = Attack_Steps::SEARCH_A;
+				
 				Def = Move_Steps::IDLE;
-			}
+			}*/
 			break;
 		}
 		break;
@@ -126,6 +131,7 @@ bool CharacterIris::Update(float _dt) {
 	case Entity::SEARCH_ATTACK:
 
 		break;
+
 	case Entity::ATTACK:
 		switch (Attk) {
 		case Attack_Steps::IDLE_A:
@@ -159,7 +165,7 @@ bool CharacterIris::Update(float _dt) {
 
 			}
 			App->render->Blit(debug_texture, possible_att_map[Cap].first, possible_att_map[Cap].second, &debug_red);
-			if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 				objective_position.push_back(possible_att_map[Cap]);
 				Attk = Attack_Steps::ATTACK_A;
 			}
