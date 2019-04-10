@@ -19,23 +19,28 @@ public:
 	bool	Update(float _dt);
 	bool	PostUpdate();
 
+	//Move and Attack
+	void SearchWalk();
+	void SelectWalk();
+	void Walk(const std::vector<std::pair<int, int>> *_path);
+	void SearchAttack();
+	void Attack(const std::vector<std::pair<int, int>> *_path);
+	void Hability_1() {}
+	void Hability_2() {}
+	void Hability_3() {}
+	void Die();
+
+	void CurrentMovement(MOVEMENT _movement);
 
 	//Save and Load
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
 
-	void Wheremove();
-	void SearchAttack();
 	//bool LoadAnimation(pugi::xml_node &_node, Animation &_anim);
 
 private:
 	int Cap = 0;
-	int Cap_2 = -1;
-	bool flag = false;
-	Move_Steps Def = Move_Steps::IDLE;
-	Attack_Steps Attk = Attack_Steps::IDLE_A;
-	Animation*	current_animation = nullptr;
 
 	std::pair<int, int> possible_att[4];
 	std::pair<int, int> possible_mov[8];

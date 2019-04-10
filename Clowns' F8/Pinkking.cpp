@@ -20,7 +20,6 @@ Pinkking::~Pinkking()
 
 bool Pinkking::PreUpdate()
 {
-	bool ret = true;
 
 	if (current_state == ALIVE) {
 
@@ -46,7 +45,7 @@ bool Pinkking::PreUpdate()
 		current_turn == END_TURN;
 	}
 
-	return ret;
+	return true;
 }
 
 bool Pinkking::Update(float dt)
