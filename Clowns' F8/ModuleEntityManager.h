@@ -39,10 +39,10 @@ public:
 	bool UpdateWalk(std::pair<int, int> tile_id);
 
 	void ThrowAttack(std::vector<std::pair<int,int>> _positions, int _damage, ENTITY_TYPE _type);
+	std::list<Entity*> characters;
 
 private:
 	std::list<Entity*> entities;
-	std::list<Entity*> characters;
 	std::list<Entity*> enemies;
 	pugi::xml_node entity_configs;
 
