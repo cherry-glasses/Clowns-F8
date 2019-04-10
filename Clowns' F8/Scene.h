@@ -66,6 +66,7 @@ private:
 	SCENES current_scene = MAIN_MENU;
 
 	SDL_Rect button;
+	SDL_Rect small_button;
 	SDL_Rect cherry_glasses_logo;
 	SDL_Rect option_background;
 	int button_margin;
@@ -112,6 +113,9 @@ private:
 	GUIButton* attack_button = nullptr;
 	GUIButton* ability_button = nullptr;
 	GUIButton* defend_button = nullptr;
+	GUILabel* attack_label = nullptr;
+	GUILabel* ability_label = nullptr;
+	GUILabel* defend_label = nullptr;
 	GUIImage* life = nullptr;
 	GUIImage* mana = nullptr;
 	GUIImage* portrait_1 = nullptr;

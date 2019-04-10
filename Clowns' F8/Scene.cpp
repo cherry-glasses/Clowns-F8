@@ -33,6 +33,8 @@ bool Scene::Awake(pugi::xml_node& _config)
 
 	button = { _config.child("button").attribute("x").as_int(), _config.child("button").attribute("y").as_int(),
 		_config.child("button").attribute("w").as_int() , _config.child("button").attribute("h").as_int() };
+	small_button = { _config.child("small_button").attribute("x").as_int(), _config.child("small_button").attribute("y").as_int(),
+		_config.child("small_button").attribute("w").as_int() , _config.child("small_button").attribute("h").as_int() };
 	button_margin = _config.child("button").attribute("margin").as_int();
 	cherry_glasses_logo = { _config.child("cherry_glasses_logo").attribute("x").as_int(), _config.child("cherry_glasses_logo").attribute("y").as_int(),
 		_config.child("cherry_glasses_logo").attribute("w").as_int() , _config.child("cherry_glasses_logo").attribute("h").as_int() };
@@ -249,6 +251,19 @@ bool Scene::Update(float _dt)
 				defend_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 223.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
 				buttons.push_back(defend_button);
 				attack_button->Select(SELECTED);
+				if (language)
+				{
+					attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, attack_button->position.first + (small_button.w * 0.5), attack_button->position.second + (small_button.h * 0.5), "ATTACK", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+					ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_button->position.first + (small_button.w * 0.5), ability_button->position.second + (small_button.h * 0.5), "ABILITY", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+					defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, defend_button->position.first + (small_button.w * 0.5), defend_button->position.second + (small_button.h * 0.5), "DEFEND", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+
+				}
+				else
+				{
+					attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, attack_button->position.first + (small_button.w * 0.5), attack_button->position.second + (small_button.h * 0.5), "ATACAR", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+					ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_button->position.first + (small_button.w * 0.5), ability_button->position.second + (small_button.h * 0.5), "HABILIDAD", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+					defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, defend_button->position.first + (small_button.w * 0.5), defend_button->position.second + (small_button.h * 0.5), "DEFENSA", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+				}
 			}
 			Navigate();
 			if (attack_button->has_been_clicked)
@@ -257,6 +272,9 @@ bool Scene::Update(float _dt)
 				App->gui_manager->DeleteGUIElement(attack_button);
 				App->gui_manager->DeleteGUIElement(ability_button);
 				App->gui_manager->DeleteGUIElement(defend_button);
+				App->gui_manager->DeleteGUIElement(attack_label);
+				App->gui_manager->DeleteGUIElement(ability_label);
+				App->gui_manager->DeleteGUIElement(defend_label);
 				buttons.clear();
 			}
 			else if (ability_button->has_been_clicked)
@@ -266,6 +284,9 @@ bool Scene::Update(float _dt)
 				App->gui_manager->DeleteGUIElement(attack_button);
 				App->gui_manager->DeleteGUIElement(ability_button);
 				App->gui_manager->DeleteGUIElement(defend_button);
+				App->gui_manager->DeleteGUIElement(attack_label);
+				App->gui_manager->DeleteGUIElement(ability_label);
+				App->gui_manager->DeleteGUIElement(defend_label);
 				buttons.clear();
 			}
 			else if (defend_button->has_been_clicked)
@@ -274,6 +295,9 @@ bool Scene::Update(float _dt)
 				App->gui_manager->DeleteGUIElement(attack_button);
 				App->gui_manager->DeleteGUIElement(ability_button);
 				App->gui_manager->DeleteGUIElement(defend_button);
+				App->gui_manager->DeleteGUIElement(attack_label);
+				App->gui_manager->DeleteGUIElement(ability_label);
+				App->gui_manager->DeleteGUIElement(defend_label);
 				buttons.clear();
 			}
 		}

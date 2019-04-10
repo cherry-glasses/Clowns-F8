@@ -37,6 +37,7 @@
   
   <scene>
     <button x="0" y="0" w="288" h="64" margin="40"/>
+    <small_button x="0" y="0" w="173" h="39" margin="40"/>
     <option_background x="0" y="0" w="551" h="720"/>
     <cherry_glasses_logo x="0" y="0" w="102" h="58"/>
     <main_menu start_pos="300"/>
