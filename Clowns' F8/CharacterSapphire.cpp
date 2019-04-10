@@ -192,6 +192,18 @@ void CharacterSapphire::Walk(const std::vector<std::pair<int, int>> *_path)
 	else if (objective_position.back().first > position.first && objective_position.back().second < position.second) {
 		CurrentMovement(WALK_RIGHT_BACK);
 	}
+	else if (objective_position.back().first == position.first && objective_position.back().second > position.second) {
+		CurrentMovement(WALK_FRONT);
+	}
+	else if (objective_position.back().first == position.first && objective_position.back().second < position.second) {
+		CurrentMovement(WALK_BACK);
+	}
+	else if (objective_position.back().first < position.first && objective_position.back().second == position.second) {
+		CurrentMovement(WALK_LEFT);
+	}
+	else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
+		CurrentMovement(WALK_RIGHT);
+	}
 	else if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
 		current_turn = SEARCH_ATTACK;
 	}
@@ -199,12 +211,12 @@ void CharacterSapphire::Walk(const std::vector<std::pair<int, int>> *_path)
 		current_turn = SELECT_ACTION;
 	}
 
-	if (objective_position.back().first == position.first || objective_position.back().second == position.second) {
-		if (current_movement == WALK_LEFT_FRONT)
+	if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
+		if (current_movement == WALK_LEFT_FRONT || current_movement == WALK_LEFT)
 		{
 			CurrentMovement(IDLE_LEFT_FRONT);
 		}
-		else if (current_movement == WALK_RIGHT_FRONT)
+		else if (current_movement == WALK_RIGHT_FRONT || current_movement == WALK_RIGHT || current_movement == WALK_FRONT)
 		{
 			CurrentMovement(IDLE_RIGHT_FRONT);
 		}
@@ -212,7 +224,7 @@ void CharacterSapphire::Walk(const std::vector<std::pair<int, int>> *_path)
 		{
 			CurrentMovement(IDLE_LEFT_BACK);
 		}
-		else if (current_movement == WALK_RIGHT_BACK)
+		else if (current_movement == WALK_RIGHT_BACK || current_movement == WALK_BACK)
 		{
 			CurrentMovement(IDLE_RIGHT_BACK);
 		}
@@ -252,22 +264,24 @@ void CharacterSapphire::Attack(const std::vector<std::pair<int, int>> *_path)
 
 void CharacterSapphire::Die()
 {
-	if (current_movement == IDLE_LEFT_FRONT)
+	switch (current_movement)
 	{
+	case Entity::IDLE_LEFT_FRONT:
 		CurrentMovement(DEAD_LEFT_FRONT);
-	}
-	else if (current_movement == IDLE_RIGHT_FRONT)
-	{
+		break;
+	case Entity::IDLE_RIGHT_FRONT:
 		CurrentMovement(DEAD_RIGHT_FRONT);
-	}
-	else if (current_movement == IDLE_LEFT_BACK)
-	{
+		break;
+	case Entity::IDLE_LEFT_BACK:
 		CurrentMovement(DEAD_LEFT_BACK);
-	}
-	else
-	{
+		break;
+	case Entity::IDLE_RIGHT_BACK:
 		CurrentMovement(DEAD_RIGHT_BACK);
+		break;
+	default:
+		break;
 	}
+	
 }
 
 void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
@@ -312,6 +326,26 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = WALK_RIGHT_BACK;
 		current_animation = &walk_right_back;
 		position.first += 2;
+		position.second--;
+		break;
+	case Entity::WALK_LEFT:
+		current_movement = WALK_LEFT;
+		current_animation = &walk_left;
+		position.first--;
+		break;
+	case Entity::WALK_RIGHT:
+		current_movement = WALK_RIGHT;
+		current_animation = &walk_right;
+		position.first++;
+		break;
+	case Entity::WALK_FRONT:
+		current_movement = WALK_FRONT;
+		current_animation = &walk_front;
+		position.second++;
+		break;
+	case Entity::WALK_BACK:
+		current_movement = WALK_BACK;
+		current_animation = &walk_back;
 		position.second--;
 		break;
 	case Entity::ATTACK_LEFT_FRONT:

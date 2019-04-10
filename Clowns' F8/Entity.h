@@ -91,7 +91,7 @@ public:
 protected:
 
 	enum MOVEMENT {	IDLE_LEFT_FRONT, IDLE_RIGHT_FRONT, IDLE_LEFT_BACK, IDLE_RIGHT_BACK,
-		WALK_LEFT_FRONT, WALK_RIGHT_FRONT,  WALK_LEFT_BACK, WALK_RIGHT_BACK,
+		WALK_LEFT_FRONT, WALK_RIGHT_FRONT,  WALK_LEFT_BACK, WALK_RIGHT_BACK, WALK_LEFT, WALK_RIGHT, WALK_FRONT, WALK_BACK,
 		ATTACK_LEFT_FRONT, ATTACK_RIGHT_FRONT, ATTACK_LEFT_BACK, ATTACK_RIGHT_BACK,
 		ABILITY_1_LEFT_FRONT, ABILITY_1_RIGHT_FRONT, ABILITY_1_LEFT_BACK, ABILITY_1_RIGHT_BACK,
 		ABILITY_2_LEFT_FRONT, ABILITY_2_RIGHT_FRONT, ABILITY_2_LEFT_BACK, ABILITY_2_RIGHT_BACK,
@@ -109,6 +109,10 @@ protected:
 	Animation walk_right_back;
 	Animation walk_left_front;
 	Animation walk_right_front;
+	Animation walk_left;
+	Animation walk_right;
+	Animation walk_front;
+	Animation walk_back;
 	Animation attack_left_back;
 	Animation attack_right_back;
 	Animation attack_left_front;
