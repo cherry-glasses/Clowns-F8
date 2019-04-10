@@ -239,71 +239,12 @@ bool Scene::Update(float _dt)
 			portraits_created = true;
 			action_menu_created = true;
 		}
+
 		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || waiting_for_input)
 		{
-			if (!waiting_for_input)
-			{
-				waiting_for_input = true;
-				attack_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 145.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
-				buttons.push_back(attack_button);
-				ability_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 184.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
-				buttons.push_back(ability_button);
-				defend_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 223.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
-				buttons.push_back(defend_button);
-				attack_button->Select(SELECTED);
-				if (language)
-				{
-					attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, attack_button->position.first + (small_button.w * 0.5), attack_button->position.second + (small_button.h * 0.5), "ATTACK", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-					ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_button->position.first + (small_button.w * 0.5), ability_button->position.second + (small_button.h * 0.5), "ABILITY", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-					defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, defend_button->position.first + (small_button.w * 0.5), defend_button->position.second + (small_button.h * 0.5), "DEFEND", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-
-				}
-				else
-				{
-					attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, attack_button->position.first + (small_button.w * 0.5), attack_button->position.second + (small_button.h * 0.5), "ATACAR", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-					ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_button->position.first + (small_button.w * 0.5), ability_button->position.second + (small_button.h * 0.5), "HABILIDAD", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-					defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, defend_button->position.first + (small_button.w * 0.5), defend_button->position.second + (small_button.h * 0.5), "DEFENSA", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-				}
-			}
-			Navigate();
-			if (attack_button->has_been_clicked)
-			{
-				//Put attack function
-				waiting_for_input = false;
-				App->gui_manager->DeleteGUIElement(attack_button);
-				App->gui_manager->DeleteGUIElement(ability_button);
-				App->gui_manager->DeleteGUIElement(defend_button);
-				App->gui_manager->DeleteGUIElement(attack_label);
-				App->gui_manager->DeleteGUIElement(ability_label);
-				App->gui_manager->DeleteGUIElement(defend_label);
-				buttons.clear();
-			}
-			else if (ability_button->has_been_clicked)
-			{
-				//Put ability function
-				Iris->current_stats.Mana -= 10;
-				waiting_for_input = false;
-				App->gui_manager->DeleteGUIElement(attack_button);
-				App->gui_manager->DeleteGUIElement(ability_button);
-				App->gui_manager->DeleteGUIElement(defend_button);
-				App->gui_manager->DeleteGUIElement(attack_label);
-				App->gui_manager->DeleteGUIElement(ability_label);
-				App->gui_manager->DeleteGUIElement(defend_label);
-				buttons.clear();
-			}
-			else if (defend_button->has_been_clicked)
-			{
-				//Put defend function
-				waiting_for_input = false;
-				App->gui_manager->DeleteGUIElement(attack_button);
-				App->gui_manager->DeleteGUIElement(ability_button);
-				App->gui_manager->DeleteGUIElement(defend_button);
-				App->gui_manager->DeleteGUIElement(attack_label);
-				App->gui_manager->DeleteGUIElement(ability_label);
-				App->gui_manager->DeleteGUIElement(defend_label);
-				buttons.clear();
-			}
+			ActionsMenu();
 		}
+
 		// Camera Movment in map
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 			App->render->camera.y += 4;
@@ -363,68 +304,7 @@ bool Scene::Update(float _dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || waiting_for_input)
 		{
-			if (!waiting_for_input)
-			{
-				waiting_for_input = true;
-				attack_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 145.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
-				buttons.push_back(attack_button);
-				ability_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 184.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
-				buttons.push_back(ability_button);
-				defend_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 223.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
-				buttons.push_back(defend_button);
-				attack_button->Select(SELECTED);
-				if (language)
-				{
-					attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, attack_button->position.first + (small_button.w * 0.5), attack_button->position.second + (small_button.h * 0.5), "ATTACK", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-					ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_button->position.first + (small_button.w * 0.5), ability_button->position.second + (small_button.h * 0.5), "ABILITY", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-					defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, defend_button->position.first + (small_button.w * 0.5), defend_button->position.second + (small_button.h * 0.5), "DEFEND", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-
-				}
-				else
-				{
-					attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, attack_button->position.first + (small_button.w * 0.5), attack_button->position.second + (small_button.h * 0.5), "ATACAR", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-					ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_button->position.first + (small_button.w * 0.5), ability_button->position.second + (small_button.h * 0.5), "HABILIDAD", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-					defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, defend_button->position.first + (small_button.w * 0.5), defend_button->position.second + (small_button.h * 0.5), "DEFENSA", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-				}
-			}
-			Navigate();
-			if (attack_button->has_been_clicked)
-			{
-				//Put attack function
-				waiting_for_input = false;
-				App->gui_manager->DeleteGUIElement(attack_button);
-				App->gui_manager->DeleteGUIElement(ability_button);
-				App->gui_manager->DeleteGUIElement(defend_button);
-				App->gui_manager->DeleteGUIElement(attack_label);
-				App->gui_manager->DeleteGUIElement(ability_label);
-				App->gui_manager->DeleteGUIElement(defend_label);
-				buttons.clear();
-			}
-			else if (ability_button->has_been_clicked)
-			{
-				//Put ability function
-				Iris->current_stats.Mana -= 10;
-				waiting_for_input = false;
-				App->gui_manager->DeleteGUIElement(attack_button);
-				App->gui_manager->DeleteGUIElement(ability_button);
-				App->gui_manager->DeleteGUIElement(defend_button);
-				App->gui_manager->DeleteGUIElement(attack_label);
-				App->gui_manager->DeleteGUIElement(ability_label);
-				App->gui_manager->DeleteGUIElement(defend_label);
-				buttons.clear();
-			}
-			else if (defend_button->has_been_clicked)
-			{
-				//Put defend function
-				waiting_for_input = false;
-				App->gui_manager->DeleteGUIElement(attack_button);
-				App->gui_manager->DeleteGUIElement(ability_button);
-				App->gui_manager->DeleteGUIElement(defend_button);
-				App->gui_manager->DeleteGUIElement(attack_label);
-				App->gui_manager->DeleteGUIElement(ability_label);
-				App->gui_manager->DeleteGUIElement(defend_label);
-				buttons.clear();
-			}
+			ActionsMenu();
 		}
 
 		// Camera Movment in map
@@ -548,6 +428,72 @@ void Scene::CreateMMOptions()
 		volume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5f, volume_up_button->position.second - (button.h / 2), "AJUSTAR VOLUMEN", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	}
 	english_button->Select(SELECTED);
+}
+
+void Scene::ActionsMenu()
+{
+	if (!waiting_for_input)
+	{
+		waiting_for_input = true;
+		attack_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 145.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
+		buttons.push_back(attack_button);
+		ability_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 184.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
+		buttons.push_back(ability_button);
+		defend_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 223.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
+		buttons.push_back(defend_button);
+		attack_button->Select(SELECTED);
+		if (language)
+		{
+			attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, attack_button->position.first + (small_button.w * 0.5), attack_button->position.second + (small_button.h * 0.5), "ATTACK", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+			ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_button->position.first + (small_button.w * 0.5), ability_button->position.second + (small_button.h * 0.5), "ABILITY", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+			defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, defend_button->position.first + (small_button.w * 0.5), defend_button->position.second + (small_button.h * 0.5), "DEFEND", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+
+		}
+		else
+		{
+			attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, attack_button->position.first + (small_button.w * 0.5), attack_button->position.second + (small_button.h * 0.5), "ATACAR", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+			ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_button->position.first + (small_button.w * 0.5), ability_button->position.second + (small_button.h * 0.5), "HABILIDAD", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+			defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, defend_button->position.first + (small_button.w * 0.5), defend_button->position.second + (small_button.h * 0.5), "DEFENSA", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		}
+	}
+	Navigate();
+	if (attack_button->has_been_clicked)
+	{
+		//Put attack function
+		waiting_for_input = false;
+		App->gui_manager->DeleteGUIElement(attack_button);
+		App->gui_manager->DeleteGUIElement(ability_button);
+		App->gui_manager->DeleteGUIElement(defend_button);
+		App->gui_manager->DeleteGUIElement(attack_label);
+		App->gui_manager->DeleteGUIElement(ability_label);
+		App->gui_manager->DeleteGUIElement(defend_label);
+		buttons.clear();
+	}
+	else if (ability_button->has_been_clicked)
+	{
+		//Put ability function
+		Iris->current_stats.Mana -= 10;
+		waiting_for_input = false;
+		App->gui_manager->DeleteGUIElement(attack_button);
+		App->gui_manager->DeleteGUIElement(ability_button);
+		App->gui_manager->DeleteGUIElement(defend_button);
+		App->gui_manager->DeleteGUIElement(attack_label);
+		App->gui_manager->DeleteGUIElement(ability_label);
+		App->gui_manager->DeleteGUIElement(defend_label);
+		buttons.clear();
+	}
+	else if (defend_button->has_been_clicked)
+	{
+		//Put defend function
+		waiting_for_input = false;
+		App->gui_manager->DeleteGUIElement(attack_button);
+		App->gui_manager->DeleteGUIElement(ability_button);
+		App->gui_manager->DeleteGUIElement(defend_button);
+		App->gui_manager->DeleteGUIElement(attack_label);
+		App->gui_manager->DeleteGUIElement(ability_label);
+		App->gui_manager->DeleteGUIElement(defend_label);
+		buttons.clear();
+	}
 }
 
 void Scene::DeleteMenu()

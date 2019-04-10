@@ -49,7 +49,7 @@ private:
 	void CreateMainMenu();
 	void DeleteMenu();
 	void CreateMMOptions();
-
+	void ActionsMenu();
 	void Navigate();
 	void NavigateDown();
 	void NavigateUp();
