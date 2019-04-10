@@ -13,6 +13,7 @@
 #include "ModuleEntityManager.h"
 #include "ModuleWindow.h"
 #include "CharacterIris.h"
+#include "CharacterSapphire.h"
 
 
 Scene::Scene() : Module()
@@ -240,7 +241,7 @@ bool Scene::Update(float _dt)
 			action_menu_created = true;
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || waiting_for_input)
+		if (Sapphire->current_turn == Entity::TURN::SELECT_ACTION)
 		{
 			ActionsMenu();
 		}
@@ -302,10 +303,6 @@ bool Scene::Update(float _dt)
 			action_menu_created = true;
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || waiting_for_input)
-		{
-			ActionsMenu();
-		}
 
 		// Camera Movment in map
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
@@ -468,6 +465,7 @@ void Scene::ActionsMenu()
 		App->gui_manager->DeleteGUIElement(ability_label);
 		App->gui_manager->DeleteGUIElement(defend_label);
 		buttons.clear();
+		Sapphire->current_turn = Entity::TURN::ATTACK;
 	}
 	else if (ability_button->has_been_clicked)
 	{

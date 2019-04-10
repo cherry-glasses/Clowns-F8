@@ -53,7 +53,7 @@ bool CharacterSapphire::Update(float _dt) {
 	if (current_turn == NONE)
 	{
 	}
-	else if (current_turn == Entity::SELECT)
+	else if (current_turn == SELECT_MOVE)
 	{
 		SelectWalk();
 	}
@@ -129,7 +129,7 @@ void CharacterSapphire::SearchWalk() {
 	tmp.first = NULL;
 	tmp.second = NULL;
 
-	current_turn = Entity::SELECT;
+	current_turn = Entity::SELECT_MOVE;
 
 }
 
@@ -196,7 +196,7 @@ void CharacterSapphire::Walk(const std::vector<std::pair<int, int>> *_path)
 		current_turn = SEARCH_ATTACK;
 	}
 	else {
-		current_turn = SEARCH_ATTACK;
+		current_turn = SELECT_ACTION;
 	}
 
 	if (objective_position.back().first == position.first || objective_position.back().second == position.second) {
@@ -216,7 +216,7 @@ void CharacterSapphire::Walk(const std::vector<std::pair<int, int>> *_path)
 		{
 			CurrentMovement(IDLE_RIGHT_BACK);
 		}
-		current_turn = SEARCH_ATTACK;
+		current_turn = SELECT_ACTION;
 	}
 }
 
