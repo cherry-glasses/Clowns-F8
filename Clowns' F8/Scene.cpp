@@ -233,11 +233,50 @@ bool Scene::Update(float _dt)
 			portrait_2 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, screen_height - 168, { 0, 115, 256, 128 });
 			portrait_3 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, 12.0f, { 0, 115, 256, 128 });
 			portrait_4 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, screen_height - 168, { 0, 115, 256, 128 });
-			action_menu = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 145.0f, { 0, 243, 256, 101 });
+			//action_menu = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 145.0f, { 0, 243, 256, 101 });
 			portraits_created = true;
 			action_menu_created = true;
 		}
-
+		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN || waiting_for_input)
+		{
+			if (!waiting_for_input)
+			{
+				waiting_for_input = true;
+				attack_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 145.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
+				buttons.push_back(attack_button);
+				ability_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 184.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
+				buttons.push_back(ability_button);
+				defend_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 223.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
+				buttons.push_back(defend_button);
+				attack_button->Select(SELECTED);
+			}
+			Navigate();
+			if (attack_button->has_been_clicked)
+			{
+				waiting_for_input = false;
+				App->gui_manager->DeleteGUIElement(attack_button);
+				App->gui_manager->DeleteGUIElement(ability_button);
+				App->gui_manager->DeleteGUIElement(defend_button);
+				buttons.clear();
+			}
+			else if (ability_button->has_been_clicked)
+			{
+				Iris->current_stats.Mana -= 10;
+				waiting_for_input = false;
+				App->gui_manager->DeleteGUIElement(attack_button);
+				App->gui_manager->DeleteGUIElement(ability_button);
+				App->gui_manager->DeleteGUIElement(defend_button);
+				buttons.clear();
+			}
+			else if (defend_button->has_been_clicked)
+			{
+				waiting_for_input = false;
+				App->gui_manager->DeleteGUIElement(attack_button);
+				App->gui_manager->DeleteGUIElement(ability_button);
+				App->gui_manager->DeleteGUIElement(defend_button);
+				buttons.clear();
+			}
+		}
 		// Camera Movment in map
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 			App->render->camera.y += 4;
@@ -290,7 +329,7 @@ bool Scene::Update(float _dt)
 			portrait_2 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, screen_height - 168, { 0, 115, 256, 128 });
 			portrait_3 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, 12.0f, { 0, 115, 256, 128 });
 			portrait_4 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, screen_height - 168, { 0, 115, 256, 128 });
-			action_menu = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 145.0f, { 0, 243, 256, 101 });
+			//action_menu = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 145.0f, { 0, 243, 256, 101 });
 			portraits_created = true;
 			action_menu_created = true;
 		}

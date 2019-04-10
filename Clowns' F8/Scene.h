@@ -108,9 +108,9 @@ private:
 	GUILabel* language_label = nullptr;
 	GUILabel* volume_label = nullptr;
 
-	GUIImage* action_menu = nullptr;
+	//GUIImage* action_menu = nullptr;
 	GUIButton* attack_button = nullptr;
-	GUIButton* abbility_button = nullptr;
+	GUIButton* ability_button = nullptr;
 	GUIButton* defend_button = nullptr;
 	GUIImage* life = nullptr;
 	GUIImage* mana = nullptr;
@@ -121,6 +121,7 @@ private:
 	GUIImage* iris_port = nullptr;
 	int life_x = 124;
 	int mana_x = 124;
+	bool waiting_for_input = false;
 	std::list<GUIButton*> buttons;
 
 public:
