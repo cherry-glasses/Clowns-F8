@@ -37,10 +37,7 @@ bool CharacterStorm::PreUpdate() {
 		{
 			SearchWalk();
 		}
-		else if (current_turn == SEARCH_ATTACK)
-		{
-			SearchAttack();
-		}
+		
 
 	}
 	else
@@ -111,10 +108,55 @@ bool CharacterStorm::Update(float _dt) {
 
 
 		break;
+
 	case Entity::ATTACK:
 
+		switch (Attk) {
+		case Attack_Steps::IDLE_A:
+			break;
+		case Attack_Steps::SEARCH_A:
+			SearchAttack();
+			Attk = Attack_Steps::SELECT_A;
+			Cap = 0;
+			break;
+		case Attack_Steps::SELECT_A:
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+				Cap--;
+				Cap_2 = -1;
+				if (Cap < 0)
+					Cap = 3;
+			}
+			else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+				Cap++;
+				Cap_2 = 1;
+				if (Cap > 3)
+					Cap = 0;
+			}
+			for (int i = 0; i < 4; i++) {
+				possible_att_map[i] = App->map->MapToWorld((possible_att[i].first), possible_att[i].second);
+
+				if (i != Cap) {
+
+					App->render->Blit(debug_texture, possible_att_map[i].first, possible_att_map[i].second, &debug_green);
+
+				}
+
+			}
+			App->render->Blit(debug_texture, possible_att_map[Cap].first, possible_att_map[Cap].second, &debug_red);
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+				objective_position.push_back(possible_att_map[Cap]);
+				Attk = Attack_Steps::ATTACK_A;
+			}
+
+			break;
+		case Attack_Steps::ATTACK_A:
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
+			current_turn = Entity::END_TURN;
+			Attk = Attack_Steps::IDLE_A;
+		}
 
 		break;
+	
 	case Entity::MOVE:
 		switch (Cap_2) {
 		case 1:
@@ -132,6 +174,7 @@ bool CharacterStorm::Update(float _dt) {
 		}
 
 		current_turn = SELECT_ACTION;
+		Attk = Attack_Steps::SEARCH_A;
 
 		break;
 	}
@@ -193,12 +236,30 @@ void CharacterStorm::SearchWalk() {
 		movment_4[i] = App->map->MapToWorld(movment_4[i].first, movment_4[i].second);
 	}
 
-
+	tmp.first = NULL;
+	tmp.second = NULL;
 	current_turn = Entity::SELECT_MOVE;
 }
 
 void CharacterStorm::SearchAttack() {
+	std::pair<int, int> tmp;
 
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	possible_att[0].first = tmp.first + 1;
+	possible_att[0].second = tmp.second;
+
+	possible_att[1].first = tmp.first;
+	possible_att[1].second = tmp.second + 1;
+
+	possible_att[2].first = tmp.first - 1;
+	possible_att[2].second = tmp.second;
+
+	possible_att[3].first = tmp.first;
+	possible_att[3].second = tmp.second - 1;
+
+
+	tmp.first = NULL;
+	tmp.second = NULL;
 }
 
 void CharacterStorm::Die() {

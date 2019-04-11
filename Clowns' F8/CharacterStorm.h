@@ -38,6 +38,8 @@ private:
 	std::pair<int, int>* movment_2;
 	std::pair<int, int>* movment_3;
 	std::pair<int, int>* movment_4;
+	std::pair<int, int> possible_att[4];
+	std::pair<int, int> possible_att_map[4];
 	Move_Steps Def = Move_Steps::IDLE;
 	Attack_Steps Attk = Attack_Steps::IDLE_A;
 	Animation*	current_animation = nullptr;
