@@ -5,6 +5,7 @@
 #include "Character.h"
 #include "CharacterSapphire.h"
 #include "CharacterIris.h"
+#include "CharacterStorm.h"
 #include "Boneyman.h"
 #include "Pinkking.h"
 #include "Hotdog.h"
@@ -174,6 +175,11 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
 		tmp = new CharacterIris(_type, entity_configs.child("iris"));
+		entities.push_back(tmp);
+		characters.push_back(tmp);
+		break;
+	case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
+		tmp = new CharacterStorm(_type, entity_configs.child("storm"));
 		entities.push_back(tmp);
 		characters.push_back(tmp);
 		break;

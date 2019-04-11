@@ -9,6 +9,7 @@ class GUIButton;
 class GUILabel;
 class CharacterIris;
 class CharacterSapphire;
+class CharacterStorm;
 struct SDL_Texture;
 
 class Scene : public Module {
@@ -132,6 +133,7 @@ public:
 	bool language = true; //true = English; false = Spanish
 	CharacterIris* Iris;
 	CharacterSapphire* Sapphire;
+	CharacterStorm* Storm;
 
 };
 

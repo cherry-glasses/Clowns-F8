@@ -135,6 +135,9 @@
     <ClInclude Include="..\Clowns%27 F8\CharacterSapphire.h">
       <Filter>Entities\EntitiesCharacters</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\CharacterStorm.h">
+      <Filter>Entities\EntitiesCharacters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -219,6 +222,9 @@
       <Filter>Entities\EntitiesEnemies</Filter>
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\CharacterSapphire.cpp">
+      <Filter>Entities\EntitiesCharacters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\CharacterStorm.cpp">
       <Filter>Entities\EntitiesCharacters</Filter>
     </ClCompile>
   </ItemGroup>
