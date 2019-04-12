@@ -311,7 +311,7 @@ std::pair<int, int>* ModuleEntityManager::RangeOfAttack(std::pair<int, int> mypo
 	bool flag = false;
 
 	std::pair<int, int> aux;
-
+	// calcular con los 2 radios y restar.
 	frontier.push_back(myposition);
 	//visited.push_back(myposition);
 	while (frontier.size() != 0) {
