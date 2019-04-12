@@ -82,6 +82,7 @@ public:
 
 	Stats default_stats;
 	Stats current_stats;
+	bool defend = false;
 
 	enum STATE { ALIVE, DEATH };
 	enum TURN { SEARCH_MOVE, SELECT_MOVE, MOVE, SELECT_ACTION, SEARCH_ATTACK, SELECT_ATTACK, ATTACK, END_TURN, NONE };
@@ -141,6 +142,7 @@ protected:
 	std::pair<int, int>  position;
 	std::pair<int, int>  position_margin;
 	std::vector<std::pair<int, int>>  objective_position;
+	
 	
 };
 

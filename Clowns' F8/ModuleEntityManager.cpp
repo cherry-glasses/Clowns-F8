@@ -81,7 +81,7 @@ bool ModuleEntityManager::PreUpdate()
 				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
 			}
 		}
-
+		(*entity)->defend = false;
 		(*entity)->PreUpdate();
 	}
 
@@ -236,6 +236,24 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 		}
 
 		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_PINKKING:
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				if ((*character)->GetPosition() == (*position))
+				{
+					if ((*character)->defend) {
+						(*character)->current_stats.Hp -= (_damage * ((*character)->current_stats.DefF * 1.2) / 100);
+					}
+					else {
+						(*character)->current_stats.Hp -= (_damage * (*character)->current_stats.DefF / 100);
+					}
+
+				}
+			}
+		}
+		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
 		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
 		{
@@ -243,22 +261,18 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			{
 				if ((*character)->GetPosition() == (*position))
 				{
-					(*character)->current_stats.Hp -= (_damage - (*character)->current_stats.DefF);
+					if ((*character)->defend) {
+						(*character)->current_stats.Hp -= (_damage * ((*character)->current_stats.DefF * 1.2) / 100);
+					}
+					else {
+						(*character)->current_stats.Hp -= (_damage * (*character)->current_stats.DefF / 100);
+					}
+					
 				}
 			}
 		}
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
-		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
-		{
-			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position) 
-			{
-				if ((*character)->GetPosition() == (*position)) 
-				{
-					(*character)->current_stats.Hp -= (_damage - (*character)->current_stats.DefF);
-				}
-			}
-		}
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
 		break;

@@ -133,12 +133,15 @@ void CharacterSapphire::SearchWalk() {
 
 }
 
+// TODO 1: CompareByY CompareByX Sort sdlup sdldown
+
 void CharacterSapphire::SelectWalk() {
 
 	while (!App->pathfinding->IsWalkable(possible_mov[Cap])) {
 		Cap--;
 		if (Cap < 0)
 			Cap = 7;
+		//CORTAR Y SALTAR AL SIGUIENTE MOVE SI NO HAY OPCIÓN DE MOVIMIENTO.
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {

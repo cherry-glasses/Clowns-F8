@@ -416,7 +416,7 @@ void Scene::ActionsMenu()
 		{
 			if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
 			{
-				(*character)->current_turn = Entity::TURN::ATTACK;
+				(*character)->current_turn = Entity::TURN::SEARCH_ATTACK;
 			}
 		}
 		
@@ -445,6 +445,13 @@ void Scene::ActionsMenu()
 		App->gui_manager->DeleteGUIElement(ability_label);
 		App->gui_manager->DeleteGUIElement(defend_label);
 		buttons.clear();
+		for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+		{
+			if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+			{
+				(*character)->defend = true;
+			}
+		}
 	}
 }
 
