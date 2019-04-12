@@ -109,8 +109,7 @@ bool CharacterStorm::Update(float _dt) {
 
 		break;
 
-	case Entity::ATTACK:
-
+	case Entity::SEARCH_ATTACK:
 		switch (Attk) {
 		case Attack_Steps::IDLE_A:
 			break;
@@ -154,6 +153,7 @@ bool CharacterStorm::Update(float _dt) {
 			current_turn = Entity::END_TURN;
 			Attk = Attack_Steps::IDLE_A;
 		}
+		
 
 		break;
 	

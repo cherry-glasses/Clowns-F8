@@ -129,10 +129,6 @@ bool CharacterIris::Update(float _dt) {
 		break;
 
 	case Entity::SEARCH_ATTACK:
-
-		break;
-
-	case Entity::ATTACK:
 		switch (Attk) {
 		case Attack_Steps::IDLE_A:
 			break;
@@ -176,6 +172,13 @@ bool CharacterIris::Update(float _dt) {
 			current_turn = Entity::END_TURN;
 			Attk = Attack_Steps::IDLE_A;
 		}
+		break;
+		break;
+	case Entity::SELECT_ATTACK:
+		
+
+	case Entity::ATTACK:
+	
 		break;
 	case Entity::END_TURN:
 		break;

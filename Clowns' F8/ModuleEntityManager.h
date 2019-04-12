@@ -35,6 +35,8 @@ public:
 	Entity* CreateEntity(ENTITY_TYPE type);
 	bool DeleteEntity(Entity* entity);
 	std::pair<int,int> NearestCharacter(std::pair<int, int> myposition);
+	std::pair<int, int>* RangeOfAttack(std::pair<int, int> myposition, int radius, int& size);
+	inline bool InRange(std::pair<int, int> myposition, std::pair<int, int> tiledposition, int radius) { return (sqrt(((tiledposition.first - myposition.first)*(tiledposition.first - myposition.first)) + ((tiledposition.second - myposition.second)*(tiledposition.second - myposition.second))) < radius); };
 
 	bool UpdateWalk(std::pair<int, int> tile_id);
 

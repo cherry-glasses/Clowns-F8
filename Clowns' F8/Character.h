@@ -28,6 +28,8 @@ public:
 	virtual bool Save(pugi::xml_node&) const { return true; }
 
 protected:
+	int tiles_range_attk = 0;
+	std::pair<int, int>* range;
 	enum Move_Steps {
 		SEARCH,
 		SELECT,

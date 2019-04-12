@@ -301,3 +301,66 @@ bool ModuleEntityManager::UpdateWalk(std::pair<int, int> tile_id) {
 	
 	return ret;
 }
+
+
+
+std::pair<int, int>* ModuleEntityManager::RangeOfAttack(std::pair<int, int> myposition, int radius, int& size) {
+
+	std::list<std::pair<int, int>> frontier;
+	std::list<std::pair<int, int>> visited;
+	bool flag = false;
+
+	std::pair<int, int> aux;
+
+	frontier.push_back(myposition);
+	//visited.push_back(myposition);
+	while (frontier.size() != 0) {
+		aux = frontier.front();
+		frontier.pop_front();
+		flag = false;
+		for (std::list<std::pair<int, int>>::iterator eshorrible = visited.begin(); eshorrible != visited.end(); eshorrible++) {
+			if (aux == (*eshorrible)) {
+				flag = true;
+				break;
+			}
+				
+				
+		}
+		if (!flag) {
+			for (int i = -1; i <= 1; i += 2) {
+				for (int j = -1; j <= 1; j += 2) {
+					std::pair<int, int> tmp = aux;
+					if (i == -1)
+						tmp.first += j;
+					else 
+						tmp.second += j;
+					
+					if (InRange(myposition, tmp, radius)) {
+						frontier.push_back(tmp);
+						
+					}
+						
+
+					
+				}
+				
+
+			}
+			visited.push_back(aux);
+		}
+		
+	}
+
+	size = visited.size();
+	std::pair<int, int>* ret = new std::pair<int,int>[visited.size()];
+	int i = 0;
+	for (std::list<std::pair<int, int>>::iterator eshorrible = visited.begin(); eshorrible != visited.end(); eshorrible++, i++) {
+		ret[i] = (*eshorrible);
+
+	}
+
+
+	return ret;
+
+}
+

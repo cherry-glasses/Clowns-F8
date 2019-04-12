@@ -67,7 +67,10 @@ bool CharacterSapphire::Update(float _dt) {
 	}
 	else if (current_turn == ATTACK)
 	{
-		Attack(App->pathfinding->GetLastPath());
+		for (int i = 0; i < tiles_range_attk; i++) {
+			std::pair<int, int> tmp = App->map->MapToWorld(range[i].first, range[i].second);
+			App->render->Blit(debug_texture, tmp.first, tmp.second, &debug_red);
+		}
 	}
 
 	return true;
@@ -241,24 +244,12 @@ void CharacterSapphire::Walk(const std::vector<std::pair<int, int>> *_path)
 
 void CharacterSapphire::SearchAttack() {
 
-	std::pair<int, int> tmp;
+	std::pair<int, int> cancer = App->map->WorldToMap(position.first, position.second);
+	range = App->entity_manager->RangeOfAttack(cancer, 9, tiles_range_attk);
 
-	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	possible_att[0].first = tmp.first + 1;
-	possible_att[0].second = tmp.second;
 
-	possible_att[1].first = tmp.first;
-	possible_att[1].second = tmp.second + 1;
 
-	possible_att[2].first = tmp.first - 1;
-	possible_att[2].second = tmp.second;
-
-	possible_att[3].first = tmp.first;
-	possible_att[3].second = tmp.second - 1;
-
-	tmp.first = NULL;
-	tmp.second = NULL;
-
+	
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		current_turn = ATTACK;
 	}
