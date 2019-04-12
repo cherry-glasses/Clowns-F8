@@ -57,6 +57,10 @@ bool CharacterSapphire::Update(float _dt) {
 	{
 		SelectWalk();
 	}
+	else if (current_turn == DEFEND)
+	{
+		Defend();
+	}
 	else if (current_turn == Entity::MOVE)
 	{
 		Walk(App->pathfinding->GetLastPath());
@@ -265,6 +269,29 @@ void CharacterSapphire::Attack(const std::vector<std::pair<int, int>> *_path)
 	current_turn = END_TURN;
 }
 
+void CharacterSapphire::Defend()
+{
+	defend = true;
+	switch (current_movement)
+	{
+	case Entity::IDLE_LEFT_FRONT:
+		CurrentMovement(DEFEND_LEFT_FRONT);
+		break;
+	case Entity::IDLE_RIGHT_FRONT:
+		CurrentMovement(DEFEND_RIGHT_FRONT);
+		break;
+	case Entity::IDLE_LEFT_BACK:
+		CurrentMovement(DEFEND_LEFT_BACK);
+		break;
+	case Entity::IDLE_RIGHT_BACK:
+		CurrentMovement(DEFEND_RIGHT_BACK);
+		break;
+	default:
+		break;
+	}
+
+}
+
 void CharacterSapphire::Die()
 {
 	switch (current_movement)
@@ -421,6 +448,26 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_2_RIGHT_BACK;
 		current_animation = &hability_2_right_back;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+		current_turn = END_TURN;
+		break;
+	case Entity::DEFEND_LEFT_FRONT:
+		current_movement = DEFEND_LEFT_FRONT;
+		current_animation = &defend_left_front;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEFEND_RIGHT_FRONT:
+		current_movement = DEFEND_RIGHT_FRONT;
+		current_animation = &defend_right_front;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEFEND_LEFT_BACK:
+		current_movement = DEFEND_LEFT_BACK;
+		current_animation = &defend_left_back;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEFEND_RIGHT_BACK:
+		current_movement = DEFEND_RIGHT_BACK;
+		current_animation = &defend_right_back;
 		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_LEFT_FRONT:

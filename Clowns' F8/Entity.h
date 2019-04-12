@@ -55,6 +55,7 @@ public:
 	virtual void Hability_1() {}
 	virtual void Hability_2() {}
 	virtual void Hability_3() {}
+	virtual void Defend() {}
 	virtual void Die() {}
 
 	// Load and Save
@@ -85,7 +86,7 @@ public:
 	bool defend = false;
 
 	enum STATE { ALIVE, DEATH };
-	enum TURN { SEARCH_MOVE, SELECT_MOVE, MOVE, SELECT_ACTION, SEARCH_ATTACK, SELECT_ATTACK, ATTACK, END_TURN, NONE };
+	enum TURN { SEARCH_MOVE, SELECT_MOVE, MOVE, SELECT_ACTION, SEARCH_ATTACK, SELECT_ATTACK, ATTACK, DEFEND, END_TURN, NONE };
 
 	STATE current_state = ALIVE;
 	TURN current_turn = NONE;
@@ -97,6 +98,7 @@ protected:
 		ATTACK_LEFT_FRONT, ATTACK_RIGHT_FRONT, ATTACK_LEFT_BACK, ATTACK_RIGHT_BACK,
 		ABILITY_1_LEFT_FRONT, ABILITY_1_RIGHT_FRONT, ABILITY_1_LEFT_BACK, ABILITY_1_RIGHT_BACK,
 		ABILITY_2_LEFT_FRONT, ABILITY_2_RIGHT_FRONT, ABILITY_2_LEFT_BACK, ABILITY_2_RIGHT_BACK,
+		DEFEND_LEFT_FRONT, DEFEND_RIGHT_FRONT, DEFEND_LEFT_BACK, DEFEND_RIGHT_BACK,
 		DEAD_LEFT_FRONT, DEAD_RIGHT_FRONT, DEAD_LEFT_BACK, DEAD_RIGHT_BACK
 	};
 
@@ -127,6 +129,10 @@ protected:
 	Animation hability_2_right_back;
 	Animation hability_2_left_front;
 	Animation hability_2_right_front;
+	Animation defend_left_back;
+	Animation defend_right_back;
+	Animation defend_left_front;
+	Animation defend_right_front;
 	Animation dead_left_back;
 	Animation dead_right_back;
 	Animation dead_left_front;

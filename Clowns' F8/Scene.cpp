@@ -449,7 +449,7 @@ void Scene::ActionsMenu()
 		{
 			if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
 			{
-				(*character)->defend = true;
+				(*character)->current_turn = Entity::TURN::DEFEND;
 			}
 		}
 	}

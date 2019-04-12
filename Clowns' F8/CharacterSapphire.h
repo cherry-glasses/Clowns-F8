@@ -28,6 +28,7 @@ public:
 	void Hability_1() {}
 	void Hability_2() {}
 	void Hability_3() {}
+	void Defend();
 	void Die();
 
 	void CurrentMovement(MOVEMENT _movement);
