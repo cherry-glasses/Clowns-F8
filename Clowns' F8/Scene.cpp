@@ -15,7 +15,7 @@
 #include "CharacterIris.h"
 #include "CharacterSapphire.h"
 #include "CharacterStorm.h"
-
+#include <string.h>
 
 Scene::Scene() : Module()
 {
@@ -42,10 +42,34 @@ bool Scene::Awake(pugi::xml_node& _config)
 		_config.child("cherry_glasses_logo").attribute("w").as_int() , _config.child("cherry_glasses_logo").attribute("h").as_int() };
 	option_background = { _config.child("option_background").attribute("x").as_int(), _config.child("option_background").attribute("y").as_int(),
 		_config.child("option_background").attribute("w").as_int() , _config.child("option_background").attribute("h").as_int() };
-	/*button_half_width = (_config.child("buttons").attribute("width").as_int()) * 0.5;
-	button_half_height = (_config.child("buttons").attribute("height").as_int()) * 0.5;
-	first_button_height = _config.child("main_menu").attribute("start_pos").as_int();
-	options_first_height = _config.child("options_menu").attribute("start_pos").as_int();*/
+	std::pair<int, int> life_margin = { _config.child("life_position").attribute("margin_x").as_int(), _config.child("life_position").attribute("margin_y").as_int() };
+	std::pair<int, int> mana_margin = { _config.child("mana_position").attribute("margin_x").as_int(), _config.child("mana_position").attribute("margin_y").as_int() };
+	for (int i = 0; i < 4; i++)
+	{
+		switch (i)
+		{
+		case 0:
+			life_position.push_back({ life_margin.first, life_margin.second});
+			mana_position.push_back({ mana_margin.first, mana_margin.second });
+			break;
+		case 1:
+			life_position.push_back({ App->window->GetScreenWidth() - life_margin.first,  life_margin.second });
+			mana_position.push_back({ App->window->GetScreenWidth() - mana_margin.first,  mana_margin.second });
+			break;
+		case 2:
+			life_position.push_back({ life_margin.first, App->window->GetScreenHeight() - life_margin.second });
+			mana_position.push_back({ mana_margin.first, App->window->GetScreenHeight() - mana_margin.second });
+			break;
+		case 3:
+			life_position.push_back({ App->window->GetScreenWidth() - life_margin.second, App->window->GetScreenHeight() - life_margin.second });
+			mana_position.push_back({ App->window->GetScreenWidth() - mana_margin.second, App->window->GetScreenHeight() - mana_margin.second });
+			break;
+		default:
+			break;
+		}
+		
+	}
+	
 	return ret;
 }
 
@@ -204,43 +228,45 @@ bool Scene::Update(float _dt)
 		if (!map_loaded) {
 			map_loaded = true;
 			App->map->Load("map_level1.tmx");
-			Sapphire = (CharacterSapphire*)App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-			Iris = (CharacterIris*)App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
-			Storm = (CharacterStorm*)App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_STORM);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 			App->render->camera.x = App->window->GetScreenWidth() / 2;
 			App->render->camera.y = App->window->GetScreenHeight() / 8;
-			life_x = (124 * Iris->current_stats.Hp) / Iris->default_stats.Hp;
-			mana_x = (124 * Iris->current_stats.Mana) / Iris->default_stats.Mana;
-		}
 
-		if (life_x != ((124 * Iris->current_stats.Hp) / Iris->default_stats.Hp) 
-			|| mana_x != ((124 * Iris->current_stats.Mana) / Iris->default_stats.Mana) || !portraits_created)
-		{
-			if (portraits_created)
+			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 			{
-				App->gui_manager->DeleteGUIElement(life);
-				App->gui_manager->DeleteGUIElement(mana);
-				App->gui_manager->DeleteGUIElement(portrait_1);
+				life_x.push_back((124 * (*character)->current_stats.Hp) / (*character)->default_stats.Hp);
+				mana_x.push_back((124 * (*character)->current_stats.Mana) / (*character)->default_stats.Mana);
 			}
-			life_x = (124 * Iris->current_stats.Hp) / Iris->default_stats.Hp;
-			mana_x = (124 * Iris->current_stats.Mana) / Iris->default_stats.Mana;
-			life = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 79.0f, { 0, 58, life_x, 29 });
-			mana = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 110.0f, { 0, 86, mana_x, 29 });
-			portrait_1 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 12.0f, { 0, 115, 256, 128 });
+			
+			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, { 124, 0, 64, 67 }));
+			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, { 124, 0, 64, 67 }));
+			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, { 124, 0, 64, 67 }));
+			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, { 124, 0, 64, 67 }));
+			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 12.0f, { 0, 115, 256, 128 }));
+			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, screen_height - 168, { 0, 115, 256, 128 }));
+			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, 12.0f, { 0, 115, 256, 128 }));
+			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, screen_height - 168, { 0, 115, 256, 128 }));
+			for (int i = 0; i < App->entity_manager->characters.size(); i++)
+			{
+				life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, life_position.at(i).first, life_position.at(i).second, { 0, 58, life_x.at(i), 29 }));
+				mana.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, mana_position.at(i).first, mana_position.at(i).second, { 0, 86, mana_x.at(i), 29 }));
+			}
+			
 		}
 
-		if (!portraits_created)
+		std::list<Entity*>::iterator character = App->entity_manager->characters.begin();
+		for (int i = 0; i < App->entity_manager->characters.size(); ++i)
 		{
-			iris_port = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, { 124, 0, 64, 67 });
-			portrait_1 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 12.0f, { 0, 115, 256, 128 });
-			portrait_2 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, screen_height - 168, { 0, 115, 256, 128 });
-			portrait_3 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, 12.0f, { 0, 115, 256, 128 });
-			portrait_4 = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, screen_height - 168, { 0, 115, 256, 128 });
-			//action_menu = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 145.0f, { 0, 243, 256, 101 });
-			portraits_created = true;
-			action_menu_created = true;
+			if (life_x.at(i) != ((124 * (*character)->current_stats.Hp) / (*character)->default_stats.Hp)
+				|| mana_x.at(i) != ((124 * (*character)->current_stats.Mana) / (*character)->default_stats.Mana))
+			{
+				CreatePortraits(*character, i);
+			}
+			++character;
 		}
 
 		for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
@@ -266,8 +292,6 @@ bool Scene::Update(float _dt)
 		{
 			ret = false;
 		}
-		break;
-	default:
 		break;
 	}
 	
@@ -374,6 +398,20 @@ void Scene::CreateMMOptions()
 	english_button->Select(SELECTED);
 }
 
+void Scene::CreatePortraits(Entity* _character, int _i)
+{
+	App->gui_manager->DeleteGUIElement(life.at(_i));
+	App->gui_manager->DeleteGUIElement(mana.at(_i));
+	App->gui_manager->DeleteGUIElement(portrait.at(_i));
+		
+	life_x.at(_i) = (124 * _character->current_stats.Hp) / _character->default_stats.Hp;
+	mana_x.at(_i) = (124 * _character->current_stats.Mana) / _character->default_stats.Mana;
+	life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, life_position.at(_i).first, life_position.at(_i).second, { 0, 58, life_x.at(_i), 29 });
+	mana.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, mana_position.at(_i).first, mana_position.at(_i).second, { 0, 86, mana_x.at(_i), 29 });
+	portrait.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, portrait_position.at(_i).first, portrait_position.at(_i).second, { 0, 115, 256, 128 });
+	
+}
+
 void Scene::ActionsMenu()
 {
 	if (!waiting_for_input)
@@ -424,7 +462,6 @@ void Scene::ActionsMenu()
 	else if (ability_button->has_been_clicked)
 	{
 		//Put ability function
-		Iris->current_stats.Mana -= 10;
 		waiting_for_input = false;
 		App->gui_manager->DeleteGUIElement(attack_button);
 		App->gui_manager->DeleteGUIElement(ability_button);
@@ -433,6 +470,13 @@ void Scene::ActionsMenu()
 		App->gui_manager->DeleteGUIElement(ability_label);
 		App->gui_manager->DeleteGUIElement(defend_label);
 		buttons.clear();
+		for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+		{
+			if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+			{
+				(*character)->current_turn = Entity::TURN::SEARCH_HABILITY_1;
+			}
+		}
 	}
 	else if (defend_button->has_been_clicked)
 	{

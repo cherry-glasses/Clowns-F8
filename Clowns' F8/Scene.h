@@ -7,9 +7,7 @@
 class GUIImage;
 class GUIButton;
 class GUILabel;
-class CharacterIris;
-class CharacterSapphire;
-class CharacterStorm;
+class Entity;
 struct SDL_Texture;
 
 class Scene : public Module {
@@ -50,6 +48,7 @@ private:
 	void CreateMainMenu();
 	void DeleteMenu();
 	void CreateMMOptions();
+	void CreatePortraits(Entity* _character, int _i);
 	void ActionsMenu();
 	void Navigate();
 	void NavigateDown();
@@ -117,23 +116,20 @@ private:
 	GUILabel* attack_label = nullptr;
 	GUILabel* ability_label = nullptr;
 	GUILabel* defend_label = nullptr;
-	GUIImage* life = nullptr;
-	GUIImage* mana = nullptr;
-	GUIImage* portrait_1 = nullptr;
-	GUIImage* portrait_2 = nullptr;
-	GUIImage* portrait_3 = nullptr;
-	GUIImage* portrait_4 = nullptr;
-	GUIImage* iris_port = nullptr;
-	int life_x = 124;
-	int mana_x = 124;
+	std::vector<GUIImage*> life;
+	std::vector<GUIImage*> mana;
+	std::vector<GUIImage*> portrait;
+	std::vector<GUIImage*> port;
+	std::vector<int> life_x;
+	std::vector<int> mana_x;
+	std::vector<std::pair<int, int>> life_position;
+	std::vector<std::pair<int, int>> mana_position;
+	std::vector<std::pair<int, int>> portrait_position;
 	bool waiting_for_input = false;
 	std::list<GUIButton*> buttons;
 
 public:
 	bool language = true; //true = English; false = Spanish
-	CharacterIris* Iris;
-	CharacterSapphire* Sapphire;
-	CharacterStorm* Storm;
 
 };
 
