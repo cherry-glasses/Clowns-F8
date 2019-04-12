@@ -318,7 +318,7 @@ std::pair<int, int>* ModuleEntityManager::RangeOfAttack(std::pair<int, int> mypo
 		aux = frontier.front();
 		frontier.pop_front();
 		flag = false;
-		for (std::list<std::pair<int, int>>::iterator eshorrible = visited.begin(); eshorrible != visited.end(); eshorrible++) {
+		for (std::list<std::pair<int, int>>::iterator eshorrible = visited.begin(); eshorrible != visited.end(); ++eshorrible) {
 			if (aux == (*eshorrible)) {
 				flag = true;
 				break;
@@ -354,7 +354,7 @@ std::pair<int, int>* ModuleEntityManager::RangeOfAttack(std::pair<int, int> mypo
 	size = visited.size();
 	std::pair<int, int>* ret = new std::pair<int,int>[visited.size()];
 	int i = 0;
-	for (std::list<std::pair<int, int>>::iterator eshorrible = visited.begin(); eshorrible != visited.end(); eshorrible++, i++) {
+	for (std::list<std::pair<int, int>>::iterator eshorrible = visited.begin(); eshorrible != visited.end(); ++eshorrible, i++) {
 		ret[i] = (*eshorrible);
 
 	}

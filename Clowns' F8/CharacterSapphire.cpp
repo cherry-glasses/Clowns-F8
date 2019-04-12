@@ -245,7 +245,7 @@ void CharacterSapphire::Walk(const std::vector<std::pair<int, int>> *_path)
 void CharacterSapphire::SearchAttack() {
 
 	std::pair<int, int> cancer = App->map->WorldToMap(position.first, position.second);
-	range = App->entity_manager->RangeOfAttack(cancer, 9, tiles_range_attk);
+	range = App->entity_manager->RangeOfAttack(cancer, 4, tiles_range_attk);
 
 
 
