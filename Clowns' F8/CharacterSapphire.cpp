@@ -57,26 +57,29 @@ bool CharacterSapphire::Update(float _dt) {
 	{
 		SelectWalk();
 	}
-	else if (current_turn == DEFEND)
-	{
-		Defend();
-	}
 	else if (current_turn == Entity::MOVE)
 	{
 		Walk(App->pathfinding->GetLastPath());
 	}
 	else if (current_turn == ATTACK)
 	{
-		for (int i = 0; i < tiles_range_attk; i++) {
-			std::pair<int, int> tmp = App->map->MapToWorld(range[i].first, range[i].second);
-			App->render->Blit(debug_texture, tmp.first, tmp.second, &debug_red);
-		}
+		Attack(App->pathfinding->GetLastPath());
+	}
+	else if (current_turn == DEFEND)
+	{
+		Defend();
 	}
 
 	return true;
 }
 
 bool CharacterSapphire::PostUpdate() {
+
+	if (current_turn == END_TURN)
+	{
+		EndTurn();
+	}
+
 	if (entity_texture != nullptr)
 	{
 		App->render->Blit(entity_texture, position.first, position.second - current.h + position_margin.second, &current_animation->GetCurrentFrame(), 1.0f);
@@ -93,48 +96,61 @@ bool CharacterSapphire::Save(pugi::xml_node& node) const {
 	return true;
 }
 
+bool CompareByX(std::pair<int, int> first, std::pair<int, int> second) {
+	return (first.first < second.first);
+}
+bool CompareByY(std::pair<int, int> first, std::pair<int, int> second) {
+	return (first.second < second.second);
+}
+
 void CharacterSapphire::SearchWalk() {
 
 	std::pair<int, int> tmp;
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	possible_mov_list.push_back(tmp);
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first += 1;
-	possible_mov[0] = tmp;
+	possible_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first += 1;
 	tmp.second += 1;
-	possible_mov[1] = tmp;
+	possible_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.second += 1;
-	possible_mov[2] = tmp;
+	possible_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first -= 1;
 	tmp.second += 1;
-	possible_mov[3] = tmp;
+	possible_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first -= 1;
-	possible_mov[4] = tmp;
+	possible_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first -= 1;
 	tmp.second -= 1;
-	possible_mov[5] = tmp;
+	possible_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.second -= 1;
-	possible_mov[6] = tmp;
+	possible_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first += 1;
 	tmp.second -= 1;
-	possible_mov[7] = tmp;
+	possible_mov_list.push_back(tmp);
 
 	tmp.first = NULL;
 	tmp.second = NULL;
+
+	possible_mov_list.sort(CompareByX);
+	possible_mov_list.sort(CompareByY);
 
 	current_turn = Entity::SELECT_MOVE;
 
@@ -144,42 +160,44 @@ void CharacterSapphire::SearchWalk() {
 
 void CharacterSapphire::SelectWalk() {
 
-	while (!App->pathfinding->IsWalkable(possible_mov[Cap])) {
-		Cap--;
-		if (Cap < 0)
-			Cap = 7;
-		//CORTAR Y SALTAR AL SIGUIENTE MOVE SI NO HAY OPCIÓN DE MOVIMIENTO.
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
-		do
+	int i = 0;
+	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+	{
+		if (i == Cap) 
 		{
-			Cap--;
-			if (Cap < 0)
-				Cap = 7;
-		} while (!App->pathfinding->IsWalkable(possible_mov[Cap]));
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
-		do
-		{
-			Cap++;
-			if (Cap > 7)
-				Cap = 0;
-		} while (!App->pathfinding->IsWalkable(possible_mov[Cap]));
-
-	}
-
-	for (int i = 0; i < 8; i++) {
-		possible_mov_map[i] = App->map->MapToWorld((possible_mov[i].first), possible_mov[i].second);
-
-		if (i != Cap) {
-			if (App->pathfinding->IsWalkable(possible_mov[i]))
-				App->render->Blit(debug_texture, possible_mov_map[i].first, possible_mov_map[i].second, &debug_blue);
-			else
-				App->render->Blit(debug_texture, possible_mov_map[i].first, possible_mov_map[i].second, &debug_red);
+			if (!App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second }))
+			{
+				Cap++;
+				if (Cap > 8)
+					Cap = 0;
+			}
 		}
+		++i;
+	}
+
+	
+
+	i = 0;
+	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+	{
+		possible_mov_map[i] = App->map->MapToWorld((*possible_mov).first, (*possible_mov).second);
+		
+		if (i != Cap) 
+		{
+			if (App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second }))
+			{
+				App->render->Blit(debug_texture, possible_mov_map[i].first, possible_mov_map[i].second, &debug_blue);
+			}
+			else
+			{
+				App->render->Blit(debug_texture, possible_mov_map[i].first, possible_mov_map[i].second, &debug_red);
+			}
+		}
+		++i;
 	}
 	App->render->Blit(debug_texture, possible_mov_map[Cap].first, possible_mov_map[Cap].second, &debug_green);
+
+	MoveSelect();
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		current_turn = Entity::MOVE;
@@ -188,7 +206,15 @@ void CharacterSapphire::SelectWalk() {
 
 void CharacterSapphire::Walk(const std::vector<std::pair<int, int>> *_path)
 {
-	objective_position.push_back(App->map->MapToWorld((possible_mov[Cap].first), possible_mov[Cap].second));
+	int i = 0;
+	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+	{
+		if (i == Cap)
+		{
+			objective_position.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
+		}
+		++i;
+	}
 	
 	if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
 		CurrentMovement(WALK_LEFT_FRONT);
@@ -240,6 +266,8 @@ void CharacterSapphire::Walk(const std::vector<std::pair<int, int>> *_path)
 		}
 		current_turn = SELECT_ACTION;
 	}
+
+	
 }
 
 void CharacterSapphire::SearchAttack() {
@@ -248,7 +276,10 @@ void CharacterSapphire::SearchAttack() {
 	range = App->entity_manager->RangeOfAttack(cancer, 7, tiles_range_attk);
 
 
-
+	for (int i = 0; i < tiles_range_attk; i++) {
+		std::pair<int, int> tmp = App->map->MapToWorld(range[i].first, range[i].second);
+		App->render->Blit(debug_texture, tmp.first, tmp.second, &debug_red);
+	}
 	
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
 		current_turn = ATTACK;
@@ -281,6 +312,10 @@ void CharacterSapphire::Defend()
 		break;
 	}
 
+}
+
+void CharacterSapphire::EndTurn() {
+	possible_mov_list.clear();
 }
 
 void CharacterSapphire::Die()
@@ -352,12 +387,12 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 	case Entity::WALK_LEFT:
 		current_movement = WALK_LEFT;
 		current_animation = &walk_left;
-		position.first--;
+		position.first -= 2;
 		break;
 	case Entity::WALK_RIGHT:
 		current_movement = WALK_RIGHT;
 		current_animation = &walk_right;
-		position.first++;
+		position.first += 2;
 		break;
 	case Entity::WALK_FRONT:
 		current_movement = WALK_FRONT;
@@ -488,4 +523,265 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 	default:
 		break;
 	}
+}
+
+
+void CharacterSapphire::MoveSelect() {
+	/*if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i > 8) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if ((*possible_mov).first < (*possible_mov_2).first && (*possible_mov).second >(*possible_mov_2).second)
+					{
+						Cap -= 2;
+						if (Cap < 0)
+						{
+							Cap = 8;
+						}
+
+						if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second }))
+						{
+							i = 9;
+							break;
+						}
+
+					}
+				}
+			}
+			++i;
+		}
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i > 8) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if ((*possible_mov).first > (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
+					{
+						Cap += 2;
+						if (Cap > 8)
+						{
+							Cap = 0;
+						}
+
+						if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second }))
+						{
+							i = 9;
+							break;
+						}
+
+					}
+				}
+			}
+			++i;
+		}
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i > 8) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if ((*possible_mov).first > (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
+					{
+						Cap -= 4;
+						if (Cap < 0)
+						{
+							Cap = 8;
+						}
+
+						if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second }))
+						{
+							i = 9;
+							break;
+						}
+
+					}
+				}
+			}
+			++i;
+		}
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i > 8) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if ((*possible_mov).first < (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
+					{
+						Cap += 4;
+						if (Cap > 8)
+						{
+							Cap = 0;
+						}
+
+						if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second }))
+						{
+							i = 9;
+							break;
+						}
+
+					}
+				}
+			}
+			++i;
+		}
+	}*/
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i > 8) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if ((*possible_mov).first > (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
+					{
+						Cap -= 1;
+						if (Cap < 0)
+						{
+							Cap = 8;
+						}
+
+						if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second }))
+						{
+							i = 9;
+							break;
+						}
+
+					}
+				}
+			}
+			++i;
+		}
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i > 8) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if ((*possible_mov).first < (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
+					{
+						Cap += 1;
+						if (Cap > 8)
+						{
+							Cap = 0;
+						}
+
+						if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second }))
+						{
+							i = 9;
+							break;
+						}
+
+					}
+				}
+			}
+			++i;
+		}
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN ) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i > 8) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
+					{
+						Cap += 3;
+						if (Cap > 8)
+						{
+							Cap = 0;
+						}
+
+						if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second }))
+						{
+							i = 9;
+							break;
+						}
+
+					}
+				}
+			}
+			++i;
+		}
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i > 8) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
+					{
+						Cap -= 3;
+						if (Cap < 0)
+						{
+							Cap = 8;
+						}
+
+						if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second }))
+						{
+							i = 9;
+							break;
+						}
+
+					}
+				}
+			}
+			++i;
+		}
+	}
+	
 }

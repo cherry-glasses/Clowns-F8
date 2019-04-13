@@ -56,6 +56,7 @@ public:
 	virtual void Hability_2() {}
 	virtual void Hability_3() {}
 	virtual void Defend() {}
+	virtual void EndTurn() {}
 	virtual void Die() {}
 
 	// Load and Save
@@ -78,6 +79,7 @@ public:
 	virtual std::pair<int, int> GetPosition();
 	virtual void SetPosition(const float &_x, const float &_y);
 	virtual ENTITY_TYPE GetType();
+
 
 public:
 

@@ -29,6 +29,7 @@ public:
 	void Hability_2() {}
 	void Hability_3() {}
 	void Defend();
+	void EndTurn();
 	void Die();
 
 	void CurrentMovement(MOVEMENT _movement);
@@ -37,15 +38,18 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+	//Move Select
+	void MoveSelect();
 
-	//bool LoadAnimation(pugi::xml_node &_node, Animation &_anim);
+
 
 private:
 	int Cap = 0;
 
 	std::pair<int, int> possible_att[4];
-	std::pair<int, int> possible_mov[8];
-	std::pair<int, int> possible_mov_map[8];
+	std::list<std::pair<int, int>> possible_mov_list;
+	//std::pair<int, int> possible_mov[8];
+	std::pair<int, int> possible_mov_map[9];
 	std::pair<int, int> possible_att_map[4];
 };
 

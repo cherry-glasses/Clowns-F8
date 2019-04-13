@@ -27,6 +27,9 @@ public:
 	virtual bool Load(pugi::xml_node&) { return true; }
 	virtual bool Save(pugi::xml_node&) const { return true; }
 
+	//Moves Select
+	virtual void MoveSelect() {}
+
 protected:
 	int tiles_range_attk = 0;
 	std::pair<int, int>* range;
