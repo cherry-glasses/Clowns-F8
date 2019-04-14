@@ -39,8 +39,9 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	//Move Select
-	void InputSelect();
+	//Move and Attack Select
+	void InputSelectMove();
+	void InputSelectAttack();
 
 
 

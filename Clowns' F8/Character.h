@@ -29,8 +29,9 @@ public:
 	virtual bool Load(pugi::xml_node&) { return true; }
 	virtual bool Save(pugi::xml_node&) const { return true; }
 
-	//Moves Select
-	virtual void InputSelect() {}
+	//Moves and Attack Select
+	virtual void InputSelectMove() {}
+	virtual void InputSelectAttack() {}
 
 protected:
 	int tiles_range_attk = 0;

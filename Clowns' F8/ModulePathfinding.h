@@ -34,6 +34,9 @@ public:
 	// Utility: returns true is the tile is walkable
 	bool IsWalkable(const std::pair<int, int>& pos) const;
 
+	// Utility: returns true is the tile is attackable
+	bool IsAttackable(const std::pair<int, int>& pos) const;
+
 	// Utility: return the walkability value of a tile
 	uchar GetTileAt(const std::pair<int, int>& pos) const;
 
