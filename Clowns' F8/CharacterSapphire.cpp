@@ -783,7 +783,7 @@ void CharacterSapphire::InputSelect() {
 				{
 					if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
 					{
-						Cap += 3;
+						Cap += sqrt(possible_mov_list.size());
 						if (Cap >= possible_mov_list.size())
 						{
 							Cap = 0;
@@ -815,7 +815,7 @@ void CharacterSapphire::InputSelect() {
 				{
 					if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
 					{
-						Cap -= 3;
+						Cap -= sqrt(possible_mov_list.size());
 						if (Cap < 0)
 						{
 							Cap = possible_mov_list.size() - 1;
