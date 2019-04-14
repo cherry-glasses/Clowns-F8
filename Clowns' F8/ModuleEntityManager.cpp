@@ -243,7 +243,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			{
 				if ((*enemie)->GetPosition() == (*position))
 				{
-					(*enemie)->current_stats.Hp -= (_damage * (*enemie)->current_stats.DefF / 100);
+					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
 				}
 			}
 		}
@@ -257,7 +257,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			{
 				if ((*enemie)->GetPosition() == (*position))
 				{
-					(*enemie)->current_stats.Hp -= (_damage * (*enemie)->current_stats.DefF / 100);
+					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
 				}
 			}
 		}
@@ -271,10 +271,10 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				if ((*character)->GetPosition() == (*position))
 				{
 					if ((*character)->defend) {
-						(*character)->current_stats.Hp -= (_damage * ((*character)->current_stats.DefF * 1.2) / 100);
+						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF * 1.2 / 100));
 					}
 					else {
-						(*character)->current_stats.Hp -= (_damage * (*character)->current_stats.DefF / 100);
+						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF / 100));
 					}
 
 				}
@@ -289,10 +289,10 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				if ((*character)->GetPosition() == (*position))
 				{
 					if ((*character)->defend) {
-						(*character)->current_stats.Hp -= (_damage * ((*character)->current_stats.DefF * 1.2) / 100);
+						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF * 1.2 / 100));
 					}
 					else {
-						(*character)->current_stats.Hp -= (_damage * (*character)->current_stats.DefF / 100);
+						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF / 100));
 					}
 					
 				}

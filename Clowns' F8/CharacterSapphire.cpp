@@ -24,9 +24,6 @@ bool CharacterSapphire::PreUpdate() {
 	
 	if (current_state == ALIVE) {
 
-		objective_position.clear();
-		objective_position.push_back(position);
-
 		if (current_stats.Hp <= 0)
 		{
 			Die();
@@ -160,8 +157,6 @@ void CharacterSapphire::SearchWalk() {
 
 }
 
-// TODO 1: CompareByY CompareByX Sort sdlup sdldown
-
 void CharacterSapphire::SelectWalk() {
 
 	int i = 0;
@@ -273,6 +268,7 @@ void CharacterSapphire::Walk()
 }
 
 void CharacterSapphire::SearchAttack() {
+	objective_position.clear();
 	possible_mov_list.clear();
 	possible_map.clear();
 	Cap = 0;
@@ -352,6 +348,7 @@ void CharacterSapphire::SelectAttack() {
 
 void CharacterSapphire::Attack()
 {
+	objective_position.push_back({ possible_map.at(Cap).first, possible_map.at(Cap).second });
 	if ((position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
 		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
 		|| (position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
@@ -378,7 +375,6 @@ void CharacterSapphire::Attack()
 		CurrentMovement(ATTACK_LEFT_FRONT);
 	}
 	
-	current_turn = END_TURN;
 }
 
 void CharacterSapphire::Defend()
@@ -408,6 +404,7 @@ void CharacterSapphire::EndTurn() {
 	possible_mov_list.clear();
 	inrange_mov_list.clear();
 	possible_map.clear();
+	objective_position.clear();
 	Cap = 0;
 }
 

@@ -258,15 +258,15 @@ bool Scene::Update(float _dt)
 			
 		}
 
-		std::list<Entity*>::iterator character = App->entity_manager->characters.begin();
-		for (int i = 0; i < App->entity_manager->characters.size(); ++i)
+		int i = 0;
+		for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 		{
 			if (life_x.at(i) != ((124 * (*character)->current_stats.Hp) / (*character)->default_stats.Hp)
 				|| mana_x.at(i) != ((124 * (*character)->current_stats.Mana) / (*character)->default_stats.Mana))
 			{
 				CreatePortraits(*character, i);
 			}
-			++character;
+			++i;
 		}
 
 		for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
@@ -402,14 +402,11 @@ void Scene::CreatePortraits(Entity* _character, int _i)
 {
 	App->gui_manager->DeleteGUIElement(life.at(_i));
 	App->gui_manager->DeleteGUIElement(mana.at(_i));
-	App->gui_manager->DeleteGUIElement(portrait.at(_i));
 		
 	life_x.at(_i) = (124 * _character->current_stats.Hp) / _character->default_stats.Hp;
 	mana_x.at(_i) = (124 * _character->current_stats.Mana) / _character->default_stats.Mana;
 	life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, life_position.at(_i).first, life_position.at(_i).second, { 0, 58, life_x.at(_i), 29 });
 	mana.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, mana_position.at(_i).first, mana_position.at(_i).second, { 0, 86, mana_x.at(_i), 29 });
-	portrait.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, portrait_position.at(_i).first, portrait_position.at(_i).second, { 0, 115, 256, 128 });
-	
 }
 
 void Scene::ActionsMenu()
