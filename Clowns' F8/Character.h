@@ -24,6 +24,8 @@ public:
 	virtual void SearchAttack() {}
 	virtual void SelectWalk() {}
 	virtual void SelectAttack() {}
+	virtual void Walk() {}
+	virtual void Attack() {}
 
 	//Save and Load
 	virtual bool Load(pugi::xml_node&) { return true; }

@@ -188,7 +188,6 @@ void Boneyman::Attack(const std::vector<std::pair<int, int>> *_path)
 	}
 
 	if (_path->size() == 2) {
-		objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
 		if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
 			CurrentMovement(ATTACK_LEFT_FRONT);
 		}

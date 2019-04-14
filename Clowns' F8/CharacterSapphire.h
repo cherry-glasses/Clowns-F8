@@ -22,9 +22,9 @@ public:
 	//Move and Attack
 	void SearchWalk();
 	void SelectWalk();
-	void Walk(const std::vector<std::pair<int, int>> *_path);
+	void Walk();
 	void SearchAttack();
-	void Attack(const std::vector<std::pair<int, int>> *_path);
+	void Attack();
 	void SelectAttack();
 	void Hability_1() {}
 	void Hability_2() {}
