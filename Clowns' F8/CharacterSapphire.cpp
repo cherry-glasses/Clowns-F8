@@ -283,6 +283,9 @@ void CharacterSapphire::SearchAttack() {
 		possible_mov_list.push_back({ range[i].first, range[i].second });
 	}
 
+	possible_mov_list.sort(CompareByX);
+	possible_mov_list.sort(CompareByY);
+
 	current_turn = Entity::SELECT_ATTACK;
 	
 }
