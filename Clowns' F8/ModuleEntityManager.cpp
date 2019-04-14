@@ -222,6 +222,29 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 {
 	switch (_type)
 	{
+	case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				if ((*character)->GetPosition() == (*position))
+				{
+					(*character)->current_stats.Hp += _damage;
+				}
+			}
+		}
+		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				if ((*enemie)->GetPosition() == (*position))
+				{
+					(*enemie)->current_stats.Hp -= (_damage * (*enemie)->current_stats.DefF / 100);
+				}
+			}
+		}
+
+		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
 		// We can swap to all entiotyes for Hector.
 		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
@@ -230,7 +253,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			{
 				if ((*enemie)->GetPosition() == (*position))
 				{
-					(*enemie)->current_stats.Hp -= (_damage - (*enemie)->current_stats.DefF);
+					(*enemie)->current_stats.Hp -= (_damage * (*enemie)->current_stats.DefF / 100);
 				}
 			}
 		}

@@ -25,6 +25,7 @@ public:
 	void Walk(const std::vector<std::pair<int, int>> *_path);
 	void SearchAttack();
 	void Attack(const std::vector<std::pair<int, int>> *_path);
+	void SelectAttack();
 	void Hability_1() {}
 	void Hability_2() {}
 	void Hability_3() {}
@@ -39,18 +40,15 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	//Move Select
-	void MoveSelect();
+	void InputSelect();
 
 
 
 private:
 	int Cap = 0;
 
-	std::pair<int, int> possible_att[4];
 	std::list<std::pair<int, int>> possible_mov_list;
-	//std::pair<int, int> possible_mov[8];
-	std::pair<int, int> possible_mov_map[9];
-	std::pair<int, int> possible_att_map[4];
+	std::vector<std::pair<int, int>> possible_map;
 };
 
 #endif // !__CharacterSapphire_H__

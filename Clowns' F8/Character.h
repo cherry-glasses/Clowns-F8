@@ -22,13 +22,15 @@ public:
 
 	// Character thinks
 	virtual void SearchAttack() {}
+	virtual void SelectWalk() {}
+	virtual void SelectAttack() {}
 
 	//Save and Load
 	virtual bool Load(pugi::xml_node&) { return true; }
 	virtual bool Save(pugi::xml_node&) const { return true; }
 
 	//Moves Select
-	virtual void MoveSelect() {}
+	virtual void InputSelect() {}
 
 protected:
 	int tiles_range_attk = 0;
