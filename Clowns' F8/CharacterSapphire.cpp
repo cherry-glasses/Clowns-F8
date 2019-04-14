@@ -280,7 +280,7 @@ void CharacterSapphire::SearchAttack() {
 	range = App->entity_manager->RangeOfAttack(cancer, current_stats.RangeAtk, tiles_range_attk);
 	int x = cancer.first - current_stats.RangeAtk;
 	int y = cancer.second - current_stats.RangeAtk;
-	for (int i = 0; i < ((current_stats.RangeAtk * 2) * (current_stats.RangeAtk * 2)); i++)
+	for (int i = 0; i < ((current_stats.RangeAtk * 2)+1) * ((current_stats.RangeAtk * 2)+1); i++)
 	{
 		possible_mov_list.push_back({ x, y });
 		++x;
@@ -796,7 +796,7 @@ void CharacterSapphire::InputSelect() {
 				{
 					if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
 					{
-						Cap += sqrt(possible_mov_list.size()) + 1;
+						Cap += sqrt(possible_mov_list.size());
 						if (Cap >= possible_mov_list.size())
 						{
 							Cap = 0;
@@ -828,7 +828,7 @@ void CharacterSapphire::InputSelect() {
 				{
 					if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
 					{
-						Cap -= sqrt(possible_mov_list.size()) + 1;
+						Cap -= sqrt(possible_mov_list.size());
 						if (Cap < 0)
 						{
 							Cap = possible_mov_list.size() - 1;
