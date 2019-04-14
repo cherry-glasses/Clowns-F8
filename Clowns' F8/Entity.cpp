@@ -25,6 +25,7 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	default_stats.Mana = _config.child("stats").attribute("mana").as_int();
 	default_stats.AtkF = _config.child("stats").attribute("atk_f").as_int();
 	default_stats.AtkS = _config.child("stats").attribute("atk_s").as_int();
+	default_stats.RangeAtk = _config.child("stats").attribute("range_atk").as_int();
 	default_stats.DefF = _config.child("stats").attribute("def_f").as_int();
 	default_stats.DefS = _config.child("stats").attribute("def_s").as_int();
 	default_stats.Crit = _config.child("stats").attribute("crit").as_int();

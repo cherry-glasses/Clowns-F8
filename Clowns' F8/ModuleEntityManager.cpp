@@ -346,8 +346,6 @@ std::pair<int, int>* ModuleEntityManager::RangeOfAttack(std::pair<int, int> mypo
 				flag = true;
 				break;
 			}
-				
-				
 		}
 		if (!flag) {
 			for (int i = -1; i <= 1; i += 2) {
@@ -360,18 +358,11 @@ std::pair<int, int>* ModuleEntityManager::RangeOfAttack(std::pair<int, int> mypo
 					
 					if (InRange(myposition, tmp, radius)) {
 						frontier.push_back(tmp);
-						
 					}
-						
-
-					
 				}
-				
-
 			}
 			visited.push_back(aux);
 		}
-		
 	}
 
 	size = visited.size();
@@ -379,9 +370,7 @@ std::pair<int, int>* ModuleEntityManager::RangeOfAttack(std::pair<int, int> mypo
 	int i = 0;
 	for (std::list<std::pair<int, int>>::iterator eshorrible = visited.begin(); eshorrible != visited.end(); ++eshorrible, i++) {
 		ret[i] = (*eshorrible);
-
 	}
-
 
 	return ret;
 

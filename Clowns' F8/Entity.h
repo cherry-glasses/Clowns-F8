@@ -23,10 +23,11 @@ typedef struct {
 	int Mana;
 	int Cp;
 
-	int DefS;
-	int AtkS;
-	int DefF;
 	int AtkF;
+	int AtkS;
+	int RangeAtk;
+	int DefF;
+	int DefS;
 	int Crit;
 	int Agi;
 } Stats;

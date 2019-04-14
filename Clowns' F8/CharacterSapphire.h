@@ -48,6 +48,7 @@ private:
 	int Cap = 0;
 
 	std::list<std::pair<int, int>> possible_mov_list;
+	std::list<std::pair<int, int>> inrange_mov_list;
 	std::vector<std::pair<int, int>> possible_map;
 };
 

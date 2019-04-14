@@ -277,10 +277,23 @@ void CharacterSapphire::SearchAttack() {
 	possible_map.clear();
 	Cap = 0;
 	std::pair<int, int> cancer = App->map->WorldToMap(position.first, position.second);
-	range = App->entity_manager->RangeOfAttack(cancer, 7, tiles_range_attk);
-
+	range = App->entity_manager->RangeOfAttack(cancer, current_stats.RangeAtk, tiles_range_attk);
+	int x = cancer.first - current_stats.RangeAtk;
+	int y = cancer.second - current_stats.RangeAtk;
+	for (int i = 0; i < ((current_stats.RangeAtk * 2) * (current_stats.RangeAtk * 2)); i++)
+	{
+		possible_mov_list.push_back({ x, y });
+		++x;
+		if (x > cancer.first + current_stats.RangeAtk) {
+			x = cancer.first - current_stats.RangeAtk;
+			++y;
+		}
+		if (y > cancer.second + current_stats.RangeAtk) {
+			y = cancer.second - current_stats.RangeAtk;
+		}
+	}
 	for (int i = 0; i < tiles_range_attk; i++) {
-		possible_mov_list.push_back({ range[i].first, range[i].second });
+		inrange_mov_list.push_back({ range[i].first, range[i].second });
 	}
 
 	possible_mov_list.sort(CompareByX);
@@ -783,7 +796,7 @@ void CharacterSapphire::InputSelect() {
 				{
 					if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
 					{
-						Cap += sqrt(possible_mov_list.size());
+						Cap += sqrt(possible_mov_list.size()) + 1;
 						if (Cap >= possible_mov_list.size())
 						{
 							Cap = 0;
@@ -815,7 +828,7 @@ void CharacterSapphire::InputSelect() {
 				{
 					if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
 					{
-						Cap -= sqrt(possible_mov_list.size());
+						Cap -= sqrt(possible_mov_list.size()) + 1;
 						if (Cap < 0)
 						{
 							Cap = possible_mov_list.size() - 1;
