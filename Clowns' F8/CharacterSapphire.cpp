@@ -792,7 +792,8 @@ void CharacterSapphire::InputSelectAttack() {
 					if (j == Cap - 1) {
 						if ((*possible_mov).first > (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
 						{
-							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
+							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
+								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap -= 1;
 								if (Cap < 0)
@@ -826,7 +827,8 @@ void CharacterSapphire::InputSelectAttack() {
 					if (j == Cap + 1) {
 						if ((*possible_mov).first < (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
 						{
-							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
+							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
+								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap += 1;
 								if (Cap >= possible_mov_list.size())
@@ -860,7 +862,8 @@ void CharacterSapphire::InputSelectAttack() {
 					if (j == Cap + sqrt(possible_mov_list.size())) {
 						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
 						{
-							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
+							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
+								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap += sqrt(possible_mov_list.size());
 								if (Cap >= possible_mov_list.size())
@@ -894,7 +897,8 @@ void CharacterSapphire::InputSelectAttack() {
 					if (j == Cap - sqrt(possible_mov_list.size())) {
 						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
 						{
-							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
+							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
+								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap -= sqrt(possible_mov_list.size());
 								if (Cap < 0)
