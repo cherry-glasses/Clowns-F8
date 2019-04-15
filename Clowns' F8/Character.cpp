@@ -85,24 +85,11 @@ bool Character::Save(pugi::xml_node& node) const {
 
 void Character::SelectWalk() {
 
-	int i = 0;
-	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-	{
-		if (i == Cap)
-		{
-			if (!App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second })
-				|| App->pathfinding->IsAttackable({ (*possible_mov).first , (*possible_mov).second })
-				|| !(std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end()))
-			{
-				Cap++;
-				if (Cap >= possible_mov_list.size())
-					Cap = 0;
-			}
-		}
-		++i;
+	if (Cap == -1) {
+		Cap = possible_mov_list.size() / 2;
 	}
-
-	i = 0;
+	
+	int i = 0;
 	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 	{
 		possible_map.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
@@ -110,7 +97,7 @@ void Character::SelectWalk() {
 		if (i != Cap && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 		{
 			if (App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second })
-				&& !App->pathfinding->IsAttackable({ (*possible_mov).first , (*possible_mov).second }))
+				&& !App->pathfinding->IsUsed({ (*possible_mov).first , (*possible_mov).second }, this))
 			{
 				App->render->Blit(debug_texture, possible_map.at(i).first, possible_map.at(i).second, &debug_blue);
 			}
@@ -133,30 +120,18 @@ void Character::SelectWalk() {
 
 void Character::SelectAttack() {
 
-	int i = 0;
-	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-	{
-		if (i == Cap)
-		{
-			if (!App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second })
-				|| !(std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end()))
-			{
-				Cap++;
-				if (Cap >= possible_mov_list.size())
-					Cap = 0;
-			}
-		}
-		++i;
+	if (Cap == -1) {
+		Cap = possible_mov_list.size() / 2;
 	}
 
-	i = 0;
+	int i = 0;
 	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 	{
 		possible_map.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
 
 		if (i != Cap && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 		{
-			if (App->pathfinding->IsAttackable({ (*possible_mov).first , (*possible_mov).second }))
+			if (App->pathfinding->IsAttackable({ (*possible_mov).first , (*possible_mov).second } , type))
 			{
 				App->render->Blit(debug_texture, possible_map.at(i).first, possible_map.at(i).second, &debug_blue);
 			}
@@ -172,9 +147,13 @@ void Character::SelectAttack() {
 	InputSelectAttack();
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN
-		&& App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)))
+		&& App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second) , type))
 	{
 		current_turn = ATTACK;
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN) 
+	{
+		current_turn = SELECT_ACTION;
 	}
 }
 
@@ -206,7 +185,7 @@ void Character::EndTurn() {
 	inrange_mov_list.clear();
 	possible_map.clear();
 	objective_position.clear();
-	Cap = 0;
+	Cap = -1;
 }
 
 void Character::Die()

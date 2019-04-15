@@ -351,7 +351,6 @@ bool ModuleEntityManager::UpdateWalk(std::pair<int, int> tile_id) {
 		if (tile_id == tmp) {
 			ret = true;
 		}
-
 	}
 	return ret;
 }
