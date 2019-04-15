@@ -8,7 +8,7 @@
 
 CharacterGeorgeB::CharacterGeorgeB(ENTITY_TYPE _type, pugi::xml_node _config) : Character(_type, _config)
 {
-	CurrentMovement(IDLE_RIGHT_FRONT);
+	CurrentMovement(IDLE_RIGHT);
 	current = current_animation->GetCurrentFrame();
 }
 
@@ -91,38 +91,38 @@ void CharacterGeorgeB::Walk()
 		++i;
 	}
 
-	if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
-		CurrentMovement(WALK_LEFT_FRONT);
+	if (objective_position.back().first < position.first && objective_position.back().second == position.second) {
+		CurrentMovement(WALK_LEFT);
 	}
-	else if (objective_position.back().first > position.first && objective_position.back().second > position.second) {
-		CurrentMovement(WALK_RIGHT_FRONT);
+	else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
+		CurrentMovement(WALK_RIGHT);
 	}
-	else if (objective_position.back().first < position.first && objective_position.back().second < position.second) {
-		CurrentMovement(WALK_LEFT_BACK);
+	else if (objective_position.back().first == position.first && objective_position.back().second > position.second) {
+		CurrentMovement(WALK_FRONT);
 	}
-	else if (objective_position.back().first > position.first && objective_position.back().second < position.second) {
-		CurrentMovement(WALK_RIGHT_BACK);
+	else if (objective_position.back().first == position.first && objective_position.back().second < position.second) {
+		CurrentMovement(WALK_BACK);
 	}
 	else {
 		current_turn = SELECT_ACTION;
 	}
 
 	if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
-		if (current_movement == WALK_LEFT_FRONT)
+		if (current_movement == WALK_LEFT)
 		{
-			CurrentMovement(IDLE_LEFT_FRONT);
+			CurrentMovement(IDLE_LEFT);
 		}
-		else if (current_movement == WALK_RIGHT_FRONT)
+		else if (current_movement == WALK_RIGHT)
 		{
-			CurrentMovement(IDLE_RIGHT_FRONT);
+			CurrentMovement(IDLE_RIGHT);
 		}
-		else if (current_movement == WALK_LEFT_BACK)
+		else if (current_movement == WALK_FRONT)
 		{
-			CurrentMovement(IDLE_LEFT_BACK);
+			CurrentMovement(IDLE_FRONT);
 		}
-		else if (current_movement == WALK_RIGHT_BACK)
+		else if (current_movement == WALK_BACK)
 		{
-			CurrentMovement(IDLE_RIGHT_BACK);
+			CurrentMovement(IDLE_BACK);
 		}
 		current_turn = SELECT_ACTION;
 	}
@@ -216,44 +216,40 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 
 	switch (_movement)
 	{
-	case Entity::IDLE_LEFT_FRONT:
-		current_movement = IDLE_LEFT_FRONT;
-		current_animation = &idle_left_front;
+	case Entity::IDLE_LEFT:
+		current_movement = IDLE_LEFT;
+		current_animation = &idle_left;
 		break;
-	case Entity::IDLE_RIGHT_FRONT:
-		current_movement = IDLE_RIGHT_FRONT;
-		current_animation = &idle_right_front;
+	case Entity::IDLE_RIGHT:
+		current_movement = IDLE_RIGHT;
+		current_animation = &idle_right;
 		break;
-	case Entity::IDLE_LEFT_BACK:
-		current_movement = IDLE_LEFT_BACK;
-		current_animation = &idle_left_back;
+	case Entity::IDLE_FRONT:
+		current_movement = IDLE_FRONT;
+		current_animation = &idle_front;
 		break;
-	case Entity::IDLE_RIGHT_BACK:
-		current_movement = IDLE_RIGHT_BACK;
-		current_animation = &idle_right_back;
+	case Entity::IDLE_BACK:
+		current_movement = IDLE_BACK;
+		current_animation = &idle_back;
 		break;
-	case Entity::WALK_LEFT_FRONT:
-		current_movement = WALK_LEFT_FRONT;
-		current_animation = &walk_left_front;
+	case Entity::WALK_LEFT:
+		current_movement = WALK_LEFT;
+		current_animation = &walk_left;
 		position.first -= 2;
+		break;
+	case Entity::WALK_RIGHT:
+		current_movement = WALK_RIGHT;
+		current_animation = &walk_right;
+		position.first += 2;
+		break;
+	case Entity::WALK_FRONT:
+		current_movement = WALK_FRONT;
+		current_animation = &walk_front;
 		position.second++;
 		break;
-	case Entity::WALK_RIGHT_FRONT:
-		current_movement = WALK_RIGHT_FRONT;
-		current_animation = &walk_right_front;
-		position.first += 2;
-		position.second++;
-		break;
-	case Entity::WALK_LEFT_BACK:
-		current_movement = WALK_LEFT_BACK;
-		current_animation = &walk_left_back;
-		position.first -= 2;
-		position.second--;
-		break;
-	case Entity::WALK_RIGHT_BACK:
-		current_movement = WALK_RIGHT_BACK;
-		current_animation = &walk_right_back;
-		position.first += 2;
+	case Entity::WALK_BACK:
+		current_movement = WALK_BACK;
+		current_animation = &walk_back;
 		position.second--;
 		break;
 	case Entity::ATTACK_LEFT_FRONT:

@@ -50,6 +50,22 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	idle_right_back.speed = _config.child("animations").child("idle_right_back").attribute("speed").as_float();
 	idle_right_back.loop = _config.child("animations").child("idle_right_back").attribute("loop").as_bool(true);
 
+	LoadAnimation(_config.child("animations").child("idle_left").child("frame"), idle_left);
+	idle_left.speed = _config.child("animations").child("idle_left").attribute("speed").as_float();
+	idle_left.loop = _config.child("animations").child("idle_left").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("idle_right").child("frame"), idle_right);
+	idle_right.speed = _config.child("animations").child("idle_right").attribute("speed").as_float();
+	idle_right.loop = _config.child("animations").child("idle_right").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("idle_front").child("frame"), idle_front);
+	idle_front.speed = _config.child("animations").child("idle_front").attribute("speed").as_float();
+	idle_front.loop = _config.child("animations").child("idle_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("idle_back").child("frame"), idle_back);
+	idle_back.speed = _config.child("animations").child("idle_back").attribute("speed").as_float();
+	idle_back.loop = _config.child("animations").child("idle_back").attribute("loop").as_bool(true);
+
 	LoadAnimation(_config.child("animations").child("walk_left_front").child("frame"), walk_left_front);
 	walk_left_front.speed = _config.child("animations").child("walk_left_front").attribute("speed").as_float();
 	walk_left_front.loop = _config.child("animations").child("walk_left_front").attribute("loop").as_bool(true);

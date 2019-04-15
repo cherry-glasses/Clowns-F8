@@ -310,34 +310,34 @@
       <position x="3" y="15"/>
       <stats hp="75" mana="95" p_move="4" atk_f="75" atk_s="75" range_atk="6" def_f="75" def_s="75" crit="0.08"  agi="10"/>
       <animations>
-        <idle_left_front speed="0.2f" loop="true">
+        <idle_left speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>
           <frame x="128" y="0" width="64" height="64"/>
-        </idle_left_front>
-        <idle_right_front speed="0.2f" loop="true">
+        </idle_left>
+        <idle_right speed="0.2f" loop="true">
           <frame x="64" y="0" width="64" height="64"/>
           <frame x="192" y="0" width="64" height="64"/>
-        </idle_right_front>
-        <idle_left_back speed="0.2f" loop="true">
+        </idle_right>
+        <idle_front speed="0.2f" loop="true">
           <frame x="0" y="64" width="64" height="64"/>
           <frame x="128" y="64" width="64" height="64"/>
-        </idle_left_back>
-        <idle_right_back speed="0.2f" loop="true">
+        </idle_front>
+        <idle_back speed="0.2f" loop="true">
           <frame x="64" y="64" width="64" height="64"/>
           <frame x="192" y="64" width="64" height="64"/>
-        </idle_right_back>
-        <walk_left_front speed="0.2f" loop="true">
+        </idle_back>
+        <walk_left speed="0.2f" loop="true">
           <frame x="256" y="0" width="64" height="64"/>
-        </walk_left_front>
-        <walk_right_front speed="0.2f" loop="true">
+        </walk_left>
+        <walk_right speed="0.2f" loop="true">
           <frame x="320" y="0" width="64" height="64"/>
-        </walk_right_front>
-        <walk_left_back speed="0.2f" loop="true">
+        </walk_right>
+        <walk_front speed="0.2f" loop="true">
           <frame x="256" y="64" width="64" height="64"/>
-        </walk_left_back>
-        <walk_right_back speed="0" loop="true">
+        </walk_front>
+        <walk_back speed="0" loop="true">
           <frame x="320" y="64" width="64" height="64"/>
-        </walk_right_back>
+        </walk_back>
         <attack_left_front speed="0" loop="true">
           <frame x="0" y="128" width="64" height="64"/>
         </attack_left_front>
