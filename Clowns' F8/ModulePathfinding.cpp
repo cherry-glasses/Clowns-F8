@@ -419,7 +419,7 @@ int ModulePathfinding::CreatePathBishop(const std::pair<int, int>& origin, const
 		// TODO 4: If we just added the destination, we are done!
 		// Backtrack to create the final path
 		// Use the Pathnode::parent and Flip() the path when you are finish
-		if (current_node->pos == destination)
+		if (current_node->pos == destination || (current_node->pos.second == destination.second + 1 && current_node->pos.first == destination.first) || (current_node->pos.second == destination.second - 1 && current_node->pos.first == destination.first))
 		{
 			const PathNode* node = nullptr;
 			for (node = &(*current_node); node->pos != origin; node = node->parent) {
