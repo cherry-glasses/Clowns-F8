@@ -6,6 +6,7 @@
 #include "CharacterSapphire.h"
 #include "CharacterIris.h"
 #include "CharacterStorm.h"
+#include "CharacterGeorgeB.h"
 #include "Boneyman.h"
 #include "Pinkking.h"
 #include "Hotdog.h"
@@ -187,6 +188,11 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		entities.push_back(tmp);
 		characters.push_back(tmp);
 		break;
+	case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
+		tmp = new CharacterGeorgeB(_type, entity_configs.child("georgeb"));
+		entities.push_back(tmp);
+		characters.push_back(tmp);
+		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
 		for (int i = 0; i < 4; i++)
 		{
@@ -247,7 +253,6 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				}
 			}
 		}
-
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
 		// We can swap to all entiotyes for Hector.
@@ -261,7 +266,32 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				}
 			}
 		}
-
+		break;
+	case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
+		// We can swap to all entiotyes for Hector.
+		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				if ((*enemie)->GetPosition() == (*position))
+				{
+					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+				}
+			}
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
+		// We can swap to all entiotyes for Hector.
+		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				if ((*enemie)->GetPosition() == (*position))
+				{
+					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+				}
+			}
+		}
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_PINKKING:
 		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
@@ -323,9 +353,6 @@ bool ModuleEntityManager::UpdateWalk(std::pair<int, int> tile_id) {
 		}
 
 	}
-
-
-	
 	return ret;
 }
 
@@ -377,6 +404,5 @@ std::pair<int, int>* ModuleEntityManager::RangeOfAttack(std::pair<int, int> mypo
 	}
 
 	return ret;
-
 }
 

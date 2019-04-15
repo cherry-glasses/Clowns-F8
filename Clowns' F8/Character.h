@@ -16,20 +16,25 @@ public:
 	virtual bool Start() { return true; }
 
 	// Called each loop iteration
-	virtual bool PreUpdate() { return true; }
-	virtual bool Update(float _dt) { return true; }
-	virtual bool PostUpdate() { return true; }
+	virtual bool PreUpdate();
+	virtual bool Update(float _dt);
+	virtual bool PostUpdate();
 
 	// Character thinks
-	virtual void SearchAttack() {}
-	virtual void SelectWalk() {}
-	virtual void SelectAttack() {}
+	virtual void SearchWalk() {}
+	virtual void SelectWalk();
 	virtual void Walk() {}
+	virtual void SearchAttack() {}
+	virtual void SelectAttack();
 	virtual void Attack() {}
+	virtual void Defend();
+	void CurrentMovement(MOVEMENT _movement) {}
+	void EndTurn();
+	void Die();
 
 	//Save and Load
-	virtual bool Load(pugi::xml_node&) { return true; }
-	virtual bool Save(pugi::xml_node&) const { return true; }
+	virtual bool Load(pugi::xml_node&);
+	virtual bool Save(pugi::xml_node&) const;
 
 	//Moves and Attack Select
 	virtual void InputSelectMove() {}
@@ -38,21 +43,10 @@ public:
 protected:
 	int tiles_range_attk = 0;
 	std::pair<int, int>* range;
-	enum Move_Steps {
-		SEARCH,
-		SELECT,
-		MOVE,
-		IDLE
-	};
-
-	enum Attack_Steps {
-		SELECT_A,
-		SEARCH_A,
-		ATTACK_A,
-		IDLE_A
-	};
-
-	//SDL_Texture *char_tex;
+	int Cap = 0;
+	std::list<std::pair<int, int>> possible_mov_list;
+	std::list<std::pair<int, int>> inrange_mov_list;
+	std::vector<std::pair<int, int>> possible_map;
 };
 
 #endif // !__Character_H__

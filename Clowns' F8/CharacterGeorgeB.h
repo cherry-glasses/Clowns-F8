@@ -1,15 +1,16 @@
-#ifndef _CharacterSapphire_H__
-#define _CharacterSapphire_H__
+#ifndef _CharacterGeorgeB_H__
+#define _CharacterGeorgeB_H__
 
 #include "Character.h"
 
-class CharacterSapphire : public Character
+class CharacterGeorgeB : public Character
 {
 public:
-	CharacterSapphire(ENTITY_TYPE _type, pugi::xml_node _config);
+
+	CharacterGeorgeB(ENTITY_TYPE _type, pugi::xml_node _config);
 
 	// Destructor
-	~CharacterSapphire();
+	~CharacterGeorgeB();
 
 	//Move and Attack
 	void SearchWalk();
@@ -28,4 +29,4 @@ public:
 
 };
 
-#endif // !__CharacterSapphire_H__
+#endif // !__CharacterGeorgeB_H__
