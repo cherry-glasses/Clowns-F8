@@ -75,55 +75,6 @@ void CharacterStorm::SearchWalk() {
 	current_turn = Entity::SELECT_MOVE;
 }
 
-void CharacterStorm::Walk()
-{
-	int i = 0;
-	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-	{
-		if (i == Cap)
-		{
-			objective_position.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
-		}
-		++i;
-	}
-
-	if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
-		CurrentMovement(WALK_LEFT_FRONT);
-	}
-	else if (objective_position.back().first > position.first && objective_position.back().second > position.second) {
-		CurrentMovement(WALK_RIGHT_FRONT);
-	}
-	else if (objective_position.back().first < position.first && objective_position.back().second < position.second) {
-		CurrentMovement(WALK_LEFT_BACK);
-	}
-	else if (objective_position.back().first > position.first && objective_position.back().second < position.second) {
-		CurrentMovement(WALK_RIGHT_BACK);
-	}
-	else {
-		current_turn = SELECT_ACTION;
-	}
-
-	if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
-		if (current_movement == WALK_LEFT_FRONT)
-		{
-			CurrentMovement(IDLE_LEFT_FRONT);
-		}
-		else if (current_movement == WALK_RIGHT_FRONT)
-		{
-			CurrentMovement(IDLE_RIGHT_FRONT);
-		}
-		else if (current_movement == WALK_LEFT_BACK)
-		{
-			CurrentMovement(IDLE_LEFT_BACK);
-		}
-		else if (current_movement == WALK_RIGHT_BACK)
-		{
-			CurrentMovement(IDLE_RIGHT_BACK);
-		}
-		current_turn = SELECT_ACTION;
-	}
-}
-
 void CharacterStorm::SearchAttack() {
 	objective_position.clear();
 	inrange_mov_list.clear();
@@ -152,20 +103,32 @@ void CharacterStorm::SearchAttack() {
 	inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	tmp.first += 1;
-	inrange_mov_list.push_back(tmp);
+	for (int i = 1; i <= current_stats.RangeAtk; i++)
+	{
+		tmp.first += 1;
+		inrange_mov_list.push_back(tmp);
+	}
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	tmp.second += 1;
-	inrange_mov_list.push_back(tmp);
+	for (int i = 1; i <= current_stats.RangeAtk; i++)
+	{
+		tmp.first -= 1;
+		inrange_mov_list.push_back(tmp);
+	}
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	tmp.first -= 1;
-	inrange_mov_list.push_back(tmp);
+	for (int i = 1; i <= current_stats.RangeAtk; i++)
+	{
+		tmp.second += 1;
+		inrange_mov_list.push_back(tmp);
+	}
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	tmp.second -= 1;
-	inrange_mov_list.push_back(tmp);
+	for (int i = 1; i <= current_stats.RangeAtk; i++)
+	{
+		tmp.second -= 1;
+		inrange_mov_list.push_back(tmp);
+	}
 
 
 	tmp.first = NULL;
@@ -175,37 +138,6 @@ void CharacterStorm::SearchAttack() {
 	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.second < b.second; });
 
 	current_turn = Entity::SELECT_ATTACK;
-}
-
-void CharacterStorm::Attack()
-{
-	objective_position.push_back({ possible_map.at(Cap).first, possible_map.at(Cap).second });
-	if ((position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-		|| (position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-			&& position.second < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second))
-	{
-		CurrentMovement(ATTACK_LEFT_FRONT);
-	}
-	else if (position.first < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ATTACK_RIGHT_FRONT);
-	}
-	else if (position.first > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ATTACK_LEFT_BACK);
-	}
-	else if (position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ATTACK_RIGHT_BACK);
-	}
-	else {
-		CurrentMovement(ATTACK_LEFT_FRONT);
-	}
-
 }
 
 void CharacterStorm::CurrentMovement(MOVEMENT _movement) {

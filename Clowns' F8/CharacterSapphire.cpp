@@ -53,14 +53,12 @@ void CharacterSapphire::SearchWalk() {
 		inrange_mov_list.push_back(tmp);
 	}
 	
-
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
 	{
 		tmp.second += 1;
 		inrange_mov_list.push_back(tmp);
 	}
-	
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
@@ -70,7 +68,6 @@ void CharacterSapphire::SearchWalk() {
 		inrange_mov_list.push_back(tmp);
 	}
 	
-
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++) 
 	{
@@ -78,7 +75,6 @@ void CharacterSapphire::SearchWalk() {
 		inrange_mov_list.push_back(tmp);
 	}
 	
-
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
 	{
@@ -87,7 +83,6 @@ void CharacterSapphire::SearchWalk() {
 		inrange_mov_list.push_back(tmp);
 	}
 	
-
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
 	{
@@ -95,7 +90,6 @@ void CharacterSapphire::SearchWalk() {
 		inrange_mov_list.push_back(tmp);
 	}
 	
-
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
 	{
@@ -104,7 +98,6 @@ void CharacterSapphire::SearchWalk() {
 		inrange_mov_list.push_back(tmp);
 	}
 	
-
 	tmp.first = NULL;
 	tmp.second = NULL;
 
@@ -113,68 +106,6 @@ void CharacterSapphire::SearchWalk() {
 
 	current_turn = Entity::SELECT_MOVE;
 
-}
-
-
-void CharacterSapphire::Walk()
-{
-	int i = 0;
-	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-	{
-		if (i == Cap)
-		{
-			objective_position.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
-		}
-		++i;
-	}
-	
-	if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
-		CurrentMovement(WALK_LEFT_FRONT);
-	}
-	else if (objective_position.back().first > position.first && objective_position.back().second > position.second) {
-		CurrentMovement(WALK_RIGHT_FRONT);
-	}
-	else if (objective_position.back().first < position.first && objective_position.back().second < position.second) {
-		CurrentMovement(WALK_LEFT_BACK);
-	}
-	else if (objective_position.back().first > position.first && objective_position.back().second < position.second) {
-		CurrentMovement(WALK_RIGHT_BACK);
-	}
-	else if (objective_position.back().first == position.first && objective_position.back().second > position.second) {
-		CurrentMovement(WALK_FRONT);
-	}
-	else if (objective_position.back().first == position.first && objective_position.back().second < position.second) {
-		CurrentMovement(WALK_BACK);
-	}
-	else if (objective_position.back().first < position.first && objective_position.back().second == position.second) {
-		CurrentMovement(WALK_LEFT);
-	}
-	else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
-		CurrentMovement(WALK_RIGHT);
-	}
-	else {
-		current_turn = SELECT_ACTION;
-	}
-
-	if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
-		if (current_movement == WALK_LEFT_FRONT || current_movement == WALK_LEFT)
-		{
-		CurrentMovement(IDLE_LEFT_FRONT);
-		}
-		else if (current_movement == WALK_RIGHT_FRONT || current_movement == WALK_RIGHT || current_movement == WALK_FRONT)
-		{
-			CurrentMovement(IDLE_RIGHT_FRONT);
-		}
-		else if (current_movement == WALK_LEFT_BACK)
-		{
-			CurrentMovement(IDLE_LEFT_BACK);
-		}
-		else if (current_movement == WALK_RIGHT_BACK || current_movement == WALK_BACK)
-		{
-			CurrentMovement(IDLE_RIGHT_BACK);
-		}
-		current_turn = SELECT_ACTION;
-	}
 }
 
 void CharacterSapphire::SearchAttack() {
@@ -211,36 +142,7 @@ void CharacterSapphire::SearchAttack() {
 
 }
 
-void CharacterSapphire::Attack()
-{
-	objective_position.push_back({ possible_map.at(Cap).first, possible_map.at(Cap).second });
-	if ((position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-		|| (position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-			&& position.second < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second))
-	{
-		CurrentMovement(ATTACK_LEFT_FRONT);
-	}
-	else if (position.first < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-			&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ATTACK_RIGHT_FRONT);
-	}
-	else if (position.first > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ATTACK_LEFT_BACK);
-	}
-	else if (position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ATTACK_RIGHT_BACK);
-	}
-	else {
-		CurrentMovement(ATTACK_LEFT_FRONT);
-	}
-	
-}
+
 
 void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 
@@ -261,6 +163,22 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 	case Entity::IDLE_RIGHT_BACK:
 		current_movement = IDLE_RIGHT_BACK;
 		current_animation = &idle_right_back;
+		break;
+	case Entity::IDLE_LEFT:
+		current_movement = IDLE_LEFT;
+		current_animation = &idle_left;
+		break;
+	case Entity::IDLE_RIGHT:
+		current_movement = IDLE_RIGHT;
+		current_animation = &idle_right;
+		break;
+	case Entity::IDLE_FRONT:
+		current_movement = IDLE_FRONT;
+		current_animation = &idle_front;
+		break;
+	case Entity::IDLE_BACK:
+		current_movement = IDLE_BACK;
+		current_animation = &idle_back;
 		break;
 	case Entity::WALK_LEFT_FRONT:
 		current_movement = WALK_LEFT_FRONT;
@@ -309,26 +227,66 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 	case Entity::ATTACK_LEFT_FRONT:
 		current_movement = ATTACK_LEFT_FRONT;
 		current_animation = &attack_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-		current_turn = END_TURN;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			current_turn = END_TURN;
+		}
 		break;
 	case Entity::ATTACK_RIGHT_FRONT:
 		current_movement = ATTACK_RIGHT_FRONT;
 		current_animation = &attack_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-		current_turn = END_TURN;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			current_turn = END_TURN;
+		}
 		break;
 	case Entity::ATTACK_LEFT_BACK:
 		current_movement = ATTACK_LEFT_BACK;
 		current_animation = &attack_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-		current_turn = END_TURN;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			current_turn = END_TURN;
+		}
 		break;
 	case Entity::ATTACK_RIGHT_BACK:
 		current_movement = ATTACK_RIGHT_BACK;
 		current_animation = &attack_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-		current_turn = END_TURN;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ATTACK_LEFT:
+		current_movement = ATTACK_LEFT;
+		current_animation = &attack_left;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ATTACK_RIGHT:
+		current_movement = ATTACK_RIGHT;
+		current_animation = &attack_right;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ATTACK_FRONT:
+		current_movement = ATTACK_FRONT;
+		current_animation = &attack_front;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ATTACK_BACK:
+		current_movement = ATTACK_BACK;
+		current_animation = &attack_back;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			current_turn = END_TURN;
+		}
 		break;
 	case Entity::ABILITY_1_LEFT_FRONT:
 		current_movement = ABILITY_1_LEFT_FRONT;
@@ -398,6 +356,26 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &defend_right_back;
 		current_turn = END_TURN;
 		break;
+	case Entity::DEFEND_LEFT:
+		current_movement = DEFEND_LEFT;
+		current_animation = &defend_left;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEFEND_RIGHT:
+		current_movement = DEFEND_RIGHT;
+		current_animation = &defend_right;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEFEND_FRONT:
+		current_movement = DEFEND_FRONT;
+		current_animation = &defend_front;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEFEND_BACK:
+		current_movement = DEFEND_BACK;
+		current_animation = &defend_back;
+		current_turn = END_TURN;
+		break;
 	case Entity::DEAD_LEFT_FRONT:
 		current_movement = DEAD_LEFT_FRONT;
 		current_animation = &dead_left_front;
@@ -419,6 +397,30 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 	case Entity::DEAD_RIGHT_BACK:
 		current_movement = DEAD_RIGHT_BACK;
 		current_animation = &dead_right_back;
+		current_state = DEATH;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEAD_LEFT:
+		current_movement = DEAD_LEFT;
+		current_animation = &dead_left;
+		current_state = DEATH;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEAD_RIGHT:
+		current_movement = DEAD_RIGHT;
+		current_animation = &dead_right;
+		current_state = DEATH;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEAD_FRONT:
+		current_movement = DEAD_FRONT;
+		current_animation = &dead_front;
+		current_state = DEATH;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEAD_BACK:
+		current_movement = DEAD_BACK;
+		current_animation = &dead_back;
 		current_state = DEATH;
 		current_turn = END_TURN;
 		break;

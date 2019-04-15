@@ -34,119 +34,7 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 
 	current_stats = default_stats;
 
-	LoadAnimation(_config.child("animations").child("idle_left_front").child("frame"), idle_left_front);
-	idle_left_front.speed = _config.child("animations").child("idle_left_front").attribute("speed").as_float();
-	idle_left_front.loop = _config.child("animations").child("idle_left_front").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("idle_right_front").child("frame"), idle_right_front);
-	idle_right_front.speed = _config.child("animations").child("idle_right_front").attribute("speed").as_float();
-	idle_right_front.loop = _config.child("animations").child("idle_right_front").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("idle_left_back").child("frame"), idle_left_back);
-	idle_left_back.speed = _config.child("animations").child("idle_left_back").attribute("speed").as_float();
-	idle_left_back.loop = _config.child("animations").child("idle_left_back").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("idle_right_back").child("frame"), idle_right_back);
-	idle_right_back.speed = _config.child("animations").child("idle_right_back").attribute("speed").as_float();
-	idle_right_back.loop = _config.child("animations").child("idle_right_back").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("idle_left").child("frame"), idle_left);
-	idle_left.speed = _config.child("animations").child("idle_left").attribute("speed").as_float();
-	idle_left.loop = _config.child("animations").child("idle_left").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("idle_right").child("frame"), idle_right);
-	idle_right.speed = _config.child("animations").child("idle_right").attribute("speed").as_float();
-	idle_right.loop = _config.child("animations").child("idle_right").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("idle_front").child("frame"), idle_front);
-	idle_front.speed = _config.child("animations").child("idle_front").attribute("speed").as_float();
-	idle_front.loop = _config.child("animations").child("idle_front").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("idle_back").child("frame"), idle_back);
-	idle_back.speed = _config.child("animations").child("idle_back").attribute("speed").as_float();
-	idle_back.loop = _config.child("animations").child("idle_back").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("walk_left_front").child("frame"), walk_left_front);
-	walk_left_front.speed = _config.child("animations").child("walk_left_front").attribute("speed").as_float();
-	walk_left_front.loop = _config.child("animations").child("walk_left_front").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("walk_right_front").child("frame"), walk_right_front);
-	walk_right_front.speed = _config.child("animations").child("walk_right_front").attribute("speed").as_float();
-	walk_right_front.loop = _config.child("animations").child("walk_right_front").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("walk_left_back").child("frame"), walk_left_back);
-	walk_left_back.speed = _config.child("animations").child("walk_left_back").attribute("speed").as_float();
-	walk_left_back.loop = _config.child("animations").child("walk_left_back").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("walk_right_back").child("frame"), walk_right_back);
-	walk_right_back.speed = _config.child("animations").child("walk_right_back").attribute("speed").as_float();
-	walk_right_back.loop = _config.child("animations").child("walk_right_back").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("walk_left").child("frame"), walk_left);
-	walk_left.speed = _config.child("animations").child("walk_left").attribute("speed").as_float();
-	walk_left.loop = _config.child("animations").child("walk_left").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("walk_right").child("frame"), walk_right);
-	walk_right.speed = _config.child("animations").child("walk_right").attribute("speed").as_float();
-	walk_right.loop = _config.child("animations").child("walk_right").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("walk_front").child("frame"), walk_front);
-	walk_front.speed = _config.child("animations").child("walk_front").attribute("speed").as_float();
-	walk_front.loop = _config.child("animations").child("walk_front").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("walk_back").child("frame"), walk_back);
-	walk_back.speed = _config.child("animations").child("walk_back").attribute("speed").as_float();
-	walk_back.loop = _config.child("animations").child("walk_back").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("attack_left_front").child("frame"), attack_left_front);
-	attack_left_front.speed = _config.child("animations").child("attack_left_front").attribute("speed").as_float();
-	attack_left_front.loop = _config.child("animations").child("attack_left_front").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("attack_right_front").child("frame"), attack_right_front);
-	attack_right_front.speed = _config.child("animations").child("attack_right_front").attribute("speed").as_float();
-	attack_right_front.loop = _config.child("animations").child("attack_right_front").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("attack_left_back").child("frame"), attack_left_back);
-	attack_left_back.speed = _config.child("animations").child("attack_left_back").attribute("speed").as_float();
-	attack_left_back.loop = _config.child("animations").child("attack_left_back").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("attack_right_back").child("frame"), attack_right_back);
-	attack_right_back.speed = _config.child("animations").child("attack_right_back").attribute("speed").as_float();
-	attack_right_back.loop = _config.child("animations").child("attack_right_back").attribute("loop").as_bool(true);
-
-	// Habilities HERE.
-
-	LoadAnimation(_config.child("animations").child("defend_left_front").child("frame"), defend_left_front);
-	defend_left_front.speed = _config.child("animations").child("defend_left_front").attribute("speed").as_float();
-	defend_left_front.loop = _config.child("animations").child("defend_left_front").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("defend_right_front").child("frame"), defend_right_front);
-	defend_right_front.speed = _config.child("animations").child("defend_right_front").attribute("speed").as_float();
-	defend_right_front.loop = _config.child("animations").child("defend_right_front").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("defend_left_back").child("frame"), defend_left_back);
-	defend_left_back.speed = _config.child("animations").child("defend_left_back").attribute("speed").as_float();
-	defend_left_back.loop = _config.child("animations").child("defend_left_back").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("defend_right_back").child("frame"), defend_right_back);
-	defend_right_back.speed = _config.child("animations").child("defend_right_back").attribute("speed").as_float();
-	defend_right_back.loop = _config.child("animations").child("defend_right_back").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("dead_left_front").child("frame"), dead_left_front);
-	dead_left_front.speed = _config.child("animations").child("dead_left_front").attribute("speed").as_float();
-	dead_left_front.loop = _config.child("animations").child("dead_left_front").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("dead_right_front").child("frame"), dead_right_front);
-	dead_right_front.speed = _config.child("animations").child("dead_right_front").attribute("speed").as_float();
-	dead_right_front.loop = _config.child("animations").child("dead_right_front").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("dead_left_back").child("frame"), dead_left_back);
-	dead_left_back.speed = _config.child("animations").child("dead_left_back").attribute("speed").as_float();
-	dead_left_back.loop = _config.child("animations").child("dead_left_back").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("dead_right_back").child("frame"), dead_right_back);
-	dead_right_back.speed = _config.child("animations").child("dead_right_back").attribute("speed").as_float();
-	dead_right_back.loop = _config.child("animations").child("dead_right_back").attribute("loop").as_bool(true);
+	LoadAnim(_config);
 
 	current_turn = NONE;
 
@@ -211,4 +99,176 @@ void Entity::SetPosition(const float &_x, const float &_y)
 ENTITY_TYPE Entity::GetType()
 {
 	return type;
+}
+
+void Entity::LoadAnim(pugi::xml_node _config)
+{
+	// IDLE
+	LoadAnimation(_config.child("animations").child("idle_left_front").child("frame"), idle_left_front);
+	idle_left_front.speed = _config.child("animations").child("idle_left_front").attribute("speed").as_float();
+	idle_left_front.loop = _config.child("animations").child("idle_left_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("idle_right_front").child("frame"), idle_right_front);
+	idle_right_front.speed = _config.child("animations").child("idle_right_front").attribute("speed").as_float();
+	idle_right_front.loop = _config.child("animations").child("idle_right_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("idle_left_back").child("frame"), idle_left_back);
+	idle_left_back.speed = _config.child("animations").child("idle_left_back").attribute("speed").as_float();
+	idle_left_back.loop = _config.child("animations").child("idle_left_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("idle_right_back").child("frame"), idle_right_back);
+	idle_right_back.speed = _config.child("animations").child("idle_right_back").attribute("speed").as_float();
+	idle_right_back.loop = _config.child("animations").child("idle_right_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("idle_left").child("frame"), idle_left);
+	idle_left.speed = _config.child("animations").child("idle_left").attribute("speed").as_float();
+	idle_left.loop = _config.child("animations").child("idle_left").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("idle_right").child("frame"), idle_right);
+	idle_right.speed = _config.child("animations").child("idle_right").attribute("speed").as_float();
+	idle_right.loop = _config.child("animations").child("idle_right").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("idle_front").child("frame"), idle_front);
+	idle_front.speed = _config.child("animations").child("idle_front").attribute("speed").as_float();
+	idle_front.loop = _config.child("animations").child("idle_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("idle_back").child("frame"), idle_back);
+	idle_back.speed = _config.child("animations").child("idle_back").attribute("speed").as_float();
+	idle_back.loop = _config.child("animations").child("idle_back").attribute("loop").as_bool(true);
+
+	// WALK
+	LoadAnimation(_config.child("animations").child("walk_left_front").child("frame"), walk_left_front);
+	walk_left_front.speed = _config.child("animations").child("walk_left_front").attribute("speed").as_float();
+	walk_left_front.loop = _config.child("animations").child("walk_left_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("walk_right_front").child("frame"), walk_right_front);
+	walk_right_front.speed = _config.child("animations").child("walk_right_front").attribute("speed").as_float();
+	walk_right_front.loop = _config.child("animations").child("walk_right_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("walk_left_back").child("frame"), walk_left_back);
+	walk_left_back.speed = _config.child("animations").child("walk_left_back").attribute("speed").as_float();
+	walk_left_back.loop = _config.child("animations").child("walk_left_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("walk_right_back").child("frame"), walk_right_back);
+	walk_right_back.speed = _config.child("animations").child("walk_right_back").attribute("speed").as_float();
+	walk_right_back.loop = _config.child("animations").child("walk_right_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("walk_left").child("frame"), walk_left);
+	walk_left.speed = _config.child("animations").child("walk_left").attribute("speed").as_float();
+	walk_left.loop = _config.child("animations").child("walk_left").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("walk_right").child("frame"), walk_right);
+	walk_right.speed = _config.child("animations").child("walk_right").attribute("speed").as_float();
+	walk_right.loop = _config.child("animations").child("walk_right").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("walk_front").child("frame"), walk_front);
+	walk_front.speed = _config.child("animations").child("walk_front").attribute("speed").as_float();
+	walk_front.loop = _config.child("animations").child("walk_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("walk_back").child("frame"), walk_back);
+	walk_back.speed = _config.child("animations").child("walk_back").attribute("speed").as_float();
+	walk_back.loop = _config.child("animations").child("walk_back").attribute("loop").as_bool(true);
+
+	// ATTACK
+	LoadAnimation(_config.child("animations").child("attack_left_front").child("frame"), attack_left_front);
+	attack_left_front.speed = _config.child("animations").child("attack_left_front").attribute("speed").as_float();
+	attack_left_front.loop = _config.child("animations").child("attack_left_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("attack_right_front").child("frame"), attack_right_front);
+	attack_right_front.speed = _config.child("animations").child("attack_right_front").attribute("speed").as_float();
+	attack_right_front.loop = _config.child("animations").child("attack_right_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("attack_left_back").child("frame"), attack_left_back);
+	attack_left_back.speed = _config.child("animations").child("attack_left_back").attribute("speed").as_float();
+	attack_left_back.loop = _config.child("animations").child("attack_left_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("attack_right_back").child("frame"), attack_right_back);
+	attack_right_back.speed = _config.child("animations").child("attack_right_back").attribute("speed").as_float();
+	attack_right_back.loop = _config.child("animations").child("attack_right_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("attack_left").child("frame"), attack_left);
+	attack_left.speed = _config.child("animations").child("attack_left").attribute("speed").as_float();
+	attack_left.loop = _config.child("animations").child("attack_left").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("attack_right").child("frame"), attack_right);
+	attack_right.speed = _config.child("animations").child("attack_right").attribute("speed").as_float();
+	attack_right.loop = _config.child("animations").child("attack_right").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("attack_front").child("frame"), attack_front);
+	attack_front.speed = _config.child("animations").child("attack_front").attribute("speed").as_float();
+	attack_front.loop = _config.child("animations").child("attack_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("attack_back").child("frame"), attack_back);
+	attack_back.speed = _config.child("animations").child("attack_back").attribute("speed").as_float();
+	attack_back.loop = _config.child("animations").child("attack_back").attribute("loop").as_bool(true);
+
+	// Habilities HERE.
+
+
+	// DEFEND
+	LoadAnimation(_config.child("animations").child("defend_left_front").child("frame"), defend_left_front);
+	defend_left_front.speed = _config.child("animations").child("defend_left_front").attribute("speed").as_float();
+	defend_left_front.loop = _config.child("animations").child("defend_left_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("defend_right_front").child("frame"), defend_right_front);
+	defend_right_front.speed = _config.child("animations").child("defend_right_front").attribute("speed").as_float();
+	defend_right_front.loop = _config.child("animations").child("defend_right_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("defend_left_back").child("frame"), defend_left_back);
+	defend_left_back.speed = _config.child("animations").child("defend_left_back").attribute("speed").as_float();
+	defend_left_back.loop = _config.child("animations").child("defend_left_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("defend_right_back").child("frame"), defend_right_back);
+	defend_right_back.speed = _config.child("animations").child("defend_right_back").attribute("speed").as_float();
+	defend_right_back.loop = _config.child("animations").child("defend_right_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("defend_left").child("frame"), defend_left);
+	defend_left.speed = _config.child("animations").child("defend_left").attribute("speed").as_float();
+	defend_left.loop = _config.child("animations").child("defend_left").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("defend_right").child("frame"), defend_right);
+	defend_right.speed = _config.child("animations").child("defend_right").attribute("speed").as_float();
+	defend_right.loop = _config.child("animations").child("defend_right").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("defend_front").child("frame"), defend_front);
+	defend_front.speed = _config.child("animations").child("defend_front").attribute("speed").as_float();
+	defend_front.loop = _config.child("animations").child("defend_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("defend_back").child("frame"), defend_back);
+	defend_back.speed = _config.child("animations").child("defend_back").attribute("speed").as_float();
+	defend_back.loop = _config.child("animations").child("defend_back").attribute("loop").as_bool(true);
+
+	// DEAD
+	LoadAnimation(_config.child("animations").child("dead_left_front").child("frame"), dead_left_front);
+	dead_left_front.speed = _config.child("animations").child("dead_left_front").attribute("speed").as_float();
+	dead_left_front.loop = _config.child("animations").child("dead_left_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("dead_right_front").child("frame"), dead_right_front);
+	dead_right_front.speed = _config.child("animations").child("dead_right_front").attribute("speed").as_float();
+	dead_right_front.loop = _config.child("animations").child("dead_right_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("dead_left_back").child("frame"), dead_left_back);
+	dead_left_back.speed = _config.child("animations").child("dead_left_back").attribute("speed").as_float();
+	dead_left_back.loop = _config.child("animations").child("dead_left_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("dead_right_back").child("frame"), dead_right_back);
+	dead_right_back.speed = _config.child("animations").child("dead_right_back").attribute("speed").as_float();
+	dead_right_back.loop = _config.child("animations").child("dead_right_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("dead_left").child("frame"), dead_left);
+	dead_left.speed = _config.child("animations").child("dead_left").attribute("speed").as_float();
+	dead_left.loop = _config.child("animations").child("dead_left").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("dead_right").child("frame"), dead_right);
+	dead_right.speed = _config.child("animations").child("dead_right").attribute("speed").as_float();
+	dead_right.loop = _config.child("animations").child("dead_right").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("dead_front").child("frame"), dead_front);
+	dead_front.speed = _config.child("animations").child("dead_front").attribute("speed").as_float();
+	dead_front.loop = _config.child("animations").child("dead_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("dead_back").child("frame"), dead_back);
+	dead_back.speed = _config.child("animations").child("dead_back").attribute("speed").as_float();
+	dead_back.loop = _config.child("animations").child("dead_back").attribute("loop").as_bool(true);
+
 }

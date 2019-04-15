@@ -74,6 +74,7 @@ public:
 	}
 
 	void AddFX(const int _channel, const int _repeat) const;
+	void LoadAnim(pugi::xml_node _config);
 	bool LoadAnimation(pugi::xml_node _node, Animation &_anim);
 
 	virtual std::pair<int, int> GetPosition();
@@ -98,11 +99,11 @@ protected:
 
 	enum MOVEMENT {	IDLE_LEFT_FRONT, IDLE_RIGHT_FRONT, IDLE_LEFT_BACK, IDLE_RIGHT_BACK, IDLE_LEFT, IDLE_RIGHT, IDLE_FRONT, IDLE_BACK,
 		WALK_LEFT_FRONT, WALK_RIGHT_FRONT,  WALK_LEFT_BACK, WALK_RIGHT_BACK, WALK_LEFT, WALK_RIGHT, WALK_FRONT, WALK_BACK,
-		ATTACK_LEFT_FRONT, ATTACK_RIGHT_FRONT, ATTACK_LEFT_BACK, ATTACK_RIGHT_BACK,
-		ABILITY_1_LEFT_FRONT, ABILITY_1_RIGHT_FRONT, ABILITY_1_LEFT_BACK, ABILITY_1_RIGHT_BACK,
-		ABILITY_2_LEFT_FRONT, ABILITY_2_RIGHT_FRONT, ABILITY_2_LEFT_BACK, ABILITY_2_RIGHT_BACK,
-		DEFEND_LEFT_FRONT, DEFEND_RIGHT_FRONT, DEFEND_LEFT_BACK, DEFEND_RIGHT_BACK,
-		DEAD_LEFT_FRONT, DEAD_RIGHT_FRONT, DEAD_LEFT_BACK, DEAD_RIGHT_BACK
+		ATTACK_LEFT_FRONT, ATTACK_RIGHT_FRONT, ATTACK_LEFT_BACK, ATTACK_RIGHT_BACK, ATTACK_LEFT, ATTACK_RIGHT, ATTACK_FRONT, ATTACK_BACK,
+		ABILITY_1_LEFT_FRONT, ABILITY_1_RIGHT_FRONT, ABILITY_1_LEFT_BACK, ABILITY_1_RIGHT_BACK, ABILITY_1_LEFT, ABILITY_1_RIGHT, ABILITY_1_FRONT, ABILITY_1_BACK,
+		ABILITY_2_LEFT_FRONT, ABILITY_2_RIGHT_FRONT, ABILITY_2_LEFT_BACK, ABILITY_2_RIGHT_BACK, ABILITY_2_LEFT, ABILITY_2_RIGHT, ABILITY_2_FRONT, ABILITY_2_BACK,
+		DEFEND_LEFT_FRONT, DEFEND_RIGHT_FRONT, DEFEND_LEFT_BACK, DEFEND_RIGHT_BACK, DEFEND_LEFT, DEFEND_RIGHT, DEFEND_FRONT, DEFEND_BACK,
+		DEAD_LEFT_FRONT, DEAD_RIGHT_FRONT, DEAD_LEFT_BACK, DEAD_RIGHT_BACK, DEAD_LEFT, DEAD_RIGHT, DEAD_FRONT, DEAD_BACK,
 	};
 
 	MOVEMENT current_movement = IDLE_LEFT_BACK;
@@ -128,22 +129,42 @@ protected:
 	Animation attack_right_back;
 	Animation attack_left_front;
 	Animation attack_right_front;
+	Animation attack_left;
+	Animation attack_right;
+	Animation attack_front;
+	Animation attack_back;
 	Animation hability_1_left_back;
 	Animation hability_1_right_back;
 	Animation hability_1_left_front;
 	Animation hability_1_right_front;
+	Animation hability_1_left;
+	Animation hability_1_right;
+	Animation hability_1_front;
+	Animation hability_1_back;
 	Animation hability_2_left_back;
 	Animation hability_2_right_back;
 	Animation hability_2_left_front;
 	Animation hability_2_right_front;
+	Animation hability_2_left;
+	Animation hability_2_right;
+	Animation hability_2_front;
+	Animation hability_2_back;
 	Animation defend_left_back;
 	Animation defend_right_back;
 	Animation defend_left_front;
 	Animation defend_right_front;
+	Animation defend_left;
+	Animation defend_right;
+	Animation defend_front;
+	Animation defend_back;
 	Animation dead_left_back;
 	Animation dead_right_back;
 	Animation dead_left_front;
 	Animation dead_right_front;
+	Animation dead_left;
+	Animation dead_right;
+	Animation dead_front;
+	Animation dead_back;
 
 	ENTITY_TYPE type = ENTITY_TYPE::NO_TYPE;
 	SDL_Rect	current = { 0,0,0,0 };

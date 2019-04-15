@@ -23,10 +23,10 @@ public:
 	// Character thinks
 	virtual void SearchWalk() {}
 	virtual void SelectWalk();
-	virtual void Walk() {}
+	virtual void Walk();
 	virtual void SearchAttack() {}
 	virtual void SelectAttack();
-	virtual void Attack() {}
+	virtual void Attack();
 	virtual void Defend();
 	virtual void CurrentMovement(MOVEMENT _movement) {}
 	virtual void EndTurn();

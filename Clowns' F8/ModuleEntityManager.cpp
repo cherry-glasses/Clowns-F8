@@ -82,10 +82,12 @@ bool ModuleEntityManager::PreUpdate()
 				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
 			}
 		}
-		if ((*entity)->current_stats.Hp > (*entity)->default_stats.Hp)
+		if ((*entity)->current_stats.Hp > (*entity)->default_stats.Hp) {
 			(*entity)->current_stats.Hp = (*entity)->default_stats.Hp;
-		else if ((*entity)->current_stats.Hp < 0)
+		}		
+		else if ((*entity)->current_stats.Hp < 0) {
 			(*entity)->current_stats.Hp = 0;
+		}
 		(*entity)->defend = false;
 		(*entity)->PreUpdate();
 	}

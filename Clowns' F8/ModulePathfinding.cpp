@@ -76,12 +76,6 @@ bool ModulePathfinding::IsAttackable(const std::pair<int, int>& _pos, ENTITY_TYP
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
 	case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
-		for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
-		{
-			if (App->map->WorldToMap((*enemy)->GetPosition().first, (*enemy)->GetPosition().second) == _pos) {
-				return true;
-			}
-		}
 	case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
 		for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
 		{
@@ -91,12 +85,15 @@ bool ModulePathfinding::IsAttackable(const std::pair<int, int>& _pos, ENTITY_TYP
 		}
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
-		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_PINKKING:
-		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
-		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
+		for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+		{
+			if (App->map->WorldToMap((*character)->GetPosition().first, (*character)->GetPosition().second) == _pos) {
+				return true;
+			}
+		}
 		break;
 	case ENTITY_TYPE::NO_TYPE:
 		break;

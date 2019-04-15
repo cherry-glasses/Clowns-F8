@@ -79,55 +79,6 @@ void CharacterGeorgeB::SearchWalk() {
 	current_turn = Entity::SELECT_MOVE;
 }
 
-void CharacterGeorgeB::Walk()
-{
-	int i = 0;
-	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-	{
-		if (i == Cap)
-		{
-			objective_position.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
-		}
-		++i;
-	}
-
-	if (objective_position.back().first < position.first && objective_position.back().second == position.second) {
-		CurrentMovement(WALK_LEFT);
-	}
-	else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
-		CurrentMovement(WALK_RIGHT);
-	}
-	else if (objective_position.back().first == position.first && objective_position.back().second > position.second) {
-		CurrentMovement(WALK_FRONT);
-	}
-	else if (objective_position.back().first == position.first && objective_position.back().second < position.second) {
-		CurrentMovement(WALK_BACK);
-	}
-	else {
-		current_turn = SELECT_ACTION;
-	}
-
-	if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
-		if (current_movement == WALK_LEFT)
-		{
-			CurrentMovement(IDLE_LEFT);
-		}
-		else if (current_movement == WALK_RIGHT)
-		{
-			CurrentMovement(IDLE_RIGHT);
-		}
-		else if (current_movement == WALK_FRONT)
-		{
-			CurrentMovement(IDLE_FRONT);
-		}
-		else if (current_movement == WALK_BACK)
-		{
-			CurrentMovement(IDLE_BACK);
-		}
-		current_turn = SELECT_ACTION;
-	}
-}
-
 void CharacterGeorgeB::SearchAttack() {
 	objective_position.clear();
 	inrange_mov_list.clear();
@@ -156,20 +107,36 @@ void CharacterGeorgeB::SearchAttack() {
 	inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	tmp.first += 1;
-	inrange_mov_list.push_back(tmp);
+	for (int i = 1; i <= current_stats.RangeAtk; i++)
+	{
+		tmp.first += 1;
+		tmp.second -= 1;
+		inrange_mov_list.push_back(tmp);
+	}
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	tmp.second += 1;
-	inrange_mov_list.push_back(tmp);
+	for (int i = 1; i <= current_stats.RangeAtk; i++)
+	{
+		tmp.first -= 1;
+		tmp.second += 1;
+		inrange_mov_list.push_back(tmp);
+	}
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	tmp.first -= 1;
-	inrange_mov_list.push_back(tmp);
+	for (int i = 1; i <= current_stats.RangeAtk; i++)
+	{
+		tmp.first += 1;
+		tmp.second += 1;
+		inrange_mov_list.push_back(tmp);
+	}
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	tmp.second -= 1;
-	inrange_mov_list.push_back(tmp);
+	for (int i = 1; i <= current_stats.RangeAtk; i++)
+	{
+		tmp.first -= 1;
+		tmp.second -= 1;
+		inrange_mov_list.push_back(tmp);
+	}
 
 
 	tmp.first = NULL;
@@ -179,37 +146,6 @@ void CharacterGeorgeB::SearchAttack() {
 	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.second < b.second; });
 
 	current_turn = Entity::SELECT_ATTACK;
-}
-
-void CharacterGeorgeB::Attack()
-{
-	objective_position.push_back({ possible_map.at(Cap).first, possible_map.at(Cap).second });
-	if ((position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-		|| (position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-			&& position.second < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second))
-	{
-		CurrentMovement(ATTACK_LEFT_FRONT);
-	}
-	else if (position.first < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ATTACK_RIGHT_FRONT);
-	}
-	else if (position.first > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ATTACK_LEFT_BACK);
-	}
-	else if (position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ATTACK_RIGHT_BACK);
-	}
-	else {
-		CurrentMovement(ATTACK_LEFT_FRONT);
-	}
-
 }
 
 void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
@@ -252,119 +188,71 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &walk_back;
 		position.second--;
 		break;
-	case Entity::ATTACK_LEFT_FRONT:
-		current_movement = ATTACK_LEFT_FRONT;
-		current_animation = &attack_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+	case Entity::ATTACK_LEFT:
+		current_movement = ATTACK_LEFT;
+		current_animation = &attack_left;
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 		current_turn = END_TURN;
 		break;
-	case Entity::ATTACK_RIGHT_FRONT:
-		current_movement = ATTACK_RIGHT_FRONT;
-		current_animation = &attack_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+	case Entity::ATTACK_RIGHT:
+		current_movement = ATTACK_RIGHT;
+		current_animation = &attack_right;
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 		current_turn = END_TURN;
 		break;
-	case Entity::ATTACK_LEFT_BACK:
-		current_movement = ATTACK_LEFT_BACK;
-		current_animation = &attack_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+	case Entity::ATTACK_FRONT:
+		current_movement = ATTACK_FRONT;
+		current_animation = &attack_front;
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 		current_turn = END_TURN;
 		break;
-	case Entity::ATTACK_RIGHT_BACK:
-		current_movement = ATTACK_RIGHT_BACK;
-		current_animation = &attack_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+	case Entity::ATTACK_BACK:
+		current_movement = ATTACK_BACK;
+		current_animation = &attack_back;
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 		current_turn = END_TURN;
 		break;
-	case Entity::ABILITY_1_LEFT_FRONT:
-		current_movement = ABILITY_1_LEFT_FRONT;
-		current_animation = &hability_1_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+	case Entity::DEFEND_LEFT:
+		current_movement = DEFEND_LEFT;
+		current_animation = &defend_left;
 		current_turn = END_TURN;
 		break;
-	case Entity::ABILITY_1_RIGHT_FRONT:
-		current_movement = ABILITY_1_RIGHT_FRONT;
-		current_animation = &hability_1_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+	case Entity::DEFEND_RIGHT:
+		current_movement = DEFEND_RIGHT;
+		current_animation = &defend_right;
 		current_turn = END_TURN;
 		break;
-	case Entity::ABILITY_1_LEFT_BACK:
-		current_movement = ABILITY_1_LEFT_BACK;
-		current_animation = &hability_1_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+	case Entity::DEFEND_FRONT:
+		current_movement = DEFEND_FRONT;
+		current_animation = &defend_front;
 		current_turn = END_TURN;
 		break;
-	case Entity::ABILITY_1_RIGHT_BACK: // ME HE QUEDADO AQUÍ
-		current_movement = ABILITY_1_RIGHT_BACK;
-		current_animation = &hability_1_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+	case Entity::DEFEND_BACK:
+		current_movement = DEFEND_BACK;
+		current_animation = &defend_back;
 		current_turn = END_TURN;
 		break;
-	case Entity::ABILITY_2_LEFT_FRONT:
-		current_movement = ABILITY_2_LEFT_FRONT;
-		current_animation = &hability_2_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-		current_turn = END_TURN;
-		break;
-	case Entity::ABILITY_2_RIGHT_FRONT:
-		current_movement = ABILITY_2_RIGHT_FRONT;
-		current_animation = &hability_2_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-		current_turn = END_TURN;
-		break;
-	case Entity::ABILITY_2_LEFT_BACK:
-		current_movement = ABILITY_2_LEFT_BACK;
-		current_animation = &hability_2_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-		current_turn = END_TURN;
-		break;
-	case Entity::ABILITY_2_RIGHT_BACK:
-		current_movement = ABILITY_2_RIGHT_BACK;
-		current_animation = &hability_2_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-		current_turn = END_TURN;
-		break;
-	case Entity::DEFEND_LEFT_FRONT:
-		current_movement = DEFEND_LEFT_FRONT;
-		current_animation = &defend_left_front;
-		current_turn = END_TURN;
-		break;
-	case Entity::DEFEND_RIGHT_FRONT:
-		current_movement = DEFEND_RIGHT_FRONT;
-		current_animation = &defend_right_front;
-		current_turn = END_TURN;
-		break;
-	case Entity::DEFEND_LEFT_BACK:
-		current_movement = DEFEND_LEFT_BACK;
-		current_animation = &defend_left_back;
-		current_turn = END_TURN;
-		break;
-	case Entity::DEFEND_RIGHT_BACK:
-		current_movement = DEFEND_RIGHT_BACK;
-		current_animation = &defend_right_back;
-		current_turn = END_TURN;
-		break;
-	case Entity::DEAD_LEFT_FRONT:
-		current_movement = DEAD_LEFT_FRONT;
-		current_animation = &dead_left_front;
+	case Entity::DEAD_LEFT:
+		current_movement = DEAD_LEFT;
+		current_animation = &dead_left;
 		current_state = DEATH;
 		current_turn = END_TURN;
 		break;
-	case Entity::DEAD_RIGHT_FRONT:
-		current_movement = DEAD_RIGHT_FRONT;
-		current_animation = &dead_right_front;
+	case Entity::DEAD_RIGHT:
+		current_movement = DEAD_RIGHT;
+		current_animation = &dead_right;
 		current_state = DEATH;
 		current_turn = END_TURN;
 		break;
-	case Entity::DEAD_LEFT_BACK:
-		current_movement = DEAD_LEFT_BACK;
-		current_animation = &dead_left_back;
+	case Entity::DEAD_FRONT:
+		current_movement = DEAD_FRONT;
+		current_animation = &dead_front;
 		current_state = DEATH;
 		current_turn = END_TURN;
 		break;
-	case Entity::DEAD_RIGHT_BACK:
-		current_movement = DEAD_RIGHT_BACK;
-		current_animation = &dead_right_back;
+	case Entity::DEAD_BACK:
+		current_movement = DEAD_BACK;
+		current_animation = &dead_back;
 		current_state = DEATH;
 		current_turn = END_TURN;
 		break;
@@ -536,12 +424,16 @@ void CharacterGeorgeB::InputSelectAttack() {
 				int j = 0;
 				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
 				{
-					if (j == Cap - 1) {
-						if ((*possible_mov).first > (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
+					if (j == Cap + (sqrt(possible_mov_list.size()) - 1)) {
+						if ((*possible_mov).first - 1 == (*possible_mov_2).first && (*possible_mov).second + 1 == (*possible_mov_2).second)
 						{
 							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
-								Cap -= 1;
+								Cap += sqrt(possible_mov_list.size()) - 1;
+								i = possible_mov_list.size();
+							}
+							else {
+								Cap = (possible_mov_list.size() / 2) + (sqrt(possible_mov_list.size()) - 1);
 								i = possible_mov_list.size();
 							}
 							break;
@@ -566,12 +458,16 @@ void CharacterGeorgeB::InputSelectAttack() {
 				int j = 0;
 				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
 				{
-					if (j == Cap + 1) {
-						if ((*possible_mov).first < (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
+					if (j == Cap - (sqrt(possible_mov_list.size()) - 1)) {
+						if ((*possible_mov).first + 1 == (*possible_mov_2).first && (*possible_mov).second - 1 == (*possible_mov_2).second)
 						{
 							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
-								Cap += 1;
+								Cap -= sqrt(possible_mov_list.size()) - 1;
+								i = possible_mov_list.size();
+							}
+							else {
+								Cap = (possible_mov_list.size() / 2) - (sqrt(possible_mov_list.size()) - 1);
 								i = possible_mov_list.size();
 							}
 							break;
@@ -596,12 +492,16 @@ void CharacterGeorgeB::InputSelectAttack() {
 				int j = 0;
 				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
 				{
-					if (j == Cap + sqrt(possible_mov_list.size())) {
-						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
+					if (j == Cap + (sqrt(possible_mov_list.size()) + 1)) {
+						if ((*possible_mov).first + 1 == (*possible_mov_2).first && (*possible_mov).second + 1 == (*possible_mov_2).second)
 						{
 							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
-								Cap += sqrt(possible_mov_list.size());
+								Cap += sqrt(possible_mov_list.size()) + 1;
+								i = possible_mov_list.size();
+							}
+							else {
+								Cap = (possible_mov_list.size() / 2) + (sqrt(possible_mov_list.size()) + 1);
 								i = possible_mov_list.size();
 							}
 							break;
@@ -626,12 +526,16 @@ void CharacterGeorgeB::InputSelectAttack() {
 				int j = 0;
 				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
 				{
-					if (j == Cap - sqrt(possible_mov_list.size())) {
-						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
+					if (j == Cap - (sqrt(possible_mov_list.size()) + 1)) {
+						if ((*possible_mov).first - 1 == (*possible_mov_2).first && (*possible_mov).second - 1 == (*possible_mov_2).second)
 						{
 							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
-								Cap -= sqrt(possible_mov_list.size());
+								Cap -= sqrt(possible_mov_list.size()) + 1;
+								i = possible_mov_list.size();
+							}
+							else {
+								Cap = (possible_mov_list.size() / 2) - (sqrt(possible_mov_list.size()) + 1);
 								i = possible_mov_list.size();
 							}
 							break;
