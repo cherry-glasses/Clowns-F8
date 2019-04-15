@@ -138,27 +138,55 @@ void CharacterStorm::Walk()
 
 void CharacterStorm::SearchAttack() {
 	objective_position.clear();
+	inrange_mov_list.clear();
 	possible_mov_list.clear();
 	possible_map.clear();
 	Cap = 0;
 
+	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
+	int x = pos.first - current_stats.RangeAtk;
+	int y = pos.second - current_stats.RangeAtk;
+	for (int i = 0; i < ((current_stats.RangeAtk * 2) + 1) * ((current_stats.RangeAtk * 2) + 1); i++)
+	{
+		possible_mov_list.push_back({ x, y });
+		++x;
+		if (x > pos.first + current_stats.RangeAtk) {
+			x = pos.first - current_stats.RangeAtk;
+			++y;
+		}
+		if (y > pos.second + current_stats.RangeAtk) {
+			y = pos.second - current_stats.RangeAtk;
+		}
+	}
+
 	std::pair<int, int> tmp;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	tmp.first + 1;
-	possible_mov_list.push_back(tmp);
+	inrange_mov_list.push_back(tmp);
 
-	tmp.second + 1;
-	possible_mov_list.push_back(tmp);
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	tmp.first += 1;
+	inrange_mov_list.push_back(tmp);
 
-	tmp.first - 1;
-	possible_mov_list.push_back(tmp);
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	tmp.second += 1;
+	inrange_mov_list.push_back(tmp);
 
-	tmp.second - 1;
-	possible_mov_list.push_back(tmp);
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	tmp.first -= 1;
+	inrange_mov_list.push_back(tmp);
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	tmp.second -= 1;
+	inrange_mov_list.push_back(tmp);
 
 
 	tmp.first = NULL;
 	tmp.second = NULL;
+
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.first < b.first; });
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.second < b.second; });
+
+	current_turn = Entity::SELECT_ATTACK;
 }
 
 void CharacterStorm::Attack()
@@ -375,9 +403,9 @@ void CharacterStorm::InputSelectMove() {
 					if (j == Cap - 1) {
 						if ((*possible_mov).first > (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
 						{
-							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
-								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second })
+							if ((App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
 								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
+								|| (*possible_mov_2) == App->map->WorldToMap((int)position.first, (int)position.second))
 							{
 								Cap -= 1;
 								i = possible_mov_list.size();
@@ -411,9 +439,9 @@ void CharacterStorm::InputSelectMove() {
 					if (j == Cap + 1) {
 						if ((*possible_mov).first < (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
 						{
-							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
-								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second })
+							if ((App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
 								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
+								|| (*possible_mov_2) == App->map->WorldToMap((int)position.first, (int)position.second))
 							{
 								Cap += 1;
 								i = possible_mov_list.size();
@@ -447,9 +475,9 @@ void CharacterStorm::InputSelectMove() {
 					if (j == Cap + sqrt(possible_mov_list.size())) {
 						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
 						{
-							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
-								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second })
+							if ((App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
 								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
+								|| (*possible_mov_2) == App->map->WorldToMap((int)position.first, (int)position.second))
 							{
 								Cap += sqrt(possible_mov_list.size());
 								i = possible_mov_list.size();
@@ -483,9 +511,9 @@ void CharacterStorm::InputSelectMove() {
 					if (j == Cap - sqrt(possible_mov_list.size())) {
 						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
 						{
-							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
-								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second })
+							if ((App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
 								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
+								|| (*possible_mov_2) == App->map->WorldToMap((int)position.first, (int)position.second))
 							{
 								Cap -= sqrt(possible_mov_list.size());
 								i = possible_mov_list.size();
@@ -523,14 +551,9 @@ void CharacterStorm::InputSelectAttack() {
 					if (j == Cap - 1) {
 						if ((*possible_mov).first > (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
 						{
-							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
-								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
+							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap -= 1;
-								if (Cap < 0)
-								{
-									Cap = possible_mov_list.size() - 1;
-								}
 								i = possible_mov_list.size();
 							}
 							break;
@@ -558,14 +581,9 @@ void CharacterStorm::InputSelectAttack() {
 					if (j == Cap + 1) {
 						if ((*possible_mov).first < (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
 						{
-							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
-								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
+							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap += 1;
-								if (Cap >= possible_mov_list.size())
-								{
-									Cap = 0;
-								}
 								i = possible_mov_list.size();
 							}
 							break;
@@ -593,14 +611,9 @@ void CharacterStorm::InputSelectAttack() {
 					if (j == Cap + sqrt(possible_mov_list.size())) {
 						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
 						{
-							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
-								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
+							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap += sqrt(possible_mov_list.size());
-								if (Cap >= possible_mov_list.size())
-								{
-									Cap = 0;
-								}
 								i = possible_mov_list.size();
 							}
 							break;
@@ -628,14 +641,9 @@ void CharacterStorm::InputSelectAttack() {
 					if (j == Cap - sqrt(possible_mov_list.size())) {
 						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
 						{
-							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
-								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
+							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap -= sqrt(possible_mov_list.size());
-								if (Cap < 0)
-								{
-									Cap = possible_mov_list.size() - 1;
-								}
 								i = possible_mov_list.size();
 							}
 							break;

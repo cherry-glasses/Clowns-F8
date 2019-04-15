@@ -12,9 +12,6 @@
 #include "Scene.h"
 #include "ModuleEntityManager.h"
 #include "ModuleWindow.h"
-#include "CharacterIris.h"
-#include "CharacterSapphire.h"
-#include "CharacterStorm.h"
 #include <string.h>
 
 Scene::Scene() : Module()

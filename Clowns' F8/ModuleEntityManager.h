@@ -44,10 +44,11 @@ public:
 
 	void ThrowAttack(std::vector<std::pair<int,int>> _positions, int _damage, ENTITY_TYPE _type);
 	std::list<Entity*> characters;
+	std::list<Entity*> enemies;
 	std::list<Entity*> entities;
 
 private:
-	std::list<Entity*> enemies;
+	
 	pugi::xml_node entity_configs;
 
 	bool starting = true;

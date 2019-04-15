@@ -410,7 +410,7 @@ void CharacterIris::InputSelectMove() {
 						if ((*possible_mov).first > (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
 						{
 							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
-								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second }))
+								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second } , type))
 							{
 								Cap -= 1;
 								if (Cap < 0)
@@ -445,7 +445,7 @@ void CharacterIris::InputSelectMove() {
 						if ((*possible_mov).first < (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
 						{
 							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
-								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second }))
+								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second } , type))
 							{
 								Cap += 1;
 								if (Cap >= possible_mov_list.size())
@@ -480,7 +480,7 @@ void CharacterIris::InputSelectMove() {
 						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
 						{
 							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
-								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second }))
+								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second } , type))
 							{
 								Cap += sqrt(possible_mov_list.size());
 								if (Cap >= possible_mov_list.size())
@@ -515,7 +515,7 @@ void CharacterIris::InputSelectMove() {
 						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
 						{
 							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
-								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second }))
+								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second } , type))
 							{
 								Cap -= sqrt(possible_mov_list.size());
 								if (Cap < 0)

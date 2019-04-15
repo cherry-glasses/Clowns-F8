@@ -4,6 +4,7 @@
 #include "ModuleMap.h"
 #include "ModulePathfinding.h"
 
+
 ModulePathfinding::ModulePathfinding() : Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH), width(0), height(0)
 {
 	name = "pathfinding";
@@ -46,16 +47,56 @@ bool ModulePathfinding::CheckBoundaries(const std::pair<int, int>& pos) const
 bool ModulePathfinding::IsWalkable(const std::pair<int, int>& pos) const
 {
 	uchar t = GetTileAt(pos);
-	return t != INVALID_WALK_CODE && t > 0;
-}
-bool ModulePathfinding::IsAttackable(const std::pair<int, int>& pos) const
-{
 	for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
 	{
 		if (App->map->WorldToMap((*entity)->GetPosition().first, (*entity)->GetPosition().second) == pos) {
-			return true;
+			return false;
 		}
 	}
+	return t != INVALID_WALK_CODE && t > 0;
+}
+bool ModulePathfinding::IsAttackable(const std::pair<int, int>& _pos, ENTITY_TYPE _type) const
+{
+	switch (_type)
+	{
+	case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
+		for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
+		{
+			if (App->map->WorldToMap((*entity)->GetPosition().first, (*entity)->GetPosition().second) == _pos) {
+				return true;
+			}
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
+	case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
+		for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
+		{
+			if (App->map->WorldToMap((*enemy)->GetPosition().first, (*enemy)->GetPosition().second) == _pos) {
+				return true;
+			}
+		}
+	case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
+		for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
+		{
+			if (App->map->WorldToMap((*enemy)->GetPosition().first, (*enemy)->GetPosition().second) == _pos) {
+				return true;
+			}
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_PINKKING:
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
+		break;
+	case ENTITY_TYPE::NO_TYPE:
+		break;
+	default:
+		break;
+	}
+	
 	return false;
 }
 
