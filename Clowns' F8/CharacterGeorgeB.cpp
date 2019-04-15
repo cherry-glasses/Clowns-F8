@@ -20,42 +20,56 @@ CharacterGeorgeB::~CharacterGeorgeB() {
 
 void CharacterGeorgeB::SearchWalk() {
 
-	//// Tower movment.
-	//movment_1 = new std::pair<int, int>[current_stats.Agi/2];
-	//movment_2 = new std::pair<int, int>[current_stats.Agi/2];
-	//movment_3 = new std::pair<int, int>[current_stats.Agi/2];
-	//movment_4 = new std::pair<int, int>[current_stats.Agi/2];
+	std::pair<int, int> tmp;
 
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	possible_mov_list.push_back(tmp);
 
-	//std::pair<int,int> tmp = App->map->WorldToMap(position.first, position.second);
-	//// x axis
-	//for (int i = 0; i < current_stats.Agi / 2;i++){
-	//	movment_1[i].first = tmp.first + i + 1;
-	//	movment_1[i].second = tmp.second;
-	//	movment_1[i] = App->map->MapToWorld(movment_1[i].first, movment_1[i].second);
-	//}
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	tmp.first += 1;
+	possible_mov_list.push_back(tmp);
+	tmp.first += 1;
+	possible_mov_list.push_back(tmp);
+	tmp.first += 1;
+	possible_mov_list.push_back(tmp);
+	tmp.first += 1;
+	possible_mov_list.push_back(tmp);
 
-	//for (int i = 0; i < current_stats.Agi / 2; i++) {
-	//	movment_3[i].first = tmp.first - i - 1;
-	//	movment_3[i].second = tmp.second;
-	//	movment_3[i] = App->map->MapToWorld(movment_3[i].first, movment_3[i].second);
-	//}
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	tmp.first += 1;
+	tmp.second += 1;
+	possible_mov_list.push_back(tmp);
 
-	//// y axis
-	//for (int i = 0; i < current_stats.Agi / 2; i++) {
-	//	movment_2[i].first = tmp.first;
-	//	movment_2[i].second = tmp.second + i + 1;
-	//	movment_2[i] = App->map->MapToWorld(movment_2[i].first, movment_2[i].second);
-	//}
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	tmp.second += 1;
+	possible_mov_list.push_back(tmp);
 
-	//for (int i = 0; i < current_stats.Agi / 2; i++) {
-	//	movment_4[i].first = tmp.first;
-	//	movment_4[i].second = tmp.second - i - 1;
-	//	movment_4[i] = App->map->MapToWorld(movment_4[i].first, movment_4[i].second);
-	//}
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	tmp.first -= 1;
+	tmp.second += 1;
+	possible_mov_list.push_back(tmp);
 
-	//tmp.first = NULL;
-	//tmp.second = NULL;
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	tmp.first -= 1;
+	possible_mov_list.push_back(tmp);
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	tmp.first -= 1;
+	tmp.second -= 1;
+	possible_mov_list.push_back(tmp);
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	tmp.second -= 1;
+	possible_mov_list.push_back(tmp);
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	tmp.first += 1;
+	tmp.second -= 1;
+	possible_mov_list.push_back(tmp);
+
+	tmp.first = NULL;
+	tmp.second = NULL;
+
 	current_turn = Entity::SELECT_MOVE;
 }
 

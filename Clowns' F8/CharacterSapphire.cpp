@@ -10,69 +10,75 @@ CharacterSapphire::CharacterSapphire(ENTITY_TYPE _type, pugi::xml_node _config) 
 {
 	CurrentMovement(IDLE_RIGHT_FRONT);
 	current = current_animation->GetCurrentFrame();
-
 }
 
 CharacterSapphire::~CharacterSapphire() {
 
 }
 
-
-bool CompareByX(std::pair<int, int> first, std::pair<int, int> second) {
-	return (first.first < second.first);
-}
-bool CompareByY(std::pair<int, int> first, std::pair<int, int> second) {
-	return (first.second < second.second);
-}
-
 void CharacterSapphire::SearchWalk() {
 
+	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
+	int x = pos.first - current_stats.PMove;
+	int y = pos.second - current_stats.PMove;
+	for (int i = 0; i < ((current_stats.PMove * 2) + 1) * ((current_stats.PMove * 2) + 1); i++)
+	{
+		possible_mov_list.push_back({ x, y });
+		++x;
+		if (x > pos.first + current_stats.PMove) {
+			x = pos.first - current_stats.PMove;
+			++y;
+		}
+		if (y > pos.second + current_stats.PMove) {
+			y = pos.second - current_stats.PMove;
+		}
+	}
+
 	std::pair<int, int> tmp;
-
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	possible_mov_list.push_back(tmp);
+	inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first += 1;
-	possible_mov_list.push_back(tmp);
+	inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first += 1;
 	tmp.second += 1;
-	possible_mov_list.push_back(tmp);
+	inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.second += 1;
-	possible_mov_list.push_back(tmp);
+	inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first -= 1;
 	tmp.second += 1;
-	possible_mov_list.push_back(tmp);
+	inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first -= 1;
-	possible_mov_list.push_back(tmp);
+	inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first -= 1;
 	tmp.second -= 1;
-	possible_mov_list.push_back(tmp);
+	inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.second -= 1;
-	possible_mov_list.push_back(tmp);
+	inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	tmp.first += 1;
 	tmp.second -= 1;
-	possible_mov_list.push_back(tmp);
+	inrange_mov_list.push_back(tmp);
 
 	tmp.first = NULL;
 	tmp.second = NULL;
 
-	possible_mov_list.sort(CompareByX);
-	possible_mov_list.sort(CompareByY);
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.first < b.first; });
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.second < b.second; });
 
 	current_turn = Entity::SELECT_MOVE;
 
@@ -115,9 +121,6 @@ void CharacterSapphire::Walk()
 	else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
 		CurrentMovement(WALK_RIGHT);
 	}
-	else if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
-		current_turn = SEARCH_ATTACK;
-	}
 	else {
 		current_turn = SELECT_ACTION;
 	}
@@ -149,28 +152,28 @@ void CharacterSapphire::SearchAttack() {
 	possible_map.clear();
 	Cap = 0;
 
-	std::pair<int, int> cancer = App->map->WorldToMap(position.first, position.second);
-	range = App->entity_manager->RangeOfAttack(cancer, current_stats.RangeAtk, tiles_range_attk);
-	int x = cancer.first - current_stats.RangeAtk;
-	int y = cancer.second - current_stats.RangeAtk;
+	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
+	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAtk, tiles_range_attk);
+	int x = pos.first - current_stats.RangeAtk;
+	int y = pos.second - current_stats.RangeAtk;
 	for (int i = 0; i < ((current_stats.RangeAtk * 2) + 1) * ((current_stats.RangeAtk * 2) + 1); i++)
 	{
 		possible_mov_list.push_back({ x, y });
 		++x;
-		if (x > cancer.first + current_stats.RangeAtk) {
-			x = cancer.first - current_stats.RangeAtk;
+		if (x > pos.first + current_stats.RangeAtk) {
+			x = pos.first - current_stats.RangeAtk;
 			++y;
 		}
-		if (y > cancer.second + current_stats.RangeAtk) {
-			y = cancer.second - current_stats.RangeAtk;
+		if (y > pos.second + current_stats.RangeAtk) {
+			y = pos.second - current_stats.RangeAtk;
 		}
 	}
 	for (int i = 0; i < tiles_range_attk; i++) {
 		inrange_mov_list.push_back({ range[i].first, range[i].second });
 	}
 
-	inrange_mov_list.sort(CompareByX);
-	inrange_mov_list.sort(CompareByY);
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.first < b.first; });
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.second < b.second; });
 
 	current_turn = Entity::SELECT_ATTACK;
 
@@ -392,22 +395,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 	}
 }
 
-
 void CharacterSapphire::InputSelectMove() {
-	// FOR CHARACTERS LIKE ALFIL
-
-	/*if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
-	if ((*possible_mov).first < (*possible_mov_2).first && (*possible_mov).second >(*possible_mov_2).second)
-					
-	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
-	if ((*possible_mov).first > (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
-			
-	else if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
-	if ((*possible_mov).first > (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
-					
-	else if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
-	if ((*possible_mov).first < (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)		
-	}*/
 
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ) {
 
@@ -426,13 +414,10 @@ void CharacterSapphire::InputSelectMove() {
 						if ((*possible_mov).first > (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
 						{
 							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second }) 
-								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second }))
+								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second })
+								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap -= 1;
-								if (Cap < 0)
-								{
-									Cap = possible_mov_list.size() - 1;
-								}
 								i = possible_mov_list.size();
 							}
 							break;
@@ -461,13 +446,10 @@ void CharacterSapphire::InputSelectMove() {
 						if ((*possible_mov).first < (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
 						{
 							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second }) 
-								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second }))
+								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second })
+								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap += 1;
-								if (Cap >= possible_mov_list.size())
-								{
-									Cap = 0;
-								}
 								i = possible_mov_list.size();
 							}
 							break;
@@ -496,13 +478,10 @@ void CharacterSapphire::InputSelectMove() {
 						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
 						{
 							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second }) 
-								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second }))
+								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second })
+								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap += sqrt(possible_mov_list.size());
-								if (Cap >= possible_mov_list.size())
-								{
-									Cap = 0;
-								}
 								i = possible_mov_list.size();
 							}
 							break;
@@ -531,13 +510,10 @@ void CharacterSapphire::InputSelectMove() {
 						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
 						{
 							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second }) 
-								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second }))
+								&& !App->pathfinding->IsAttackable({ (*possible_mov_2).first , (*possible_mov_2).second })
+								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap -= sqrt(possible_mov_list.size());
-								if (Cap < 0)
-								{
-									Cap = possible_mov_list.size() - 1;
-								}
 								i = possible_mov_list.size();
 							}
 							break;
@@ -573,10 +549,6 @@ void CharacterSapphire::InputSelectAttack() {
 								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap -= 1;
-								if (Cap < 0)
-								{
-									Cap = possible_mov_list.size() - 1;
-								}
 								i = possible_mov_list.size();
 							}
 							break;
@@ -608,10 +580,6 @@ void CharacterSapphire::InputSelectAttack() {
 								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap += 1;
-								if (Cap >= possible_mov_list.size())
-								{
-									Cap = 0;
-								}
 								i = possible_mov_list.size();
 							}
 							break;
@@ -643,10 +611,6 @@ void CharacterSapphire::InputSelectAttack() {
 								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap += sqrt(possible_mov_list.size());
-								if (Cap >= possible_mov_list.size())
-								{
-									Cap = 0;
-								}
 								i = possible_mov_list.size();
 							}
 							break;
@@ -678,10 +642,6 @@ void CharacterSapphire::InputSelectAttack() {
 								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap -= sqrt(possible_mov_list.size());
-								if (Cap < 0)
-								{
-									Cap = possible_mov_list.size() - 1;
-								}
 								i = possible_mov_list.size();
 							}
 							break;

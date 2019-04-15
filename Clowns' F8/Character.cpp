@@ -91,7 +91,8 @@ void Character::SelectWalk() {
 		if (i == Cap)
 		{
 			if (!App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second })
-				|| App->pathfinding->IsAttackable({ (*possible_mov).first , (*possible_mov).second }))
+				|| App->pathfinding->IsAttackable({ (*possible_mov).first , (*possible_mov).second })
+				|| !(std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end()))
 			{
 				Cap++;
 				if (Cap >= possible_mov_list.size())
@@ -106,7 +107,7 @@ void Character::SelectWalk() {
 	{
 		possible_map.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
 
-		if (i != Cap)
+		if (i != Cap && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 		{
 			if (App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second })
 				&& !App->pathfinding->IsAttackable({ (*possible_mov).first , (*possible_mov).second }))

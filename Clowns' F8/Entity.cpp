@@ -23,6 +23,7 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	
 	default_stats.Hp = _config.child("stats").attribute("hp").as_int();
 	default_stats.Mana = _config.child("stats").attribute("mana").as_int();
+	default_stats.PMove = _config.child("stats").attribute("p_move").as_int();
 	default_stats.AtkF = _config.child("stats").attribute("atk_f").as_int();
 	default_stats.AtkS = _config.child("stats").attribute("atk_s").as_int();
 	default_stats.RangeAtk = _config.child("stats").attribute("range_atk").as_int();

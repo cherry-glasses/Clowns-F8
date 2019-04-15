@@ -28,9 +28,9 @@ public:
 	virtual void SelectAttack();
 	virtual void Attack() {}
 	virtual void Defend();
-	void CurrentMovement(MOVEMENT _movement) {}
-	void EndTurn();
-	void Die();
+	virtual void CurrentMovement(MOVEMENT _movement) {}
+	virtual void EndTurn();
+	virtual void Die();
 
 	//Save and Load
 	virtual bool Load(pugi::xml_node&);

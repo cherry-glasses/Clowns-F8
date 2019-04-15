@@ -22,7 +22,7 @@ enum class ENTITY_TYPE
 typedef struct {
 	int Hp;
 	int Mana;
-	int Cp;
+	int PMove;
 
 	int AtkF;
 	int AtkS;
