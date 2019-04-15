@@ -39,44 +39,32 @@ void CharacterStorm::SearchWalk() {
 	inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	tmp.first += 1;
-	inrange_mov_list.push_back(tmp);
-	tmp.first += 1;
-	inrange_mov_list.push_back(tmp);
-	tmp.first += 1;
-	inrange_mov_list.push_back(tmp);
-	tmp.first += 1;
-	inrange_mov_list.push_back(tmp);
+	for (int i = 1; i <= current_stats.PMove; i++)
+	{
+		tmp.first += 1;
+		inrange_mov_list.push_back(tmp);
+	}
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	tmp.first -= 1;
-	inrange_mov_list.push_back(tmp);
-	tmp.first -= 1;
-	inrange_mov_list.push_back(tmp);
-	tmp.first -= 1;
-	inrange_mov_list.push_back(tmp);
-	tmp.first -= 1;
-	inrange_mov_list.push_back(tmp);
+	for (int i = 1; i <= current_stats.PMove; i++)
+	{
+		tmp.first -= 1;
+		inrange_mov_list.push_back(tmp);
+	}
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	tmp.second += 1;
-	inrange_mov_list.push_back(tmp);
-	tmp.second += 1;
-	inrange_mov_list.push_back(tmp);
-	tmp.second += 1;
-	inrange_mov_list.push_back(tmp);
-	tmp.second += 1;
-	inrange_mov_list.push_back(tmp);
+	for (int i = 1; i <= current_stats.PMove; i++)
+	{
+		tmp.second += 1;
+		inrange_mov_list.push_back(tmp);
+	}
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	tmp.second -= 1;
-	inrange_mov_list.push_back(tmp);
-	tmp.second -= 1;
-	inrange_mov_list.push_back(tmp);
-	tmp.second -= 1;
-	inrange_mov_list.push_back(tmp);
-	tmp.second -= 1;
-	inrange_mov_list.push_back(tmp);
+	for (int i = 1; i <= current_stats.PMove; i++)
+	{
+		tmp.second -= 1;
+		inrange_mov_list.push_back(tmp);
+	}
 
 	tmp.first = NULL;
 	tmp.second = NULL;
