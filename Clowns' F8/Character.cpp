@@ -85,25 +85,11 @@ bool Character::Save(pugi::xml_node& node) const {
 
 void Character::SelectWalk() {
 
-	int i = 0;
-	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-	{
-		if (i == Cap)
-		{
-			if ((!App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second }) 
-				&& (*possible_mov) != App->map->WorldToMap((int)position.first, (int)position.second))
-				|| !(std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end()))
-				
-			{
-				Cap++;
-				if (Cap >= possible_mov_list.size())
-					Cap = 0;
-			}
-		}
-		++i;
+	if (Cap == -1) {
+		Cap = possible_mov_list.size() / 2;
 	}
-
-	i = 0;
+	
+	int i = 0;
 	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 	{
 		possible_map.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
@@ -111,7 +97,7 @@ void Character::SelectWalk() {
 		if (i != Cap && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 		{
 			if (App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second })
-				|| (*possible_mov) == App->map->WorldToMap((int)position.first, (int)position.second))
+				&& !App->pathfinding->IsUsed({ (*possible_mov).first , (*possible_mov).second }, this))
 			{
 				App->render->Blit(debug_texture, possible_map.at(i).first, possible_map.at(i).second, &debug_blue);
 			}
@@ -134,22 +120,11 @@ void Character::SelectWalk() {
 
 void Character::SelectAttack() {
 
-	int i = 0;
-	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-	{
-		if (i == Cap)
-		{
-			if (!(std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end()))
-			{
-				Cap++;
-				if (Cap >= possible_mov_list.size())
-					Cap = 0;
-			}
-		}
-		++i;
+	if (Cap == -1) {
+		Cap = possible_mov_list.size() / 2;
 	}
 
-	i = 0;
+	int i = 0;
 	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 	{
 		possible_map.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
@@ -210,7 +185,7 @@ void Character::EndTurn() {
 	inrange_mov_list.clear();
 	possible_map.clear();
 	objective_position.clear();
-	Cap = 0;
+	Cap = -1;
 }
 
 void Character::Die()

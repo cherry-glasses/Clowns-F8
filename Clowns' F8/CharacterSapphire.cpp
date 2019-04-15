@@ -151,7 +151,7 @@ void CharacterSapphire::SearchAttack() {
 	inrange_mov_list.clear();
 	possible_mov_list.clear();
 	possible_map.clear();
-	Cap = 0;
+	Cap = -1;
 
 	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
 	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAtk, tiles_range_attk);
@@ -414,9 +414,9 @@ void CharacterSapphire::InputSelectMove() {
 					if (j == Cap - 1) {
 						if ((*possible_mov).first > (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
 						{
-							if ((App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second }) 
-								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
-								|| (*possible_mov_2) == App->map->WorldToMap((int)position.first, (int)position.second))
+							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
+								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end()
+								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
 							{
 								Cap -= 1;
 								i = possible_mov_list.size();
@@ -446,9 +446,9 @@ void CharacterSapphire::InputSelectMove() {
 					if (j == Cap + 1) {
 						if ((*possible_mov).first < (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
 						{
-							if ((App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second }) 
-								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
-								|| (*possible_mov_2) == App->map->WorldToMap((int)position.first, (int)position.second))
+							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
+								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end()
+								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
 							{
 								Cap += 1;
 								i = possible_mov_list.size();
@@ -478,9 +478,9 @@ void CharacterSapphire::InputSelectMove() {
 					if (j == Cap + sqrt(possible_mov_list.size())) {
 						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
 						{
-							if ((App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second }) 
-								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
-								|| (*possible_mov_2) == App->map->WorldToMap((int)position.first, (int)position.second))
+							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
+								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end()
+								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
 							{
 								Cap += sqrt(possible_mov_list.size());
 								i = possible_mov_list.size();
@@ -510,9 +510,9 @@ void CharacterSapphire::InputSelectMove() {
 					if (j == Cap - sqrt(possible_mov_list.size())) {
 						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
 						{
-							if ((App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second }) 
-								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
-								|| (*possible_mov_2) == App->map->WorldToMap((int)position.first, (int)position.second))
+							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
+								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end()
+								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
 							{
 								Cap -= sqrt(possible_mov_list.size());
 								i = possible_mov_list.size();

@@ -35,6 +35,9 @@ public:
 	// Utility: returns true is the tile is walkable
 	bool IsWalkable(const std::pair<int, int>& pos) const;
 
+	// Utility: returns true is the tile is used by otrhe entity
+	bool IsUsed(const std::pair<int, int>& pos, Entity* _entity) const;
+
 	// Utility: returns true is the tile is attackable
 	bool IsAttackable(const std::pair<int, int>& _pos, ENTITY_TYPE _type) const;
 

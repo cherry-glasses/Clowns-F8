@@ -44,17 +44,24 @@ bool ModulePathfinding::CheckBoundaries(const std::pair<int, int>& pos) const
 }
 
 // Utility: returns true is the tile is walkable
-bool ModulePathfinding::IsWalkable(const std::pair<int, int>& pos) const
+bool ModulePathfinding::IsWalkable(const std::pair<int, int>& _pos) const
 {
-	uchar t = GetTileAt(pos);
-	for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
-	{
-		if (App->map->WorldToMap((*entity)->GetPosition().first, (*entity)->GetPosition().second) == pos) {
-			return false;
-		}
-	}
+	uchar t = GetTileAt(_pos);
 	return t != INVALID_WALK_CODE && t > 0;
 }
+// Utility: returns true is the tile is used by other entity
+bool ModulePathfinding::IsUsed(const std::pair<int, int>& _pos, Entity* _entity) const
+{
+	for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
+	{
+		if (App->map->WorldToMap((*entity)->GetPosition().first, (*entity)->GetPosition().second) == _pos
+			&& (*entity) != _entity) {
+			return true;
+		}
+	}
+	return false;
+}
+// Utility: returns true is the tile is attackable
 bool ModulePathfinding::IsAttackable(const std::pair<int, int>& _pos, ENTITY_TYPE _type) const
 {
 	switch (_type)
