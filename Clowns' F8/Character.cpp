@@ -361,13 +361,17 @@ void Character::SelectAbility_1() {
 			{
 				App->render->Blit(debug_texture, possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second, &debug_green);
 			}
+			else if ((i == Cap - 1) && (Cap % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
+			{
+				App->render->Blit(debug_texture, possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second, &debug_green);
+			}
 			else if ((i == Cap + mod)  && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 			{
 				App->render->Blit(debug_texture, possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second, &debug_green);
 			}
-			else if ((i == Cap + mod + 1) && ((Cap + 1) % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
+			else if ((i == Cap - mod ) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 			{
-				App->render->Blit(debug_texture, possible_map.at(Cap + mod + 1).first, possible_map.at(Cap + mod + 1).second, &debug_green);
+				App->render->Blit(debug_texture, possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second, &debug_green);
 			}
 		}
 		++i;
@@ -398,13 +402,17 @@ void Character::Ability_1()
 			{
 				objective_position.push_back({ possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second });
 			}
+			else if ((i == Cap - 1) && (Cap % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
+			{
+				objective_position.push_back({ possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second });
+			}
 			else if ((i == Cap + mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 			{
 				objective_position.push_back({ possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second });
 			}
-			else if ((i == Cap + mod + 1) && ((Cap + 1) % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
+			else if ((i == Cap - mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 			{
-				objective_position.push_back({ possible_map.at(Cap + mod + 1).first, possible_map.at(Cap + mod + 1).second });
+				objective_position.push_back({ possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second });
 			}
 			++i;
 		}
