@@ -337,7 +337,7 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 
 void CharacterGeorgeB::InputSelectMove() {
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+	if (App->input->Left()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -373,7 +373,7 @@ void CharacterGeorgeB::InputSelectMove() {
 			++i;
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+	else if (App->input->Right()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -409,7 +409,7 @@ void CharacterGeorgeB::InputSelectMove() {
 			++i;
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+	else if (App->input->Down()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -445,7 +445,7 @@ void CharacterGeorgeB::InputSelectMove() {
 			++i;
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+	else if (App->input->Up()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -485,7 +485,7 @@ void CharacterGeorgeB::InputSelectMove() {
 
 void CharacterGeorgeB::InputSelectAttack() {
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+	if (App->input->Left()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -519,7 +519,7 @@ void CharacterGeorgeB::InputSelectAttack() {
 			++i;
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+	else if (App->input->Right()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -553,7 +553,7 @@ void CharacterGeorgeB::InputSelectAttack() {
 			++i;
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+	else if (App->input->Down()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -587,7 +587,7 @@ void CharacterGeorgeB::InputSelectAttack() {
 			++i;
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+	else if (App->input->Up()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)

@@ -375,3 +375,51 @@ void ModuleInput::buttonForGamepad() {
 	}
 
 }
+
+bool ModuleInput::Left() {
+
+	if (GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->gamepad.CROSS_LEFT == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}
+
+bool ModuleInput::Right() {
+	
+	if (GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || App->input->gamepad.CROSS_RIGHT == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}
+
+bool ModuleInput::Down() {
+
+	if (GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->gamepad.CROSS_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}
+
+bool ModuleInput::Up() {
+
+	if (GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}
+
+bool ModuleInput::Accept() {
+
+	if (GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->gamepad.A == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}
+
+bool ModuleInput::Decline() {
+
+	if (GetKey(SDL_SCANCODE_X) == KEY_DOWN || App->input->gamepad.B == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}

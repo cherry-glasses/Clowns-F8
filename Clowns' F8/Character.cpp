@@ -126,7 +126,7 @@ void Character::SelectWalk() {
 
 	InputSelectMove();
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+	if (App->input->Accept()) {
 		current_turn = Entity::MOVE;
 	}
 }
@@ -237,12 +237,11 @@ void Character::SelectAttack() {
 
 	InputSelectAttack();
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN
-		&& App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second) , type))
+	if (App->input->Accept() && App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second) , type))
 	{
 		current_turn = ATTACK;
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN) 
+	else if (App->input->Decline) 
 	{
 		current_turn = SELECT_ACTION;
 	}
@@ -378,12 +377,11 @@ void Character::SelectAbility_1() {
 	
 	InputSelectAttack();
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN
-		&& App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second), type))
+	if (App->input->Accept() && App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second), type))
 	{
 		current_turn = ABILITY_1;
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+	else if (App->input->Decline)
 	{
 		current_turn = SELECT_ACTION;
 	}

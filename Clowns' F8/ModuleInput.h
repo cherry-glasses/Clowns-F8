@@ -120,6 +120,13 @@ public:
 	Gamepad gamepad;
 	void buttonForGamepad();
 
+	bool Left();
+	bool Right();
+	bool Down();
+	bool Up();
+	bool Accept();
+	bool Decline();
+
 	
 
 

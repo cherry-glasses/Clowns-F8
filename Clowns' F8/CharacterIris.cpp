@@ -249,46 +249,46 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 	case Entity::WALK_LEFT_FRONT:
 		current_movement = WALK_LEFT_FRONT;
 		current_animation = &walk_left_front;
-		position.first -= 2;
-		position.second++;
+		position.first -= 8;
+		position.second += 4;
 		break;
 	case Entity::WALK_RIGHT_FRONT:
 		current_movement = WALK_RIGHT_FRONT;
 		current_animation = &walk_right_front;
-		position.first += 2;
-		position.second++;
+		position.first += 8;
+		position.second += 4;
 		break;
 	case Entity::WALK_LEFT_BACK:
 		current_movement = WALK_LEFT_BACK;
 		current_animation = &walk_left_back;
-		position.first -= 2;
-		position.second--;
+		position.first -= 8;
+		position.second -= 4;
 		break;
 	case Entity::WALK_RIGHT_BACK:
 		current_movement = WALK_RIGHT_BACK;
 		current_animation = &walk_right_back;
-		position.first += 2;
-		position.second--;
+		position.first += 8;
+		position.second -= 4;
 		break;
 	case Entity::WALK_LEFT:
 		current_movement = WALK_LEFT;
 		current_animation = &walk_left;
-		position.first -= 2;
+		position.first -= 8;
 		break;
 	case Entity::WALK_RIGHT:
 		current_movement = WALK_RIGHT;
 		current_animation = &walk_right;
-		position.first += 2;
+		position.first += 8;
 		break;
 	case Entity::WALK_FRONT:
 		current_movement = WALK_FRONT;
 		current_animation = &walk_front;
-		position.second++;
+		position.second += 4;
 		break;
 	case Entity::WALK_BACK:
 		current_movement = WALK_BACK;
 		current_animation = &walk_back;
-		position.second--;
+		position.second -= 4;
 		break;
 	case Entity::ATTACK_LEFT_FRONT:
 		current_movement = ATTACK_LEFT_FRONT;
@@ -514,7 +514,7 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 
 void CharacterIris::InputSelectMove() {
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+	if (App->input->Left()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -541,7 +541,7 @@ void CharacterIris::InputSelectMove() {
 			++i;
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+	else if (App->input->Right()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -568,7 +568,7 @@ void CharacterIris::InputSelectMove() {
 			++i;
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+	else if (App->input->Down()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -595,7 +595,7 @@ void CharacterIris::InputSelectMove() {
 			++i;
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+	else if (App->input->Up()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -626,7 +626,7 @@ void CharacterIris::InputSelectMove() {
 
 void CharacterIris::InputSelectAttack() {
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
+	if (App->input->Left()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -656,7 +656,7 @@ void CharacterIris::InputSelectAttack() {
 			++i;
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
+	else if (App->input->Right()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -686,7 +686,7 @@ void CharacterIris::InputSelectAttack() {
 			++i;
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
+	else if (App->input->Down()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -716,7 +716,7 @@ void CharacterIris::InputSelectAttack() {
 			++i;
 		}
 	}
-	else if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
+	else if (App->input->Up()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
