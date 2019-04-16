@@ -241,7 +241,7 @@ void Character::SelectAttack() {
 	{
 		current_turn = ATTACK;
 	}
-	else if (App->input->Decline) 
+	else if (App->input->Decline()) 
 	{
 		current_turn = SELECT_ACTION;
 	}
@@ -381,7 +381,7 @@ void Character::SelectAbility_1() {
 	{
 		current_turn = ABILITY_1;
 	}
-	else if (App->input->Decline)
+	else if (App->input->Decline())
 	{
 		current_turn = SELECT_ACTION;
 	}
