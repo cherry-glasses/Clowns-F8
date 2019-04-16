@@ -54,12 +54,12 @@ bool Scene::Awake(pugi::xml_node& _config)
 			mana_position.push_back({ App->window->GetScreenWidth() - mana_margin.first,  mana_margin.second });
 			break;
 		case 2:
-			life_position.push_back({ life_margin.first, App->window->GetScreenHeight() - life_margin.second });
-			mana_position.push_back({ mana_margin.first, App->window->GetScreenHeight() - mana_margin.second });
+			life_position.push_back({ life_margin.first, App->window->GetScreenHeight() - mana_margin.second });
+			mana_position.push_back({ mana_margin.first, App->window->GetScreenHeight() - life_margin.second });
 			break;
 		case 3:
-			life_position.push_back({ App->window->GetScreenWidth() - life_margin.second, App->window->GetScreenHeight() - life_margin.second });
-			mana_position.push_back({ App->window->GetScreenWidth() - mana_margin.second, App->window->GetScreenHeight() - mana_margin.second });
+			life_position.push_back({ App->window->GetScreenWidth() - life_margin.first, App->window->GetScreenHeight() - mana_margin.second });
+			mana_position.push_back({ App->window->GetScreenWidth() - mana_margin.first, App->window->GetScreenHeight() - life_margin.second });
 			break;
 		default:
 			break;
@@ -229,8 +229,8 @@ bool Scene::Update(float _dt)
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_STORM);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
-			//App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-			//App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 			App->render->camera.x = App->window->GetScreenWidth() / 2;
 			App->render->camera.y = App->window->GetScreenHeight() / 8;
 
