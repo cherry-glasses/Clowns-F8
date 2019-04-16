@@ -163,9 +163,42 @@ void CharacterStorm::SearchAbility_1() {
 			y = pos.second - current_stats.RangeAbility_1;
 		}
 	}
-	for (int i = 0; i < tiles_range_attk; i++) {
-		inrange_mov_list.push_back({ range[i].first, range[i].second });
+	
+	std::pair<int, int> tmp;
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	inrange_mov_list.push_back(tmp);
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.RangeAbility_1; i++)
+	{
+		tmp.first += 1;
+		inrange_mov_list.push_back(tmp);
 	}
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.RangeAbility_1; i++)
+	{
+		tmp.first -= 1;
+		inrange_mov_list.push_back(tmp);
+	}
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.RangeAbility_1; i++)
+	{
+		tmp.second += 1;
+		inrange_mov_list.push_back(tmp);
+	}
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.RangeAbility_1; i++)
+	{
+		tmp.second -= 1;
+		inrange_mov_list.push_back(tmp);
+	}
+
+
+	tmp.first = NULL;
+	tmp.second = NULL;
 
 	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.first < b.first; });
 	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.second < b.second; });
