@@ -27,6 +27,9 @@ public:
 	virtual void SearchAttack() {}
 	virtual void SelectAttack();
 	virtual void Attack();
+	virtual void SearchAbility_1() {}
+	virtual void SelectAbility_1();
+	virtual void Ability_1();
 	virtual void Defend();
 	virtual void CurrentMovement(MOVEMENT _movement) {}
 	virtual void EndTurn();

@@ -36,14 +36,6 @@ typedef struct {
 	int Agi;
 } Stats;
 
-typedef struct {
-	std::string Attack_name;
-	std::string Ability_1_name;
-	std::string Ability_2_name;
-	std::string Ability_3_name;
-	
-} Attacks_names;
-
 class Entity
 {
 

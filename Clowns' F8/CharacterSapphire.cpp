@@ -142,7 +142,7 @@ void CharacterSapphire::SearchAttack() {
 
 }
 
-void CharacterSapphire::SearchAttack() {
+void CharacterSapphire::SearchAbility_1() {
 	objective_position.clear();
 	inrange_mov_list.clear();
 	possible_mov_list.clear();
@@ -150,19 +150,19 @@ void CharacterSapphire::SearchAttack() {
 	Cap = -1;
 
 	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
-	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAtk, tiles_range_attk);
-	int x = pos.first - current_stats.RangeAtk;
-	int y = pos.second - current_stats.RangeAtk;
-	for (int i = 0; i < ((current_stats.RangeAtk * 2) + 1) * ((current_stats.RangeAtk * 2) + 1); i++)
+	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAbility_1, tiles_range_attk);
+	int x = pos.first - current_stats.RangeAbility_1;
+	int y = pos.second - current_stats.RangeAbility_1;
+	for (int i = 0; i < ((current_stats.RangeAbility_1 * 2) + 1) * ((current_stats.RangeAbility_1 * 2) + 1); i++)
 	{
 		possible_mov_list.push_back({ x, y });
 		++x;
-		if (x > pos.first + current_stats.RangeAtk) {
-			x = pos.first - current_stats.RangeAtk;
+		if (x > pos.first + current_stats.RangeAbility_1) {
+			x = pos.first - current_stats.RangeAbility_1;
 			++y;
 		}
-		if (y > pos.second + current_stats.RangeAtk) {
-			y = pos.second - current_stats.RangeAtk;
+		if (y > pos.second + current_stats.RangeAbility_1) {
+			y = pos.second - current_stats.RangeAbility_1;
 		}
 	}
 	for (int i = 0; i < tiles_range_attk; i++) {
@@ -322,51 +322,67 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::ABILITY_1_LEFT_FRONT:
 		current_movement = ABILITY_1_LEFT_FRONT;
-		current_animation = &hability_1_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-		current_turn = END_TURN;
+		current_animation = &ability_1_left_front;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			current_turn = END_TURN;
+		}
 		break;
 	case Entity::ABILITY_1_RIGHT_FRONT:
 		current_movement = ABILITY_1_RIGHT_FRONT;
-		current_animation = &hability_1_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-		current_turn = END_TURN;
+		current_animation = &ability_1_right_front;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			current_turn = END_TURN;
+		}
 		break;
 	case Entity::ABILITY_1_LEFT_BACK:
 		current_movement = ABILITY_1_LEFT_BACK;
-		current_animation = &hability_1_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-		current_turn = END_TURN;
+		current_animation = &ability_1_left_back;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			current_turn = END_TURN;
+		}
 		break;
-	case Entity::ABILITY_1_RIGHT_BACK: // ME HE QUEDADO AQUÍ
+	case Entity::ABILITY_1_RIGHT_BACK:
 		current_movement = ABILITY_1_RIGHT_BACK;
-		current_animation = &hability_1_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-		current_turn = END_TURN;
+		current_animation = &ability_1_right_back;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			current_turn = END_TURN;
+		}
 		break;
-	case Entity::ABILITY_2_LEFT_FRONT:
-		current_movement = ABILITY_2_LEFT_FRONT;
-		current_animation = &hability_2_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-		current_turn = END_TURN;
+	case Entity::ABILITY_1_LEFT:
+		current_movement = ABILITY_1_LEFT;
+		current_animation = &ability_1_left;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			current_turn = END_TURN;
+		}
 		break;
-	case Entity::ABILITY_2_RIGHT_FRONT:
-		current_movement = ABILITY_2_RIGHT_FRONT;
-		current_animation = &hability_2_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-		current_turn = END_TURN;
+	case Entity::ABILITY_1_RIGHT:
+		current_movement = ABILITY_1_RIGHT;
+		current_animation = &ability_1_right;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			current_turn = END_TURN;
+		}
 		break;
-	case Entity::ABILITY_2_LEFT_BACK:
-		current_movement = ABILITY_2_LEFT_BACK;
-		current_animation = &hability_2_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-		current_turn = END_TURN;
+	case Entity::ABILITY_1_FRONT:
+		current_movement = ABILITY_1_FRONT;
+		current_animation = &ability_1_front;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			current_turn = END_TURN;
+		}
 		break;
-	case Entity::ABILITY_2_RIGHT_BACK:
-		current_movement = ABILITY_2_RIGHT_BACK;
-		current_animation = &hability_2_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
-		current_turn = END_TURN;
+	case Entity::ABILITY_1_BACK:
+		current_movement = ABILITY_1_BACK;
+		current_animation = &ability_1_back;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			current_turn = END_TURN;
+		}
 		break;
 	case Entity::DEFEND_LEFT_FRONT:
 		current_movement = DEFEND_LEFT_FRONT;

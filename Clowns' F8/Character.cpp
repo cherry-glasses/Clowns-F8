@@ -23,6 +23,10 @@ bool Character::PreUpdate() {
 		{
 			SearchAttack();
 		}
+		else if (current_turn == SEARCH_ABILITY_1)
+		{
+			SearchAbility_1();
+		}
 	}
 	else
 	{
@@ -44,13 +48,21 @@ bool Character::Update(float _dt) {
 	{
 		SelectAttack();
 	}
-	else if (current_turn == Entity::MOVE)
+	else if (current_turn == SELECT_ABILITY_1)
+	{
+		SelectAbility_1();
+	}
+	else if (current_turn == MOVE)
 	{
 		Walk();
 	}
 	else if (current_turn == ATTACK)
 	{
 		Attack();
+	}
+	else if (current_turn == ABILITY_1)
+	{
+		Ability_1();
 	}
 	else if (current_turn == DEFEND)
 	{
@@ -316,6 +328,131 @@ void Character::Attack()
 			CurrentMovement(IDLE_FRONT);
 		}
 		else if (current_movement == ATTACK_BACK)
+		{
+			CurrentMovement(IDLE_BACK);
+		}
+	}
+}
+
+void Character::SelectAbility_1() {
+
+	if (Cap == -1) {
+		Cap = possible_mov_list.size() / 2;
+	}
+
+	int i = 0;
+	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+	{
+		possible_map.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
+
+		if (i != Cap && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
+		{
+			if (App->pathfinding->IsAttackable({ (*possible_mov).first , (*possible_mov).second }, type))
+			{
+				App->render->Blit(debug_texture, possible_map.at(i).first, possible_map.at(i).second, &debug_blue);
+			}
+			else
+			{
+				App->render->Blit(debug_texture, possible_map.at(i).first, possible_map.at(i).second, &debug_red);
+			}
+		}
+		++i;
+	}
+	App->render->Blit(debug_texture, possible_map.at(Cap).first, possible_map.at(Cap).second, &debug_green);
+
+	InputSelectAttack();
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN
+		&& App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second), type))
+	{
+		current_turn = ABILITY_1;
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+	{
+		current_turn = SELECT_ACTION;
+	}
+}
+
+void Character::Ability_1()
+{
+	objective_position.push_back({ possible_map.at(Cap).first, possible_map.at(Cap).second });
+	if ((position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
+		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
+		|| (position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
+			&& position.second < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second))
+	{
+		CurrentMovement(ABILITY_1_LEFT_FRONT);
+	}
+	else if (position.first < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
+		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
+	{
+		CurrentMovement(ABILITY_1_RIGHT_FRONT);
+	}
+	else if (position.first > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
+		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
+	{
+		CurrentMovement(ABILITY_1_LEFT_BACK);
+	}
+	else if (position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
+		&& position.second > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
+	{
+		CurrentMovement(ABILITY_1_RIGHT_BACK);
+	}
+	else if (position.first > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
+		&& position.second < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
+	{
+		CurrentMovement(ABILITY_1_LEFT);
+	}
+	else if (position.first < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
+		&& position.second > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
+	{
+		CurrentMovement(ABILITY_1_RIGHT);
+	}
+	else if (position.first < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
+		&& position.second < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
+	{
+		CurrentMovement(ABILITY_1_FRONT);
+	}
+	else if (position.first > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
+		&& position.second > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
+	{
+		CurrentMovement(ABILITY_1_BACK);
+	}
+	else {
+		CurrentMovement(ABILITY_1_LEFT_FRONT);
+	}
+
+	// Ending attack and start idle animation
+	if (current_animation->Finished()) {
+		if (current_movement == ABILITY_1_LEFT_FRONT)
+		{
+			CurrentMovement(IDLE_LEFT_FRONT);
+		}
+		else if (current_movement == ABILITY_1_RIGHT_FRONT)
+		{
+			CurrentMovement(IDLE_RIGHT_FRONT);
+		}
+		else if (current_movement == ABILITY_1_LEFT_BACK)
+		{
+			CurrentMovement(IDLE_LEFT_BACK);
+		}
+		else if (current_movement == ABILITY_1_RIGHT_BACK)
+		{
+			CurrentMovement(IDLE_RIGHT_BACK);
+		}
+		else if (current_movement == ABILITY_1_LEFT)
+		{
+			CurrentMovement(IDLE_LEFT);
+		}
+		else if (current_movement == ABILITY_1_RIGHT)
+		{
+			CurrentMovement(IDLE_RIGHT);
+		}
+		else if (current_movement == ABILITY_1_FRONT)
+		{
+			CurrentMovement(IDLE_FRONT);
+		}
+		else if (current_movement == ABILITY_1_BACK)
 		{
 			CurrentMovement(IDLE_BACK);
 		}

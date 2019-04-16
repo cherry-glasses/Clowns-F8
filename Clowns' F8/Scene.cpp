@@ -469,7 +469,7 @@ void Scene::ActionsMenu()
 		{
 			if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
 			{
-				(*character)->current_turn = Entity::TURN::SEARCH_HABILITY_1;
+				(*character)->current_turn = Entity::TURN::SEARCH_ABILITY_1;
 			}
 		}
 	}

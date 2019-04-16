@@ -14,7 +14,7 @@ public:
 	//Move and Attack
 	void SearchWalk();
 	void SearchAttack();
-	void SearchHability_1();
+	void SearchAbility_1();
 	void Hability_2() {}
 	void Hability_3() {}
 
