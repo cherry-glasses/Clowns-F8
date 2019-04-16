@@ -409,7 +409,7 @@
       </animations>
     </storm>
     <georgeb>
-      <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
+      <texture value="Assets/Sprites/Main_Characters/George_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="3" y="15"/>
       <stats hp="75" mana="95" p_move="4" atk_f="75" atk_s="75" range_atk="6" def_f="75" def_s="75" crit="0.08"  agi="10"/>
@@ -454,6 +454,42 @@
         <attack_back speed="0.2f" loop="false">
           <frame x="64" y="192" width="64" height="64"/>
         </attack_back>
+        <ability_1_left speed="0.2f" loop="false">
+          <frame x="0" y="128" width="64" height="64"/>
+        </ability_1_left>
+        <ability_1_right speed="0.2f" loop="false">
+          <frame x="64" y="128" width="64" height="64"/>
+        </ability_1_right>
+        <ability_1_front speed="0.2f" loop="false">
+          <frame x="0" y="192" width="64" height="64"/>
+        </ability_1_front>
+        <ability_1_back speed="0.2f" loop="false">
+          <frame x="64" y="192" width="64" height="64"/>
+        </ability_1_back>
+        <ability_2_left speed="0.2f" loop="false">
+          <frame x="0" y="128" width="64" height="64"/>
+        </ability_2_left>
+        <ability_2_right speed="0.2f" loop="false">
+          <frame x="64" y="128" width="64" height="64"/>
+        </ability_2_right>
+        <ability_2_front speed="0.2f" loop="false">
+          <frame x="0" y="192" width="64" height="64"/>
+        </ability_2_front>
+        <ability_2_back speed="0.2f" loop="false">
+          <frame x="64" y="192" width="64" height="64"/>
+        </ability_2_back>
+        <ability_1_left speed="0.2f" loop="false">
+          <frame x="0" y="128" width="64" height="64"/>
+        </ability_1_left>
+        <ability_3_right speed="0.2f" loop="false">
+          <frame x="64" y="128" width="64" height="64"/>
+        </ability_3_right>
+        <ability_3_front speed="0.2f" loop="false">
+          <frame x="0" y="192" width="64" height="64"/>
+        </ability_3_front>
+        <ability_3_back speed="0.2f" loop="false">
+          <frame x="64" y="192" width="64" height="64"/>
+        </ability_3_back>
         <defend_left speed="0.2f" loop="true">
           <frame x="128" y="128" width="64" height="64"/>
         </defend_left>
