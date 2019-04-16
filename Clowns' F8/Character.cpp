@@ -374,6 +374,18 @@ void Character::SelectAbility_1() {
 				App->render->Blit(debug_texture, possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second, &debug_green);
 			}
 		}
+		if (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS) {
+			if (i == Cap) {
+				if (Cap == mod || Cap - 2 == mod) {
+					App->render->Blit(debug_texture, possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second, &debug_green);
+					App->render->Blit(debug_texture, possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second, &debug_green);
+				}
+				else if (Cap == (mod / 2) || Cap + 1 == possible_mov_list.size() - (mod / 2)) {
+					App->render->Blit(debug_texture, possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second, &debug_green);
+					App->render->Blit(debug_texture, possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second, &debug_green);
+				}
+			} 
+		}
 		++i;
 	}
 
@@ -415,6 +427,23 @@ void Character::Ability_1()
 				objective_position.push_back({ possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second });
 			}
 			++i;
+		}
+	}
+	else if (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS) {
+		int i = 0;
+		int mod = sqrt(possible_mov_list.size());
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i == Cap) {
+				if (Cap == mod || Cap - 2 == mod) {
+					objective_position.push_back({ possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second });
+					objective_position.push_back({ possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second });
+				}
+				else if (Cap == (mod / 2) || Cap + 1 == possible_mov_list.size() - (mod / 2)) {
+					objective_position.push_back({ possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second });
+					objective_position.push_back({ possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second });
+				}
+			}
 		}
 	}
 
