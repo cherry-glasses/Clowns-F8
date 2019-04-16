@@ -68,7 +68,8 @@
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="9" y="21"/>
-      <stats hp="79" mana="120" p_move="1" atk_f="60" atk_s="84" range_atk="7" def_f="70" def_s="80" crit="0.1"  agi="14"/>
+      <stats hp="79" mana="120" p_move="1" atk_f="60" atk_s="84" range_atk="7" range_ability_1="7" range_ability_2="7"
+             range_ability_3="7" def_f="70" def_s="80" crit="0.1"  agi="14"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>
@@ -204,7 +205,8 @@
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="7" y="19"/>
-      <stats hp="74" mana="85" p_move="1" atk_f="82" atk_s="60" range_atk="1" def_f="78" def_s="70" crit="0.2" agi="12"/>
+      <stats hp="74" mana="85" p_move="1" atk_f="82" atk_s="60" range_atk="1" range_ability_1="7" range_ability_2="7"
+             range_ability_3="7" def_f="78" def_s="70" crit="0.2" agi="12"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>
@@ -340,7 +342,8 @@
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="5" y="17"/>
-      <stats hp="90" mana="85" p_move="4" atk_f="75" atk_s="74" range_atk="1" def_f="85" def_s="70" crit="0.2"  agi="8"/>
+      <stats hp="90" mana="85" p_move="4" atk_f="75" atk_s="74" range_atk="1" range_ability_1="7" range_ability_2="7"
+             range_ability_3="7" def_f="85" def_s="70" crit="0.2"  agi="8"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>
@@ -412,7 +415,8 @@
       <texture value="Assets/Sprites/Main_Characters/George_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="3" y="15"/>
-      <stats hp="75" mana="95" p_move="4" atk_f="75" atk_s="75" range_atk="6" def_f="75" def_s="75" crit="0.08"  agi="10"/>
+      <stats hp="75" mana="95" p_move="4" atk_f="75" atk_s="75" range_atk="6" range_ability_1="7" range_ability_2="7"
+             range_ability_3="7" def_f="75" def_s="75" crit="0.08"  agi="10"/>
       <animations>
         <idle_left speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>

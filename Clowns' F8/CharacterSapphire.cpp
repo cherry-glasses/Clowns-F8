@@ -142,7 +142,39 @@ void CharacterSapphire::SearchAttack() {
 
 }
 
+void CharacterSapphire::SearchAttack() {
+	objective_position.clear();
+	inrange_mov_list.clear();
+	possible_mov_list.clear();
+	possible_map.clear();
+	Cap = -1;
 
+	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
+	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAtk, tiles_range_attk);
+	int x = pos.first - current_stats.RangeAtk;
+	int y = pos.second - current_stats.RangeAtk;
+	for (int i = 0; i < ((current_stats.RangeAtk * 2) + 1) * ((current_stats.RangeAtk * 2) + 1); i++)
+	{
+		possible_mov_list.push_back({ x, y });
+		++x;
+		if (x > pos.first + current_stats.RangeAtk) {
+			x = pos.first - current_stats.RangeAtk;
+			++y;
+		}
+		if (y > pos.second + current_stats.RangeAtk) {
+			y = pos.second - current_stats.RangeAtk;
+		}
+	}
+	for (int i = 0; i < tiles_range_attk; i++) {
+		inrange_mov_list.push_back({ range[i].first, range[i].second });
+	}
+
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.first < b.first; });
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.second < b.second; });
+
+	current_turn = Entity::SELECT_ABILITY_1;
+
+}
 
 void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 
