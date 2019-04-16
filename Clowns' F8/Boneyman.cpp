@@ -104,7 +104,7 @@ bool Boneyman::Save(pugi::xml_node& node) const
 void Boneyman::SearchWalk()
 {
 	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
-	App->pathfinding->CreatePathBishop(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second),2);
+	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
 	current_turn = MOVE;
 }
 
@@ -144,6 +144,8 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 		current_turn = MOVE;
 	}
 	else {
+		//COSO
+
 		current_turn = SEARCH_ATTACK;
 	}
 
@@ -164,6 +166,7 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 		{
 			CurrentMovement(IDLE_RIGHT_BACK);
 		}
+
 		current_turn = SEARCH_ATTACK;
 	}
 }
@@ -172,7 +175,7 @@ void Boneyman::SearchAttack()
 {
 	objective_position.clear();
 	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
-	App->pathfinding->CreatePathBishop(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second),2);
+	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
 	current_turn = ATTACK;
 	//IA Attack. Into range of position + attack. If enemy is near to dead. If enemy def.
 }
