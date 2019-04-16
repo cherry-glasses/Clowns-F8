@@ -95,6 +95,7 @@ public:
 
 	Stats default_stats;
 	Stats current_stats;
+	Attacks_names attacks_names;
 	bool defend = false;
 
 	enum STATE { ALIVE, DEATH };

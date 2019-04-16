@@ -180,7 +180,7 @@ bool Scene::Update(float _dt)
 			App->audio->VolumeDown();
 			volume_down_button->Select(SELECTED);
 		}
-		else if (back_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		else if (back_button->has_been_clicked || App->input->Decline())
 		{
 			mm_options_created = false;
 			current_scene = MAIN_MENU;
@@ -210,7 +210,7 @@ bool Scene::Update(float _dt)
 			mm_credits_created = true;
 		}
 
-		if (back_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		if (back_button->has_been_clicked || App->input->Decline())
 		{
 			current_scene = MAIN_MENU;
 			back_button->Select(SELECTED);
@@ -274,17 +274,6 @@ bool Scene::Update(float _dt)
 				ActionsMenu();
 			}
 		}
-
-		// Camera Movment in map
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-			App->render->camera.y += 4;
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			App->render->camera.x += 4;
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-			App->render->camera.y -= 4;
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-			App->render->camera.x -= 4;
-		
 		
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		{
@@ -503,11 +492,11 @@ void Scene::DeleteMenu()
 
 void Scene::Navigate()
 {
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->gamepad.CROSS_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN)
+	if (App->input->Down())
 	{
 		NavigateDown();
 	}
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN)
+	if (App->input->Up())
 	{
 		NavigateUp();
 	}
