@@ -419,12 +419,16 @@
           <frame x="128" y="0" width="64" height="64"/>
         </idle_left>
         <idle_right speed="0.2f" loop="true">
-          <frame x="64" y="0" width="64" height="64"/>
-          <frame x="192" y="0" width="64" height="64"/>
+          <frame x="0" y="64" width="64" height="64"/>
+          <frame x="64" y="64" width="64" height="64"/>
+          <frame x="129" y="64" width="64" height="64"/>
+          <frame x="193" y="64" width="64" height="64"/>
         </idle_right>
         <idle_front speed="0.2f" loop="true">
           <frame x="0" y="64" width="64" height="64"/>
-          <frame x="128" y="64" width="64" height="64"/>
+          <frame x="64" y="64" width="64" height="64"/>
+          <frame x="129" y="64" width="64" height="64"/>
+          <frame x="193" y="64" width="64" height="64"/>
         </idle_front>
         <idle_back speed="0.2f" loop="true">
           <frame x="64" y="64" width="64" height="64"/>
@@ -434,7 +438,14 @@
           <frame x="256" y="0" width="64" height="64"/>
         </walk_left>
         <walk_right speed="0.2f" loop="true">
-          <frame x="320" y="0" width="64" height="64"/>
+          <frame x="255" y="0" width="64" height="96"/>
+          <frame x="319" y="0" width="64" height="96"/>          
+          <frame x="383" y="0" width="64" height="96"/>
+          <frame x="447" y="0" width="64" height="96"/>
+          <frame x="255" y="96" width="64" height="96"/>
+          <frame x="319" y="96" width="64" height="96"/>
+          <frame x="383" y="96" width="64" height="96"/>
+          <frame x="447" y="96" width="64" height="96"/>
         </walk_right>
         <walk_front speed="0.2f" loop="true">
           <frame x="256" y="64" width="64" height="64"/>
@@ -446,7 +457,10 @@
           <frame x="0" y="128" width="64" height="64"/>
         </attack_left>
         <attack_right speed="0.2f" loop="false">
+          <frame x="0" y="128" width="64" height="64"/>
           <frame x="64" y="128" width="64" height="64"/>
+          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="64" y="192" width="64" height="64"/>
         </attack_right>
         <attack_front speed="0.2f" loop="false">
           <frame x="0" y="192" width="64" height="64"/>
@@ -506,7 +520,10 @@
           <frame x="128" y="128" width="64" height="64"/>
         </dead_left>
         <dead_right speed="0.2f" loop="false">
+          <frame x="128" y="128" width="64" height="64"/>
           <frame x="192" y="128" width="64" height="64"/>
+          <frame x="128" y="192" width="64" height="64"/>
+          <frame x="192" y="192" width="64" height="64"/>
         </dead_right>
         <dead_front speed="0.2f" loop="false">
           <frame x="128" y="192" width="64" height="64"/>
