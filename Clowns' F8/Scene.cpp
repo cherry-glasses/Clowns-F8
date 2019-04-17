@@ -193,6 +193,7 @@ bool Scene::Update(float _dt)
 			DeleteMenu();
 
 		}
+
 		Navigate();
 		break;
 
@@ -232,6 +233,34 @@ bool Scene::Update(float _dt)
 		if (!mm_controls_menu_created) {
 			mm_controls_menu_created = true;
 			CreateMMControls();
+		}
+		if (accept_button->has_been_clicked) {
+
+		}
+		if (decline_button->has_been_clicked) {
+
+		}
+		if (character_stats_button->has_been_clicked) {
+
+		}
+		if (characeter_abilities_button->has_been_clicked) {
+
+		}
+		if (abilities_button->has_been_clicked) {
+
+		}
+		if (start_button->has_been_clicked) {
+
+		}
+		if (select_button->has_been_clicked) {
+
+		}
+	
+		else if (back_button->has_been_clicked || App->input->Decline())
+		{
+			mm_options_created = false;
+			current_scene = MM_OPTIONS;
+			DeleteMenu();
 		}
 		Navigate();
 		break;
