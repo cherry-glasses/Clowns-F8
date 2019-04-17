@@ -257,14 +257,20 @@ void ModuleAudio::StopMusic(int _mut)
 
 void ModuleAudio::VolumeUp()
 {
-	if (volume <= 120)
-		Mix_VolumeMusic(volume += 8);
+	volume += volume_change_ratio;
+	if (volume > 120) {
+		volume = 120;
+	}
+	Mix_VolumeMusic(volume);
 }
 
 void ModuleAudio::VolumeDown()
 {
-	if (volume >= 8)
-		Mix_VolumeMusic(volume -= 8);
+	volume -= volume_change_ratio;
+	if (volume < 0) {
+		volume = 0;
+	}
+	Mix_VolumeMusic(volume);
 }
 
 void ModuleAudio::SliderVolumeFx(int _vol)
