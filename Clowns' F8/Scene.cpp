@@ -96,7 +96,10 @@ bool Scene::Update(float _dt)
 	switch (current_scene)
 	{
 	case Scene::MAIN_MENU:
-
+		if (!music_created) {
+			music_created = true;
+			App->audio->PlayMusic("Main_menu_8_bits.wav");
+		}
 		if (!main_menu_created) {
 			main_menu_created = true;
 			CreateMainMenu();
@@ -107,11 +110,13 @@ bool Scene::Update(float _dt)
 		if (new_game_button->has_been_clicked)
 		{
 			current_scene = FIRST_BATTLE;
+			music_created = false;
 			DeleteMenu();
 		}
 		else if (load_game_button->has_been_clicked)
 		{
 			current_scene = FIRST_BATTLE;
+			music_created = false;
 			DeleteMenu();
 		}
 		else if (options_button->has_been_clicked)
@@ -266,7 +271,10 @@ bool Scene::Update(float _dt)
 		break;
 
 	case Scene::FIRST_BATTLE:
-		
+		if (!music_created) {
+			music_created = true;
+			App->audio->PlayMusic("Main_menu_8_bits.wav");
+		}
 		if (!map_loaded) {
 			map_loaded = true;
 			App->map->Load("map_level1.tmx");

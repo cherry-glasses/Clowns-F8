@@ -72,8 +72,7 @@ private:
 	SDL_Rect option_background;
 	int button_margin;
 	int screen_width, screen_height;
-	/*int button_half_width, button_half_height;
-	int first_button_height, options_first_height;*/
+	bool music_created = false;
 	bool main_menu_created = false;
 	bool mm_options_created = false;
 	bool mm_credits_created = false;

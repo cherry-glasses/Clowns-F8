@@ -52,10 +52,10 @@
 	  <volume_change_ratio value="10"/>
     <mute value="false"/>
 	  <music> 
-      <folder>audio/music/</folder>
+      <folder>Assets/Audio/Music/</folder>
     </music>
    	<sfx> 
-      <folder>audio/fx/</folder>
+      <folder>Assets/Audio/SFX/</folder>
     </sfx>
   </audio>
 

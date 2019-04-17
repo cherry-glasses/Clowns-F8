@@ -266,7 +266,7 @@ void ModuleAudio::VolumeUp()
 
 void ModuleAudio::VolumeDown()
 {
-	volume -= volume_change_ratio;
+ 	volume -= volume_change_ratio;
 	if (volume < 0) {
 		volume = 0;
 	}
