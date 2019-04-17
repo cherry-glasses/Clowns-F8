@@ -48,6 +48,8 @@ private:
 	void CreateMainMenu();
 	void DeleteMenu();
 	void CreateMMOptions();
+	void CreateOptionsIngame();
+	void DeleteOptionsIngame();
 	void CreatePortraits(Entity* _character, int _i);
 	void ActionsMenu();
 	void Navigate();
@@ -79,6 +81,7 @@ private:
 	bool map_loaded = false;
 	bool portraits_created = false;
 	bool action_menu_created = false;
+	bool ingame_options_menu_created = false;
 	//Main menu UI
 	GUIButton* cherry_glasses_logo_button = nullptr;
 
@@ -101,6 +104,8 @@ private:
 	GUIButton* volume_up_button = nullptr;
 	GUIButton* volume_down_button = nullptr;
 	GUIButton* back_button = nullptr;
+	GUIButton* resume_button = nullptr;
+	GUIButton* mm_button = nullptr;
 	GUILabel* english_label = nullptr;
 	GUILabel* spanish_label = nullptr;
 	GUILabel* volume_up_label = nullptr;
@@ -108,6 +113,8 @@ private:
 	GUILabel* back_label = nullptr;
 	GUILabel* language_label = nullptr;
 	GUILabel* volume_label = nullptr;
+	GUILabel* resume_label = nullptr;
+	GUILabel* mm_label = nullptr;
 
 	//GUIImage* action_menu = nullptr;
 	GUIButton* attack_button = nullptr;
@@ -127,10 +134,11 @@ private:
 	std::vector<std::pair<int, int>> portrait_position;
 	bool waiting_for_input = false;
 	std::list<GUIButton*> buttons;
+	std::list<GUIButton*> buttons2;
 
 public:
 	bool language = true; //true = English; false = Spanish
-
+	bool resume_game = true;
 };
 
 #endif //_SCENE_H_

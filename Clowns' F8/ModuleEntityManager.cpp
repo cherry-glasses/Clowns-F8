@@ -12,6 +12,7 @@
 #include "Hotdog.h"
 #include "ModulePathfinding.h"
 #include "ModuleMap.h"
+#include "Scene.h"
 
 
 ModuleEntityManager::ModuleEntityManager() : Module()
@@ -98,11 +99,13 @@ bool ModuleEntityManager::PreUpdate()
 
 bool ModuleEntityManager::Update(float _dt)
 {
-	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
+	if (App->scene->resume_game)
 	{
-		(*entity)->Update(_dt);
+		for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
+		{
+			(*entity)->Update(_dt);
+		}
 	}
-
 	return true;
 }
 
