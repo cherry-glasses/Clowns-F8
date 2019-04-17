@@ -385,10 +385,6 @@ void CharacterStorm::InputSelectMove() {
 								Cap -= 1;
 								i = possible_mov_list.size();
 							}
-							else {
-								Cap = (possible_mov_list.size() / 2) - 1;
-								i = possible_mov_list.size();
-							}
 							break;
 						}
 					}
@@ -419,10 +415,6 @@ void CharacterStorm::InputSelectMove() {
 								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
 							{
 								Cap += 1;
-								i = possible_mov_list.size();
-							}
-							else {
-								Cap = (possible_mov_list.size() / 2) + 1;
 								i = possible_mov_list.size();
 							}
 							break;
@@ -457,10 +449,6 @@ void CharacterStorm::InputSelectMove() {
 								Cap += sqrt(possible_mov_list.size());
 								i = possible_mov_list.size();
 							}
-							else {
-								Cap = (possible_mov_list.size() / 2) + sqrt(possible_mov_list.size());
-								i = possible_mov_list.size();
-							}
 							break;
 						}
 					}
@@ -491,10 +479,6 @@ void CharacterStorm::InputSelectMove() {
 								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
 							{
 								Cap -= sqrt(possible_mov_list.size());
-								i = possible_mov_list.size();
-							}
-							else {
-								Cap = (possible_mov_list.size() / 2) - sqrt(possible_mov_list.size());
 								i = possible_mov_list.size();
 							}
 							break;

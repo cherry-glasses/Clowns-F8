@@ -417,10 +417,6 @@ void CharacterGeorgeB::InputSelectMove() {
 								Cap += sqrt(possible_mov_list.size()) - 1;
 								i = possible_mov_list.size();
 							}
-							else {
-								Cap = (possible_mov_list.size() / 2) + (sqrt(possible_mov_list.size()) - 1);
-								i = possible_mov_list.size();
-							}
 							break;
 						}
 					}
@@ -451,10 +447,6 @@ void CharacterGeorgeB::InputSelectMove() {
 								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
 							{
 								Cap -= sqrt(possible_mov_list.size()) - 1;
-								i = possible_mov_list.size();
-							}
-							else {
-								Cap = (possible_mov_list.size() / 2) - (sqrt(possible_mov_list.size()) - 1);
 								i = possible_mov_list.size();
 							}
 							break;
@@ -489,10 +481,6 @@ void CharacterGeorgeB::InputSelectMove() {
 								Cap += sqrt(possible_mov_list.size()) + 1;
 								i = possible_mov_list.size();
 							}
-							else {
-								Cap = (possible_mov_list.size() / 2) + (sqrt(possible_mov_list.size()) + 1);
-								i = possible_mov_list.size();
-							}
 							break;
 						}
 					}
@@ -523,10 +511,6 @@ void CharacterGeorgeB::InputSelectMove() {
 								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
 							{
 								Cap -= sqrt(possible_mov_list.size()) + 1;
-								i = possible_mov_list.size();
-							}
-							else {
-								Cap = (possible_mov_list.size() / 2) - (sqrt(possible_mov_list.size()) + 1);
 								i = possible_mov_list.size();
 							}
 							break;
@@ -563,10 +547,6 @@ void CharacterGeorgeB::InputSelectAttack() {
 								Cap += sqrt(possible_mov_list.size()) - 1;
 								i = possible_mov_list.size();
 							}
-							else {
-								Cap = (possible_mov_list.size() / 2) + (sqrt(possible_mov_list.size()) - 1);
-								i = possible_mov_list.size();
-							}
 							break;
 						}
 					}
@@ -595,10 +575,6 @@ void CharacterGeorgeB::InputSelectAttack() {
 							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap -= sqrt(possible_mov_list.size()) - 1;
-								i = possible_mov_list.size();
-							}
-							else {
-								Cap = (possible_mov_list.size() / 2) - (sqrt(possible_mov_list.size()) - 1);
 								i = possible_mov_list.size();
 							}
 							break;
@@ -631,10 +607,6 @@ void CharacterGeorgeB::InputSelectAttack() {
 								Cap += sqrt(possible_mov_list.size()) + 1;
 								i = possible_mov_list.size();
 							}
-							else {
-								Cap = (possible_mov_list.size() / 2) + (sqrt(possible_mov_list.size()) + 1);
-								i = possible_mov_list.size();
-							}
 							break;
 						}
 					}
@@ -663,10 +635,6 @@ void CharacterGeorgeB::InputSelectAttack() {
 							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap -= sqrt(possible_mov_list.size()) + 1;
-								i = possible_mov_list.size();
-							}
-							else {
-								Cap = (possible_mov_list.size() / 2) - (sqrt(possible_mov_list.size()) + 1);
 								i = possible_mov_list.size();
 							}
 							break;
