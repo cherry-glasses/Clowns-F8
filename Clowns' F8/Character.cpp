@@ -81,7 +81,7 @@ bool Character::PostUpdate() {
 
 	if (entity_texture != nullptr)
 	{
-		App->render->Blit(entity_texture, position.first, position.second - current.h + position_margin.second, &current_animation->GetCurrentFrame(), 1.0f);
+		App->render->Blit(entity_texture, position.first, position.second - current.h + position_margin.second, &current_animation->GetCurrentFrame(), 1.0f, flipX);
 	}
 
 	return true;

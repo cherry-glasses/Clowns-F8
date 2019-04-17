@@ -97,6 +97,8 @@ public:
 	Stats current_stats;
 	Attacks_names attacks_names;
 	bool defend = false;
+	bool stunned = false;
+	bool flipX = false;
 
 	enum STATE { ALIVE, DEATH };
 	enum TURN { SEARCH_MOVE, SELECT_MOVE, MOVE, SELECT_ACTION, SEARCH_ATTACK, SELECT_ATTACK, ATTACK, 
