@@ -100,7 +100,7 @@ void Character::SelectWalk() {
 	if (Cap == -1) {
 		Cap = possible_mov_list.size() / 2;
 	}
-	
+
 	int i = 0;
 	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 	{
@@ -125,8 +125,9 @@ void Character::SelectWalk() {
 	App->render->Blit(debug_texture, possible_map.at(Cap).first, possible_map.at(Cap).second, &debug_green);
 
 	InputSelectMove();
-
-	if (App->input->Accept()) {
+	
+	if (App->input->Accept() 
+		&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)) != inrange_mov_list.end()) {
 		current_turn = Entity::MOVE;
 	}
 }
