@@ -144,6 +144,8 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 		current_turn = MOVE;
 	}
 	else {
+		//COSO
+
 		current_turn = SEARCH_ATTACK;
 	}
 
@@ -164,12 +166,14 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 		{
 			CurrentMovement(IDLE_RIGHT_BACK);
 		}
+
 		current_turn = SEARCH_ATTACK;
 	}
 }
 
 void Boneyman::SearchAttack()
 {
+	objective_position.clear();
 	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
 	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
 	current_turn = ATTACK;
@@ -298,49 +302,49 @@ void Boneyman::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::ABILITY_1_LEFT_FRONT:
 		current_movement = ABILITY_1_LEFT_FRONT;
-		current_animation = &hability_1_left_front;
+		current_animation = &ability_1_left_front;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_RIGHT_FRONT:
 		current_movement = ABILITY_1_RIGHT_FRONT;
-		current_animation = &hability_1_right_front;
+		current_animation = &ability_1_right_front;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_LEFT_BACK:
 		current_movement = ABILITY_1_LEFT_BACK;
-		current_animation = &hability_1_left_back;
+		current_animation = &ability_1_left_back;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_RIGHT_BACK: // ME HE QUEDADO AQUÍ
 		current_movement = ABILITY_1_RIGHT_BACK;
-		current_animation = &hability_1_right_back;
+		current_animation = &ability_1_right_back;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_2_LEFT_FRONT:
 		current_movement = ABILITY_2_LEFT_FRONT;
-		current_animation = &hability_2_left_front;
+		current_animation = &ability_2_left_front;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_2_RIGHT_FRONT:
 		current_movement = ABILITY_2_RIGHT_FRONT;
-		current_animation = &hability_2_right_front;
+		current_animation = &ability_2_right_front;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_2_LEFT_BACK:
 		current_movement = ABILITY_2_LEFT_BACK;
-		current_animation = &hability_2_left_back;
+		current_animation = &ability_2_left_back;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_2_RIGHT_BACK:
 		current_movement = ABILITY_2_RIGHT_BACK;
-		current_animation = &hability_2_right_back;
+		current_animation = &ability_2_right_back;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;

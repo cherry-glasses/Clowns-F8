@@ -6,6 +6,7 @@
 #include "CharacterSapphire.h"
 #include "CharacterIris.h"
 #include "CharacterStorm.h"
+#include "CharacterGeorgeB.h"
 #include "Boneyman.h"
 #include "Pinkking.h"
 #include "Hotdog.h"
@@ -81,7 +82,9 @@ bool ModuleEntityManager::PreUpdate()
 				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
 			}
 		}
-
+		
+		(*entity)->defend = false;
+		(*entity)->stunned = false;
 		(*entity)->PreUpdate();
 	}
 
@@ -112,6 +115,12 @@ bool ModuleEntityManager::PostUpdate()
 	}
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
+		if ((*entity)->current_stats.Hp > (*entity)->default_stats.Hp) {
+			(*entity)->current_stats.Hp = (*entity)->default_stats.Hp;
+		}
+		else if ((*entity)->current_stats.Hp < 0) {
+			(*entity)->current_stats.Hp = 0;
+		}
 		(*entity)->PostUpdate();
 	}
 
@@ -183,6 +192,11 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		entities.push_back(tmp);
 		characters.push_back(tmp);
 		break;
+	case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
+		tmp = new CharacterGeorgeB(_type, entity_configs.child("georgeb"));
+		entities.push_back(tmp);
+		characters.push_back(tmp);
+		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
 		for (int i = 0; i < 4; i++)
 		{
@@ -222,6 +236,28 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 {
 	switch (_type)
 	{
+	case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				if ((*character)->GetPosition() == (*position))
+				{
+					(*character)->current_stats.Hp += _damage;
+				}
+			}
+		}
+		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				if ((*enemie)->GetPosition() == (*position))
+				{
+					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+				}
+			}
+		}
+		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
 		// We can swap to all entiotyes for Hector.
 		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
@@ -230,11 +266,54 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			{
 				if ((*enemie)->GetPosition() == (*position))
 				{
-					(*enemie)->current_stats.Hp -= (_damage - (*enemie)->current_stats.DefF);
+					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
 				}
 			}
 		}
+		break;
+	case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
+		// We can swap to all entiotyes for Hector.
+		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				if ((*enemie)->GetPosition() == (*position))
+				{
+					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+				}
+			}
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
+		// We can swap to all entiotyes for Hector.
+		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				if ((*enemie)->GetPosition() == (*position))
+				{
+					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+				}
+			}
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_PINKKING:
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				if ((*character)->GetPosition() == (*position))
+				{
+					if ((*character)->defend) {
+						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF * 1.2 / 100));
+					}
+					else {
+						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF / 100));
+					}
 
+				}
+			}
+		}
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
 		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
@@ -243,22 +322,18 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			{
 				if ((*character)->GetPosition() == (*position))
 				{
-					(*character)->current_stats.Hp -= (_damage - (*character)->current_stats.DefF);
+					if ((*character)->defend) {
+						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF * 1.2 / 100));
+					}
+					else {
+						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF / 100));
+					}
+					
 				}
 			}
 		}
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
-		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
-		{
-			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position) 
-			{
-				if ((*character)->GetPosition() == (*position)) 
-				{
-					(*character)->current_stats.Hp -= (_damage - (*character)->current_stats.DefF);
-				}
-			}
-		}
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
 		break;
@@ -280,10 +355,57 @@ bool ModuleEntityManager::UpdateWalk(std::pair<int, int> tile_id) {
 		if (tile_id == tmp) {
 			ret = true;
 		}
-
 	}
-
-
-	
 	return ret;
 }
+
+
+
+std::pair<int, int>* ModuleEntityManager::RangeOfAttack(std::pair<int, int> myposition, int radius, int& size) {
+
+	std::list<std::pair<int, int>> frontier;
+	std::list<std::pair<int, int>> visited;
+	bool flag = false;
+
+	std::pair<int, int> aux;
+	// calcular con los 2 radios y restar.
+	frontier.push_back(myposition);
+	//visited.push_back(myposition);
+	while (frontier.size() != 0) {
+		aux = frontier.front();
+		frontier.pop_front();
+		flag = false;
+		for (std::list<std::pair<int, int>>::iterator eshorrible = visited.begin(); eshorrible != visited.end(); ++eshorrible) {
+			if (aux == (*eshorrible)) {
+				flag = true;
+				break;
+			}
+		}
+		if (!flag) {
+			for (int i = -1; i <= 1; i += 2) {
+				for (int j = -1; j <= 1; j += 2) {
+					std::pair<int, int> tmp = aux;
+					if (i == -1)
+						tmp.first += j;
+					else 
+						tmp.second += j;
+					
+					if (InRange(myposition, tmp, radius)) {
+						frontier.push_back(tmp);
+					}
+				}
+			}
+			visited.push_back(aux);
+		}
+	}
+
+	size = visited.size();
+	std::pair<int, int>* ret = new std::pair<int,int>[visited.size()];
+	int i = 0;
+	for (std::list<std::pair<int, int>>::iterator eshorrible = visited.begin(); eshorrible != visited.end(); ++eshorrible, i++) {
+		ret[i] = (*eshorrible);
+	}
+
+	return ret;
+}
+

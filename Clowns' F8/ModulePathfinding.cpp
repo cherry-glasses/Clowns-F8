@@ -1,6 +1,9 @@
 #include "Log.h"
 #include "Application.h"
+#include "ModuleEntityManager.h"
+#include "ModuleMap.h"
 #include "ModulePathfinding.h"
+
 
 ModulePathfinding::ModulePathfinding() : Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH), width(0), height(0)
 {
@@ -41,10 +44,64 @@ bool ModulePathfinding::CheckBoundaries(const std::pair<int, int>& pos) const
 }
 
 // Utility: returns true is the tile is walkable
-bool ModulePathfinding::IsWalkable(const std::pair<int, int>& pos) const
+bool ModulePathfinding::IsWalkable(const std::pair<int, int>& _pos) const
 {
-	uchar t = GetTileAt(pos);
+	uchar t = GetTileAt(_pos);
 	return t != INVALID_WALK_CODE && t > 0;
+}
+// Utility: returns true is the tile is used by other entity
+bool ModulePathfinding::IsUsed(const std::pair<int, int>& _pos, Entity* _entity) const
+{
+	for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
+	{
+		if (App->map->WorldToMap((*entity)->GetPosition().first, (*entity)->GetPosition().second) == _pos
+			&& (*entity) != _entity) {
+			return true;
+		}
+	}
+	return false;
+}
+// Utility: returns true is the tile is attackable
+bool ModulePathfinding::IsAttackable(const std::pair<int, int>& _pos, ENTITY_TYPE _type) const
+{
+	switch (_type)
+	{
+	case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
+		for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
+		{
+			if (App->map->WorldToMap((*entity)->GetPosition().first, (*entity)->GetPosition().second) == _pos) {
+				return true;
+			}
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
+	case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
+	case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
+		for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
+		{
+			if (App->map->WorldToMap((*enemy)->GetPosition().first, (*enemy)->GetPosition().second) == _pos) {
+				return true;
+			}
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
+	case ENTITY_TYPE::ENTITY_ENEMY_PINKKING:
+	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
+	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
+		for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+		{
+			if (App->map->WorldToMap((*character)->GetPosition().first, (*character)->GetPosition().second) == _pos) {
+				return true;
+			}
+		}
+		break;
+	case ENTITY_TYPE::NO_TYPE:
+		break;
+	default:
+		break;
+	}
+	
+	return false;
 }
 
 // Utility: return the walkability value of a tile
@@ -146,6 +203,91 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill) const
 	return list_to_fill.list.size();
 }
 
+uint PathNode::FindWalkableAdjacentsBishop(PathList & list_to_fill, int Movment_Points) const
+{
+	std::pair<int, int> cell;
+	uint before = list_to_fill.list.size();
+
+	// north
+	for (int i = 1; i <= Movment_Points; i++) {
+		cell.first = pos.first + i;
+		cell.second = pos.second + i;
+		if (App->pathfinding->IsWalkable(cell))
+			list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+		else
+			break;
+	}
+	
+
+	// south
+	for (int i = 1; i <= Movment_Points; i++) {
+		cell.first = pos.first + i;
+		cell.second = pos.second - i;
+		if (App->pathfinding->IsWalkable(cell))
+			list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+		else
+			break;
+
+	}
+	// east
+	for (int i = 1; i <= Movment_Points; i++) {
+		cell.first = pos.first - i;
+		cell.second = pos.second + i;
+		if (App->pathfinding->IsWalkable(cell))
+			list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+		else
+			break;
+	}
+	// west
+	for (int i = 1; i <= Movment_Points; i++) {
+		cell.first = pos.first - i;
+		cell.second = pos.second - i;
+		if (App->pathfinding->IsWalkable(cell))
+			list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+		else
+			break;
+	}
+	return list_to_fill.list.size();
+}
+
+uint PathNode::FindWalkableAdjacentsTower(PathList & list_to_fill, int Movment_Points) const
+{
+	std::pair<int, int> cell;
+	uint before = list_to_fill.list.size();
+
+	// north
+	for (int i = 1; i <= Movment_Points; i++) {
+		cell.first = pos.first + i;
+		cell.second = pos.second;
+		if (App->pathfinding->IsWalkable(cell))
+			list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+	}
+
+
+	// south
+	for (int i = 1; i <= Movment_Points; i++) {
+		cell.first = pos.first - i;
+		cell.second = pos.second;
+		if (App->pathfinding->IsWalkable(cell))
+			list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+	}
+	// east
+	for (int i = 1; i <= Movment_Points; i++) {
+		cell.first = pos.first;
+		cell.second = pos.second + i;
+		if (App->pathfinding->IsWalkable(cell))
+			list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+	}
+	// west
+	for (int i = 1; i <= Movment_Points; i++) {
+		cell.first = pos.first;
+		cell.second = pos.second - i;
+		if (App->pathfinding->IsWalkable(cell))
+			list_to_fill.list.push_back(PathNode(-1, -1, cell, this));
+	}
+	return list_to_fill.list.size();
+}
+
 // PathNode -------------------------------------------------------------------------
 // Calculates this tile score
 // ----------------------------------------------------------------------------------
@@ -218,6 +360,164 @@ int ModulePathfinding::CreatePath(const std::pair<int, int>& origin, const std::
 		// TODO 5: Fill a list of all adjancent nodes
 		PathList childs;
 		close.list.back().FindWalkableAdjacents(childs);
+
+
+		// TODO 6: Iterate adjancent nodes:					
+		std::list<PathNode>::iterator child_node = childs.list.begin();
+		while (child_node != childs.list.end())
+		{
+			if (!close.Find((*child_node).pos) != NULL)	// ignore nodes in the closed list
+			{
+				(*child_node).CalculateF(destination); // If it is NOT found, calculate its F and add it to the open list
+				if (open.Find((*child_node).pos) != NULL) // If it is already in the open list, check if it is a better path (compare G)
+				{
+					if ((*open.Find((*child_node).pos)).g > (*child_node).g)
+					{
+						PathNode old_node = *open.Find((*child_node).pos); // If it is a better path, Update the parent
+						old_node.parent = (*child_node).parent;
+					}
+				}
+				else open.list.push_back(*child_node);
+			}
+			++child_node;
+		}
+	}
+
+
+
+
+	return -1;
+}
+
+int ModulePathfinding::CreatePathBishop(const std::pair<int, int>& origin, const std::pair<int, int>& destination, int Movment)
+{
+	last_path.clear();
+
+	//if (!IsWalkable(origin) || !IsWalkable(destination)) return -1;
+
+	PathList open;
+	PathList close;
+
+	PathNode node_origin;
+	node_origin.g = 0;
+	node_origin.h = (((origin.first - destination.first) * (origin.first - destination.first)) + ((origin.second - destination.second) * (origin.second - destination.second)));
+	node_origin.pos = origin;
+	node_origin.parent = nullptr;
+	open.list.push_back(node_origin);
+
+	while (open.list.size() > 0)
+	{
+		const PathNode* current_node = open.GetNodeLowestScore();
+		// TODO 3: Move the lowest score cell from open list to the closed list
+		close.list.push_back(*current_node);
+
+
+
+		// TODO 4: If we just added the destination, we are done!
+		// Backtrack to create the final path
+		// Use the Pathnode::parent and Flip() the path when you are finish
+		if (current_node->pos == destination || (current_node->pos.second == destination.second + 1 && current_node->pos.first == destination.first) || (current_node->pos.second == destination.second - 1 && current_node->pos.first == destination.first))
+		{
+			const PathNode* node = nullptr;
+			for (node = &(*current_node); node->pos != origin; node = node->parent) {
+				last_path.push_back(node->pos);
+			}
+			last_path.push_back(node->pos);
+			std::reverse(last_path.begin(), last_path.end());
+			break;
+		}
+
+		std::list<PathNode>::iterator it = open.list.begin();
+		while (it != open.list.end()) {
+
+			if (&(*it) == &(*current_node))
+				break;
+			++it;
+		}
+		open.list.erase(it);
+
+		// TODO 5: Fill a list of all adjancent nodes
+		PathList childs;
+		close.list.back().FindWalkableAdjacentsBishop(childs, Movment);
+
+
+		// TODO 6: Iterate adjancent nodes:					
+		std::list<PathNode>::iterator child_node = childs.list.begin();
+		while (child_node != childs.list.end())
+		{
+			if (!close.Find((*child_node).pos) != NULL)	// ignore nodes in the closed list
+			{
+				(*child_node).CalculateF(destination); // If it is NOT found, calculate its F and add it to the open list
+				if (open.Find((*child_node).pos) != NULL) // If it is already in the open list, check if it is a better path (compare G)
+				{
+					if ((*open.Find((*child_node).pos)).g > (*child_node).g)
+					{
+						PathNode old_node = *open.Find((*child_node).pos); // If it is a better path, Update the parent
+						old_node.parent = (*child_node).parent;
+					}
+				}
+				else open.list.push_back(*child_node);
+			}
+			++child_node;
+		}
+	}
+
+
+
+
+	return -1;
+}
+
+int ModulePathfinding::CreatePathTower(const std::pair<int, int>& origin, const std::pair<int, int>& destination, int Movment)
+{
+	last_path.clear();
+
+	//if (!IsWalkable(origin) || !IsWalkable(destination)) return -1;
+
+	PathList open;
+	PathList close;
+
+	PathNode node_origin;
+	node_origin.g = 0;
+	node_origin.h = (((origin.first - destination.first) * (origin.first - destination.first)) + ((origin.second - destination.second) * (origin.second - destination.second)));
+	node_origin.pos = origin;
+	node_origin.parent = nullptr;
+	open.list.push_back(node_origin);
+
+	while (open.list.size() > 0)
+	{
+		const PathNode* current_node = open.GetNodeLowestScore();
+		// TODO 3: Move the lowest score cell from open list to the closed list
+		close.list.push_back(*current_node);
+
+
+
+		// TODO 4: If we just added the destination, we are done!
+		// Backtrack to create the final path
+		// Use the Pathnode::parent and Flip() the path when you are finish
+		if (current_node->pos == destination)
+		{
+			const PathNode* node = nullptr;
+			for (node = &(*current_node); node->pos != origin; node = node->parent) {
+				last_path.push_back(node->pos);
+			}
+			last_path.push_back(node->pos);
+			std::reverse(last_path.begin(), last_path.end());
+			break;
+		}
+
+		std::list<PathNode>::iterator it = open.list.begin();
+		while (it != open.list.end()) {
+
+			if (&(*it) == &(*current_node))
+				break;
+			++it;
+		}
+		open.list.erase(it);
+
+		// TODO 5: Fill a list of all adjancent nodes
+		PathList childs;
+		close.list.back().FindWalkableAdjacentsTower(childs, Movment);
 
 
 		// TODO 6: Iterate adjancent nodes:					

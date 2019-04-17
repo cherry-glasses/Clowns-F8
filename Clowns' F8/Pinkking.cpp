@@ -101,12 +101,15 @@ bool Pinkking::Save(pugi::xml_node& node) const
 void Pinkking::SearchWalk()
 {
 	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
-	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
+	App->pathfinding->CreatePathBishop(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second), current_stats.PMove);
+	//App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
 	current_turn = MOVE;
+
 }
 
 void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 {
+
 	if (App->debug)
 	{
 		for (uint i = 0; i < _path->size(); ++i)
@@ -116,59 +119,64 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 		}
 	}
 
-	if (_path->size() > 3 && (_path->at(0).first == _path->at(2).first || _path->at(0).second == _path->at(2).second))
-	{
-		objective_position.push_back(App->map->MapToWorld(_path->at(2).first, _path->at(2).second));
-	}
-	else if (_path->size() > 1)
-	{
-		objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
-	}
 
-	if (_path->size() > 2) {
-		if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
-			CurrentMovement(WALK_LEFT_FRONT);
+		if (_path->size() > 3 && (_path->at(0).first == _path->at(2).first || _path->at(0).second == _path->at(2).second))
+		{
+			objective_position.push_back(App->map->MapToWorld(_path->at(2).first, _path->at(2).second));
 		}
-		else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-			CurrentMovement(WALK_RIGHT_FRONT);
+		else if (_path->size() > 1)
+		{
+			objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
 		}
-		else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-			CurrentMovement(WALK_LEFT_BACK);
-		}
-		else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
-			CurrentMovement(WALK_RIGHT_BACK);
-		}
-		current_turn = MOVE;
-	}
-	else {
-		current_turn = SEARCH_ATTACK;
-	}
 
-	if (objective_position.back().first == position.first || objective_position.back().second == position.second) {
-		if (current_movement == WALK_LEFT_FRONT)
-		{
-			CurrentMovement(IDLE_LEFT_FRONT);
+		if (_path->size() > 2) {
+			if (_path->at(0).first >= _path->at(1).first && _path->at(0).second <= _path->at(1).second) {
+				CurrentMovement(WALK_LEFT);
+			}
+			else if (_path->at(0).first >= _path->at(1).first && _path->at(0).second >= _path->at(1).second) {
+				CurrentMovement(WALK_BACK);
+			}
+			else if (_path->at(0).first <= _path->at(1).first && _path->at(0).second <= _path->at(1).second) {
+				CurrentMovement(WALK_FRONT);
+			}
+			else if (_path->at(0).first <= _path->at(1).first && _path->at(0).second >= _path->at(1).second) {
+				CurrentMovement(WALK_RIGHT);
+			}
+			current_turn = MOVE;
 		}
-		else if (current_movement == WALK_RIGHT_FRONT)
-		{
-			CurrentMovement(IDLE_RIGHT_FRONT);
+		else {
+			current_turn = END_TURN;
+			//current_turn = SEARCH_ATTACK;
 		}
-		else if (current_movement == WALK_LEFT_BACK)
-		{
-			CurrentMovement(IDLE_LEFT_BACK);
+
+		if (objective_position.back().first == position.first || objective_position.back().second == position.second) {
+			if (current_movement == WALK_LEFT_FRONT)
+			{
+				CurrentMovement(IDLE_LEFT_FRONT);
+			}
+			else if (current_movement == WALK_RIGHT_FRONT)
+			{
+				CurrentMovement(IDLE_RIGHT_FRONT);
+			}
+			else if (current_movement == WALK_LEFT_BACK)
+			{
+				CurrentMovement(IDLE_LEFT_BACK);
+			}
+			else if (current_movement == WALK_RIGHT_BACK)
+			{
+				CurrentMovement(IDLE_RIGHT_BACK);
+			}
+			current_turn = END_TURN;
+			//current_turn = SEARCH_ATTACK;
 		}
-		else if (current_movement == WALK_RIGHT_BACK)
-		{
-			CurrentMovement(IDLE_RIGHT_BACK);
-		}
-		current_turn = SEARCH_ATTACK;
-	}
+	
 }
 
 void Pinkking::SearchAttack()
 {
 	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
-	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
+	App->pathfinding->CreatePathBishop(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second),current_stats.PMove);
+	//App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
 	current_turn = ATTACK;
 	//IA Attack. Into range of position + attack. If enemy is near to dead. If enemy def.
 }
@@ -269,6 +277,26 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		position.first += 2;
 		position.second--;
 		break;
+	case Entity::WALK_LEFT:
+		current_movement = WALK_LEFT;
+		current_animation = &walk_left;
+		position.first -= 2;
+		break;
+	case Entity::WALK_RIGHT:
+		current_movement = WALK_RIGHT;
+		current_animation = &walk_right;
+		position.first += 2;
+		break;
+	case Entity::WALK_FRONT:
+		current_movement = WALK_FRONT;
+		current_animation = &walk_front;
+		position.second++;
+		break;
+	case Entity::WALK_BACK:
+		current_movement = WALK_BACK;
+		current_animation = &walk_back;
+		position.second--;
+		break;
 	case Entity::ATTACK_LEFT_FRONT:
 		current_movement = ATTACK_LEFT_FRONT;
 		current_animation = &attack_left_front;
@@ -295,49 +323,49 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::ABILITY_1_LEFT_FRONT:
 		current_movement = ABILITY_1_LEFT_FRONT;
-		current_animation = &hability_1_left_front;
+		current_animation = &ability_1_left_front;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_RIGHT_FRONT:
 		current_movement = ABILITY_1_RIGHT_FRONT;
-		current_animation = &hability_1_right_front;
+		current_animation = &ability_1_right_front;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_LEFT_BACK:
 		current_movement = ABILITY_1_LEFT_BACK;
-		current_animation = &hability_1_left_back;
+		current_animation = &ability_1_left_back;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_RIGHT_BACK: // ME HE QUEDADO AQUÍ
 		current_movement = ABILITY_1_RIGHT_BACK;
-		current_animation = &hability_1_right_back;
+		current_animation = &ability_1_right_back;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_2_LEFT_FRONT:
 		current_movement = ABILITY_2_LEFT_FRONT;
-		current_animation = &hability_2_left_front;
+		current_animation = &ability_2_left_front;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_2_RIGHT_FRONT:
 		current_movement = ABILITY_2_RIGHT_FRONT;
-		current_animation = &hability_2_right_front;
+		current_animation = &ability_2_right_front;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_2_LEFT_BACK:
 		current_movement = ABILITY_2_LEFT_BACK;
-		current_animation = &hability_2_left_back;
+		current_animation = &ability_2_left_back;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_2_RIGHT_BACK:
 		current_movement = ABILITY_2_RIGHT_BACK;
-		current_animation = &hability_2_right_back;
+		current_animation = &ability_2_right_back;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;

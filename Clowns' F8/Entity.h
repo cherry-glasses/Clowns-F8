@@ -11,6 +11,7 @@ enum class ENTITY_TYPE
 	ENTITY_CHARACTER_SAPPHIRE,
 	ENTITY_CHARACTER_IRIS,
 	ENTITY_CHARACTER_STORM,
+	ENTITY_CHARACTER_GEORGEB,
 	ENTITY_ENEMY_BONEYMAN,
 	ENTITY_ENEMY_PINKKING,
 	ENTITY_ENEMY_HOTDOG,
@@ -21,15 +22,27 @@ enum class ENTITY_TYPE
 typedef struct {
 	int Hp;
 	int Mana;
-	int Cp;
+	int PMove;
 
-	int DefS;
-	int AtkS;
-	int DefF;
 	int AtkF;
+	int AtkS;
+	int RangeAtk;
+	int RangeAbility_1;
+	int RangeAbility_2;
+	int RangeAbility_3;
+	int DefF;
+	int DefS;
 	int Crit;
 	int Agi;
 } Stats;
+
+typedef struct {
+	std::string Attack_name;
+	std::string Ability_1_name;
+	std::string Ability_2_name;
+	std::string Ability_3_name;
+	
+} Attacks_names;
 
 class Entity
 {
@@ -49,12 +62,10 @@ public:
 	
 	//Move and Attack
 	virtual void SearchWalk() {}
-	virtual void Walk(const std::vector<std::pair<int, int>> *_path) {}
 	virtual void SearchAttack() {}
-	virtual void Attack(const std::vector<std::pair<int, int>> *_path) {}
-	virtual void Hability_1() {}
-	virtual void Hability_2() {}
-	virtual void Hability_3() {}
+	virtual void SearchAbility_1() {}
+	virtual void Defend() {}
+	virtual void EndTurn() {}
 	virtual void Die() {}
 
 	// Load and Save
@@ -72,31 +83,39 @@ public:
 	}
 
 	void AddFX(const int _channel, const int _repeat) const;
+	void LoadAnim(pugi::xml_node _config);
 	bool LoadAnimation(pugi::xml_node _node, Animation &_anim);
 
 	virtual std::pair<int, int> GetPosition();
 	virtual void SetPosition(const float &_x, const float &_y);
 	virtual ENTITY_TYPE GetType();
 
+
 public:
 
 	Stats default_stats;
 	Stats current_stats;
+	Attacks_names attacks_names;
+	bool defend = false;
+	bool stunned = false;
+	bool flipX = false;
 
 	enum STATE { ALIVE, DEATH };
-	enum TURN { SEARCH_MOVE, SELECT_MOVE, MOVE, SELECT_ACTION, SEARCH_ATTACK, SELECT_ATTACK, ATTACK, END_TURN, NONE };
+	enum TURN { SEARCH_MOVE, SELECT_MOVE, MOVE, SELECT_ACTION, SEARCH_ATTACK, SELECT_ATTACK, ATTACK, 
+		SEARCH_ABILITY_1, SELECT_ABILITY_1, ABILITY_1, DEFEND, END_TURN, NONE };
 
 	STATE current_state = ALIVE;
 	TURN current_turn = NONE;
 
 protected:
 
-	enum MOVEMENT {	IDLE_LEFT_FRONT, IDLE_RIGHT_FRONT, IDLE_LEFT_BACK, IDLE_RIGHT_BACK,
+	enum MOVEMENT {	IDLE_LEFT_FRONT, IDLE_RIGHT_FRONT, IDLE_LEFT_BACK, IDLE_RIGHT_BACK, IDLE_LEFT, IDLE_RIGHT, IDLE_FRONT, IDLE_BACK,
 		WALK_LEFT_FRONT, WALK_RIGHT_FRONT,  WALK_LEFT_BACK, WALK_RIGHT_BACK, WALK_LEFT, WALK_RIGHT, WALK_FRONT, WALK_BACK,
-		ATTACK_LEFT_FRONT, ATTACK_RIGHT_FRONT, ATTACK_LEFT_BACK, ATTACK_RIGHT_BACK,
-		ABILITY_1_LEFT_FRONT, ABILITY_1_RIGHT_FRONT, ABILITY_1_LEFT_BACK, ABILITY_1_RIGHT_BACK,
-		ABILITY_2_LEFT_FRONT, ABILITY_2_RIGHT_FRONT, ABILITY_2_LEFT_BACK, ABILITY_2_RIGHT_BACK,
-		DEAD_LEFT_FRONT, DEAD_RIGHT_FRONT, DEAD_LEFT_BACK, DEAD_RIGHT_BACK
+		ATTACK_LEFT_FRONT, ATTACK_RIGHT_FRONT, ATTACK_LEFT_BACK, ATTACK_RIGHT_BACK, ATTACK_LEFT, ATTACK_RIGHT, ATTACK_FRONT, ATTACK_BACK,
+		ABILITY_1_LEFT_FRONT, ABILITY_1_RIGHT_FRONT, ABILITY_1_LEFT_BACK, ABILITY_1_RIGHT_BACK, ABILITY_1_LEFT, ABILITY_1_RIGHT, ABILITY_1_FRONT, ABILITY_1_BACK,
+		ABILITY_2_LEFT_FRONT, ABILITY_2_RIGHT_FRONT, ABILITY_2_LEFT_BACK, ABILITY_2_RIGHT_BACK, ABILITY_2_LEFT, ABILITY_2_RIGHT, ABILITY_2_FRONT, ABILITY_2_BACK,
+		DEFEND_LEFT_FRONT, DEFEND_RIGHT_FRONT, DEFEND_LEFT_BACK, DEFEND_RIGHT_BACK, DEFEND_LEFT, DEFEND_RIGHT, DEFEND_FRONT, DEFEND_BACK,
+		DEAD_LEFT_FRONT, DEAD_RIGHT_FRONT, DEAD_LEFT_BACK, DEAD_RIGHT_BACK, DEAD_LEFT, DEAD_RIGHT, DEAD_FRONT, DEAD_BACK,
 	};
 
 	MOVEMENT current_movement = IDLE_LEFT_BACK;
@@ -106,6 +125,10 @@ protected:
 	Animation idle_right_back;
 	Animation idle_left_front;
 	Animation idle_right_front;
+	Animation idle_left;
+	Animation idle_right;
+	Animation idle_front;
+	Animation idle_back;
 	Animation walk_left_back;
 	Animation walk_right_back;
 	Animation walk_left_front;
@@ -118,18 +141,42 @@ protected:
 	Animation attack_right_back;
 	Animation attack_left_front;
 	Animation attack_right_front;
-	Animation hability_1_left_back;
-	Animation hability_1_right_back;
-	Animation hability_1_left_front;
-	Animation hability_1_right_front;
-	Animation hability_2_left_back;
-	Animation hability_2_right_back;
-	Animation hability_2_left_front;
-	Animation hability_2_right_front;
+	Animation attack_left;
+	Animation attack_right;
+	Animation attack_front;
+	Animation attack_back;
+	Animation ability_1_left_back;
+	Animation ability_1_right_back;
+	Animation ability_1_left_front;
+	Animation ability_1_right_front;
+	Animation ability_1_left;
+	Animation ability_1_right;
+	Animation ability_1_front;
+	Animation ability_1_back;
+	Animation ability_2_left_back;
+	Animation ability_2_right_back;
+	Animation ability_2_left_front;
+	Animation ability_2_right_front;
+	Animation ability_2_left;
+	Animation ability_2_right;
+	Animation ability_2_front;
+	Animation ability_2_back;
+	Animation defend_left_back;
+	Animation defend_right_back;
+	Animation defend_left_front;
+	Animation defend_right_front;
+	Animation defend_left;
+	Animation defend_right;
+	Animation defend_front;
+	Animation defend_back;
 	Animation dead_left_back;
 	Animation dead_right_back;
 	Animation dead_left_front;
 	Animation dead_right_front;
+	Animation dead_left;
+	Animation dead_right;
+	Animation dead_front;
+	Animation dead_back;
 
 	ENTITY_TYPE type = ENTITY_TYPE::NO_TYPE;
 	SDL_Rect	current = { 0,0,0,0 };
@@ -141,6 +188,7 @@ protected:
 	std::pair<int, int>  position;
 	std::pair<int, int>  position_margin;
 	std::vector<std::pair<int, int>>  objective_position;
+	
 	
 };
 

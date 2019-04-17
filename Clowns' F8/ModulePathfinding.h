@@ -2,6 +2,7 @@
 #define __Pathfinding_H__
 
 #include "Module.h"
+#include "Entity.h"
 
 #define DEFAULT_PATH_LENGTH 50
 #define INVALID_WALK_CODE 255
@@ -24,7 +25,10 @@ public:
 
 	// Main function to request a path from A to B
 	int CreatePath(const std::pair<int, int>& origin, const std::pair<int, int>& destination);
-
+	//Para los alfiles <3
+	int CreatePathBishop(const std::pair<int, int>& origin, const std::pair<int, int>& destination, int Movment);
+	//Para las torres <3
+	int CreatePathTower(const std::pair<int, int>& origin, const std::pair<int, int>& destination, int Movment);
 	// To request all tiles involved in the last generated path
 	const std::vector<std::pair<int, int>>* GetLastPath() const;
 
@@ -33,6 +37,12 @@ public:
 
 	// Utility: returns true is the tile is walkable
 	bool IsWalkable(const std::pair<int, int>& pos) const;
+
+	// Utility: returns true is the tile is used by otrhe entity
+	bool IsUsed(const std::pair<int, int>& pos, Entity* _entity) const;
+
+	// Utility: returns true is the tile is attackable
+	bool IsAttackable(const std::pair<int, int>& _pos, ENTITY_TYPE _type) const;
 
 	// Utility: return the walkability value of a tile
 	uchar GetTileAt(const std::pair<int, int>& pos) const;
@@ -65,6 +75,9 @@ struct PathNode
 
 	// Fills a list (PathList) of all valid adjacent pathnodes
 	uint FindWalkableAdjacents(PathList& list_to_fill) const;
+	uint FindWalkableAdjacentsBishop(PathList& list_to_fill, int Movment_Points)const;
+	uint FindWalkableAdjacentsTower(PathList& list_to_fill, int Movment_Points) const;
+
 	// Calculates this tile score
 	int Score() const;
 	// Calculate the F for a specific destination tile

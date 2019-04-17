@@ -1,269 +1,638 @@
-#include "Log.h"
 #include "Application.h"
 #include "CharacterStorm.h"
-#include "ModuleRender.h"
-#include "ModuleTextures.h"
 #include "ModuleMap.h"
 #include "ModuleInput.h"
 #include "ModulePathfinding.h"
 #include "ModuleEntityManager.h"
-#include <time.h>
 
 
 CharacterStorm::CharacterStorm(ENTITY_TYPE _type, pugi::xml_node _config) : Character(_type, _config)
 {
-	current_movement = IDLE_RIGHT_FRONT;
-	current_animation = &idle_right_front;
+	CurrentMovement(IDLE_RIGHT_FRONT);
 	current = current_animation->GetCurrentFrame();
-
 }
 
 CharacterStorm::~CharacterStorm() {
 
 }
 
-bool CharacterStorm::PreUpdate() {
-
-	bool ret = true;
-
-	if (current_state == ALIVE) {
-
-		if (current_stats.Hp <= 0)
-		{
-			Die();
-		}
-
-		if (current_turn == SEARCH_MOVE)
-		{
-			SearchWalk();
-		}
-		
-
-	}
-	else
-	{
-		current_turn == END_TURN;
-	}
-
-	return ret;
-
-}
-bool CharacterStorm::Update(float _dt) {
-
-
-	switch (current_turn)
-	{
-	case Entity::SELECT_MOVE:
-		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN) {
-			Cap_2 += 1;
-			if (Cap_2 > 4) {
-				Cap_2 = 1;
-			}
-		}
-		else if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN) {
-			Cap_2 -= 1;
-			if (Cap_2 < 1) {
-				Cap_2 = 4;
-			}
-		}
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
-
-			Cap--;
-			if (Cap < 0)
-				Cap = (current_stats.Agi/2) - 1;
-
-		}
-		else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
-
-			Cap++;
-			if (Cap > ((current_stats.Agi/2) - 1))
-				Cap = 0;
-		}
-
-		for (int i = 0; i < current_stats.Agi / 2; i++) {
-			App->render->Blit(debug_texture, movment_1[i].first, movment_1[i].second, &debug_blue);
-			App->render->Blit(debug_texture, movment_2[i].first, movment_2[i].second, &debug_blue);
-			App->render->Blit(debug_texture, movment_3[i].first, movment_3[i].second, &debug_blue);
-			App->render->Blit(debug_texture, movment_4[i].first, movment_4[i].second, &debug_blue);
-		}
-
-		switch (Cap_2) {
-		case 1:
-			App->render->Blit(debug_texture, movment_1[Cap].first, movment_1[Cap].second, &debug_green);
-			break;
-		case 2:
-			App->render->Blit(debug_texture, movment_2[Cap].first, movment_2[Cap].second, &debug_green);
-			break;
-		case 3:
-			App->render->Blit(debug_texture, movment_3[Cap].first, movment_3[Cap].second, &debug_green);
-			break;
-		case 4:
-			App->render->Blit(debug_texture, movment_4[Cap].first, movment_4[Cap].second, &debug_green);
-			break;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-			current_turn = Entity::MOVE;
-		}
-
-
-		break;
-
-	case Entity::ATTACK:
-
-		switch (Attk) {
-		case Attack_Steps::IDLE_A:
-			break;
-		case Attack_Steps::SEARCH_A:
-			SearchAttack();
-			Attk = Attack_Steps::SELECT_A;
-			Cap = 0;
-			break;
-		case Attack_Steps::SELECT_A:
-			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN) {
-				Cap--;
-				Cap_2 = -1;
-				if (Cap < 0)
-					Cap = 3;
-			}
-			else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN) {
-				Cap++;
-				Cap_2 = 1;
-				if (Cap > 3)
-					Cap = 0;
-			}
-			for (int i = 0; i < 4; i++) {
-				possible_att_map[i] = App->map->MapToWorld((possible_att[i].first), possible_att[i].second);
-
-				if (i != Cap) {
-
-					App->render->Blit(debug_texture, possible_att_map[i].first, possible_att_map[i].second, &debug_green);
-
-				}
-
-			}
-			App->render->Blit(debug_texture, possible_att_map[Cap].first, possible_att_map[Cap].second, &debug_red);
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-				objective_position.push_back(possible_att_map[Cap]);
-				Attk = Attack_Steps::ATTACK_A;
-			}
-
-			break;
-		case Attack_Steps::ATTACK_A:
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
-			current_turn = Entity::END_TURN;
-			Attk = Attack_Steps::IDLE_A;
-		}
-
-		break;
-	
-	case Entity::MOVE:
-		switch (Cap_2) {
-		case 1:
-			position = movment_1[Cap];
-			break;
-		case 2:
-			position = movment_2[Cap];
-			break;
-		case 3:
-			position = movment_3[Cap];
-			break;
-		case 4:
-			position = movment_4[Cap];
-			break;
-		}
-
-		current_turn = SELECT_ACTION;
-		Attk = Attack_Steps::SEARCH_A;
-
-		break;
-	}
-	
-
-	return true;
-}
-
-bool CharacterStorm::PostUpdate() {
-	if (entity_texture != nullptr && current_state != DEATH)
-	{
-		App->render->Blit(entity_texture, position.first, position.second - current.h + position_margin.second, &current_animation->GetCurrentFrame(), 1.0f);
-	}
-
-	return true;
-}
-
-bool CharacterStorm::Load(pugi::xml_node& node) {
-	return true;
-}
-
-bool CharacterStorm::Save(pugi::xml_node& node) const {
-	return true;
-}
-
 void CharacterStorm::SearchWalk() {
 
-	// Tower movment.
-	movment_1 = new std::pair<int, int>[current_stats.Agi/2];
-	movment_2 = new std::pair<int, int>[current_stats.Agi/2];
-	movment_3 = new std::pair<int, int>[current_stats.Agi/2];
-	movment_4 = new std::pair<int, int>[current_stats.Agi/2];
-
-
-	std::pair<int,int> tmp = App->map->WorldToMap(position.first, position.second);
-	// x axis
-	for (int i = 0; i < current_stats.Agi / 2;i++){
-		movment_1[i].first = tmp.first + i + 1;
-		movment_1[i].second = tmp.second;
-		movment_1[i] = App->map->MapToWorld(movment_1[i].first, movment_1[i].second);
+	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
+	int x = pos.first - current_stats.PMove;
+	int y = pos.second - current_stats.PMove;
+	for (int i = 0; i < ((current_stats.PMove * 2) + 1) * ((current_stats.PMove * 2) + 1); i++)
+	{
+		possible_mov_list.push_back({ x, y });
+		++x;
+		if (x > pos.first + current_stats.PMove) {
+			x = pos.first - current_stats.PMove;
+			++y;
+		}
+		if (y > pos.second + current_stats.PMove) {
+			y = pos.second - current_stats.PMove;
+		}
 	}
 
-	for (int i = 0; i < current_stats.Agi / 2; i++) {
-		movment_3[i].first = tmp.first - i - 1;
-		movment_3[i].second = tmp.second;
-		movment_3[i] = App->map->MapToWorld(movment_3[i].first, movment_3[i].second);
+	std::pair<int, int> tmp;
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	inrange_mov_list.push_back(tmp);
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.PMove; i++)
+	{
+		tmp.first += 1;
+		inrange_mov_list.push_back(tmp);
 	}
 
-	// y axis
-	for (int i = 0; i < current_stats.Agi / 2; i++) {
-		movment_2[i].first = tmp.first;
-		movment_2[i].second = tmp.second + i + 1;
-		movment_2[i] = App->map->MapToWorld(movment_2[i].first, movment_2[i].second);
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.PMove; i++)
+	{
+		tmp.first -= 1;
+		inrange_mov_list.push_back(tmp);
 	}
 
-	for (int i = 0; i < current_stats.Agi / 2; i++) {
-		movment_4[i].first = tmp.first;
-		movment_4[i].second = tmp.second - i - 1;
-		movment_4[i] = App->map->MapToWorld(movment_4[i].first, movment_4[i].second);
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.PMove; i++)
+	{
+		tmp.second += 1;
+		inrange_mov_list.push_back(tmp);
+	}
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.PMove; i++)
+	{
+		tmp.second -= 1;
+		inrange_mov_list.push_back(tmp);
 	}
 
 	tmp.first = NULL;
 	tmp.second = NULL;
+
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.first < b.first; });
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.second < b.second; });
+
 	current_turn = Entity::SELECT_MOVE;
 }
 
 void CharacterStorm::SearchAttack() {
+	objective_position.clear();
+	inrange_mov_list.clear();
+	possible_mov_list.clear();
+	possible_map.clear();
+	Cap = -1;
+
+	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
+	int x = pos.first - current_stats.RangeAtk;
+	int y = pos.second - current_stats.RangeAtk;
+	for (int i = 0; i < ((current_stats.RangeAtk * 2) + 1) * ((current_stats.RangeAtk * 2) + 1); i++)
+	{
+		possible_mov_list.push_back({ x, y });
+		++x;
+		if (x > pos.first + current_stats.RangeAtk) {
+			x = pos.first - current_stats.RangeAtk;
+			++y;
+		}
+		if (y > pos.second + current_stats.RangeAtk) {
+			y = pos.second - current_stats.RangeAtk;
+		}
+	}
+
 	std::pair<int, int> tmp;
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	possible_att[0].first = tmp.first + 1;
-	possible_att[0].second = tmp.second;
+	for (int i = 1; i <= current_stats.RangeAtk; i++)
+	{
+		tmp.first += 1;
+		inrange_mov_list.push_back(tmp);
+	}
 
-	possible_att[1].first = tmp.first;
-	possible_att[1].second = tmp.second + 1;
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.RangeAtk; i++)
+	{
+		tmp.first -= 1;
+		inrange_mov_list.push_back(tmp);
+	}
 
-	possible_att[2].first = tmp.first - 1;
-	possible_att[2].second = tmp.second;
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.RangeAtk; i++)
+	{
+		tmp.second += 1;
+		inrange_mov_list.push_back(tmp);
+	}
 
-	possible_att[3].first = tmp.first;
-	possible_att[3].second = tmp.second - 1;
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.RangeAtk; i++)
+	{
+		tmp.second -= 1;
+		inrange_mov_list.push_back(tmp);
+	}
 
 
 	tmp.first = NULL;
 	tmp.second = NULL;
+
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.first < b.first; });
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.second < b.second; });
+
+	current_turn = Entity::SELECT_ATTACK;
 }
 
-void CharacterStorm::Die() {
-	current_state = DEATH;
+void CharacterStorm::SearchAbility_1() {
+	objective_position.clear();
+	inrange_mov_list.clear();
+	possible_mov_list.clear();
+	possible_map.clear();
+	Cap = -1;
+
+	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
+	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAbility_1, tiles_range_attk);
+	int x = pos.first - current_stats.RangeAbility_1;
+	int y = pos.second - current_stats.RangeAbility_1;
+	for (int i = 0; i < ((current_stats.RangeAbility_1 * 2) + 1) * ((current_stats.RangeAbility_1 * 2) + 1); i++)
+	{
+		possible_mov_list.push_back({ x, y });
+		++x;
+		if (x > pos.first + current_stats.RangeAbility_1) {
+			x = pos.first - current_stats.RangeAbility_1;
+			++y;
+		}
+		if (y > pos.second + current_stats.RangeAbility_1) {
+			y = pos.second - current_stats.RangeAbility_1;
+		}
+	}
+	
+	std::pair<int, int> tmp;
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	inrange_mov_list.push_back(tmp);
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.RangeAbility_1; i++)
+	{
+		tmp.first += 1;
+		inrange_mov_list.push_back(tmp);
+	}
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.RangeAbility_1; i++)
+	{
+		tmp.first -= 1;
+		inrange_mov_list.push_back(tmp);
+	}
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.RangeAbility_1; i++)
+	{
+		tmp.second += 1;
+		inrange_mov_list.push_back(tmp);
+	}
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.RangeAbility_1; i++)
+	{
+		tmp.second -= 1;
+		inrange_mov_list.push_back(tmp);
+	}
+
+
+	tmp.first = NULL;
+	tmp.second = NULL;
+
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.first < b.first; });
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.second < b.second; });
+
+	current_turn = Entity::SELECT_ABILITY_1;
+
 }
 
+void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
+
+	switch (_movement)
+	{
+	case Entity::IDLE_LEFT_FRONT:
+		current_movement = IDLE_LEFT_FRONT;
+		current_animation = &idle_left_front;
+		break;
+	case Entity::IDLE_RIGHT_FRONT:
+		current_movement = IDLE_RIGHT_FRONT;
+		current_animation = &idle_right_front;
+		break;
+	case Entity::IDLE_LEFT_BACK:
+		current_movement = IDLE_LEFT_BACK;
+		current_animation = &idle_left_back;
+		break;
+	case Entity::IDLE_RIGHT_BACK:
+		current_movement = IDLE_RIGHT_BACK;
+		current_animation = &idle_right_back;
+		break;
+	case Entity::WALK_LEFT_FRONT:
+		current_movement = WALK_LEFT_FRONT;
+		current_animation = &walk_left_front;
+		position.first -= 2;
+		position.second++;
+		break;
+	case Entity::WALK_RIGHT_FRONT:
+		current_movement = WALK_RIGHT_FRONT;
+		current_animation = &walk_right_front;
+		position.first += 2;
+		position.second++;
+		break;
+	case Entity::WALK_LEFT_BACK:
+		current_movement = WALK_LEFT_BACK;
+		current_animation = &walk_left_back;
+		position.first -= 2;
+		position.second--;
+		break;
+	case Entity::WALK_RIGHT_BACK:
+		current_movement = WALK_RIGHT_BACK;
+		current_animation = &walk_right_back;
+		position.first += 2;
+		position.second--;
+		break;
+	case Entity::ATTACK_LEFT_FRONT:
+		current_movement = ATTACK_LEFT_FRONT;
+		current_animation = &attack_left_front;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ATTACK_RIGHT_FRONT:
+		current_movement = ATTACK_RIGHT_FRONT;
+		current_animation = &attack_right_front;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ATTACK_LEFT_BACK:
+		current_movement = ATTACK_LEFT_BACK;
+		current_animation = &attack_left_back;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ATTACK_RIGHT_BACK:
+		current_movement = ATTACK_RIGHT_BACK;
+		current_animation = &attack_right_back;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_1_LEFT_FRONT:
+		current_movement = ABILITY_1_LEFT_FRONT;
+		current_animation = &ability_1_left_front;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_1_RIGHT_FRONT:
+		current_movement = ABILITY_1_RIGHT_FRONT;
+		current_animation = &ability_1_right_front;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_1_LEFT_BACK:
+		current_movement = ABILITY_1_LEFT_BACK;
+		current_animation = &ability_1_left_back;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_1_RIGHT_BACK:
+		current_movement = ABILITY_1_RIGHT_BACK;
+		current_animation = &ability_1_right_back;
+		if (current_animation->Finished()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::DEFEND_LEFT_FRONT:
+		current_movement = DEFEND_LEFT_FRONT;
+		current_animation = &defend_left_front;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEFEND_RIGHT_FRONT:
+		current_movement = DEFEND_RIGHT_FRONT;
+		current_animation = &defend_right_front;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEFEND_LEFT_BACK:
+		current_movement = DEFEND_LEFT_BACK;
+		current_animation = &defend_left_back;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEFEND_RIGHT_BACK:
+		current_movement = DEFEND_RIGHT_BACK;
+		current_animation = &defend_right_back;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEAD_LEFT_FRONT:
+		current_movement = DEAD_LEFT_FRONT;
+		current_animation = &dead_left_front;
+		current_state = DEATH;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEAD_RIGHT_FRONT:
+		current_movement = DEAD_RIGHT_FRONT;
+		current_animation = &dead_right_front;
+		current_state = DEATH;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEAD_LEFT_BACK:
+		current_movement = DEAD_LEFT_BACK;
+		current_animation = &dead_left_back;
+		current_state = DEATH;
+		current_turn = END_TURN;
+		break;
+	case Entity::DEAD_RIGHT_BACK:
+		current_movement = DEAD_RIGHT_BACK;
+		current_animation = &dead_right_back;
+		current_state = DEATH;
+		current_turn = END_TURN;
+		break;
+	default:
+		break;
+	}
+}
+
+void CharacterStorm::InputSelectMove() {
+
+	if (App->input->Left()) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i >= possible_mov_list.size()) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				int j = 0;
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if (j == Cap - 1) {
+						if ((*possible_mov).first - 1 == (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
+						{
+							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
+								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end()
+								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
+							{
+								Cap -= 1;
+								i = possible_mov_list.size();
+							}
+							else {
+								Cap = (possible_mov_list.size() / 2) - 1;
+								i = possible_mov_list.size();
+							}
+							break;
+						}
+					}
+					++j;
+				}
+			}
+			++i;
+		}
+	}
+	else if (App->input->Right()) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i >= possible_mov_list.size()) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				int j = 0;
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if (j == Cap + 1) {
+						if ((*possible_mov).first + 1 == (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
+						{
+							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
+								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end()
+								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
+							{
+								Cap += 1;
+								i = possible_mov_list.size();
+							}
+							else {
+								Cap = (possible_mov_list.size() / 2) + 1;
+								i = possible_mov_list.size();
+							}
+							break;
+						}
+					}
+					++j;
+				}
+			}
+			++i;
+		}
+	}
+	else if (App->input->Down()) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i >= possible_mov_list.size()) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				int j = 0;
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if (j == Cap + sqrt(possible_mov_list.size())) {
+						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second + 1 == (*possible_mov_2).second)
+						{
+							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
+								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end()
+								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
+							{
+								Cap += sqrt(possible_mov_list.size());
+								i = possible_mov_list.size();
+							}
+							else {
+								Cap = (possible_mov_list.size() / 2) + sqrt(possible_mov_list.size());
+								i = possible_mov_list.size();
+							}
+							break;
+						}
+					}
+					++j;
+				}
+			}
+			++i;
+		}
+	}
+	else if (App->input->Up()) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i >= possible_mov_list.size()) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				int j = 0;
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if (j == Cap - sqrt(possible_mov_list.size())) {
+						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second - 1 == (*possible_mov_2).second)
+						{
+							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
+								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end()
+								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
+							{
+								Cap -= sqrt(possible_mov_list.size());
+								i = possible_mov_list.size();
+							}
+							else {
+								Cap = (possible_mov_list.size() / 2) - sqrt(possible_mov_list.size());
+								i = possible_mov_list.size();
+							}
+							break;
+						}
+					}
+					++j;
+				}
+			}
+			++i;
+		}
+	}
+}
+
+void CharacterStorm::InputSelectAttack() {
+
+	if (App->input->Left()) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i >= possible_mov_list.size()) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				int j = 0;
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if (j == Cap - 1) {
+						if ((*possible_mov).first > (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
+						{
+							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
+							{
+								Cap -= 1;
+								i = possible_mov_list.size();
+							}
+							break;
+						}
+					}
+					++j;
+				}
+			}
+			++i;
+		}
+	}
+	else if (App->input->Right()) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i >= possible_mov_list.size()) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				int j = 0;
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if (j == Cap + 1) {
+						if ((*possible_mov).first < (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
+						{
+							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
+							{
+								Cap += 1;
+								i = possible_mov_list.size();
+							}
+							break;
+						}
+					}
+					++j;
+				}
+			}
+			++i;
+		}
+	}
+	else if (App->input->Down()) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i >= possible_mov_list.size()) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				int j = 0;
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if (j == Cap + sqrt(possible_mov_list.size())) {
+						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
+						{
+							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
+							{
+								Cap += sqrt(possible_mov_list.size());
+								i = possible_mov_list.size();
+							}
+							break;
+						}
+					}
+					++j;
+				}
+			}
+			++i;
+		}
+	}
+	else if (App->input->Up()) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i >= possible_mov_list.size()) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				int j = 0;
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if (j == Cap - sqrt(possible_mov_list.size())) {
+						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
+						{
+							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
+							{
+								Cap -= sqrt(possible_mov_list.size());
+								i = possible_mov_list.size();
+							}
+							break;
+						}
+					}
+					++j;
+				}
+			}
+			++i;
+		}
+	}
+}
 

@@ -36,14 +36,19 @@ public:
 	bool DeleteEntity(Entity* entity);
 	std::pair<int,int> NearestCharacter(std::pair<int, int> myposition);
 
+	// Myposition = position, Radius = zone of effect, size: returns the size of the array.
+	std::pair<int, int>* RangeOfAttack(std::pair<int, int> myposition, int radius, int& size);
+	inline bool InRange(std::pair<int, int> myposition, std::pair<int, int> tiledposition, int radius) { return (sqrt(((tiledposition.first - myposition.first)*(tiledposition.first - myposition.first)) + ((tiledposition.second - myposition.second)*(tiledposition.second - myposition.second))) <= (sqrt((radius*radius)+1))); };
+
 	bool UpdateWalk(std::pair<int, int> tile_id);
 
 	void ThrowAttack(std::vector<std::pair<int,int>> _positions, int _damage, ENTITY_TYPE _type);
 	std::list<Entity*> characters;
+	std::list<Entity*> enemies;
+	std::list<Entity*> entities;
 
 private:
-	std::list<Entity*> entities;
-	std::list<Entity*> enemies;
+	
 	pugi::xml_node entity_configs;
 
 	bool starting = true;
