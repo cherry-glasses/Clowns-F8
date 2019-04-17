@@ -82,9 +82,11 @@ bool ModuleEntityManager::PreUpdate()
 				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
 			}
 		}
-		
+		if ((*entity)->stunned == true && (*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
+			(*entity)->current_turn = Entity::TURN::END_TURN;
+			(*entity)->stunned = false;
+		}
 		(*entity)->defend = false;
-		(*entity)->stunned = false;
 		(*entity)->PreUpdate();
 	}
 
@@ -279,7 +281,13 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			{
 				if ((*enemie)->GetPosition() == (*position))
 				{
-					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+					if (_damage == 0) {
+						// Put animation particles to show stun, like birds or stars or something
+						(*enemie)->stunned = true;
+					}
+					else {
+						(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+					}
 				}
 			}
 		}
@@ -292,7 +300,13 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			{
 				if ((*enemie)->GetPosition() == (*position))
 				{
-					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+					if (_damage == 0) {
+						// Put animation particles to show stun, like birds or stars or something
+						(*enemie)->stunned = true;
+					}
+					else {
+						(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+					}
 				}
 			}
 		}

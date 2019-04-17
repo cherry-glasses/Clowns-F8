@@ -43,7 +43,7 @@ bool Boneyman::PreUpdate()
 			SearchAttack();
 		}
 	}
-	else
+	else if(current_turn == SEARCH_MOVE)
 	{
 		current_turn == END_TURN;
 	}
@@ -55,6 +55,7 @@ bool Boneyman::Update(float dt)
 {
 	if (current_turn == NONE)
 	{
+		return true;
 	}
 	else if (current_turn == MOVE)
 	{
@@ -144,8 +145,6 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 		current_turn = MOVE;
 	}
 	else {
-		//COSO
-
 		current_turn = SEARCH_ATTACK;
 	}
 
@@ -204,6 +203,9 @@ void Boneyman::Attack(const std::vector<std::pair<int, int>> *_path)
 		}
 		else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
 			CurrentMovement(ATTACK_RIGHT_BACK);
+		}
+		else {
+			CurrentMovement(ATTACK_LEFT_FRONT);
 		}
 	}
 	else
@@ -352,25 +354,21 @@ void Boneyman::CurrentMovement(MOVEMENT _movement) {
 		current_movement = DEAD_LEFT_FRONT;
 		current_animation = &dead_left_front;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_RIGHT_FRONT:
 		current_movement = DEAD_RIGHT_FRONT;
 		current_animation = &dead_right_front;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_LEFT_BACK:
 		current_movement = DEAD_LEFT_BACK;
 		current_animation = &dead_left_back;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_RIGHT_BACK:
 		current_movement = DEAD_RIGHT_BACK;
 		current_animation = &dead_right_back;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	default:
 		break;

@@ -368,28 +368,24 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &dead_right;
 		flipX = true;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_RIGHT:
 		current_movement = DEAD_RIGHT;
 		current_animation = &dead_right;
 		flipX = false;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_FRONT:
 		current_movement = DEAD_FRONT;
 		current_animation = &dead_front;
 		flipX = false;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_BACK:
 		current_movement = DEAD_BACK;
 		current_animation = &dead_back;
 		flipX = false;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	default:
 		break;
