@@ -368,28 +368,24 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &dead_right;
 		flipX = true;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_RIGHT:
 		current_movement = DEAD_RIGHT;
 		current_animation = &dead_right;
 		flipX = false;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_FRONT:
 		current_movement = DEAD_FRONT;
 		current_animation = &dead_front;
 		flipX = false;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_BACK:
 		current_movement = DEAD_BACK;
 		current_animation = &dead_back;
 		flipX = false;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	default:
 		break;
@@ -419,10 +415,6 @@ void CharacterGeorgeB::InputSelectMove() {
 								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
 							{
 								Cap += sqrt(possible_mov_list.size()) - 1;
-								i = possible_mov_list.size();
-							}
-							else {
-								Cap = (possible_mov_list.size() / 2) + (sqrt(possible_mov_list.size()) - 1);
 								i = possible_mov_list.size();
 							}
 							break;
@@ -457,10 +449,6 @@ void CharacterGeorgeB::InputSelectMove() {
 								Cap -= sqrt(possible_mov_list.size()) - 1;
 								i = possible_mov_list.size();
 							}
-							else {
-								Cap = (possible_mov_list.size() / 2) - (sqrt(possible_mov_list.size()) - 1);
-								i = possible_mov_list.size();
-							}
 							break;
 						}
 					}
@@ -493,10 +481,6 @@ void CharacterGeorgeB::InputSelectMove() {
 								Cap += sqrt(possible_mov_list.size()) + 1;
 								i = possible_mov_list.size();
 							}
-							else {
-								Cap = (possible_mov_list.size() / 2) + (sqrt(possible_mov_list.size()) + 1);
-								i = possible_mov_list.size();
-							}
 							break;
 						}
 					}
@@ -527,10 +511,6 @@ void CharacterGeorgeB::InputSelectMove() {
 								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
 							{
 								Cap -= sqrt(possible_mov_list.size()) + 1;
-								i = possible_mov_list.size();
-							}
-							else {
-								Cap = (possible_mov_list.size() / 2) - (sqrt(possible_mov_list.size()) + 1);
 								i = possible_mov_list.size();
 							}
 							break;
@@ -567,10 +547,6 @@ void CharacterGeorgeB::InputSelectAttack() {
 								Cap += sqrt(possible_mov_list.size()) - 1;
 								i = possible_mov_list.size();
 							}
-							else {
-								Cap = (possible_mov_list.size() / 2) + (sqrt(possible_mov_list.size()) - 1);
-								i = possible_mov_list.size();
-							}
 							break;
 						}
 					}
@@ -599,10 +575,6 @@ void CharacterGeorgeB::InputSelectAttack() {
 							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap -= sqrt(possible_mov_list.size()) - 1;
-								i = possible_mov_list.size();
-							}
-							else {
-								Cap = (possible_mov_list.size() / 2) - (sqrt(possible_mov_list.size()) - 1);
 								i = possible_mov_list.size();
 							}
 							break;
@@ -635,10 +607,6 @@ void CharacterGeorgeB::InputSelectAttack() {
 								Cap += sqrt(possible_mov_list.size()) + 1;
 								i = possible_mov_list.size();
 							}
-							else {
-								Cap = (possible_mov_list.size() / 2) + (sqrt(possible_mov_list.size()) + 1);
-								i = possible_mov_list.size();
-							}
 							break;
 						}
 					}
@@ -667,10 +635,6 @@ void CharacterGeorgeB::InputSelectAttack() {
 							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap -= sqrt(possible_mov_list.size()) + 1;
-								i = possible_mov_list.size();
-							}
-							else {
-								Cap = (possible_mov_list.size() / 2) - (sqrt(possible_mov_list.size()) + 1);
 								i = possible_mov_list.size();
 							}
 							break;

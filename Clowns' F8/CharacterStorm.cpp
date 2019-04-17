@@ -287,7 +287,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_1_LEFT_FRONT;
 		current_animation = &ability_1_left_front;
 		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
 			current_turn = END_TURN;
 		}
 		break;
@@ -295,7 +295,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_1_RIGHT_FRONT;
 		current_animation = &ability_1_right_front;
 		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
 			current_turn = END_TURN;
 		}
 		break;
@@ -303,7 +303,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_1_LEFT_BACK;
 		current_animation = &ability_1_left_back;
 		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
 			current_turn = END_TURN;
 		}
 		break;
@@ -311,7 +311,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_1_RIGHT_BACK;
 		current_animation = &ability_1_right_back;
 		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
 			current_turn = END_TURN;
 		}
 		break;
@@ -339,25 +339,21 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_movement = DEAD_LEFT_FRONT;
 		current_animation = &dead_left_front;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_RIGHT_FRONT:
 		current_movement = DEAD_RIGHT_FRONT;
 		current_animation = &dead_right_front;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_LEFT_BACK:
 		current_movement = DEAD_LEFT_BACK;
 		current_animation = &dead_left_back;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_RIGHT_BACK:
 		current_movement = DEAD_RIGHT_BACK;
 		current_animation = &dead_right_back;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	default:
 		break;
@@ -387,10 +383,6 @@ void CharacterStorm::InputSelectMove() {
 								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
 							{
 								Cap -= 1;
-								i = possible_mov_list.size();
-							}
-							else {
-								Cap = (possible_mov_list.size() / 2) - 1;
 								i = possible_mov_list.size();
 							}
 							break;
@@ -425,10 +417,6 @@ void CharacterStorm::InputSelectMove() {
 								Cap += 1;
 								i = possible_mov_list.size();
 							}
-							else {
-								Cap = (possible_mov_list.size() / 2) + 1;
-								i = possible_mov_list.size();
-							}
 							break;
 						}
 					}
@@ -461,10 +449,6 @@ void CharacterStorm::InputSelectMove() {
 								Cap += sqrt(possible_mov_list.size());
 								i = possible_mov_list.size();
 							}
-							else {
-								Cap = (possible_mov_list.size() / 2) + sqrt(possible_mov_list.size());
-								i = possible_mov_list.size();
-							}
 							break;
 						}
 					}
@@ -495,10 +479,6 @@ void CharacterStorm::InputSelectMove() {
 								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
 							{
 								Cap -= sqrt(possible_mov_list.size());
-								i = possible_mov_list.size();
-							}
-							else {
-								Cap = (possible_mov_list.size() / 2) - sqrt(possible_mov_list.size());
 								i = possible_mov_list.size();
 							}
 							break;

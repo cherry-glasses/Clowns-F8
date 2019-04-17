@@ -40,7 +40,7 @@ bool Pinkking::PreUpdate()
 			SearchAttack();
 		}
 	}
-	else
+	else if (current_turn == SEARCH_MOVE)
 	{
 		current_turn == END_TURN;
 	}
@@ -52,6 +52,7 @@ bool Pinkking::Update(float dt)
 {
 	if (current_turn == NONE)
 	{
+		return true;
 	}
 	else if (current_turn == MOVE)
 	{
@@ -145,8 +146,7 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 			current_turn = MOVE;
 		}
 		else {
-			current_turn = END_TURN;
-			//current_turn = SEARCH_ATTACK;
+			current_turn = SEARCH_ATTACK;
 		}
 
 		if (objective_position.back().first == position.first || objective_position.back().second == position.second) {
@@ -205,6 +205,9 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 		}
 		else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
 			CurrentMovement(ATTACK_RIGHT_BACK);
+		}
+		else {
+			CurrentMovement(ATTACK_LEFT_FRONT);
 		}
 	}
 	else
@@ -300,98 +303,94 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 	case Entity::ATTACK_LEFT_FRONT:
 		current_movement = ATTACK_LEFT_FRONT;
 		current_animation = &attack_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ATTACK_RIGHT_FRONT:
 		current_movement = ATTACK_RIGHT_FRONT;
 		current_animation = &attack_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ATTACK_LEFT_BACK:
 		current_movement = ATTACK_LEFT_BACK;
 		current_animation = &attack_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ATTACK_RIGHT_BACK:
 		current_movement = ATTACK_RIGHT_BACK;
 		current_animation = &attack_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_LEFT_FRONT:
 		current_movement = ABILITY_1_LEFT_FRONT;
 		current_animation = &ability_1_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_RIGHT_FRONT:
 		current_movement = ABILITY_1_RIGHT_FRONT;
 		current_animation = &ability_1_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_LEFT_BACK:
 		current_movement = ABILITY_1_LEFT_BACK;
 		current_animation = &ability_1_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_RIGHT_BACK: // ME HE QUEDADO AQUÍ
 		current_movement = ABILITY_1_RIGHT_BACK;
 		current_animation = &ability_1_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_2_LEFT_FRONT:
 		current_movement = ABILITY_2_LEFT_FRONT;
 		current_animation = &ability_2_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_2_RIGHT_FRONT:
 		current_movement = ABILITY_2_RIGHT_FRONT;
 		current_animation = &ability_2_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_2_LEFT_BACK:
 		current_movement = ABILITY_2_LEFT_BACK;
 		current_animation = &ability_2_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_2_RIGHT_BACK:
 		current_movement = ABILITY_2_RIGHT_BACK;
 		current_animation = &ability_2_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_LEFT_FRONT:
 		current_movement = DEAD_LEFT_FRONT;
 		current_animation = &dead_left_front;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_RIGHT_FRONT:
 		current_movement = DEAD_RIGHT_FRONT;
 		current_animation = &dead_right_front;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_LEFT_BACK:
 		current_movement = DEAD_LEFT_BACK;
 		current_animation = &dead_left_back;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_RIGHT_BACK:
 		current_movement = DEAD_RIGHT_BACK;
 		current_animation = &dead_right_back;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	default:
 		break;

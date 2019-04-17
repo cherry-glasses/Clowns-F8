@@ -50,6 +50,7 @@ private:
 	void CreateMMOptions();
 	void CreateOptionsIngame();
 	void DeleteOptionsIngame();
+	void CreateMMControls();
 	void CreatePortraits(Entity* _character, int _i);
 	void ActionsMenu();
 	void Navigate();
@@ -62,7 +63,7 @@ private:
 	SDL_Texture* options_background = nullptr;
 	SDL_Texture* credits_page = nullptr;
 
-	enum SCENES { MAIN_MENU, GLOBAL_MAP, MM_OPTIONS, MM_CREDITS, FIRST_BATTLE, SECOND_BATTLE, THIRD_BATTLE, FOURTH_BATTLE };
+	enum SCENES { MAIN_MENU, GLOBAL_MAP, MM_OPTIONS, MM_CONTROLS, MM_CREDITS, FIRST_BATTLE, SECOND_BATTLE, THIRD_BATTLE, FOURTH_BATTLE };
 
 
 	SCENES current_scene = MAIN_MENU;
@@ -73,11 +74,11 @@ private:
 	SDL_Rect option_background;
 	int button_margin;
 	int screen_width, screen_height;
-	/*int button_half_width, button_half_height;
-	int first_button_height, options_first_height;*/
+	bool music_created = false;
 	bool main_menu_created = false;
 	bool mm_options_created = false;
 	bool mm_credits_created = false;
+	bool mm_controls_menu_created = false;
 	bool map_loaded = false;
 	bool portraits_created = false;
 	bool action_menu_created = false;
@@ -106,15 +107,35 @@ private:
 	GUIButton* back_button = nullptr;
 	GUIButton* resume_button = nullptr;
 	GUIButton* mm_button = nullptr;
+	GUIButton* controls_button = nullptr;
 	GUILabel* english_label = nullptr;
 	GUILabel* spanish_label = nullptr;
 	GUILabel* volume_up_label = nullptr;
 	GUILabel* volume_down_label = nullptr;
 	GUILabel* back_label = nullptr;
+	GUILabel* controls_label = nullptr;
 	GUILabel* language_label = nullptr;
 	GUILabel* volume_label = nullptr;
 	GUILabel* resume_label = nullptr;
 	GUILabel* mm_label = nullptr;
+
+
+	//Controls menu options UI
+	GUIButton* accept_button = nullptr;
+	GUIButton* decline_button = nullptr;
+	GUIButton* character_stats_button  = nullptr;
+	GUIButton* characeter_abilities_button = nullptr;
+	GUIButton* abilities_button = nullptr;
+	GUIButton* start_button = nullptr;
+	GUIButton* select_button = nullptr;
+	GUILabel* accept_label = nullptr;
+	GUILabel* decline_label = nullptr;
+	GUILabel* character_stats_label = nullptr;
+	GUILabel* character_abilites_label = nullptr;
+	GUILabel* abilities_label = nullptr;
+	GUILabel* start_label = nullptr;
+	GUILabel* select_label = nullptr;
+	
 
 	//GUIImage* action_menu = nullptr;
 	GUIButton* attack_button = nullptr;
