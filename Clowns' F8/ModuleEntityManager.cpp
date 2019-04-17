@@ -82,13 +82,9 @@ bool ModuleEntityManager::PreUpdate()
 				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
 			}
 		}
-		if ((*entity)->current_stats.Hp > (*entity)->default_stats.Hp) {
-			(*entity)->current_stats.Hp = (*entity)->default_stats.Hp;
-		}		
-		else if ((*entity)->current_stats.Hp < 0) {
-			(*entity)->current_stats.Hp = 0;
-		}
+		
 		(*entity)->defend = false;
+		(*entity)->stunned = false;
 		(*entity)->PreUpdate();
 	}
 
@@ -119,6 +115,12 @@ bool ModuleEntityManager::PostUpdate()
 	}
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
+		if ((*entity)->current_stats.Hp > (*entity)->default_stats.Hp) {
+			(*entity)->current_stats.Hp = (*entity)->default_stats.Hp;
+		}
+		else if ((*entity)->current_stats.Hp < 0) {
+			(*entity)->current_stats.Hp = 0;
+		}
 		(*entity)->PostUpdate();
 	}
 
