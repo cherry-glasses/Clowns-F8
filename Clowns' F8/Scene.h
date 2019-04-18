@@ -158,6 +158,7 @@ private:
 	std::vector<GUIImage*> mana;
 	std::vector<GUIImage*> portrait;
 	std::vector<GUIImage*> port;
+	std::vector<GUILabel*> character_names;
 	std::vector<int> life_x;
 	std::vector<int> mana_x;
 	std::vector<int> enemies_life_x;

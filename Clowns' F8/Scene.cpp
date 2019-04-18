@@ -329,7 +329,10 @@ bool Scene::Update(float _dt)
 			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, screen_height - 178, { 0, 134, 256, 128 }));
 			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, 12.0f, { 0, 134, 256, 128 }));
 			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, screen_height - 178, { 0, 134, 256, 128 }));
-			
+			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 210.0f, 55.0f, "Iris", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 1832.0f, 55.0f, "Sapphire", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 210.0f, 945.0f, "Storm", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 1832.0f, 945.0f, "G. Bush", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
 		}
 		if (App->input->Pause() || resume_game == false)
 		{
