@@ -295,26 +295,23 @@ bool Scene::Update(float _dt)
 			App->render->camera.x = App->window->GetScreenWidth() / 2;
 			App->render->camera.y = App->window->GetScreenHeight() / 8;
 
+			int i = 0;
 			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 			{
 				life_x.push_back((124 * (*character)->current_stats.Hp) / (*character)->default_stats.Hp);
 				mana_x.push_back((124 * (*character)->current_stats.Mana) / (*character)->default_stats.Mana);
-			}
-			for (int i = 0; i < App->entity_manager->characters.size(); i++)
-			{
 				life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, life_position.at(i).first, life_position.at(i).second, { 0, 58, life_x.at(i), 29 }));
 				mana.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, mana_position.at(i).first, mana_position.at(i).second, { 0, 86, mana_x.at(i), 29 }));
+				++i;
 			}
-			int k = 0;
+			i = 0;
 			for (std::list<Entity*>::iterator enemies = App->entity_manager->enemies.begin(); enemies != App->entity_manager->enemies.end(); ++enemies)
 			{
 				enemies_life_position.push_back((*enemies)->GetPosition());
-				//enemies_life_position.at(k).second = (*enemies)->GetPosition().second;
 				enemies_life_x.push_back((100 * (*enemies)->current_stats.Hp) / (*enemies)->default_stats.Hp);
-				enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, enemies_life_position.at(k).first + screen_width * 0.5 - 15, enemies_life_position.at(k).second + screen_height * 0.07, { 0, 58, enemies_life_x.front() , 10 }));
-				++k;
+				enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, enemies_life_position.at(i).first + screen_width * 0.5 - 15, enemies_life_position.at(i).second + screen_height * 0.07, { 0, 58, enemies_life_x.front() , 10 }));
+				++i;
 			}
-			k = 0;
 			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, iris_portrait));
 			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1650.0f, 13.0f, sapphire_portrait));
 			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 904.0f, storm_portrait));
@@ -450,9 +447,7 @@ bool Scene::Update(float _dt)
 				enemies_life_position.clear();
 
 				App->map->CleanUp();
-				App->entity_manager->characters.clear();
-				App->entity_manager->entities.clear();
-				App->entity_manager->enemies.clear();
+				App->entity_manager->CleanUp();
 				App->render->camera.x = 0;
 				App->render->camera.y = 0;
 			}
@@ -587,7 +582,6 @@ void Scene::CreateMMOptions()
 	back_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), (screen_height / 2) + (option_background.h / 2) - button.h * 1.5, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(back_button);
 	
-
 	volume_up_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, volume_up_button->position.first + (button.w / 2), volume_up_button->position.second + (button.h / 2), "+", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	volume_down_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, volume_down_button->position.first + (button.w / 2), volume_down_button->position.second + (button.h / 2), "-", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 
@@ -690,7 +684,6 @@ void Scene::CreateMMControls()
 	back_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), select_button->position.second + (button_margin + button.h*1), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(back_button);
 
-
 	if (language)
 	{
 
@@ -736,7 +729,7 @@ void Scene::CreateEnemyPortraits(Entity* _enemy, int _i)
 {
 	App->gui_manager->DeleteGUIElement(enemies_life.at(_i));
 	enemies_life_x.at(_i) = (100 * _enemy->current_stats.Hp) / _enemy->default_stats.Hp;
-	enemies_life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, _enemy->GetPosition().first + screen_width * 0.5 - 15, _enemy->GetPosition().second + screen_height * 0.07, { 0, 58, enemies_life_x.at(_i) , 10 });
+	enemies_life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, _enemy->GetPosition().first + screen_width * 0.5 - 15, _enemy->GetPosition().second + screen_height * 0.07, { 0, 58, enemies_life_x.at(_i) , 5 });
 }
 
 void Scene::ActionsMenu()

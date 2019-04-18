@@ -254,6 +254,69 @@ void ModuleInput::buttonForGamepad() {
 			gamepad.START = PAD_BUTTON_IDLE;
 	}
 
+
+	//BUTTON SELECT
+	if (SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_SELECT) == 1) {
+		if (gamepad.SELECT == PAD_BUTTON_IDLE)
+			gamepad.SELECT = PAD_BUTTON_DOWN;
+		
+			gamepad.SELECT = PAD_BUTTON_REPEAT;
+	}
+	else
+	{
+		if (gamepad.SELECT == PAD_BUTTON_REPEAT || (gamepad.SELECT == PAD_BUTTON_DOWN))
+			gamepad.SELECT = PAD_BUTTON_KEY_UP;
+		else
+			gamepad.SELECT = PAD_BUTTON_IDLE;
+	}
+
+	//BUTTON L1
+	if (SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_L1) == 1) {
+		if (gamepad.L1 == PAD_BUTTON_IDLE)
+			gamepad.L1 = PAD_BUTTON_DOWN;
+		else
+			gamepad.L1 = PAD_BUTTON_REPEAT;
+	}
+	else
+	{
+		if (gamepad.L1 == PAD_BUTTON_REPEAT || (gamepad.L1 == PAD_BUTTON_DOWN))
+			gamepad.L1 = PAD_BUTTON_KEY_UP;
+		else
+			gamepad.L1 = PAD_BUTTON_IDLE;
+	}
+
+
+	//BUTTON L2
+	if (SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_L2) == 1) {
+		if (gamepad.L2 == PAD_BUTTON_IDLE)
+			gamepad.L2 = PAD_BUTTON_DOWN;
+		else
+			gamepad.L2 = PAD_BUTTON_REPEAT;
+	}
+	else
+	{
+		if (gamepad.L2 == PAD_BUTTON_REPEAT || (gamepad.L2 == PAD_BUTTON_DOWN))
+			gamepad.L2 = PAD_BUTTON_KEY_UP;
+		else
+			gamepad.L2 = PAD_BUTTON_IDLE;
+	}
+
+
+	//BUTTON R1
+	if (SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_R1) == 1) {
+		if (gamepad.R1 == PAD_BUTTON_IDLE)
+			gamepad.R1 = PAD_BUTTON_DOWN;
+		else
+			gamepad.R1 = PAD_BUTTON_REPEAT;
+	}
+	else
+	{
+		if (gamepad.R1 == PAD_BUTTON_REPEAT || (gamepad.R1 == PAD_BUTTON_DOWN))
+			gamepad.R1 = PAD_BUTTON_KEY_UP;
+		else
+			gamepad.R1 = PAD_BUTTON_IDLE;
+	}
+
 	//BUTTON DPAD UP
 	if (SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_DPAD_UP) == 1) {
 		if (gamepad.CROSS_UP == PAD_BUTTON_IDLE)
@@ -419,6 +482,46 @@ bool ModuleInput::Accept() {
 bool ModuleInput::Decline() {
 
 	if (GetKey(SDL_SCANCODE_X) == KEY_DOWN || App->input->gamepad.B == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}
+
+bool ModuleInput::Pause() {
+
+	if (GetKey(SDL_SCANCODE_RETURN)== KEY_DOWN || App->input->gamepad.START == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}
+
+bool ModuleInput::Select() {
+
+	if (GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN || App->input->gamepad.SELECT == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}
+
+bool ModuleInput::Showcharacterstats() {
+
+	if (GetKey(SDL_SCANCODE_LCTRL) == KEY_DOWN || App->input->gamepad.L1 == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}
+
+bool ModuleInput::Showcharacterabilities() {
+
+	if (GetKey(SDL_SCANCODE_LALT) == KEY_DOWN || App->input->gamepad.L2 == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}
+
+bool ModuleInput::Showabilities() {
+
+	if (GetKey(SDL_SCANCODE_TAB) == KEY_DOWN || App->input->gamepad.R1 == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
 		return true;
 	}
 	return false;
