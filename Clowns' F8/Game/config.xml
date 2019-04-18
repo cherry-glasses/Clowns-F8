@@ -70,7 +70,7 @@
       <position x="9" y="21"/>
       <stats hp="79" mana="120" p_move="1" atk_f="60" atk_s="84" range_atk="5" range_ability_1="2" range_ability_2="5"
              range_ability_3="7" def_f="70" def_s="80" crit="0.1"  agi="14"/>
-      <attacks_names attack="" ability_1="" ability_2="" ability_3=""/>
+      <attacks_names attack="" ability_1="Ability 1" ability_2="Ability 2" ability_3="Ability 3" habilidad_1="Habilidad 1" habilidad_2="Habilidad 2" habilidad_3="Habilidad 3"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>
