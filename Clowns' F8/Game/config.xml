@@ -43,6 +43,7 @@
     <main_menu start_pos="300"/>
     <options_menu start_pos="270"/>
     <life_position margin_x="150" margin_y="79"/>
+    <actions_position margin_x="20" margin_y="145"/>
     <mana_position margin_x="150" margin_y="110"/>
     <portraits>
       <iris x="124" y="0" w="64" h="67"/>

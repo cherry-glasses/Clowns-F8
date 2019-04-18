@@ -165,6 +165,7 @@ private:
 	std::vector<std::pair<int, int>> enemies_life_position;
 	std::vector<std::pair<int, int>> mana_position;
 	std::vector<std::pair<int, int>> portrait_position;
+	std::vector<std::pair<int, int>> act_menu_position;
 	bool waiting_for_input = false;
 	std::list<GUIButton*> buttons;
 	std::list<GUIButton*> buttons2;
