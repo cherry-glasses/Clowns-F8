@@ -52,6 +52,7 @@ private:
 	void DeleteOptionsIngame();
 	void CreateMMControls();
 	void CreatePortraits(Entity* _character, int _i);
+	void CreateEnemyPortraits(Entity* _enemy, int _i);
 	void ActionsMenu();
 	void Navigate();
 	void NavigateDown();
@@ -149,12 +150,15 @@ private:
 	GUIButton* ability2_button = nullptr;
 	GUIButton* ability3_button = nullptr;
 	std::vector<GUIImage*> life;
+	std::vector<GUIImage*> enemies_life;
 	std::vector<GUIImage*> mana;
 	std::vector<GUIImage*> portrait;
 	std::vector<GUIImage*> port;
 	std::vector<int> life_x;
 	std::vector<int> mana_x;
+	std::vector<int> enemies_life_x;
 	std::vector<std::pair<int, int>> life_position;
+	std::vector<std::pair<int, int>> enemies_life_position;
 	std::vector<std::pair<int, int>> mana_position;
 	std::vector<std::pair<int, int>> portrait_position;
 	bool waiting_for_input = false;
