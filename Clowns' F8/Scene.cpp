@@ -305,11 +305,11 @@ bool Scene::Update(float _dt)
 				++i;
 			}
 			i = 0;
-			for (std::list<Entity*>::iterator enemies = App->entity_manager->enemies.begin(); enemies != App->entity_manager->enemies.end(); ++enemies)
+			for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
 			{
-				enemies_life_position.push_back((*enemies)->GetPosition());
-				enemies_life_x.push_back((100 * (*enemies)->current_stats.Hp) / (*enemies)->default_stats.Hp);
-				enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, enemies_life_position.at(i).first + screen_width * 0.5 - 15, enemies_life_position.at(i).second + screen_height * 0.07, { 0, 58, enemies_life_x.front() , 10 }));
+				enemies_life_position.push_back((*enemy)->GetPosition());
+				enemies_life_x.push_back((64 * (*enemy)->current_stats.Hp) / (*enemy)->default_stats.Hp);
+				enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, enemies_life_position.at(i).first + screen_width * 0.5 , enemies_life_position.at(i).second + (screen_height / 8) + (*enemy)->position_margin.second, { 0, 58, enemies_life_x.at(i) , 5 }));
 				++i;
 			}
 			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, iris_portrait));
@@ -322,7 +322,7 @@ bool Scene::Update(float _dt)
 			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, screen_height - 178, { 0, 134, 256, 128 }));
 			
 		}
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || resume_game == false)
+		if (App->input->Pause() || resume_game == false)
 		{
 			App->map->Draw();
 			if (resume_game)
@@ -385,7 +385,7 @@ bool Scene::Update(float _dt)
 				App->audio->VolumeDown();
 				volume_down_button->Select(SELECTED);
 			}
-			else if (resume_button->has_been_clicked)
+			else if (resume_button->has_been_clicked || App->input->Decline())
 			{
 				ingame_options_menu_created = false;
 				DeleteOptionsIngame();
@@ -728,8 +728,8 @@ void Scene::CreatePortraits(Entity* _character, int _i)
 void Scene::CreateEnemyPortraits(Entity* _enemy, int _i)
 {
 	App->gui_manager->DeleteGUIElement(enemies_life.at(_i));
-	enemies_life_x.at(_i) = (100 * _enemy->current_stats.Hp) / _enemy->default_stats.Hp;
-	enemies_life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, _enemy->GetPosition().first + screen_width * 0.5 - 15, _enemy->GetPosition().second + screen_height * 0.07, { 0, 58, enemies_life_x.at(_i) , 5 });
+	enemies_life_x.at(_i) = (64 * _enemy->current_stats.Hp) / _enemy->default_stats.Hp;
+	enemies_life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, _enemy->GetPosition().first + screen_width * 0.5, _enemy->GetPosition().second + (screen_height / 8) + _enemy->position_margin.second, { 0, 58, enemies_life_x.at(_i) , 5 });
 }
 
 void Scene::ActionsMenu()
