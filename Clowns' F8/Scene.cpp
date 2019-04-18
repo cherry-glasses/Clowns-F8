@@ -314,10 +314,21 @@ bool Scene::Update(float _dt)
 			{
 				resume_game = false;
 			}
-			if (waiting_for_input && !(buttons2.empty())) {
+			if (waiting_for_input && !ability_menu_created && !(buttons2.empty()))
+			{
 				App->gui_manager->DeleteGUIElement(attack_button);
 				App->gui_manager->DeleteGUIElement(ability_button);
 				App->gui_manager->DeleteGUIElement(defend_button);
+				App->gui_manager->DeleteGUIElement(attack_label);
+				App->gui_manager->DeleteGUIElement(ability_label);
+				App->gui_manager->DeleteGUIElement(defend_label);
+				buttons2.clear();
+			}
+			else if (ability_menu_created && !(buttons2.empty()))
+			{
+				App->gui_manager->DeleteGUIElement(ability1_button);
+				App->gui_manager->DeleteGUIElement(ability2_button);
+				App->gui_manager->DeleteGUIElement(ability3_button);
 				App->gui_manager->DeleteGUIElement(attack_label);
 				App->gui_manager->DeleteGUIElement(ability_label);
 				App->gui_manager->DeleteGUIElement(defend_label);
@@ -364,16 +375,39 @@ bool Scene::Update(float _dt)
 				ingame_options_menu_created = false;
 				DeleteOptionsIngame();
 				resume_game = true;
-				if (waiting_for_input)
+				if (waiting_for_input && !ability_menu_created)
 				{
 					waiting_for_input = false;
+				}
+				else if (waiting_for_input && ability_menu_created)
+				{
+					ability1_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 145.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
+					buttons2.push_back(ability1_button);
+					ability2_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 184.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
+					buttons2.push_back(ability2_button);
+					ability3_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 223.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
+					buttons2.push_back(ability3_button);
+					ability1_button->Select(SELECTED);
+					if (language)
+					{
+						attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability1_button->position.first + (small_button.w * 0.5), ability1_button->position.second + (small_button.h * 0.5), "ABILITY 1", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+						ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability2_button->position.first + (small_button.w * 0.5), ability2_button->position.second + (small_button.h * 0.5), "ABILITY 2", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+						defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability3_button->position.first + (small_button.w * 0.5), ability3_button->position.second + (small_button.h * 0.5), "ABILITY 3", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+
+					}
+					else
+					{
+						attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability1_button->position.first + (small_button.w * 0.5), ability1_button->position.second + (small_button.h * 0.5), "HABILIDAD 1", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+						ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability2_button->position.first + (small_button.w * 0.5), ability2_button->position.second + (small_button.h * 0.5), "HABILIDAD 2", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+						defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability3_button->position.first + (small_button.w * 0.5), ability3_button->position.second + (small_button.h * 0.5), "HABILIDAD 3", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+					}
 				}
 
 			}
 			else if (mm_button->has_been_clicked)
 			{
 				action_menu_created = false;
-				map_loaded = false;
+				//map_loaded = false;
 				portraits_created = false;
 				resume_game = true;
 				ingame_options_menu_created = false;
@@ -387,8 +421,9 @@ bool Scene::Update(float _dt)
 				while (!mana.empty()) mana.pop_back();
 				while (!life_x.empty()) life_x.pop_back();
 				while (!mana_x.empty()) mana_x.pop_back();
-				App->map->CleanUp();
-				App->entity_manager->CleanUp();
+				
+				//App->map->CleanUp();
+				//App->entity_manager->CleanUp();
 			}
 			Navigate();
 			App->render->Blit(options_background, 0 - (option_background.w / 2), (screen_height / 2.7) - (option_background.h / 2));
@@ -715,62 +750,140 @@ void Scene::ActionsMenu()
 				}
 			}
 		}
-
-		if (attack_button->has_been_clicked)
+		if (!ability_menu_created)
 		{
-			//Put attack function
-			waiting_for_input = false;
-			App->gui_manager->DeleteGUIElement(attack_button);
-			App->gui_manager->DeleteGUIElement(ability_button);
-			App->gui_manager->DeleteGUIElement(defend_button);
-			App->gui_manager->DeleteGUIElement(attack_label);
-			App->gui_manager->DeleteGUIElement(ability_label);
-			App->gui_manager->DeleteGUIElement(defend_label);
-			buttons2.clear();
-			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+			if (attack_button->has_been_clicked)
 			{
-				if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+				//Put attack function
+				waiting_for_input = false;
+				App->gui_manager->DeleteGUIElement(attack_button);
+				App->gui_manager->DeleteGUIElement(ability_button);
+				App->gui_manager->DeleteGUIElement(defend_button);
+				App->gui_manager->DeleteGUIElement(attack_label);
+				App->gui_manager->DeleteGUIElement(ability_label);
+				App->gui_manager->DeleteGUIElement(defend_label);
+				buttons2.clear();
+				for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 				{
-					(*character)->current_turn = Entity::TURN::SEARCH_ATTACK;
+					if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+					{
+						(*character)->current_turn = Entity::TURN::SEARCH_ATTACK;
+					}
+				}
+
+			}
+			else if (ability_button->has_been_clicked)
+			{
+				//Put ability function
+				App->gui_manager->DeleteGUIElement(attack_button);
+				App->gui_manager->DeleteGUIElement(ability_button);
+				App->gui_manager->DeleteGUIElement(defend_button);
+				App->gui_manager->DeleteGUIElement(attack_label);
+				App->gui_manager->DeleteGUIElement(ability_label);
+				App->gui_manager->DeleteGUIElement(defend_label);
+				buttons2.clear();
+				ability1_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 145.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
+				buttons2.push_back(ability1_button);
+				ability2_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 184.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
+				buttons2.push_back(ability2_button);
+				ability3_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 20.0f, 223.0f, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
+				buttons2.push_back(ability3_button);
+				ability1_button->Select(SELECTED);
+				if (language)
+				{
+					attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability1_button->position.first + (small_button.w * 0.5), ability1_button->position.second + (small_button.h * 0.5), "ABILITY 1", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+					ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability2_button->position.first + (small_button.w * 0.5), ability2_button->position.second + (small_button.h * 0.5), "ABILITY 2", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+					defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability3_button->position.first + (small_button.w * 0.5), ability3_button->position.second + (small_button.h * 0.5), "ABILITY 3", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+
+				}
+				else
+				{
+					attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability1_button->position.first + (small_button.w * 0.5), ability1_button->position.second + (small_button.h * 0.5), "HABILIDAD 1", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+					ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability2_button->position.first + (small_button.w * 0.5), ability2_button->position.second + (small_button.h * 0.5), "HABILIDAD 2", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+					defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability3_button->position.first + (small_button.w * 0.5), ability3_button->position.second + (small_button.h * 0.5), "HABILIDAD 3", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+				}
+				ability_menu_created = true;
+			}
+			else if (defend_button->has_been_clicked)
+			{
+				//Put defend function
+				waiting_for_input = false;
+				App->gui_manager->DeleteGUIElement(attack_button);
+				App->gui_manager->DeleteGUIElement(ability_button);
+				App->gui_manager->DeleteGUIElement(defend_button);
+				App->gui_manager->DeleteGUIElement(attack_label);
+				App->gui_manager->DeleteGUIElement(ability_label);
+				App->gui_manager->DeleteGUIElement(defend_label);
+				buttons2.clear();
+				for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+				{
+					if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+					{
+						(*character)->current_turn = Entity::TURN::DEFEND;
+					}
 				}
 			}
-
 		}
-		else if (ability_button->has_been_clicked)
+		else if (ability_menu_created)
 		{
-			//Put ability function
-			waiting_for_input = false;
-			App->gui_manager->DeleteGUIElement(attack_button);
-			App->gui_manager->DeleteGUIElement(ability_button);
-			App->gui_manager->DeleteGUIElement(defend_button);
-			App->gui_manager->DeleteGUIElement(attack_label);
-			App->gui_manager->DeleteGUIElement(ability_label);
-			App->gui_manager->DeleteGUIElement(defend_label);
-			buttons2.clear();
-			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+			if (ability1_button->has_been_clicked)
 			{
-				if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+				//Put attack function
+				waiting_for_input = false;
+				ability_menu_created = false;
+				App->gui_manager->DeleteGUIElement(ability1_button);
+				App->gui_manager->DeleteGUIElement(ability2_button);
+				App->gui_manager->DeleteGUIElement(ability3_button);
+				App->gui_manager->DeleteGUIElement(attack_label);
+				App->gui_manager->DeleteGUIElement(ability_label);
+				App->gui_manager->DeleteGUIElement(defend_label);
+				buttons2.clear();
+				for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 				{
-					(*character)->current_turn = Entity::TURN::SEARCH_ABILITY_1;
+					if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+					{
+						(*character)->current_turn = Entity::TURN::SEARCH_ABILITY_1;
+					}
 				}
 			}
-		}
-		else if (defend_button->has_been_clicked)
-		{
-			//Put defend function
-			waiting_for_input = false;
-			App->gui_manager->DeleteGUIElement(attack_button);
-			App->gui_manager->DeleteGUIElement(ability_button);
-			App->gui_manager->DeleteGUIElement(defend_button);
-			App->gui_manager->DeleteGUIElement(attack_label);
-			App->gui_manager->DeleteGUIElement(ability_label);
-			App->gui_manager->DeleteGUIElement(defend_label);
-			buttons2.clear();
-			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+			else if (ability2_button->has_been_clicked)
 			{
-				if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+				//Put attack function
+				waiting_for_input = false;
+				ability_menu_created = false;
+				App->gui_manager->DeleteGUIElement(ability1_button);
+				App->gui_manager->DeleteGUIElement(ability2_button);
+				App->gui_manager->DeleteGUIElement(ability3_button);
+				App->gui_manager->DeleteGUIElement(attack_label);
+				App->gui_manager->DeleteGUIElement(ability_label);
+				App->gui_manager->DeleteGUIElement(defend_label);
+				buttons2.clear();
+				for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 				{
-					(*character)->current_turn = Entity::TURN::DEFEND;
+					if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+					{
+						(*character)->current_turn = Entity::TURN::SEARCH_ABILITY_1;
+					}
+				}
+			}
+			else if (ability3_button->has_been_clicked)
+			{
+				//Put attack function
+				waiting_for_input = false;
+				ability_menu_created = false;
+				App->gui_manager->DeleteGUIElement(ability1_button);
+				App->gui_manager->DeleteGUIElement(ability2_button);
+				App->gui_manager->DeleteGUIElement(ability3_button);
+				App->gui_manager->DeleteGUIElement(attack_label);
+				App->gui_manager->DeleteGUIElement(ability_label);
+				App->gui_manager->DeleteGUIElement(defend_label);
+				buttons2.clear();
+				for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+				{
+					if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+					{
+						(*character)->current_turn = Entity::TURN::SEARCH_ABILITY_1;
+					}
 				}
 			}
 		}

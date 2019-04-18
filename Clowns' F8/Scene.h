@@ -79,6 +79,7 @@ private:
 	bool mm_options_created = false;
 	bool mm_credits_created = false;
 	bool mm_controls_menu_created = false;
+	bool ability_menu_created = false;
 	bool map_loaded = false;
 	bool portraits_created = false;
 	bool action_menu_created = false;
@@ -144,6 +145,9 @@ private:
 	GUILabel* attack_label = nullptr;
 	GUILabel* ability_label = nullptr;
 	GUILabel* defend_label = nullptr;
+	GUIButton* ability1_button = nullptr;
+	GUIButton* ability2_button = nullptr;
+	GUIButton* ability3_button = nullptr;
 	std::vector<GUIImage*> life;
 	std::vector<GUIImage*> mana;
 	std::vector<GUIImage*> portrait;
