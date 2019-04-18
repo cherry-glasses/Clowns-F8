@@ -194,7 +194,6 @@ bool ModuleAudio::PlayFx(unsigned int _id, int _repeat)
 		Mix_PlayChannel(-1, fx[_id - 1], _repeat);
 	}
 
-	LOG("VOLUME %d", volume_fx);
 	return ret;
 }
 
