@@ -44,6 +44,7 @@
     <options_menu start_pos="270"/>
     <life_position margin_x="150" margin_y="79"/>
     <mana_position margin_x="150" margin_y="110"/>
+    <press_fx_name source="UI_FX_Selection.wav"/>
     <portraits>
       <iris x="124" y="0" w="64" h="67"/>
       <storm x="191" y="0" w="64" h="67"/>

@@ -169,6 +169,8 @@ private:
 	std::list<GUIButton*> buttons;
 	std::list<GUIButton*> buttons2;
 
+	std::string	press_fx_name = "";
+
 public:
 	bool language = true; //true = English; false = Spanish
 	bool resume_game = true;

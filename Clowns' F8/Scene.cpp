@@ -72,8 +72,10 @@ bool Scene::Awake(pugi::xml_node& _config)
 		default:
 			break;
 		}
-		
 	}
+
+	//Audio
+	press_fx_name = _config.child("press_fx_name").attribute("source").as_string();
 	
 	return ret;
 }
@@ -86,6 +88,8 @@ bool Scene::Start()
 	credits_page = App->textures->Load("Assets/Sprites/UI/credits_done.png");
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
+
+	App->audio->LoadFx(press_fx_name.c_str());
 	return true;
 }
 
@@ -106,7 +110,7 @@ bool Scene::Update(float _dt)
 	case Scene::MAIN_MENU:
 		if (!music_created) {
 			music_created = true;
-			App->audio->PlayMusic("Main_menu_8_bits.wav");
+			App->audio->PlayMusic("Main_menu_8_bits.ogg");
 		}
 		if (!main_menu_created) {
 			main_menu_created = true;
@@ -281,7 +285,7 @@ bool Scene::Update(float _dt)
 	case Scene::FIRST_BATTLE:
 		if (!music_created) {
 			music_created = true;
-			App->audio->PlayMusic("Main_menu_8_bits.wav");
+			App->audio->PlayMusic("Main_menu_8_bits.ogg");
 		}
 		if (!map_loaded) {
 			map_loaded = true;
@@ -412,7 +416,6 @@ bool Scene::Update(float _dt)
 								attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability1_button->position.first + (small_button.w * 0.5), ability1_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ability_1_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 								ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability2_button->position.first + (small_button.w * 0.5), ability2_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ability_2_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 								defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability3_button->position.first + (small_button.w * 0.5), ability3_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ability_3_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-
 							}
 							else
 							{
@@ -969,6 +972,7 @@ void Scene::Navigate()
 }
 void Scene::NavigateDown() 
 {
+	App->audio->PlayFx(1, 0);
 	for (std::list<GUIButton*>::const_iterator it_vector = buttons.begin(); it_vector != buttons.end(); ++it_vector)
 	{
 		if ((*it_vector)->current_state == SELECTED) {
@@ -990,6 +994,7 @@ void Scene::NavigateDown()
 
 void Scene::NavigateUp() 
 {
+	App->audio->PlayFx(1, 0);
 	for (std::list<GUIButton*>::const_iterator it_vector = buttons.begin(); it_vector != buttons.end(); ++it_vector)
 	{
 		if ((*it_vector)->current_state == SELECTED) {
