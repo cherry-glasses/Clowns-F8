@@ -297,6 +297,16 @@ bool Scene::Update(float _dt)
 				life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, life_position.at(i).first, life_position.at(i).second, { 0, 58, life_x.at(i), 29 }));
 				mana.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, mana_position.at(i).first, mana_position.at(i).second, { 0, 86, mana_x.at(i), 29 }));
 			}
+			/*int k = 0;
+			for (std::list<Entity*>::iterator enemies = App->entity_manager->enemies.begin(); enemies != App->entity_manager->enemies.end(); ++enemies)
+			{
+				enemies_life_position.push_back((*enemies)->GetPosition());
+				//enemies_life_position.at(k).second = (*enemies)->GetPosition().second;
+				enemies_life_x.push_back((100 * (*enemies)->current_stats.Hp) / (*enemies)->default_stats.Hp);
+				enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, enemies_life_position.at(k).first + screen_width * 0.5 - 15, enemies_life_position.at(k).second + screen_height * 0.07, { 0, 58, enemies_life_x.front() , 10 }));
+				++k;
+			}
+			k = 0;*/
 			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, { 124, 0, 64, 67 }));
 			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, { 124, 0, 64, 67 }));
 			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, { 124, 0, 64, 67 }));
@@ -441,6 +451,28 @@ bool Scene::Update(float _dt)
 				++i;
 			}
 
+			/*i = 0;
+			bool change = false;
+			for (std::list<Entity*>::iterator enemies = App->entity_manager->enemies.begin(); enemies != App->entity_manager->enemies.end(); ++enemies)
+			{
+				if (enemies_life_x.at(i) != ((100 * (*enemies)->current_stats.Hp) / (*enemies)->default_stats.Hp)
+					|| enemies_life_position.at(i).first != (*enemies)->GetPosition().first ||
+				enemies_life_position.at(i).second != (*enemies)->GetPosition().second)
+				{
+					if(!change) change = true;
+					CreateEnemyPortraits(*enemies, i);
+				}
+				++i;
+			}
+			if (change)
+			{
+				enemies_life_position.clear();
+				for (std::list<Entity*>::iterator enemies = App->entity_manager->enemies.begin(); enemies != App->entity_manager->enemies.end(); ++enemies)
+				{
+					enemies_life_position.push_back((*enemies)->GetPosition());
+				}
+				change = false;
+			}*/
 			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 			{
 				if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
@@ -678,7 +710,14 @@ void Scene::CreatePortraits(Entity* _character, int _i)
 	life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, life_position.at(_i).first, life_position.at(_i).second, { 0, 58, life_x.at(_i), 29 });
 	mana.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, mana_position.at(_i).first, mana_position.at(_i).second, { 0, 86, mana_x.at(_i), 29 });
 }
-
+/*
+void Scene::CreateEnemyPortraits(Entity* _enemy, int _i)
+{
+	App->gui_manager->DeleteGUIElement(life.at(_i));
+	enemies_life_x.at(_i) = (100 * _enemy->current_stats.Hp) / _enemy->default_stats.Hp;
+	enemies_life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, _enemy->GetPosition().first + screen_width * 0.5 - 15, _enemy->GetPosition().second + screen_height * 0.07, { 0, 58, enemies_life_x.at(_i) , 10 });
+}
+*/
 void Scene::ActionsMenu()
 {
 	if (resume_game)
