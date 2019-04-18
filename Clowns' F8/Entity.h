@@ -110,6 +110,8 @@ public:
 	STATE current_state = ALIVE;
 	TURN current_turn = NONE;
 
+	std::pair<int, int>  position_margin;
+
 protected:
 
 	enum MOVEMENT {	IDLE_LEFT_FRONT, IDLE_RIGHT_FRONT, IDLE_LEFT_BACK, IDLE_RIGHT_BACK, IDLE_LEFT, IDLE_RIGHT, IDLE_FRONT, IDLE_BACK,
@@ -189,7 +191,6 @@ protected:
 	SDL_Rect debug_red;
 	SDL_Rect debug_blue;
 	std::pair<int, int>  position;
-	std::pair<int, int>  position_margin;
 	std::vector<std::pair<int, int>>  objective_position;
 	
 	

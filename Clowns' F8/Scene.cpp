@@ -77,8 +77,10 @@ bool Scene::Awake(pugi::xml_node& _config)
 		default:
 			break;
 		}
-		
 	}
+
+	//Audio
+	press_fx_name = _config.child("press_fx_name").attribute("source").as_string();
 	
 	return ret;
 }
@@ -91,6 +93,8 @@ bool Scene::Start()
 	credits_page = App->textures->Load("Assets/Sprites/UI/credits_done.png");
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
+
+	App->audio->LoadFx(press_fx_name.c_str());
 	return true;
 }
 
@@ -111,7 +115,7 @@ bool Scene::Update(float _dt)
 	case Scene::MAIN_MENU:
 		if (!music_created) {
 			music_created = true;
-			App->audio->PlayMusic("Main_menu_8_bits.wav");
+			App->audio->PlayMusic("Main_menu_8_bits.ogg");
 		}
 		if (!main_menu_created) {
 			main_menu_created = true;
@@ -286,7 +290,7 @@ bool Scene::Update(float _dt)
 	case Scene::FIRST_BATTLE:
 		if (!music_created) {
 			music_created = true;
-			App->audio->PlayMusic("Main_menu_8_bits.wav");
+			App->audio->PlayMusic("Main_menu_8_bits.ogg");
 		}
 		if (!map_loaded) {
 			map_loaded = true;
@@ -310,11 +314,11 @@ bool Scene::Update(float _dt)
 				++i;
 			}
 			i = 0;
-			for (std::list<Entity*>::iterator enemies = App->entity_manager->enemies.begin(); enemies != App->entity_manager->enemies.end(); ++enemies)
+			for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
 			{
-				enemies_life_position.push_back((*enemies)->GetPosition());
-				enemies_life_x.push_back((100 * (*enemies)->current_stats.Hp) / (*enemies)->default_stats.Hp);
-				enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, enemies_life_position.at(i).first + screen_width * 0.5 - 15, enemies_life_position.at(i).second + screen_height * 0.07, { 0, 58, enemies_life_x.front() , 5 }));
+				enemies_life_position.push_back((*enemy)->GetPosition());
+				enemies_life_x.push_back((64 * (*enemy)->current_stats.Hp) / (*enemy)->default_stats.Hp);
+				enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, enemies_life_position.at(i).first + screen_width * 0.5 , enemies_life_position.at(i).second + (screen_height / 8) + (*enemy)->position_margin.second, { 0, 58, enemies_life_x.at(i) , 5 }));
 				++i;
 			}
 			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, iris_portrait));
@@ -327,7 +331,7 @@ bool Scene::Update(float _dt)
 			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, screen_height - 178, { 0, 134, 256, 128 }));
 			
 		}
-		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || resume_game == false)
+		if (App->input->Pause() || resume_game == false)
 		{
 			App->map->Draw();
 			if (resume_game)
@@ -390,7 +394,7 @@ bool Scene::Update(float _dt)
 				App->audio->VolumeDown();
 				volume_down_button->Select(SELECTED);
 			}
-			else if (resume_button->has_been_clicked)
+			else if (resume_button->has_been_clicked || App->input->Decline())
 			{
 				ingame_options_menu_created = false;
 				DeleteOptionsIngame();
@@ -418,7 +422,6 @@ bool Scene::Update(float _dt)
 								attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability1_button->position.first + (small_button.w * 0.5), ability1_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ability_1_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 								ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability2_button->position.first + (small_button.w * 0.5), ability2_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ability_2_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 								defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability3_button->position.first + (small_button.w * 0.5), ability3_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ability_3_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-
 							}
 							else
 							{
@@ -734,8 +737,8 @@ void Scene::CreatePortraits(Entity* _character, int _i)
 void Scene::CreateEnemyPortraits(Entity* _enemy, int _i)
 {
 	App->gui_manager->DeleteGUIElement(enemies_life.at(_i));
-	enemies_life_x.at(_i) = (100 * _enemy->current_stats.Hp) / _enemy->default_stats.Hp;
-	enemies_life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, _enemy->GetPosition().first + screen_width * 0.5 - 15, _enemy->GetPosition().second + screen_height * 0.07, { 0, 58, enemies_life_x.at(_i) , 5 });
+	enemies_life_x.at(_i) = (64 * _enemy->current_stats.Hp) / _enemy->default_stats.Hp;
+	enemies_life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, _enemy->GetPosition().first + screen_width * 0.5, _enemy->GetPosition().second + (screen_height / 8) + _enemy->position_margin.second, { 0, 58, enemies_life_x.at(_i) , 5 });
 }
 
 void Scene::ActionsMenu()
@@ -985,6 +988,7 @@ void Scene::Navigate()
 }
 void Scene::NavigateDown() 
 {
+	App->audio->PlayFx(1, 0);
 	for (std::list<GUIButton*>::const_iterator it_vector = buttons.begin(); it_vector != buttons.end(); ++it_vector)
 	{
 		if ((*it_vector)->current_state == SELECTED) {
@@ -1006,6 +1010,7 @@ void Scene::NavigateDown()
 
 void Scene::NavigateUp() 
 {
+	App->audio->PlayFx(1, 0);
 	for (std::list<GUIButton*>::const_iterator it_vector = buttons.begin(); it_vector != buttons.end(); ++it_vector)
 	{
 		if ((*it_vector)->current_state == SELECTED) {
