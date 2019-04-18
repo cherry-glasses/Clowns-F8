@@ -439,6 +439,8 @@ bool Scene::Update(float _dt)
 				App->entity_manager->characters.clear();
 				App->entity_manager->entities.clear();
 				App->entity_manager->enemies.clear();
+				App->render->camera.x = 0;
+				App->render->camera.y = 0;
 			}
 			Navigate();
 			App->render->Blit(options_background, 0 - (option_background.w / 2), (screen_height / 2.7) - (option_background.h / 2));
