@@ -417,7 +417,7 @@ bool Scene::Update(float _dt)
 			else if (mm_button->has_been_clicked)
 			{
 				action_menu_created = false;
-				//map_loaded = false;
+				map_loaded = false;
 				portraits_created = false;
 				resume_game = true;
 				ingame_options_menu_created = false;
@@ -432,8 +432,10 @@ bool Scene::Update(float _dt)
 				while (!life_x.empty()) life_x.pop_back();
 				while (!mana_x.empty()) mana_x.pop_back();
 				
-				//App->map->CleanUp();
-				//App->entity_manager->CleanUp();
+				App->map->CleanUp();
+				App->entity_manager->characters.clear();
+				App->entity_manager->entities.clear();
+				App->entity_manager->enemies.clear();
 			}
 			Navigate();
 			App->render->Blit(options_background, 0 - (option_background.w / 2), (screen_height / 2.7) - (option_background.h / 2));

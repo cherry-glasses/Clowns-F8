@@ -35,10 +35,10 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 
 	current_stats = default_stats;
 
-	attacks_names.Attack_name = _config.child("attacks_names").attribute("attack").as_string();
-	attacks_names.Ability_1_name = _config.child("attacks_names").attribute("ability_1").as_string();
-	attacks_names.Ability_2_name = _config.child("attacks_names").attribute("ability_2").as_string();
-	attacks_names.Ability_3_name = _config.child("attacks_names").attribute("ability_3").as_string();
+	attacks_names.Attack_name = _config.child("attacks_names").attribute("attack").as_string("Attack");
+	attacks_names.Ability_1_name = _config.child("attacks_names").attribute("ability_1").as_string("Ability 1");
+	attacks_names.Ability_2_name = _config.child("attacks_names").attribute("ability_2").as_string("Ability 2");
+	attacks_names.Ability_3_name = _config.child("attacks_names").attribute("ability_3").as_string("Ability 3");
 
 	LoadAnim(_config);
 
