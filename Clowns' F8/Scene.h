@@ -73,6 +73,10 @@ private:
 	SDL_Rect small_button;
 	SDL_Rect cherry_glasses_logo;
 	SDL_Rect option_background;
+	SDL_Rect iris_portrait;
+	SDL_Rect sapphire_portrait;
+	SDL_Rect george_b_portrait;
+	SDL_Rect storm_portrait;
 	int button_margin;
 	int screen_width, screen_height;
 	bool music_created = false;

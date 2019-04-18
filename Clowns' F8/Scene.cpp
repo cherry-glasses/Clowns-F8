@@ -39,6 +39,14 @@ bool Scene::Awake(pugi::xml_node& _config)
 		_config.child("cherry_glasses_logo").attribute("w").as_int() , _config.child("cherry_glasses_logo").attribute("h").as_int() };
 	option_background = { _config.child("option_background").attribute("x").as_int(), _config.child("option_background").attribute("y").as_int(),
 		_config.child("option_background").attribute("w").as_int() , _config.child("option_background").attribute("h").as_int() };
+	iris_portrait = { _config.child("portraits").child("iris").attribute("x").as_int(), _config.child("portraits").child("iris").attribute("y").as_int(),
+		_config.child("portraits").child("iris").attribute("w").as_int() , _config.child("portraits").child("iris").attribute("h").as_int() };
+	sapphire_portrait = { _config.child("portraits").child("sapphire").attribute("x").as_int(), _config.child("portraits").child("sapphire").attribute("y").as_int(),
+		_config.child("portraits").child("sapphire").attribute("w").as_int() , _config.child("portraits").child("sapphire").attribute("h").as_int() };
+	storm_portrait = { _config.child("portraits").child("storm").attribute("x").as_int(), _config.child("portraits").child("storm").attribute("y").as_int(),
+		_config.child("portraits").child("storm").attribute("w").as_int() , _config.child("portraits").child("storm").attribute("h").as_int() };
+	george_b_portrait = { _config.child("portraits").child("george_b").attribute("x").as_int(), _config.child("portraits").child("george_b").attribute("y").as_int(),
+		_config.child("portraits").child("george_b").attribute("w").as_int() , _config.child("portraits").child("george_b").attribute("h").as_int() };
 	std::pair<int, int> life_margin = { _config.child("life_position").attribute("margin_x").as_int(), _config.child("life_position").attribute("margin_y").as_int() };
 	std::pair<int, int> mana_margin = { _config.child("mana_position").attribute("margin_x").as_int(), _config.child("mana_position").attribute("margin_y").as_int() };
 	for (int i = 0; i < 4; i++)
@@ -307,14 +315,14 @@ bool Scene::Update(float _dt)
 				++k;
 			}
 			k = 0;
-			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, { 124, 0, 64, 67 }));
-			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, { 124, 0, 64, 67 }));
-			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, { 124, 0, 64, 67 }));
-			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, { 124, 0, 64, 67 }));
-			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 12.0f, { 0, 115, 256, 128 }));
-			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, screen_height - 178, { 0, 115, 256, 128 }));
-			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, 12.0f, { 0, 115, 256, 128 }));
-			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, screen_height - 178, { 0, 115, 256, 128 }));
+			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, iris_portrait));
+			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1650.0f, 13.0f, sapphire_portrait));
+			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 904.0f, storm_portrait));
+			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1650.0f, 904.0f, george_b_portrait));
+			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 12.0f, { 0, 134, 256, 128 }));
+			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, screen_height - 178, { 0, 134, 256, 128 }));
+			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, 12.0f, { 0, 134, 256, 128 }));
+			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, screen_height - 178, { 0, 134, 256, 128 }));
 			
 		}
 		if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || resume_game == false)
