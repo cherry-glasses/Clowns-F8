@@ -138,9 +138,10 @@ bool ModuleEntityManager::CleanUp()
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
 		(*entity)->CleanUp();
-		entity = entities.erase(entity);
 	}
 	entities.clear();
+	characters.clear();
+	enemies.clear();
 
 	return true;
 }
