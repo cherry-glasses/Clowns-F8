@@ -65,14 +65,14 @@ bool Scene::Awake(pugi::xml_node& _config)
 			act_menu_position.push_back({ App->window->GetScreenWidth() / 2 - actions_margin.first - 259, actions_margin.second - App->window->GetScreenHeight() / 8 });
 			break;
 		case 2:
-			life_position.push_back({ life_margin.first - App->window->GetScreenWidth() / 2, - App->window->GetScreenHeight() / 8 - mana_margin.second });
-			mana_position.push_back({ mana_margin.first - App->window->GetScreenWidth() / 2, - App->window->GetScreenHeight() / 8 - life_margin.second });
-			act_menu_position.push_back({ actions_margin.first - App->window->GetScreenWidth() / 2, - App->window->GetScreenHeight() / 8 - actions_margin.second -  153});
+			life_position.push_back({ life_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - mana_margin.second });
+			mana_position.push_back({ mana_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - life_margin.second });
+			act_menu_position.push_back({ actions_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - actions_margin.second -  153});
 			break;
 		case 3:
-			life_position.push_back({ App->window->GetScreenWidth() / 2 - life_margin.first, App->window->GetScreenHeight() - mana_margin.second });
-			mana_position.push_back({ App->window->GetScreenWidth() / 2 - mana_margin.first, App->window->GetScreenHeight() - life_margin.second });
-			act_menu_position.push_back({ App->window->GetScreenWidth() / 2 - actions_margin.first - 259, App->window->GetScreenHeight() - actions_margin.second - 153});
+			life_position.push_back({ App->window->GetScreenWidth() / 2 - life_margin.first, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - mana_margin.second });
+			mana_position.push_back({ App->window->GetScreenWidth() / 2 - mana_margin.first, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - life_margin.second });
+			act_menu_position.push_back({ App->window->GetScreenWidth() / 2 - actions_margin.first - 259, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - actions_margin.second - 153});
 			break;
 		default:
 			break;
