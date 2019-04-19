@@ -380,8 +380,8 @@ void Character::SelectAbility_1() {
 	InputSelectAttack();
 
 	if (App->input->Accept() 
-		&& App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second), type)
-		|| type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB)
+		&& (App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second), type)
+		|| type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB))
 	{
 		current_turn = ABILITY_1;
 
