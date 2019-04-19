@@ -772,7 +772,7 @@ void Scene::CreateEnemyPortraits(Entity* _enemy, int _i)
 {
 	App->gui_manager->DeleteGUIElement(enemies_life.at(_i));
 	enemies_life_x.at(_i) = (64 * _enemy->current_stats.Hp) / _enemy->default_stats.Hp;
-	enemies_life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, _enemy->GetPosition().first, _enemy->GetPosition().second + _enemy->position_margin.second, { 0, 58, enemies_life_x.at(_i) , 5 });
+	enemies_life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, _enemy->GetPosition().first + screen_width * 0.5, _enemy->GetPosition().second + (screen_height / 8) + _enemy->position_margin.second, { 0, 58, enemies_life_x.at(_i) , 5 });
 }
 
 void Scene::ActionsMenu()
