@@ -364,6 +364,7 @@ bool Scene::Update(float _dt)
 		}
 		if (App->input->Pause() || resume_game == false)
 		{
+			App->entity_manager->paused = true;
 			App->map->Draw();
 			if (resume_game)
 			{
@@ -496,6 +497,7 @@ bool Scene::Update(float _dt)
 		}
 		else
 		{
+			App->entity_manager->paused = false;
 			int i = 0;
 			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 			{

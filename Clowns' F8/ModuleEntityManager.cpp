@@ -116,28 +116,28 @@ bool ModuleEntityManager::Update(float _dt)
 
 bool ModuleEntityManager::PostUpdate()
 {
-	if (entities.size() > 1)
-	{
-		entities.sort(CompareByPosition);
-	}
-	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
-	{
-		if ((*entity)->current_stats.Hp > (*entity)->default_stats.Hp) {
-			(*entity)->current_stats.Hp = (*entity)->default_stats.Hp;
+	if (!paused) {
+		if (entities.size() > 1)
+		{
+			entities.sort(CompareByPosition);
 		}
-		else if ((*entity)->current_stats.Hp < 0) {
-			(*entity)->current_stats.Hp = 0;
+		for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
+		{
+			if ((*entity)->current_stats.Hp > (*entity)->default_stats.Hp) {
+				(*entity)->current_stats.Hp = (*entity)->default_stats.Hp;
+			}
+			else if ((*entity)->current_stats.Hp < 0) {
+				(*entity)->current_stats.Hp = 0;
+			}
+			(*entity)->PostUpdate();
+
 		}
-		(*entity)->PostUpdate();
 
+		for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object)
+		{
+			(*object)->PostUpdate();
+		}
 	}
-
-	for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object)
-	{
-		(*object)->PostUpdate();
-	}
-	
-
 	return true;
 }
 
