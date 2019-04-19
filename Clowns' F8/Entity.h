@@ -111,6 +111,7 @@ public:
 	TURN current_turn = NONE;
 
 	std::pair<int, int>  position_margin;
+	std::string name;
 
 protected:
 
