@@ -55,24 +55,24 @@ bool Scene::Awake(pugi::xml_node& _config)
 		switch (i)
 		{
 		case 0:
-			life_position.push_back({ life_margin.first, life_margin.second});
-			mana_position.push_back({ mana_margin.first, mana_margin.second });
-			act_menu_position.push_back({ actions_margin.first, actions_margin.second });
+			life_position.push_back({ life_margin.first - App->window->GetScreenWidth() /2, life_margin.second - App->window->GetScreenHeight() / 8 });
+			mana_position.push_back({ mana_margin.first - App->window->GetScreenWidth() / 2, mana_margin.second - App->window->GetScreenHeight() / 8 });
+			act_menu_position.push_back({ actions_margin.first - App->window->GetScreenWidth() / 2, actions_margin.second - App->window->GetScreenHeight() / 8 });
 			break;
 		case 1:
-			life_position.push_back({ App->window->GetScreenWidth() - life_margin.first,  life_margin.second });
-			mana_position.push_back({ App->window->GetScreenWidth() - mana_margin.first,  mana_margin.second });
-			act_menu_position.push_back({ App->window->GetScreenWidth() - actions_margin.first - 259, actions_margin.second });
+			life_position.push_back({ App->window->GetScreenWidth() / 2 - life_margin.first,  life_margin.second - App->window->GetScreenHeight() / 8 });
+			mana_position.push_back({ App->window->GetScreenWidth() / 2 - mana_margin.first,  mana_margin.second - App->window->GetScreenHeight() / 8 });
+			act_menu_position.push_back({ App->window->GetScreenWidth() / 2 - actions_margin.first - 259, actions_margin.second - App->window->GetScreenHeight() / 8 });
 			break;
 		case 2:
-			life_position.push_back({ life_margin.first, App->window->GetScreenHeight() - mana_margin.second });
-			mana_position.push_back({ mana_margin.first, App->window->GetScreenHeight() - life_margin.second });
-			act_menu_position.push_back({ actions_margin.first, App->window->GetScreenHeight() - actions_margin.second -  153});
+			life_position.push_back({ life_margin.first - App->window->GetScreenWidth() / 2, - App->window->GetScreenHeight() / 8 - mana_margin.second });
+			mana_position.push_back({ mana_margin.first - App->window->GetScreenWidth() / 2, - App->window->GetScreenHeight() / 8 - life_margin.second });
+			act_menu_position.push_back({ actions_margin.first - App->window->GetScreenWidth() / 2, - App->window->GetScreenHeight() / 8 - actions_margin.second -  153});
 			break;
 		case 3:
-			life_position.push_back({ App->window->GetScreenWidth() - life_margin.first, App->window->GetScreenHeight() - mana_margin.second });
-			mana_position.push_back({ App->window->GetScreenWidth() - mana_margin.first, App->window->GetScreenHeight() - life_margin.second });
-			act_menu_position.push_back({ App->window->GetScreenWidth() - actions_margin.first - 259, App->window->GetScreenHeight() - actions_margin.second - 153});
+			life_position.push_back({ App->window->GetScreenWidth() / 2 - life_margin.first, App->window->GetScreenHeight() - mana_margin.second });
+			mana_position.push_back({ App->window->GetScreenWidth() / 2 - mana_margin.first, App->window->GetScreenHeight() - life_margin.second });
+			act_menu_position.push_back({ App->window->GetScreenWidth() / 2 - actions_margin.first - 259, App->window->GetScreenHeight() - actions_margin.second - 153});
 			break;
 		default:
 			break;
@@ -292,14 +292,14 @@ bool Scene::Update(float _dt)
 	case Scene::FIRST_BATTLE:
 		if (!music_created) {
 			music_created = true;
-			App->audio->PlayMusic("Main_menu_8_bits.ogg");
+			App->audio->PlayMusic("Map_1_Song_PlaceHolder.ogg");
 		}
 		if (!map_loaded) {
 			map_loaded = true;
 			App->map->Load("map_level1.tmx");
-			/*App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
-			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_STORM);*/
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_STORM);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
