@@ -114,7 +114,7 @@ void Pinkking::SearchWalk()
 	nearposition = App->entity_manager->NearestCharacter(position);
 	nearposition = App->map->WorldToMap(nearposition.first, nearposition.second);
 	App->pathfinding->CreatePathBishop(App->map->WorldToMap(position.first, position.second), nearposition, current_stats.PMove);
-	if (timer_skill_1 == 2) {
+	if (timer_skill_1 == 3) {
 		current_turn = SEARCH_ABILITY_1;
 		timer_skill_1 = 0;
 	}
@@ -211,12 +211,14 @@ void Pinkking::Ability_1()
 	std::pair<int, int> tmp_1 = App->map->WorldToMap(position.first, position.second);
 	std::pair<int,int> tmp_2 = App->map->WorldToMap(nearposition.first, nearposition.second);
 	int dmg = current_stats.AtkS / sqrt((tmp_2.first - tmp_1.first)*(tmp_2.first - tmp_1.first) + (tmp_2.second - tmp_1.second)*(tmp_2.second - tmp_1.second));
-	current_movement = ABILITY_1_FRONT;
+	/*current_movement = ABILITY_1_FRONT;
 	current_animation = &ability_1_front;
 	if (current_animation->Finished()) {
 		App->entity_manager->ThrowAttack(objective_position, dmg, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
-	}
+	}*/
+	App->entity_manager->ThrowAttack(objective_position, dmg, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+	current_turn = END_TURN;
 	// blit de la sombra en esa posicion
 }
 
