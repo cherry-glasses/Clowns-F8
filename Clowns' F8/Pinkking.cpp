@@ -26,6 +26,8 @@ bool Pinkking::PreUpdate()
 		objective_position.clear();
 		objective_position.push_back(position);
 
+		
+
 		if (current_stats.Hp <= 0)
 		{
 			Die();
@@ -39,6 +41,10 @@ bool Pinkking::PreUpdate()
 		{
 			SearchAttack();
 		}
+		else if (current_turn == SEARCH_ABILITY_1) {
+			SearchAbility_1();
+		}
+		
 	}
 	else if (current_turn == SEARCH_MOVE)
 	{
@@ -62,7 +68,9 @@ bool Pinkking::Update(float dt)
 	{
 		Attack(App->pathfinding->GetLastPath());
 	}
-
+	else if (current_turn == ABILITY_1) {
+		Ability_1();
+	}
 	return true;
 }
 
@@ -101,11 +109,17 @@ bool Pinkking::Save(pugi::xml_node& node) const
 // Actions (SearchWalk, Walk, Attack, Hability 1, Hability 2, Die)
 void Pinkking::SearchWalk()
 {
+	
 	nearposition = App->entity_manager->NearestCharacter(position);
 	nearposition = App->map->WorldToMap(nearposition.first, nearposition.second);
 	App->pathfinding->CreatePathBishop(App->map->WorldToMap(position.first, position.second), nearposition, current_stats.PMove);
-	//App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
-	current_turn = MOVE;
+	if (timer_skill_1 == 2) {
+		current_turn = SEARCH_ABILITY_1;
+		timer_skill_1 = 0;
+	}
+	else
+		current_turn = MOVE;
+	timer_skill_1++;
 
 }
 
@@ -178,8 +192,31 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 	objective_position.push_back(car);
 	App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 	current_movement = ATTACK_LEFT_FRONT;
+	current_turn = END_TURN;
 	
 }
+
+void Pinkking::SearchAbility_1()
+{
+	nearposition = App->entity_manager->NearestCharacter(position);
+	//App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
+	current_turn = ABILITY_1;
+	//current_turn = END_TURN;
+
+}
+
+void Pinkking::Ability_1()
+{
+	objective_position.push_back(nearposition);
+	std::pair<int, int> tmp_1 = App->map->WorldToMap(position.first, position.second);
+	std::pair<int,int> tmp_2 = App->map->WorldToMap(nearposition.first, nearposition.second);
+	int dmg = current_stats.AtkS / sqrt((tmp_2.first - tmp_1.first)*(tmp_2.first - tmp_1.first) + (tmp_2.second - tmp_1.second)*(tmp_2.second - tmp_1.second));
+	App->entity_manager->ThrowAttack(objective_position, dmg, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+	current_movement = ABILITY_1_FRONT;
+	current_turn = END_TURN;
+	// blit de la sombra en esa posicion
+}
+
 
 void Pinkking::Die()
 {
@@ -299,6 +336,11 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_1_LEFT_BACK;
 		current_animation = &ability_1_left_back;
 		current_turn = END_TURN;
+		break;
+	case Entity::ABILITY_1_FRONT:
+		current_movement = ABILITY_1_FRONT;
+		current_animation = &ability_1_front;
+		//current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_RIGHT_BACK: // ME HE QUEDADO AQUÍ
 		current_movement = ABILITY_1_RIGHT_BACK;
