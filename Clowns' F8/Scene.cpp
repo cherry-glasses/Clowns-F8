@@ -69,15 +69,15 @@ bool Scene::Awake(pugi::xml_node& _config)
 			life_position.push_back({ App->window->GetScreenWidth() / 2 - life_margin.first,  life_margin.second - App->window->GetScreenHeight() / 8 });
 			mana_position.push_back({ App->window->GetScreenWidth() / 2 - mana_margin.first,  mana_margin.second - App->window->GetScreenHeight() / 8 });
 			act_menu_position.push_back({ App->window->GetScreenWidth() / 2 - actions_margin.first - 259, actions_margin.second - App->window->GetScreenHeight() / 8 });
-			port_position.push_back({ App->window->GetScreenWidth() / 2 - port_margin.first - 259, port_margin.second - App->window->GetScreenHeight() / 8 });
+			port_position.push_back({ App->window->GetScreenWidth() / 2 - port_margin.first - 239, port_margin.second - App->window->GetScreenHeight() / 8 });
 			portrait_position.push_back({ App->window->GetScreenWidth() / 2 - portrait_margin.first - 259, portrait_margin.second - App->window->GetScreenHeight() / 8 });
-			name_position.push_back({ App->window->GetScreenWidth() / 2 - name_margin.first - 1832, name_margin.second - App->window->GetScreenHeight() / 8 });
+			name_position.push_back({ App->window->GetScreenWidth() / 2 - name_margin.first - 259, name_margin.second - App->window->GetScreenHeight() / 8 });
 			break;
 		case 2:
 			life_position.push_back({ life_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - mana_margin.second });
 			mana_position.push_back({ mana_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - life_margin.second });
 			act_menu_position.push_back({ actions_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - actions_margin.second -  153});
-			port_position.push_back({ port_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
+			port_position.push_back({ port_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 177 });
 			portrait_position.push_back({ portrait_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8  - 178 });
 			name_position.push_back({ name_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
 			break;
@@ -85,7 +85,7 @@ bool Scene::Awake(pugi::xml_node& _config)
 			life_position.push_back({ App->window->GetScreenWidth() / 2 - life_margin.first, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - mana_margin.second });
 			mana_position.push_back({ App->window->GetScreenWidth() / 2 - mana_margin.first, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - life_margin.second });
 			act_menu_position.push_back({ App->window->GetScreenWidth() / 2 - actions_margin.first - 259, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - actions_margin.second - 153});
-			port_position.push_back({ App->window->GetScreenWidth() / 2 - port_margin.first - 259, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
+			port_position.push_back({ App->window->GetScreenWidth() / 2 - port_margin.first - 239, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 177 });
 			portrait_position.push_back({ App->window->GetScreenWidth() / 2 - portrait_margin.first - 259, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
 			name_position.push_back({ App->window->GetScreenWidth() / 2 - name_margin.first - 259, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
 			break;

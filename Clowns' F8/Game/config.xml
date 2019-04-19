@@ -50,10 +50,10 @@
     <name_position margin_x="210" margin_y="55"/>
     <press_fx_name source="UI_FX_Selection.wav"/>
     <portraits>
-      <iris x="124" y="0" w="64" h="67"/>
-      <storm x="191" y="0" w="64" h="67"/>
-      <sapphire x="124" y="67" w="64" h="67"/>
-      <george_b x="191" y="67" w="64" h="67"/>
+      <iris x="124" y="0" w="64" h="66"/>
+      <storm x="191" y="0" w="64" h="66"/>
+      <sapphire x="124" y="67" w="64" h="66"/>
+      <george_b x="191" y="67" w="64" h="66"/>
     </portraits>
   </scene>
 
