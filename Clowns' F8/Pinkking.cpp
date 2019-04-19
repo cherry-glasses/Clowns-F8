@@ -142,32 +142,17 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 		current_turn = MOVE;
 	}
 	else {
-		//current_turn = SEARCH_ATTACK;
-		current_turn = END_TURN;
+		current_turn = SEARCH_ATTACK;
+		//current_turn = END_TURN;
 	}
 
 	if ((objective_position.back().first == position.first && objective_position.back().second == position.second) || (objective_position.back().first == position.first && objective_position.back().second == position.second)) {
-		/*if (current_movement == WALK_LEFT)
-		{
-			
-		}*/
-		/*else if (current_movement == WALK_RIGHT)
-		{
-			CurrentMovement(IDLE_RIGHT_FRONT);
-		}
-		else if (current_movement == WALK_FRONT)
-		{
-			CurrentMovement(IDLE_LEFT_BACK);
-		}
-		else if (current_movement == WALK_BACK)
-		{
-			CurrentMovement(IDLE_RIGHT_BACK);
-		}*/
 		CurrentMovement(IDLE_LEFT_FRONT);
 		current_turn = END_TURN;
 		//current_turn = SEARCH_ATTACK;
+
 	}
-	LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
+	//LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
 	
 		
 }
@@ -175,7 +160,6 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 void Pinkking::SearchAttack()
 {
 	nearposition = App->entity_manager->NearestCharacter(position);
-	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
 	//App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
 	current_turn = ATTACK;
 	//IA Attack. Into range of position + attack. If enemy is near to dead. If enemy def.
@@ -183,15 +167,11 @@ void Pinkking::SearchAttack()
 
 void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 {
-	if (App->debug)
-	{
-		for (uint i = 0; i < _path->size() && 2 == _path->size(); ++i)
-		{
-			std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
-			App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_green);
-		}
-	}
-
+	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
+	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAtk, tiles_range_attk);
+	std::pair<int, int> car = App->entity_manager->CharactersPrioritzationAttack(range, tiles_range_attk);
+	objective_position.push_back(car);
+	App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 	
 }
 
@@ -282,73 +262,61 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 	case Entity::ATTACK_LEFT_FRONT:
 		current_movement = ATTACK_LEFT_FRONT;
 		current_animation = &attack_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ATTACK_RIGHT_FRONT:
 		current_movement = ATTACK_RIGHT_FRONT;
 		current_animation = &attack_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ATTACK_LEFT_BACK:
 		current_movement = ATTACK_LEFT_BACK;
 		current_animation = &attack_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ATTACK_RIGHT_BACK:
 		current_movement = ATTACK_RIGHT_BACK;
 		current_animation = &attack_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_LEFT_FRONT:
 		current_movement = ABILITY_1_LEFT_FRONT;
 		current_animation = &ability_1_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_RIGHT_FRONT:
 		current_movement = ABILITY_1_RIGHT_FRONT;
 		current_animation = &ability_1_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_LEFT_BACK:
 		current_movement = ABILITY_1_LEFT_BACK;
 		current_animation = &ability_1_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_RIGHT_BACK: // ME HE QUEDADO AQUÍ
 		current_movement = ABILITY_1_RIGHT_BACK;
 		current_animation = &ability_1_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_2_LEFT_FRONT:
 		current_movement = ABILITY_2_LEFT_FRONT;
 		current_animation = &ability_2_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_2_RIGHT_FRONT:
 		current_movement = ABILITY_2_RIGHT_FRONT;
 		current_animation = &ability_2_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_2_LEFT_BACK:
 		current_movement = ABILITY_2_LEFT_BACK;
 		current_animation = &ability_2_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_2_RIGHT_BACK:
 		current_movement = ABILITY_2_RIGHT_BACK;
 		current_animation = &ability_2_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_LEFT_FRONT:

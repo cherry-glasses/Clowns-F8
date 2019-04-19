@@ -194,6 +194,8 @@ protected:
 	SDL_Rect debug_blue;
 	std::pair<int, int>  position;
 	std::vector<std::pair<int, int>>  objective_position;
+	int tiles_range_attk = 0;
+	std::pair<int, int>* range;
 	
 	
 };

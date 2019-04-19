@@ -177,6 +177,33 @@ std::pair<int, int> ModuleEntityManager::NearestCharacter(std::pair<int, int> my
 
 }
 
+std::pair<int, int> ModuleEntityManager::CharactersPrioritzationAttack(std::pair<int, int>* AttackRange, int AttackRangeint)
+{
+
+	Entity* Charrr = nullptr;
+
+	for (int i = 0; i < AttackRangeint; i++) {
+		std::pair<int, int> pos = App->map->MapToWorld(AttackRange[i].first, AttackRange[i].second);
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character) {
+			if (pos == (*character)->GetPosition()) {
+				if (Charrr == nullptr) {
+					Charrr = (*character);
+				}
+				else {
+					if ((*Charrr).current_stats.DefF <= (*character)->current_stats.DefF) {
+						Charrr = (*character);
+					}
+				}
+			}
+			
+
+		}
+
+	}
+
+	return (*Charrr).GetPosition();
+}
+
 Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 {
 	Entity* tmp = nullptr;
