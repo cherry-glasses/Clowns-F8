@@ -50,6 +50,9 @@ bool Scene::Awake(pugi::xml_node& _config)
 	std::pair<int, int> life_margin = { _config.child("life_position").attribute("margin_x").as_int(), _config.child("life_position").attribute("margin_y").as_int() };
 	std::pair<int, int> mana_margin = { _config.child("mana_position").attribute("margin_x").as_int(), _config.child("mana_position").attribute("margin_y").as_int() };
 	std::pair<int, int> actions_margin = { _config.child("actions_position").attribute("margin_x").as_int(), _config.child("actions_position").attribute("margin_y").as_int() };
+	std::pair<int, int> port_margin = { _config.child("port_position").attribute("margin_x").as_int(), _config.child("port_position").attribute("margin_y").as_int() };
+	std::pair<int, int> portrait_margin = { _config.child("portrait_position").attribute("margin_x").as_int(), _config.child("portrait_position").attribute("margin_y").as_int() };
+	std::pair<int, int> name_margin = { _config.child("name_position").attribute("margin_x").as_int(), _config.child("name_position").attribute("margin_y").as_int() };
 	for (int i = 0; i < 4; i++)
 	{
 		switch (i)
@@ -58,21 +61,33 @@ bool Scene::Awake(pugi::xml_node& _config)
 			life_position.push_back({ life_margin.first - App->window->GetScreenWidth() /2, life_margin.second - App->window->GetScreenHeight() / 8 });
 			mana_position.push_back({ mana_margin.first - App->window->GetScreenWidth() / 2, mana_margin.second - App->window->GetScreenHeight() / 8 });
 			act_menu_position.push_back({ actions_margin.first - App->window->GetScreenWidth() / 2, actions_margin.second - App->window->GetScreenHeight() / 8 });
+			port_position.push_back({ port_margin.first - App->window->GetScreenWidth() / 2, port_margin.second - App->window->GetScreenHeight() / 8 });
+			portrait_position.push_back({ portrait_margin.first - App->window->GetScreenWidth() / 2, portrait_margin.second - App->window->GetScreenHeight() / 8 });
+			name_position.push_back({ name_margin.first - App->window->GetScreenWidth() / 2, name_margin.second - App->window->GetScreenHeight() / 8 });
 			break;
 		case 1:
 			life_position.push_back({ App->window->GetScreenWidth() / 2 - life_margin.first,  life_margin.second - App->window->GetScreenHeight() / 8 });
 			mana_position.push_back({ App->window->GetScreenWidth() / 2 - mana_margin.first,  mana_margin.second - App->window->GetScreenHeight() / 8 });
 			act_menu_position.push_back({ App->window->GetScreenWidth() / 2 - actions_margin.first - 259, actions_margin.second - App->window->GetScreenHeight() / 8 });
+			port_position.push_back({ App->window->GetScreenWidth() / 2 - port_margin.first - 259, port_margin.second - App->window->GetScreenHeight() / 8 });
+			portrait_position.push_back({ App->window->GetScreenWidth() / 2 - portrait_margin.first - 259, portrait_margin.second - App->window->GetScreenHeight() / 8 });
+			name_position.push_back({ App->window->GetScreenWidth() / 2 - name_margin.first - 259, name_margin.second - App->window->GetScreenHeight() / 8 });
 			break;
 		case 2:
 			life_position.push_back({ life_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - mana_margin.second });
 			mana_position.push_back({ mana_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - life_margin.second });
 			act_menu_position.push_back({ actions_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - actions_margin.second -  153});
+			port_position.push_back({ port_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
+			portrait_position.push_back({ portrait_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8  - 178 });
+			name_position.push_back({ name_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
 			break;
 		case 3:
 			life_position.push_back({ App->window->GetScreenWidth() / 2 - life_margin.first, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - mana_margin.second });
 			mana_position.push_back({ App->window->GetScreenWidth() / 2 - mana_margin.first, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - life_margin.second });
 			act_menu_position.push_back({ App->window->GetScreenWidth() / 2 - actions_margin.first - 259, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - actions_margin.second - 153});
+			port_position.push_back({ App->window->GetScreenWidth() / 2 - port_margin.first - 259, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
+			portrait_position.push_back({ App->window->GetScreenWidth() / 2 - portrait_margin.first - 259, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
+			name_position.push_back({ App->window->GetScreenWidth() / 2 - name_margin.first - 259, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
 			break;
 		default:
 			break;
@@ -312,6 +327,29 @@ bool Scene::Update(float _dt)
 				mana_x.push_back((124 * (*character)->current_stats.Mana) / (*character)->default_stats.Mana);
 				life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, life_position.at(i).first, life_position.at(i).second, { 0, 58, life_x.at(i), 29 }));
 				mana.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, mana_position.at(i).first, mana_position.at(i).second, { 0, 86, mana_x.at(i), 29 }));
+				portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, portrait_position.at(i).first, portrait_position.at(i).second, { 0, 134, 256, 128 }));
+				switch ((*character)->GetType()) {
+				case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
+					port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, port_position.at(i).first, port_position.at(i).second, sapphire_portrait));
+					character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, name_position.at(i).first, name_position.at(i).second, (*character)->name.c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+					break;
+				case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
+					port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, port_position.at(i).first, port_position.at(i).second, iris_portrait));
+					character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, name_position.at(i).first, name_position.at(i).second, (*character)->name.c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+					break;
+				case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
+					port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, port_position.at(i).first, port_position.at(i).second, george_b_portrait));
+					character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, name_position.at(i).first, name_position.at(i).second, (*character)->name.c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+					break;
+				case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
+					port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, port_position.at(i).first, port_position.at(i).second, storm_portrait));
+					character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, name_position.at(i).first, name_position.at(i).second, (*character)->name.c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+					break;
+
+				default:
+					break;
+				
+				}
 				++i;
 			}
 			i = 0;
@@ -322,18 +360,6 @@ bool Scene::Update(float _dt)
 				enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, enemies_life_position.at(i).first + screen_width * 0.5 , enemies_life_position.at(i).second + (screen_height / 8) + (*enemy)->position_margin.second, { 0, 58, enemies_life_x.at(i) , 5 }));
 				++i;
 			}
-			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f - App->window->GetScreenWidth() / 2, 13.0f - App->window->GetScreenHeight() / 8, iris_portrait));
-			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1650.0f - App->window->GetScreenWidth() / 2, 13.0f - App->window->GetScreenHeight() / 8, sapphire_portrait));
-			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f - App->window->GetScreenWidth() / 2, 904.0f - App->window->GetScreenHeight() / 8, storm_portrait));
-			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1650.0f - App->window->GetScreenWidth() / 2, 904.0f - App->window->GetScreenHeight() / 8, george_b_portrait));
-			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f - App->window->GetScreenWidth() / 2, 12.0f - App->window->GetScreenHeight() / 8, { 0, 134, 256, 128 }));
-			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f - App->window->GetScreenWidth() / 2, screen_height - 178 - App->window->GetScreenHeight() / 8, { 0, 134, 256, 128 }));
-			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280 - App->window->GetScreenWidth() / 2, 12.0f - App->window->GetScreenHeight() / 8, { 0, 134, 256, 128 }));
-			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280 - App->window->GetScreenWidth() / 2, screen_height - 178 - App->window->GetScreenHeight() / 8, { 0, 134, 256, 128 }));
-			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 210.0f - App->window->GetScreenWidth() / 2, 55.0f - App->window->GetScreenHeight() / 8, "Iris", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
-			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 1832.0f - App->window->GetScreenWidth() / 2, 55.0f - App->window->GetScreenHeight() / 8, "Sapphire", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
-			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 210.0f - App->window->GetScreenWidth() / 2, 945.0f - App->window->GetScreenHeight() / 8, "Storm", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
-			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 1832.0f - App->window->GetScreenWidth() / 2, 945.0f - App->window->GetScreenHeight() / 8, "G. Bush", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
 		}
 		if (App->input->Pause() || resume_game == false)
 		{

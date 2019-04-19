@@ -45,6 +45,9 @@
     <life_position margin_x="150" margin_y="79"/>
     <actions_position margin_x="20" margin_y="145"/>
     <mana_position margin_x="150" margin_y="110"/>
+    <port_position margin_x="20" margin_y="12"/>
+    <portrait_position margin_x="20" margin_y="12"/>
+    <name_position margin_x="20" margin_y="12"/>
     <press_fx_name source="UI_FX_Selection.wav"/>
     <portraits>
       <iris x="124" y="0" w="64" h="67"/>
