@@ -50,6 +50,7 @@ bool Scene::Awake(pugi::xml_node& _config)
 	std::pair<int, int> life_margin = { _config.child("life_position").attribute("margin_x").as_int(), _config.child("life_position").attribute("margin_y").as_int() };
 	std::pair<int, int> mana_margin = { _config.child("mana_position").attribute("margin_x").as_int(), _config.child("mana_position").attribute("margin_y").as_int() };
 	std::pair<int, int> actions_margin = { _config.child("actions_position").attribute("margin_x").as_int(), _config.child("actions_position").attribute("margin_y").as_int() };
+	std::pair<int, int> portrait_margin = { _config.child("portrait_position").attribute("margin_x").as_int(), _config.child("portrait_position").attribute("margin_y").as_int() };
 	for (int i = 0; i < 4; i++)
 	{
 		switch (i)
@@ -58,21 +59,25 @@ bool Scene::Awake(pugi::xml_node& _config)
 			life_position.push_back({ life_margin.first - App->window->GetScreenWidth() /2, life_margin.second - App->window->GetScreenHeight() / 8 });
 			mana_position.push_back({ mana_margin.first - App->window->GetScreenWidth() / 2, mana_margin.second - App->window->GetScreenHeight() / 8 });
 			act_menu_position.push_back({ actions_margin.first - App->window->GetScreenWidth() / 2, actions_margin.second - App->window->GetScreenHeight() / 8 });
+			portrait_position.push_back({ portrait_margin.first - App->window->GetScreenWidth() / 2, portrait_margin.second - App->window->GetScreenHeight() / 8 });
 			break;
 		case 1:
 			life_position.push_back({ App->window->GetScreenWidth() / 2 - life_margin.first,  life_margin.second - App->window->GetScreenHeight() / 8 });
 			mana_position.push_back({ App->window->GetScreenWidth() / 2 - mana_margin.first,  mana_margin.second - App->window->GetScreenHeight() / 8 });
 			act_menu_position.push_back({ App->window->GetScreenWidth() / 2 - actions_margin.first - 259, actions_margin.second - App->window->GetScreenHeight() / 8 });
+			portrait_position.push_back({ App->window->GetScreenWidth() / 2 - portrait_margin.first - 259, portrait_margin.second - App->window->GetScreenHeight() / 8 });
 			break;
 		case 2:
 			life_position.push_back({ life_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - mana_margin.second });
 			mana_position.push_back({ mana_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - life_margin.second });
 			act_menu_position.push_back({ actions_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - actions_margin.second -  153});
+			portrait_position.push_back({ portrait_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8  - 178 });
 			break;
 		case 3:
 			life_position.push_back({ App->window->GetScreenWidth() / 2 - life_margin.first, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - mana_margin.second });
 			mana_position.push_back({ App->window->GetScreenWidth() / 2 - mana_margin.first, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - life_margin.second });
 			act_menu_position.push_back({ App->window->GetScreenWidth() / 2 - actions_margin.first - 259, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - actions_margin.second - 153});
+			portrait_position.push_back({ App->window->GetScreenWidth() / 2 - portrait_margin.first - 259, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
 			break;
 		default:
 			break;
@@ -312,6 +317,7 @@ bool Scene::Update(float _dt)
 				mana_x.push_back((124 * (*character)->current_stats.Mana) / (*character)->default_stats.Mana);
 				life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, life_position.at(i).first, life_position.at(i).second, { 0, 58, life_x.at(i), 29 }));
 				mana.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, mana_position.at(i).first, mana_position.at(i).second, { 0, 86, mana_x.at(i), 29 }));
+				portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, portrait_position.at(i).first, portrait_position.at(i).second, { 0, 134, 256, 128 }));
 				++i;
 			}
 			i = 0;
@@ -326,10 +332,6 @@ bool Scene::Update(float _dt)
 			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1650.0f, 13.0f, sapphire_portrait));
 			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 904.0f, storm_portrait));
 			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1650.0f, 904.0f, george_b_portrait));
-			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 12.0f, { 0, 134, 256, 128 }));
-			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, screen_height - 178, { 0, 134, 256, 128 }));
-			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, 12.0f, { 0, 134, 256, 128 }));
-			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, screen_height - 178, { 0, 134, 256, 128 }));
 			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 210.0f, 55.0f, "Iris", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
 			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 1832.0f, 55.0f, "Sapphire", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
 			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 210.0f, 945.0f, "Storm", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
