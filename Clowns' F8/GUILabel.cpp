@@ -6,14 +6,22 @@
 
 #include "SDL_ttf/include/SDL_ttf.h"
 
-GUILabel::GUILabel(int x, int y, std::string text, SDL_Color color, _TTF_Font* font, GUIElement* son) : GUIElement(type, x, y, area, son)
+GUILabel::GUILabel(int x, int y, std::string text, SDL_Color color, _TTF_Font* font, int curr, int def, GUIElement* son) : GUIElement(type, x, y, area, son)
 {
 	type = GUI_ELEMENT_TYPE::GUI_LABEL;
 
-	this->text = text;
 	this->color = color;
 	this->font = font;
-
+	if (curr == -1000 && def == -1000)
+	{
+		this->text = text;
+	}
+	else
+	{
+		this->text = std::to_string(curr);
+		this->text.push_back('/');
+		this->text += std::to_string(def);
+	}
 	tex = App->fonts->Print(this->text.data(), this->color, this->font);
 
 	// Create rect

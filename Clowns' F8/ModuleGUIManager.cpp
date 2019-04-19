@@ -121,11 +121,11 @@ GUIElement* ModuleGUIManager::CreateGUIButton(GUI_ELEMENT_TYPE type, int x, int 
 	return ret;
 }
 
-GUIElement* ModuleGUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, std::string text, SDL_Color color, _TTF_Font* font, GUIElement* son)
+GUIElement* ModuleGUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, std::string text, SDL_Color color, _TTF_Font* font, int curr, int def, GUIElement* son)
 {
 	GUIElement* ret = nullptr;
 
-	ret = new GUILabel(x, y, text, color, font, son);
+	ret = new GUILabel(x, y, text, color, font, curr, def, son);
 
 
 	if (ret != nullptr)

@@ -319,7 +319,6 @@ bool Scene::Update(float _dt)
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_MAP_LEVEL_1);
-
 			int i = 0;
 			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 			{
@@ -328,6 +327,8 @@ bool Scene::Update(float _dt)
 				life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, life_position.at(i).first, life_position.at(i).second, { 0, 58, life_x.at(i), 29 }));
 				mana.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, mana_position.at(i).first, mana_position.at(i).second, { 0, 86, mana_x.at(i), 29 }));
 				portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, portrait_position.at(i).first, portrait_position.at(i).second, { 0, 134, 256, 128 }));
+				life_numbers.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, life_position.at(i).first + 60, life_position.at(i).second + 11, "0", { 0, 255, 0, 255 }, App->gui_manager->default_font_used, (*character)->current_stats.Hp, (*character)->default_stats.Hp));
+				mana_numbers.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, mana_position.at(i).first + 60, mana_position.at(i).second + 13, "0", { 0, 255, 0, 255 }, App->gui_manager->default_font_used, (*character)->current_stats.Mana, (*character)->default_stats.Mana));
 				switch ((*character)->GetType()) {
 				case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
 					port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, port_position.at(i).first, port_position.at(i).second, sapphire_portrait));
@@ -357,7 +358,7 @@ bool Scene::Update(float _dt)
 			{
 				enemies_life_position.push_back((*enemy)->GetPosition());
 				enemies_life_x.push_back((64 * (*enemy)->current_stats.Hp) / (*enemy)->default_stats.Hp);
-				enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, enemies_life_position.at(i).first + screen_width * 0.5 - App->window->GetScreenWidth() / 2, enemies_life_position.at(i).second + (screen_height / 8) + (*enemy)->position_margin.second - App->window->GetScreenHeight() / 8, { 0, 58, enemies_life_x.at(i) , 5 }));
+				enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, (*enemy)->GetPosition().first, (*enemy)->GetPosition().second/*enemies_life_position.at(i).first + screen_width * 0.5 - App->window->GetScreenWidth() / 2, enemies_life_position.at(i).second + (screen_height / 8) + (*enemy)->position_margin.second - App->window->GetScreenHeight() / 8*/, { 0, 58, enemies_life_x.at(i) , 5 }));
 				++i;
 			}
 		}
@@ -485,6 +486,7 @@ bool Scene::Update(float _dt)
 				enemies_life.clear();
 				enemies_life_x.clear();
 				enemies_life_position.clear();
+				life_numbers.clear();
 
 				App->map->CleanUp();
 				App->entity_manager->CleanUp();
@@ -512,7 +514,7 @@ bool Scene::Update(float _dt)
 			bool change = false;
 			for (std::list<Entity*>::iterator enemies = App->entity_manager->enemies.begin(); enemies != App->entity_manager->enemies.end(); ++enemies)
 			{
-				if (enemies_life_x.at(i) != ((100 * (*enemies)->current_stats.Hp) / (*enemies)->default_stats.Hp)
+				if (enemies_life_x.at(i) != ((64 * (*enemies)->current_stats.Hp) / (*enemies)->default_stats.Hp)
 					|| enemies_life_position.at(i).first != (*enemies)->GetPosition().first ||
 				enemies_life_position.at(i).second != (*enemies)->GetPosition().second)
 				{
@@ -761,11 +763,14 @@ void Scene::CreatePortraits(Entity* _character, int _i)
 {
 	App->gui_manager->DeleteGUIElement(life.at(_i));
 	App->gui_manager->DeleteGUIElement(mana.at(_i));
-		
+	App->gui_manager->DeleteGUIElement(life_numbers.at(_i));
+	App->gui_manager->DeleteGUIElement(mana_numbers.at(_i));
 	life_x.at(_i) = (124 * _character->current_stats.Hp) / _character->default_stats.Hp;
 	mana_x.at(_i) = (124 * _character->current_stats.Mana) / _character->default_stats.Mana;
 	life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, life_position.at(_i).first, life_position.at(_i).second, { 0, 58, life_x.at(_i), 29 });
 	mana.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, mana_position.at(_i).first, mana_position.at(_i).second, { 0, 86, mana_x.at(_i), 29 });
+	life_numbers.at(_i) = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, life_position.at(_i).first + 60, life_position.at(_i).second + 11, "0", { 0, 255, 0, 255 }, App->gui_manager->default_font_used, _character->current_stats.Hp, _character->default_stats.Hp);
+	mana_numbers.at(_i) = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, mana_position.at(_i).first + 60, mana_position.at(_i).second + 13, "0", { 0, 255, 0, 255 }, App->gui_manager->default_font_used, _character->current_stats.Mana, _character->default_stats.Mana);
 }
 
 void Scene::CreateEnemyPortraits(Entity* _enemy, int _i)
