@@ -246,12 +246,18 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 	case Entity::WALK_LEFT:
 		current_movement = WALK_LEFT;
 		current_animation = &walk_right;
+		if (current_animation == &walk_right || current_animation == &walk_right_2) {
+			current_animation = &walk_right_2;
+		}
 		flipX = true;
 		position.first -= 2;
 		break;
 	case Entity::WALK_RIGHT:
 		current_movement = WALK_RIGHT;
 		current_animation = &walk_right;
+		if (current_animation == &walk_right || current_animation == &walk_right_2) {
+			current_animation = &walk_right_2;
+		}
 		flipX = false;
 		position.first += 2;
 		break;
