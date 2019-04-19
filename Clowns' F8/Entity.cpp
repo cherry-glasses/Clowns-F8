@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
+#include "ModuleRender.h"
 #include "Entity.h"
 #include "ModuleMap.h"
 
