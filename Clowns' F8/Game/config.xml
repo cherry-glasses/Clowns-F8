@@ -45,15 +45,15 @@
     <life_position margin_x="150" margin_y="79"/>
     <actions_position margin_x="20" margin_y="145"/>
     <mana_position margin_x="150" margin_y="110"/>
-    <port_position margin_x="20" margin_y="12"/>
+    <port_position margin_x="30" margin_y="13"/>
     <portrait_position margin_x="20" margin_y="12"/>
-    <name_position margin_x="20" margin_y="12"/>
+    <name_position margin_x="210" margin_y="55"/>
     <press_fx_name source="UI_FX_Selection.wav"/>
     <portraits>
-      <iris x="124" y="0" w="64" h="67"/>
-      <storm x="191" y="0" w="64" h="67"/>
-      <sapphire x="124" y="67" w="64" h="67"/>
-      <george_b x="191" y="67" w="64" h="67"/>
+      <iris x="124" y="0" w="64" h="66"/>
+      <storm x="191" y="0" w="64" h="66"/>
+      <sapphire x="124" y="67" w="64" h="66"/>
+      <george_b x="191" y="67" w="64" h="66"/>
     </portraits>
   </scene>
 
