@@ -191,7 +191,6 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAtk, tiles_range_attk);
 	std::pair<int, int> car = App->entity_manager->CharactersPrioritzationAttack(range, tiles_range_attk);
 	objective_position.push_back(car);
-	App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 	current_movement = ATTACK_LEFT_FRONT;
 	current_turn = END_TURN;
 	
@@ -212,9 +211,12 @@ void Pinkking::Ability_1()
 	std::pair<int, int> tmp_1 = App->map->WorldToMap(position.first, position.second);
 	std::pair<int,int> tmp_2 = App->map->WorldToMap(nearposition.first, nearposition.second);
 	int dmg = current_stats.AtkS / sqrt((tmp_2.first - tmp_1.first)*(tmp_2.first - tmp_1.first) + (tmp_2.second - tmp_1.second)*(tmp_2.second - tmp_1.second));
-	App->entity_manager->ThrowAttack(objective_position, dmg, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 	current_movement = ABILITY_1_FRONT;
-	current_turn = END_TURN;
+	current_animation = &ability_1_front;
+	if (current_animation->Finished()) {
+		App->entity_manager->ThrowAttack(objective_position, dmg, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+		current_turn = END_TURN;
+	}
 	// blit de la sombra en esa posicion
 }
 
@@ -306,21 +308,25 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 	case Entity::ATTACK_LEFT_FRONT:
 		current_movement = ATTACK_LEFT_FRONT;
 		current_animation = &attack_left_front;
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ATTACK_RIGHT_FRONT:
 		current_movement = ATTACK_RIGHT_FRONT;
 		current_animation = &attack_right_front;
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ATTACK_LEFT_BACK:
 		current_movement = ATTACK_LEFT_BACK;
 		current_animation = &attack_left_back;
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ATTACK_RIGHT_BACK:
 		current_movement = ATTACK_RIGHT_BACK;
 		current_animation = &attack_right_back;
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_LEFT_FRONT:
