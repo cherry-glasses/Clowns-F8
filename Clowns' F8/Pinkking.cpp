@@ -148,8 +148,12 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 
 	if ((objective_position.back().first == position.first && objective_position.back().second == position.second) || (objective_position.back().first == position.first && objective_position.back().second == position.second)) {
 		CurrentMovement(IDLE_LEFT_FRONT);
-		current_turn = END_TURN;
-		//current_turn = SEARCH_ATTACK;
+		
+		if (sqrt((nearposition.first - _path->at(0).first)*(nearposition.first - _path->at(0).first) + (nearposition.second - _path->at(0).second)*(nearposition.second - _path->at(0).second)) <= current_stats.RangeAtk) 
+			current_turn = SEARCH_ATTACK;
+		else
+			current_turn = END_TURN;
+
 
 	}
 	//LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
@@ -161,6 +165,7 @@ void Pinkking::SearchAttack()
 {
 	nearposition = App->entity_manager->NearestCharacter(position);
 	//App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
+	
 	current_turn = ATTACK;
 	//IA Attack. Into range of position + attack. If enemy is near to dead. If enemy def.
 }
@@ -173,7 +178,6 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 	objective_position.push_back(car);
 	App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 	current_movement = ATTACK_LEFT_FRONT;
-	current_turn = END_TURN;
 	
 }
 
