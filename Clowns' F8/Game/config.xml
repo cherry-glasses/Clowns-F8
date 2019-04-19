@@ -514,7 +514,7 @@
         <walk_left speed="0.2f" loop="true">
           <frame x="256" y="0" width="64" height="64"/>
         </walk_left>
-        <walk_right speed="0.2f" loop="true">
+        <walk_right speed="0.2f" loop="false">
           <frame x="256" y="0" width="64" height="96"/>
           <frame x="320" y="0" width="64" height="96"/>          
           <frame x="384" y="0" width="64" height="96"/>
