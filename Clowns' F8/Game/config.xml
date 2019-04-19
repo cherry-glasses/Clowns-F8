@@ -726,7 +726,7 @@
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="17" y="6"/>
       <name value="PinkKing"/>
-      <stats hp="90" mana="90" p_move="4" atk_f="90" atk_s="90" def_f="90" def_s="90" crit="0.3" agi="9"/>
+      <stats hp="90" mana="90" p_move="4" atk_f="90" atk_s="90" range_atk="4" def_f="90" def_s="90" crit="0.3" agi="9"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>

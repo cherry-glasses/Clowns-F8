@@ -37,6 +37,9 @@ public:
 	virtual bool Load(pugi::xml_node&) { return false; }
 	virtual bool Save(pugi::xml_node&) const { return false; }
 
+protected:
+	std::pair<int, int> nearposition;
+
 };
 
 #endif // !__Enemy_H__
