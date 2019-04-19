@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{22D3C7EC-C963-4AD1-8C4A-8FCD551EE143}</ProjectGuid>
     <RootNamespace>ClownsF8</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>Clowns' F8</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -137,6 +137,8 @@
     <ClInclude Include="..\Clowns%27 F8\CharacterGeorgeB.h" />
     <ClInclude Include="..\Clowns%27 F8\CharacterSapphire.h" />
     <ClInclude Include="..\Clowns%27 F8\CharacterStorm.h" />
+    <ClInclude Include="..\Clowns%27 F8\MapLevel1.h" />
+    <ClInclude Include="..\Clowns%27 F8\Object.h" />
     <ClInclude Include="..\Clowns%27 F8\Pinkking.h" />
     <ClInclude Include="Hotdog.h" />
     <ClInclude Include="..\Clowns%27 F8\Character.h" />
@@ -175,6 +177,7 @@
     <ClCompile Include="..\Clowns%27 F8\CharacterGeorgeB.cpp" />
     <ClCompile Include="..\Clowns%27 F8\CharacterSapphire.cpp" />
     <ClCompile Include="..\Clowns%27 F8\CharacterStorm.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\MapLevel1.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Pinkking.cpp" />
     <ClCompile Include="Hotdog.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModulePathfinding.cpp" />

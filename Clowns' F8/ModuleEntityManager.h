@@ -48,6 +48,7 @@ public:
 	std::list<Entity*> characters;
 	std::list<Entity*> enemies;
 	std::list<Entity*> entities;
+	std::list<Entity*> objects;
 
 private:
 	

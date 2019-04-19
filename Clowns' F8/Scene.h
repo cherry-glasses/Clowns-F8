@@ -65,11 +65,6 @@ private:
 	SDL_Texture* credits_page = nullptr;
 	SDL_Texture* map_level_1 = nullptr;
 
-	enum SCENES { MAIN_MENU, GLOBAL_MAP, MM_OPTIONS, MM_CONTROLS, MM_CREDITS, FIRST_BATTLE, SECOND_BATTLE, THIRD_BATTLE, FOURTH_BATTLE };
-
-
-	SCENES current_scene = MAIN_MENU;
-
 	SDL_Rect button;
 	SDL_Rect small_button;
 	SDL_Rect cherry_glasses_logo;
@@ -177,6 +172,9 @@ private:
 public:
 	bool language = true; //true = English; false = Spanish
 	bool resume_game = true;
+
+	enum SCENES { MAIN_MENU, GLOBAL_MAP, MM_OPTIONS, MM_CONTROLS, MM_CREDITS, FIRST_BATTLE, SECOND_BATTLE, THIRD_BATTLE, FOURTH_BATTLE };
+	SCENES current_scene = MAIN_MENU;
 };
 
 #endif //_SCENE_H_

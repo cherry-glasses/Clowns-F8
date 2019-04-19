@@ -303,6 +303,7 @@ bool Scene::Update(float _dt)
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_MAP_LEVEL_1);
 
 			int i = 0;
 			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
@@ -508,7 +509,7 @@ bool Scene::Update(float _dt)
 					ActionsMenu();
 				}
 			}
-			App->render->Blit(map_level_1, 0 + (screen_width / 2) - (1600 / 2), 0 + (screen_height/2) - (800/2));
+			App->render->Blit(map_level_1,0 - (screen_width / 2) , 0 - (screen_height/8));
 			App->map->Draw();
 		}
 		

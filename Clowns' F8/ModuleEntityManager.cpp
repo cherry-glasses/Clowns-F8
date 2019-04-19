@@ -3,6 +3,7 @@
 #include "ModuleEntityManager.h"
 #include "Enemy.h"
 #include "Character.h"
+#include "Object.h"
 #include "CharacterSapphire.h"
 #include "CharacterIris.h"
 #include "CharacterStorm.h"
@@ -10,6 +11,7 @@
 #include "Boneyman.h"
 #include "Pinkking.h"
 #include "Hotdog.h"
+#include "MapLevel1.h"
 #include "ModulePathfinding.h"
 #include "ModuleMap.h"
 #include "Scene.h"
@@ -128,6 +130,11 @@ bool ModuleEntityManager::PostUpdate()
 		}
 		(*entity)->PostUpdate();
 
+	}
+
+	for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object)
+	{
+		(*object)->PostUpdate();
 	}
 	
 
@@ -251,6 +258,10 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		enemies.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
+		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_MAP_LEVEL_1:
+		tmp = new MapLevel1(_type, entity_configs.child("map_level_1"));
+		objects.push_back(tmp);
 		break;
 	default:
 		break;
