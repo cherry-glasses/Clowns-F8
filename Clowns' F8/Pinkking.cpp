@@ -192,6 +192,7 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 	std::pair<int, int> car = App->entity_manager->CharactersPrioritzationAttack(range, tiles_range_attk);
 	objective_position.push_back(car);
 	current_movement = ATTACK_LEFT_FRONT;
+	App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 	current_turn = END_TURN;
 	
 }
@@ -310,7 +311,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 	case Entity::ATTACK_LEFT_FRONT:
 		current_movement = ATTACK_LEFT_FRONT;
 		current_animation = &attack_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+		//App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_turn = END_TURN;
 		break;
 	case Entity::ATTACK_RIGHT_FRONT:
