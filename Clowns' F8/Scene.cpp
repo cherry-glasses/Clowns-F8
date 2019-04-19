@@ -322,18 +322,18 @@ bool Scene::Update(float _dt)
 				enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, enemies_life_position.at(i).first + screen_width * 0.5 , enemies_life_position.at(i).second + (screen_height / 8) + (*enemy)->position_margin.second, { 0, 58, enemies_life_x.at(i) , 5 }));
 				++i;
 			}
-			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 13.0f, iris_portrait));
-			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1650.0f, 13.0f, sapphire_portrait));
-			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f, 904.0f, storm_portrait));
-			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1650.0f, 904.0f, george_b_portrait));
-			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, 12.0f, { 0, 134, 256, 128 }));
-			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f, screen_height - 178, { 0, 134, 256, 128 }));
-			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, 12.0f, { 0, 134, 256, 128 }));
-			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280, screen_height - 178, { 0, 134, 256, 128 }));
-			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 210.0f, 55.0f, "Iris", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
-			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 1832.0f, 55.0f, "Sapphire", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
-			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 210.0f, 945.0f, "Storm", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
-			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 1832.0f, 945.0f, "G. Bush", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f - App->window->GetScreenWidth() / 2, 13.0f - App->window->GetScreenHeight() / 8, iris_portrait));
+			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1650.0f - App->window->GetScreenWidth() / 2, 13.0f - App->window->GetScreenHeight() / 8, sapphire_portrait));
+			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 30.0f - App->window->GetScreenWidth() / 2, 904.0f - App->window->GetScreenHeight() / 8, storm_portrait));
+			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 1650.0f - App->window->GetScreenWidth() / 2, 904.0f - App->window->GetScreenHeight() / 8, george_b_portrait));
+			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f - App->window->GetScreenWidth() / 2, 12.0f - App->window->GetScreenHeight() / 8, { 0, 134, 256, 128 }));
+			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 20.0f - App->window->GetScreenWidth() / 2, screen_height - 178 - App->window->GetScreenHeight() / 8, { 0, 134, 256, 128 }));
+			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280 - App->window->GetScreenWidth() / 2, 12.0f - App->window->GetScreenHeight() / 8, { 0, 134, 256, 128 }));
+			portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, screen_width - 280 - App->window->GetScreenWidth() / 2, screen_height - 178 - App->window->GetScreenHeight() / 8, { 0, 134, 256, 128 }));
+			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 210.0f - App->window->GetScreenWidth() / 2, 55.0f - App->window->GetScreenHeight() / 8, "Iris", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 1832.0f - App->window->GetScreenWidth() / 2, 55.0f - App->window->GetScreenHeight() / 8, "Sapphire", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 210.0f - App->window->GetScreenWidth() / 2, 945.0f - App->window->GetScreenHeight() / 8, "Storm", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 1832.0f - App->window->GetScreenWidth() / 2, 945.0f - App->window->GetScreenHeight() / 8, "G. Bush", { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
 		}
 		if (App->input->Pause() || resume_game == false)
 		{
@@ -624,17 +624,17 @@ void Scene::CreateMMOptions()
 
 void Scene::CreateOptionsIngame()
 {
-	english_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), (screen_height / 2) - (option_background.h / 2) + (button.h * 1.5), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	english_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2) - App->window->GetScreenWidth() / 2, (screen_height / 2) - (option_background.h / 2) + (button.h * 1.5) - App->window->GetScreenHeight() / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(english_button);
-	spanish_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), english_button->position.second + (button_margin + button.h), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	spanish_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2) - App->window->GetScreenWidth() / 2, english_button->position.second + (button_margin * 1.5 + button.h * 2.5) - App->window->GetScreenHeight() / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(spanish_button);
-	volume_up_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), spanish_button->position.second + (button.h * 2), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	volume_up_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2) - App->window->GetScreenWidth() / 2, spanish_button->position.second + (button_margin + button.h * 3.5) - App->window->GetScreenHeight() / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(volume_up_button);
-	volume_down_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), volume_up_button->position.second + (button_margin + button.h), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	volume_down_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2) - App->window->GetScreenWidth() / 2, volume_up_button->position.second + (button_margin * 1.5 + button.h * 2.5) - App->window->GetScreenHeight() / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(volume_down_button);
-	resume_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), (screen_height / 2) + (option_background.h / 2) - button.h * 3.1, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	resume_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2) - App->window->GetScreenWidth() / 2, (screen_height / 2) + (option_background.h / 2) - button.h * 3.1 - App->window->GetScreenHeight() / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(resume_button);
-	mm_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), (screen_height / 2) + (option_background.h / 2) - button.h * 1.7, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	mm_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2) - App->window->GetScreenWidth() / 2, (screen_height / 2) + (option_background.h / 2) - button.h * 1.7 - App->window->GetScreenHeight() / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(mm_button);
 
 	volume_up_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, volume_up_button->position.first + (button.w / 2), volume_up_button->position.second + (button.h / 2), "+", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
@@ -646,8 +646,8 @@ void Scene::CreateOptionsIngame()
 		spanish_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, spanish_button->position.first + (button.w / 2), spanish_button->position.second + (button.h / 2), "SPANISH", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 		mm_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, mm_button->position.first + (button.w / 2), mm_button->position.second + (button.h / 2), "MAIN MENU", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 		resume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, resume_button->position.first + (button.w / 2), resume_button->position.second + (button.h / 2), "RESUME", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		language_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2), english_button->position.second - (button.h / 2), "CHOOSE LANGUAGE", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		volume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2), volume_up_button->position.second - (button.h / 2), "ADJUST VOLUME", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		language_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2) - App->window->GetScreenWidth() / 2, english_button->position.second + (button.h * 1.5) - App->window->GetScreenHeight() / 8, "CHOOSE LANGUAGE", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		volume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2) - App->window->GetScreenWidth() / 2, volume_up_button->position.second + (button.h * 1.5) - App->window->GetScreenHeight() / 8, "ADJUST VOLUME", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	}
 	else
 	{
@@ -655,8 +655,8 @@ void Scene::CreateOptionsIngame()
 		spanish_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, spanish_button->position.first + (button.w / 2), spanish_button->position.second + (button.h / 2), "ESPAÑOL", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 		mm_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, mm_button->position.first + (button.w / 2), mm_button->position.second + (button.h / 2), "MENÚ PRINCIPAL", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 		resume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, resume_button->position.first + (button.w / 2), resume_button->position.second + (button.h / 2), "CONTINUAR", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		language_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5f, english_button->position.second - (button.h / 2), "ESCOJER LENGUA", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		volume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5f, volume_up_button->position.second - (button.h / 2), "AJUSTAR VOLUMEN", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		language_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5f - App->window->GetScreenWidth() / 2, english_button->position.second - (button.h / 2), "ESCOJER LENGUA" - App->window->GetScreenHeight() / 8, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		volume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5f - App->window->GetScreenWidth() / 2, volume_up_button->position.second - (button.h / 2), "AJUSTAR VOLUMEN" - App->window->GetScreenHeight() / 8, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	}
 	english_button->Select(SELECTED);
 }
