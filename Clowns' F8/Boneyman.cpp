@@ -5,6 +5,7 @@
 #include "ModulePathfinding.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
+#include "ModuleWindow.h"
 #include "ModuleRender.h"
 #include "ModuleMap.h"
 
@@ -73,7 +74,7 @@ bool Boneyman::PostUpdate()
 {
 	if (entity_texture != nullptr)
 	{
-		App->render->Blit(entity_texture, position.first, position.second - current.h + position_margin.second, &current_animation->GetCurrentFrame(), 1.0f);
+		App->render->Blit(entity_texture, position.first + (App->window->GetScreenWidth() / 2), position.second - current.h + position_margin.second + (App->window->GetScreenHeight() / 8), &current_animation->GetCurrentFrame(), 1.0f, flipX);
 	}
 
 	return true;

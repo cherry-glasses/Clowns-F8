@@ -91,6 +91,8 @@ bool Scene::Start()
 	main_menu_background = App->textures->Load("Assets/Sprites/UI/Main_menu_art_shot.png");
 	options_background = App->textures->Load("Assets/Sprites/UI/4259708641.png");
 	credits_page = App->textures->Load("Assets/Sprites/UI/credits_done.png");
+	map_level_1 = App->textures->Load("Assets/Maps/map_level_1.png");
+
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
 
@@ -295,14 +297,12 @@ bool Scene::Update(float _dt)
 		if (!map_loaded) {
 			map_loaded = true;
 			App->map->Load("map_level1.tmx");
-			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+			/*App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
-			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_STORM);*/
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
-			App->render->camera.x = App->window->GetScreenWidth() / 2;
-			App->render->camera.y = App->window->GetScreenHeight() / 8;
 
 			int i = 0;
 			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
@@ -508,8 +508,10 @@ bool Scene::Update(float _dt)
 					ActionsMenu();
 				}
 			}
+			App->render->Blit(map_level_1, 0 + (screen_width / 2) - (1600 / 2), 0 + (screen_height/2) - (800/2));
 			App->map->Draw();
 		}
+		
 		break;
 	}
 	

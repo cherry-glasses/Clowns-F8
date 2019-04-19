@@ -489,7 +489,7 @@ bool ModuleInput::Decline() {
 
 bool ModuleInput::Pause() {
 
-	if (GetKey(SDL_SCANCODE_ESCAPE)== KEY_DOWN || App->input->gamepad.START == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+	if (GetKey(SDL_SCANCODE_ESCAPE)== KEY_DOWN || GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || App->input->gamepad.START == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
 		return true;
 	}
 	return false;

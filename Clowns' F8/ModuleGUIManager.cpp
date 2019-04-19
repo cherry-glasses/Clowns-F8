@@ -40,17 +40,27 @@ bool ModuleGUIManager::Update(float dt)
 	for (uint i = 0; i < gui_elements.size(); ++i)
 	if (gui_elements[i] != nullptr) gui_elements[i]->Update(dt);
 
-	/*for (uint i = 0; i < gui_elements.size(); ++i)
-	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_PANEL)
-	gui_elements[i]->Draw(image_textures);*/
+	return true;
+}
 
+bool ModuleGUIManager::PostUpdate()
+{
 	for (uint i = 0; i < gui_elements.size(); ++i)
-	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_BUTTON)
-	gui_elements[i]->Draw(button_textures);
+		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_BUTTON)
+			gui_elements[i]->Draw(button_textures);
 
 	for (uint i = 0; i < gui_elements.size(); ++i)
 		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_IMAGE)
 			gui_elements[i]->Draw(image_textures);
+
+	for (uint i = 0; i < gui_elements.size(); ++i)
+		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_LABEL)
+			gui_elements[i]->DrawLabel();
+
+	/*for (uint i = 0; i < gui_elements.size(); ++i)
+	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_PANEL)
+	gui_elements[i]->Draw(image_textures);*/
+
 
 	/*for (uint i = 0; i < gui_elements.size(); ++i)
 	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_SLIDER)
@@ -66,10 +76,6 @@ bool ModuleGUIManager::Update(float dt)
 	gui_elements[i]->Draw(inputbox_textures);
 	gui_elements[i]->DrawInputBox();
 	}*/
-
-	for (uint i = 0; i < gui_elements.size(); ++i)
-	if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_LABEL)
-	gui_elements[i]->DrawLabel();
 
 	return true;
 }

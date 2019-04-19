@@ -127,7 +127,9 @@ bool ModuleEntityManager::PostUpdate()
 			(*entity)->current_stats.Hp = 0;
 		}
 		(*entity)->PostUpdate();
+
 	}
+	
 
 	return true;
 }
