@@ -11,7 +11,8 @@
 #include "Boneyman.h"
 #include "Pinkking.h"
 #include "Hotdog.h"
-#include "Tree.h"
+#include "Tree1.h"
+#include "Tree2.h"
 #include "BearTrap.h"
 #include "ModulePathfinding.h"
 #include "ModuleMap.h"
@@ -262,7 +263,7 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
 		for (int i = 0; i < 4; i++)
 		{
-			tmp = new Boneyman(_type, entity_configs.child("boneyman"), enemies.size());
+			tmp = new Boneyman(_type, entity_configs.child("boneyman"), i);
 			entities.push_back(tmp);
 			enemies.push_back(tmp);
 		}
@@ -279,10 +280,21 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
 		break;
-	case ENTITY_TYPE::ENTITY_OBJECT_TREE:
-		tmp = new Tree(_type, entity_configs.child("tree"));
-		entities.push_back(tmp);
-		objects.push_back(tmp);
+	case ENTITY_TYPE::ENTITY_OBJECT_TREE1:
+		for (int i = 0; i < 21; i++)
+		{
+			tmp = new Tree1(_type, entity_configs.child("tree1"), i);
+			entities.push_back(tmp);
+			objects.push_back(tmp);
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_TREE2:
+		for (int i = 0; i < 7; i++)
+		{
+			tmp = new Tree2(_type, entity_configs.child("tree2"), i);
+			entities.push_back(tmp);
+			objects.push_back(tmp);
+		}
 		break;
 	case ENTITY_TYPE::ENTITY_OBJECT_BEARTRAP:
 		tmp = new BearTrap(_type, entity_configs.child("beartrap"));

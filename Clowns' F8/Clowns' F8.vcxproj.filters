@@ -150,7 +150,10 @@
     <ClInclude Include="..\Clowns%27 F8\BearTrap.h">
       <Filter>Entities\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Tree.h">
+    <ClInclude Include="Tree1.h">
+      <Filter>Entities\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Tree2.h">
       <Filter>Entities\Objects</Filter>
     </ClInclude>
   </ItemGroup>
@@ -254,11 +257,14 @@
     <ClCompile Include="..\Clowns%27 F8\Object.cpp">
       <Filter>Entities\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Tree.cpp">
-      <Filter>Entities\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Enemy.cpp">
       <Filter>Entities\EntitiesEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree1.cpp">
+      <Filter>Entities\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Tree2.cpp">
+      <Filter>Entities\Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
