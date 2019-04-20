@@ -82,7 +82,8 @@
       <name value="Sapphire"/>
       <stats hp="79" mana="120" p_move="1" atk_f="60" atk_s="84" range_atk="5" range_ability_1="2" range_ability_2="5"
              range_ability_3="7" def_f="70" def_s="80" crit="0.1"  agi="14"/>
-      <attacks_names attack="Flower attack" ability_1="Hammer time" ability_2="Surprise hat" ability_3="Water time" habilidad_1="Martillazo" habilidad_2="Sombrero sorpresa" habilidad_3="Hora del Jugar"/>
+      <attacks_names attack="Flower attack" ability_1="Hammer time" ability_2="Surprise hat" ability_3="Water time" 
+                    ataque="Floretazo" habilidad_1="Martillazo" habilidad_2="Sombrero sorpresa" habilidad_3="Hora del Jugar"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>
@@ -253,6 +254,8 @@
       <name value="Iris"/>
       <stats hp="74" mana="85" p_move="1" atk_f="82" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
              range_ability_3="1" def_f="78" def_s="70" crit="0.2" agi="12"/>
+      <attacks_names attack="Fist attack" ability_1="Rabbit kick" ability_2="Carrot time" ability_3="Rabbit rage" 
+                    ataque="Puñetazo" habilidad_1="Patada conejil" habilidad_2="Hora de zanahoria" habilidad_3="Rabia Conejil"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>
@@ -423,6 +426,8 @@
       <name value="Storm"/>
       <stats hp="90" mana="85" p_move="4" atk_f="75" atk_s="74" range_atk="1" range_ability_1="3" range_ability_2="7"
              range_ability_3="7" def_f="85" def_s="70" crit="0.2"  agi="8"/>
+      <attacks_names attack="Acid throw" ability_1="Snail charge" ability_2="Time to hide" ability_3="Vampiric snail"
+                    ataque="Escupitajo" habilidad_1="Caracol paralizante" habilidad_2="Hora del escondite" habilidad_3="Caracol vampírico"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>
@@ -513,6 +518,8 @@
       <name value="George B."/>
       <stats hp="75" mana="95" p_move="4" atk_f="75" atk_s="75" range_atk="4" range_ability_1="6" range_ability_2="4"
              range_ability_3="3" def_f="75" def_s="75" crit="0.08"  agi="10"/>
+      <attacks_names attack="Random throw" ability_1="Bear trap" ability_2="Cherry boom" ability_3="Flying birds"
+                    ataque="Tiro aleatorio" habilidad_1="Trampa de oso" habilidad_2="Bomba cereza" habilidad_3="Hora de Hitchcock"/>
       <animations>
         <idle_left speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>

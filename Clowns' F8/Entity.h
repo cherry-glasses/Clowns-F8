@@ -41,6 +41,7 @@ typedef struct {
 
 typedef struct {
 	std::string Attack_name;
+	std::string Ataque_nombre;
 	std::string Ability_1_name;
 	std::string Ability_2_name;
 	std::string Ability_3_name;
