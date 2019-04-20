@@ -11,7 +11,7 @@
 #include "Boneyman.h"
 #include "Pinkking.h"
 #include "Hotdog.h"
-#include "MapLevel1.h"
+#include "Tree.h"
 #include "BearTrap.h"
 #include "ModulePathfinding.h"
 #include "ModuleMap.h"
@@ -269,12 +269,14 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
 		break;
-	case ENTITY_TYPE::ENTITY_OBJECT_MAP_LEVEL_1:
-		tmp = new MapLevel1(_type, entity_configs.child("map_level_1"));
+	case ENTITY_TYPE::ENTITY_OBJECT_TREE:
+		tmp = new Tree(_type, entity_configs.child("tree"));
+		entities.push_back(tmp);
 		objects.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_OBJECT_BEARTRAP:
 		tmp = new BearTrap(_type, entity_configs.child("beartrap"));
+		entities.push_back(tmp);
 		objects.push_back(tmp);
 		break;
 	default:
