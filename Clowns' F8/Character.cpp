@@ -31,7 +31,7 @@ bool Character::PreUpdate() {
 	}
 	else if (current_turn == SEARCH_MOVE)
 	{
-		current_turn == END_TURN;
+		current_turn = END_TURN;
 	}
 
 	return true;
@@ -64,6 +64,7 @@ bool Character::Update(float _dt) {
 	else if (current_turn == ABILITY_1)
 	{
 		Ability_1();
+		current_stats.Mana -= 25;
 	}
 	else if (current_turn == DEFEND)
 	{

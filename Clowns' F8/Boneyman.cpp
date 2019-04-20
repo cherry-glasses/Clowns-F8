@@ -44,9 +44,9 @@ bool Boneyman::PreUpdate()
 			SearchAttack();
 		}
 	}
-	else if(current_turn == SEARCH_MOVE)
+	else if (current_turn == SEARCH_MOVE) 
 	{
-		current_turn == END_TURN;
+		current_turn = END_TURN;
 	}
 
 	return ret;

@@ -12,6 +12,7 @@
 #include "Pinkking.h"
 #include "Hotdog.h"
 #include "MapLevel1.h"
+#include "BearTrap.h"
 #include "ModulePathfinding.h"
 #include "ModuleMap.h"
 #include "Scene.h"
@@ -89,7 +90,10 @@ bool ModuleEntityManager::PreUpdate()
 			(*entity)->current_turn = Entity::TURN::END_TURN;
 			(*entity)->stunned = false;
 		}
-		(*entity)->defend = false;
+		if ((*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
+			(*entity)->current_stats.Mana += 10;
+			(*entity)->defend = false;
+		}
 		(*entity)->PreUpdate();
 	}
 
@@ -131,6 +135,12 @@ bool ModuleEntityManager::PostUpdate()
 			}
 			else if ((*entity)->current_stats.Hp < 0) {
 				(*entity)->current_stats.Hp = 0;
+			}
+			if ((*entity)->current_stats.Mana >(*entity)->default_stats.Mana) {
+				(*entity)->current_stats.Mana = (*entity)->default_stats.Mana;
+			}
+			else if ((*entity)->current_stats.Mana < 0) {
+				(*entity)->current_stats.Mana = 0;
 			}
 			(*entity)->PostUpdate();
 
@@ -266,6 +276,10 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		tmp = new MapLevel1(_type, entity_configs.child("map_level_1"));
 		objects.push_back(tmp);
 		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_BEARTRAP:
+		tmp = new BearTrap(_type, entity_configs.child("beartrap"));
+		objects.push_back(tmp);
+		break;
 	default:
 		break;
 	}
@@ -308,7 +322,6 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 		}
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
-		// We can swap to all entiotyes for Hector.
 		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
 		{
 			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
@@ -321,7 +334,6 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 		}
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
-		// We can swap to all entiotyes for Hector.
 		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
 		{
 			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
@@ -329,7 +341,6 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				if ((*enemie)->GetPosition() == (*position))
 				{
 					if (_damage == 0) {
-						// Put animation particles to show stun, like birds or stars or something
 						(*enemie)->stunned = true;
 					}
 					else {
@@ -340,18 +351,20 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 		}
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
-		// We can swap to all entiotyes for Hector.
-		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
-		{
+		if (_damage == 0) {
 			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
 			{
-				if ((*enemie)->GetPosition() == (*position))
+				BearTrap *tmp = (BearTrap*)CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_BEARTRAP);
+				(*tmp).SetPosition((*position).first, (*position).second);
+			}
+		}
+		else {
+			for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
+			{
+				for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
 				{
-					if (_damage == 0) {
-						// Put animation particles to show stun, like birds or stars or something
-						(*enemie)->stunned = true;
-					}
-					else {
+					if ((*enemie)->GetPosition() == (*position))
+					{
 						(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
 					}
 				}

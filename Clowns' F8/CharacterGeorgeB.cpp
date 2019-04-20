@@ -314,7 +314,7 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_1_right;
 		flipX = true;
 		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 			current_turn = END_TURN;
 		}
 		break;
@@ -323,7 +323,7 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_1_right;
 		flipX = false;
 		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 			current_turn = END_TURN;
 		}
 		break;
@@ -332,7 +332,7 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_1_front;
 		flipX = false;
 		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 			current_turn = END_TURN;
 		}
 		break;
@@ -341,7 +341,7 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_1_back;
 		flipX = false;
 		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 			current_turn = END_TURN;
 		}
 		break;
