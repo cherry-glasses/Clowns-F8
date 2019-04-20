@@ -71,26 +71,30 @@ bool ModuleEntityManager::PreUpdate()
 	
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
-		if ((*entity)->current_turn == Entity::TURN::END_TURN)
-		{
-			(*entity)->current_turn = Entity::TURN::NONE;
-			if (*entity != entities.back())
+		if (std::find(characters.begin(), characters.end(), (*entity)) != characters.end()
+			|| std::find(enemies.begin(), enemies.end(), (*entity)) != enemies.end()) {
+			if ((*entity)->current_turn == Entity::TURN::END_TURN)
 			{
-				entity++;
-				(*entity)->current_turn = Entity::TURN::SEARCH_MOVE;
+				(*entity)->current_turn = Entity::TURN::NONE;
+				if (*entity != entities.back())
+				{
+					entity++;
+					(*entity)->current_turn = Entity::TURN::SEARCH_MOVE;
+				}
+				else {
+					entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
+				}
 			}
-			else {
-				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
+			if ((*entity)->stunned == true && (*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
+				(*entity)->current_turn = Entity::TURN::END_TURN;
+				(*entity)->stunned = false;
+			}
+			if ((*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
+				(*entity)->current_stats.Mana += 10;
+				(*entity)->defend = false;
 			}
 		}
-		if ((*entity)->stunned == true && (*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
-			(*entity)->current_turn = Entity::TURN::END_TURN;
-			(*entity)->stunned = false;
-		}
-		if ((*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
-			(*entity)->current_stats.Mana += 10;
-			(*entity)->defend = false;
-		}
+		
 		(*entity)->PreUpdate();
 	}
 
@@ -143,10 +147,6 @@ bool ModuleEntityManager::PostUpdate()
 
 		}
 
-		for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object)
-		{
-			(*object)->PostUpdate();
-		}
 	}
 	return true;
 }

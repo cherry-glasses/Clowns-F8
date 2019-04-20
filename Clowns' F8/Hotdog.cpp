@@ -1,10 +1,7 @@
-#include "Log.h"
 #include "Application.h"
 #include "Hotdog.h"
 #include "ModuleEntityManager.h"
 #include "ModulePathfinding.h"
-#include "ModuleInput.h"
-#include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleMap.h"
 
