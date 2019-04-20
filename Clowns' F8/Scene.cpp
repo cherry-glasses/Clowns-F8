@@ -330,6 +330,9 @@ bool Scene::Update(float _dt)
 				life_numbers.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, life_position.at(i).first + 60, life_position.at(i).second + 11, "0", { 0, 255, 0, 255 }, App->gui_manager->default_font_used, (*character)->current_stats.Hp, (*character)->default_stats.Hp));
 				mana_numbers.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, mana_position.at(i).first + 60, mana_position.at(i).second + 13, "0", { 0, 255, 0, 255 }, App->gui_manager->default_font_used, (*character)->current_stats.Mana, (*character)->default_stats.Mana));
 				stun_image.push_back(nullptr);
+				defense_image.push_back(nullptr);
+				stun_image_created.push_back(false);
+				defense_image_created.push_back(false);
 				switch ((*character)->GetType()) {
 				case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
 					port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, port_position.at(i).first, port_position.at(i).second, sapphire_portrait));
@@ -489,6 +492,9 @@ bool Scene::Update(float _dt)
 				enemies_life_position.clear();
 				life_numbers.clear();
 				stun_image.clear();
+				defense_image.clear();
+				stun_image_created.clear();
+				defense_image_created.clear();
 
 				App->map->CleanUp();
 				App->entity_manager->CleanUp();
@@ -509,13 +515,25 @@ bool Scene::Update(float _dt)
 				{
 					CreatePortraits(*character, i);
 				}
-				if ((*character)->stunned)
+				if ((*character)->stunned && !stun_image_created.at(i))
 				{
-					if(stun_image.at(i) == nullptr) stun_image.at(i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, portrait_position.at(i).first + 100, portrait_position.at(i).second + 100, { 0, 115, 16, 16 });
+					stun_image.at(i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, portrait_position.at(i).first + 100, portrait_position.at(i).second + 70, { 0, 115, 16, 16 });
+					stun_image_created.at(i) = true;
 				}
-				else if (stun_image.at(i) != nullptr)
+				else if (!(*character)->stunned && stun_image_created.at(i))
 				{
 					App->gui_manager->DeleteGUIElement(stun_image.at(i));
+					stun_image_created.at(i) = false;
+				}
+				if ((*character)->defend && !defense_image_created.at(i))
+				{
+					defense_image.at(i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, portrait_position.at(i).first + 100, portrait_position.at(i).second + 100, { 16, 115, 16, 16 });
+					defense_image_created.at(i) = true;
+				}
+				else if (!(*character)->defend && defense_image_created.at(i))
+				{
+					App->gui_manager->DeleteGUIElement(defense_image.at(i));
+					defense_image_created.at(i) = false;
 				}
 				++i;
 			}
