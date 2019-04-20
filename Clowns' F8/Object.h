@@ -13,29 +13,20 @@ public:
 	virtual ~Object() {}
 
 	// Called before the first frame
-	virtual bool Start() { return false; }
+	virtual bool Start() { return true; }
 
 	// Called each loop iteration
-	virtual bool PreUpdate() { return false; }
-	virtual bool Update(float _dt) { return false; }
-	virtual bool PostUpdate() { return false; }
+	virtual bool PreUpdate();
+	virtual bool Update(float _dt);
+	virtual bool PostUpdate();
 
-	//Move and Attack
-	virtual void SearchWalk() {}
-	virtual void Walk(const std::vector<std::pair<int, int>> *_path) {}
-	virtual void SearchAttack() {}
-	virtual void Attack(const std::vector<std::pair<int, int>> *_path) {}
-	virtual void Hability_1() {}
-	virtual void Hability_2() {}
-	virtual void Hability_3() {}
-	virtual void Die() {}
 
 	// Called before quitting
-	virtual bool CleanUp() { return false; }
+	virtual bool CleanUp() { return true; }
 
 	//Save and Load
-	virtual bool Load(pugi::xml_node&) { return false; }
-	virtual bool Save(pugi::xml_node&) const { return false; }
+	virtual bool Load(pugi::xml_node&);
+	virtual bool Save(pugi::xml_node&) const;
 
 protected:
 	std::pair<int, int> nearposition;
