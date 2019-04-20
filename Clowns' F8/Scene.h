@@ -170,6 +170,7 @@ private:
 	bool waiting_for_input = false;
 	std::list<GUIButton*> buttons;
 	std::list<GUIButton*> buttons2;
+	std::vector<GUIImage*> stun_image;
 
 	std::string	press_fx_name = "";
 

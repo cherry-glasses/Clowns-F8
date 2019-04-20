@@ -329,6 +329,7 @@ bool Scene::Update(float _dt)
 				portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, portrait_position.at(i).first, portrait_position.at(i).second, { 0, 134, 256, 128 }));
 				life_numbers.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, life_position.at(i).first + 60, life_position.at(i).second + 11, "0", { 0, 255, 0, 255 }, App->gui_manager->default_font_used, (*character)->current_stats.Hp, (*character)->default_stats.Hp));
 				mana_numbers.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, mana_position.at(i).first + 60, mana_position.at(i).second + 13, "0", { 0, 255, 0, 255 }, App->gui_manager->default_font_used, (*character)->current_stats.Mana, (*character)->default_stats.Mana));
+				stun_image.push_back(nullptr);
 				switch ((*character)->GetType()) {
 				case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
 					port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, port_position.at(i).first, port_position.at(i).second, sapphire_portrait));
@@ -506,6 +507,14 @@ bool Scene::Update(float _dt)
 					|| mana_x.at(i) != ((124 * (*character)->current_stats.Mana) / (*character)->default_stats.Mana))
 				{
 					CreatePortraits(*character, i);
+				}
+				if ((*character)->stunned)
+				{
+					if(stun_image.at(i) == nullptr) stun_image.at(i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, portrait_position.at(i).first + 100, portrait_position.at(i).second + 100, { 0, 115, 16, 16 });
+				}
+				else if (stun_image.at(i) != nullptr)
+				{
+					App->gui_manager->DeleteGUIElement(stun_image.at(i));
 				}
 				++i;
 			}
