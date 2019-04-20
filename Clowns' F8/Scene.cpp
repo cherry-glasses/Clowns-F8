@@ -369,11 +369,18 @@ bool Scene::Update(float _dt)
 		}
 		if (App->input->Pause() || resume_game == false)
 		{
-			App->entity_manager->paused = true;
+			
 			App->map->Draw();
 			if (resume_game)
 			{
 				resume_game = false;
+				App->entity_manager->paused = true;
+				int i = 0;
+				for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
+				{
+					CreateEnemyPortraits(nullptr, i);
+					++i;
+				}
 			}
 			if (waiting_for_input && !ability_menu_created && !(buttons2.empty()))
 			{
@@ -434,8 +441,15 @@ bool Scene::Update(float _dt)
 			else if (resume_button->has_been_clicked || App->input->Decline())
 			{
 				ingame_options_menu_created = false;
+				App->entity_manager->paused = false;
 				DeleteOptionsIngame();
 				resume_game = true;
+				int i = 0;
+				for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
+				{
+					CreateEnemyPortraits((*enemy), i);
+					++i;
+				}
 				if (waiting_for_input && !ability_menu_created)
 				{
 					waiting_for_input = false;
@@ -508,7 +522,6 @@ bool Scene::Update(float _dt)
 		}
 		else
 		{
-			App->entity_manager->paused = false;
 			int i = 0;
 			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 			{
@@ -542,14 +555,14 @@ bool Scene::Update(float _dt)
 
 			i = 0;
 			bool change = false;
-			for (std::list<Entity*>::iterator enemies = App->entity_manager->enemies.begin(); enemies != App->entity_manager->enemies.end(); ++enemies)
+			for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
 			{
-				if (enemies_life_x.at(i) != ((64 * (*enemies)->current_stats.Hp) / (*enemies)->default_stats.Hp)
-					|| enemies_life_position.at(i).first != (*enemies)->GetPosition().first ||
-				enemies_life_position.at(i).second != (*enemies)->GetPosition().second)
+				if (enemies_life_x.at(i) != ((64 * (*enemy)->current_stats.Hp) / (*enemy)->default_stats.Hp)
+					|| enemies_life_position.at(i).first != (*enemy)->GetPosition().first ||
+				enemies_life_position.at(i).second != (*enemy)->GetPosition().second)
 				{
 					if(!change) change = true;
-					CreateEnemyPortraits(*enemies, i);
+					CreateEnemyPortraits(*enemy, i);
 				}
 				++i;
 			}
@@ -806,8 +819,10 @@ void Scene::CreatePortraits(Entity* _character, int _i)
 void Scene::CreateEnemyPortraits(Entity* _enemy, int _i)
 {
 	App->gui_manager->DeleteGUIElement(enemies_life.at(_i));
-	enemies_life_x.at(_i) = (64 * _enemy->current_stats.Hp) / _enemy->default_stats.Hp;
-	enemies_life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, _enemy->GetPosition().first, _enemy->GetPosition().second + _enemy->position_margin.second, { 0, 58, enemies_life_x.at(_i) , 5 });
+	if (_enemy != nullptr) {
+		enemies_life_x.at(_i) = (64 * _enemy->current_stats.Hp) / _enemy->default_stats.Hp;
+		enemies_life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, _enemy->GetPosition().first, _enemy->GetPosition().second + _enemy->position_margin.second, { 0, 58, enemies_life_x.at(_i) , 5 });
+	}
 }
 
 void Scene::ActionsMenu()
