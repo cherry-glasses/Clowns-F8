@@ -97,7 +97,7 @@ bool ModuleEntityManager::PreUpdate()
 			if (std::find(enemies.begin(), enemies.end(), (*entity)) != enemies.end()) {
 				for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object) {
 					if ((*object)->GetPosition() == (*entity)->GetPosition()) {
-						(*entity)->current_stats.Hp -= (george_b->current_stats.AtkS - (george_b->current_stats.AtkS * (*entity)->current_stats.DefF / 100));
+						(*entity)->current_stats.Hp -= (george_b->current_stats.AtkS - (george_b->current_stats.AtkS * (*entity)->current_stats.DefS / 100));
 					}
 				}
 			}
@@ -337,7 +337,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			{
 				if ((*enemie)->GetPosition() == (*position))
 				{
-					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefS / 100));
 				}
 			}
 		}
@@ -386,7 +386,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				{
 					if ((*enemie)->GetPosition() == (*position))
 					{
-						(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+						(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefS / 100));
 					}
 				}
 			}
