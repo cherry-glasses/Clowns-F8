@@ -10,9 +10,12 @@
 
 bool Object::PreUpdate()
 {
-	bool ret = true;
+	if (current_turn == SEARCH_MOVE)
+	{
+		current_turn = END_TURN;
+	}
 
-	return ret;
+	return true;
 }
 
 bool Object::Update(float dt)

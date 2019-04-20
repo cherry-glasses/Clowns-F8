@@ -218,7 +218,7 @@ void Boneyman::CurrentMovement(MOVEMENT _movement) {
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 		current_turn = END_TURN;
 		break;
-	case Entity::ABILITY_1_RIGHT_BACK: // ME HE QUEDADO AQUÍ
+	case Entity::ABILITY_1_RIGHT_BACK:
 		current_movement = ABILITY_1_RIGHT_BACK;
 		current_animation = &ability_1_right_back;
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);

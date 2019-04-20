@@ -17,8 +17,6 @@ bool Enemy::PreUpdate()
 		objective_position.clear();
 		objective_position.push_back(position);
 
-
-
 		if (current_stats.Hp <= 0)
 		{
 			Die();
