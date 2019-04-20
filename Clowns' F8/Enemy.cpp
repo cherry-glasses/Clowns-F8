@@ -60,6 +60,8 @@ bool Enemy::Update(float dt)
 	else if (current_turn == ABILITY_1) {
 		Ability_1();
 	}
+
+	
 	return true;
 }
 

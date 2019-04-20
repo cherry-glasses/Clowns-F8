@@ -1,4 +1,4 @@
-<!-- Config file for the game -->
+﻿<!-- Config file for the game -->
 
 <config>
   <app>
@@ -733,16 +733,16 @@
         <walk_right_back speed="0" loop="true">
           <frame x="320" y="64" width="64" height="64"/>
         </walk_right_back>
-        <attack_left_front speed="0" loop="true">
+        <attack_left_front speed="0.2f" loop="false">
           <frame x="0" y="128" width="64" height="64"/>
         </attack_left_front>
-        <attack_right_front speed="0" loop="true">
+        <attack_right_front speed="0.2f" loop="false">
           <frame x="64" y="128" width="64" height="64"/>
         </attack_right_front>
-        <attack_left_back speed="0" loop="true">
+        <attack_left_back speed="0.2f" loop="false">
           <frame x="0" y="192" width="64" height="64"/>
         </attack_left_back>
-        <attack_right_back speed="0" loop="true">
+        <attack_right_back speed="0.2f" loop="false">
           <frame x="64" y="192" width="64" height="64"/>
         </attack_right_back>
         <dead_left_front speed="0" loop="true">

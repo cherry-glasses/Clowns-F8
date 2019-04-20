@@ -113,6 +113,14 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 	std::pair<int, int> car = App->entity_manager->CharactersPrioritzationAttack(range, tiles_range_attk);
 	objective_position.push_back(car);
 	current_movement = ATTACK_LEFT_FRONT;
+
+	/*current_movement = ATTACK_LEFT_FRONT;
+	if (current_animation->Finished()) {
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+		current_movment = IDLE_LEFT_FRONT;
+		current_turn = END_TURN;
+	}*/
+
 	App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 	current_turn = END_TURN;
 	
@@ -121,10 +129,7 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 void Pinkking::SearchAbility_1()
 {
 	nearposition = App->entity_manager->NearestCharacter(position);
-	//App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
 	current_turn = ABILITY_1;
-	//current_turn = END_TURN;
-
 }
 
 void Pinkking::Ability_1()
@@ -133,12 +138,15 @@ void Pinkking::Ability_1()
 	std::pair<int, int> tmp_1 = App->map->WorldToMap(position.first, position.second);
 	std::pair<int,int> tmp_2 = App->map->WorldToMap(nearposition.first, nearposition.second);
 	int dmg = current_stats.AtkS / sqrt((tmp_2.first - tmp_1.first)*(tmp_2.first - tmp_1.first) + (tmp_2.second - tmp_1.second)*(tmp_2.second - tmp_1.second));
+
+
 	/*current_movement = ABILITY_1_FRONT;
-	current_animation = &ability_1_front;
 	if (current_animation->Finished()) {
 		App->entity_manager->ThrowAttack(objective_position, dmg, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+		current_movment = IDLE_LEFT_FRONT;
 		current_turn = END_TURN;
 	}*/
+
 	App->entity_manager->ThrowAttack(objective_position, dmg, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 	current_turn = END_TURN;
 	// blit de la sombra en esa posicion
@@ -212,26 +220,18 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 	case Entity::ATTACK_LEFT_FRONT:
 		current_movement = ATTACK_LEFT_FRONT;
 		current_animation = &attack_left_front;
-		//App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
-		current_turn = END_TURN;
 		break;
 	case Entity::ATTACK_RIGHT_FRONT:
 		current_movement = ATTACK_RIGHT_FRONT;
 		current_animation = &attack_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
-		current_turn = END_TURN;
 		break;
 	case Entity::ATTACK_LEFT_BACK:
 		current_movement = ATTACK_LEFT_BACK;
 		current_animation = &attack_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
-		current_turn = END_TURN;
 		break;
 	case Entity::ATTACK_RIGHT_BACK:
 		current_movement = ATTACK_RIGHT_BACK;
 		current_animation = &attack_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
-		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_LEFT_FRONT:
 		current_movement = ABILITY_1_LEFT_FRONT;
@@ -251,7 +251,6 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 	case Entity::ABILITY_1_FRONT:
 		current_movement = ABILITY_1_FRONT;
 		current_animation = &ability_1_front;
-		//current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_RIGHT_BACK: // ME HE QUEDADO AQUÍ
 		current_movement = ABILITY_1_RIGHT_BACK;
