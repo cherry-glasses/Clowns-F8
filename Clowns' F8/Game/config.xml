@@ -725,7 +725,7 @@
       </animations>
     </boneyman>
     <pinkking>
-      <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
+      <texture value="Assets/Sprites/Enemies/Pinkking_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="17" y="6"/>
       <name value="PinkKing"/>
