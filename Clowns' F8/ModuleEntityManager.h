@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Entity.h"
 
+class CharacterGeorgeB;
 
 class ModuleEntityManager : public Module
 {
@@ -57,6 +58,8 @@ public:
 private:
 	
 	pugi::xml_node entity_configs;
+
+	CharacterGeorgeB* george_b;
 
 	bool starting = true;
 	

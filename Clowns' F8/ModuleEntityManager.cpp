@@ -88,8 +88,18 @@ bool ModuleEntityManager::PreUpdate()
 			(*entity)->stunned = false;
 		}
 		if ((*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
+			// Starting Turn
 			(*entity)->current_stats.Mana += 10;
 			(*entity)->defend = false;
+
+			// BearTrap
+			if (std::find(enemies.begin(), enemies.end(), (*entity)) != enemies.end()) {
+				for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object) {
+					if ((*object)->GetPosition() == (*entity)->GetPosition()) {
+						(*entity)->current_stats.Hp -= (george_b->current_stats.AtkS - (george_b->current_stats.AtkS * (*entity)->current_stats.DefF / 100));
+					}
+				}
+			}
 		}
 		
 		(*entity)->PreUpdate();
@@ -158,6 +168,8 @@ bool ModuleEntityManager::CleanUp()
 	entities.clear();
 	characters.clear();
 	enemies.clear();
+	objects.clear();
+	starting = true;
 
 	return true;
 }
@@ -245,6 +257,7 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		tmp = new CharacterGeorgeB(_type, entity_configs.child("georgeb"));
 		entities.push_back(tmp);
 		characters.push_back(tmp);
+		george_b = (CharacterGeorgeB*) tmp;
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
 		for (int i = 0; i < 4; i++)

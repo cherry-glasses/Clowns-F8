@@ -472,6 +472,7 @@ bool Scene::Update(float _dt)
 			}
 			else if (mm_button->has_been_clicked)
 			{
+				music_created = false;
 				action_menu_created = false;
 				map_loaded = false;
 				portraits_created = false;
