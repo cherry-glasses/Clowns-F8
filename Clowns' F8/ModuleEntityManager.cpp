@@ -62,15 +62,12 @@ bool ModuleEntityManager::PreUpdate()
 		entities.sort(CompareByAgility);
 		if (starting) 
 		{
-			std::list<Entity*>::iterator entityfirst = entities.begin();
-			(*entityfirst)->current_turn = Entity::TURN::SEARCH_MOVE;
+			Entity *entityfirst = entities.front();
+			entityfirst->current_turn = Entity::TURN::SEARCH_MOVE;
 			starting = false;
 		}
 	}
-	else
-	{
-		starting = true;
-	}
+	
 	
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
