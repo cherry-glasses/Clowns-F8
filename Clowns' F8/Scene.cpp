@@ -318,7 +318,7 @@ bool Scene::Update(float _dt)
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
-			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_MAP_LEVEL_1);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE);
 			int i = 0;
 			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 			{
