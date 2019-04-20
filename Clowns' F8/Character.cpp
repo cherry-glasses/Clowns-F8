@@ -437,33 +437,39 @@ void Character::SelectAbility_1() {
 
 void Character::Ability_1()
 {
-	if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
-		CurrentMovement(ABILITY_1_LEFT_FRONT);
-	}
-	else if (objective_position.back().first > position.first && objective_position.back().second > position.second) {
-		CurrentMovement(ABILITY_1_RIGHT_FRONT);
-	}
-	else if (objective_position.back().first < position.first && objective_position.back().second < position.second) {
-		CurrentMovement(ABILITY_1_LEFT_BACK);
-	}
-	else if (objective_position.back().first > position.first && objective_position.back().second < position.second) {
-		CurrentMovement(ABILITY_1_RIGHT_BACK);
-	}
-	else if (objective_position.back().first == position.first && objective_position.back().second > position.second) {
-		CurrentMovement(ABILITY_1_FRONT);
-	}
-	else if (objective_position.back().first == position.first && objective_position.back().second < position.second) {
-		CurrentMovement(ABILITY_1_BACK);
-	}
-	else if (objective_position.back().first < position.first && objective_position.back().second == position.second) {
-		CurrentMovement(ABILITY_1_LEFT);
-	}
-	else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
-		CurrentMovement(ABILITY_1_RIGHT);
+	if (current_stats.Mana >= 25) {
+		if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
+			CurrentMovement(ABILITY_1_LEFT_FRONT);
+		}
+		else if (objective_position.back().first > position.first && objective_position.back().second > position.second) {
+			CurrentMovement(ABILITY_1_RIGHT_FRONT);
+		}
+		else if (objective_position.back().first < position.first && objective_position.back().second < position.second) {
+			CurrentMovement(ABILITY_1_LEFT_BACK);
+		}
+		else if (objective_position.back().first > position.first && objective_position.back().second < position.second) {
+			CurrentMovement(ABILITY_1_RIGHT_BACK);
+		}
+		else if (objective_position.back().first == position.first && objective_position.back().second > position.second) {
+			CurrentMovement(ABILITY_1_FRONT);
+		}
+		else if (objective_position.back().first == position.first && objective_position.back().second < position.second) {
+			CurrentMovement(ABILITY_1_BACK);
+		}
+		else if (objective_position.back().first < position.first && objective_position.back().second == position.second) {
+			CurrentMovement(ABILITY_1_LEFT);
+		}
+		else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
+			CurrentMovement(ABILITY_1_RIGHT);
+		}
+		else {
+			CurrentMovement(ABILITY_1_LEFT_FRONT);
+		}
 	}
 	else {
-		CurrentMovement(ABILITY_1_LEFT_FRONT);
+		current_turn = SELECT_ACTION;
 	}
+	
 
 	// Ending attack and start idle animation
 	if (current_animation->Finished()) {
