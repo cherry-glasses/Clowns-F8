@@ -12,14 +12,6 @@ public:
 	// Destructor
 	~BearTrap();
 
-	// Called each loop iteration
-	bool	PreUpdate();
-	bool	Update(float _dt);
-	bool	PostUpdate();
-
-	//Save and Load
-	bool Load(pugi::xml_node&);
-	bool Save(pugi::xml_node&) const;
 
 };
 

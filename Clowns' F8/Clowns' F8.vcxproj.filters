@@ -254,5 +254,8 @@
     <ClCompile Include="..\Clowns%27 F8\BearTrap.cpp">
       <Filter>Entities\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Object.cpp">
+      <Filter>Entities\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

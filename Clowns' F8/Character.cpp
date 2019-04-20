@@ -64,7 +64,6 @@ bool Character::Update(float _dt) {
 	else if (current_turn == ABILITY_1)
 	{
 		Ability_1();
-		current_stats.Mana -= 25;
 	}
 	else if (current_turn == DEFEND)
 	{
@@ -468,6 +467,7 @@ void Character::Ability_1()
 
 	// Ending attack and start idle animation
 	if (current_animation->Finished()) {
+
 		if (current_movement == ABILITY_1_LEFT_FRONT)
 		{
 			CurrentMovement(IDLE_LEFT_FRONT);
@@ -500,6 +500,7 @@ void Character::Ability_1()
 		{
 			CurrentMovement(IDLE_BACK);
 		}
+		current_stats.Mana -= 25;
 	}
 }
 
