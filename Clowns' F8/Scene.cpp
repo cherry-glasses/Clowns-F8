@@ -314,8 +314,8 @@ bool Scene::Update(float _dt)
 			App->map->Load("map_level1.tmx");
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
-			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_STORM);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_STORM);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 			App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE);
