@@ -488,6 +488,7 @@ bool Scene::Update(float _dt)
 				enemies_life_x.clear();
 				enemies_life_position.clear();
 				life_numbers.clear();
+				stun_image.clear();
 
 				App->map->CleanUp();
 				App->entity_manager->CleanUp();
