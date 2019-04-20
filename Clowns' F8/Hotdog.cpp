@@ -18,85 +18,6 @@ Hotdog::~Hotdog()
 {
 }
 
-bool Hotdog::PreUpdate()
-{
-	bool ret = true;
-
-	if (current_state == ALIVE) {
-
-		objective_position.clear();
-		objective_position.push_back(position);
-
-		if (current_stats.Hp <= 0)
-		{
-			Die();
-		}
-
-		if (current_turn == SEARCH_MOVE)
-		{
-			SearchWalk();
-		}
-		else if (current_turn == SEARCH_ATTACK)
-		{
-			SearchAttack();
-		}
-	}
-	else
-	{
-		current_turn == END_TURN;
-	}
-	
-	return ret;
-}
-
-bool Hotdog::Update(float dt)
-{
-	if (current_turn == NONE)
-	{
-	}
-	else if (current_turn == MOVE)
-	{
-		Walk(App->pathfinding->GetLastPath());
-	}
-	else if (current_turn == ATTACK)
-	{
-		Attack(App->pathfinding->GetLastPath());
-	}
-
-	return true;
-}
-
-bool Hotdog::PostUpdate()
-{
-	if (entity_texture != nullptr) 
-	{
-		App->render->Blit(entity_texture, position.first, position.second - current.h + position_margin.second, &current_animation->GetCurrentFrame(), 1.0f);
-	}
-
-	return true;
-}
-
-// Load and Save
-bool Hotdog::Load(pugi::xml_node& node)
-{
-	bool ret = true;
-
-	position.first = node.child("position").attribute("x").as_float(0);
-	position.second = node.child("position").attribute("y").as_float(0);
-
-	return ret;
-}
-
-bool Hotdog::Save(pugi::xml_node& node) const
-{
-	bool ret = true;
-
-	pugi::xml_node pos = node.append_child("position");
-	pos.append_attribute("x") = position.first;
-	pos.append_attribute("y") = position.second;
-
-	return ret;
-}
 
 // Actions (SearchWalk, Walk, Attack, Hability 1, Hability 2, Die)
 void Hotdog::SearchWalk()
@@ -203,26 +124,6 @@ void Hotdog::Attack(const std::vector<std::pair<int, int>> *_path)
 	else
 	{
 		current_turn = END_TURN;
-	}
-}
-
-void Hotdog::Die()
-{
-	if (current_movement == IDLE_LEFT_FRONT)
-	{
-		CurrentMovement(DEAD_LEFT_FRONT);
-	}
-	else if (current_movement == IDLE_RIGHT_FRONT)
-	{
-		CurrentMovement(DEAD_RIGHT_FRONT);
-	}
-	else if (current_movement == IDLE_LEFT_BACK)
-	{
-		CurrentMovement(DEAD_LEFT_BACK);
-	}
-	else
-	{
-		CurrentMovement(DEAD_RIGHT_BACK);
 	}
 }
 

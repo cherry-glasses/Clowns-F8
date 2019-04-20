@@ -257,5 +257,8 @@
     <ClCompile Include="Tree.cpp">
       <Filter>Entities\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Enemy.cpp">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

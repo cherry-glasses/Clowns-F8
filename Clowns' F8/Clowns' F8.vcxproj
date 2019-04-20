@@ -178,6 +178,7 @@
     <ClCompile Include="..\Clowns%27 F8\CharacterGeorgeB.cpp" />
     <ClCompile Include="..\Clowns%27 F8\CharacterSapphire.cpp" />
     <ClCompile Include="..\Clowns%27 F8\CharacterStorm.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Enemy.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="..\Clowns%27 F8\BearTrap.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Object.cpp" />
