@@ -313,6 +313,8 @@ bool ModuleEntityManager::DeleteEntity(Entity * entity)
 		enemies.remove(entity);
 	}
 	entities.remove(entity);
+	entity->CleanUp();
+	entity = nullptr;
 	
 	return true;
 }
