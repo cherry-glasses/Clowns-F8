@@ -101,6 +101,7 @@ bool ModuleEntityManager::PreUpdate()
 			(*entity)->defend = false;
 
 			// BearTrap
+			// Position is diferent because beartrap has a current and enemie has another, I need to search by worldtomap
 			if (std::find(enemies.begin(), enemies.end(), (*entity)) != enemies.end()) {
 				for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object) {
 					if ((*object)->GetPosition() == (*entity)->GetPosition()) {

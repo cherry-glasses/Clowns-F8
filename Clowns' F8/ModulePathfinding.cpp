@@ -55,7 +55,9 @@ bool ModulePathfinding::IsUsed(const std::pair<int, int>& _pos, Entity* _entity)
 	for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
 	{
 		if (App->map->WorldToMap((*entity)->GetPosition().first, (*entity)->GetPosition().second) == _pos
-			&& (*entity) != _entity) {
+			&& (*entity) != _entity 
+			&& !(std::find(App->entity_manager->objects.begin(), App->entity_manager->objects.end(), (*entity)) != App->entity_manager->objects.end()))
+		{
 			return true;
 		}
 	}
