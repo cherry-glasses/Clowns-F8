@@ -80,7 +80,7 @@ private:
 
 	//Win and Lose
 	void Win();
-	void Lose()
+	void Lose();
 
 private:
 	SDL_Texture* main_menu_background = nullptr;
