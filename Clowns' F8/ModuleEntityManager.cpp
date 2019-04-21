@@ -69,7 +69,6 @@ bool ModuleEntityManager::PreUpdate()
 		}
 	}
 	
-	
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
 		if ((*entity) != nullptr) {
