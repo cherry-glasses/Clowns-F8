@@ -77,8 +77,6 @@ Tree1::Tree1(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Object(_typ
 	default:
 		break;
 	}
-	position.first -= 96 / 2;
-	position.second -= 118;
 	
 }
 Tree1::~Tree1()
