@@ -10,7 +10,6 @@
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
 #include "Scene.h"
-#include "ModuleFadeToBlack.h"
 #include "ModuleEntityManager.h"
 #include "ModuleWindow.h"
 #include <string.h>

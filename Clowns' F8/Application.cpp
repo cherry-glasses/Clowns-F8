@@ -7,7 +7,6 @@
 #include "ModuleAudio.h"
 #include "ModuleFonts.h"
 #include "ModuleMap.h"
-#include "ModuleFadeToBlack.h"
 #include "Scene.h"
 #include "ModuleTransitionManager.h"
 #include "ModuleEntityManager.h"

@@ -170,7 +170,6 @@
     <ClInclude Include="..\Clowns%27 F8\MemLeaks.h" />
     <ClInclude Include="..\Clowns%27 F8\Module.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleAudio.h" />
-    <ClInclude Include="..\Clowns%27 F8\ModuleFadeToBlack.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleInput.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleRender.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleTextures.h" />
@@ -212,7 +211,6 @@
     <ClCompile Include="ModuleFonts.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Main.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleAudio.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\ModuleFadeToBlack.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleInput.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleRender.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleTextures.cpp" />

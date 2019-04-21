@@ -66,9 +66,6 @@
     <ClInclude Include="..\Clowns%27 F8\Animation.h">
       <Filter>Containers</Filter>
     </ClInclude>
-    <ClInclude Include="..\Clowns%27 F8\ModuleFadeToBlack.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleFonts.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -193,9 +190,6 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Main.cpp">
       <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Clowns%27 F8\ModuleFadeToBlack.cpp">
-      <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleFonts.cpp">
       <Filter>Modules</Filter>
