@@ -72,38 +72,40 @@ bool ModuleEntityManager::PreUpdate()
 	
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
-		if ((*entity)->current_turn == Entity::TURN::END_TURN)
-		{
-			(*entity)->current_turn = Entity::TURN::NONE;
-			if (*entity != entities.back())
+		if ((*entity) != nullptr) {
+			if ((*entity)->current_turn == Entity::TURN::END_TURN)
 			{
-				entity++;
-				(*entity)->current_turn = Entity::TURN::SEARCH_MOVE;
+				(*entity)->current_turn = Entity::TURN::NONE;
+				if (*entity != entities.back())
+				{
+					entity++;
+					(*entity)->current_turn = Entity::TURN::SEARCH_MOVE;
+				}
+				else {
+					entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
+				}
 			}
-			else {
-				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
+			if ((*entity)->stunned == true && (*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
+				(*entity)->current_turn = Entity::TURN::END_TURN;
+				(*entity)->stunned = false;
 			}
-		}
-		if ((*entity)->stunned == true && (*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
-			(*entity)->current_turn = Entity::TURN::END_TURN;
-			(*entity)->stunned = false;
-		}
-		if ((*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
-			// Starting Turn
-			(*entity)->current_stats.Mana += 10;
-			(*entity)->defend = false;
+			if ((*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
+				// Starting Turn
+				(*entity)->current_stats.Mana += 10;
+				(*entity)->defend = false;
 
-			// BearTrap
-			if (std::find(enemies.begin(), enemies.end(), (*entity)) != enemies.end()) {
-				for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object) {
-					if ((*object)->GetPosition() == (*entity)->GetPosition()) {
-						(*entity)->current_stats.Hp -= (george_b->current_stats.AtkS - (george_b->current_stats.AtkS * (*entity)->current_stats.DefS / 100));
+				// BearTrap
+				if (std::find(enemies.begin(), enemies.end(), (*entity)) != enemies.end()) {
+					for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object) {
+						if ((*object)->GetPosition() == (*entity)->GetPosition()) {
+							(*entity)->current_stats.Hp -= (george_b->current_stats.AtkS - (george_b->current_stats.AtkS * (*entity)->current_stats.DefS / 100));
+						}
 					}
 				}
 			}
+
+			(*entity)->PreUpdate();
 		}
-		
-		(*entity)->PreUpdate();
 	}
 
 	int w, h;
