@@ -309,10 +309,10 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 
 bool ModuleEntityManager::DeleteEntity(Entity * entity)
 {
-	/*if (std::find(enemies.begin(), enemies.end(), (entity)) != enemies.end()) {
+	if (std::find(enemies.begin(), enemies.end(), (entity)) != enemies.end()) {
 		enemies.remove(entity);
 	}
-	entities.remove(entity);*/
+	entities.remove(entity);
 	entity->CleanUp();
 	entity = nullptr;
 	
