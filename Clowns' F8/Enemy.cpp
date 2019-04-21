@@ -35,8 +35,9 @@ bool Enemy::PreUpdate()
 		}
 
 	}
-	else if (current_animation->Finished()) {
-		App->entity_manager->DeleteEntity(this);
+	else if (current_turn == SEARCH_MOVE)
+	{
+		current_turn = END_TURN;
 	}
 	
 

@@ -247,25 +247,33 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		current_movement = DEAD_LEFT;
 		current_animation = &dead_left;
 		flipX = false;
-		current_state = DEATH;
+		if (current_animation->Finished()) {
+			current_state = DEATH;
+		}
 		break;
 	case Entity::DEAD_RIGHT:
 		current_movement = DEAD_RIGHT;
 		current_animation = &dead_left;
 		flipX = true;
-		current_state = DEATH;
+		if (current_animation->Finished()) {
+			current_state = DEATH;
+		}
 		break;
 	case Entity::DEAD_FRONT:
 		current_movement = DEAD_FRONT;
 		current_animation = &dead_front;
 		flipX = false;
-		current_state = DEATH;
+		if (current_animation->Finished()) {
+			current_state = DEATH;
+		}
 		break;
 	case Entity::DEAD_BACK:
 		current_movement = DEAD_BACK;
 		current_animation = &dead_back;
 		flipX = false;
-		current_state = DEATH;
+		if (current_animation->Finished()) {
+			current_state = DEATH;
+		}
 		break;
 	default:
 		break;
