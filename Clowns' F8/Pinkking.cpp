@@ -86,14 +86,15 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 
 			}
 		}
+
+		else {
+			if (sqrt((nearposition.first - _path->at(0).first)*(nearposition.first - _path->at(0).first) + (nearposition.second - _path->at(0).second)*(nearposition.second - _path->at(0).second)) <= current_stats.RangeAtk)
+				current_turn = SEARCH_ATTACK;
+			else
+				current_turn = END_TURN;
+		}
 	}
 	
-	else {
-		if (sqrt((nearposition.first - _path->at(0).first)*(nearposition.first - _path->at(0).first) + (nearposition.second - _path->at(0).second)*(nearposition.second - _path->at(0).second)) <= current_stats.RangeAtk)
-			current_turn = SEARCH_ATTACK;
-		else
-			current_turn = END_TURN;
-	}
 		
 	
 	LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
