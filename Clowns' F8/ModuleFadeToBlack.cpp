@@ -51,7 +51,7 @@ bool ModuleFadeToBlack::Update(float _dt)
 	case fade_step::fade_from_black:
 	{
 		normalized = 1.0F - normalized;
-
+		
 		if (now >= total_time)
 
 			current_step = fade_step::none;
