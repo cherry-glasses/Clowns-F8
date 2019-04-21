@@ -86,164 +86,171 @@
                     ataque="Floretazo" habilidad_1="Martillazo" habilidad_2="Sombrero sorpresa" habilidad_3="Hora del Jugar"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
-          <frame x="0" y="0" width="64" height="64"/>
-          <frame x="128" y="0" width="64" height="64"/>
+          <frame x="0" y="128" width="110" height="128"/>
+          <frame x="110" y="128" width="110" height="128"/>
         </idle_left_front>
         <idle_right_front speed="0.2f" loop="true">
-          <frame x="64" y="0" width="64" height="64"/>
-          <frame x="192" y="0" width="64" height="64"/>
+          <frame x="220" y="128" width="110" height="128"/>
+          <frame x="330" y="128" width="110" height="128"/>
         </idle_right_front>
         <idle_left_back speed="0.2f" loop="true">
-          <frame x="0" y="64" width="64" height="64"/>
-          <frame x="128" y="64" width="64" height="64"/>
+          <frame x="0" y="0" width="110" height="128"/>
+          <frame x="100" y="0" width="110" height="128"/>
         </idle_left_back>
         <idle_right_back speed="0.2f" loop="true">
-          <frame x="64" y="64" width="64" height="64"/>
-          <frame x="192" y="64" width="64" height="64"/>
+          <frame x="220" y="0" width="110" height="128"/>
+          <frame x="330" y="0" width="110" height="128"/>
         </idle_right_back>
         <idle_left speed="0.2f" loop="true">
-          <frame x="0" y="0" width="64" height="64"/>
-          <frame x="128" y="0" width="64" height="64"/>
+          <frame x="0" y="128" width="110" height="128"/>
+          <frame x="110" y="128" width="110" height="128"/>
         </idle_left>
         <idle_right speed="0.2f" loop="true">
-          <frame x="64" y="0" width="64" height="64"/>
-          <frame x="192" y="0" width="64" height="64"/>
+         <frame x="220" y="128" width="110" height="128"/>
+         <frame x="330" y="128" width="110" height="128"/>
         </idle_right>
         <idle_front speed="0.2f" loop="true">
-          <frame x="0" y="64" width="64" height="64"/>
-          <frame x="128" y="64" width="64" height="64"/>
+         <frame x="0" y="128" width="110" height="128"/>
+         <frame x="110" y="128" width="110" height="128"/>
         </idle_front>
         <idle_back speed="0.2f" loop="true">
-          <frame x="64" y="64" width="64" height="64"/>
-          <frame x="192" y="64" width="64" height="64"/>
+          <frame x="0" y="0" width="110" height="128"/>
+          <frame x="100" y="0" width="110" height="128"/>
         </idle_back>
         <walk_left_front speed="0.2f" loop="true">
-          <frame x="256" y="0" width="64" height="64"/>
+          <frame x="440" y="128" width="110" height="128"/>
+          <frame x="440" y="384" width="110" height="128"/>
         </walk_left_front>
         <walk_right_front speed="0.2f" loop="true">
-          <frame x="320" y="0" width="64" height="64"/>
+          <frame x="550" y="128" width="110" height="128"/>
+          <frame x="550" y="384" width="110" height="128"/>
         </walk_right_front>
         <walk_left_back speed="0.2f" loop="true">
-          <frame x="256" y="64" width="64" height="64"/>
+          <frame x="440" y="0" width="110" height="128"/>
+          <frame x="440" y="256" width="110" height="128"/>
         </walk_left_back>
         <walk_right_back speed="0.2f" loop="true">
-          <frame x="320" y="64" width="64" height="64"/>
+          <frame x="550" y="0" width="110" height="128"/>
+          <frame x="550" y="256" width="110" height="128"/>
         </walk_right_back>
         <walk_left speed="0.2f" loop="true">
-          <frame x="256" y="0" width="64" height="64"/>
+          <frame x="440" y="128" width="110" height="128"/>
+          <frame x="440" y="384" width="110" height="128"/>
         </walk_left>
         <walk_right speed="0.2f" loop="true">
-          <frame x="320" y="0" width="64" height="64"/>
+          <frame x="550" y="128" width="110" height="128"/>
+          <frame x="550" y="384" width="110" height="128"/>
         </walk_right>
         <walk_front speed="0.2f" loop="true">
           <frame x="256" y="64" width="64" height="64"/>
         </walk_front>
         <walk_back speed="0.2f" loop="true">
-          <frame x="320" y="64" width="64" height="64"/>
+          <frame x="440" y="0" width="110" height="128"/>
+          <frame x="440" y="256" width="110" height="128"/>
         </walk_back>
         <attack_left_front speed="0.2f" loop="false">
-          <frame x="0" y="128" width="64" height="64"/>
+          <frame x="220" y="384" width="110" height="128"/>
         </attack_left_front>
         <attack_right_front speed="0.2f" loop="false">
-          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="330" y="384" width="110" height="128"/>
         </attack_right_front>
         <attack_left_back speed="0.2f" loop="false">
-          <frame x="0" y="192" width="64" height="64"/>
+          <frame x="220" y="256" width="110" height="128"/>
         </attack_left_back>
         <attack_right_back speed="0.2f" loop="false">
-          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="330" y="256" width="110" height="128"/>
         </attack_right_back>
         <attack_left speed="0.2f" loop="false">
-          <frame x="0" y="128" width="64" height="64"/>
+          <frame x="220" y="384" width="110" height="128"/>
         </attack_left>
         <attack_right speed="0.2f" loop="false">
-          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="330" y="384" width="110" height="128"/>
         </attack_right>
         <attack_front speed="0.2f" loop="false">
-          <frame x="0" y="192" width="64" height="64"/>
+          <frame x="220" y="384" width="110" height="128"/>
         </attack_front>
         <attack_back speed="0.2f" loop="false">
-          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="220" y="256" width="110" height="128"/>
         </attack_back>
         <ability_1_left_front speed="0.2f" loop="false">
-          <frame x="0" y="128" width="64" height="64"/>
+         <frame x="220" y="384" width="110" height="128"/>
         </ability_1_left_front>
         <ability_1_right_front speed="0.2f" loop="false">
-          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="330" y="384" width="110" height="128"/>
         </ability_1_right_front>
         <ability_1_left_back speed="0.2f" loop="false">
-          <frame x="0" y="192" width="64" height="64"/>
+           <frame x="220" y="256" width="110" height="128"/>
         </ability_1_left_back>
         <ability_1_right_back speed="0.2f" loop="false">
-          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="330" y="256" width="110" height="128"/>
         </ability_1_right_back>
         <ability_1_left speed="0.2f" loop="false">
-          <frame x="0" y="128" width="64" height="64"/>
+         <frame x="220" y="384" width="110" height="128"/>
         </ability_1_left>
         <ability_1_right speed="0.2f" loop="false">
-          <frame x="64" y="128" width="64" height="64"/>
+         <frame x="330" y="384" width="110" height="128"/>
         </ability_1_right>
         <ability_1_front speed="0.2f" loop="false">
-          <frame x="0" y="192" width="64" height="64"/>
+        <frame x="220" y="384" width="110" height="128"/>
         </ability_1_front>
         <ability_1_back speed="0.2f" loop="false">
-          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="220" y="256" width="110" height="128"/>
         </ability_1_back>
         <defend_left_front speed="0.2f" loop="true">
-          <frame x="0" y="0" width="64" height="64"/>
-          <frame x="128" y="0" width="64" height="64"/>
+          <frame x="0" y="128" width="110" height="128"/>
+          <frame x="110" y="128" width="110" height="128"/>
         </defend_left_front>
         <defend_right_front speed="0.2f" loop="true">
-          <frame x="64" y="0" width="64" height="64"/>
-          <frame x="192" y="0" width="64" height="64"/>
+          <frame x="550" y="128" width="110" height="128"/>
+          <frame x="550" y="384" width="110" height="128"/>
         </defend_right_front>
         <defend_left_back speed="0.2f" loop="true">
-          <frame x="0" y="64" width="64" height="64"/>
-          <frame x="128" y="64" width="64" height="64"/>
+          <frame x="440" y="0" width="110" height="128"/>
+          <frame x="440" y="256" width="110" height="128"/>
         </defend_left_back>
         <defend_right_back speed="0.2f" loop="true">
           <frame x="64" y="64" width="64" height="64"/>
           <frame x="192" y="64" width="64" height="64"/>
         </defend_right_back>
         <defend_left speed="0.2f" loop="true">
-          <frame x="0" y="0" width="64" height="64"/>
-          <frame x="128" y="0" width="64" height="64"/>
+          <frame x="0" y="128" width="110" height="128"/>
+          <frame x="110" y="128" width="110" height="128"/>
         </defend_left>
         <defend_right speed="0.2f" loop="true">
-          <frame x="64" y="0" width="64" height="64"/>
-          <frame x="192" y="0" width="64" height="64"/>
+          <frame x="550" y="0" width="110" height="128"/>
+          <frame x="550" y="256" width="110" height="128"/>
         </defend_right>
         <defend_front speed="0.2f" loop="true">
-          <frame x="0" y="64" width="64" height="64"/>
-          <frame x="128" y="64" width="64" height="64"/>
+          <frame x="0" y="128" width="110" height="128"/>
+          <frame x="110" y="128" width="110" height="128"/>
         </defend_front>
         <defend_back speed="0.2f" loop="true">
-          <frame x="64" y="64" width="64" height="64"/>
-          <frame x="192" y="64" width="64" height="64"/>
+          <frame x="440" y="0" width="110" height="128"/>
+          <frame x="440" y="256" width="110" height="128"/>
         </defend_back>
         <dead_left_front speed="0.2f" loop="false">
-          <frame x="128" y="128" width="64" height="64"/>
+          <frame x="550" y="512" width="110" height="128"/>
         </dead_left_front>
         <dead_right_front speed="0.2f" loop="false">
-          <frame x="192" y="128" width="64" height="64"/>
+          <frame x="550" y="512" width="110" height="128"/>
         </dead_right_front>
         <dead_left_back speed="0.2f" loop="false">
-          <frame x="128" y="192" width="64" height="64"/>
+          <frame x="550" y="512" width="110" height="128"/>
         </dead_left_back>
         <dead_right_back speed="0.2f" loop="false">
-          <frame x="192" y="192" width="64" height="64"/>
+          <frame x="550" y="512" width="110" height="128"/>
         </dead_right_back>
         <dead_left speed="0.2f" loop="false">
-          <frame x="128" y="128" width="64" height="64"/>
+          <frame x="550" y="512" width="110" height="128"/>
         </dead_left>
         <dead_right speed="0.2f" loop="false">
-          <frame x="192" y="128" width="64" height="64"/>
+          <frame x="550" y="512" width="110" height="128"/>
         </dead_right>
         <dead_front speed="0.2f" loop="false">
-          <frame x="128" y="192" width="64" height="64"/>
+          <frame x="550" y="512" width="110" height="128"/>
         </dead_front>
         <dead_back speed="0.2f" loop="false">
-          <frame x="192" y="192" width="64" height="64"/>
+          <frame x="550" y="512" width="110" height="128"/>
         </dead_back>
       </animations>
     </sapphire>
