@@ -539,6 +539,30 @@ void Character::Defend()
 	case Entity::IDLE_BACK:
 		CurrentMovement(DEFEND_BACK);
 		break;
+	case Entity::DEFEND_LEFT_FRONT:
+		CurrentMovement(DEFEND_LEFT_FRONT);
+		break;
+	case Entity::DEFEND_RIGHT_FRONT:
+		CurrentMovement(DEFEND_RIGHT_FRONT);
+		break;
+	case Entity::DEFEND_LEFT_BACK:
+		CurrentMovement(DEFEND_LEFT_BACK);
+		break;
+	case Entity::DEFEND_RIGHT_BACK:
+		CurrentMovement(DEFEND_RIGHT_BACK);
+		break;
+	case Entity::DEFEND_LEFT:
+		CurrentMovement(DEFEND_LEFT);
+		break;
+	case Entity::DEFEND_RIGHT:
+		CurrentMovement(DEFEND_RIGHT);
+		break;
+	case Entity::DEFEND_FRONT:
+		CurrentMovement(DEFEND_FRONT);
+		break;
+	case Entity::DEFEND_BACK:
+		CurrentMovement(DEFEND_BACK);
+		break;
 	default:
 		break;
 	}
