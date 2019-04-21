@@ -9,9 +9,11 @@
 #include "ModuleMap.h"
 #include "ModuleFadeToBlack.h"
 #include "Scene.h"
+#include "ModuleTransitionManager.h"
 #include "ModuleEntityManager.h"
 #include "ModuleGUIManager.h"
 #include "ModulePathfinding.h"
+
 
 
 #include "SDL\include\SDL_timer.h"
@@ -26,11 +28,11 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	audio = new ModuleAudio();
 	fonts = new ModuleFonts();
 	map = new ModuleMap();
-	fade_to_black = new ModuleFadeToBlack();
 	scene = new Scene();
 	entity_manager = new ModuleEntityManager();
 	gui_manager = new ModuleGUIManager();
 	pathfinding = new ModulePathfinding();
+	transition_manager = new ModuleTransitionManager();
 	
 
 	// Ordered for awake / Start / Update
@@ -45,7 +47,7 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(entity_manager);
 	AddModule(gui_manager);
-	AddModule(fade_to_black);
+	AddModule(transition_manager);
 
 	// render last to swap buffer
 	AddModule(render);

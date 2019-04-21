@@ -37,12 +37,10 @@ bool ModuleFadeToBlack::Update(float _dt)
 	{
 	case fade_step::fade_to_black:
 	{
+		
 		if (now >= total_time)
 		{
-			App->scene->CleanUp();
-			
-
-			total_time += total_time * _dt;
+			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;
 		}
@@ -50,7 +48,6 @@ bool ModuleFadeToBlack::Update(float _dt)
 
 	case fade_step::fade_from_black:
 	{
-		App->scene->Start();
 		normalized = 1.0F - normalized;
 		
 		if (now >= total_time)
@@ -76,6 +73,9 @@ bool ModuleFadeToBlack::FadeToBlack(float _time)
 		current_step = fade_step::fade_to_black;
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(_time * 0.5f * 1000.0f);
+		
+	}
+	if (current_step == fade_step::fade_from_black) {
 		ret = true;
 	}
 

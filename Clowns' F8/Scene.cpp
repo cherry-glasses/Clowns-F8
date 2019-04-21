@@ -142,11 +142,9 @@ bool Scene::Update(float _dt)
 
 		if (new_game_button->has_been_clicked)
 		{
-			App->fade_to_black->FadeToBlack(5);
 			current_scene = FIRST_BATTLE;
 			DeleteMusic();
 			DeleteMenu();
-			
 		}
 		else if (load_game_button->has_been_clicked)
 		{
@@ -337,6 +335,7 @@ bool Scene::CleanUp()
 	App->textures->UnLoad(main_menu_background);
 	App->textures->UnLoad(options_background);
 	App->textures->UnLoad(credits_page);
+	DeleteMenu();
 	return true;
 }
 

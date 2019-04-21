@@ -34,6 +34,9 @@
     <Filter Include="Entities\Objects">
       <UniqueIdentifier>{151666f6-101a-4119-9320-69153021cc92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Transitions">
+      <UniqueIdentifier>{499715db-c79e-4722-840e-34fa782fd775}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Clowns%27 F8\Application.h">
@@ -156,6 +159,18 @@
     <ClInclude Include="..\Clowns%27 F8\Tree2.h">
       <Filter>Entities\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ModuleTransitionManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Color.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Fade.h">
+      <Filter>Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Transition.h">
+      <Filter>Transitions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -265,6 +280,18 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Tree2.cpp">
       <Filter>Entities\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Color.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ModuleTransitionManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Fade.cpp">
+      <Filter>Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Transition.cpp">
+      <Filter>Transitions</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
