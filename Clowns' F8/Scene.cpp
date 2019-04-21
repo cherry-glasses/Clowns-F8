@@ -622,7 +622,7 @@ void Scene::CreateMusic()
 	case Scene::GLOBAL_MAP:
 		break;
 	case Scene::FIRST_BATTLE:
-		App->audio->PlayMusic("Map_1_Song_PlaceHolder.ogg");
+		App->audio->PlayMusic("Batalla_1_Song.ogg");
 		break;
 	case Scene::SECOND_BATTLE:
 		break;
