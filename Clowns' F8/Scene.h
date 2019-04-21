@@ -78,9 +78,9 @@ private:
 	void NavigateUp();
 	void ControlLanguageAndMusic();
 
-	
-	
-
+	//Win and Lose
+	void Win();
+	void Lose()
 
 private:
 	SDL_Texture* main_menu_background = nullptr;

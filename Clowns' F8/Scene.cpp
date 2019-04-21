@@ -845,6 +845,9 @@ void Scene::UpdateEnemyPortraits(Entity* _enemy, int _i)
 
 void Scene::UpdateCharacters()
 {
+	if (App->entity_manager->characters.empty()) {
+		Lose();
+	}
 	int i = 0;
 	for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 	{
@@ -880,7 +883,7 @@ void Scene::UpdateCharacters()
 void Scene::UpdateEnemies()
 {
 	if (App->entity_manager->enemies.empty()) {
-
+		Win();
 	}
 	int i = 0;
 	bool change = false;
@@ -1091,4 +1094,16 @@ void Scene::ControlLanguageAndMusic()
 		App->audio->VolumeDown();
 		volume_down_button->Select(SELECTED);
 	}
+}
+
+
+// Win and Lose-------------------------------------------------------------------
+void Scene::Win()
+{
+
+}
+
+void Scene::Lose()
+{
+
 }
