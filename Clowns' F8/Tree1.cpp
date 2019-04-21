@@ -11,22 +11,22 @@ Tree1::Tree1(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Object(_typ
 	entity_texture = App->textures->Load("Assets/Sprites/Objects/tree_1.png");
 	switch (_copy) {
 	case 0:
-		position = App->map->MapToWorld(4, 24);
+		position = App->map->MapToWorld(3, 24);
 		break;
 	case 1:
-		position = App->map->MapToWorld(1, 15);
+		position = App->map->MapToWorld(0, 15);
 		break;
 	case 2:
-		position = App->map->MapToWorld(1, 13);
+		position = App->map->MapToWorld(0, 13);
 		break;
 	case 3:
-		position = App->map->MapToWorld(1, 11);
+		position = App->map->MapToWorld(0, 11);
 		break;
 	case 4:
-		position = App->map->MapToWorld(1, 9);
+		position = App->map->MapToWorld(0, 9);
 		break;
 	case 5:
-		position = App->map->MapToWorld(1, 7);
+		position = App->map->MapToWorld(0, 7);
 		break;
 
 	default:
