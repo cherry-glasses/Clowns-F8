@@ -278,7 +278,7 @@ void Character::Attack()
 		CurrentMovement(ATTACK_RIGHT);
 	}
 	else {
-		CurrentMovement(ATTACK_LEFT_FRONT);
+		CurrentMovement(ATTACK_RIGHT_FRONT);
 	}
 
 	// Ending attack and start idle animation
