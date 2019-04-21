@@ -685,7 +685,7 @@
         </idle_left_front>
         <idle_right_front speed="0.2f" loop="true">
           <frame x="200" y="100" width="100" height="100"/>
-          <frame x="300" y="1000" width="100" height="100"/>
+          <frame x="300" y="100" width="100" height="100"/>
         </idle_right_front>
         <idle_left_back speed="0.2f" loop="true">
           <frame x="0" y="0" width="100" height="100"/>
@@ -731,25 +731,25 @@
         <attack_right_back speed="0.2f" loop="false">
           <frame x="300" y="200" width="100" height="100"/>
         </attack_right_back>
-        <dead_left_front speed="0" loop="true">
+        <dead_left_front speed="0.2" loop="false">
           <frame x="100" y="400" width="100" height="100"/>
           <frame x="200" y="400" width="100" height="100"/>
           <frame x="300" y="400" width="100" height="100"/>
           <frame x="400" y="400" width="100" height="100"/>
         </dead_left_front>
-        <dead_right_front speed="0" loop="true">
+        <dead_right_front speed="0.2" loop="false">
           <frame x="100" y="400" width="100" height="100"/>
           <frame x="200" y="400" width="100" height="100"/>
           <frame x="300" y="400" width="100" height="100"/>
           <frame x="400" y="400" width="100" height="100"/>
         </dead_right_front>
-        <dead_left_back speed="0" loop="true">
+        <dead_left_back speed="0.2" loop="false">
           <frame x="100" y="400" width="100" height="100"/>
           <frame x="200" y="400" width="100" height="100"/>
           <frame x="300" y="400" width="100" height="100"/>
           <frame x="400" y="400" width="100" height="100"/>
         </dead_left_back>
-        <dead_right_back speed="0" loop="true">
+        <dead_right_back speed="0.2" loop="false">
           <frame x="100" y="400" width="100" height="100"/>
           <frame x="200" y="400" width="100" height="100"/>
           <frame x="300" y="400" width="100" height="100"/>
