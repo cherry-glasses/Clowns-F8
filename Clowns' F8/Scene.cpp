@@ -10,6 +10,7 @@
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
 #include "Scene.h"
+#include "ModuleFadeToBlack.h"
 #include "ModuleEntityManager.h"
 #include "ModuleWindow.h"
 #include <string.h>
@@ -141,9 +142,11 @@ bool Scene::Update(float _dt)
 
 		if (new_game_button->has_been_clicked)
 		{
+			App->fade_to_black->FadeToBlack(5);
 			current_scene = FIRST_BATTLE;
 			DeleteMusic();
 			DeleteMenu();
+			
 		}
 		else if (load_game_button->has_been_clicked)
 		{
