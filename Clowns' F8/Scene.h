@@ -45,18 +45,41 @@ public:
 	bool Save(pugi::xml_node& data) const;
 
 private:
+
+	// Creates
 	void CreateMainMenu();
-	void DeleteMenu();
 	void CreateMMOptions();
-	void CreateOptionsIngame();
-	void DeleteOptionsIngame();
+	void CreateMMCredits();
 	void CreateMMControls();
-	void CreatePortraits(Entity* _character, int _i);
-	void CreateEnemyPortraits(Entity* _enemy, int _i);
+	void CreateOptionsIngame();
+	void CreateMusic();
+	void CreateFirstBattle();
+	void CreateUIBattle();
+	void CreateAtackMenu();
+	void CreateAbilitiesMenu();
+
+	// Updates
+	void UpdateCharacters();
+	void UpdateEnemies();
+	void UpdateCharacterPortraits(Entity* _character, int _i);
+	void UpdateEnemyPortraits(Entity* _enemy, int _i);
+
+	// Deletes
+	void DeleteMenu();
+	void DeleteOptionsIngame();
+	void DeleteMusic();
+	void DeleteAtackMenu();
+	void DeleteAbilitiesMenu();
+	
+	// Navigation
 	void ActionsMenu();
 	void Navigate();
 	void NavigateDown();
 	void NavigateUp();
+	void ControlLanguageAndMusic();
+
+	
+	
 
 
 private:
@@ -81,7 +104,7 @@ private:
 	bool mm_credits_created = false;
 	bool mm_controls_menu_created = false;
 	bool ability_menu_created = false;
-	bool map_loaded = false;
+	bool first_battle_created = false;
 	bool portraits_created = false;
 	bool action_menu_created = false;
 	bool ingame_options_menu_created = false;
@@ -178,7 +201,6 @@ private:
 
 public:
 	bool language = true; //true = English; false = Spanish
-	bool resume_game = true;
 
 	enum SCENES { MAIN_MENU, GLOBAL_MAP, MM_OPTIONS, MM_CONTROLS, MM_CREDITS, FIRST_BATTLE, SECOND_BATTLE, THIRD_BATTLE, FOURTH_BATTLE };
 	SCENES current_scene = MAIN_MENU;

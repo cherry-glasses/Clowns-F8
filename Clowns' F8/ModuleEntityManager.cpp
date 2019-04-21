@@ -117,12 +117,9 @@ bool ModuleEntityManager::PreUpdate()
 bool ModuleEntityManager::Update(float _dt)
 {
 	if (!paused) {
-		if (App->scene->resume_game)
+		for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 		{
-			for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
-			{
-				(*entity)->Update(_dt);
-			}
+			(*entity)->Update(_dt);
 		}
 	}
 	
