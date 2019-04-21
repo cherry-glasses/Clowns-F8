@@ -879,6 +879,9 @@ void Scene::UpdateCharacters()
 
 void Scene::UpdateEnemies()
 {
+	if (App->entity_manager->enemies.empty()) {
+
+	}
 	int i = 0;
 	bool change = false;
 	for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
