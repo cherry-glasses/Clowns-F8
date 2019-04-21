@@ -27,7 +27,7 @@ bool Object::PostUpdate()
 {
 	if (entity_texture != nullptr)
 	{
-		App->render->Blit(entity_texture, position.first, position.second);
+		App->render->Blit(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second);
 	}
 
 	return true;

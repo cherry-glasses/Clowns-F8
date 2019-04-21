@@ -168,6 +168,9 @@
     <ClInclude Include="..\Clowns%27 F8\Transition.h">
       <Filter>Transitions</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Tree3.h">
+      <Filter>Entities\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -286,6 +289,9 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Transition.cpp">
       <Filter>Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Tree3.cpp">
+      <Filter>Entities\Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

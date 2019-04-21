@@ -20,7 +20,7 @@ Tree2::Tree2(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Object(_typ
 		position = App->map->MapToWorld(3, 24);
 		break;
 	case 3:
-		position = App->map->MapToWorld(1, 21);
+		position = App->map->MapToWorld(1, 22);
 		break;
 	case 4:
 		position = App->map->MapToWorld(1, 14);
@@ -34,8 +34,7 @@ Tree2::Tree2(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Object(_typ
 	default:
 		break;
 	}
-	position.first -= 128/2 ;
-	position.second -= 118;
+	current = { 0 , 0, 128, 128 };
 }
 Tree2::~Tree2()
 {

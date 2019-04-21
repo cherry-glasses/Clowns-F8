@@ -6,7 +6,7 @@
 
 BearTrap::BearTrap(ENTITY_TYPE _type, pugi::xml_node _config) : Object(_type, _config)
 {
-	entity_texture = App->textures->Load("Assets/Sprites/Objects/tree_1.png");
+	entity_texture = App->textures->Load("Assets/Sprites/Objects/bear_trap.png");
 }
 BearTrap::~BearTrap()
 {

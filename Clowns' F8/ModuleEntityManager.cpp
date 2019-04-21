@@ -13,6 +13,7 @@
 #include "Hotdog.h"
 #include "Tree1.h"
 #include "Tree2.h"
+#include "Tree3.h"
 #include "BearTrap.h"
 #include "ModulePathfinding.h"
 #include "ModuleMap.h"
@@ -279,7 +280,7 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
 		break;
 	case ENTITY_TYPE::ENTITY_OBJECT_TREE1:
-		for (int i = 0; i < 21; i++)
+		for (int i = 0; i < 6; i++)
 		{
 			tmp = new Tree1(_type, entity_configs.child("tree1"), i);
 			entities.push_back(tmp);
@@ -290,6 +291,14 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		for (int i = 0; i < 7; i++)
 		{
 			tmp = new Tree2(_type, entity_configs.child("tree2"), i);
+			entities.push_back(tmp);
+			objects.push_back(tmp);
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_TREE3:
+		for (int i = 0; i < 15; i++)
+		{
+			tmp = new Tree3(_type, entity_configs.child("tree3"), i);
 			entities.push_back(tmp);
 			objects.push_back(tmp);
 		}
