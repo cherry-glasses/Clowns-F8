@@ -1,1 +1,0 @@
-The sprites are set in 100-pixel squares
