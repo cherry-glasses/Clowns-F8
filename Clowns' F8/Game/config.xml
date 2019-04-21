@@ -209,8 +209,8 @@
           <frame x="440" y="256" width="110" height="128"/>
         </defend_left_back>
         <defend_right_back speed="0.2f" loop="true">
-          <frame x="64" y="64" width="64" height="64"/>
-          <frame x="192" y="64" width="64" height="64"/>
+          <frame x="220" y="0" width="110" height="128"/>
+          <frame x="330" y="0" width="110" height="128"/>
         </defend_right_back>
         <defend_left speed="0.2f" loop="true">
           <frame x="0" y="128" width="110" height="128"/>
