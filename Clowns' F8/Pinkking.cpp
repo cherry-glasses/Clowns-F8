@@ -4,6 +4,7 @@
 #include "ModulePathfinding.h"
 #include "ModuleRender.h"
 #include "ModuleMap.h"
+#include "Log.h"
 
 
 Pinkking::Pinkking(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
@@ -46,44 +47,47 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 			App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_green);
 		}
 	}
-	if (!App->pathfinding->IsUsed(_path->at(1), this)) {
-		if (_path->size() > 1)
-		{
-			objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
-		}
-
-		if (sqrt((nearposition.first - _path->at(0).first)*(nearposition.first - _path->at(0).first) + (nearposition.second - _path->at(0).second)*(nearposition.second - _path->at(0).second)) > current_stats.RangeAtk) {
-			if (_path->at(0).first >= _path->at(1).first && _path->at(0).second <= _path->at(1).second) {
-				CurrentMovement(WALK_LEFT);
+	if (_path->size() > 1) {
+		if (!App->pathfinding->IsUsed(_path->at(1), this)) {
+			if (_path->size() > 1)
+			{
+				objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
 			}
-			else if (_path->at(0).first >= _path->at(1).first && _path->at(0).second >= _path->at(1).second) {
-				CurrentMovement(WALK_BACK);
-			}
-			else if (_path->at(0).first <= _path->at(1).first && _path->at(0).second <= _path->at(1).second) {
-				CurrentMovement(WALK_FRONT);
-			}
-			else if (_path->at(0).first <= _path->at(1).first && _path->at(0).second >= _path->at(1).second) {
-				CurrentMovement(WALK_RIGHT);
-			}
-			current_turn = MOVE;
-		}
-		else {
-			current_turn = SEARCH_ATTACK;
-			//current_turn = END_TURN;
-		}
 
-
-		if ((objective_position.back().first == position.first && objective_position.back().second == position.second) || (objective_position.back().first == position.first && objective_position.back().second == position.second)) {
-			//CurrentMovement(IDLE_LEFT_FRONT);
-
-			if (sqrt((nearposition.first - _path->at(0).first)*(nearposition.first - _path->at(0).first) + (nearposition.second - _path->at(0).second)*(nearposition.second - _path->at(0).second)) <= current_stats.RangeAtk)
+			if (sqrt((nearposition.first - _path->at(0).first)*(nearposition.first - _path->at(0).first) + (nearposition.second - _path->at(0).second)*(nearposition.second - _path->at(0).second)) > current_stats.RangeAtk) {
+				if (_path->at(0).first >= _path->at(1).first && _path->at(0).second <= _path->at(1).second) {
+					CurrentMovement(WALK_LEFT);
+				}
+				else if (_path->at(0).first >= _path->at(1).first && _path->at(0).second >= _path->at(1).second) {
+					CurrentMovement(WALK_BACK);
+				}
+				else if (_path->at(0).first <= _path->at(1).first && _path->at(0).second <= _path->at(1).second) {
+					CurrentMovement(WALK_FRONT);
+				}
+				else if (_path->at(0).first <= _path->at(1).first && _path->at(0).second >= _path->at(1).second) {
+					CurrentMovement(WALK_RIGHT);
+				}
+				current_turn = MOVE;
+			}
+			else {
 				current_turn = SEARCH_ATTACK;
-			else
-				current_turn = END_TURN;
+				//current_turn = END_TURN;
+			}
 
 
+			if ((objective_position.back().first == position.first && objective_position.back().second == position.second) || (objective_position.back().first == position.first && objective_position.back().second == position.second)) {
+				//CurrentMovement(IDLE_LEFT_FRONT);
+
+				if (sqrt((nearposition.first - _path->at(0).first)*(nearposition.first - _path->at(0).first) + (nearposition.second - _path->at(0).second)*(nearposition.second - _path->at(0).second)) <= current_stats.RangeAtk)
+					current_turn = SEARCH_ATTACK;
+				else
+					current_turn = END_TURN;
+
+
+			}
 		}
 	}
+	
 	else {
 		if (sqrt((nearposition.first - _path->at(0).first)*(nearposition.first - _path->at(0).first) + (nearposition.second - _path->at(0).second)*(nearposition.second - _path->at(0).second)) <= current_stats.RangeAtk)
 			current_turn = SEARCH_ATTACK;
@@ -92,7 +96,7 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 	}
 		
 	
-	//LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
+	LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
 	
 		
 }
