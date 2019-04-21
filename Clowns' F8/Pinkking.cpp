@@ -74,7 +74,7 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 
 
 		if ((objective_position.back().first == position.first && objective_position.back().second == position.second) || (objective_position.back().first == position.first && objective_position.back().second == position.second)) {
-			CurrentMovement(IDLE_LEFT_FRONT);
+			//CurrentMovement(IDLE_LEFT_FRONT);
 
 			if (sqrt((nearposition.first - _path->at(0).first)*(nearposition.first - _path->at(0).first) + (nearposition.second - _path->at(0).second)*(nearposition.second - _path->at(0).second)) <= current_stats.RangeAtk)
 				current_turn = SEARCH_ATTACK;
@@ -112,10 +112,10 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 	objective_position.push_back(car);
 
 
-	CurrentMovement(ATTACK_LEFT_FRONT);
+	CurrentMovement(ATTACK_FRONT);
 	if (current_animation->Finished()) {
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
-		CurrentMovement(IDLE_LEFT_FRONT);
+		CurrentMovement(WALK_LEFT);
 		current_turn = END_TURN;
 	}
 
@@ -163,7 +163,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::IDLE_RIGHT:
 		current_movement = IDLE_RIGHT;
-		current_animation = &idle_right_front;
+		current_animation = &idle_left;
 		flipX = true;
 		break;
 	case Entity::IDLE_FRONT:
@@ -184,7 +184,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::WALK_RIGHT:
 		current_movement = WALK_RIGHT;
-		current_animation = &walk_right;
+		current_animation = &walk_left;
 		position.first++ ;
 		flipX = true;
 		break;
@@ -207,7 +207,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::ATTACK_RIGHT:
 		current_movement = ATTACK_RIGHT;
-		current_animation = &attack_right;
+		current_animation = &attack_left;
 		flipX = true;
 		break;
 	case Entity::ATTACK_FRONT:
@@ -228,7 +228,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::ABILITY_1_RIGHT:
 		current_movement = ABILITY_1_RIGHT;
-		current_animation = &ability_1_right;
+		current_animation = &ability_1_left;
 		flipX = true;
 		current_turn = END_TURN;
 		break;
@@ -251,7 +251,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::DEAD_RIGHT:
 		current_movement = DEAD_RIGHT;
-		current_animation = &dead_right;
+		current_animation = &dead_left;
 		flipX = true;
 		current_state = DEATH;
 		break;
