@@ -164,6 +164,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 	case Entity::IDLE_RIGHT_FRONT:
 		current_movement = IDLE_RIGHT_FRONT;
 		current_animation = &idle_right_front;
+		flipX = true;
 		break;
 	case Entity::IDLE_LEFT_BACK:
 		current_movement = IDLE_LEFT_BACK;
@@ -184,6 +185,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &walk_right_front;
 		position.first += 2;
 		position.second++;
+		flipX = true;
 		break;
 	case Entity::WALK_LEFT_BACK:
 		current_movement = WALK_LEFT_BACK;
@@ -206,6 +208,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		current_movement = WALK_RIGHT;
 		current_animation = &walk_right;
 		position.first++ ;
+		flipX = true;
 		break;
 	case Entity::WALK_FRONT:
 		current_movement = WALK_FRONT;

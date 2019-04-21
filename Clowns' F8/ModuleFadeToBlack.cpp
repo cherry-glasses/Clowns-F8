@@ -40,7 +40,7 @@ bool ModuleFadeToBlack::Update(float _dt)
 		if (now >= total_time)
 		{
 			App->scene->CleanUp();
-			App->scene->Start();
+			
 
 			total_time += total_time * _dt;
 			start_time = SDL_GetTicks();
@@ -50,16 +50,17 @@ bool ModuleFadeToBlack::Update(float _dt)
 
 	case fade_step::fade_from_black:
 	{
+		App->scene->Start();
 		normalized = 1.0F - normalized;
 		
 		if (now >= total_time)
-
+			
 			current_step = fade_step::none;
 	} break;
 	}
 
 	// Finally render the black square with alpha on the screen
-	SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, (Uint8)(normalized * 255.0F));
+	SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 255, (Uint8)(normalized * 255.0F));
 	SDL_RenderFillRect(App->render->renderer, &screen);
 
 	return true;

@@ -42,10 +42,10 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	AddModule(fonts);
 	AddModule(map);
 	AddModule(pathfinding);
-	AddModule(fade_to_black);
 	AddModule(scene);
 	AddModule(entity_manager);
 	AddModule(gui_manager);
+	AddModule(fade_to_black);
 
 	// render last to swap buffer
 	AddModule(render);
