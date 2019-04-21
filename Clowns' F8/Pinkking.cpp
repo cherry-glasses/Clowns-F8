@@ -4,7 +4,7 @@
 #include "ModulePathfinding.h"
 #include "ModuleRender.h"
 #include "ModuleMap.h"
-#include "Log.h"
+
 
 
 Pinkking::Pinkking(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
@@ -76,7 +76,7 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 
 
 			if ((objective_position.back().first == position.first && objective_position.back().second == position.second) || (objective_position.back().first == position.first && objective_position.back().second == position.second)) {
-				//CurrentMovement(IDLE_LEFT_FRONT);
+				CurrentMovement(IDLE_LEFT);
 
 				if (sqrt((nearposition.first - _path->at(0).first)*(nearposition.first - _path->at(0).first) + (nearposition.second - _path->at(0).second)*(nearposition.second - _path->at(0).second)) <= current_stats.RangeAtk)
 					current_turn = SEARCH_ATTACK;
@@ -95,9 +95,15 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 		}
 	}
 	
+	else {
+		if (sqrt((nearposition.first - _path->at(0).first)*(nearposition.first - _path->at(0).first) + (nearposition.second - _path->at(0).second)*(nearposition.second - _path->at(0).second)) <= current_stats.RangeAtk)
+			current_turn = SEARCH_ATTACK;
+		else
+			current_turn = END_TURN;
+	}
 		
 	
-	LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
+	//LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
 	
 		
 }
@@ -120,7 +126,7 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 	CurrentMovement(ATTACK_FRONT);
 	if (current_animation->Finished()) {
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
-		CurrentMovement(WALK_LEFT);
+		CurrentMovement(IDLE_LEFT);
 		current_turn = END_TURN;
 	}
 
