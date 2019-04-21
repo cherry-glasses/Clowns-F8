@@ -145,8 +145,9 @@ void Pinkking::Ability_1()
 		App->entity_manager->ThrowAttack(objective_position, dmg, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_movment = IDLE_LEFT_FRONT;
 		current_turn = END_TURN;
+		
 	}*/
-
+	
 	App->entity_manager->ThrowAttack(objective_position, dmg, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 	current_turn = END_TURN;
 	// blit de la sombra en esa posicion

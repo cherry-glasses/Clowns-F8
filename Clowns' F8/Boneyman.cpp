@@ -127,7 +127,13 @@ void Boneyman::Attack(const std::vector<std::pair<int, int>> *_path)
 		}
 
 		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+			if (_path->at(0).first % 2 == 1) {
+				current_stats.Mana -= 25;
+				App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF*1.5, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+			}
+			else
+				App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+			
 			if (current_movement == ATTACK_LEFT_FRONT)
 			{
 				CurrentMovement(IDLE_LEFT_FRONT);
