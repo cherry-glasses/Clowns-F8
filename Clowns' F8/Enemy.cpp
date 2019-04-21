@@ -116,5 +116,9 @@ void Enemy::Die()
 	{
 		CurrentMovement(DEAD_RIGHT_BACK);
 	}
+
+	if (current_animation->Finished()) {
+		App->entity_manager->DeleteEntity(this);
+	}
 }
 
