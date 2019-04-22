@@ -69,10 +69,10 @@ bool ModuleEntityManager::PreUpdate()
 			starting = false;
 		}
 	}
-	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
+	for (std::list<Entity*>::iterator enemy = enemies.begin(); enemy != enemies.end(); ++enemy)
 	{
-		if ((*entity)->current_state == Entity::STATE::DEATH) {
-			App->entity_manager->DeleteEntity((*entity));
+		if ((*enemy)->current_state == Entity::STATE::DEATH) {
+			App->entity_manager->DeleteEntity((*enemy));
 			break;
 		}
 	}
