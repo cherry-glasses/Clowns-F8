@@ -107,6 +107,7 @@ bool Scene::Start()
 	options_background = App->textures->Load("Assets/Sprites/UI/4259708641.png");
 	credits_page = App->textures->Load("Assets/Sprites/UI/credits_done.png");
 	map_level_1 = App->textures->Load("Assets/Maps/map_level_1.png");
+	grid_level_1 = App->textures->Load("Assets/Maps/grid_level_1.png");
 
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
@@ -313,6 +314,7 @@ bool Scene::Update(float _dt)
 				}
 			}
 			App->render->Blit(map_level_1,0 - (screen_width / 2) , 0 - (screen_height/8));
+			App->render->Blit(grid_level_1, 0 - (screen_width / 2), 0 - (screen_height / 8));
 			App->map->Draw();
 		}
 		

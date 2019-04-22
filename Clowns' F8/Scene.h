@@ -87,6 +87,7 @@ private:
 	SDL_Texture* options_background = nullptr;
 	SDL_Texture* credits_page = nullptr;
 	SDL_Texture* map_level_1 = nullptr;
+	SDL_Texture* grid_level_1 = nullptr;
 
 	SDL_Rect button;
 	SDL_Rect small_button;
