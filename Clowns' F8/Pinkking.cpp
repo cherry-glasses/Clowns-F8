@@ -130,9 +130,9 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 	if (current_animation->Finished()) {
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		if (current_movement == ATTACK_FRONT)
-			CurrentMovement(IDLE_LEFT);
-		else
 			CurrentMovement(IDLE_RIGHT);
+		else
+			CurrentMovement(IDLE_LEFT);
 		current_turn = END_TURN;
 	}
 

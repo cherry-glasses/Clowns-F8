@@ -113,10 +113,23 @@ void Enemy::Die()
 	{
 		CurrentMovement(DEAD_LEFT_BACK);
 	}
+	else if (current_movement == IDLE_BACK) {
+		CurrentMovement(DEAD_BACK);
+	}
+	else if (current_movement == IDLE_FRONT) {
+		CurrentMovement(DEAD_FRONT);
+	}
+	else if (current_movement == IDLE_RIGHT) {
+		CurrentMovement(DEAD_RIGHT);
+	}
+	else if (current_movement == IDLE_LEFT) {
+		CurrentMovement(DEAD_LEFT);
+	}
 	else
 	{
 		CurrentMovement(DEAD_RIGHT_BACK);
 	}
+
 
 }
 
