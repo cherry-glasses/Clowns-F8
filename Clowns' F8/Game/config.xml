@@ -142,7 +142,8 @@
           <frame x="550" y="384" width="110" height="128"/>
         </walk_right>
         <walk_front speed="0.2f" loop="true">
-          <frame x="256" y="64" width="64" height="64"/>
+          <frame x="440" y="128" width="110" height="128"/>
+          <frame x="440" y="384" width="110" height="128"/>
         </walk_front>
         <walk_back speed="0.2f" loop="true">
           <frame x="440" y="0" width="110" height="128"/>
