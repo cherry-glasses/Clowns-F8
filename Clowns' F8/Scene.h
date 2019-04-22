@@ -196,9 +196,11 @@ private:
 	std::list<GUIButton*> buttons;
 	std::list<GUIButton*> buttons2;
 	std::vector<GUIImage*> stun_image;
+	std::vector<GUIImage*> enemy_stun_image;
 	std::vector<GUIImage*> defense_image;
 	std::vector<bool> defense_image_created;
 	std::vector<bool> stun_image_created;
+	std::vector<bool> enemy_stun_image_created;
 	std::vector<bool> turn_created;
 	std::string	press_fx_name = "";
 

@@ -696,6 +696,8 @@ void Scene::CreateUIBattle()
 	i = 0;
 	for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
 	{
+		enemy_stun_image.push_back(nullptr);
+		enemy_stun_image_created.push_back(false);
 		enemies_life_position.push_back((*enemy)->GetPosition());
 		enemies_life_x.push_back((64 * (*enemy)->current_stats.Hp) / (*enemy)->default_stats.Hp);
 		enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, enemies_life_position.at(i).first, enemies_life_position.at(i).second + (*enemy)->position_margin.second, { 0, 58, enemies_life_x.at(i) , 5 }));
@@ -887,6 +889,16 @@ void Scene::UpdateEnemies()
 			if (!change) change = true;
 			UpdateEnemyPortraits(*enemy, i);
 		}
+		if ((*enemy)->stunned && !enemy_stun_image_created.at(i))
+		{
+			enemy_stun_image.at(i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, (*enemy)->GetPosition().first + 70, (*enemy)->GetPosition().second + (*enemy)->position_margin.second - 5, { 0, 115, 16, 16 });
+			enemy_stun_image_created.at(i) = true;
+		}
+		else if (!(*enemy)->stunned && enemy_stun_image_created.at(i))
+		{
+			App->gui_manager->DeleteGUIElement(enemy_stun_image.at(i));
+			enemy_stun_image_created.at(i) = false;
+		}
 		++i;
 	}
 	if (change)
@@ -957,6 +969,8 @@ void Scene::DeleteMenu()
 	defense_image.clear();
 	stun_image_created.clear();
 	defense_image_created.clear();
+	enemy_stun_image_created.clear();
+	enemy_stun_image.clear();
 
 	App->map->CleanUp();
 	App->entity_manager->CleanUp();
