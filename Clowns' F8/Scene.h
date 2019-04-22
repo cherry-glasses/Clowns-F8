@@ -108,6 +108,7 @@ private:
 	bool portraits_created = false;
 	bool action_menu_created = false;
 	bool ingame_options_menu_created = false;
+	
 	//Main menu UI
 	GUIButton* cherry_glasses_logo_button = nullptr;
 
@@ -197,6 +198,7 @@ private:
 	std::vector<GUIImage*> defense_image;
 	std::vector<bool> defense_image_created;
 	std::vector<bool> stun_image_created;
+	std::vector<bool> turn_created;
 	std::string	press_fx_name = "";
 
 public:
