@@ -1074,28 +1074,59 @@ void Scene::NavigateUp()
 
 void Scene::ControlLanguageAndMusic()
 {
-	if (english_button->has_been_clicked)
+	switch (current_scene)
 	{
-		if (!language)
+	case Scene::MM_OPTIONS:
+		if (english_button->has_been_clicked)
 		{
-			language = true;
-			DeleteOptionsIngame();
-			CreateOptionsIngame();
+			if (!language)
+			{
+				language = true;
+				DeleteMenu();
+				CreateMenu();
+			}
+			english_button->Select(SELECTED);
 		}
-		english_button->Select(SELECTED);
-	}
-	else if (spanish_button->has_been_clicked)
-	{
-		if (language)
+		else if (spanish_button->has_been_clicked)
 		{
-			language = false;
-			DeleteOptionsIngame();
-			CreateOptionsIngame();
-			spanish_button->Select(NORMAL);
+			if (language)
+			{
+				language = false;
+				DeleteMenu();
+				CreateMenu();
+				spanish_button->Select(NORMAL);
+			}
+			else spanish_button->Select(SELECTED);
 		}
-		else spanish_button->Select(SELECTED);
+		break;
+	case Scene::FIRST_BATTLE:
+		if (english_button->has_been_clicked)
+		{
+			if (!language)
+			{
+				language = true;
+				DeleteOptionsIngame();
+				CreateOptionsIngame();
+			}
+			english_button->Select(SELECTED);
+		}
+		else if (spanish_button->has_been_clicked)
+		{
+			if (language)
+			{
+				language = false;
+				DeleteOptionsIngame();
+				CreateOptionsIngame();
+				spanish_button->Select(NORMAL);
+			}
+			else spanish_button->Select(SELECTED);
+		}
+		break;
+	default:
+		break;
 	}
-	else if (volume_up_button->has_been_clicked)
+	
+	if (volume_up_button->has_been_clicked)
 	{
 		App->audio->VolumeUp();
 		volume_up_button->Select(SELECTED);
