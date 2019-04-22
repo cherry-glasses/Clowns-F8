@@ -48,20 +48,17 @@ bool ModuleEntityManager::Start()
 	return true;
 }
 
-bool CompareByPosition(Entity* first, Entity* second) {
-	return (first->GetPosition().second < second->GetPosition().second);
-}
 
-bool CompareByAgility(Entity* first, Entity* second) {
-	return (first->current_stats.Agi > second->current_stats.Agi);
-}
+
+
+
 
 // Called each loop iteration
 bool ModuleEntityManager::PreUpdate()
 {
 	if (entities.size() > 1) 
 	{
-		entities.sort(CompareByAgility);
+		OrderEntitiesByAgility();
 		if (starting) 
 		{
 			Entity *entityfirst = entities.front();
@@ -141,7 +138,7 @@ bool ModuleEntityManager::PostUpdate()
 	if (!paused) {
 		if (entities.size() > 1)
 		{
-			entities.sort(CompareByPosition);
+			OrderEntitiesByPosition();
 		}
 		for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 		{
@@ -191,6 +188,26 @@ bool ModuleEntityManager::Load(pugi::xml_node & _data)
 bool ModuleEntityManager::Save(pugi::xml_node & _data) const
 {
 	return true;
+}
+
+bool CompareByAgility(Entity* first, Entity* second) {
+	return (first->current_stats.Agi > second->current_stats.Agi);
+}
+bool CompareByPosition(Entity* first, Entity* second) {
+	return (first->GetPosition().second < second->GetPosition().second);
+}
+
+void ModuleEntityManager::OrderEntitiesByAgility() {
+	entities.sort(CompareByAgility);
+	characters.sort(CompareByAgility);
+	enemies.sort(CompareByAgility);
+	objects.sort(CompareByAgility);
+}
+void ModuleEntityManager::OrderEntitiesByPosition() {
+	entities.sort(CompareByPosition);
+	characters.sort(CompareByPosition);
+	enemies.sort(CompareByPosition);
+	objects.sort(CompareByPosition);
 }
 
 std::pair<int, int> ModuleEntityManager::NearestCharacter(std::pair<int, int> myposition){

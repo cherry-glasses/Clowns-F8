@@ -35,6 +35,8 @@ public:
 	// Entity Manager
 	Entity* CreateEntity(ENTITY_TYPE type);
 	bool DeleteEntity(Entity* entity);
+	void OrderEntitiesByAgility();
+	void OrderEntitiesByPosition();
 	std::pair<int,int> NearestCharacter(std::pair<int, int> myposition);
 
 	std::pair<int, int> CharactersPrioritzationAttack(std::pair<int, int>* AttackRange, int AttackRangeint);
