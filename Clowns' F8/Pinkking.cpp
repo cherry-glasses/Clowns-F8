@@ -122,11 +122,17 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 	std::pair<int, int> car = App->entity_manager->CharactersPrioritzationAttack(range, tiles_range_attk);
 	objective_position.push_back(car);
 
+	if (car.first > pos.first)
+		CurrentMovement(ATTACK_FRONT);
+	else 
+		CurrentMovement(ATTACK_BACK);
 
-	CurrentMovement(ATTACK_FRONT);
 	if (current_animation->Finished()) {
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
-		CurrentMovement(IDLE_LEFT);
+		if (current_movement == ATTACK_FRONT)
+			CurrentMovement(IDLE_LEFT);
+		else
+			CurrentMovement(IDLE_RIGHT);
 		current_turn = END_TURN;
 	}
 
@@ -146,18 +152,18 @@ void Pinkking::Ability_1()
 	objective_position.push_back(nearposition);
 	std::pair<int, int> tmp_1 = App->map->WorldToMap(position.first, position.second);
 	std::pair<int,int> tmp_2 = App->map->WorldToMap(nearposition.first, nearposition.second);
-	int dmg = current_stats.AtkS / sqrt((tmp_2.first - tmp_1.first)*(tmp_2.first - tmp_1.first) + (tmp_2.second - tmp_1.second)*(tmp_2.second - tmp_1.second));
+	//int dmg = current_stats.AtkS / sqrt((tmp_2.first - tmp_1.first)*(tmp_2.first - tmp_1.first) + (tmp_2.second - tmp_1.second)*(tmp_2.second - tmp_1.second));
 
 
 	/*current_movement = ABILITY_1_FRONT;
 	if (current_animation->Finished()) {
-		App->entity_manager->ThrowAttack(objective_position, dmg, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 		current_movment = IDLE_LEFT_FRONT;
 		current_turn = END_TURN;
 		
 	}*/
 	
-	App->entity_manager->ThrowAttack(objective_position, dmg, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+	App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 	current_turn = END_TURN;
 	// blit de la sombra en esa posicion
 }

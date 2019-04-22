@@ -18,6 +18,7 @@
 #include "ModulePathfinding.h"
 #include "ModuleMap.h"
 #include "Scene.h"
+#include "Entity.h"
 
 
 ModuleEntityManager::ModuleEntityManager() : Module()
@@ -202,7 +203,7 @@ std::pair<int, int> ModuleEntityManager::NearestCharacter(std::pair<int, int> my
 	for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character) {
 		tmp_allied = (*character)->GetPosition();
 		tmp_result = sqrt(((tmp_allied.first - myposition.first)*(tmp_allied.first - myposition.first)) + ((tmp_allied.second - myposition.second)*(tmp_allied.second - myposition.second)));
-		if (tmp_result < tmp_result_2) {
+		if (tmp_result < tmp_result_2 && (*character)->current_state ==  (*character)->ALIVE) {
 			tmp = tmp_allied;
 			tmp_result_2 = tmp_result;
 		}
