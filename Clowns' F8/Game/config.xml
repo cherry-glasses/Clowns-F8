@@ -262,7 +262,7 @@
       <stats hp="78" mana="85" p_move="1" atk_f="82" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
              range_ability_3="1" def_f="80" def_s="76" crit="0.2" agi="13"/>
       <attacks_names attack="Fist attack" ability_1="Rabbit kick" ability_2="Carrot time" ability_3="Rabbit rage" 
-                    ataque="Puñetazo" habilidad_1="Patada conejil" habilidad_2="Hora de zanahoria" habilidad_3="Rabia Conejil"/>
+                    ataque="Golpe de karate" habilidad_1="Patada conejil" habilidad_2="Hora de zanahoria" habilidad_3="Rabia Conejil"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>
