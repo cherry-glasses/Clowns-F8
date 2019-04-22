@@ -649,13 +649,13 @@ void Scene::CreateFirstBattle()
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE1);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE2);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE3);
-
+	
 	CreateUIBattle();
 }
 
 void Scene::CreateUIBattle()
 {
-
+	App->entity_manager->OrderEntitiesByAgility();
 	int i = 0;
 	for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 	{
@@ -670,24 +670,20 @@ void Scene::CreateUIBattle()
 		defense_image.push_back(nullptr);
 		stun_image_created.push_back(false);
 		defense_image_created.push_back(false);
+		character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, name_position.at(i).first, name_position.at(i).second, (*character)->name.c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
 		switch ((*character)->GetType()) {
 		case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
 			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, port_position.at(i).first, port_position.at(i).second, sapphire_portrait));
-			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, name_position.at(i).first, name_position.at(i).second, (*character)->name.c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
 			break;
 		case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
 			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, port_position.at(i).first, port_position.at(i).second, iris_portrait));
-			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, name_position.at(i).first, name_position.at(i).second, (*character)->name.c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
 			break;
 		case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
 			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, port_position.at(i).first, port_position.at(i).second, george_b_portrait));
-			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, name_position.at(i).first, name_position.at(i).second, (*character)->name.c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
 			break;
 		case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
 			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, port_position.at(i).first, port_position.at(i).second, storm_portrait));
-			character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, name_position.at(i).first, name_position.at(i).second, (*character)->name.c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
 			break;
-
 		default:
 			break;
 
@@ -821,29 +817,6 @@ void Scene::CreateAbilitiesMenu()
 
 
 // UPDATES-------------------------------------------------------------------------------------------------
-void Scene::UpdateCharacterPortraits(Entity* _character, int _i)
-{
-	App->gui_manager->DeleteGUIElement(life.at(_i));
-	App->gui_manager->DeleteGUIElement(mana.at(_i));
-	App->gui_manager->DeleteGUIElement(life_numbers.at(_i));
-	App->gui_manager->DeleteGUIElement(mana_numbers.at(_i));
-	life_x.at(_i) = (124 * _character->current_stats.Hp) / _character->default_stats.Hp;
-	mana_x.at(_i) = (124 * _character->current_stats.Mana) / _character->default_stats.Mana;
-	life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, life_position.at(_i).first, life_position.at(_i).second, { 0, 58, life_x.at(_i), 29 });
-	mana.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, mana_position.at(_i).first, mana_position.at(_i).second, { 0, 86, mana_x.at(_i), 29 });
-	life_numbers.at(_i) = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, life_position.at(_i).first + 60, life_position.at(_i).second + 11, "0", { 0, 255, 0, 255 }, App->gui_manager->default_font_used, _character->current_stats.Hp, _character->default_stats.Hp);
-	mana_numbers.at(_i) = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, mana_position.at(_i).first + 60, mana_position.at(_i).second + 13, "0", { 0, 255, 0, 255 }, App->gui_manager->default_font_used, _character->current_stats.Mana, _character->default_stats.Mana);
-}
-
-void Scene::UpdateEnemyPortraits(Entity* _enemy, int _i)
-{
-	App->gui_manager->DeleteGUIElement(enemies_life.at(_i));
-	if (_enemy != nullptr) {
-		enemies_life_x.at(_i) = (64 * _enemy->current_stats.Hp) / _enemy->default_stats.Hp;
-		enemies_life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, _enemy->GetPosition().first, _enemy->GetPosition().second + _enemy->position_margin.second, { 0, 58, enemies_life_x.at(_i) , 5 });
-	}
-}
-
 void Scene::UpdateCharacters()
 {
 	if (App->entity_manager->characters.empty()) {
@@ -908,7 +881,29 @@ void Scene::UpdateEnemies()
 		}
 		change = false;
 	}
-	
+}
+
+void Scene::UpdateCharacterPortraits(Entity* _character, int _i)
+{
+	App->gui_manager->DeleteGUIElement(life.at(_i));
+	App->gui_manager->DeleteGUIElement(mana.at(_i));
+	App->gui_manager->DeleteGUIElement(life_numbers.at(_i));
+	App->gui_manager->DeleteGUIElement(mana_numbers.at(_i));
+	life_x.at(_i) = (124 * _character->current_stats.Hp) / _character->default_stats.Hp;
+	mana_x.at(_i) = (124 * _character->current_stats.Mana) / _character->default_stats.Mana;
+	life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, life_position.at(_i).first, life_position.at(_i).second, { 0, 58, life_x.at(_i), 29 });
+	mana.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, mana_position.at(_i).first, mana_position.at(_i).second, { 0, 86, mana_x.at(_i), 29 });
+	life_numbers.at(_i) = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, life_position.at(_i).first + 60, life_position.at(_i).second + 11, "0", { 0, 255, 0, 255 }, App->gui_manager->default_font_used, _character->current_stats.Hp, _character->default_stats.Hp);
+	mana_numbers.at(_i) = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, mana_position.at(_i).first + 60, mana_position.at(_i).second + 13, "0", { 0, 255, 0, 255 }, App->gui_manager->default_font_used, _character->current_stats.Mana, _character->default_stats.Mana);
+}
+
+void Scene::UpdateEnemyPortraits(Entity* _enemy, int _i)
+{
+	App->gui_manager->DeleteGUIElement(enemies_life.at(_i));
+	if (_enemy != nullptr) {
+		enemies_life_x.at(_i) = (64 * _enemy->current_stats.Hp) / _enemy->default_stats.Hp;
+		enemies_life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, _enemy->GetPosition().first, _enemy->GetPosition().second + _enemy->position_margin.second, { 0, 58, enemies_life_x.at(_i) , 5 });
+	}
 }
 
 // DELETES-------------------------------------------------------------------------------------------------
