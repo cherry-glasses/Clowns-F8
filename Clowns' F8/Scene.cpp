@@ -108,6 +108,8 @@ bool Scene::Start()
 	credits_page = App->textures->Load("Assets/Sprites/UI/credits_done.png");
 	map_level_1 = App->textures->Load("Assets/Maps/map_level_1.png");
 	grid_level_1 = App->textures->Load("Assets/Maps/grid_level_1.png");
+	win_screen = App->textures->Load("Assets/Sprites/UI/WIN.png");
+	lose_screen = App->textures->Load("Assets/Sprites/UI/LOSE.png");
 
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
@@ -313,11 +315,13 @@ bool Scene::Update(float _dt)
 					ActionsMenu();
 				}
 			}
-			App->render->Blit(map_level_1,0 - (screen_width / 2) , 0 - (screen_height/8));
-			App->render->Blit(grid_level_1, 0 - (screen_width / 2), 0 - (screen_height / 8));
-			App->map->Draw();
-		}
-		
+			if (!win_lose_label_created)
+			{
+				App->render->Blit(map_level_1, 0 - (screen_width / 2), 0 - (screen_height / 8));
+				App->render->Blit(grid_level_1, 0 - (screen_width / 2), 0 - (screen_height / 8));
+				App->map->Draw();
+			}
+		}	
 		break;
 	}
 	
@@ -336,6 +340,8 @@ bool Scene::CleanUp()
 	App->textures->UnLoad(main_menu_background);
 	App->textures->UnLoad(options_background);
 	App->textures->UnLoad(credits_page);
+	App->textures->UnLoad(win_screen);
+	App->textures->UnLoad(lose_screen);
 	DeleteMenu();
 	return true;
 }
@@ -1158,10 +1164,55 @@ void Scene::ControlLanguageAndMusic()
 // Win and Lose-------------------------------------------------------------------
 void Scene::Win()
 {
-
+	/*DeleteMusic();
+	DeleteMenu();
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
+	App->render->Blit(win_screen, 0, 0);
+	if (!win_lose_label_created)
+	{
+		if (language)
+		{
+			win_lose = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5, screen_height * 0.5 + 200, "PRESS SPACE TO RETURN TO MAIN MENU", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		}
+		else
+		{
+			win_lose = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5, screen_height * 0.5 + 200, "PULSA ESPACIO PARA VOLVER AL MENÚ PRINCIPAL", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		}
+		win_lose_label_created = true;
+	}
+	if (App->input->Accept())
+	{
+		App->gui_manager->DeleteGUIElement(win_lose);
+		current_scene = MAIN_MENU;
+		win_lose_label_created = false;
+	}*/
 }
 
 void Scene::Lose()
 {
+	/*DeleteMusic();
+	DeleteMenu();
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
+	App->render->Blit(lose_screen, 0, 0);
+	if (!win_lose_label_created)
+	{
+		if (language)
+		{
+			win_lose = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5, screen_height * 0.5 + 200, "PRESS SPACE TO RETURN TO MAIN MENU", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 
+		}
+		else
+		{
+			win_lose = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5, screen_height * 0.5 + 200, "PULSA ESPACIO PARA VOLVER AL MENÚ PRINCIPAL", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		}
+		win_lose_label_created = true;
+	}
+	if (App->input->Accept())
+	{
+		App->gui_manager->DeleteGUIElement(win_lose);
+		current_scene = MAIN_MENU;
+		win_lose_label_created = false;
+	}*/
 }

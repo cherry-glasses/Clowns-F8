@@ -88,6 +88,8 @@ private:
 	SDL_Texture* credits_page = nullptr;
 	SDL_Texture* map_level_1 = nullptr;
 	SDL_Texture* grid_level_1 = nullptr;
+	SDL_Texture* win_screen = nullptr;
+	SDL_Texture* lose_screen = nullptr;
 
 	SDL_Rect button;
 	SDL_Rect small_button;
@@ -203,6 +205,8 @@ private:
 	std::vector<bool> enemy_stun_image_created;
 	std::vector<bool> turn_created;
 	std::string	press_fx_name = "";
+	GUILabel* win_lose = nullptr;
+	bool win_lose_label_created = false;
 
 public:
 	bool language = true; //true = English; false = Spanish
