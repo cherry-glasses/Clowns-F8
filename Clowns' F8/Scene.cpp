@@ -841,7 +841,7 @@ void Scene::CreateAbilitiesMenu()
 // UPDATES-------------------------------------------------------------------------------------------------
 void Scene::UpdateCharacters()
 {
-	if (App->entity_manager->characters.empty()) {
+	if (!App->entity_manager->ThereAreCharAlive()) {
 		current_scene = LOSE_SCENE;
 		DeleteMusic();
 		DeleteMenu();
