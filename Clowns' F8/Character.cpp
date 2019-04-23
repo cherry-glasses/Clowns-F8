@@ -282,7 +282,8 @@ void Character::Attack()
 	}
 
 	// Ending attack and start idle animation
-	if (current_animation->Finished()) {
+	if (current_animation->isDone()) {
+		current_animation->Reset();
 		if (current_movement == ATTACK_LEFT_FRONT)
 		{
 			CurrentMovement(IDLE_LEFT_FRONT);
@@ -472,8 +473,8 @@ void Character::Ability_1()
 	
 
 	// Ending attack and start idle animation
-	if (current_animation->Finished()) {
-
+	if (current_animation->isDone()) {
+		current_animation->Reset();
 		if (current_movement == ABILITY_1_LEFT_FRONT)
 		{
 			CurrentMovement(IDLE_LEFT_FRONT);
