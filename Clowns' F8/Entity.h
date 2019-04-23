@@ -148,7 +148,9 @@ protected:
 	Animation walk_right;
 	Animation walk_right_2;
 	Animation walk_front;
+	Animation walk_front_2;
 	Animation walk_back;
+	Animation walk_back_2;
 	Animation attack_left_back;
 	Animation attack_right_back;
 	Animation attack_left_front;

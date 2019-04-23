@@ -318,10 +318,16 @@ bool Scene::Update(float _dt)
 			if (!win_lose_label_created)
 			{
 				App->render->Blit(map_level_1, 0 - (screen_width / 2), 0 - (screen_height / 8));
-				App->render->Blit(grid_level_1, 0 - (screen_width / 2), 0 - (screen_height / 8));
+				//App->render->Blit(grid_level_1, 0 - (screen_width / 2), 0 - (screen_height / 8));
 				App->map->Draw();
 			}
 		}	
+		break;
+	case Scene::WIN_SCENE:
+		Win();
+		break;
+	case Scene::LOSE_SCENE:
+		Lose();
 		break;
 	}
 	
@@ -831,7 +837,9 @@ void Scene::CreateAbilitiesMenu()
 void Scene::UpdateCharacters()
 {
 	if (App->entity_manager->characters.empty()) {
-		Lose();
+		current_scene = LOSE_SCENE;
+		DeleteMusic();
+		DeleteMenu();
 	}
 	int i = 0;
 	for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
@@ -882,7 +890,9 @@ void Scene::UpdateCharacters()
 void Scene::UpdateEnemies()
 {
 	if (App->entity_manager->enemies.empty()) {
-		Win();
+		current_scene = WIN_SCENE;
+		DeleteMusic();
+		DeleteMenu();
 	}
 	int i = 0;
 	bool change = false;
@@ -1164,10 +1174,7 @@ void Scene::ControlLanguageAndMusic()
 // Win and Lose-------------------------------------------------------------------
 void Scene::Win()
 {
-	/*DeleteMusic();
-	DeleteMenu();
-	App->render->camera.x = 0;
-	App->render->camera.y = 0;
+	
 	App->render->Blit(win_screen, 0, 0);
 	if (!win_lose_label_created)
 	{
@@ -1186,20 +1193,22 @@ void Scene::Win()
 		App->gui_manager->DeleteGUIElement(win_lose);
 		current_scene = MAIN_MENU;
 		win_lose_label_created = false;
-	}*/
+	}
+	
 }
 
 void Scene::Lose()
 {
-	/*DeleteMusic();
+	current_scene = LOSE_SCENE;
+	DeleteMusic();
 	DeleteMenu();
-	App->render->camera.x = 0;
-	App->render->camera.y = 0;
 	App->render->Blit(lose_screen, 0, 0);
 	if (!win_lose_label_created)
 	{
 		if (language)
 		{
+			DeleteMusic();
+			DeleteMenu();
 			win_lose = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5, screen_height * 0.5 + 200, "PRESS SPACE TO RETURN TO MAIN MENU", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 
 		}
@@ -1214,5 +1223,5 @@ void Scene::Lose()
 		App->gui_manager->DeleteGUIElement(win_lose);
 		current_scene = MAIN_MENU;
 		win_lose_label_created = false;
-	}*/
+	}
 }

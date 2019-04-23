@@ -533,12 +533,30 @@
           <frame x="384" y="96" width="64" height="96"/>
           <frame x="448" y="96" width="64" height="96"/>
         </walk_right_2>
-        <walk_front speed="0.2f" loop="true">
-          <frame x="256" y="64" width="64" height="64"/>
+        <walk_front speed="0.2f" loop="false">
+          <frame x="256" y="0" width="64" height="96"/>
+          <frame x="320" y="0" width="64" height="96"/>
+          <frame x="384" y="0" width="64" height="96"/>
         </walk_front>
-        <walk_back speed="0.2f" loop="true">
-          <frame x="320" y="64" width="64" height="64"/>
+        <walk_front_2 speed="0.2f" loop="true">
+          <frame x="448" y="0" width="64" height="96"/>
+          <frame x="256" y="96" width="64" height="96"/>
+          <frame x="320" y="96" width="64" height="96"/>
+          <frame x="384" y="96" width="64" height="96"/>
+          <frame x="448" y="96" width="64" height="96"/>
+        </walk_front_2>
+        <walk_back speed="0.2f" loop="false">
+          <frame x="256" y="0" width="64" height="96"/>
+          <frame x="320" y="0" width="64" height="96"/>
+          <frame x="384" y="0" width="64" height="96"/>
         </walk_back>
+        <walk_back_2 speed="0.2f" loop="true">
+          <frame x="448" y="0" width="64" height="96"/>
+          <frame x="256" y="96" width="64" height="96"/>
+          <frame x="320" y="96" width="64" height="96"/>
+          <frame x="384" y="96" width="64" height="96"/>
+          <frame x="448" y="96" width="64" height="96"/>
+        </walk_back_2>
         <attack_right speed="0.2f" loop="false">
           <frame x="0" y="128" width="64" height="64"/>
           <frame x="64" y="128" width="64" height="64"/>
@@ -546,9 +564,15 @@
           <frame x="64" y="192" width="64" height="64"/>
         </attack_right>
         <attack_front speed="0.2f" loop="false">
-          <frame x="0" y="192" width="64" height="64"/>
+          <frame x="0" y="128" width="64" height="64"/>
+          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="64" y="192" width="64" height="64"/>
         </attack_front>
         <attack_back speed="0.2f" loop="false">
+          <frame x="0" y="128" width="64" height="64"/>
+          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="64" y="192" width="64" height="64"/>
           <frame x="64" y="192" width="64" height="64"/>
         </attack_back>
         <ability_1_right speed="0.2f" loop="false">

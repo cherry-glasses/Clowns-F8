@@ -230,26 +230,26 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 	case Entity::WALK_LEFT_FRONT:
 		current_movement = WALK_LEFT_FRONT;
 		current_animation = &walk_left_front;
-		position.first -= 2;
-		position.second++;
+		position.first -= 4;
+		position.second += 2;
 		break;
 	case Entity::WALK_RIGHT_FRONT:
 		current_movement = WALK_RIGHT_FRONT;
 		current_animation = &walk_right_front;
-		position.first += 2;
-		position.second++;
+		position.first += 4;
+		position.second += 2;
 		break;
 	case Entity::WALK_LEFT_BACK:
 		current_movement = WALK_LEFT_BACK;
 		current_animation = &walk_left_back;
-		position.first -= 2;
-		position.second--;
+		position.first -= 4;
+		position.second -= 2;
 		break;
 	case Entity::WALK_RIGHT_BACK:
 		current_movement = WALK_RIGHT_BACK;
 		current_animation = &walk_right_back;
-		position.first += 2;
-		position.second--;
+		position.first += 4;
+		position.second -= 2;
 		break;
 	case Entity::ATTACK_LEFT_FRONT:
 		current_movement = ATTACK_LEFT_FRONT;

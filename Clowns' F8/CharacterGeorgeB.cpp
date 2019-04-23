@@ -248,7 +248,7 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &walk_right;
 		if ((current_animation == &walk_right && current_animation->Finished()) || current_animation == &walk_right_2) {
 			current_animation = &walk_right_2;
-			position.first -= 2;
+			position.first -= 4;
 		}
 		flipX = true;
 		break;
@@ -257,21 +257,27 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &walk_right;
 		if ((current_animation == &walk_right && current_animation->Finished()) || current_animation == &walk_right_2) {
 			current_animation = &walk_right_2;
-			position.first += 2;
+			position.first += 4;
 		}
 		flipX = false;
 		break;
 	case Entity::WALK_FRONT:
 		current_movement = WALK_FRONT;
 		current_animation = &walk_front;
+		if ((current_animation == &walk_front && current_animation->Finished()) || current_animation == &walk_front_2) {
+			current_animation = &walk_front_2;
+			position.second += 2;
+		}
 		flipX = false;
-		position.second++;
 		break;
 	case Entity::WALK_BACK:
 		current_movement = WALK_BACK;
 		current_animation = &walk_back;
+		if ((current_animation == &walk_back && current_animation->Finished()) || current_animation == &walk_back_2) {
+			current_animation = &walk_back_2;
+			position.second -= 2;
+		}
 		flipX = false;
-		position.second--;
 		break;
 	case Entity::ATTACK_LEFT:
 		current_movement = ATTACK_LEFT;

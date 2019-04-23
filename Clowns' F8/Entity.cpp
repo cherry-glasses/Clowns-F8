@@ -181,9 +181,17 @@ void Entity::LoadAnim(pugi::xml_node _config)
 	walk_front.speed = _config.child("animations").child("walk_front").attribute("speed").as_float();
 	walk_front.loop = _config.child("animations").child("walk_front").attribute("loop").as_bool(true);
 
+	LoadAnimation(_config.child("animations").child("walk_front_2").child("frame"), walk_front_2);
+	walk_front_2.speed = _config.child("animations").child("walk_front_2").attribute("speed").as_float();
+	walk_front_2.loop = _config.child("animations").child("walk_front_2").attribute("loop").as_bool(true);
+
 	LoadAnimation(_config.child("animations").child("walk_back").child("frame"), walk_back);
 	walk_back.speed = _config.child("animations").child("walk_back").attribute("speed").as_float();
 	walk_back.loop = _config.child("animations").child("walk_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("walk_back_2").child("frame"), walk_back_2);
+	walk_back_2.speed = _config.child("animations").child("walk_back_2").attribute("speed").as_float();
+	walk_back_2.loop = _config.child("animations").child("walk_back_2").attribute("loop").as_bool(true);
 
 	// ATTACK
 	LoadAnimation(_config.child("animations").child("attack_left_front").child("frame"), attack_left_front);
