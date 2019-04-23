@@ -354,38 +354,6 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 			current_turn = END_TURN;
 		}
 		break;
-	case Entity::ATTACK_LEFT:
-		current_movement = ATTACK_LEFT;
-		current_animation = &attack_left;
-		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
-			current_turn = END_TURN;
-		}
-		break;
-	case Entity::ATTACK_RIGHT:
-		current_movement = ATTACK_RIGHT;
-		current_animation = &attack_right;
-		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
-			current_turn = END_TURN;
-		}
-		break;
-	case Entity::ATTACK_FRONT:
-		current_movement = ATTACK_FRONT;
-		current_animation = &attack_front;
-		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
-			current_turn = END_TURN;
-		}
-		break;
-	case Entity::ATTACK_BACK:
-		current_movement = ATTACK_BACK;
-		current_animation = &attack_back;
-		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
-			current_turn = END_TURN;
-		}
-		break;
 	case Entity::ABILITY_1_LEFT_FRONT:
 		current_movement = ABILITY_1_LEFT_FRONT;
 		current_animation = &ability_1_left_front;
@@ -413,38 +381,6 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 	case Entity::ABILITY_1_RIGHT_BACK:
 		current_movement = ABILITY_1_RIGHT_BACK;
 		current_animation = &ability_1_right_back;
-		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
-			current_turn = END_TURN;
-		}
-		break;
-	case Entity::ABILITY_1_LEFT:
-		current_movement = ABILITY_1_LEFT;
-		current_animation = &ability_1_left;
-		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
-			current_turn = END_TURN;
-		}
-		break;
-	case Entity::ABILITY_1_RIGHT:
-		current_movement = ABILITY_1_RIGHT;
-		current_animation = &ability_1_right;
-		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
-			current_turn = END_TURN;
-		}
-		break;
-	case Entity::ABILITY_1_FRONT:
-		current_movement = ABILITY_1_FRONT;
-		current_animation = &ability_1_front;
-		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
-			current_turn = END_TURN;
-		}
-		break;
-	case Entity::ABILITY_1_BACK:
-		current_movement = ABILITY_1_BACK;
-		current_animation = &ability_1_back;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
 			current_turn = END_TURN;

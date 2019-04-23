@@ -226,38 +226,7 @@ void Entity::LoadAnim(pugi::xml_node _config)
 	attack_back.speed = _config.child("animations").child("attack_back").attribute("speed").as_float();
 	attack_back.loop = _config.child("animations").child("attack_back").attribute("loop").as_bool(true);
 
-	// Ability
-	LoadAnimation(_config.child("animations").child("ability_1_left_front").child("frame"), ability_1_left_front);
-	ability_1_left_front.speed = _config.child("animations").child("ability_1_left_front").attribute("speed").as_float();
-	ability_1_left_front.loop = _config.child("animations").child("ability_1_left_front").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("ability_1_right_front").child("frame"), ability_1_right_front);
-	ability_1_right_front.speed = _config.child("animations").child("ability_1_right_front").attribute("speed").as_float();
-	ability_1_right_front.loop = _config.child("animations").child("ability_1_right_front").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("ability_1_left_back").child("frame"), ability_1_left_back);
-	ability_1_left_back.speed = _config.child("animations").child("ability_1_left_back").attribute("speed").as_float();
-	ability_1_left_back.loop = _config.child("animations").child("ability_1_left_back").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("ability_1_right_back").child("frame"), ability_1_right_back);
-	ability_1_right_back.speed = _config.child("animations").child("ability_1_right_back").attribute("speed").as_float();
-	ability_1_right_back.loop = _config.child("animations").child("ability_1_right_back").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("ability_1_left").child("frame"), ability_1_left);
-	ability_1_left.speed = _config.child("animations").child("ability_1_left").attribute("speed").as_float();
-	ability_1_left.loop = _config.child("animations").child("ability_1_left").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("ability_1_right").child("frame"), ability_1_right);
-	ability_1_right.speed = _config.child("animations").child("ability_1_right").attribute("speed").as_float();
-	ability_1_right.loop = _config.child("animations").child("ability_1_right").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("ability_1_front").child("frame"), ability_1_front);
-	ability_1_front.speed = _config.child("animations").child("ability_1_front").attribute("speed").as_float();
-	ability_1_front.loop = _config.child("animations").child("ability_1_front").attribute("loop").as_bool(true);
-
-	LoadAnimation(_config.child("animations").child("ability_1_back").child("frame"), ability_1_back);
-	ability_1_back.speed = _config.child("animations").child("ability_1_back").attribute("speed").as_float();
-	ability_1_back.loop = _config.child("animations").child("ability_1_back").attribute("loop").as_bool(true);
+	// Habilities HERE.
 
 
 	// DEFEND
