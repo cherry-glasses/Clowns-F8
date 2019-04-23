@@ -4,6 +4,7 @@
 #include "ModulePathfinding.h"
 #include "ModuleRender.h"
 #include "ModuleMap.h"
+#include "Log.h"
 
 
 
@@ -106,7 +107,7 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 	}
 		
 	
-	//LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
+	LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
 	
 		
 }
@@ -203,25 +204,25 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		current_movement = WALK_LEFT;
 		current_animation = &walk_left;
 		flipX = false;
-		position.first--;
+		position.first -= 2;
 		break;
 	case Entity::WALK_RIGHT:
 		current_movement = WALK_RIGHT;
 		current_animation = &walk_left;
-		position.first++ ;
+		position.first += 2 ;
 		flipX = true;
 		break;
 	case Entity::WALK_FRONT:
 		current_movement = WALK_FRONT;
 		current_animation = &walk_front;
 		flipX = false;
-		position.second++;
+		position.second += 2;
 		break;
 	case Entity::WALK_BACK:
 		current_movement = WALK_BACK;
 		current_animation = &walk_back;
 		flipX = false;
-		position.second--;
+		position.second -= 2;
 		break;
 	case Entity::ATTACK_LEFT:
 		current_movement = ATTACK_LEFT;

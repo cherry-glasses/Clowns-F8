@@ -101,6 +101,7 @@ bool Enemy::Save(pugi::xml_node& node) const
 
 void Enemy::Die()
 {
+
 	if (current_movement == IDLE_LEFT_FRONT)
 	{
 		CurrentMovement(DEAD_LEFT_FRONT);
@@ -123,6 +124,18 @@ void Enemy::Die()
 		CurrentMovement(DEAD_RIGHT);
 	}
 	else if (current_movement == IDLE_LEFT) {
+		CurrentMovement(DEAD_LEFT);
+	}
+	else if (current_movement == DEAD_BACK) {
+		CurrentMovement(DEAD_BACK);
+	}
+	else if (current_movement == DEAD_FRONT) {
+		CurrentMovement(DEAD_FRONT);
+	}
+	else if (current_movement == DEAD_RIGHT) {
+		CurrentMovement(DEAD_RIGHT);
+	}
+	else if (current_movement == DEAD_LEFT) {
 		CurrentMovement(DEAD_LEFT);
 	}
 	else
