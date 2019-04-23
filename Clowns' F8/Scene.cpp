@@ -11,6 +11,7 @@
 #include "ModuleAudio.h"
 #include "Scene.h"
 #include "ModuleEntityManager.h"
+#include "ModuleTransitionManager.h"
 #include "ModuleWindow.h"
 #include <string.h>
 
@@ -144,9 +145,11 @@ bool Scene::Update(float _dt)
 
 		if (new_game_button->has_been_clicked)
 		{
-			current_scene = FIRST_BATTLE;
+			current_scene = NONE;
 			DeleteMusic();
 			DeleteMenu();
+			App->transition_manager->CreateFadeTransition(0.2F, true, FIRST_BATTLE, Scene_1_color);
+			
 		}
 		else if (load_game_button->has_been_clicked)
 		{
@@ -328,6 +331,8 @@ bool Scene::Update(float _dt)
 		break;
 	case Scene::LOSE_SCENE:
 		Lose();
+		break;
+	case Scene::NONE:
 		break;
 	}
 	
