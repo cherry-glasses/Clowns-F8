@@ -288,8 +288,6 @@ void Boneyman::CurrentMovement(MOVEMENT _movement) {
 	case Entity::ABILITY_1_LEFT_BACK:
 		current_movement = ABILITY_1_LEFT_BACK;
 		current_animation = &ability_1_left_back;
-
-
 		break;
 	case Entity::ABILITY_2_LEFT_FRONT:
 		current_movement = ABILITY_2_LEFT_FRONT;
