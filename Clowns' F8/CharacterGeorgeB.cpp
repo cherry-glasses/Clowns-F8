@@ -285,7 +285,6 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		flipX = true;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
-			current_animation->setCurrentFrameIndex(0);
 			current_turn = END_TURN;
 		}
 		break;

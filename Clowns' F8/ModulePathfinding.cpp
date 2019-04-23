@@ -71,7 +71,8 @@ bool ModulePathfinding::IsAttackable(const std::pair<int, int>& _pos, ENTITY_TYP
 	case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
 		for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 		{
-			if (App->map->WorldToMap((*character)->GetPosition().first, (*character)->GetPosition().second) == _pos) {
+			if (App->map->WorldToMap((*character)->GetPosition().first, (*character)->GetPosition().second) == _pos 
+				&& (*character)->current_state == Entity::ALIVE){
 				return true;
 			}
 		}
