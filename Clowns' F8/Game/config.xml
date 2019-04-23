@@ -746,26 +746,34 @@
         </walk_right_back>
         <attack_left_front speed="0.2f" loop="false">
           <frame x="0" y="128" width="64" height="64"/>
+	  <frame x="0" y="128" width="64" height="64"/>
         </attack_left_front>
         <attack_right_front speed="0.2f" loop="false">
+          <frame x="64" y="128" width="64" height="64"/>
           <frame x="64" y="128" width="64" height="64"/>
         </attack_right_front>
         <attack_left_back speed="0.2f" loop="false">
           <frame x="0" y="192" width="64" height="64"/>
+          <frame x="0" y="192" width="64" height="64"/>
         </attack_left_back>
         <attack_right_back speed="0.2f" loop="false">
+          <frame x="64" y="192" width="64" height="64"/>
           <frame x="64" y="192" width="64" height="64"/>
         </attack_right_back>
         <ability_1_left_front speed="0.2f" loop="false">
           <frame x="0" y="128" width="64" height="64"/>
+          <frame x="0" y="128" width="64" height="64"/>
         </ability_1_left_front>
         <ability_1_right_front speed="0.2f" loop="false">
+          <frame x="64" y="128" width="64" height="64"/>
           <frame x="64" y="128" width="64" height="64"/>
         </ability_1_right_front>
         <ability_1_left_back speed="0.2f" loop="false">
           <frame x="0" y="192" width="64" height="64"/>
+          <frame x="0" y="192" width="64" height="64"/>
         </ability_1_left_back>
         <ability_1_right_back speed="0.2f" loop="false">
+          <frame x="64" y="192" width="64" height="64"/>
           <frame x="64" y="192" width="64" height="64"/>
         </ability_1_right_back>
         <dead_left_front speed="0.2" loop="false">
