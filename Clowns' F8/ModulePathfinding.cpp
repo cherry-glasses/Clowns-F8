@@ -49,6 +49,18 @@ bool ModulePathfinding::IsWalkable(const std::pair<int, int>& _pos) const
 	uchar t = GetTileAt(_pos);
 	return t != INVALID_WALK_CODE && t > 0;
 }
+bool ModulePathfinding::IsTrapped(const std::pair<int, int>& _pos) const
+{
+	for (std::list<Entity*>::iterator object = App->entity_manager->objects.begin(); object != App->entity_manager->objects.end(); ++object)
+	{
+		if (App->map->WorldToMap((*object)->GetPosition().first, (*object)->GetPosition().second) == _pos)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 // Utility: returns true is the tile is used by other entity
 bool ModulePathfinding::IsUsed(const std::pair<int, int>& _pos, Entity* _entity) const
 {

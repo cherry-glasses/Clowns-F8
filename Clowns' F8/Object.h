@@ -28,6 +28,9 @@ public:
 	virtual bool Load(pugi::xml_node&);
 	virtual bool Save(pugi::xml_node&) const;
 
+public:
+	bool used = false;
+
 protected:
 	std::pair<int, int> nearposition;
 

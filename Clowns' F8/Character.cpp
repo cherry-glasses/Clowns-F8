@@ -333,7 +333,8 @@ void Character::SelectAbility_1() {
 		if (i != Cap && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 		{
 			if (App->pathfinding->IsAttackable({ (*possible_mov).first , (*possible_mov).second }, type) 
-				|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second })))
+				|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second })
+					&& App->pathfinding->IsTrapped({ (*possible_mov).first , (*possible_mov).second })))
 			{
 				App->render->Blit(debug_texture, possible_map.at(i).first, possible_map.at(i).second, &debug_blue);
 			}
@@ -382,7 +383,8 @@ void Character::SelectAbility_1() {
 
 	if (App->input->Accept() 
 		&& (App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second), type)
-		|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)))))
+		|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second))
+			&& App->pathfinding->IsTrapped(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)))))
 	{
 		current_turn = ABILITY_1;
 

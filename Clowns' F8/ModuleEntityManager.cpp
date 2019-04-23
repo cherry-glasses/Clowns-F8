@@ -74,6 +74,13 @@ bool ModuleEntityManager::PreUpdate()
 			break;
 		}
 	}
+	for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object)
+	{
+		if (((Object*)*object)->used == true) {
+			App->entity_manager->DeleteEntity((*object));
+			break;
+		}
+	}
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
 		
@@ -99,16 +106,15 @@ bool ModuleEntityManager::PreUpdate()
 			(*entity)->defend = false;
 
 			// BearTrap
-			// Position is diferent because beartrap has a current and enemie has another, I need to search by worldtomap
 			if (std::find(enemies.begin(), enemies.end(), (*entity)) != enemies.end()) {
 				for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object) {
 					if ((*object)->GetPosition() == (*entity)->GetPosition()) {
 						(*entity)->current_stats.Hp -= (george_b->current_stats.AtkS - (george_b->current_stats.AtkS * (*entity)->current_stats.DefS / 100));
+						((Object*)*object)->used = true;
 					}
 				}
 			}
 		}
-
 		(*entity)->PreUpdate();
 		
 	}
@@ -305,7 +311,7 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
 		break;
 	case ENTITY_TYPE::ENTITY_OBJECT_TREE1:
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			tmp = new Tree1(_type, entity_configs.child("tree1"), i);
 			entities.push_back(tmp);
@@ -344,6 +350,9 @@ bool ModuleEntityManager::DeleteEntity(Entity * entity)
 {
 	if (std::find(enemies.begin(), enemies.end(), (entity)) != enemies.end()) {
 		enemies.remove(entity);
+	}
+	else if(std::find(objects.begin(), objects.end(), (entity)) != objects.end()) {
+		objects.remove(entity);
 	}
 	entities.remove(entity);
 	entity->CleanUp();

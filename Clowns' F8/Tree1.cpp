@@ -25,9 +25,6 @@ Tree1::Tree1(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Object(_typ
 	case 4:
 		position = App->map->MapToWorld(0, 9);
 		break;
-	case 5:
-		position = App->map->MapToWorld(0, 7);
-		break;
 
 	default:
 		break;

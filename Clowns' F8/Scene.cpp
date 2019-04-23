@@ -309,17 +309,26 @@ bool Scene::Update(float _dt)
 		}
 		else
 		{
-			UpdateCharacters();
-			UpdateEnemies();
-			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
-			{
-				if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
-				{
-					ActionsMenu();
-				}
+			if (!App->entity_manager->ThereAreCharAlive()) {
+				current_scene = LOSE_SCENE;
+				DeleteMusic();
+				DeleteMenu();
 			}
-			if (!win_lose_label_created)
-			{
+			else if (App->entity_manager->enemies.empty()) {
+				current_scene = WIN_SCENE;
+				DeleteMusic();
+				DeleteMenu();
+			}
+			else {
+				UpdateCharacters();
+				UpdateEnemies();
+				for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+				{
+					if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+					{
+						ActionsMenu();
+					}
+				}
 				App->render->Blit(map_level_1, 0 - (screen_width / 2), 0 - (screen_height / 8));
 				App->render->Blit(grid_level_1, 0 - (screen_width / 2), 0 - (screen_height / 8));
 				App->map->Draw();
@@ -841,11 +850,6 @@ void Scene::CreateAbilitiesMenu()
 // UPDATES-------------------------------------------------------------------------------------------------
 void Scene::UpdateCharacters()
 {
-	if (!App->entity_manager->ThereAreCharAlive()) {
-		current_scene = LOSE_SCENE;
-		DeleteMusic();
-		DeleteMenu();
-	}
 	int i = 0;
 	for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 	{
@@ -886,19 +890,12 @@ void Scene::UpdateCharacters()
 			App->gui_manager->DeleteGUIElement(defense_image.at(i));
 			defense_image_created.at(i) = false;
 		}
-
-		
 		++i;
 	}
 }
 
 void Scene::UpdateEnemies()
 {
-	if (App->entity_manager->enemies.empty()) {
-		current_scene = WIN_SCENE;
-		DeleteMusic();
-		DeleteMenu();
-	}
 	int i = 0;
 	bool change = false;
 	for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
