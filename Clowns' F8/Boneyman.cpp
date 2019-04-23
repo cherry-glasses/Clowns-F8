@@ -153,7 +153,8 @@ void Boneyman::Attack(const std::vector<std::pair<int, int>> *_path)
 		}
 		
 
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
+			current_animation->Reset();
 			if (ability) {
 				current_stats.Mana -= 25;
 				App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF*1.5, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);

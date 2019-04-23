@@ -131,10 +131,8 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 	else 
 		CurrentMovement(ATTACK_BACK);
 
-	if (current_animation->Finished()) {
+	if (current_animation->isDone()) {
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
-		attack_front.Reset();
-		attack_back.Reset();
 		current_animation->Reset();
 		if (current_movement == ATTACK_FRONT)
 			CurrentMovement(IDLE_RIGHT);
@@ -163,8 +161,9 @@ void Pinkking::Ability_1()
 
 
 	/*current_movement = ABILITY_1_FRONT;
-	if (current_animation->Finished()) {
+	if (current_animation->isDone()) {
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+		current_animation->Reset();
 		current_movment = IDLE_LEFT_FRONT;
 		current_turn = END_TURN;
 		
