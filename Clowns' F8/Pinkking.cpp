@@ -169,7 +169,7 @@ void Pinkking::Ability_1()
 		
 	}*/
 	
-	App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+	App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS*1.5, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 	current_turn = END_TURN;
 	// blit de la sombra en esa posicion
 }
