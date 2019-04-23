@@ -46,6 +46,8 @@ public:
 	inline bool InRange(std::pair<int, int> myposition, std::pair<int, int> tiledposition, int radius) { return (sqrt(((tiledposition.first - myposition.first)*(tiledposition.first - myposition.first)) + ((tiledposition.second - myposition.second)*(tiledposition.second - myposition.second))) <= (sqrt((radius*radius)+1))); };
 
 	bool UpdateWalk(std::pair<int, int> tile_id);
+	//Returns True if there are characters alive;
+	bool ThereAreCharAlive();
 
 	void ThrowAttack(std::vector<std::pair<int,int>> _positions, int _damage, ENTITY_TYPE _type);
 	

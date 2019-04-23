@@ -492,6 +492,18 @@ bool ModuleEntityManager::UpdateWalk(std::pair<int, int> tile_id) {
 	return ret;
 }
 
+bool ModuleEntityManager::ThereAreCharAlive()
+{
+	bool flag = false;
+	for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character) {
+		if ((*character)->current_state == (*character)->ALIVE) {
+			flag = true;
+			break;
+		}
+	}
+	return flag;
+}
+
 
 
 std::pair<int, int>* ModuleEntityManager::RangeOfAttack(std::pair<int, int> myposition, int radius, int& size) {
