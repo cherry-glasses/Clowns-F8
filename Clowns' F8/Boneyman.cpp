@@ -118,16 +118,16 @@ void Boneyman::Attack(const std::vector<std::pair<int, int>> *_path)
 		objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
 
 		if (ability) {
-			if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
+			if (current_movement == IDLE_LEFT_FRONT) {
 				CurrentMovement(ABILITY_1_LEFT_FRONT);
 			}
-			else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+			else if (current_movement == IDLE_RIGHT_FRONT) {
 				CurrentMovement(ABILITY_1_RIGHT_FRONT);
 			}
-			else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+			else if (current_movement == IDLE_LEFT_BACK){
 				CurrentMovement(ABILITY_1_LEFT_BACK);
 			}
-			else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
+			else if (current_movement == IDLE_RIGHT_BACK) {
 				CurrentMovement(ABILITY_1_RIGHT_BACK);
 			}
 			else {
@@ -135,16 +135,16 @@ void Boneyman::Attack(const std::vector<std::pair<int, int>> *_path)
 			}
 		}
 		else {
-			if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
+			if (current_movement == IDLE_LEFT_FRONT) {
 				CurrentMovement(ATTACK_LEFT_FRONT);
 			}
-			else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+			else if (current_movement == IDLE_RIGHT_FRONT) {
 				CurrentMovement(ATTACK_RIGHT_FRONT);
 			}
-			else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+			else if (current_movement == IDLE_LEFT_BACK) {
 				CurrentMovement(ATTACK_LEFT_BACK);
 			}
-			else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
+			else if (current_movement == IDLE_RIGHT_BACK) {
 				CurrentMovement(ATTACK_RIGHT_BACK);
 			}
 			else {
