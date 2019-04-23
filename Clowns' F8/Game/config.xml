@@ -16,7 +16,7 @@
 
   <window>
     <resolution width="1920" height="1080" scale="1"/>
-    <fullscreen value="false"/>
+    <fullscreen value="true"/>
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
@@ -80,7 +80,7 @@
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="6" y="18"/>
       <name value="Sapphire"/>
-      <stats hp="79" mana="120" p_move="1" atk_f="60" atk_s="84" range_atk="5" range_ability_1="2" range_ability_2="5"
+      <stats hp="79" mana="120" p_move="1" atk_f="60" atk_s="78" range_atk="5" range_ability_1="2" range_ability_2="5"
              range_ability_3="7" def_f="70" def_s="80" crit="0.1"  agi="11"/>
       <attacks_names attack="Flower attack" ability_1="Hammer time" ability_2="Surprise hat" ability_3="Water time" 
                     ataque="Floretazo" habilidad_1="Martillazo" habilidad_2="Sombrero sorpresa" habilidad_3="Hora del Jugar"/>
@@ -260,7 +260,7 @@
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="11" y="19"/>
       <name value="Iris"/>
-      <stats hp="78" mana="85" p_move="1" atk_f="82" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
+      <stats hp="78" mana="85" p_move="1" atk_f="78" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
              range_ability_3="1" def_f="76" def_s="76" crit="0.2" agi="13"/>
       <attacks_names attack="Fist attack" ability_1="Rabbit kick" ability_2="Carrot time" ability_3="Rabbit rage" 
                     ataque="Golpe de karate" habilidad_1="Patada conejil" habilidad_2="Hora de zanahoria" habilidad_3="Rabia Conejil"/>

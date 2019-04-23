@@ -321,7 +321,7 @@ bool Scene::Update(float _dt)
 			if (!win_lose_label_created)
 			{
 				App->render->Blit(map_level_1, 0 - (screen_width / 2), 0 - (screen_height / 8));
-				//App->render->Blit(grid_level_1, 0 - (screen_width / 2), 0 - (screen_height / 8));
+				App->render->Blit(grid_level_1, 0 - (screen_width / 2), 0 - (screen_height / 8));
 				App->map->Draw();
 			}
 		}	
