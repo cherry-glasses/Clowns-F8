@@ -57,11 +57,11 @@ struct Gamepad {
 	GAMEPAD_STATE JOYSTICK_LEFT;
 	GAMEPAD_STATE JOYSTICK_RIGHT;
 
-	GAMEPAD_STATE START;
-	GAMEPAD_STATE SELECT;
-	GAMEPAD_STATE L1;
-	GAMEPAD_STATE L2; 
-	GAMEPAD_STATE R1;
+	//GAMEPAD_STATE START;
+	//GAMEPAD_STATE SELECT;
+	//GAMEPAD_STATE L1;
+	//GAMEPAD_STATE L2; 
+	//GAMEPAD_STATE R1;
 };
 
 
@@ -130,11 +130,11 @@ public:
 	bool Accept();
 	bool Decline();
 	bool Pause();
-	bool Select();
-	bool Showcharacterstats();
-	bool Showcharacterabilities();
-	bool Showabilities();
-	
+	//bool Select();
+	//bool Showcharacterstats();
+	//bool Showcharacterabilities();
+	//bool Showabilities();
+	//
 
 
 
