@@ -44,8 +44,7 @@ public:
 	virtual void InputSelectAttack() {}
 
 protected:
-	int tiles_range_attk = 0;
-	std::pair<int, int>* range;
+
 	int Cap = -1;
 	std::list<std::pair<int, int>> possible_mov_list;
 	std::list<std::pair<int, int>> inrange_mov_list;

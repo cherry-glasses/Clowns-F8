@@ -1,0 +1,1 @@
+The sprites are set in 110-pixel horizontal and 128-pixel vertical

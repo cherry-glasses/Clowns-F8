@@ -49,13 +49,27 @@ bool ModulePathfinding::IsWalkable(const std::pair<int, int>& _pos) const
 	uchar t = GetTileAt(_pos);
 	return t != INVALID_WALK_CODE && t > 0;
 }
+bool ModulePathfinding::IsTrapped(const std::pair<int, int>& _pos) const
+{
+	for (std::list<Entity*>::iterator object = App->entity_manager->objects.begin(); object != App->entity_manager->objects.end(); ++object)
+	{
+		if (App->map->WorldToMap((*object)->GetPosition().first, (*object)->GetPosition().second) == _pos)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 // Utility: returns true is the tile is used by other entity
 bool ModulePathfinding::IsUsed(const std::pair<int, int>& _pos, Entity* _entity) const
 {
 	for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
 	{
 		if (App->map->WorldToMap((*entity)->GetPosition().first, (*entity)->GetPosition().second) == _pos
-			&& (*entity) != _entity) {
+			&& (*entity) != _entity 
+			&& !(std::find(App->entity_manager->objects.begin(), App->entity_manager->objects.end(), (*entity)) != App->entity_manager->objects.end()))
+		{
 			return true;
 		}
 	}
@@ -67,9 +81,16 @@ bool ModulePathfinding::IsAttackable(const std::pair<int, int>& _pos, ENTITY_TYP
 	switch (_type)
 	{
 	case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
-		for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
+		for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 		{
-			if (App->map->WorldToMap((*entity)->GetPosition().first, (*entity)->GetPosition().second) == _pos) {
+			if (App->map->WorldToMap((*character)->GetPosition().first, (*character)->GetPosition().second) == _pos 
+				&& (*character)->current_state == Entity::ALIVE){
+				return true;
+			}
+		}
+		for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
+		{
+			if (App->map->WorldToMap((*enemy)->GetPosition().first, (*enemy)->GetPosition().second) == _pos) {
 				return true;
 			}
 		}

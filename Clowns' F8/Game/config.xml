@@ -1,4 +1,4 @@
-<!-- Config file for the game -->
+﻿<!-- Config file for the game -->
 
 <config>
   <app>
@@ -16,7 +16,7 @@
 
   <window>
     <resolution width="1920" height="1080" scale="1"/>
-    <fullscreen value="false"/>
+    <fullscreen value="true"/>
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
@@ -43,7 +43,18 @@
     <main_menu start_pos="300"/>
     <options_menu start_pos="270"/>
     <life_position margin_x="150" margin_y="79"/>
+    <actions_position margin_x="20" margin_y="145"/>
     <mana_position margin_x="150" margin_y="110"/>
+    <port_position margin_x="30" margin_y="13"/>
+    <portrait_position margin_x="20" margin_y="12"/>
+    <name_position margin_x="210" margin_y="55"/>
+    <press_fx_name source="UI_FX_Selection.wav"/>
+    <portraits>
+      <iris x="124" y="0" w="64" h="66"/>
+      <storm x="191" y="0" w="64" h="66"/>
+      <sapphire x="124" y="67" w="64" h="66"/>
+      <george_b x="191" y="67" w="64" h="66"/>
+    </portraits>
   </scene>
 
   <audio>
@@ -52,10 +63,10 @@
 	  <volume_change_ratio value="10"/>
     <mute value="false"/>
 	  <music> 
-      <folder>audio/music/</folder>
+      <folder>Assets/Audio/Music/</folder>
     </music>
    	<sfx> 
-      <folder>audio/fx/</folder>
+      <folder>Assets/Audio/SFX/</folder>
     </sfx>
   </audio>
 
@@ -63,175 +74,212 @@
     <debug_green x="0" y="0" width="64" height="32"/>
     <debug_red x="64" y="0" width="64" height="32"/>
     <debug_blue x="128" y="0" width="64" height="32"/>
-    <position_margin x="0" y="18"/>
+    <position_margin x="32" y="22"/>
     <sapphire>
-      <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
+      <texture value="Assets/Sprites/Main_Characters/Sapphire_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
-      <position x="9" y="21"/>
-      <stats hp="79" mana="120" p_move="1" atk_f="60" atk_s="84" range_atk="5" range_ability_1="2" range_ability_2="5"
-             range_ability_3="7" def_f="70" def_s="80" crit="0.1"  agi="14"/>
-      <attacks_names attack="" ability_1="" ability_2="" ability_3=""/>
+      <position x="6" y="18"/>
+      <name value="Sapphire"/>
+      <stats hp="79" mana="120" p_move="1" atk_f="60" atk_s="78" range_atk="5" range_ability_1="2" range_ability_2="5"
+             range_ability_3="7" def_f="70" def_s="80" crit="0.1"  agi="11"/>
+      <attacks_names attack="Flower attack" ability_1="Hammer time" ability_2="Surprise hat" ability_3="Water time" 
+                    ataque="Floretazo" habilidad_1="Martillazo" habilidad_2="Sombrero sorpresa" habilidad_3="Hora del Jugar"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
-          <frame x="0" y="0" width="64" height="64"/>
-          <frame x="128" y="0" width="64" height="64"/>
+          <frame x="0" y="128" width="110" height="128"/>
+          <frame x="110" y="128" width="110" height="128"/>
         </idle_left_front>
         <idle_right_front speed="0.2f" loop="true">
-          <frame x="64" y="0" width="64" height="64"/>
-          <frame x="192" y="0" width="64" height="64"/>
+          <frame x="220" y="128" width="110" height="128"/>
+          <frame x="330" y="128" width="110" height="128"/>
         </idle_right_front>
         <idle_left_back speed="0.2f" loop="true">
-          <frame x="0" y="64" width="64" height="64"/>
-          <frame x="128" y="64" width="64" height="64"/>
+          <frame x="0" y="0" width="110" height="128"/>
+          <frame x="100" y="0" width="110" height="128"/>
         </idle_left_back>
         <idle_right_back speed="0.2f" loop="true">
-          <frame x="64" y="64" width="64" height="64"/>
-          <frame x="192" y="64" width="64" height="64"/>
+          <frame x="220" y="0" width="110" height="128"/>
+          <frame x="330" y="0" width="110" height="128"/>
         </idle_right_back>
         <idle_left speed="0.2f" loop="true">
-          <frame x="0" y="0" width="64" height="64"/>
-          <frame x="128" y="0" width="64" height="64"/>
+          <frame x="0" y="128" width="110" height="128"/>
+          <frame x="110" y="128" width="110" height="128"/>
         </idle_left>
         <idle_right speed="0.2f" loop="true">
-          <frame x="64" y="0" width="64" height="64"/>
-          <frame x="192" y="0" width="64" height="64"/>
+         <frame x="220" y="128" width="110" height="128"/>
+         <frame x="330" y="128" width="110" height="128"/>
         </idle_right>
         <idle_front speed="0.2f" loop="true">
-          <frame x="0" y="64" width="64" height="64"/>
-          <frame x="128" y="64" width="64" height="64"/>
+         <frame x="0" y="128" width="110" height="128"/>
+         <frame x="110" y="128" width="110" height="128"/>
         </idle_front>
         <idle_back speed="0.2f" loop="true">
-          <frame x="64" y="64" width="64" height="64"/>
-          <frame x="192" y="64" width="64" height="64"/>
+          <frame x="0" y="0" width="110" height="128"/>
+          <frame x="110" y="0" width="110" height="128"/>
         </idle_back>
         <walk_left_front speed="0.2f" loop="true">
-          <frame x="256" y="0" width="64" height="64"/>
+          <frame x="440" y="128" width="110" height="128"/>
+          <frame x="440" y="384" width="110" height="128"/>
         </walk_left_front>
         <walk_right_front speed="0.2f" loop="true">
-          <frame x="320" y="0" width="64" height="64"/>
+          <frame x="550" y="128" width="110" height="128"/>
+          <frame x="550" y="384" width="110" height="128"/>
         </walk_right_front>
         <walk_left_back speed="0.2f" loop="true">
-          <frame x="256" y="64" width="64" height="64"/>
+          <frame x="440" y="0" width="110" height="128"/>
+          <frame x="440" y="256" width="110" height="128"/>
         </walk_left_back>
         <walk_right_back speed="0.2f" loop="true">
-          <frame x="320" y="64" width="64" height="64"/>
+          <frame x="550" y="0" width="110" height="128"/>
+          <frame x="550" y="256" width="110" height="128"/>
         </walk_right_back>
         <walk_left speed="0.2f" loop="true">
-          <frame x="256" y="0" width="64" height="64"/>
+          <frame x="440" y="128" width="110" height="128"/>
+          <frame x="440" y="384" width="110" height="128"/>
         </walk_left>
         <walk_right speed="0.2f" loop="true">
-          <frame x="320" y="0" width="64" height="64"/>
+          <frame x="550" y="128" width="110" height="128"/>
+          <frame x="550" y="384" width="110" height="128"/>
         </walk_right>
         <walk_front speed="0.2f" loop="true">
-          <frame x="256" y="64" width="64" height="64"/>
+          <frame x="440" y="128" width="110" height="128"/>
+          <frame x="440" y="384" width="110" height="128"/>
         </walk_front>
         <walk_back speed="0.2f" loop="true">
-          <frame x="320" y="64" width="64" height="64"/>
+          <frame x="440" y="0" width="110" height="128"/>
+          <frame x="440" y="256" width="110" height="128"/>
         </walk_back>
         <attack_left_front speed="0.2f" loop="false">
-          <frame x="0" y="128" width="64" height="64"/>
+          <frame x="220" y="384" width="110" height="128"/>
+          <frame x="220" y="384" width="110" height="128"/>
         </attack_left_front>
         <attack_right_front speed="0.2f" loop="false">
-          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="330" y="384" width="110" height="128"/>
+          <frame x="330" y="384" width="110" height="128"/>
         </attack_right_front>
         <attack_left_back speed="0.2f" loop="false">
-          <frame x="0" y="192" width="64" height="64"/>
+          <frame x="220" y="256" width="110" height="128"/>
+          <frame x="220" y="256" width="110" height="128"/>
         </attack_left_back>
         <attack_right_back speed="0.2f" loop="false">
-          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="330" y="256" width="110" height="128"/>
+          <frame x="330" y="256" width="110" height="128"/>
         </attack_right_back>
         <attack_left speed="0.2f" loop="false">
-          <frame x="0" y="128" width="64" height="64"/>
+          <frame x="220" y="384" width="110" height="128"/>
+          <frame x="220" y="384" width="110" height="128"/>
         </attack_left>
         <attack_right speed="0.2f" loop="false">
-          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="330" y="384" width="110" height="128"/>
+          <frame x="330" y="384" width="110" height="128"/>
         </attack_right>
         <attack_front speed="0.2f" loop="false">
-          <frame x="0" y="192" width="64" height="64"/>
+          <frame x="220" y="384" width="110" height="128"/>
+          <frame x="220" y="384" width="110" height="128"/>
         </attack_front>
         <attack_back speed="0.2f" loop="false">
-          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="220" y="256" width="110" height="128"/>
+          <frame x="220" y="256" width="110" height="128"/>
         </attack_back>
         <ability_1_left_front speed="0.2f" loop="false">
-          <frame x="0" y="128" width="64" height="64"/>
+         <frame x="220" y="384" width="110" height="128"/>
+         <frame x="220" y="384" width="110" height="128"/>
         </ability_1_left_front>
         <ability_1_right_front speed="0.2f" loop="false">
-          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="330" y="384" width="110" height="128"/>
+          <frame x="330" y="384" width="110" height="128"/>
         </ability_1_right_front>
         <ability_1_left_back speed="0.2f" loop="false">
-          <frame x="0" y="192" width="64" height="64"/>
+          <frame x="220" y="256" width="110" height="128"/>
+          <frame x="220" y="256" width="110" height="128"/>
         </ability_1_left_back>
         <ability_1_right_back speed="0.2f" loop="false">
-          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="330" y="256" width="110" height="128"/>
+          <frame x="330" y="256" width="110" height="128"/>
         </ability_1_right_back>
         <ability_1_left speed="0.2f" loop="false">
-          <frame x="0" y="128" width="64" height="64"/>
+         <frame x="220" y="384" width="110" height="128"/>
+         <frame x="220" y="384" width="110" height="128"/>
         </ability_1_left>
         <ability_1_right speed="0.2f" loop="false">
-          <frame x="64" y="128" width="64" height="64"/>
+         <frame x="330" y="384" width="110" height="128"/>
+         <frame x="330" y="384" width="110" height="128"/>
         </ability_1_right>
         <ability_1_front speed="0.2f" loop="false">
-          <frame x="0" y="192" width="64" height="64"/>
+          <frame x="220" y="384" width="110" height="128"/>
+          <frame x="220" y="384" width="110" height="128"/>
         </ability_1_front>
         <ability_1_back speed="0.2f" loop="false">
-          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="220" y="256" width="110" height="128"/>
+          <frame x="220" y="256" width="110" height="128"/>
         </ability_1_back>
         <defend_left_front speed="0.2f" loop="true">
-          <frame x="128" y="128" width="64" height="64"/>
+          <frame x="0" y="128" width="110" height="128"/>
+          <frame x="110" y="128" width="110" height="128"/>
         </defend_left_front>
         <defend_right_front speed="0.2f" loop="true">
-          <frame x="192" y="128" width="64" height="64"/>
+          <frame x="220" y="128" width="110" height="128"/>
+          <frame x="330" y="128" width="110" height="128"/>
         </defend_right_front>
         <defend_left_back speed="0.2f" loop="true">
-          <frame x="128" y="192" width="64" height="64"/>
+          <frame x="440" y="0" width="110" height="128"/>
+          <frame x="440" y="256" width="110" height="128"/>
         </defend_left_back>
         <defend_right_back speed="0.2f" loop="true">
-          <frame x="192" y="192" width="64" height="64"/>
+          <frame x="220" y="0" width="110" height="128"/>
+          <frame x="330" y="0" width="110" height="128"/>
         </defend_right_back>
         <defend_left speed="0.2f" loop="true">
-          <frame x="128" y="128" width="64" height="64"/>
+          <frame x="0" y="128" width="110" height="128"/>
+          <frame x="110" y="128" width="110" height="128"/>
         </defend_left>
         <defend_right speed="0.2f" loop="true">
-          <frame x="192" y="128" width="64" height="64"/>
+          <frame x="220" y="128" width="110" height="128"/>
+          <frame x="330" y="128" width="110" height="128"/>
         </defend_right>
         <defend_front speed="0.2f" loop="true">
-          <frame x="128" y="192" width="64" height="64"/>
+          <frame x="0" y="128" width="110" height="128"/>
+          <frame x="110" y="128" width="110" height="128"/>
         </defend_front>
         <defend_back speed="0.2f" loop="true">
-          <frame x="192" y="192" width="64" height="64"/>
+          <frame x="0" y="0" width="110" height="128"/>
+          <frame x="110" y="0" width="110" height="128"/>
         </defend_back>
         <dead_left_front speed="0.2f" loop="false">
-          <frame x="128" y="128" width="64" height="64"/>
+          <frame x="550" y="512" width="110" height="128"/>
         </dead_left_front>
         <dead_right_front speed="0.2f" loop="false">
-          <frame x="192" y="128" width="64" height="64"/>
+          <frame x="550" y="512" width="110" height="128"/>
         </dead_right_front>
         <dead_left_back speed="0.2f" loop="false">
-          <frame x="128" y="192" width="64" height="64"/>
+          <frame x="550" y="512" width="110" height="128"/>
         </dead_left_back>
         <dead_right_back speed="0.2f" loop="false">
-          <frame x="192" y="192" width="64" height="64"/>
+          <frame x="550" y="512" width="110" height="128"/>
         </dead_right_back>
         <dead_left speed="0.2f" loop="false">
-          <frame x="128" y="128" width="64" height="64"/>
+          <frame x="550" y="512" width="110" height="128"/>
         </dead_left>
         <dead_right speed="0.2f" loop="false">
-          <frame x="192" y="128" width="64" height="64"/>
+          <frame x="550" y="512" width="110" height="128"/>
         </dead_right>
         <dead_front speed="0.2f" loop="false">
-          <frame x="128" y="192" width="64" height="64"/>
+          <frame x="550" y="512" width="110" height="128"/>
         </dead_front>
         <dead_back speed="0.2f" loop="false">
-          <frame x="192" y="192" width="64" height="64"/>
+          <frame x="550" y="512" width="110" height="128"/>
         </dead_back>
       </animations>
     </sapphire>
     <iris>
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
-      <position x="7" y="19"/>
-      <stats hp="74" mana="85" p_move="1" atk_f="82" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
-             range_ability_3="1" def_f="78" def_s="70" crit="0.2" agi="12"/>
+      <position x="11" y="19"/>
+      <name value="Iris"/>
+      <stats hp="78" mana="85" p_move="1" atk_f="78" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
+             range_ability_3="1" def_f="76" def_s="76" crit="0.2" agi="13"/>
+      <attacks_names attack="Fist attack" ability_1="Rabbit kick" ability_2="Carrot time" ability_3="Rabbit rage" 
+                    ataque="Golpe de karate" habilidad_1="Patada conejil" habilidad_2="Hora de zanahoria" habilidad_3="Rabia Conejil"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>
@@ -291,75 +339,67 @@
         </walk_back>
         <attack_left_front speed="0.2f" loop="false">
           <frame x="0" y="128" width="64" height="64"/>
+          <frame x="0" y="128" width="64" height="64"/>
         </attack_left_front>
         <attack_right_front speed="0.2f" loop="false">
+          <frame x="64" y="128" width="64" height="64"/>
           <frame x="64" y="128" width="64" height="64"/>
         </attack_right_front>
         <attack_left_back speed="0.2f" loop="false">
           <frame x="0" y="192" width="64" height="64"/>
+          <frame x="0" y="192" width="64" height="64"/>
         </attack_left_back>
         <attack_right_back speed="0.2f" loop="false">
           <frame x="64" y="192" width="64" height="64"/>
-        </attack_right_back>
-        <attack_left speed="0.2f" loop="false">
-          <frame x="0" y="128" width="64" height="64"/>
-        </attack_left>
-        <attack_right speed="0.2f" loop="false">
-          <frame x="64" y="128" width="64" height="64"/>
-        </attack_right>
-        <attack_front speed="0.2f" loop="false">
-          <frame x="0" y="192" width="64" height="64"/>
-        </attack_front>
-        <attack_back speed="0.2f" loop="false">
           <frame x="64" y="192" width="64" height="64"/>
-        </attack_back>
+        </attack_right_back>
         <ability_1_left_front speed="0.2f" loop="false">
+          <frame x="0" y="128" width="64" height="64"/>
           <frame x="0" y="128" width="64" height="64"/>
         </ability_1_left_front>
         <ability_1_right_front speed="0.2f" loop="false">
           <frame x="64" y="128" width="64" height="64"/>
+          <frame x="64" y="128" width="64" height="64"/>
         </ability_1_right_front>
         <ability_1_left_back speed="0.2f" loop="false">
+          <frame x="0" y="192" width="64" height="64"/>
           <frame x="0" y="192" width="64" height="64"/>
         </ability_1_left_back>
         <ability_1_right_back speed="0.2f" loop="false">
           <frame x="64" y="192" width="64" height="64"/>
-        </ability_1_right_back>
-        <ability_1_left speed="0.2f" loop="false">
-          <frame x="0" y="128" width="64" height="64"/>
-        </ability_1_left>
-        <ability_1_right speed="0.2f" loop="false">
-          <frame x="64" y="128" width="64" height="64"/>
-        </ability_1_right>
-        <ability_1_front speed="0.2f" loop="false">
-          <frame x="0" y="192" width="64" height="64"/>
-        </ability_1_front>
-        <ability_1_back speed="0.2f" loop="false">
           <frame x="64" y="192" width="64" height="64"/>
-        </ability_1_back>
+        </ability_1_right_back>
         <defend_left_front speed="0.2f" loop="true">
-          <frame x="128" y="128" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
+          <frame x="128" y="0" width="64" height="64"/>
         </defend_left_front>
         <defend_right_front speed="0.2f" loop="true">
-          <frame x="192" y="128" width="64" height="64"/>
+          <frame x="64" y="0" width="64" height="64"/>
+          <frame x="192" y="0" width="64" height="64"/>
         </defend_right_front>
         <defend_left_back speed="0.2f" loop="true">
-          <frame x="128" y="192" width="64" height="64"/>
+        <frame x="0" y="0" width="110" height="128"/>
+          <frame x="100" y="0" width="110" height="128"/>
         </defend_left_back>
         <defend_right_back speed="0.2f" loop="true">
-          <frame x="192" y="192" width="64" height="64"/>
+          <frame x="64" y="64" width="64" height="64"/>
+          <frame x="192" y="64" width="64" height="64"/>
         </defend_right_back>
         <defend_left speed="0.2f" loop="true">
-          <frame x="128" y="128" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
+          <frame x="128" y="0" width="64" height="64"/>
         </defend_left>
         <defend_right speed="0.2f" loop="true">
-          <frame x="192" y="128" width="64" height="64"/>
+          <frame x="64" y="0" width="64" height="64"/>
+          <frame x="192" y="0" width="64" height="64"/>
         </defend_right>
         <defend_front speed="0.2f" loop="true">
-          <frame x="128" y="192" width="64" height="64"/>
+          <frame x="0" y="64" width="64" height="64"/>
+          <frame x="128" y="64" width="64" height="64"/>
         </defend_front>
         <defend_back speed="0.2f" loop="true">
-          <frame x="192" y="192" width="64" height="64"/>
+          <frame x="64" y="64" width="64" height="64"/>
+          <frame x="192" y="64" width="64" height="64"/>
         </defend_back>
         <dead_left_front speed="0.2f" loop="false">
           <frame x="128" y="128" width="64" height="64"/>
@@ -388,11 +428,14 @@
       </animations>
     </iris>
     <storm>
-      <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
+      <texture value="Assets/Sprites/Main_Characters/Storm_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
-      <position x="5" y="17"/>
-      <stats hp="90" mana="85" p_move="4" atk_f="75" atk_s="74" range_atk="1" range_ability_1="3" range_ability_2="7"
-             range_ability_3="7" def_f="85" def_s="70" crit="0.2"  agi="8"/>
+      <position x="9" y="17"/>
+      <name value="Storm"/>
+      <stats hp="110" mana="85" p_move="4" atk_f="75" atk_s="74" range_atk="1" range_ability_1="3" range_ability_2="7"
+             range_ability_3="7" def_f="80" def_s="70" crit="0.2"  agi="10"/>
+      <attacks_names attack="Acid throw" ability_1="Snail charge" ability_2="Time to hide" ability_3="Vampiric snail"
+                    ataque="Escupitajo" habilidad_1="Caracol paralizante" habilidad_2="Hora del escondite" habilidad_3="Caracol vampírico"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>
@@ -424,39 +467,51 @@
         </walk_right_back>
         <attack_left_front speed="0.2f" loop="false">
           <frame x="0" y="128" width="64" height="64"/>
+          <frame x="0" y="128" width="64" height="64"/>
         </attack_left_front>
         <attack_right_front speed="0.2f" loop="false">
+          <frame x="64" y="128" width="64" height="64"/>
           <frame x="64" y="128" width="64" height="64"/>
         </attack_right_front>
         <attack_left_back speed="0.2f" loop="false">
           <frame x="0" y="192" width="64" height="64"/>
+          <frame x="0" y="192" width="64" height="64"/>
         </attack_left_back>
         <attack_right_back speed="0.2f" loop="false">
+          <frame x="64" y="192" width="64" height="64"/>
           <frame x="64" y="192" width="64" height="64"/>
         </attack_right_back>
         <ability_1_left_front speed="0.2f" loop="false">
           <frame x="0" y="128" width="64" height="64"/>
+          <frame x="0" y="128" width="64" height="64"/>
         </ability_1_left_front>
         <ability_1_right_front speed="0.2f" loop="false">
+          <frame x="64" y="128" width="64" height="64"/>
           <frame x="64" y="128" width="64" height="64"/>
         </ability_1_right_front>
         <ability_1_left_back speed="0.2f" loop="false">
           <frame x="0" y="192" width="64" height="64"/>
+          <frame x="0" y="192" width="64" height="64"/>
         </ability_1_left_back>
         <ability_1_right_back speed="0.2f" loop="false">
           <frame x="64" y="192" width="64" height="64"/>
+          <frame x="64" y="192" width="64" height="64"/>
         </ability_1_right_back>
         <defend_left_front speed="0.2f" loop="true">
-          <frame x="128" y="128" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
+          <frame x="128" y="0" width="64" height="64"/>
         </defend_left_front>
         <defend_right_front speed="0.2f" loop="true">
-          <frame x="192" y="128" width="64" height="64"/>
+          <frame x="64" y="0" width="64" height="64"/>
+          <frame x="192" y="0" width="64" height="64"/>
         </defend_right_front>
         <defend_left_back speed="0.2f" loop="true">
-          <frame x="128" y="192" width="64" height="64"/>
+          <frame x="0" y="64" width="64" height="64"/>
+          <frame x="128" y="64" width="64" height="64"/>
         </defend_left_back>
         <defend_right_back speed="0.2f" loop="true">
-          <frame x="192" y="192" width="64" height="64"/>
+          <frame x="64" y="64" width="64" height="64"/>
+          <frame x="192" y="64" width="64" height="64"/>
         </defend_right_back>
         <dead_left_front speed="0.2f" loop="false">
           <frame x="128" y="128" width="64" height="64"/>
@@ -475,72 +530,65 @@
     <georgeb>
       <texture value="Assets/Sprites/Main_Characters/George_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
-      <position x="3" y="15"/>
+      <position x="8" y="20"/>
+      <name value="George B."/>
       <stats hp="75" mana="95" p_move="4" atk_f="75" atk_s="75" range_atk="4" range_ability_1="6" range_ability_2="4"
-             range_ability_3="3" def_f="75" def_s="75" crit="0.08"  agi="10"/>
+             range_ability_3="3" def_f="75" def_s="75" crit="0.08"  agi="12"/>
+      <attacks_names attack="Random throw" ability_1="Bear trap" ability_2="Cherry boom" ability_3="Flying birds"
+                    ataque="Tiro aleatorio" habilidad_1="Trampa de oso" habilidad_2="Bomba cereza" habilidad_3="Hora de Hitchcock"/>
       <animations>
-        <idle_left speed="0.2f" loop="true">
-          <frame x="0" y="0" width="64" height="64"/>
-          <frame x="128" y="0" width="64" height="64"/>
-        </idle_left>
         <idle_right speed="0.2f" loop="true">
           <frame x="0" y="64" width="64" height="64"/>
           <frame x="64" y="64" width="64" height="64"/>
-          <frame x="129" y="64" width="64" height="64"/>
-          <frame x="193" y="64" width="64" height="64"/>
+          <frame x="128" y="64" width="64" height="64"/>
+          <frame x="192" y="64" width="64" height="64"/>
         </idle_right>
         <idle_front speed="0.2f" loop="true">
           <frame x="0" y="64" width="64" height="64"/>
           <frame x="64" y="64" width="64" height="64"/>
-          <frame x="129" y="64" width="64" height="64"/>
-          <frame x="193" y="64" width="64" height="64"/>
+          <frame x="128" y="64" width="64" height="64"/>
+          <frame x="192" y="64" width="64" height="64"/>
         </idle_front>
         <idle_back speed="0.2f" loop="true">
           <frame x="64" y="64" width="64" height="64"/>
           <frame x="192" y="64" width="64" height="64"/>
         </idle_back>
-        <walk_left speed="0.2f" loop="true">
-          <frame x="256" y="0" width="64" height="64"/>
-        </walk_left>
         <walk_right speed="0.2f" loop="false">
-          <frame x="255" y="0" width="64" height="96"/>
-          <frame x="319" y="0" width="64" height="96"/>          
-          <frame x="383" y="0" width="64" height="96"/>
-          <frame x="447" y="0" width="64" height="96"/>
-          <frame x="255" y="96" width="64" height="96"/>
-          <frame x="319" y="96" width="64" height="96"/>
-          <frame x="383" y="96" width="64" height="96"/>
-          <frame x="447" y="96" width="64" height="96"/>
-          <frame x="447" y="0" width="64" height="96"/>
-          <frame x="255" y="96" width="64" height="96"/>
-          <frame x="319" y="96" width="64" height="96"/>
-          <frame x="383" y="96" width="64" height="96"/>
-          <frame x="447" y="96" width="64" height="96"/>
-          <frame x="447" y="0" width="64" height="96"/>
-          <frame x="255" y="96" width="64" height="96"/>
-          <frame x="319" y="96" width="64" height="96"/>
-          <frame x="383" y="96" width="64" height="96"/>
-          <frame x="447" y="96" width="64" height="96"/>
-          <frame x="447" y="0" width="64" height="96"/>
-          <frame x="255" y="96" width="64" height="96"/>
-          <frame x="319" y="96" width="64" height="96"/>
-          <frame x="383" y="96" width="64" height="96"/>
-          <frame x="447" y="96" width="64" height="96"/>
-          <frame x="447" y="0" width="64" height="96"/>
-          <frame x="255" y="96" width="64" height="96"/>
-          <frame x="319" y="96" width="64" height="96"/>
-          <frame x="383" y="96" width="64" height="96"/>
-          <frame x="447" y="96" width="64" height="96"/>
+          <frame x="256" y="0" width="64" height="96"/>
+          <frame x="320" y="0" width="64" height="96"/>          
+          <frame x="384" y="0" width="64" height="96"/>
         </walk_right>
-        <walk_front speed="0.2f" loop="true">
-          <frame x="256" y="64" width="64" height="64"/>
+        <walk_right_2 speed="0.2f" loop="true">
+          <frame x="448" y="0" width="64" height="96"/>
+          <frame x="256" y="96" width="64" height="96"/>
+          <frame x="320" y="96" width="64" height="96"/>
+          <frame x="384" y="96" width="64" height="96"/>
+          <frame x="448" y="96" width="64" height="96"/>
+        </walk_right_2>
+        <walk_front speed="0.2f" loop="false">
+          <frame x="256" y="0" width="64" height="96"/>
+          <frame x="320" y="0" width="64" height="96"/>
+          <frame x="384" y="0" width="64" height="96"/>
         </walk_front>
-        <walk_back speed="0.2f" loop="true">
-          <frame x="320" y="64" width="64" height="64"/>
+        <walk_front_2 speed="0.2f" loop="true">
+          <frame x="448" y="0" width="64" height="96"/>
+          <frame x="256" y="96" width="64" height="96"/>
+          <frame x="320" y="96" width="64" height="96"/>
+          <frame x="384" y="96" width="64" height="96"/>
+          <frame x="448" y="96" width="64" height="96"/>
+        </walk_front_2>
+        <walk_back speed="0.2f" loop="false">
+          <frame x="256" y="0" width="64" height="96"/>
+          <frame x="320" y="0" width="64" height="96"/>
+          <frame x="384" y="0" width="64" height="96"/>
         </walk_back>
-        <attack_left speed="0.2f" loop="false">
-          <frame x="0" y="128" width="64" height="64"/>
-        </attack_left>
+        <walk_back_2 speed="0.2f" loop="true">
+          <frame x="448" y="0" width="64" height="96"/>
+          <frame x="256" y="96" width="64" height="96"/>
+          <frame x="320" y="96" width="64" height="96"/>
+          <frame x="384" y="96" width="64" height="96"/>
+          <frame x="448" y="96" width="64" height="96"/>
+        </walk_back_2>
         <attack_right speed="0.2f" loop="false">
           <frame x="0" y="128" width="64" height="64"/>
           <frame x="64" y="128" width="64" height="64"/>
@@ -548,62 +596,45 @@
           <frame x="64" y="192" width="64" height="64"/>
         </attack_right>
         <attack_front speed="0.2f" loop="false">
-          <frame x="0" y="192" width="64" height="64"/>
+          <frame x="0" y="128" width="64" height="64"/>
+          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="64" y="192" width="64" height="64"/>
         </attack_front>
         <attack_back speed="0.2f" loop="false">
+          <frame x="0" y="128" width="64" height="64"/>
+          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="64" y="192" width="64" height="64"/>
           <frame x="64" y="192" width="64" height="64"/>
         </attack_back>
-        <ability_1_left speed="0.2f" loop="false">
-          <frame x="0" y="128" width="64" height="64"/>
-        </ability_1_left>
         <ability_1_right speed="0.2f" loop="false">
+          <frame x="64" y="128" width="64" height="64"/>
           <frame x="64" y="128" width="64" height="64"/>
         </ability_1_right>
         <ability_1_front speed="0.2f" loop="false">
           <frame x="0" y="192" width="64" height="64"/>
+          <frame x="0" y="192" width="64" height="64"/>
         </ability_1_front>
         <ability_1_back speed="0.2f" loop="false">
           <frame x="64" y="192" width="64" height="64"/>
+          <frame x="64" y="192" width="64" height="64"/>
         </ability_1_back>
-        <ability_2_left speed="0.2f" loop="false">
-          <frame x="0" y="128" width="64" height="64"/>
-        </ability_2_left>
-        <ability_2_right speed="0.2f" loop="false">
-          <frame x="64" y="128" width="64" height="64"/>
-        </ability_2_right>
-        <ability_2_front speed="0.2f" loop="false">
-          <frame x="0" y="192" width="64" height="64"/>
-        </ability_2_front>
-        <ability_2_back speed="0.2f" loop="false">
-          <frame x="64" y="192" width="64" height="64"/>
-        </ability_2_back>
-        <ability_1_left speed="0.2f" loop="false">
-          <frame x="0" y="128" width="64" height="64"/>
-        </ability_1_left>
-        <ability_3_right speed="0.2f" loop="false">
-          <frame x="64" y="128" width="64" height="64"/>
-        </ability_3_right>
-        <ability_3_front speed="0.2f" loop="false">
-          <frame x="0" y="192" width="64" height="64"/>
-        </ability_3_front>
-        <ability_3_back speed="0.2f" loop="false">
-          <frame x="64" y="192" width="64" height="64"/>
-        </ability_3_back>
-        <defend_left speed="0.2f" loop="true">
-          <frame x="128" y="128" width="64" height="64"/>
-        </defend_left>
         <defend_right speed="0.2f" loop="true">
-          <frame x="192" y="128" width="64" height="64"/>
+          <frame x="0" y="64" width="64" height="64"/>
+          <frame x="64" y="64" width="64" height="64"/>
+          <frame x="128" y="64" width="64" height="64"/>
+          <frame x="192" y="64" width="64" height="64"/>
         </defend_right>
         <defend_front speed="0.2f" loop="true">
-          <frame x="128" y="192" width="64" height="64"/>
+          <frame x="0" y="64" width="64" height="64"/>
+          <frame x="64" y="64" width="64" height="64"/>
+          <frame x="128" y="64" width="64" height="64"/>
+          <frame x="192" y="64" width="64" height="64"/>
         </defend_front>
         <defend_back speed="0.2f" loop="true">
-          <frame x="192" y="192" width="64" height="64"/>
+          <frame x="64" y="64" width="64" height="64"/>
+          <frame x="192" y="64" width="64" height="64"/>
         </defend_back>
-        <dead_left speed="0.2f" loop="false">
-          <frame x="128" y="128" width="64" height="64"/>
-        </dead_left>
         <dead_right speed="0.2f" loop="false">
           <frame x="128" y="128" width="64" height="64"/>
           <frame x="192" y="128" width="64" height="64"/>
@@ -622,6 +653,7 @@
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="" y=""/>
+      <name value="???"/>
       <stats hp="76" mana="80" p_move="4" atk_f="84" atk_s="60" def_f="78" def_s="70" crit="0.2"  agi="9"/>
       <animations>
         <idle speed="0" loop="true">
@@ -633,6 +665,7 @@
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="" y=""/>
+      <name value="Dust"/>
       <stats hp="75" mana="110" atk_f="60" atk_s="82" def_f="75" def_s="75" crit="0.1"  agi="10"/>
       <animations>
         <idle speed="0" loop="true">
@@ -644,6 +677,7 @@
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="" y=""/>
+      <name value="Cat Norris"/>
       <stats hp="80" mana="90" atk_f="82" atk_s="75" def_f="76" def_s="76" crit="0.15"  agi="10"/>
       <animations>
         <idle speed="0" loop="true">
@@ -655,6 +689,7 @@
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="" y=""/>
+      <name value="Hektor"/>
       <stats hp="100" mana="0" atk_f="80" atk_s="75" def_f="90" def_s="90" crit="0"  agi="6"/>
       <animations>
         <idle speed="0" loop="true">
@@ -663,141 +698,214 @@
       </animations>
     </hektor>
     <boneyman>
-      <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
+      <texture value="Assets/Sprites/Enemies/Boneyman_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
-      <position x="8" y="3"/>
+      <position x="8" y="6"/>
+      <name value="Boneyman"/>
       <stats hp="70" mana="75" p_move="4" atk_f="85" atk_s="75" def_f="65" def_s="65" crit="0.3" agi="8"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
-          <frame x="0" y="0" width="64" height="64"/>
-          <frame x="128" y="0" width="64" height="64"/>
+          <frame x="0" y="100" width="100" height="100"/>
+          <frame x="100" y="100" width="100" height="100"/>
         </idle_left_front>
         <idle_right_front speed="0.2f" loop="true">
-          <frame x="64" y="0" width="64" height="64"/>
-          <frame x="192" y="0" width="64" height="64"/>
+          <frame x="200" y="100" width="100" height="100"/>
+          <frame x="300" y="100" width="100" height="100"/>
         </idle_right_front>
         <idle_left_back speed="0.2f" loop="true">
-          <frame x="0" y="64" width="64" height="64"/>
-          <frame x="128" y="64" width="64" height="64"/>
+          <frame x="0" y="0" width="100" height="100"/>
+          <frame x="100" y="0" width="100" height="100"/>
         </idle_left_back>
         <idle_right_back speed="0.2f" loop="true">
-          <frame x="64" y="64" width="64" height="64"/>
-          <frame x="192" y="64" width="64" height="64"/>
+          <frame x="200" y="0" width="100" height="100"/>
+          <frame x="300" y="0" width="100" height="100"/>
         </idle_right_back>
         <walk_left_front speed="0.2f" loop="true">
-          <frame x="256" y="0" width="64" height="64"/>
+          <frame x="400" y="100" width="100" height="100"/>
+          <frame x="400" y="300" width="100" height="100"/>
+          <frame x="400" y="100" width="100" height="100"/>
+          <frame x="400" y="300" width="100" height="100"/>
         </walk_left_front>
         <walk_right_front speed="0.2f" loop="true">
-          <frame x="320" y="0" width="64" height="64"/>
+          <frame x="500" y="100" width="100" height="100"/>
+          <frame x="500" y="300" width="100" height="100"/>
+          <frame x="500" y="100" width="100" height="100"/>
+          <frame x="500" y="300" width="100" height="100"/>
         </walk_right_front>
         <walk_left_back speed="0.2f" loop="true">
-          <frame x="256" y="64" width="64" height="64"/>
+          <frame x="400" y="0" width="100" height="100"/>
+          <frame x="400" y="200" width="100" height="100"/>
+          <frame x="400" y="0" width="100" height="100"/>
+          <frame x="400" y="200" width="100" height="100"/>
         </walk_left_back>
         <walk_right_back speed="0" loop="true">
-          <frame x="320" y="64" width="64" height="64"/>
+          <frame x="500" y="0" width="100" height="100"/>
+          <frame x="500" y="200" width="100" height="100"/>
+          <frame x="500" y="0" width="100" height="100"/>
+          <frame x="500" y="200" width="100" height="100"/>
         </walk_right_back>
-        <attack_left_front speed="0" loop="true">
-          <frame x="0" y="128" width="64" height="64"/>
+        <attack_left_front speed="0.2f" loop="false">
+          <frame x="200" y="300" width="100" height="100"/>
+          <frame x="200" y="300" width="100" height="100"/>
         </attack_left_front>
-        <attack_right_front speed="0" loop="true">
-          <frame x="64" y="128" width="64" height="64"/>
+        <attack_right_front speed="0.2f" loop="false">
+          <frame x="300" y="300" width="100" height="100"/>
+	        <frame x="300" y="300" width="100" height="100"/>
         </attack_right_front>
-        <attack_left_back speed="0" loop="true">
-          <frame x="0" y="192" width="64" height="64"/>
+        <attack_left_back speed="0.2f" loop="false">
+          <frame x="200" y="200" width="100" height="100"/>
+          <frame x="200" y="200" width="100" height="100"/>
         </attack_left_back>
-        <attack_right_back speed="0" loop="true">
-          <frame x="64" y="192" width="64" height="64"/>
+        <attack_right_back speed="0.2f" loop="false">
+          <frame x="300" y="200" width="100" height="100"/>
+          <frame x="300" y="200" width="100" height="100"/>
         </attack_right_back>
-        <dead_left_front speed="0" loop="true">
-          <frame x="128" y="128" width="64" height="64"/>
+        <ability_1_left_front speed="0.2f" loop="false">
+          <frame x="0" y="300" width="100" height="100"/>
+          <frame x="0" y="300" width="100" height="100"/>
+        </ability_1_left_front>
+        <ability_1_left_back speed="0.2f" loop="false">
+          <frame x="0" y="200" width="100" height="100"/>
+          <frame x="0" y="200" width="100" height="100"/>
+        </ability_1_left_back>
+        <ability_1_right_front speed="0.2f" loop="false">
+          <frame x="100" y="300" width="100" height="100"/>
+          <frame x="100" y="300" width="100" height="100"/>
+        </ability_1_right_front>
+        <ability_1_right_back speed="0.2f" loop="false">
+          <frame x="100" y="200" width="100" height="100"/>
+          <frame x="100" y="200" width="100" height="100"/>
+        </ability_1_right_back>
+        <dead_left_front speed="0.2" loop="false">
+          <frame x="100" y="400" width="100" height="100"/>
+          <frame x="200" y="400" width="100" height="100"/>
+          <frame x="300" y="400" width="100" height="100"/>
+          <frame x="400" y="400" width="100" height="100"/>
         </dead_left_front>
-        <dead_right_front speed="0" loop="true">
-          <frame x="192" y="128" width="64" height="64"/>
+        <dead_right_front speed="0.2" loop="false">
+          <frame x="100" y="400" width="100" height="100"/>
+          <frame x="200" y="400" width="100" height="100"/>
+          <frame x="300" y="400" width="100" height="100"/>
+          <frame x="400" y="400" width="100" height="100"/>
         </dead_right_front>
-        <dead_left_back speed="0" loop="true">
-          <frame x="128" y="192" width="64" height="64"/>
+        <dead_left_back speed="0.2" loop="false">
+          <frame x="100" y="400" width="100" height="100"/>
+          <frame x="200" y="400" width="100" height="100"/>
+          <frame x="300" y="400" width="100" height="100"/>
+          <frame x="400" y="400" width="100" height="100"/>
         </dead_left_back>
-        <dead_right_back speed="0" loop="true">
-          <frame x="192" y="192" width="64" height="64"/>
+        <dead_right_back speed="0.2" loop="false">
+          <frame x="100" y="400" width="100" height="100"/>
+          <frame x="200" y="400" width="100" height="100"/>
+          <frame x="300" y="400" width="100" height="100"/>
+          <frame x="400" y="400" width="100" height="100"/>
         </dead_right_back>
       </animations>
     </boneyman>
     <pinkking>
-      <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
+      <texture value="Assets/Sprites/Enemies/Pinkking_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
-      <position x="17" y="6"/>
-      <stats hp="90" mana="90" p_move="4" atk_f="90" atk_s="90" def_f="90" def_s="90" crit="0.3" agi="9"/>
+      <position x="17" y="9"/>
+      <name value="PinkKing"/>
+      <stats hp="130" mana="90" p_move="4" atk_f="80" atk_s="80" range_atk="4" def_f="80" def_s="80" crit="0.3" agi="9"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
-          <frame x="0" y="0" width="64" height="64"/>
-          <frame x="128" y="0" width="64" height="64"/>
+          <frame x="0" y="0" width="128" height="128"/>
+          <frame x="128" y="0" width="128" height="128"/>
+          <frame x="256" y="0" width="128" height="128"/>
+          <frame x="384" y="0" width="128" height="128"/>
+          <frame x="0" y="128" width="128" height="128"/>
+          <frame x="128" y="128" width="128" height="128"/>
+          <frame x="256" y="128" width="128" height="128"/>
+          <frame x="384" y="128" width="128" height="128"/>
         </idle_left_front>
-        <idle_right_front speed="0.2f" loop="true">
-          <frame x="64" y="0" width="64" height="64"/>
-          <frame x="192" y="0" width="64" height="64"/>
-        </idle_right_front>
         <idle_left_back speed="0.2f" loop="true">
-          <frame x="0" y="64" width="64" height="64"/>
-          <frame x="128" y="64" width="64" height="64"/>
+          <frame x="0" y="512" width="128" height="128"/>
+          <frame x="128" y="512" width="128" height="128"/>
+          <frame x="256" y="512" width="128" height="128"/>
+          <frame x="384" y="512" width="128" height="128"/>
+          <frame x="0" y="640" width="128" height="128"/>
+          <frame x="128" y="640" width="128" height="128"/>
+          <frame x="256" y="640" width="128" height="128"/>
+          <frame x="384" y="640" width="128" height="128"/>
         </idle_left_back>
-        <idle_right_back speed="0.2f" loop="true">
-          <frame x="64" y="64" width="64" height="64"/>
-          <frame x="192" y="64" width="64" height="64"/>
-        </idle_right_back>
-        <walk_left_front speed="0.2f" loop="true">
-          <frame x="256" y="0" width="64" height="64"/>
-        </walk_left_front>
-        <walk_right_front speed="0.2f" loop="true">
-          <frame x="320" y="0" width="64" height="64"/>
-        </walk_right_front>
-        <walk_left_back speed="0.2f" loop="true">
-          <frame x="256" y="64" width="64" height="64"/>
-        </walk_left_back>
-        <walk_right_back speed="0" loop="true">
-          <frame x="320" y="64" width="64" height="64"/>
-        </walk_right_back>
-	<walk_left speed="0.2f" loop="true">
-          <frame x="256" y="0" width="64" height="64"/>
+        <idle_left speed="0.2f" loop="true">
+          <frame x="0" y="0" width="128" height="128"/>
+          <frame x="128" y="0" width="128" height="128"/>
+          <frame x="256" y="0" width="128" height="128"/>
+          <frame x="384" y="0" width="128" height="128"/>
+          <frame x="0" y="128" width="128" height="128"/>
+          <frame x="128" y="128" width="128" height="128"/>
+          <frame x="256" y="128" width="128" height="128"/>
+          <frame x="384" y="128" width="128" height="128"/>
+        </idle_left>
+	      <walk_left speed="0.2f" loop="true">
+          <frame x="512" y="0" width="128" height="128"/>
+          <frame x="640" y="0" width="128" height="128"/>
+          <frame x="512" y="128" width="128" height="128"/>
+          <frame x="640" y="128" width="128" height="128"/>
+          <frame x="512" y="256" width="128" height="128"/>
+          <frame x="640" y="256" width="128" height="128"/>
+          <frame x="512" y="384" width="128" height="128"/>
+          <frame x="640" y="384" width="128" height="128"/>
         </walk_left>
-        <walk_right speed="0.2f" loop="true">
-          <frame x="320" y="0" width="64" height="64"/>
-        </walk_right>
         <walk_front speed="0.2f" loop="true">
-          <frame x="256" y="64" width="64" height="64"/>
+          <frame x="512" y="0" width="128" height="128"/>
+          <frame x="640" y="0" width="128" height="128"/>
+          <frame x="512" y="128" width="128" height="128"/>
+          <frame x="640" y="128" width="128" height="128"/>
+          <frame x="512" y="256" width="128" height="128"/>
+          <frame x="640" y="256" width="128" height="128"/>
+          <frame x="512" y="384" width="128" height="128"/>
+          <frame x="640" y="384" width="128" height="128"/>
         </walk_front>
         <walk_back speed="0.2f" loop="true">
-          <frame x="320" y="64" width="64" height="64"/>
+          <frame x="0" y="512" width="128" height="128"/>
+          <frame x="128" y="512" width="128" height="128"/>
+          <frame x="256" y="512" width="128" height="128"/>
+          <frame x="384" y="512" width="128" height="128"/>
+          <frame x="0" y="640" width="128" height="128"/>
+          <frame x="128" y="640" width="128" height="128"/>
+          <frame x="256" y="640" width="128" height="128"/>
+          <frame x="384" y="640" width="128" height="128"/>
         </walk_back>
-        <attack_left_front speed="0" loop="true">
-          <frame x="0" y="128" width="64" height="64"/>
-        </attack_left_front>
-        <attack_right_front speed="0" loop="true">
-          <frame x="64" y="128" width="64" height="64"/>
-        </attack_right_front>
-        <attack_left_back speed="0" loop="true">
-          <frame x="0" y="192" width="64" height="64"/>
-        </attack_left_back>
-        <attack_right_back speed="0" loop="true">
-          <frame x="64" y="192" width="64" height="64"/>
-        </attack_right_back>
-        <dead_left_front speed="0" loop="true">
-          <frame x="128" y="128" width="64" height="64"/>
-        </dead_left_front>
-        <dead_right_front speed="0" loop="true">
-          <frame x="192" y="128" width="64" height="64"/>
-        </dead_right_front>
-        <dead_left_back speed="0" loop="true">
-          <frame x="128" y="192" width="64" height="64"/>
-        </dead_left_back>
-        <dead_right_back speed="0" loop="true">
-          <frame x="192" y="192" width="64" height="64"/>
-        </dead_right_back>
+        <attack_front speed="0.2f" loop="false">
+          <frame x="0" y="256" width="128" height="128"/>
+          <frame x="128" y="256" width="128" height="128"/>
+          <frame x="0" y="384" width="128" height="128"/>
+          <frame x="128" y="384" width="128" height="128"/>
+        </attack_front>
+        <attack_back speed="0.2f" loop="false">
+          <frame x="0" y="768" width="128" height="128"/>
+          <frame x="128" y="768" width="128" height="128"/>
+          <frame x="0" y="888" width="128" height="128"/>
+          <frame x="128" y="888" width="128" height="128"/>
+        </attack_back>
+        <dead_front speed="0.2f" loop="false">
+          <frame x="256" y="256" width="128" height="128"/>
+          <frame x="384" y="256" width="128" height="128"/>
+          <frame x="256" y="384" width="128" height="128"/>
+          <frame x="384" y="384" width="128" height="128"/>
+        </dead_front>
+        <dead_back speed="0.2f" loop="false">
+          <frame x="256" y="768" width="128" height="128"/>
+          <frame x="384" y="768" width="128" height="128"/>
+          <frame x="256" y="896" width="128" height="128"/>
+          <frame x="384" y="896" width="128" height="128"/>
+        </dead_back>
+        <dead_left speed="0.2f" loop="false">
+          <frame x="256" y="256" width="128" height="128"/>
+          <frame x="384" y="256" width="128" height="128"/>
+          <frame x="256" y="384" width="128" height="128"/>
+          <frame x="384" y="384" width="128" height="128"/>
+        </dead_left>
       </animations>
     </pinkking>
     <hotdog>
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="18" y="6"/>
+      <name value="Hotdog"/>
       <stats hp="120" mana="120" atk_f="85" atk_s="85" def_f="85" def_s="85" crit="0.02" agi="6"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
@@ -858,6 +966,7 @@
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="22" y="12"/>
+      <name value="Burgdog"/>
       <stats hp="80" mana="90" atk_f="75" atk_s="75" def_f="78" def_s="78" crit="0.1"  agi="4"/>
       <animations>
         <idle speed="0" loop="true">
@@ -869,6 +978,7 @@
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="9" y="12"/>
+      <name value="Polar Bear"/>
       <stats hp="100" mana="90" atk_f="80" atk_s="80" def_f="80" def_s="80" crit="0.1"  agi="4"/>
       <animations>
         <idle speed="0" loop="true">
@@ -880,6 +990,7 @@
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="9" y="12"/>
+      <name value="Polarpath"/>
       <stats hp="150" mana="120" atk_f="85" atk_s="85" def_f="90" def_s="90" crit="0.2"  agi="6"/>
       <animations>
         <idle speed="0" loop="true">
@@ -891,6 +1002,7 @@
       <texture value=""/>
       <debug_texture value="Assets/Maps/meta.png"/>
       <position x="9" y="12"/>
+      <name value="Cherry Black Glasses"/>
       <stats hp="150" mana="95" atk_f="95" atk_s="95" def_f="95" def_s="95" crit="0.35" agi="10"/>
       <animations>
         <idle speed="0" loop="true">
@@ -898,6 +1010,10 @@
         </idle>
       </animations>
     </cherryblackglasses>
+    <tree1/>
+    <tree2/>
+    <tree3/>
+    <beartrap/>
   </entity_manager>
 
 </config>

@@ -1,5 +1,5 @@
-#ifndef __TIMER_H__
-#define __TIMER_H__
+#ifndef __Timer_H__
+#define __Timer_H__
 
 #include "Defs.h"
 
@@ -11,11 +11,17 @@ public:
 	Timer();
 
 	void Start();
-	uint32 Read() const;
+	void Stop();
+	void Resume();
+
 	float ReadSec() const;
+	uint32 Read() const;
 
 private:
+
+	bool	running;
 	uint32	started_at;
+	uint32	stopped_at;
 };
 
-#endif //__TIMER_H__
+#endif //!__Timer_H__

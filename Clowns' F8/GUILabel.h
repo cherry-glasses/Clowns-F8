@@ -12,7 +12,7 @@
 class GUILabel : public GUIElement
 {
 public:
-	GUILabel(int x, int y, std::string text, SDL_Color color, _TTF_Font* font, GUIElement* son);
+	GUILabel(int x, int y, std::string text, SDL_Color color, _TTF_Font* font, int curr, int def, GUIElement* son);
 	~GUILabel()
 	{
 		App->textures->UnLoad(tex);
@@ -24,7 +24,6 @@ public:
 	void SetText(std::string text);
 	void AddChar(std::string c);
 	void DeleteLastChar();
-
 public:
 	_TTF_Font* font = nullptr;
 	SDL_Texture* tex = nullptr;

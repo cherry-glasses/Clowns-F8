@@ -194,7 +194,6 @@ bool ModuleAudio::PlayFx(unsigned int _id, int _repeat)
 		Mix_PlayChannel(-1, fx[_id - 1], _repeat);
 	}
 
-	LOG("VOLUME %d", volume_fx);
 	return ret;
 }
 
@@ -257,14 +256,20 @@ void ModuleAudio::StopMusic(int _mut)
 
 void ModuleAudio::VolumeUp()
 {
-	if (volume <= 120)
-		Mix_VolumeMusic(volume += 8);
+	volume += volume_change_ratio;
+	if (volume > 120) {
+		volume = 120;
+	}
+	Mix_VolumeMusic(volume);
 }
 
 void ModuleAudio::VolumeDown()
 {
-	if (volume >= 8)
-		Mix_VolumeMusic(volume -= 8);
+ 	volume -= volume_change_ratio;
+	if (volume < 0) {
+		volume = 0;
+	}
+	Mix_VolumeMusic(volume);
 }
 
 void ModuleAudio::SliderVolumeFx(int _vol)

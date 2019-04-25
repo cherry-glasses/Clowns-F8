@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -94,7 +94,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -124,10 +124,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -137,6 +139,15 @@
     <ClInclude Include="..\Clowns%27 F8\CharacterGeorgeB.h" />
     <ClInclude Include="..\Clowns%27 F8\CharacterSapphire.h" />
     <ClInclude Include="..\Clowns%27 F8\CharacterStorm.h" />
+    <ClInclude Include="..\Clowns%27 F8\Color.h" />
+    <ClInclude Include="..\Clowns%27 F8\Fade.h" />
+    <ClInclude Include="..\Clowns%27 F8\ModuleTransitionManager.h" />
+    <ClInclude Include="..\Clowns%27 F8\Transition.h" />
+    <ClInclude Include="..\Clowns%27 F8\Tree2.h" />
+    <ClInclude Include="..\Clowns%27 F8\Tree3.h" />
+    <ClInclude Include="Tree1.h" />
+    <ClInclude Include="..\Clowns%27 F8\BearTrap.h" />
+    <ClInclude Include="..\Clowns%27 F8\Object.h" />
     <ClInclude Include="..\Clowns%27 F8\Pinkking.h" />
     <ClInclude Include="Hotdog.h" />
     <ClInclude Include="..\Clowns%27 F8\Character.h" />
@@ -162,7 +173,6 @@
     <ClInclude Include="..\Clowns%27 F8\MemLeaks.h" />
     <ClInclude Include="..\Clowns%27 F8\Module.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleAudio.h" />
-    <ClInclude Include="..\Clowns%27 F8\ModuleFadeToBlack.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleInput.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleRender.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleTextures.h" />
@@ -175,6 +185,16 @@
     <ClCompile Include="..\Clowns%27 F8\CharacterGeorgeB.cpp" />
     <ClCompile Include="..\Clowns%27 F8\CharacterSapphire.cpp" />
     <ClCompile Include="..\Clowns%27 F8\CharacterStorm.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Color.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Enemy.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Fade.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\ModuleTransitionManager.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Transition.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Tree2.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Tree3.cpp" />
+    <ClCompile Include="Tree1.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\BearTrap.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Object.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Pinkking.cpp" />
     <ClCompile Include="Hotdog.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModulePathfinding.cpp" />
@@ -195,7 +215,6 @@
     <ClCompile Include="ModuleFonts.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Main.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleAudio.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\ModuleFadeToBlack.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleInput.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleRender.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleTextures.cpp" />

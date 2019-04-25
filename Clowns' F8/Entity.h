@@ -16,6 +16,10 @@ enum class ENTITY_TYPE
 	ENTITY_ENEMY_PINKKING,
 	ENTITY_ENEMY_HOTDOG,
 	ENTITY_ENEMY_BURGDOG,
+	ENTITY_OBJECT_TREE1,
+	ENTITY_OBJECT_TREE2,
+	ENTITY_OBJECT_TREE3,
+	ENTITY_OBJECT_BEARTRAP,
 	NO_TYPE
 };
 
@@ -38,9 +42,13 @@ typedef struct {
 
 typedef struct {
 	std::string Attack_name;
+	std::string Ataque_nombre;
 	std::string Ability_1_name;
 	std::string Ability_2_name;
 	std::string Ability_3_name;
+	std::string Habilidad_1_nombre;
+	std::string Habilidad_2_nombre;
+	std::string Habilidad_3_nombre;
 	
 } Attacks_names;
 
@@ -58,7 +66,7 @@ public:
 	// Called each loop iteration
 	virtual bool PreUpdate() {return true;}
 	virtual bool Update(float _dt) {return true;}
-	virtual bool PostUpdate() {return true;}
+	virtual bool PostUpdate() { return true; }
 	
 	//Move and Attack
 	virtual void SearchWalk() {}
@@ -107,6 +115,9 @@ public:
 	STATE current_state = ALIVE;
 	TURN current_turn = NONE;
 
+	std::pair<int, int>  position_margin;
+	std::string name;
+
 protected:
 
 	enum MOVEMENT {	IDLE_LEFT_FRONT, IDLE_RIGHT_FRONT, IDLE_LEFT_BACK, IDLE_RIGHT_BACK, IDLE_LEFT, IDLE_RIGHT, IDLE_FRONT, IDLE_BACK,
@@ -135,8 +146,11 @@ protected:
 	Animation walk_right_front;
 	Animation walk_left;
 	Animation walk_right;
+	Animation walk_right_2;
 	Animation walk_front;
+	Animation walk_front_2;
 	Animation walk_back;
+	Animation walk_back_2;
 	Animation attack_left_back;
 	Animation attack_right_back;
 	Animation attack_left_front;
@@ -186,8 +200,9 @@ protected:
 	SDL_Rect debug_red;
 	SDL_Rect debug_blue;
 	std::pair<int, int>  position;
-	std::pair<int, int>  position_margin;
 	std::vector<std::pair<int, int>>  objective_position;
+	int tiles_range_attk = 0;
+	std::pair<int, int>* range;
 	
 	
 };

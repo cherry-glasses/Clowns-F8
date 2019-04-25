@@ -2,6 +2,7 @@
 #include "Character.h"
 #include "ModuleRender.h"
 #include "ModuleMap.h"
+#include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModulePathfinding.h"
 
@@ -28,9 +29,9 @@ bool Character::PreUpdate() {
 			SearchAbility_1();
 		}
 	}
-	else
+	else if (current_turn == SEARCH_MOVE)
 	{
-		current_turn == END_TURN;
+		current_turn = END_TURN;
 	}
 
 	return true;
@@ -78,10 +79,10 @@ bool Character::PostUpdate() {
 	{
 		EndTurn();
 	}
-
+	current = current_animation->frames[current_animation->GetCurrentFrameIndex()];
 	if (entity_texture != nullptr)
 	{
-		App->render->Blit(entity_texture, position.first, position.second - current.h + position_margin.second, &current_animation->GetCurrentFrame(), 1.0f, flipX);
+		App->render->Blit(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second, &current_animation->GetCurrentFrame(), 1.0f, flipX);
 	}
 
 	return true;
@@ -100,7 +101,7 @@ void Character::SelectWalk() {
 	if (Cap == -1) {
 		Cap = possible_mov_list.size() / 2;
 	}
-	
+
 	int i = 0;
 	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 	{
@@ -125,8 +126,9 @@ void Character::SelectWalk() {
 	App->render->Blit(debug_texture, possible_map.at(Cap).first, possible_map.at(Cap).second, &debug_green);
 
 	InputSelectMove();
-
-	if (App->input->Accept()) {
+	
+	if (App->input->Accept() 
+		&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)) != inrange_mov_list.end()) {
 		current_turn = Entity::MOVE;
 	}
 }
@@ -240,64 +242,48 @@ void Character::SelectAttack() {
 	if (App->input->Accept() && App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second) , type))
 	{
 		current_turn = ATTACK;
+		objective_position.push_back({ possible_map.at(Cap).first, possible_map.at(Cap).second });
 	}
 	else if (App->input->Decline()) 
 	{
 		current_turn = SELECT_ACTION;
 	}
+
 }
 
 void Character::Attack()
 {
-	objective_position.push_back({ possible_map.at(Cap).first, possible_map.at(Cap).second });
-	if ((position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-		|| (position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-			&& position.second < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second))
-	{
+	if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
 		CurrentMovement(ATTACK_LEFT_FRONT);
 	}
-	else if (position.first < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
+	else if (objective_position.back().first > position.first && objective_position.back().second > position.second) {
 		CurrentMovement(ATTACK_RIGHT_FRONT);
 	}
-	else if (position.first > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
+	else if (objective_position.back().first < position.first && objective_position.back().second < position.second) {
 		CurrentMovement(ATTACK_LEFT_BACK);
 	}
-	else if (position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
+	else if (objective_position.back().first > position.first && objective_position.back().second < position.second) {
 		CurrentMovement(ATTACK_RIGHT_BACK);
 	}
-	else if (position.first > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ATTACK_LEFT);
-	}
-	else if (position.first < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ATTACK_RIGHT);
-	}
-	else if (position.first < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
+	else if (objective_position.back().first == position.first && objective_position.back().second > position.second) {
 		CurrentMovement(ATTACK_FRONT);
 	}
-	else if (position.first > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
+	else if (objective_position.back().first == position.first && objective_position.back().second < position.second) {
 		CurrentMovement(ATTACK_BACK);
 	}
+	else if (objective_position.back().first < position.first && objective_position.back().second == position.second) {
+		CurrentMovement(ATTACK_LEFT);
+	}
+	else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
+		CurrentMovement(ATTACK_RIGHT);
+	}
 	else {
-		CurrentMovement(ATTACK_LEFT_FRONT);
+		CurrentMovement(ATTACK_RIGHT_FRONT);
 	}
 
 	// Ending attack and start idle animation
-	if (current_animation->Finished()) {
+	if (current_animation->isDone()) {
+		current_animation->Reset();
 		if (current_movement == ATTACK_LEFT_FRONT)
 		{
 			CurrentMovement(IDLE_LEFT_FRONT);
@@ -346,7 +332,9 @@ void Character::SelectAbility_1() {
 		possible_map.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
 		if (i != Cap && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 		{
-			if (App->pathfinding->IsAttackable({ (*possible_mov).first , (*possible_mov).second }, type))
+			if (App->pathfinding->IsAttackable({ (*possible_mov).first , (*possible_mov).second }, type) 
+				|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second })
+					&& App->pathfinding->IsTrapped({ (*possible_mov).first , (*possible_mov).second })))
 			{
 				App->render->Blit(debug_texture, possible_map.at(i).first, possible_map.at(i).second, &debug_blue);
 			}
@@ -393,9 +381,56 @@ void Character::SelectAbility_1() {
 	
 	InputSelectAttack();
 
-	if (App->input->Accept() && App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second), type))
+	if (App->input->Accept() 
+		&& (App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second), type)
+		|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second))
+			&& App->pathfinding->IsTrapped(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)))))
 	{
 		current_turn = ABILITY_1;
+
+		if (type == ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE) {
+			int i = 0;
+			int mod = sqrt(possible_mov_list.size());
+			for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+			{
+				if ((i == Cap + 1) && ((Cap + 1) % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
+				{
+					objective_position.push_back({ possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second });
+				}
+				else if ((i == Cap - 1) && (Cap % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
+				{
+					objective_position.push_back({ possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second });
+				}
+				else if ((i == Cap + mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
+				{
+					objective_position.push_back({ possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second });
+				}
+				else if ((i == Cap - mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
+				{
+					objective_position.push_back({ possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second });
+				}
+				++i;
+			}
+		}
+		else if (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS) {
+			int i = 0;
+			int mod = sqrt(possible_mov_list.size());
+			for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+			{
+				if (i == Cap) {
+					if (Cap == mod || Cap - 2 == mod) {
+						objective_position.push_back({ possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second });
+						objective_position.push_back({ possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second });
+					}
+					else if (Cap == (mod / 2) || Cap + 1 == possible_mov_list.size() - (mod / 2)) {
+						objective_position.push_back({ possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second });
+						objective_position.push_back({ possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second });
+					}
+				}
+			}
+		}
+
+		objective_position.push_back({ possible_map.at(Cap).first, possible_map.at(Cap).second });
 	}
 	else if (App->input->Decline())
 	{
@@ -405,97 +440,43 @@ void Character::SelectAbility_1() {
 
 void Character::Ability_1()
 {
-	if (type == ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE) {
-		int i = 0;
-		int mod = sqrt(possible_mov_list.size());
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if ((i == Cap + 1) && ((Cap + 1) % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-			{
-				objective_position.push_back({ possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second });
-			}
-			else if ((i == Cap - 1) && (Cap % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-			{
-				objective_position.push_back({ possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second });
-			}
-			else if ((i == Cap + mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-			{
-				objective_position.push_back({ possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second });
-			}
-			else if ((i == Cap - mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-			{
-				objective_position.push_back({ possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second });
-			}
-			++i;
+	if (current_stats.Mana >= 25) {
+		if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
+			CurrentMovement(ABILITY_1_LEFT_FRONT);
 		}
-	}
-	else if (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS) {
-		int i = 0;
-		int mod = sqrt(possible_mov_list.size());
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i == Cap) {
-				if (Cap == mod || Cap - 2 == mod) {
-					objective_position.push_back({ possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second });
-					objective_position.push_back({ possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second });
-				}
-				else if (Cap == (mod / 2) || Cap + 1 == possible_mov_list.size() - (mod / 2)) {
-					objective_position.push_back({ possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second });
-					objective_position.push_back({ possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second });
-				}
-			}
+		else if (objective_position.back().first > position.first && objective_position.back().second > position.second) {
+			CurrentMovement(ABILITY_1_RIGHT_FRONT);
 		}
-	}
-
-	objective_position.push_back({ possible_map.at(Cap).first, possible_map.at(Cap).second });
-	if ((position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-		|| (position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-			&& position.second < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second))
-	{
-		CurrentMovement(ABILITY_1_LEFT_FRONT);
-	}
-	else if (position.first < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ABILITY_1_RIGHT_FRONT);
-	}
-	else if (position.first > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ABILITY_1_LEFT_BACK);
-	}
-	else if (position.first == App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ABILITY_1_RIGHT_BACK);
-	}
-	else if (position.first > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ABILITY_1_LEFT);
-	}
-	else if (position.first < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ABILITY_1_RIGHT);
-	}
-	else if (position.first < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second < App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ABILITY_1_FRONT);
-	}
-	else if (position.first > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).first
-		&& position.second > App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second).second)
-	{
-		CurrentMovement(ABILITY_1_BACK);
+		else if (objective_position.back().first < position.first && objective_position.back().second < position.second) {
+			CurrentMovement(ABILITY_1_LEFT_BACK);
+		}
+		else if (objective_position.back().first > position.first && objective_position.back().second < position.second) {
+			CurrentMovement(ABILITY_1_RIGHT_BACK);
+		}
+		else if (objective_position.back().first == position.first && objective_position.back().second > position.second) {
+			CurrentMovement(ABILITY_1_FRONT);
+		}
+		else if (objective_position.back().first == position.first && objective_position.back().second < position.second) {
+			CurrentMovement(ABILITY_1_BACK);
+		}
+		else if (objective_position.back().first < position.first && objective_position.back().second == position.second) {
+			CurrentMovement(ABILITY_1_LEFT);
+		}
+		else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
+			CurrentMovement(ABILITY_1_RIGHT);
+		}
+		else {
+			CurrentMovement(ABILITY_1_LEFT_FRONT);
+		}
 	}
 	else {
-		CurrentMovement(ABILITY_1_LEFT_FRONT);
+		current_turn = SELECT_ACTION;
 	}
+	
 
 	// Ending attack and start idle animation
-	if (current_animation->Finished()) {
+	if (current_animation->isDone()) {
+		current_animation->Reset();
 		if (current_movement == ABILITY_1_LEFT_FRONT)
 		{
 			CurrentMovement(IDLE_LEFT_FRONT);
@@ -528,6 +509,7 @@ void Character::Ability_1()
 		{
 			CurrentMovement(IDLE_BACK);
 		}
+		current_stats.Mana -= 25;
 	}
 }
 
@@ -558,6 +540,30 @@ void Character::Defend()
 		CurrentMovement(DEFEND_FRONT);
 		break;
 	case Entity::IDLE_BACK:
+		CurrentMovement(DEFEND_BACK);
+		break;
+	case Entity::DEFEND_LEFT_FRONT:
+		CurrentMovement(DEFEND_LEFT_FRONT);
+		break;
+	case Entity::DEFEND_RIGHT_FRONT:
+		CurrentMovement(DEFEND_RIGHT_FRONT);
+		break;
+	case Entity::DEFEND_LEFT_BACK:
+		CurrentMovement(DEFEND_LEFT_BACK);
+		break;
+	case Entity::DEFEND_RIGHT_BACK:
+		CurrentMovement(DEFEND_RIGHT_BACK);
+		break;
+	case Entity::DEFEND_LEFT:
+		CurrentMovement(DEFEND_LEFT);
+		break;
+	case Entity::DEFEND_RIGHT:
+		CurrentMovement(DEFEND_RIGHT);
+		break;
+	case Entity::DEFEND_FRONT:
+		CurrentMovement(DEFEND_FRONT);
+		break;
+	case Entity::DEFEND_BACK:
 		CurrentMovement(DEFEND_BACK);
 		break;
 	default:
@@ -592,6 +598,30 @@ void Character::Die()
 		CurrentMovement(DEAD_FRONT);
 		break;
 	case Entity::IDLE_BACK:
+		CurrentMovement(DEAD_BACK);
+		break;
+	case Entity::DEFEND_LEFT_FRONT:
+		CurrentMovement(DEAD_LEFT_FRONT);
+		break;
+	case Entity::DEFEND_RIGHT_FRONT:
+		CurrentMovement(DEAD_RIGHT_FRONT);
+		break;
+	case Entity::DEFEND_LEFT_BACK:
+		CurrentMovement(DEAD_LEFT_BACK);
+		break;
+	case Entity::DEFEND_RIGHT_BACK:
+		CurrentMovement(DEAD_RIGHT_BACK);
+		break;
+	case Entity::DEFEND_LEFT:
+		CurrentMovement(DEAD_LEFT);
+		break;
+	case Entity::DEFEND_RIGHT:
+		CurrentMovement(DEAD_RIGHT);
+		break;
+	case Entity::DEFEND_FRONT:
+		CurrentMovement(DEAD_FRONT);
+		break;
+	case Entity::DEFEND_BACK:
 		CurrentMovement(DEAD_BACK);
 		break;
 	default:

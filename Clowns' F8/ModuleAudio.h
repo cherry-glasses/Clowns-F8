@@ -47,8 +47,8 @@ private:
 	_Mix_Music * music = nullptr;
 	std::vector<Mix_Chunk*>	fx;
 
-	uint volume = 0u;
-	uint volume_fx = 0u;
+	int volume = 0;
+	int volume_fx = 0;
 	uint max_volume = 0u;
 	float default_music_fade_time;
 	uint volume_change_ratio = 0u;

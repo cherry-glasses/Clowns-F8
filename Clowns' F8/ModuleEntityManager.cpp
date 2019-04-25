@@ -3,6 +3,7 @@
 #include "ModuleEntityManager.h"
 #include "Enemy.h"
 #include "Character.h"
+#include "Object.h"
 #include "CharacterSapphire.h"
 #include "CharacterIris.h"
 #include "CharacterStorm.h"
@@ -10,8 +11,14 @@
 #include "Boneyman.h"
 #include "Pinkking.h"
 #include "Hotdog.h"
+#include "Tree1.h"
+#include "Tree2.h"
+#include "Tree3.h"
+#include "BearTrap.h"
 #include "ModulePathfinding.h"
 #include "ModuleMap.h"
+#include "Scene.h"
+#include "Entity.h"
 
 
 ModuleEntityManager::ModuleEntityManager() : Module()
@@ -42,34 +49,41 @@ bool ModuleEntityManager::Start()
 	return true;
 }
 
-bool CompareByPosition(Entity* first, Entity* second) {
-	return (first->GetPosition().second < second->GetPosition().second);
-}
 
-bool CompareByAgility(Entity* first, Entity* second) {
-	return (first->current_stats.Agi > second->current_stats.Agi);
-}
+
+
+
 
 // Called each loop iteration
 bool ModuleEntityManager::PreUpdate()
 {
 	if (entities.size() > 1) 
 	{
-		entities.sort(CompareByAgility);
+		OrderEntitiesByAgility();
 		if (starting) 
 		{
-			std::list<Entity*>::iterator entityfirst = entities.begin();
-			(*entityfirst)->current_turn = Entity::TURN::SEARCH_MOVE;
+			Entity *entityfirst = entities.front();
+			entityfirst->current_turn = Entity::TURN::SEARCH_MOVE;
 			starting = false;
 		}
 	}
-	else
+	for (std::list<Entity*>::iterator enemy = enemies.begin(); enemy != enemies.end(); ++enemy)
 	{
-		starting = true;
+		if ((*enemy)->current_state == Entity::STATE::DEATH) {
+			App->entity_manager->DeleteEntity((*enemy));
+			break;
+		}
 	}
-	
+	for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object)
+	{
+		if (((Object*)*object)->used == true) {
+			App->entity_manager->DeleteEntity((*object));
+			break;
+		}
+	}
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
+		
 		if ((*entity)->current_turn == Entity::TURN::END_TURN)
 		{
 			(*entity)->current_turn = Entity::TURN::NONE;
@@ -82,10 +96,27 @@ bool ModuleEntityManager::PreUpdate()
 				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
 			}
 		}
-		
-		(*entity)->defend = false;
-		(*entity)->stunned = false;
+		if ((*entity)->stunned == true && (*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
+			(*entity)->current_turn = Entity::TURN::END_TURN;
+			(*entity)->stunned = false;
+		}
+		if ((*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
+			// Starting Turn
+			(*entity)->current_stats.Mana += 10;
+			(*entity)->defend = false;
+
+			// BearTrap
+			if (std::find(enemies.begin(), enemies.end(), (*entity)) != enemies.end()) {
+				for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object) {
+					if ((*object)->GetPosition() == (*entity)->GetPosition()) {
+						(*entity)->current_stats.Hp -= (george_b->current_stats.AtkS - (george_b->current_stats.AtkS * (*entity)->current_stats.DefS / 100));
+						((Object*)*object)->used = true;
+					}
+				}
+			}
+		}
 		(*entity)->PreUpdate();
+		
 	}
 
 	int w, h;
@@ -98,32 +129,43 @@ bool ModuleEntityManager::PreUpdate()
 
 bool ModuleEntityManager::Update(float _dt)
 {
-	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
-	{
-		(*entity)->Update(_dt);
+	if (!paused) {
+		for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
+		{
+			(*entity)->Update(_dt);
+		}
 	}
-
+	
 	return true;
 }
 
 
 bool ModuleEntityManager::PostUpdate()
 {
-	if (entities.size() > 1)
-	{
-		entities.sort(CompareByPosition);
-	}
-	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
-	{
-		if ((*entity)->current_stats.Hp > (*entity)->default_stats.Hp) {
-			(*entity)->current_stats.Hp = (*entity)->default_stats.Hp;
+	if (!paused) {
+		if (entities.size() > 1)
+		{
+			OrderEntitiesByPosition();
 		}
-		else if ((*entity)->current_stats.Hp < 0) {
-			(*entity)->current_stats.Hp = 0;
-		}
-		(*entity)->PostUpdate();
-	}
+		for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
+		{
+			if ((*entity)->current_stats.Hp > (*entity)->default_stats.Hp) {
+				(*entity)->current_stats.Hp = (*entity)->default_stats.Hp;
+			}
+			else if ((*entity)->current_stats.Hp < 0) {
+				(*entity)->current_stats.Hp = 0;
+			}
+			if ((*entity)->current_stats.Mana >(*entity)->default_stats.Mana) {
+				(*entity)->current_stats.Mana = (*entity)->default_stats.Mana;
+			}
+			else if ((*entity)->current_stats.Mana < 0) {
+				(*entity)->current_stats.Mana = 0;
+			}
+			(*entity)->PostUpdate();
 
+		}
+
+	}
 	return true;
 }
 
@@ -133,9 +175,12 @@ bool ModuleEntityManager::CleanUp()
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
 		(*entity)->CleanUp();
-		entity = entities.erase(entity);
 	}
 	entities.clear();
+	characters.clear();
+	enemies.clear();
+	objects.clear();
+	starting = true;
 
 	return true;
 }
@@ -152,6 +197,26 @@ bool ModuleEntityManager::Save(pugi::xml_node & _data) const
 	return true;
 }
 
+bool CompareByAgility(Entity* first, Entity* second) {
+	return (first->current_stats.Agi > second->current_stats.Agi);
+}
+bool CompareByPosition(Entity* first, Entity* second) {
+	return (first->GetPosition().second < second->GetPosition().second);
+}
+
+void ModuleEntityManager::OrderEntitiesByAgility() {
+	entities.sort(CompareByAgility);
+	characters.sort(CompareByAgility);
+	enemies.sort(CompareByAgility);
+	objects.sort(CompareByAgility);
+}
+void ModuleEntityManager::OrderEntitiesByPosition() {
+	entities.sort(CompareByPosition);
+	characters.sort(CompareByPosition);
+	enemies.sort(CompareByPosition);
+	objects.sort(CompareByPosition);
+}
+
 std::pair<int, int> ModuleEntityManager::NearestCharacter(std::pair<int, int> myposition){
 	std::pair<int, int> tmp;
 	std::pair<int, int> tmp_allied;
@@ -161,7 +226,7 @@ std::pair<int, int> ModuleEntityManager::NearestCharacter(std::pair<int, int> my
 	for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character) {
 		tmp_allied = (*character)->GetPosition();
 		tmp_result = sqrt(((tmp_allied.first - myposition.first)*(tmp_allied.first - myposition.first)) + ((tmp_allied.second - myposition.second)*(tmp_allied.second - myposition.second)));
-		if (tmp_result < tmp_result_2) {
+		if (tmp_result < tmp_result_2 && (*character)->current_state ==  (*character)->ALIVE) {
 			tmp = tmp_allied;
 			tmp_result_2 = tmp_result;
 		}
@@ -169,6 +234,33 @@ std::pair<int, int> ModuleEntityManager::NearestCharacter(std::pair<int, int> my
 	}
 	return tmp;
 
+}
+
+std::pair<int, int> ModuleEntityManager::CharactersPrioritzationAttack(std::pair<int, int>* AttackRange, int AttackRangeint)
+{
+
+	Entity* Charrr = nullptr;
+
+	for (int i = 0; i < AttackRangeint; i++) {
+		std::pair<int, int> pos = App->map->MapToWorld(AttackRange[i].first, AttackRange[i].second);
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character) {
+			if (pos == (*character)->GetPosition()) {
+				if (Charrr == nullptr) {
+					Charrr = (*character);
+				}
+				else {
+					if ((*Charrr).current_stats.DefF <= (*character)->current_stats.DefF) {
+						Charrr = (*character);
+					}
+				}
+			}
+			
+
+		}
+
+	}
+
+	return (*Charrr).GetPosition();
 }
 
 Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
@@ -196,11 +288,12 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		tmp = new CharacterGeorgeB(_type, entity_configs.child("georgeb"));
 		entities.push_back(tmp);
 		characters.push_back(tmp);
+		george_b = (CharacterGeorgeB*) tmp;
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
 		for (int i = 0; i < 4; i++)
 		{
-			tmp = new Boneyman(_type, entity_configs.child("boneyman"), enemies.size());
+			tmp = new Boneyman(_type, entity_configs.child("boneyman"), i);
 			entities.push_back(tmp);
 			enemies.push_back(tmp);
 		}
@@ -217,6 +310,35 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
 		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_TREE1:
+		for (int i = 0; i < 5; i++)
+		{
+			tmp = new Tree1(_type, entity_configs.child("tree1"), i);
+			entities.push_back(tmp);
+			objects.push_back(tmp);
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_TREE2:
+		for (int i = 0; i < 7; i++)
+		{
+			tmp = new Tree2(_type, entity_configs.child("tree2"), i);
+			entities.push_back(tmp);
+			objects.push_back(tmp);
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_TREE3:
+		for (int i = 0; i < 15; i++)
+		{
+			tmp = new Tree3(_type, entity_configs.child("tree3"), i);
+			entities.push_back(tmp);
+			objects.push_back(tmp);
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_BEARTRAP:
+		tmp = new BearTrap(_type, entity_configs.child("beartrap"));
+		entities.push_back(tmp);
+		objects.push_back(tmp);
+		break;
 	default:
 		break;
 	}
@@ -226,7 +348,16 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 
 bool ModuleEntityManager::DeleteEntity(Entity * entity)
 {
+	if (std::find(enemies.begin(), enemies.end(), (entity)) != enemies.end()) {
+		enemies.remove(entity);
+	}
+	else if(std::find(objects.begin(), objects.end(), (entity)) != objects.end()) {
+		objects.remove(entity);
+	}
 	entities.remove(entity);
+	entity->CleanUp();
+	entity = nullptr;
+	
 	return true;
 }
 
@@ -253,13 +384,12 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			{
 				if ((*enemie)->GetPosition() == (*position))
 				{
-					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefS / 100));
 				}
 			}
 		}
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
-		// We can swap to all entiotyes for Hector.
 		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
 		{
 			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
@@ -272,27 +402,39 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 		}
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
-		// We can swap to all entiotyes for Hector.
 		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
 		{
 			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
 			{
 				if ((*enemie)->GetPosition() == (*position))
 				{
-					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+					if (_damage == 0) {
+						(*enemie)->stunned = true;
+					}
+					else {
+						(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+					}
 				}
 			}
 		}
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
-		// We can swap to all entiotyes for Hector.
-		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
-		{
+		if (_damage == 0) {
 			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
 			{
-				if ((*enemie)->GetPosition() == (*position))
+				BearTrap *tmp = (BearTrap*)CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_BEARTRAP);
+				(*tmp).SetPosition((*position).first, (*position).second);
+			}
+		}
+		else {
+			for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
+			{
+				for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
 				{
-					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+					if ((*enemie)->GetPosition() == (*position))
+					{
+						(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefS / 100));
+					}
 				}
 			}
 		}
@@ -357,6 +499,18 @@ bool ModuleEntityManager::UpdateWalk(std::pair<int, int> tile_id) {
 		}
 	}
 	return ret;
+}
+
+bool ModuleEntityManager::ThereAreCharAlive()
+{
+	bool flag = false;
+	for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character) {
+		if ((*character)->current_state == (*character)->ALIVE) {
+			flag = true;
+			break;
+		}
+	}
+	return flag;
 }
 
 

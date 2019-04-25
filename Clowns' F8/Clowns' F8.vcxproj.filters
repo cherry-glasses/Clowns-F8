@@ -31,6 +31,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Entities\Objects">
+      <UniqueIdentifier>{151666f6-101a-4119-9320-69153021cc92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transitions">
+      <UniqueIdentifier>{499715db-c79e-4722-840e-34fa782fd775}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Clowns%27 F8\Application.h">
@@ -59,9 +65,6 @@
     </ClInclude>
     <ClInclude Include="..\Clowns%27 F8\Animation.h">
       <Filter>Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Clowns%27 F8\ModuleFadeToBlack.h">
-      <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleFonts.h">
       <Filter>Modules</Filter>
@@ -141,6 +144,33 @@
     <ClInclude Include="..\Clowns%27 F8\CharacterGeorgeB.h">
       <Filter>Entities\EntitiesCharacters</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Object.h">
+      <Filter>Entities\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\BearTrap.h">
+      <Filter>Entities\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree1.h">
+      <Filter>Entities\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Tree2.h">
+      <Filter>Entities\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ModuleTransitionManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Color.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Fade.h">
+      <Filter>Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Transition.h">
+      <Filter>Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Tree3.h">
+      <Filter>Entities\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -163,9 +193,6 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Main.cpp">
       <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Clowns%27 F8\ModuleFadeToBlack.cpp">
-      <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleFonts.cpp">
       <Filter>Modules</Filter>
@@ -235,6 +262,36 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\CharacterGeorgeB.cpp">
       <Filter>Entities\EntitiesCharacters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\BearTrap.cpp">
+      <Filter>Entities\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Object.cpp">
+      <Filter>Entities\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Enemy.cpp">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree1.cpp">
+      <Filter>Entities\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Tree2.cpp">
+      <Filter>Entities\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Color.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ModuleTransitionManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Fade.cpp">
+      <Filter>Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Transition.cpp">
+      <Filter>Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Tree3.cpp">
+      <Filter>Entities\Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

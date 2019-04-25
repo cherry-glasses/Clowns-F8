@@ -246,33 +246,45 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 	case Entity::WALK_LEFT:
 		current_movement = WALK_LEFT;
 		current_animation = &walk_right;
+		if ((current_animation == &walk_right && current_animation->isDone()) || current_animation == &walk_right_2) {
+			current_animation = &walk_right_2;
+			position.first -= 4;
+		}
 		flipX = true;
-		position.first -= 2;
 		break;
 	case Entity::WALK_RIGHT:
 		current_movement = WALK_RIGHT;
 		current_animation = &walk_right;
+		if ((current_animation == &walk_right && current_animation->isDone()) || current_animation == &walk_right_2) {
+			current_animation = &walk_right_2;
+			position.first += 4;
+		}
 		flipX = false;
-		position.first += 2;
 		break;
 	case Entity::WALK_FRONT:
 		current_movement = WALK_FRONT;
 		current_animation = &walk_front;
+		if ((current_animation == &walk_front && current_animation->isDone()) || current_animation == &walk_front_2) {
+			current_animation = &walk_front_2;
+			position.second += 2;
+		}
 		flipX = false;
-		position.second++;
 		break;
 	case Entity::WALK_BACK:
 		current_movement = WALK_BACK;
 		current_animation = &walk_back;
+		if ((current_animation == &walk_back && current_animation->isDone()) || current_animation == &walk_back_2) {
+			current_animation = &walk_back_2;
+			position.second -= 2;
+		}
 		flipX = false;
-		position.second--;
 		break;
 	case Entity::ATTACK_LEFT:
 		current_movement = ATTACK_LEFT;
 		current_animation = &attack_right;
 		flipX = true;
-		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 			current_turn = END_TURN;
 		}
 		break;
@@ -280,8 +292,8 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ATTACK_RIGHT;
 		current_animation = &attack_right;
 		flipX = false;
-		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 			current_turn = END_TURN;
 		}
 		break;
@@ -289,8 +301,8 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ATTACK_FRONT;
 		current_animation = &attack_front;
 		flipX = false;
-		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 			current_turn = END_TURN;
 		}
 		break;
@@ -298,8 +310,8 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ATTACK_BACK;
 		current_animation = &attack_back;
 		flipX = false;
-		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 			current_turn = END_TURN;
 		}
 		break;
@@ -307,8 +319,8 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_1_LEFT;
 		current_animation = &ability_1_right;
 		flipX = true;
-		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 			current_turn = END_TURN;
 		}
 		break;
@@ -316,8 +328,8 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_1_RIGHT;
 		current_animation = &ability_1_right;
 		flipX = false;
-		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 			current_turn = END_TURN;
 		}
 		break;
@@ -325,8 +337,8 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_1_FRONT;
 		current_animation = &ability_1_front;
 		flipX = false;
-		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 			current_turn = END_TURN;
 		}
 		break;
@@ -334,8 +346,8 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_1_BACK;
 		current_animation = &ability_1_back;
 		flipX = false;
-		if (current_animation->Finished()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 			current_turn = END_TURN;
 		}
 		break;
@@ -368,28 +380,24 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &dead_right;
 		flipX = true;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_RIGHT:
 		current_movement = DEAD_RIGHT;
 		current_animation = &dead_right;
 		flipX = false;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_FRONT:
 		current_movement = DEAD_FRONT;
 		current_animation = &dead_front;
 		flipX = false;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_BACK:
 		current_movement = DEAD_BACK;
 		current_animation = &dead_back;
 		flipX = false;
 		current_state = DEATH;
-		current_turn = END_TURN;
 		break;
 	default:
 		break;
@@ -419,10 +427,6 @@ void CharacterGeorgeB::InputSelectMove() {
 								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
 							{
 								Cap += sqrt(possible_mov_list.size()) - 1;
-								i = possible_mov_list.size();
-							}
-							else {
-								Cap = (possible_mov_list.size() / 2) + (sqrt(possible_mov_list.size()) - 1);
 								i = possible_mov_list.size();
 							}
 							break;
@@ -457,10 +461,6 @@ void CharacterGeorgeB::InputSelectMove() {
 								Cap -= sqrt(possible_mov_list.size()) - 1;
 								i = possible_mov_list.size();
 							}
-							else {
-								Cap = (possible_mov_list.size() / 2) - (sqrt(possible_mov_list.size()) - 1);
-								i = possible_mov_list.size();
-							}
 							break;
 						}
 					}
@@ -493,10 +493,6 @@ void CharacterGeorgeB::InputSelectMove() {
 								Cap += sqrt(possible_mov_list.size()) + 1;
 								i = possible_mov_list.size();
 							}
-							else {
-								Cap = (possible_mov_list.size() / 2) + (sqrt(possible_mov_list.size()) + 1);
-								i = possible_mov_list.size();
-							}
 							break;
 						}
 					}
@@ -527,10 +523,6 @@ void CharacterGeorgeB::InputSelectMove() {
 								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
 							{
 								Cap -= sqrt(possible_mov_list.size()) + 1;
-								i = possible_mov_list.size();
-							}
-							else {
-								Cap = (possible_mov_list.size() / 2) - (sqrt(possible_mov_list.size()) + 1);
 								i = possible_mov_list.size();
 							}
 							break;
@@ -567,10 +559,6 @@ void CharacterGeorgeB::InputSelectAttack() {
 								Cap += sqrt(possible_mov_list.size()) - 1;
 								i = possible_mov_list.size();
 							}
-							else {
-								Cap = (possible_mov_list.size() / 2) + (sqrt(possible_mov_list.size()) - 1);
-								i = possible_mov_list.size();
-							}
 							break;
 						}
 					}
@@ -599,10 +587,6 @@ void CharacterGeorgeB::InputSelectAttack() {
 							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap -= sqrt(possible_mov_list.size()) - 1;
-								i = possible_mov_list.size();
-							}
-							else {
-								Cap = (possible_mov_list.size() / 2) - (sqrt(possible_mov_list.size()) - 1);
 								i = possible_mov_list.size();
 							}
 							break;
@@ -635,10 +619,6 @@ void CharacterGeorgeB::InputSelectAttack() {
 								Cap += sqrt(possible_mov_list.size()) + 1;
 								i = possible_mov_list.size();
 							}
-							else {
-								Cap = (possible_mov_list.size() / 2) + (sqrt(possible_mov_list.size()) + 1);
-								i = possible_mov_list.size();
-							}
 							break;
 						}
 					}
@@ -667,10 +647,6 @@ void CharacterGeorgeB::InputSelectAttack() {
 							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
 							{
 								Cap -= sqrt(possible_mov_list.size()) + 1;
-								i = possible_mov_list.size();
-							}
-							else {
-								Cap = (possible_mov_list.size() / 2) - (sqrt(possible_mov_list.size()) + 1);
 								i = possible_mov_list.size();
 							}
 							break;
