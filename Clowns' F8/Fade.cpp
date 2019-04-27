@@ -39,7 +39,7 @@ void Fade::Action()
 
 	if (is_scene_change)
 	{
-		App->scene->current_scene = App->scene->FIRST_BATTLE;
+		//App->scene_manager->current_scene ;
 	}
 }
 

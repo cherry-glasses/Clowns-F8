@@ -1,95 +1,75 @@
-#ifndef __SCENE_H__
-#define __SCENE_H__
+#ifndef __Scene_H__
+#define __Scene_H__
 
-#include "Module.h"
-#include "SDL/include/SDL.h"
+#include "GUIButton.h"
+#include "GUILabel.h"
+#include "GUIImage.h"
+#include "ModuleSceneManager.h"
 
-class GUIImage;
-class GUIButton;
-class GUILabel;
-class Entity;
-struct SDL_Texture;
+enum SCENE_TYPE {
+	MAIN_MENU,
+	GLOBAL_MAP,
+	OPTION_MENU,
+	CONTROLS_MENU,
+	CREDITS_MENU,
+	FIRST_BATTLE,
+	SECOND_BATTLE,
+	THIRD_BATTLE,
+	FOURTH_BATTLE,
+	WIN_SCENE,
+	LOSE_SCENE,
+	NONE
+};
 
-class Scene : public Module {
-
-
+class Scene 
+{
 public:
 
-	Scene();
+	Scene(SCENE_TYPE _type, pugi::xml_node& _config);
 
 	// Destructor
 	virtual ~Scene();
 
-	// Called before render is available
-	bool Awake(pugi::xml_node& config);
-
 	// Called before the first frame
-	bool Start();
+	virtual bool Start() { return true; };
 
 	// Called before all Updates
-	bool PreUpdate();
+	virtual bool PreUpdate() { return true; };
 
 	// Called each loop iteration
-	bool Update(float dt);
+	virtual bool Update(float dt) { return true; };
 
 	// Called before all Updates
-	bool PostUpdate();
+	virtual bool PostUpdate() { return true; };
 
 	// Called before quitting
-	bool CleanUp();
+	virtual bool CleanUp() { return true; };
 
-	// Load
-	bool Load(pugi::xml_node& savegame);
+	virtual bool Load(pugi::xml_node&) { return true; };
 
-	//Save
-	bool Save(pugi::xml_node& data) const;
+	virtual bool Save(pugi::xml_node&) const { return true; };
 
-private:
 
-	// Creates
-	void CreateMainMenu();
-	void CreateMMOptions();
-	void CreateMMCredits();
-	void CreateMMControls();
-	void CreateOptionsIngame();
-	void CreateMusic();
-	void CreateFirstBattle();
-	void CreateUIBattle();
-	void CreateAtackMenu();
-	void CreateAbilitiesMenu();
-
-	// Updates
-	void UpdateCharacters();
-	void UpdateEnemies();
-	void UpdateCharacterPortraits(Entity* _character, int _i);
-	void UpdateEnemyPortraits(Entity* _enemy, int _i);
-
-	// Deletes
-	void DeleteMenu();
-	void DeleteOptionsIngame();
-	void DeleteMusic();
-	void DeleteAtackMenu();
-	void DeleteAbilitiesMenu();
+protected:
 	
 	// Navigation
-	void ActionsMenu();
 	void Navigate();
 	void NavigateDown();
 	void NavigateUp();
-	void ControlLanguageAndMusic();
 
 	//Win and Lose
-	void Win();
-	void Lose();
+	/*void Win();
+	void Lose();*/
 
-private:
-	SDL_Texture* main_menu_background = nullptr;
-	SDL_Texture* options_background = nullptr;
-	SDL_Texture* credits_page = nullptr;
-	SDL_Texture* map_level_1 = nullptr;
-	SDL_Texture* grid_level_1 = nullptr;
-	SDL_Texture* win_screen = nullptr;
-	SDL_Texture* lose_screen = nullptr;
+public:
+	SCENE_TYPE type = NONE;
+
+protected:
+	std::list<GUIButton*> buttons;
+
+
+	/*SDL_Texture* win_screen = nullptr;
+	SDL_Texture* lose_screen = nullptr;*/
 
 	SDL_Rect button;
 	SDL_Rect small_button;
@@ -99,120 +79,26 @@ private:
 	SDL_Rect sapphire_portrait;
 	SDL_Rect george_b_portrait;
 	SDL_Rect storm_portrait;
+	std::pair<int, int> portrait_margin;
+	std::pair<int, int> life_margin;
+	std::pair<int, int> mana_margin;
+	std::pair<int, int> port_margin;
+	std::pair<int, int> name_margin;
+	std::pair<int, int> actions_margin;
+	
+	
+
 	int button_margin;
+
 	int screen_width, screen_height;
-	bool music_created = false;
-	bool main_menu_created = false;
-	bool mm_options_created = false;
-	bool mm_credits_created = false;
-	bool mm_controls_menu_created = false;
-	bool ability_menu_created = false;
-	bool first_battle_created = false;
-	bool portraits_created = false;
-	bool action_menu_created = false;
-	bool ingame_options_menu_created = false;
 	
-	//Main menu UI
-	GUIButton* cherry_glasses_logo_button = nullptr;
-
-	GUIButton* new_game_button = nullptr;
-	GUIButton* load_game_button = nullptr;
-	GUIButton* options_button = nullptr;
-	GUIButton* credits_button = nullptr;
-	GUIButton* exit_button = nullptr;
-
-	GUIImage* cherry_glasses_logo_image = nullptr;
-	GUILabel* new_game_label = nullptr;
-	GUILabel* load_game_label = nullptr;
-	GUILabel* options_label = nullptr;
-	GUILabel* credits_label = nullptr;
-	GUILabel* exit_label = nullptr;
-
-	//Main menu options UI
-	GUIButton* english_button = nullptr;
-	GUIButton* spanish_button = nullptr;
-	GUIButton* volume_up_button = nullptr;
-	GUIButton* volume_down_button = nullptr;
-	GUIButton* back_button = nullptr;
-	GUIButton* resume_button = nullptr;
-	GUIButton* mm_button = nullptr;
-	GUIButton* controls_button = nullptr;
-	GUILabel* english_label = nullptr;
-	GUILabel* spanish_label = nullptr;
-	GUILabel* volume_up_label = nullptr;
-	GUILabel* volume_down_label = nullptr;
-	GUILabel* back_label = nullptr;
-	GUILabel* controls_label = nullptr;
-	GUILabel* language_label = nullptr;
-	GUILabel* volume_label = nullptr;
-	GUILabel* resume_label = nullptr;
-	GUILabel* mm_label = nullptr;
-
-
-	//Controls menu options UI
-	GUIButton* accept_button = nullptr;
-	GUIButton* decline_button = nullptr;
-	GUIButton* character_stats_button  = nullptr;
-	GUIButton* characeter_abilities_button = nullptr;
-	GUIButton* abilities_button = nullptr;
-	GUIButton* start_button = nullptr;
-	GUIButton* select_button = nullptr;
-	GUILabel* accept_label = nullptr;
-	GUILabel* decline_label = nullptr;
-	GUILabel* character_stats_label = nullptr;
-	GUILabel* character_abilites_label = nullptr;
-	GUILabel* abilities_label = nullptr;
-	GUILabel* start_label = nullptr;
-	GUILabel* select_label = nullptr;
-	
-
-	//GUIImage* action_menu = nullptr;
-	GUIButton* attack_button = nullptr;
-	GUIButton* ability_button = nullptr;
-	GUIButton* defend_button = nullptr;
-	GUILabel* attack_label = nullptr;
-	GUILabel* ability_label = nullptr;
-	GUILabel* defend_label = nullptr;
-	GUIButton* ability1_button = nullptr;
-	GUIButton* ability2_button = nullptr;
-	GUIButton* ability3_button = nullptr;
-	std::vector<GUIImage*> life;
-	std::vector<GUIImage*> enemies_life;
-	std::vector<GUIImage*> mana;
-	std::vector<GUIImage*> portrait;
-	std::vector<GUIImage*> port;
-	std::vector<GUILabel*> character_names;
-	std::vector<GUILabel*> life_numbers;
-	std::vector<GUILabel*> mana_numbers;
-	std::vector<int> life_x;
-	std::vector<int> mana_x;
-	std::vector<int> enemies_life_x;
-	std::vector<std::pair<int, int>> life_position;
-	std::vector<std::pair<int, int>> enemies_life_position;
-	std::vector<std::pair<int, int>> mana_position;
-	std::vector<std::pair<int, int>> port_position;
-	std::vector<std::pair<int, int>> portrait_position;
-	std::vector<std::pair<int, int>> name_position;
-	std::vector<std::pair<int, int>> act_menu_position;
-	bool waiting_for_input = false;
-	std::list<GUIButton*> buttons;
-	std::list<GUIButton*> buttons2;
-	std::vector<GUIImage*> stun_image;
-	std::vector<GUIImage*> enemy_stun_image;
-	std::vector<GUIImage*> defense_image;
-	std::vector<bool> defense_image_created;
-	std::vector<bool> stun_image_created;
-	std::vector<bool> enemy_stun_image_created;
-	std::vector<bool> turn_created;
 	std::string	press_fx_name = "";
-	GUILabel* win_lose = nullptr;
-	bool win_lose_label_created = false;
 
-public:
+	/*GUILabel* win_lose = nullptr;
+	bool win_lose_label_created = false;*/
+
 	bool language = true; //true = English; false = Spanish
 
-	enum SCENES { MAIN_MENU, GLOBAL_MAP, MM_OPTIONS, MM_CONTROLS, MM_CREDITS, FIRST_BATTLE, SECOND_BATTLE, THIRD_BATTLE, FOURTH_BATTLE, WIN_SCENE, LOSE_SCENE, NONE };
-	SCENES current_scene = MAIN_MENU;
 };
 
-#endif //_SCENE_H_
+#endif //!__Scene_H_
