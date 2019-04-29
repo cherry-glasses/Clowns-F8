@@ -5,6 +5,7 @@
 
 #include "Module.h"
 #include "Transition.h"
+#include "Scene.h"
 #include "Color.h"
 
 class ModuleTransitionManager :	public Module
@@ -28,7 +29,7 @@ public:
 
 	//--------------------------------
 
-	void CreateFadeTransition(float transition_time, bool is_scene_change = false, int scene_to_transition = 0, Color color = Black);
+	void CreateFadeTransition(float transition_time, bool is_scene_change = false, SCENE_TYPE scene_to_transition = SCENE_TYPE::NONE, Color color = Black);
 	void DestroyTransition(Transition* transition_to_destroy);
 
 

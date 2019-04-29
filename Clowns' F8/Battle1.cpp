@@ -7,6 +7,8 @@
 #include "ModuleMap.h"
 #include "ModuleEntityManager.h"
 #include "ModuleRender.h"
+#include "ModuleTransitionManager.h"
+#include "Color.h"
 
 
 
@@ -84,7 +86,7 @@ bool Battle1::Update(float _dt)
 		else if (main_menu_button->has_been_clicked)
 		{
 			App->scene_manager->music_created = false;
-			App->scene_manager->ChangeScene(MAIN_MENU);
+			App->transition_manager->CreateFadeTransition(2, true, MAIN_MENU, Black);
 			
 		}
 

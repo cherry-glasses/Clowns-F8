@@ -1,12 +1,11 @@
 #include "Log.h"
 #include "Application.h"
 #include "Fade.h"
-#include "Scene.h"
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
 
 
-Fade::Fade(float transition_time, bool is_scene_change, int scene_to_change, Color color) : Transition(transition_time)
+Fade::Fade(float transition_time, bool is_scene_change, SCENE_TYPE scene_to_change, Color color) : Transition(transition_time)
 {
 	this->is_scene_change = is_scene_change;
 	this->scene_to_change = scene_to_change;
@@ -39,7 +38,7 @@ void Fade::Action()
 
 	if (is_scene_change)
 	{
-		//App->scene_manager->current_scene ;
+		App->scene_manager->ChangeScene(scene_to_change) ;
 	}
 }
 

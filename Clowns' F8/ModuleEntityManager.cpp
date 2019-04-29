@@ -50,10 +50,6 @@ bool ModuleEntityManager::Start()
 }
 
 
-
-
-
-
 // Called each loop iteration
 bool ModuleEntityManager::PreUpdate()
 {

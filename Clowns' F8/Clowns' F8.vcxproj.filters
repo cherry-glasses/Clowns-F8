@@ -180,15 +180,6 @@
     <ClInclude Include="..\Clowns%27 F8\Battle1.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Clowns%27 F8\OptionMenu.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="CreditsMenu.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="ControlsMenu.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Clowns%27 F8\Battle.h">
       <Filter>Scenes</Filter>
     </ClInclude>
@@ -321,15 +312,6 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Battle1.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Clowns%27 F8\OptionMenu.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="CreditsMenu.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="ControlsMenu.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Battle.cpp">

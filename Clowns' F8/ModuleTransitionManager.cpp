@@ -62,7 +62,7 @@ bool ModuleTransitionManager::CleanUp()
 	return true;
 }
 
-void ModuleTransitionManager::CreateFadeTransition(float transition_time, bool is_scene_change, int scene_to_transition, Color color)
+void ModuleTransitionManager::CreateFadeTransition(float transition_time, bool is_scene_change, SCENE_TYPE scene_to_transition, Color color)
 {
 	active_transitions.push_back(new Fade(transition_time, is_scene_change, scene_to_transition, color));
 }
