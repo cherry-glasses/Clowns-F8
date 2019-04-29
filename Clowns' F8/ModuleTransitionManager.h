@@ -19,10 +19,6 @@ public:
 	// Called before the first frame
 	virtual bool Start();
 	// Called each loop iteration
-	virtual bool PreUpdate();
-	// Called each loop iteration
-	virtual bool Update(float dt);
-	// Called each loop iteration
 	virtual bool PostUpdate();
 	// Called before quitting
 	virtual bool CleanUp();
@@ -30,8 +26,11 @@ public:
 	//--------------------------------
 
 	void CreateFadeTransition(float transition_time, bool is_scene_change = false, SCENE_TYPE scene_to_transition = SCENE_TYPE::NONE, Color color = Black);
+	void CreateSquaresTransition(float transition_time, bool is_scene_change = false, SCENE_TYPE scene_to_transition = SCENE_TYPE::NONE, Color color = Black);
+
 	void DestroyTransition(Transition* transition_to_destroy);
 
+	bool transitioning = false;
 
 private:
 	std::list<Transition*> active_transitions;

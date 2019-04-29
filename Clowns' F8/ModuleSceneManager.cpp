@@ -63,6 +63,12 @@ bool ModuleSceneManager::Save(pugi::xml_node &xml) const
 void ModuleSceneManager::ChangeScene(SCENE_TYPE _type)
 {
 	current_scene->CleanUp();
+	/*App->entity_manager->CleanUp();
+	App->gui->CleanUp();
+	App->map->CleanUp();*/
+	
+	delete current_scene;
+	current_scene = nullptr;
 
 	switch (_type)
 	{
@@ -91,4 +97,6 @@ void ModuleSceneManager::ChangeScene(SCENE_TYPE _type)
 	}
 
 	current_scene->Start();
+	changing = false;
+	music_created = false;
 }

@@ -16,27 +16,27 @@ private:
 	};
 
 protected:
-	TransitionState state = TransitionState::NONE;
+	TransitionState state;
 
-	float transition_time;
+	float transition_time; // total transition entering and exiting time
 	Timer* current_time = nullptr;
+
+	float percent = 0; //percent of the current respect the total time. It goes from 0 to 1
 
 
 public:
 
-	Transition();
 	Transition(float transition_time);
 	~Transition();
 
-
-	void PreUpdate();
-	void Update();
 	void PostUpdate();
 
 
 	virtual void Entering();
 	virtual void Action();
 	virtual void Exiting();
+
+	float LerpValue(float percent, float start, float end);
 
 };
 

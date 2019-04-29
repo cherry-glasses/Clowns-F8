@@ -189,6 +189,9 @@
     <ClInclude Include="..\Clowns%27 F8\CharacterHektor.h">
       <Filter>Entities\EntitiesCharacters</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Squares.h">
+      <Filter>Transitions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -328,6 +331,9 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\CharacterHektor.cpp">
       <Filter>Entities\EntitiesCharacters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Squares.cpp">
+      <Filter>Transitions</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

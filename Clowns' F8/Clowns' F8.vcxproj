@@ -148,6 +148,7 @@
     <ClInclude Include="..\Clowns%27 F8\MainMenu.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleSceneManager.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleTransitionManager.h" />
+    <ClInclude Include="..\Clowns%27 F8\Squares.h" />
     <ClInclude Include="..\Clowns%27 F8\Transition.h" />
     <ClInclude Include="..\Clowns%27 F8\Tree2.h" />
     <ClInclude Include="..\Clowns%27 F8\Tree3.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="..\Clowns%27 F8\MainMenu.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleSceneManager.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleTransitionManager.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Squares.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Transition.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Tree2.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Tree3.cpp" />

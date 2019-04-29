@@ -54,9 +54,12 @@ bool MainMenu::Update(float _dt)
 	{
 		if (new_game_button->has_been_clicked)
 		{
-			App->scene_manager->music_created = false;
-			App->transition_manager->CreateFadeTransition(2, true, FIRST_BATTLE, Scene_1_color);
-
+			if (!App->scene_manager->changing)
+			{
+				App->transition_manager->CreateSquaresTransition(4, true, FIRST_BATTLE, Scene_1_color);
+				App->scene_manager->changing = true;
+			}
+			
 		}
 		else if (load_game_button->has_been_clicked)
 		{

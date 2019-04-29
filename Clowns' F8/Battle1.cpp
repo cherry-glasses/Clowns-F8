@@ -11,7 +11,6 @@
 #include "Color.h"
 
 
-
 Battle1::Battle1(SCENE_TYPE _type, pugi::xml_node& _config) : Battle(_type, _config)
 {
 
@@ -85,9 +84,11 @@ bool Battle1::Update(float _dt)
 		}
 		else if (main_menu_button->has_been_clicked)
 		{
-			App->scene_manager->music_created = false;
-			App->transition_manager->CreateFadeTransition(2, true, MAIN_MENU, Black);
-			
+			if (!App->scene_manager->changing)
+			{
+				App->transition_manager->CreateFadeTransition(2, true, MAIN_MENU, Black);
+				App->scene_manager->changing = true;
+			}
 		}
 
 		Navigate();
@@ -96,10 +97,10 @@ bool Battle1::Update(float _dt)
 	else
 	{
 		if (!App->entity_manager->ThereAreCharAlive()) {
-			App->scene_manager->ChangeScene(LOSE_SCENE);
+			//App->scene_manager->ChangeScene(LOSE_SCENE);
 		}
 		else if (App->entity_manager->enemies.empty()) {
-			App->scene_manager->ChangeScene(WIN_SCENE);
+			//App->scene_manager->ChangeScene(WIN_SCENE);
 		}
 		else {
 			UpdateCharacters();
