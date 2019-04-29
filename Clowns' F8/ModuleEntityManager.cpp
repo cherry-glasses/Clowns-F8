@@ -180,6 +180,7 @@ bool ModuleEntityManager::CleanUp()
 	characters.clear();
 	enemies.clear();
 	objects.clear();
+	paused = false;
 	starting = true;
 
 	return true;
