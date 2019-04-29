@@ -5,6 +5,7 @@
 #include "GUILabel.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
+#include "Language.h"
 #include "Scene.h"
 
 
@@ -39,6 +40,8 @@ Scene::Scene(SCENE_TYPE _type, pugi::xml_node& _config)
 	//Audio
 	press_fx_name = _config.child("press_fx_name").attribute("source").as_string();
 
+	// Language
+	language = new Language();
 
 }
 

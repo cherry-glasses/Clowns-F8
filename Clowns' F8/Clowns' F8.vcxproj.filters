@@ -183,6 +183,9 @@
     <ClInclude Include="..\Clowns%27 F8\Battle.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Language.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -316,6 +319,9 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Battle.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Language.cpp">
+      <Filter>Containers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

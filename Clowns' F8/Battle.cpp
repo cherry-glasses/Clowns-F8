@@ -8,6 +8,7 @@
 #include "ModuleMap.h"
 #include "ModuleEntityManager.h"
 #include "ModuleRender.h"
+#include "Language.h"
 
 
 Battle::Battle(SCENE_TYPE _type, pugi::xml_node& _config) : Scene(_type, _config)
@@ -493,23 +494,17 @@ void Battle::ControlLanguageAndMusic()
 {
 	if (english_button->has_been_clicked)
 	{
-		if (!language)
-		{
-			language = true;
-			DeleteOptionsIngame();
-			CreateOptionsIngame();
-		}
+		language->SetLanguage(LANGUAGE_TYPE::ENGLISH);
+		DeleteOptionsIngame();
+		CreateOptionsIngame();
 		english_button->Select(SELECTED);
 	}
 	else if (spanish_button->has_been_clicked)
 	{
-		if (language)
-		{
-			language = false;
-			DeleteOptionsIngame();
-			CreateOptionsIngame();
-		}
-		else spanish_button->Select(SELECTED);
+		language->SetLanguage(LANGUAGE_TYPE::SPANISH);
+		DeleteOptionsIngame();
+		CreateOptionsIngame();
+		spanish_button->Select(SELECTED);
 	}
 
 	if (volume_up_button->has_been_clicked)

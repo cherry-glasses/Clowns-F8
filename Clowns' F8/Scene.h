@@ -6,6 +6,8 @@
 #include "GUIImage.h"
 #include "ModuleSceneManager.h"
 
+class Language;
+
 enum SCENE_TYPE {
 	MAIN_MENU,
 	GLOBAL_MAP,
@@ -59,7 +61,7 @@ protected:
 	void Lose();*/
 
 public:
-	SCENE_TYPE type = NONE;
+	SCENE_TYPE type = SCENE_TYPE::NONE;
 
 protected:
 	std::list<GUIButton*> buttons;
@@ -94,7 +96,7 @@ protected:
 	/*GUILabel* win_lose = nullptr;
 	bool win_lose_label_created = false;*/
 
-	bool language = true; //true = English; false = Spanish
+	Language* language = nullptr;
 
 };
 

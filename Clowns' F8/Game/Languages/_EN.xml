@@ -1,0 +1,8 @@
+﻿<!-- Config file for the game -->
+
+<language>
+  <main_menu_scene>
+    <new_game value="NEW GAME"/>
+  </main_menu_scene>
+
+</language>

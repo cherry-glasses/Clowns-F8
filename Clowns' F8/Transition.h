@@ -16,7 +16,7 @@ private:
 	};
 
 protected:
-	TransitionState state;
+	TransitionState state = TransitionState::NONE;
 
 	float transition_time;
 	Timer* current_time = nullptr;
