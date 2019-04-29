@@ -34,6 +34,10 @@ public:
 	std::string abilities = "";
 	std::string pause = "";
 	std::string select = "";
+	std::string resume = "";
+	std::string main_menu = "";
+	std::string ability = "";
+	std::string defend = "";
 
 };
 

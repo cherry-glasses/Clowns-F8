@@ -20,9 +20,13 @@
     <abilities value="HABILIDADES"/>
     <pause value="PAUSA"/>
     <select value="SELECT"/>
+   
   </main_menu_scene>
-  <battle_1>
-
-  </battle_1>
+  <battle>
+    <resume value="CONTINUAR"/>
+    <main_menu value="MENU PRINCIPAL"/>
+    <ability value="HABILIDAD"/>
+    <defend value="DEFENDER"/>
+  </battle>
 
 </language>

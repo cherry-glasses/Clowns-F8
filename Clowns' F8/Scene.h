@@ -97,6 +97,7 @@ protected:
 	bool win_lose_label_created = false;*/
 
 	Language* language = nullptr;
+	
 
 };
 
