@@ -16,7 +16,7 @@
 
   <window>
     <resolution width="1920" height="1080" scale="1"/>
-    <fullscreen value="true"/>
+    <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>
     <fullscreen_window value="false"/>
@@ -35,19 +35,19 @@
     <folder>Assets/Maps/</folder>
   </map>
   
-  <scene>
+  <scene_manager>
     <button x="0" y="0" w="288" h="64" margin="40"/>
     <small_button x="0" y="0" w="173" h="39" margin="40"/>
     <option_background x="0" y="0" w="551" h="720"/>
     <cherry_glasses_logo x="0" y="0" w="102" h="58"/>
     <main_menu start_pos="300"/>
     <options_menu start_pos="270"/>
-    <life_position margin_x="150" margin_y="79"/>
-    <actions_position margin_x="20" margin_y="145"/>
-    <mana_position margin_x="150" margin_y="110"/>
-    <port_position margin_x="30" margin_y="13"/>
     <portrait_position margin_x="20" margin_y="12"/>
-    <name_position margin_x="210" margin_y="55"/>
+    <life_position margin_x="130" margin_y="66"/>
+    <mana_position margin_x="130" margin_y="97"/>
+    <port_position margin_x="9" margin_y="1"/>
+    <name_position margin_x="200" margin_y="45"/>
+    <actions_position margin_x="20" margin_y="145"/>
     <press_fx_name source="UI_FX_Selection.wav"/>
     <portraits>
       <iris x="124" y="0" w="64" h="66"/>
@@ -55,7 +55,7 @@
       <sapphire x="124" y="67" w="64" h="66"/>
       <george_b x="191" y="67" w="64" h="66"/>
     </portraits>
-  </scene>
+  </scene_manager>
 
   <audio>
     <default_music_fade_time value="2.0"/>

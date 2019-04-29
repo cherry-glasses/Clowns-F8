@@ -1,4 +1,3 @@
-#include "Log.h"
 #include "Application.h"
 #include "Tree2.h"
 #include "ModuleTextures.h"

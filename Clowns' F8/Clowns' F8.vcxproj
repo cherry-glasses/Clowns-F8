@@ -135,13 +135,20 @@
   <ItemGroup>
     <ClInclude Include="..\Clowns%27 F8\Animation.h" />
     <ClInclude Include="..\Clowns%27 F8\Application.h" />
+    <ClInclude Include="..\Clowns%27 F8\Battle.h" />
+    <ClInclude Include="..\Clowns%27 F8\Battle1.h" />
     <ClInclude Include="..\Clowns%27 F8\Boneyman.h" />
     <ClInclude Include="..\Clowns%27 F8\CharacterGeorgeB.h" />
+    <ClInclude Include="..\Clowns%27 F8\CharacterHektor.h" />
     <ClInclude Include="..\Clowns%27 F8\CharacterSapphire.h" />
     <ClInclude Include="..\Clowns%27 F8\CharacterStorm.h" />
     <ClInclude Include="..\Clowns%27 F8\Color.h" />
     <ClInclude Include="..\Clowns%27 F8\Fade.h" />
+    <ClInclude Include="..\Clowns%27 F8\Language.h" />
+    <ClInclude Include="..\Clowns%27 F8\MainMenu.h" />
+    <ClInclude Include="..\Clowns%27 F8\ModuleSceneManager.h" />
     <ClInclude Include="..\Clowns%27 F8\ModuleTransitionManager.h" />
+    <ClInclude Include="..\Clowns%27 F8\Squares.h" />
     <ClInclude Include="..\Clowns%27 F8\Transition.h" />
     <ClInclude Include="..\Clowns%27 F8\Tree2.h" />
     <ClInclude Include="..\Clowns%27 F8\Tree3.h" />
@@ -180,15 +187,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Battle.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Battle1.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Boneyman.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Character.cpp" />
     <ClCompile Include="..\Clowns%27 F8\CharacterGeorgeB.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\CharacterHektor.cpp" />
     <ClCompile Include="..\Clowns%27 F8\CharacterSapphire.cpp" />
     <ClCompile Include="..\Clowns%27 F8\CharacterStorm.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Color.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Enemy.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Fade.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Language.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\MainMenu.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\ModuleSceneManager.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ModuleTransitionManager.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Squares.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Transition.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Tree2.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Tree3.cpp" />

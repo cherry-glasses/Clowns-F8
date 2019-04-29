@@ -1,4 +1,3 @@
-#include "Log.h"
 #include "Application.h"
 #include "Object.h"
 #include "ModuleEntityManager.h"

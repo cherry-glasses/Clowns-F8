@@ -2,17 +2,19 @@
 #define __Fade_H_
 
 #include "Transition.h"
+#include "Scene.h"
+
 class Fade :
 	public Transition
 {
 private:
 	Color color = Black;
 	bool is_scene_change = false;
-	int scene_to_change = 0;
+	SCENE_TYPE scene_to_change = SCENE_TYPE::NONE;
 
 	SDL_Rect screen;
 public:
-	Fade(float transition_time, bool is_scene_change = false, int scene_to_change = 0, Color color = Black);
+	Fade(float transition_time, bool is_scene_change = false, SCENE_TYPE scene_to_change = SCENE_TYPE::NONE, Color color = Black);
 	~Fade();
 
 	void Entering();

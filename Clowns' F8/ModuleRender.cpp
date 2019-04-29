@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleRender.h"
 #include "Scene.h"
+#include "ModuleSceneManager.h"
 #include "ModuleWindow.h"
 #include "SDL/include/SDL.h"
 
@@ -103,7 +104,7 @@ bool ModuleRender::Blit(SDL_Texture* _texture, int _x, int _y, const SDL_Rect* _
 	uint scale = App->window->GetScale();
 
 	SDL_Rect rect;
-	if (App->scene->current_scene == App->scene->FIRST_BATTLE) {
+	if (App->scene_manager->current_scene->type == SCENE_TYPE::FIRST_BATTLE) {
 		rect.x = (int)(camera.x * _speed) + (_x + App->window->GetScreenWidth() / 2) * scale;
 		rect.y = (int)(camera.y * _speed) + (_y + App->window->GetScreenHeight() / 8) * scale;
 	}

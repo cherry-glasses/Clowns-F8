@@ -1,0 +1,30 @@
+﻿<!-- Config file for the game -->
+
+<language>
+  <main_menu_scene>
+    <new_game value="NEW GAME"/>
+    <load_game value="LOAD GAME"/>
+    <options value="OPTIONS"/>
+    <credits value="CREDITS"/>
+    <exit value="EXIT"/>
+    <choose_language value="LANGUAGE"/>
+    <english value="ENGLISH"/>
+    <spanish value="SPANISH"/>
+    <volume value="VOLUME"/>
+    <controls value="CONTROLS"/>
+    <back value="BACK"/>
+    <accept value="ACCEPT"/>
+    <decline value="DECLINE"/>
+    <character_stats value="CHARACTER STATS"/>
+    <character_abilities value="CHARACTER ABILITIES"/>
+    <abilities value="ABILITIES"/>
+    <pause value="PAUSE"/>
+    <select value="SELECT"/>
+  </main_menu_scene>
+  <battle>
+    <resume value="RESUME"/>
+    <main_menu value="MAIN MENU"/>
+    <defend value="DEFEND"/>
+  </battle>
+
+</language>
