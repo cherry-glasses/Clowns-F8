@@ -6,7 +6,6 @@
 #include "GUIImage.h"
 #include "ModuleSceneManager.h"
 
-class Language;
 
 enum SCENE_TYPE {
 	MAIN_MENU,
@@ -96,7 +95,7 @@ protected:
 	/*GUILabel* win_lose = nullptr;
 	bool win_lose_label_created = false;*/
 
-	Language* language = nullptr;
+	
 	
 
 };

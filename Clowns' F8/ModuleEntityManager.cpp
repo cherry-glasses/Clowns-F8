@@ -100,17 +100,18 @@ bool ModuleEntityManager::PreUpdate()
 			// Starting Turn
 			(*entity)->current_stats.Mana += 10;
 			(*entity)->defend = false;
+		}
 
-			// BearTrap
-			if (std::find(enemies.begin(), enemies.end(), (*entity)) != enemies.end()) {
-				for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object) {
-					if ((*object)->GetPosition() == (*entity)->GetPosition()) {
-						(*entity)->current_stats.Hp -= (george_b->current_stats.AtkS - (george_b->current_stats.AtkS * (*entity)->current_stats.DefS / 100));
-						((Object*)*object)->used = true;
-					}
+		// BearTrap
+		if (std::find(enemies.begin(), enemies.end(), (*entity)) != enemies.end()) {
+			for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object) {
+				if ((*object)->GetType() == ENTITY_TYPE::ENTITY_OBJECT_BEARTRAP && (*object)->GetPosition() == (*entity)->GetPosition()) {
+					(*entity)->current_stats.Hp -= (george_b->current_stats.AtkS - (george_b->current_stats.AtkS * (*entity)->current_stats.DefS / 100));
+					((Object*)*object)->used = true;
 				}
 			}
 		}
+		
 		(*entity)->PreUpdate();
 		
 	}

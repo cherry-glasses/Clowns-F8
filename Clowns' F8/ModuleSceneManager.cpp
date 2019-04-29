@@ -1,8 +1,8 @@
 #include "Application.h"
+#include "ModuleSceneManager.h"
 #include "MainMenu.h"
 #include "Battle1.h"
-#include "ModuleSceneManager.h"
-
+#include "Language.h"
 
 
 ModuleSceneManager::ModuleSceneManager()
@@ -25,12 +25,13 @@ bool ModuleSceneManager::Awake(pugi::xml_node & _config)
 
 bool ModuleSceneManager::Start()
 {
-	return current_scene->Start();;
+	language = new Language();
+	return current_scene->Start();
 }
 
 bool ModuleSceneManager::PreUpdate()
 {
-	return current_scene->PreUpdate();;
+	return current_scene->PreUpdate();
 }
 
 bool ModuleSceneManager::Update(float dt)

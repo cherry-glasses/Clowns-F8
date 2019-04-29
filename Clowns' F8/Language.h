@@ -16,6 +16,7 @@ public:
 	void SetLanguage(LANGUAGE_TYPE language);
 
 public:
+	LANGUAGE_TYPE type = ENGLISH;
 	std::string new_game = "";
 	std::string load_game = "";
 	std::string options = "";
@@ -36,7 +37,6 @@ public:
 	std::string select = "";
 	std::string resume = "";
 	std::string main_menu = "";
-	std::string ability = "";
 	std::string defend = "";
 
 };

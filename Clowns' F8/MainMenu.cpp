@@ -206,11 +206,11 @@ void MainMenu::CreateMainMenu()
 	cherry_glasses_logo_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2) + 360, exit_button->position.second + (button_margin + button.h), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(cherry_glasses_logo_button);
 
-	new_game_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, new_game_button->position.first + (button.w / 2), new_game_button->position.second + (button.h / 2), language->new_game, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	load_game_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, load_game_button->position.first + (button.w / 2), load_game_button->position.second + (button.h / 2), language->load_game, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	options_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, options_button->position.first + (button.w / 2), options_button->position.second + (button.h / 2), language->options, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	credits_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, credits_button->position.first + (button.w / 2), credits_button->position.second + (button.h / 2), language->credits, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	exit_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, exit_button->position.first + (button.w / 2), exit_button->position.second + (button.h / 2), language->exit, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	new_game_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, new_game_button->position.first + (button.w / 2), new_game_button->position.second + (button.h / 2), App->scene_manager->language->new_game, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	load_game_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, load_game_button->position.first + (button.w / 2), load_game_button->position.second + (button.h / 2), App->scene_manager->language->load_game, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	options_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, options_button->position.first + (button.w / 2), options_button->position.second + (button.h / 2), App->scene_manager->language->options, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	credits_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, credits_button->position.first + (button.w / 2), credits_button->position.second + (button.h / 2), App->scene_manager->language->credits, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	exit_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, exit_button->position.first + (button.w / 2), exit_button->position.second + (button.h / 2), App->scene_manager->language->exit, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	
 	cherry_glasses_logo_image = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, cherry_glasses_logo_button->position.first + (button.w / 2) - (cherry_glasses_logo.w / 2), cherry_glasses_logo_button->position.second + (button.h / 2) - (cherry_glasses_logo.h / 2), { 0, 0, 102, 58 });
 	
@@ -236,12 +236,12 @@ void MainMenu::CreateOptionMenu()
 
 	volume_up_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, volume_up_button->position.first + (button.w / 2), volume_up_button->position.second + (button.h / 2), "+", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	volume_down_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, volume_down_button->position.first + (button.w / 2), volume_down_button->position.second + (button.h / 2), "-", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	english_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, english_button->position.first + (button.w / 2), english_button->position.second + (button.h / 2), language->english, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	spanish_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, spanish_button->position.first + (button.w / 2), spanish_button->position.second + (button.h / 2), language->spanish, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	back_option_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, back_option_button->position.first + (button.w / 2), back_option_button->position.second + (button.h / 2), language->back, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	controls_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, controls_button->position.first + (button.w / 2), controls_button->position.second + (button.h / 2), language->controls, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	language_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2), english_button->position.second - (button.h / 2), language->choose_language, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	volume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2), volume_up_button->position.second - (button.h / 2), language->volume, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	english_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, english_button->position.first + (button.w / 2), english_button->position.second + (button.h / 2), App->scene_manager->language->english, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	spanish_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, spanish_button->position.first + (button.w / 2), spanish_button->position.second + (button.h / 2), App->scene_manager->language->spanish, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	back_option_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, back_option_button->position.first + (button.w / 2), back_option_button->position.second + (button.h / 2), App->scene_manager->language->back, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	controls_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, controls_button->position.first + (button.w / 2), controls_button->position.second + (button.h / 2), App->scene_manager->language->controls, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	language_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2), english_button->position.second - (button.h / 2), App->scene_manager->language->choose_language, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	volume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2), volume_up_button->position.second - (button.h / 2), App->scene_manager->language->volume, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	
 	english_button->Select(SELECTED);
 
@@ -267,14 +267,14 @@ void MainMenu::CreateControlsMenu()
 	back_controls_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), select_button->position.second + (button_margin + button.h * 1), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(back_controls_button);
 
-	accept_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, accept_button->position.first + (button.w / 2), accept_button->position.second + (button.h / 2), language->accept, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	decline_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, decline_button->position.first + (button.w / 2), decline_button->position.second + (button.h / 2), language->decline, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	character_stats_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, character_stats_button->position.first + (button.w / 2), character_stats_button->position.second + (button.h / 2), language->character_stats, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	character_abilites_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, characeter_abilities_button->position.first + (button.w / 2), characeter_abilities_button->position.second + (button.h / 2), language->character_abilities, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	abilities_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, abilities_button->position.first + (button.w / 2), abilities_button->position.second + (button.h / 2), language->abilities, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	start_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, start_button->position.first + (button.w / 2), start_button->position.second + (button.h / 2), language->pause, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	select_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, select_button->position.first + (button.w / 2), select_button->position.second + (button.h / 2), language->select, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	back_controls_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, back_controls_button->position.first + (button.w / 2), back_controls_button->position.second + (button.h / 2), language->back, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	accept_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, accept_button->position.first + (button.w / 2), accept_button->position.second + (button.h / 2), App->scene_manager->language->accept, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	decline_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, decline_button->position.first + (button.w / 2), decline_button->position.second + (button.h / 2), App->scene_manager->language->decline, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	character_stats_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, character_stats_button->position.first + (button.w / 2), character_stats_button->position.second + (button.h / 2), App->scene_manager->language->character_stats, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	character_abilites_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, characeter_abilities_button->position.first + (button.w / 2), characeter_abilities_button->position.second + (button.h / 2), App->scene_manager->language->character_abilities, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	abilities_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, abilities_button->position.first + (button.w / 2), abilities_button->position.second + (button.h / 2), App->scene_manager->language->abilities, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	start_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, start_button->position.first + (button.w / 2), start_button->position.second + (button.h / 2), App->scene_manager->language->pause, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	select_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, select_button->position.first + (button.w / 2), select_button->position.second + (button.h / 2), App->scene_manager->language->select, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	back_controls_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, back_controls_button->position.first + (button.w / 2), back_controls_button->position.second + (button.h / 2), App->scene_manager->language->back, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 
 	accept_button->Select(SELECTED);
 }
@@ -285,14 +285,7 @@ void MainMenu::CreateCreditsMenu()
 	back_credits_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), (screen_height / 2) + (option_background.h / 2) - button.h * 2, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(back_credits_button);
 	back_credits_button->Select(SELECTED);
-	if (language)
-	{
-		back_credits_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, back_credits_button->position.first + (button.w / 2), back_credits_button->position.second + (button.h / 2), "BACK", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	}
-	else
-	{
-		back_credits_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, back_credits_button->position.first + (button.w / 2), back_credits_button->position.second + (button.h / 2), "ATRÁS", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	}
+	back_credits_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, back_credits_button->position.first + (button.w / 2), back_credits_button->position.second + (button.h / 2), App->scene_manager->language->back, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 }
 
 void MainMenu::Delete()
@@ -311,13 +304,13 @@ void MainMenu::ControlLanguageAndMusic()
 {
 	if (english_button->has_been_clicked)
 	{
-		language->SetLanguage(LANGUAGE_TYPE::ENGLISH);
+		App->scene_manager->language->SetLanguage(LANGUAGE_TYPE::ENGLISH);
 		Delete();
 		CreateOptionMenu();
 	}
 	else if (spanish_button->has_been_clicked)
 	{
-		language->SetLanguage(LANGUAGE_TYPE::SPANISH);
+		App->scene_manager->language->SetLanguage(LANGUAGE_TYPE::SPANISH);
 		Delete();
 		CreateOptionMenu();
 	}

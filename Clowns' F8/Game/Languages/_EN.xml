@@ -24,7 +24,6 @@
   <battle>
     <resume value="RESUME"/>
     <main_menu value="MAIN MENU"/>
-    <ability value="ABILITY"/>
     <defend value="DEFEND"/>
   </battle>
 

@@ -19,39 +19,27 @@ Battle::Battle(SCENE_TYPE _type, pugi::xml_node& _config) : Scene(_type, _config
 		{
 		case 0:
 			portrait_position.push_back({ portrait_margin.first - App->window->GetScreenWidth() / 2, portrait_margin.second - App->window->GetScreenHeight() / 8 });
-			life_position.push_back({ portrait_position.at(i).first + life_margin.first, portrait_position.at(i).second + life_margin.second });
-			mana_position.push_back({ portrait_position.at(i).first + mana_margin.first, portrait_position.at(i).second + mana_margin.second });
 			act_menu_position.push_back({ portrait_position.at(i).first + actions_margin.first, portrait_position.at(i).second + actions_margin.second });
-			port_position.push_back({ portrait_position.at(i).first + port_margin.first, portrait_position.at(i).second + port_margin.second });
-			name_position.push_back({ portrait_position.at(i).first + name_margin.first, portrait_position.at(i).second + name_margin.second });
 			break;
 		case 1:
 			portrait_position.push_back({ App->window->GetScreenWidth() / 2 - portrait_margin.first - 259, portrait_margin.second - App->window->GetScreenHeight() / 8 });
-			life_position.push_back({ portrait_position.at(i).first + life_margin.first, portrait_position.at(i).second + life_margin.second });
-			mana_position.push_back({ portrait_position.at(i).first + mana_margin.first, portrait_position.at(i).second + mana_margin.second });
 			act_menu_position.push_back({ portrait_position.at(i).first + actions_margin.first, portrait_position.at(i).second + actions_margin.second });
-			port_position.push_back({ portrait_position.at(i).first + port_margin.first, portrait_position.at(i).second + port_margin.second });
-			name_position.push_back({ portrait_position.at(i).first + name_margin.first, portrait_position.at(i).second + name_margin.second });
 			break;
 		case 2:
 			portrait_position.push_back({ portrait_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
-			life_position.push_back({ portrait_position.at(i).first + life_margin.first, portrait_position.at(i).second + life_margin.second });
-			mana_position.push_back({ portrait_position.at(i).first + mana_margin.first, portrait_position.at(i).second + mana_margin.second });
 			act_menu_position.push_back({ portrait_position.at(i).first + actions_margin.first, portrait_position.at(i).second - actions_margin.second });
-			port_position.push_back({ portrait_position.at(i).first + port_margin.first, portrait_position.at(i).second + port_margin.second });
-			name_position.push_back({ portrait_position.at(i).first + name_margin.first, portrait_position.at(i).second + name_margin.second });
 			break;
 		case 3:
 			portrait_position.push_back({ App->window->GetScreenWidth() / 2 - portrait_margin.first - 259, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
-			life_position.push_back({ portrait_position.at(i).first + life_margin.first, portrait_position.at(i).second + life_margin.second });
-			mana_position.push_back({ portrait_position.at(i).first + mana_margin.first, portrait_position.at(i).second + mana_margin.second });
 			act_menu_position.push_back({ portrait_position.at(i).first + actions_margin.first, portrait_position.at(i).second - actions_margin.second });
-			port_position.push_back({ portrait_position.at(i).first + port_margin.first, portrait_position.at(i).second + port_margin.second });
-			name_position.push_back({ portrait_position.at(i).first + name_margin.first, portrait_position.at(i).second + name_margin.second });
 			break;
 		default:
 			break;
 		}
+		life_position.push_back({ portrait_position.at(i).first + life_margin.first, portrait_position.at(i).second + life_margin.second });
+		mana_position.push_back({ portrait_position.at(i).first + mana_margin.first, portrait_position.at(i).second + mana_margin.second });
+		port_position.push_back({ portrait_position.at(i).first + port_margin.first, portrait_position.at(i).second + port_margin.second });
+		name_position.push_back({ portrait_position.at(i).first + name_margin.first, portrait_position.at(i).second + name_margin.second });
 	}
 }
 
@@ -125,18 +113,18 @@ void Battle::CreateAttackMenu()
 			defend_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, act_menu_position.at(i).first, act_menu_position.at(i).second + 78, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
 			buttons2.push_back(defend_button);
 			attack_button->Select(SELECTED);
-			if (language)
+			if (App->scene_manager->language->type == LANGUAGE_TYPE::ENGLISH)
 			{
 				attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, attack_button->position.first + (small_button.w * 0.5), attack_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Attack_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-				ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_button->position.first + (small_button.w * 0.5), ability_button->position.second + (small_button.h * 0.5), "Abilities", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-				defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, defend_button->position.first + (small_button.w * 0.5), defend_button->position.second + (small_button.h * 0.5), "Defend", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+				ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_button->position.first + (small_button.w * 0.5), ability_button->position.second + (small_button.h * 0.5), App->scene_manager->language->abilities, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+				defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, defend_button->position.first + (small_button.w * 0.5), defend_button->position.second + (small_button.h * 0.5), App->scene_manager->language->defend, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 
 			}
 			else
 			{
 				attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, attack_button->position.first + (small_button.w * 0.5), attack_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ataque_nombre, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-				ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_button->position.first + (small_button.w * 0.5), ability_button->position.second + (small_button.h * 0.5), "Habilidades", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-				defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, defend_button->position.first + (small_button.w * 0.5), defend_button->position.second + (small_button.h * 0.5), "Defensa", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+				ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_button->position.first + (small_button.w * 0.5), ability_button->position.second + (small_button.h * 0.5), App->scene_manager->language->abilities, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+				defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, defend_button->position.first + (small_button.w * 0.5), defend_button->position.second + (small_button.h * 0.5), App->scene_manager->language->defend, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 			}
 		}
 		++i;
@@ -158,7 +146,7 @@ void Battle::CreateAbilitiesMenu()
 			ability3_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, act_menu_position.at(j).first, act_menu_position.at(j).second + 79, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
 			buttons2.push_back(ability3_button);
 			ability1_button->Select(SELECTED);
-			if (language)
+			if (App->scene_manager->language->type == LANGUAGE_TYPE::ENGLISH)
 			{
 				attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability1_button->position.first + (small_button.w * 0.5), ability1_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ability_1_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 				ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability2_button->position.first + (small_button.w * 0.5), ability2_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ability_2_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
@@ -202,24 +190,13 @@ void Battle::CreateOptionsIngame()
 	volume_up_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, volume_up_button->position.first + (button.w / 2), volume_up_button->position.second + (button.h / 2), "+", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	volume_down_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, volume_down_button->position.first + (button.w / 2), volume_down_button->position.second + (button.h / 2), "-", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 
-	if (language)
-	{
-		english_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, english_button->position.first + (button.w / 2), english_button->position.second + (button.h / 2),language->english, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		spanish_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, spanish_button->position.first + (button.w / 2), spanish_button->position.second + (button.h / 2), language->spanish, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		main_menu_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, main_menu_button->position.first + (button.w / 2), main_menu_button->position.second + (button.h / 2), language->main_menu, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		resume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, resume_button->position.first + (button.w / 2), resume_button->position.second + (button.h / 2), language->resume, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		language_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2) - App->window->GetScreenWidth() / 2, english_button->position.second + (button.h * 1.5) - App->window->GetScreenHeight() / 8,language->choose_language, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		volume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2) - App->window->GetScreenWidth() / 2, volume_up_button->position.second + (button.h * 1.5) - App->window->GetScreenHeight() / 8, language->volume, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	}
-	else
-	{
-		english_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, english_button->position.first + (button.w / 2), english_button->position.second + (button.h / 2),language->english , { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		spanish_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, spanish_button->position.first + (button.w / 2), spanish_button->position.second + (button.h / 2), language->spanish , { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		main_menu_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, main_menu_button->position.first + (button.w / 2), main_menu_button->position.second + (button.h / 2),language->main_menu, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		resume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, resume_button->position.first + (button.w / 2), resume_button->position.second + (button.h / 2), language->resume , { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		language_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5f - App->window->GetScreenWidth() / 2, english_button->position.second + (button.h * 1.5) - App->window->GetScreenHeight() / 8, language->choose_language, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		volume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5f - App->window->GetScreenWidth() / 2, volume_up_button->position.second + (button.h * 1.5) - App->window->GetScreenHeight() / 8, language->volume, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	}
+	english_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, english_button->position.first + (button.w / 2), english_button->position.second + (button.h / 2), App->scene_manager->language->english, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	spanish_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, spanish_button->position.first + (button.w / 2), spanish_button->position.second + (button.h / 2), App->scene_manager->language->spanish, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	main_menu_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, main_menu_button->position.first + (button.w / 2), main_menu_button->position.second + (button.h / 2), App->scene_manager->language->main_menu, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	resume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, resume_button->position.first + (button.w / 2), resume_button->position.second + (button.h / 2), App->scene_manager->language->resume, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	language_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2) - App->window->GetScreenWidth() / 2, english_button->position.second + (button.h * 1.5) - App->window->GetScreenHeight() / 8, App->scene_manager->language->choose_language, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	volume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2) - App->window->GetScreenWidth() / 2, volume_up_button->position.second + (button.h * 1.5) - App->window->GetScreenHeight() / 8, App->scene_manager->language->volume, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	
 	english_button->Select(SELECTED);
 }
 
@@ -304,6 +281,11 @@ void Battle::UpdateEnemies()
 			enemies_life_position.push_back((*enemies)->GetPosition());
 		}
 		change = false;
+	}
+	if (enemies_life.size() > App->entity_manager->enemies.size())
+	{
+		App->gui_manager->DeleteGUIElement(enemies_life.back());
+		enemies_life.pop_back();
 	}
 }
 
@@ -494,13 +476,13 @@ void Battle::ControlLanguageAndMusic()
 {
 	if (english_button->has_been_clicked)
 	{
-		language->SetLanguage(LANGUAGE_TYPE::ENGLISH);
+		App->scene_manager->language->SetLanguage(LANGUAGE_TYPE::ENGLISH);
 		DeleteOptionsIngame();
 		CreateOptionsIngame();
 	}
 	else if (spanish_button->has_been_clicked)
 	{
-		language->SetLanguage(LANGUAGE_TYPE::SPANISH);
+		App->scene_manager->language->SetLanguage(LANGUAGE_TYPE::SPANISH);
 		DeleteOptionsIngame();
 		CreateOptionsIngame();
 	}

@@ -3,6 +3,7 @@
 
 #include "Module.h"
 
+class Language;
 class Scene;
 enum SCENE_TYPE;
 
@@ -31,6 +32,8 @@ public:
 	Scene* current_scene = nullptr;
 
 	bool music_created = false;
+
+	Language* language = nullptr;
 
 private:
 	pugi::xml_node scene_configs;

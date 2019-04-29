@@ -8,6 +8,7 @@ Language::Language()
 
 void Language::SetLanguage(LANGUAGE_TYPE _language)
 {
+	type = _language;
 	pugi::xml_document document;
 	pugi::xml_parse_result result;
 	switch (_language)
@@ -48,7 +49,6 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		
 		resume = config.child("battle").child("resume").attribute("value").as_string("");
 		main_menu = config.child("battle").child("main_menu").attribute("value").as_string("");
-		ability = config.child("battle").child("ability").attribute("value").as_string("");
 		defend = config.child("battle").child("defend").attribute("value").as_string("");
 
 	}
