@@ -3,6 +3,26 @@
 <language>
   <main_menu_scene>
     <new_game value="NUEVA PARTIDA"/>
+    <load_game value="CARGAR PARTIDA"/>
+    <options value="OPCIONES"/>
+    <credits value="CRÉDITOS"/>
+    <exit value="SALIR"/>
+    <choose_language value="IDIOMA"/>
+    <english value="INGLÉS"/>
+    <spanish value="ESPAÑOL"/>
+    <volume value="VOLUMEN"/>
+    <controls value="CONTROLES"/>
+    <back value="ATRÁS"/>
+    <accept value="ACEPTAR"/>
+    <decline value="DECLINAR"/>
+    <character_stats value="ESTADÍSTICAS PERSONAJES"/>
+    <character_abilities value="HABILIDADES PERSONAJES"/>
+    <abilities value="HABILIDADES"/>
+    <pause value="PAUSA"/>
+    <select value="SELECT"/>
   </main_menu_scene>
+  <battle_1>
+
+  </battle_1>
 
 </language>

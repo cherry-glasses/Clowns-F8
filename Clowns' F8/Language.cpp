@@ -27,6 +27,23 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		pugi::xml_node	config = document.child("language");
 
 		new_game = config.child("main_menu_scene").child("new_game").attribute("value").as_string("");
+		load_game = config.child("main_menu_scene").child("load_game").attribute("value").as_string("");
+		options = config.child("main_menu_scene").child("options").attribute("value").as_string("");
+		credits = config.child("main_menu_scene").child("credits").attribute("value").as_string("");
+		exit = config.child("main_menu_scene").child("exit").attribute("value").as_string("");
+		choose_language = config.child("main_menu_scene").child("choose_language").attribute("value").as_string("");
+		english = config.child("main_menu_scene").child("english").attribute("value").as_string("");
+		spanish = config.child("main_menu_scene").child("spanish").attribute("value").as_string("");
+		volume = config.child("main_menu_scene").child("volume").attribute("value").as_string("");
+		controls = config.child("main_menu_scene").child("controls").attribute("value").as_string("");
+		back = config.child("main_menu_scene").child("back").attribute("value").as_string("");
+		accept = config.child("main_menu_scene").child("accept").attribute("value").as_string("");
+		decline = config.child("main_menu_scene").child("decline").attribute("value").as_string("");
+		character_stats = config.child("main_menu_scene").child("character_stats").attribute("value").as_string("");
+		character_abilities = config.child("main_menu_scene").child("character_abilities").attribute("value").as_string("");
+		abilities = config.child("main_menu_scene").child("abilities").attribute("value").as_string("");
+		pause = config.child("main_menu_scene").child("pause").attribute("value").as_string("");
+		select = config.child("main_menu_scene").child("select").attribute("value").as_string("");
 	}
 	
 

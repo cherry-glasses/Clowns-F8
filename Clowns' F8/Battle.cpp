@@ -497,14 +497,12 @@ void Battle::ControlLanguageAndMusic()
 		language->SetLanguage(LANGUAGE_TYPE::ENGLISH);
 		DeleteOptionsIngame();
 		CreateOptionsIngame();
-		english_button->Select(SELECTED);
 	}
 	else if (spanish_button->has_been_clicked)
 	{
 		language->SetLanguage(LANGUAGE_TYPE::SPANISH);
 		DeleteOptionsIngame();
 		CreateOptionsIngame();
-		spanish_button->Select(SELECTED);
 	}
 
 	if (volume_up_button->has_been_clicked)
