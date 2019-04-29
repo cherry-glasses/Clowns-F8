@@ -18,36 +18,36 @@ Battle::Battle(SCENE_TYPE _type, pugi::xml_node& _config) : Scene(_type, _config
 		switch (i)
 		{
 		case 0:
-			life_position.push_back({ life_margin.first - App->window->GetScreenWidth() / 2, life_margin.second - App->window->GetScreenHeight() / 8 });
-			mana_position.push_back({ mana_margin.first - App->window->GetScreenWidth() / 2, mana_margin.second - App->window->GetScreenHeight() / 8 });
-			act_menu_position.push_back({ actions_margin.first - App->window->GetScreenWidth() / 2, actions_margin.second - App->window->GetScreenHeight() / 8 });
-			port_position.push_back({ port_margin.first - App->window->GetScreenWidth() / 2, port_margin.second - App->window->GetScreenHeight() / 8 });
 			portrait_position.push_back({ portrait_margin.first - App->window->GetScreenWidth() / 2, portrait_margin.second - App->window->GetScreenHeight() / 8 });
-			name_position.push_back({ name_margin.first - App->window->GetScreenWidth() / 2, name_margin.second - App->window->GetScreenHeight() / 8 });
+			life_position.push_back({ portrait_position.at(i).first + life_margin.first, portrait_position.at(i).second + life_margin.second });
+			mana_position.push_back({ portrait_position.at(i).first + mana_margin.first, portrait_position.at(i).second + mana_margin.second });
+			act_menu_position.push_back({ portrait_position.at(i).first + actions_margin.first, portrait_position.at(i).second + actions_margin.second });
+			port_position.push_back({ portrait_position.at(i).first + port_margin.first, portrait_position.at(i).second + port_margin.second });
+			name_position.push_back({ portrait_position.at(i).first + name_margin.first, portrait_position.at(i).second + name_margin.second });
 			break;
 		case 1:
-			life_position.push_back({ App->window->GetScreenWidth() / 2 - life_margin.first,  life_margin.second - App->window->GetScreenHeight() / 8 });
-			mana_position.push_back({ App->window->GetScreenWidth() / 2 - mana_margin.first,  mana_margin.second - App->window->GetScreenHeight() / 8 });
-			act_menu_position.push_back({ App->window->GetScreenWidth() / 2 - actions_margin.first - 259, actions_margin.second - App->window->GetScreenHeight() / 8 });
-			port_position.push_back({ App->window->GetScreenWidth() / 2 - port_margin.first - 239, port_margin.second - App->window->GetScreenHeight() / 8 });
 			portrait_position.push_back({ App->window->GetScreenWidth() / 2 - portrait_margin.first - 259, portrait_margin.second - App->window->GetScreenHeight() / 8 });
-			name_position.push_back({ App->window->GetScreenWidth() / 2 - 88, name_margin.second - App->window->GetScreenHeight() / 8 });
+			life_position.push_back({ portrait_position.at(i).first + life_margin.first, portrait_position.at(i).second + life_margin.second });
+			mana_position.push_back({ portrait_position.at(i).first + mana_margin.first, portrait_position.at(i).second + mana_margin.second });
+			act_menu_position.push_back({ portrait_position.at(i).first + actions_margin.first, portrait_position.at(i).second + actions_margin.second });
+			port_position.push_back({ portrait_position.at(i).first + port_margin.first, portrait_position.at(i).second + port_margin.second });
+			name_position.push_back({ portrait_position.at(i).first + name_margin.first, portrait_position.at(i).second + name_margin.second });
 			break;
 		case 2:
-			life_position.push_back({ life_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - mana_margin.second });
-			mana_position.push_back({ mana_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - life_margin.second });
-			act_menu_position.push_back({ actions_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - actions_margin.second - 153 });
-			port_position.push_back({ port_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 177 });
 			portrait_position.push_back({ portrait_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
-			name_position.push_back({ name_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 135 });
+			life_position.push_back({ portrait_position.at(i).first + life_margin.first, portrait_position.at(i).second + life_margin.second });
+			mana_position.push_back({ portrait_position.at(i).first + mana_margin.first, portrait_position.at(i).second + mana_margin.second });
+			act_menu_position.push_back({ portrait_position.at(i).first + actions_margin.first, portrait_position.at(i).second - actions_margin.second });
+			port_position.push_back({ portrait_position.at(i).first + port_margin.first, portrait_position.at(i).second + port_margin.second });
+			name_position.push_back({ portrait_position.at(i).first + name_margin.first, portrait_position.at(i).second + name_margin.second });
 			break;
 		case 3:
-			life_position.push_back({ App->window->GetScreenWidth() / 2 - life_margin.first, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - mana_margin.second });
-			mana_position.push_back({ App->window->GetScreenWidth() / 2 - mana_margin.first, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - life_margin.second });
-			act_menu_position.push_back({ App->window->GetScreenWidth() / 2 - actions_margin.first - 259, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - actions_margin.second - 153 });
-			port_position.push_back({ App->window->GetScreenWidth() / 2 - port_margin.first - 239, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 177 });
 			portrait_position.push_back({ App->window->GetScreenWidth() / 2 - portrait_margin.first - 259, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
-			name_position.push_back({ App->window->GetScreenWidth() / 2 - 88, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 135 });
+			life_position.push_back({ portrait_position.at(i).first + life_margin.first, portrait_position.at(i).second + life_margin.second });
+			mana_position.push_back({ portrait_position.at(i).first + mana_margin.first, portrait_position.at(i).second + mana_margin.second });
+			act_menu_position.push_back({ portrait_position.at(i).first + actions_margin.first, portrait_position.at(i).second - actions_margin.second });
+			port_position.push_back({ portrait_position.at(i).first + port_margin.first, portrait_position.at(i).second + port_margin.second });
+			name_position.push_back({ portrait_position.at(i).first + name_margin.first, portrait_position.at(i).second + name_margin.second });
 			break;
 		default:
 			break;
@@ -78,7 +78,7 @@ void Battle::CreateUIBattle()
 		stun_image_created.push_back(false);
 		defense_image_created.push_back(false);
 		turn_created.push_back(false);
-		character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, name_position.at(i).first, name_position.at(i).second, (*character)->name.c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+		character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, name_position.at(i).first - (*character)->name.size(), name_position.at(i).second, (*character)->name.c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
 		switch ((*character)->GetType()) {
 		case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
 			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, port_position.at(i).first, port_position.at(i).second, sapphire_portrait));
