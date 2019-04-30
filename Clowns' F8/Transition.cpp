@@ -69,7 +69,8 @@ void Transition::Exiting()
 	{
 		state = TransitionState::NONE;
 		App->transition_manager->transitioning = false;
-		App->transition_manager->DestroyTransition(this);
+		todestroy = true;
+		//App->transition_manager->DestroyTransition(this);
 	}
 }
 
