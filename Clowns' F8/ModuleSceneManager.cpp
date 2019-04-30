@@ -2,6 +2,8 @@
 #include "ModuleSceneManager.h"
 #include "MainMenu.h"
 #include "Battle1.h"
+#include "Win.h"
+#include "Lose.h"
 #include "Language.h"
 
 
@@ -9,7 +11,6 @@ ModuleSceneManager::ModuleSceneManager()
 {
 	name = "scene_manager";
 }
-
 
 ModuleSceneManager::~ModuleSceneManager()
 {
@@ -63,9 +64,6 @@ bool ModuleSceneManager::Save(pugi::xml_node &xml) const
 void ModuleSceneManager::ChangeScene(SCENE_TYPE _type)
 {
 	current_scene->CleanUp();
-	/*App->entity_manager->CleanUp();
-	App->gui->CleanUp();
-	App->map->CleanUp();*/
 	
 	delete current_scene;
 	current_scene = nullptr;
@@ -87,8 +85,10 @@ void ModuleSceneManager::ChangeScene(SCENE_TYPE _type)
 	case FOURTH_BATTLE:
 		break;
 	case WIN_SCENE:
+		current_scene = new Win(_type, scene_configs);
 		break;
 	case LOSE_SCENE:
+		current_scene = new Lose(_type, scene_configs);
 		break;
 	case NONE:
 		break;

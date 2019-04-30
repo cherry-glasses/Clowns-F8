@@ -37,7 +37,9 @@ public:
 	std::string select = "";
 	std::string resume = "";
 	std::string main_menu = "";
+	std::string battle_abilities = "";
 	std::string defend = "";
+	std::string win_accept = "";
 
 };
 

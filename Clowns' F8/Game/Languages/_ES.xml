@@ -22,10 +22,14 @@
     <select value="SELECT"/>
    
   </main_menu_scene>
-  <battle>
+  <battle_scene>
     <resume value="CONTINUAR"/>
     <main_menu value="MENU PRINCIPAL"/>
-    <defend value="DEFENDER"/>
-  </battle>
+    <battle_abilities value="Habilidades"/>
+    <defend value="Defender"/>
+  </battle_scene>
+  <win_scene>
+    <press_accept value="PULSA ACEPTAR PARA VOLVER AL MENÚ PRINCIPAL"/>
+  </win_scene>
 
 </language>

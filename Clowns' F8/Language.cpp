@@ -47,9 +47,12 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		select = config.child("main_menu_scene").child("select").attribute("value").as_string("");
 
 		
-		resume = config.child("battle").child("resume").attribute("value").as_string("");
-		main_menu = config.child("battle").child("main_menu").attribute("value").as_string("");
-		defend = config.child("battle").child("defend").attribute("value").as_string("");
+		resume = config.child("battle_scene").child("resume").attribute("value").as_string("");
+		main_menu = config.child("battle_scene").child("main_menu").attribute("value").as_string("");
+		battle_abilities = config.child("battle_scene").child("battle_abilities").attribute("value").as_string("");
+		defend = config.child("battle_scene").child("defend").attribute("value").as_string("");
+
+		win_accept = config.child("win_scene").child("press_accept").attribute("value").as_string("");
 
 	}
 	

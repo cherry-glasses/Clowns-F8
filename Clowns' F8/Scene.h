@@ -92,10 +92,6 @@ protected:
 	
 	std::string	press_fx_name = "";
 
-	/*GUILabel* win_lose = nullptr;
-	bool win_lose_label_created = false;*/
-
-	
 	
 
 };

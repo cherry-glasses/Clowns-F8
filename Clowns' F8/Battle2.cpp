@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "Battle1.h"
+#include "Battle2.h"
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
 #include "ModuleWindow.h"
@@ -7,21 +7,21 @@
 #include "ModuleEntityManager.h"
 
 
-Battle1::Battle1(SCENE_TYPE _type, pugi::xml_node& _config) : Battle(_type, _config)
+Battle2::Battle2(SCENE_TYPE _type, pugi::xml_node& _config) : Battle(_type, _config)
 {
 
 }
 
 // Destructor
-Battle1::~Battle1()
+Battle2::~Battle2()
 {}
 
 
 // Called before the first frame
-bool Battle1::Start()
+bool Battle2::Start()
 {
-	battle_background = App->textures->Load("Assets/Maps/map_level_1.png");
-	battle_grid = App->textures->Load("Assets/Maps/grid_level_1.png");
+	battle_background = App->textures->Load("Assets/Maps/map_level_2.png");
+	battle_grid = App->textures->Load("Assets/Maps/grid_level_2.png");
 	battle_menu_background = App->textures->Load("Assets/Sprites/UI/option_menu_background.png");
 
 	screen_width = App->window->GetScreenWidth();
@@ -31,44 +31,42 @@ bool Battle1::Start()
 }
 
 // Called before all Updates
-bool Battle1::PreUpdate()
+bool Battle2::PreUpdate()
 {
 	if (!App->scene_manager->music_created) {
 		CreateMusic();
-		CreateBattle1();
+		CreateBattle2();
 	}
 	return true;
 }
 
 // Called before all Updates
-bool Battle1::PostUpdate()
+bool Battle2::PostUpdate()
 {
-	
 	return true;
 }
 
-
 // Load
-bool Battle1::Load(pugi::xml_node& savegame)
+bool Battle2::Load(pugi::xml_node& savegame)
 {
 	return true;
 }
 
 //Save
-bool Battle1::Save(pugi::xml_node& _data) const
+bool Battle2::Save(pugi::xml_node& _data) const
 {
 	return true;
 }
 
-void Battle1::CreateMusic()
+void Battle2::CreateMusic()
 {
 	App->scene_manager->music_created = true;
-	App->audio->PlayMusic("Battle_1_Song.ogg");
+	App->audio->PlayMusic("Battle_2_Song.ogg");
 }
 
-void Battle1::CreateBattle1()
+void Battle2::CreateBattle2()
 {
-	App->map->Load("map_level1.tmx");
+	App->map->Load("map_level2.tmx");
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);

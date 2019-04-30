@@ -1,15 +1,15 @@
-#ifndef __Battle1_H_
-#define __Battle1_H_
+#ifndef __Battle2_H_
+#define __Battle2_H_
 
 #include "Battle.h"
 
 struct SDL_Texture;
 
-class Battle1 : public Battle
+class Battle2 : public Battle
 {
 public:
-	Battle1(SCENE_TYPE _type, pugi::xml_node& _config);
-	~Battle1();
+	Battle2(SCENE_TYPE _type, pugi::xml_node& _config);
+	~Battle2();
 
 	// Called before the first frame
 	bool Start();
@@ -26,8 +26,8 @@ public:
 
 private:
 	void CreateMusic();
-	void CreateBattle1();
+	void CreateBattle2();
 
 };
 
-#endif //!__Battle1_H_
+#endif //!__Battle2_H_

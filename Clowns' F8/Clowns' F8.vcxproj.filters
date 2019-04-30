@@ -192,6 +192,15 @@
     <ClInclude Include="..\Clowns%27 F8\Squares.h">
       <Filter>Transitions</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Battle2.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Win.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Lose.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -334,6 +343,15 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Squares.cpp">
       <Filter>Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Battle2.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Win.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Lose.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

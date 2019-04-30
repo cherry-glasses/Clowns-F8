@@ -8,6 +8,7 @@
 #include "ModuleMap.h"
 #include "ModuleEntityManager.h"
 #include "ModuleRender.h"
+#include "ModuleTransitionManager.h"
 #include "Language.h"
 
 
@@ -46,6 +47,101 @@ Battle::Battle(SCENE_TYPE _type, pugi::xml_node& _config) : Scene(_type, _config
 // Destructor
 Battle::~Battle()
 {}
+
+bool Battle::Update(float _dt)
+{
+	bool ret = true;
+
+	if (App->input->Pause() || ingame_options_menu_created)
+	{
+		App->render->Blit(battle_menu_background, 0 - (option_background.w / 2), (screen_height / 2.7) - (option_background.h / 2));
+		if (!ingame_options_menu_created)
+		{
+			CreateOptionsIngame();
+			if (waiting_for_input)
+			{
+				DeleteAttackMenu();
+			}
+			else if (ability_menu_created)
+			{
+				DeleteAbilitiesMenu();
+			}
+		}
+
+		ControlLanguageAndMusic();
+
+		if (resume_button->has_been_clicked || App->input->Decline())
+		{
+
+			DeleteOptionsIngame();
+			int i = 0;
+			for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
+			{
+				UpdateEnemyPortraits((*enemy), i);
+				++i;
+			}
+
+		}
+		else if (main_menu_button->has_been_clicked)
+		{
+			if (!App->scene_manager->changing)
+			{
+				App->transition_manager->CreateFadeTransition(2, true, MAIN_MENU, Black);
+				App->scene_manager->changing = true;
+			}
+		}
+
+		Navigate();
+
+	}
+	else
+	{
+		if (!App->entity_manager->ThereAreCharAlive()) {
+			if (!App->scene_manager->changing)
+			{
+				App->transition_manager->CreateFadeTransition(2, true, LOSE_SCENE, Black);
+				App->scene_manager->changing = true;
+			}
+		}
+		else if (App->entity_manager->enemies.empty()) {
+			if (!App->scene_manager->changing)
+			{
+				App->transition_manager->CreateFadeTransition(2, true, WIN_SCENE, Black);
+				App->scene_manager->changing = true;
+			}
+		}
+		else {
+			UpdateCharacters();
+			UpdateEnemies();
+			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+			{
+				if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+				{
+					ActionsMenu();
+				}
+			}
+
+		}
+		App->render->Blit(battle_background, 0 - (screen_width / 2), 0 - (screen_height / 8));
+		App->render->Blit(battle_grid, 0 - (screen_width / 2), 0 - (screen_height / 8));
+		App->map->Draw();
+	}
+
+	return ret;
+}
+
+bool Battle::CleanUp()
+{
+	App->textures->UnLoad(battle_menu_background);
+	App->textures->UnLoad(battle_background);
+	App->textures->UnLoad(battle_grid);
+	App->gui_manager->DeleteAllGUIElements();
+	buttons.clear();
+	buttons2.clear();
+	App->map->CleanUp();
+	App->entity_manager->CleanUp();
+	return true;
+}
 
 // CREATES -----------------------------------------------------------------------
 void Battle::CreateUIBattle()
@@ -113,18 +209,15 @@ void Battle::CreateAttackMenu()
 			defend_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, act_menu_position.at(i).first, act_menu_position.at(i).second + 78, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
 			buttons2.push_back(defend_button);
 			attack_button->Select(SELECTED);
+			ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_button->position.first + (small_button.w * 0.5), ability_button->position.second + (small_button.h * 0.5), App->scene_manager->language->battle_abilities, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+			defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, defend_button->position.first + (small_button.w * 0.5), defend_button->position.second + (small_button.h * 0.5), App->scene_manager->language->defend, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 			if (App->scene_manager->language->type == LANGUAGE_TYPE::ENGLISH)
 			{
 				attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, attack_button->position.first + (small_button.w * 0.5), attack_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Attack_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-				ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_button->position.first + (small_button.w * 0.5), ability_button->position.second + (small_button.h * 0.5), App->scene_manager->language->abilities, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-				defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, defend_button->position.first + (small_button.w * 0.5), defend_button->position.second + (small_button.h * 0.5), App->scene_manager->language->defend, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-
 			}
 			else
 			{
 				attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, attack_button->position.first + (small_button.w * 0.5), attack_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ataque_nombre, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-				ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_button->position.first + (small_button.w * 0.5), ability_button->position.second + (small_button.h * 0.5), App->scene_manager->language->abilities, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-				defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, defend_button->position.first + (small_button.w * 0.5), defend_button->position.second + (small_button.h * 0.5), App->scene_manager->language->defend, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 			}
 		}
 		++i;

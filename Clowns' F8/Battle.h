@@ -19,13 +19,13 @@ public:
 	virtual bool PreUpdate() { return true; };
 
 	// Called each loop iteration
-	virtual bool Update(float dt) { return true; };
+	bool Update(float dt);
 
 	// Called before all Updates
 	virtual bool PostUpdate() { return true; };
 
 	// Called before quitting
-	virtual bool CleanUp() { return true; };
+	bool CleanUp();
 
 	virtual bool Load(pugi::xml_node&) { return true; };
 
@@ -56,6 +56,8 @@ protected:
 protected:
 
 	SDL_Texture * battle_menu_background = nullptr;
+	SDL_Texture* battle_background = nullptr;
+	SDL_Texture* battle_grid = nullptr;
 
 
 	GUIImage* action_menu = nullptr;
