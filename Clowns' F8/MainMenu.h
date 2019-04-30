@@ -118,9 +118,6 @@ private:
 	bool credits_menu_created = false;
 
 
-
-
-
 };
 
 #endif //!__MainMenu_H_

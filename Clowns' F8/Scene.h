@@ -65,10 +65,6 @@ public:
 protected:
 	std::list<GUIButton*> buttons;
 
-
-	/*SDL_Texture* win_screen = nullptr;
-	SDL_Texture* lose_screen = nullptr;*/
-
 	SDL_Rect button;
 	SDL_Rect small_button;
 	SDL_Rect cherry_glasses_logo;

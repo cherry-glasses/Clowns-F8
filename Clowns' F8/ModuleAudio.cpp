@@ -92,7 +92,7 @@ bool ModuleAudio::CleanUp()
 	}
 
 	fx.clear();
-
+	
 	Mix_CloseAudio();
 	Mix_Quit();
 	SDL_QuitSubSystem(SDL_INIT_AUDIO);
