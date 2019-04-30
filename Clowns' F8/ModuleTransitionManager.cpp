@@ -35,6 +35,13 @@ bool ModuleTransitionManager::PostUpdate()
 {
 	for (std::list<Transition*>::iterator transition = active_transitions.begin(); transition != active_transitions.end(); ++transition)
 	{
+		if ((*transition)->todestroy) {
+			DestroyTransition((*transition));
+			break;
+		}
+	}
+	for (std::list<Transition*>::iterator transition = active_transitions.begin(); transition != active_transitions.end(); ++transition)
+	{
 		(*transition)->PostUpdate();
 	}
 
