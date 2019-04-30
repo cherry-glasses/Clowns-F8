@@ -136,8 +136,7 @@ bool Battle::CleanUp()
 	App->textures->UnLoad(battle_background);
 	App->textures->UnLoad(battle_grid);
 	App->gui_manager->DeleteAllGUIElements();
-	buttons.clear();
-	buttons2.clear();
+
 	App->map->CleanUp();
 	App->entity_manager->CleanUp();
 	return true;
