@@ -4,6 +4,7 @@
 #include "ModulePathfinding.h"
 #include "ModuleRender.h"
 #include "ModuleMap.h"
+#include "Log.h"
 
 
 Boneyman::Boneyman(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Enemy(_type, _config)
@@ -17,9 +18,6 @@ Boneyman::~Boneyman()
 {
 }
 
-
-
-// Actions (SearchWalk, Walk, Attack, Hability 1, Hability 2, Die)
 void Boneyman::SearchWalk()
 {
 	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
@@ -29,6 +27,7 @@ void Boneyman::SearchWalk()
 
 void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 {
+	//Debug
 	if (App->debug)
 	{
 		for (uint i = 0; i < _path->size(); ++i)
@@ -38,11 +37,12 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 		}
 	}
 
-	if (_path->size() > 3 && (_path->at(0).first == _path->at(2).first || _path->at(0).second == _path->at(2).second))
+	//Pawn walk
+	if ((_path->size() > 3 && (_path->at(0).first == _path->at(2).first || _path->at(0).second == _path->at(2).second)) && !App->pathfinding->IsUsed(_path->at(2), this))
 	{
 		objective_position.push_back(App->map->MapToWorld(_path->at(2).first, _path->at(2).second));
 	}
-	else if (_path->size() > 1)
+	else if (_path->size() > 1 && !App->pathfinding->IsUsed(_path->at(1),this))
 	{
 		objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
 	}
@@ -86,6 +86,7 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 
 		current_turn = SEARCH_ATTACK;
 	}
+	LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
 }
 
 void Boneyman::SearchAttack()
@@ -94,11 +95,11 @@ void Boneyman::SearchAttack()
 	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
 	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
 	current_turn = ATTACK;
-	//IA Attack. Into range of position + attack. If enemy is near to dead. If enemy def.
 }
 
 void Boneyman::Attack(const std::vector<std::pair<int, int>> *_path)
 {
+	//Debug
 	if (App->debug)
 	{
 		for (uint i = 0; i < _path->size() && 2 == _path->size(); ++i)

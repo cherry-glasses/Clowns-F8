@@ -107,7 +107,7 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 	}
 		
 	
-	LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
+	//LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
 	
 		
 }

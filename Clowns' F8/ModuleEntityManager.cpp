@@ -218,18 +218,21 @@ void ModuleEntityManager::OrderEntitiesByPosition() {
 std::pair<int, int> ModuleEntityManager::NearestCharacter(std::pair<int, int> myposition){
 	std::pair<int, int> tmp;
 	std::pair<int, int> tmp_allied;
-	int tmp_result;
-	int tmp_result_2 = 30000;
+	float tmp_result;
+	float tmp_result_2 = 30000;
+	std::pair<int, int> position = App->map->WorldToMap(myposition.first, myposition.second);
 
 	for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character) {
 		tmp_allied = (*character)->GetPosition();
-		tmp_result = sqrt(((tmp_allied.first - myposition.first)*(tmp_allied.first - myposition.first)) + ((tmp_allied.second - myposition.second)*(tmp_allied.second - myposition.second)));
+		tmp_allied = App->map->WorldToMap(tmp_allied.first, tmp_allied.second);
+		tmp_result = sqrt(((tmp_allied.first - position.first)*(tmp_allied.first - position.first)) + ((tmp_allied.second - position.second)*(tmp_allied.second - position.second)));
 		if (tmp_result < tmp_result_2 && (*character)->current_state ==  (*character)->ALIVE) {
 			tmp = tmp_allied;
 			tmp_result_2 = tmp_result;
 		}
 			
 	}
+	tmp = App->map->MapToWorld(tmp.first, tmp.second);
 	return tmp;
 
 }
@@ -247,7 +250,7 @@ std::pair<int, int> ModuleEntityManager::CharactersPrioritzationAttack(std::pair
 					Charrr = (*character);
 				}
 				else {
-					if ((*Charrr).current_stats.DefF <= (*character)->current_stats.DefF) {
+					if ((*Charrr).current_stats.DefF >= (*character)->current_stats.DefF) {
 						Charrr = (*character);
 					}
 				}
