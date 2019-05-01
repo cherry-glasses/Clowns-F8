@@ -23,7 +23,7 @@ Pinkking::~Pinkking()
 // Actions (SearchWalk, Walk, Attack, Hability 1, Hability 2, Die)
 void Pinkking::SearchWalk()
 {
-	
+	objective_position.clear();
 	nearposition = App->entity_manager->NearestCharacter(position);
 	nearposition = App->map->WorldToMap(nearposition.first, nearposition.second);
 	App->pathfinding->CreatePathBishop(App->map->WorldToMap(position.first, position.second), nearposition, current_stats.PMove);
@@ -114,9 +114,9 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 
 void Pinkking::SearchAttack()
 {
+	objective_position.clear();
 	nearposition = App->entity_manager->NearestCharacter(position);
 	current_turn = ATTACK;
-
 }
 
 void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
@@ -140,38 +140,19 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 			CurrentMovement(IDLE_LEFT);
 		current_turn = END_TURN;
 	}
-
-	/*App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
-	current_turn = END_TURN;*/
-	
 }
 
 void Pinkking::SearchAbility_1()
 {
 	nearposition = App->entity_manager->NearestCharacter(position);
+	objective_position.push_back(nearposition);
 	current_turn = ABILITY_1;
 }
 
-void Pinkking::Ability_1()
+void Pinkking::Ability_1(const std::vector<std::pair<int, int>> *_path)
 {
-	objective_position.push_back(nearposition);
-	std::pair<int, int> tmp_1 = App->map->WorldToMap(position.first, position.second);
-	std::pair<int,int> tmp_2 = App->map->WorldToMap(nearposition.first, nearposition.second);
-	//int dmg = current_stats.AtkS / sqrt((tmp_2.first - tmp_1.first)*(tmp_2.first - tmp_1.first) + (tmp_2.second - tmp_1.second)*(tmp_2.second - tmp_1.second));
-
-
-	/*current_movement = ABILITY_1_FRONT;
-	if (current_animation->isDone()) {
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
-		current_animation->Reset();
-		current_movment = IDLE_LEFT_FRONT;
-		current_turn = END_TURN;
-		
-	}*/
-	
 	App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS*1.5, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 	current_turn = END_TURN;
-	// blit de la sombra en esa posicion
 }
 
 

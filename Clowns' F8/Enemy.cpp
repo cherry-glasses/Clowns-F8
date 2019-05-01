@@ -59,7 +59,7 @@ bool Enemy::Update(float dt)
 		Attack(App->pathfinding->GetLastPath());
 	}
 	else if (current_turn == ABILITY_1) {
-		Ability_1();
+		Ability_1(App->pathfinding->GetLastPath());
 	}
 
 	

@@ -26,7 +26,9 @@ public:
 	virtual void SearchAttack() {}
 	virtual void Attack(const std::vector<std::pair<int, int>> *_path) {}
 	virtual void SearchAbility_1() {}
-	virtual void Ability_1() {}
+	virtual void Ability_1(const std::vector<std::pair<int, int>> *_path) {}
+	virtual void SearchAbility_2() {}
+	virtual void Ability_2() {}
 	virtual void Hability_2() {}
 	virtual void Hability_3() {}
 	virtual void Die();
@@ -42,6 +44,9 @@ public:
 
 protected:
 	std::pair<int, int> nearposition;
+
+	int timer_skill_1 = 0;
+	int timer_skill_2 = 0;
 
 };
 
