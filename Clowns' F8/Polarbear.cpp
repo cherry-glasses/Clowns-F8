@@ -21,7 +21,7 @@ void Polarbear::SearchWalk()
 	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
 	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
 	current_turn = MOVE;
-	timer_skill_1++;
+
 }
 
 void Polarbear::Walk(const std::vector<std::pair<int, int>> *_path)
@@ -93,7 +93,7 @@ void Polarbear::SearchAttack()
 	objective_position.clear();
 	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
 	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
-
+	//Skill_1
 	if (timer_skill_1 == 2) {
 		current_turn = SEARCH_ABILITY_1;
 
@@ -138,7 +138,7 @@ void Polarbear::Attack(const std::vector<std::pair<int, int>> *_path)
 
 		if (current_animation->isDone()) {
 			//Skill_1
-
+			timer_skill_1++;
 
 
 			current_animation->Reset();
