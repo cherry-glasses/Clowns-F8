@@ -582,6 +582,11 @@ bool ModuleEntityManager::ThereAreCharAlive()
 	return flag;
 }
 
+float ModuleEntityManager::CalculateDistance(std::pair<int, int> origin, std::pair<int, int> objective)
+{
+	return sqrt((objective.first - origin.first)*(objective.first - origin.first) + ((objective.second - origin.second)*(objective.second - origin.second)));
+}
+
 
 
 std::pair<int, int>* ModuleEntityManager::RangeOfAttack(std::pair<int, int> myposition, int radius, int& size) {

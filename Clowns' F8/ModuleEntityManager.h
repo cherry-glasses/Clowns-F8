@@ -49,6 +49,8 @@ public:
 	//Returns True if there are characters alive;
 	bool ThereAreCharAlive();
 
+	float CalculateDistance(std::pair<int, int> origin, std::pair<int, int> objective);
+
 	void ThrowAttack(std::vector<std::pair<int,int>> _positions, int _damage, ENTITY_TYPE _type);
 	
 public:
