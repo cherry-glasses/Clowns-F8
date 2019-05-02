@@ -10,7 +10,10 @@
 #include "CharacterGeorgeB.h"
 #include "Boneyman.h"
 #include "Pinkking.h"
+#include "Burgdog.h"
 #include "Hotdog.h"
+#include "Slime.h"
+#include "Polarbear.h"
 #include "Tree1.h"
 #include "Tree2.h"
 #include "Tree3.h"
@@ -310,6 +313,19 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		enemies.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
+		tmp = new Burgdog(_type, entity_configs.child("burgdog"));
+		entities.push_back(tmp);
+		enemies.push_back(tmp);
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_SLIME:
+		tmp = new Slime(_type, entity_configs.child("slime"));
+		entities.push_back(tmp);
+		enemies.push_back(tmp);
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_POLARBEAR:
+		tmp = new Polarbear(_type, entity_configs.child("polarbear"));
+		entities.push_back(tmp);
+		enemies.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_OBJECT_TREE1:
 		for (int i = 0; i < 5; i++)
@@ -479,6 +495,58 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				if ((*character)->GetPosition() == (*position))
+				{
+					if ((*character)->defend) {
+						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF * 1.2 / 100));
+					}
+					else {
+						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF / 100));
+					}
+
+				}
+			}
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_SLIME:
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				if ((*character)->GetPosition() == (*position))
+				{
+					if ((*character)->defend) {
+						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF * 1.2 / 100));
+					}
+					else {
+						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF / 100));
+					}
+
+				}
+			}
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_POLARBEAR:
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				if ((*character)->GetPosition() == (*position))
+				{
+					if ((*character)->defend) {
+						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF * 1.2 / 100));
+					}
+					else {
+						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF / 100));
+					}
+
+				}
+			}
+		}
 		break;
 	case ENTITY_TYPE::NO_TYPE:
 		break;

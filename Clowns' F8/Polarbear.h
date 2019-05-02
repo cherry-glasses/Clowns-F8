@@ -1,16 +1,16 @@
-#ifndef _Boneyman_H__
-#define _Boneyman_H__
+#ifndef _Polarbear_H__
+#define _Polarbear_H__
 
 #include "Enemy.h"
 #include "Animation.h"
 
-class Boneyman : public Enemy
+class Polarbear : public Enemy
 {
 public:
-	Boneyman(ENTITY_TYPE _type, pugi::xml_node _config, int _copy);
+	Polarbear(ENTITY_TYPE _type, pugi::xml_node _config);
 
 	// Destructor
-	~Boneyman();
+	~Polarbear();
 
 	//Move and Attack
 	void SearchWalk();
@@ -27,3 +27,4 @@ public:
 };
 
 #endif // pawn
+

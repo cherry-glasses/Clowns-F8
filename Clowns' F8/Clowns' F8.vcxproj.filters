@@ -204,6 +204,15 @@
     <ClInclude Include="..\Clowns%27 F8\ChooseCharacter.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Burgdog.h">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Slime.h">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Polarbear.h">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -358,6 +367,15 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\ChooseCharacter.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Burgdog.cpp">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Slime.cpp">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Polarbear.cpp">
+      <Filter>Entities\EntitiesEnemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

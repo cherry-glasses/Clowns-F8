@@ -1,16 +1,16 @@
-#ifndef _Boneyman_H__
-#define _Boneyman_H__
+#ifndef _Burgdog_H__
+#define _Burgdog_H__
 
 #include "Enemy.h"
 #include "Animation.h"
 
-class Boneyman : public Enemy
+class Burgdog : public Enemy
 {
 public:
-	Boneyman(ENTITY_TYPE _type, pugi::xml_node _config, int _copy);
+	Burgdog(ENTITY_TYPE _type, pugi::xml_node _config);
 
 	// Destructor
-	~Boneyman();
+	~Burgdog();
 
 	//Move and Attack
 	void SearchWalk();
@@ -26,4 +26,4 @@ public:
 
 };
 
-#endif // pawn
+#endif // !__Boneyman_H__
