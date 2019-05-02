@@ -45,6 +45,11 @@ public:
 protected:
 	std::pair<int, int> nearposition;
 
+	//IA
+
+	bool inDanger = false;
+	bool inRange = false;
+
 	int timer_skill_1 = 0;
 	int timer_skill_2 = 0;
 

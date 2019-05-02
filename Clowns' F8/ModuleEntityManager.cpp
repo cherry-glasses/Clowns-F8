@@ -584,7 +584,8 @@ bool ModuleEntityManager::ThereAreCharAlive()
 
 float ModuleEntityManager::CalculateDistance(std::pair<int, int> origin, std::pair<int, int> objective)
 {
-	return sqrt((objective.first - origin.first)*(objective.first - origin.first) + ((objective.second - origin.second)*(objective.second - origin.second)));
+	float ret = sqrt((objective.first - origin.first)*(objective.first - origin.first) + ((objective.second - origin.second)*(objective.second - origin.second)));
+	return ret;
 }
 
 
