@@ -4,6 +4,7 @@
 #include "Battle1.h"
 #include "Win.h"
 #include "Lose.h"
+#include "ChooseMap.h"
 #include "Language.h"
 
 
@@ -89,6 +90,9 @@ void ModuleSceneManager::ChangeScene(SCENE_TYPE _type)
 		break;
 	case LOSE_SCENE:
 		current_scene = new Lose(_type, scene_configs);
+		break;
+	case CHOOSE_MAP:
+		current_scene = new ChooseMap(_type, scene_configs);
 		break;
 	case NONE:
 		break;

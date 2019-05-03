@@ -40,7 +40,9 @@ public:
 	std::string battle_abilities = "";
 	std::string defend = "";
 	std::string win_accept = "";
-
+	std::string map1 = "";
+	std::string map2 = "";
+	std::string map3 = "";
 };
 
 

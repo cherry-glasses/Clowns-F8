@@ -31,5 +31,9 @@
   <win_scene>
     <press_accept value="PULSA ACEPTAR PARA VOLVER AL MENÚ PRINCIPAL"/>
   </win_scene>
-
+  <choose_map_scene>
+    <map1 value="TIERRAS DEL ESTE"/>
+    <map2 value="TIERRAS ABRASADAS"/>
+    <map3 value="TIERRAS POLARES"/>
+  </choose_map_scene>
 </language>

@@ -56,7 +56,7 @@ bool MainMenu::Update(float _dt)
 		{
 			if (!App->scene_manager->changing)
 			{
-				App->transition_manager->CreateSquaresTransition(4, true, FIRST_BATTLE, Scene_1_color);
+				App->transition_manager->CreateFadeTransition(2, true, CHOOSE_MAP, Yellow);
 				App->scene_manager->changing = true;
 			}
 			

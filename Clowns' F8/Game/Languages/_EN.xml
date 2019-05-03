@@ -30,5 +30,9 @@
   <win_scene>
     <win_accept value="PRESS ACCEPT TO RETURN TO MAIN MENU"/>
   </win_scene>
-
+  <choose_map_scene>
+    <map1 value="EASTLANDS"/>
+    <map2 value="BLAZELANDS"/>
+    <map3 value="BLIZZLANDS"/>
+  </choose_map_scene>
 </language>

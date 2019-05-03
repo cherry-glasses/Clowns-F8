@@ -213,6 +213,9 @@
     <ClInclude Include="..\Clowns%27 F8\Polarbear.h">
       <Filter>Entities\EntitiesEnemies</Filter>
     </ClInclude>
+    <ClInclude Include="ChooseMap.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -376,6 +379,9 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Polarbear.cpp">
       <Filter>Entities\EntitiesEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ChooseMap.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
