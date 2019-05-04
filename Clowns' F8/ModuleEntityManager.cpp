@@ -294,7 +294,7 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		george_b = (CharacterGeorgeB*) tmp;
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 1; i++)
 		{
 			tmp = new Boneyman(_type, entity_configs.child("boneyman"), i);
 			entities.push_back(tmp);

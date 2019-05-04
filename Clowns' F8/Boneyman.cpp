@@ -20,7 +20,7 @@ Boneyman::~Boneyman()
 
 void Boneyman::SearchWalk()
 {
-	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
+	nearposition = App->entity_manager->NearestCharacter(position);
 	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
 	current_turn = MOVE;
 
@@ -61,13 +61,13 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 		else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
 			CurrentMovement(WALK_RIGHT_BACK);
 		}
-		current_turn = MOVE;
+		//current_turn = MOVE;
 	}
 	else {
 		current_turn = SEARCH_ATTACK;
 	}
 
-	if (objective_position.back().first == position.first || objective_position.back().second == position.second) {
+	if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
 		if (current_movement == WALK_LEFT_FRONT)
 		{
 			CurrentMovement(IDLE_LEFT_FRONT);
@@ -84,7 +84,7 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 		{
 			CurrentMovement(IDLE_RIGHT_BACK);
 		}
-
+		//current_turn = SEARCH_MOVE;
 		current_turn = SEARCH_ATTACK;
 	}
 	LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);

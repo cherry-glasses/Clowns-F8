@@ -23,7 +23,7 @@ Pinkking::~Pinkking()
 // Actions (SearchWalk, Walk, Attack, Hability 1, Hability 2, Die)
 void Pinkking::SearchWalk()
 {
-	objective_position.clear();
+	//objective_position.clear();
 	nearposition = App->entity_manager->NearestCharacter(position);
 	nearposition = App->map->WorldToMap(nearposition.first, nearposition.second);
 	App->pathfinding->CreatePathBishop(App->map->WorldToMap(position.first, position.second), nearposition, current_stats.PMove);
@@ -55,7 +55,7 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 
 	nearposition = App->entity_manager->NearestCharacter(position);
 	nearposition = App->map->WorldToMap(nearposition.first, nearposition.second);
-	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
+
 	std::pair<int, int> object;
 
 
@@ -84,22 +84,17 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 				CurrentMovement(WALK_RIGHT);
 			}
 			current_turn = MOVE;
-			
-			if (App->entity_manager->CalculateDistance(pos, nearposition) < current_stats.RangeAtk) {
-				inRange = true;
-				if (inDanger && !cancer_3) {
-					cancer_1 = Next_cell(pos);
-					cancer_3 = true;
-					
-				}
-				inDanger = true;
-				objective_position.push_back(cancer_1);
-				
+			pos = App->map->WorldToMap(position.first, position.second);
+			if (App->entity_manager->CalculateDistance(pos, nearposition) < current_stats.RangeAtk && (App->map->MapToWorld(pos.first, pos.second) == position)){
+				current_turn = SEARCH_ATTACK;
 
-				
 			}
 
-			if (((objective_position.back().first == position.first && objective_position.back().second == position.second) || (objective_position.back().first == position.first && objective_position.back().second == position.second))) {
+			std::pair<int, int> cancer = App->map->MapToWorld(pos.first,pos.second);
+			
+			LOG("posii %i , %i , cancer %i ,%i", position.first, position.second,cancer.first, cancer.second);
+			//std::pair<int, int> yoooo = App->map->WorldToMap(objective_position.back().first, objective_position.back().second);
+			if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
 				
 				if (current_movement == WALK_LEFT)
 				{
@@ -111,11 +106,11 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 				}
 				else if (current_movement == WALK_BACK)
 				{
-					CurrentMovement(IDLE_BACK);
+					CurrentMovement(IDLE_LEFT);
 				}
 				else if (current_movement == WALK_FRONT)
 				{
-					CurrentMovement(IDLE_FRONT);
+					CurrentMovement(IDLE_LEFT);
 				}
 				inDanger = false;
 				if (inRange)
@@ -143,7 +138,7 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 
 	}
 	
-	LOG("%i , %i", pos.first, pos.second);
+	
 }
 
 void Pinkking::SearchAttack()

@@ -46,7 +46,7 @@ protected:
 	std::pair<int, int> nearposition;
 
 	//IA
-
+	std::pair<int, int> pos;
 	bool inDanger = false;
 	bool inRange = false;
 
