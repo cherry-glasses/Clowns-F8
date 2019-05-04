@@ -90,19 +90,18 @@ bool ModuleEntityManager::PreUpdate()
 			{
 				entity++;
 				(*entity)->current_turn = Entity::TURN::SEARCH_MOVE;
+				(*entity)->current_stats.Mana += 10;
+				(*entity)->defend = false;
 			}
 			else {
 				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
+				(*entity)->current_stats.Mana += 10;
+				(*entity)->defend = false;
 			}
 		}
 		if ((*entity)->stunned == true && (*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
 			(*entity)->current_turn = Entity::TURN::END_TURN;
 			(*entity)->stunned = false;
-		}
-		if ((*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
-			// Starting Turn
-			(*entity)->current_stats.Mana += 10;
-			(*entity)->defend = false;
 		}
 
 		// BearTrap

@@ -490,6 +490,16 @@ void Battle::ActionsMenu()
 				}
 			}
 		}
+		else if (App->input->Decline()) {
+			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+			{
+				if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+				{
+					(*character)->ComeBack();
+					DeleteAttackMenu();
+				}
+			}
+		}
 	}
 	else if (ability_menu_created)
 	{

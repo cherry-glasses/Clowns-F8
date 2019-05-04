@@ -31,6 +31,7 @@ public:
 	virtual void SelectAbility_1();
 	virtual void Ability_1();
 	virtual void Defend();
+	virtual void ComeBack();
 	virtual void CurrentMovement(MOVEMENT _movement) {}
 	virtual void EndTurn();
 	virtual void Die();
@@ -49,6 +50,8 @@ protected:
 	std::list<std::pair<int, int>> possible_mov_list;
 	std::list<std::pair<int, int>> inrange_mov_list;
 	std::vector<std::pair<int, int>> possible_map;
+	std::pair<int, int> comeback_position;
+	MOVEMENT comeback_movement;
 };
 
 #endif // !__Character_H__

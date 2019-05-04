@@ -15,12 +15,12 @@ Squares::Squares(float transition_time, bool is_scene_change, SCENE_TYPE scene_t
 	App->window->GetWindowSize(width, height);
 	SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
 
-	square_width = (int)(width / total_squares_row_col);
-	square_height = (int)((height / total_squares_row_col) + 1);
+	square_width = (int)(width / total_squares_col);
+	square_height = (int)((height / total_squares_row) + 1);
 
-	for (int x = 0; x < total_squares_row_col; x++)
+	for (int x = 0; x < total_squares_col; x++)
 	{
-		for (int y = 0; y < total_squares_row_col; y++)
+		for (int y = 0; y < total_squares_row; y++)
 		{
 			positions.push_back({ (int)(x*square_width), (int)(y*square_height) });
 		}
@@ -39,14 +39,14 @@ void Squares::Entering()
 {
 	Transition::Entering();
 
-	int num_Bars = (int)LerpValue(percent, 0, total_squares_row_col * total_squares_row_col);
+	int num_Bars = (int)LerpValue(percent, 0, total_squares_col * total_squares_row);
 
 	DrawSquares(num_Bars);
 }
 
 void Squares::Action()
 {
-	DrawSquares(total_squares_row_col * total_squares_row_col);
+	DrawSquares(total_squares_col * total_squares_row);
 
 	if (is_scene_change)
 	{
@@ -60,7 +60,7 @@ void Squares::Exiting()
 {
 	Transition::Exiting();
 
-	int num_Bars = (int)LerpValue(percent, total_squares_row_col * total_squares_row_col, 0);
+	int num_Bars = (int)LerpValue(percent, total_squares_col * total_squares_row, 0);
 
 	DrawSquares(num_Bars);
 }

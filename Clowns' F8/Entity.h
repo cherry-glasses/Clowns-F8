@@ -76,6 +76,7 @@ public:
 	virtual void SearchAttack() {}
 	virtual void SearchAbility_1() {}
 	virtual void Defend() {}
+	virtual void ComeBack() {}
 	virtual void EndTurn() {}
 	virtual void Die() {}
 

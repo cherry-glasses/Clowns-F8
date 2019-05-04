@@ -130,6 +130,8 @@ void Character::SelectWalk() {
 	if (App->input->Accept() 
 		&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)) != inrange_mov_list.end()) {
 		current_turn = Entity::MOVE;
+		comeback_position = { position.first, position.second };
+		comeback_movement = current_movement;
 	}
 }
 
@@ -209,6 +211,7 @@ void Character::Walk()
 		}
 		current_turn = SELECT_ACTION;
 	}
+
 }
 
 void Character::SelectAttack() {
@@ -569,7 +572,15 @@ void Character::Defend()
 	default:
 		break;
 	}
+}
 
+void Character::ComeBack()
+{
+	position = comeback_position;
+	CurrentMovement(comeback_movement);
+	EndTurn();
+	current_turn = SEARCH_MOVE;
+	
 }
 
 void Character::Die()
