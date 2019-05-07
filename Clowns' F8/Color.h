@@ -34,6 +34,7 @@ extern Color Cian;
 extern Color Yellow;
 extern Color Pink;
 extern Color DarkGray;
-extern Color Scene_1_color;;
+extern Color Scene_1_color;
+extern Color Scene_2_color;
 
 #endif

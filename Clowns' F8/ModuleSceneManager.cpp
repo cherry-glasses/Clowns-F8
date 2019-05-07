@@ -2,6 +2,7 @@
 #include "ModuleSceneManager.h"
 #include "MainMenu.h"
 #include "Battle1.h"
+#include "Battle2.h"
 #include "Win.h"
 #include "Lose.h"
 #include "ChooseMap.h"
@@ -80,6 +81,7 @@ void ModuleSceneManager::ChangeScene(SCENE_TYPE _type)
 		current_scene = new Battle1(_type, scene_configs);
 		break;
 	case SECOND_BATTLE:
+		current_scene = new Battle2(_type, scene_configs);
 		break;
 	case THIRD_BATTLE:
 		break;
