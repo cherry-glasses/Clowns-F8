@@ -66,6 +66,42 @@ struct Gamepad {
 	//GAMEPAD_STATE R1;
 };
 
+struct ButtonsToUse {
+
+	int UP;
+	int DOWN;
+	int LEFT;
+	int RIGHT;
+	int DECLINE;
+	int ACCEPT;
+	int PAUSE;
+	int STATS;
+	int ABILITY;
+
+};
+
+
+struct ButtonChar {
+	char* UP = nullptr;
+	char* DOWN = nullptr;
+	char* LEFT = nullptr;
+	char* RIGHT = nullptr;
+	char* DECLINE = nullptr;
+	char* ACCEPT = nullptr;
+	char* PAUSE = nullptr;
+	char* STATS = nullptr;
+	char* ABILITY = nullptr;
+};
+
+struct KeyboardButtons {
+	ButtonsToUse buttons_to_use;
+	ButtonChar buttons_char;
+};
+
+struct ControllerButtons {
+	ButtonsToUse buttons_to_use;
+	ButtonChar buttons_char;
+};
 
 class ModuleInput : public Module
 {
@@ -124,6 +160,9 @@ public:
 
 	Gamepad gamepad;
 	void buttonForGamepad();
+	void Defaultcontrols();
+
+	void GetKeyPressed();
 
 	bool Left();
 	bool Right();
@@ -138,11 +177,14 @@ public:
 	//bool Showabilities();
 	//
 
+	int space;
 
+	KeyboardButtons keyboard_buttons;
+	KEY_STATE*	keyboard;
 
 private:
 	bool		windowEvents[EW_COUNT];
-	KEY_STATE*	keyboard;
+
 	KEY_STATE	mouse_buttons[NUM_MOUSE_BUTTONS];
 
 	int			mouse_motion_x;

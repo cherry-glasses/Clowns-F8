@@ -37,7 +37,7 @@ private:
 	void CreateOptionMenu();
 	void CreateControlsMenu();
 	void CreateCreditsMenu();
-
+	void ChangeControls(int control);
 	void Delete();
 
 	void ControlLanguageAndMusic();

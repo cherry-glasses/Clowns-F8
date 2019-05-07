@@ -438,18 +438,17 @@ void ModuleInput::buttonForGamepad() {
 	}
 
 }
-
 bool ModuleInput::Left() {
 
-	if (GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || App->input->gamepad.CROSS_LEFT == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+	if (GetKey(keyboard_buttons.buttons_to_use.LEFT) == KEY_DOWN || App->input->gamepad.CROSS_LEFT == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
 		return true;
 	}
 	return false;
 }
 
 bool ModuleInput::Right() {
-	
-	if (GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || App->input->gamepad.CROSS_RIGHT == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+
+	if (GetKey(keyboard_buttons.buttons_to_use.RIGHT) == KEY_DOWN || App->input->gamepad.CROSS_RIGHT == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
 		return true;
 	}
 	return false;
@@ -457,7 +456,7 @@ bool ModuleInput::Right() {
 
 bool ModuleInput::Down() {
 
-	if (GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || App->input->gamepad.CROSS_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+	if (GetKey(keyboard_buttons.buttons_to_use.DOWN) == KEY_DOWN || App->input->gamepad.CROSS_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
 		return true;
 	}
 	return false;
@@ -465,7 +464,7 @@ bool ModuleInput::Down() {
 
 bool ModuleInput::Up() {
 
-	if (GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+	if (GetKey(keyboard_buttons.buttons_to_use.UP) == KEY_DOWN || App->input->gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
 		return true;
 	}
 	return false;
@@ -473,28 +472,72 @@ bool ModuleInput::Up() {
 
 bool ModuleInput::Accept() {
 
-	if (GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->gamepad.A == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+	if (GetKey(keyboard_buttons.buttons_to_use.ACCEPT) == KEY_DOWN || App->input->gamepad.A == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
 		return true;
 	}
+
+
 	return false;
 }
 
 bool ModuleInput::Decline() {
 
-	if (GetKey(SDL_SCANCODE_X) == KEY_DOWN || App->input->gamepad.B == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+	if (GetKey(keyboard_buttons.buttons_to_use.DECLINE) == KEY_DOWN || App->input->gamepad.B == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
 		return true;
 	}
+
 	return false;
 }
 
 bool ModuleInput::Pause() {
 
-	if (GetKey(SDL_SCANCODE_ESCAPE)== KEY_DOWN || GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN || App->input->gamepad.START == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+	if (GetKey(keyboard_buttons.buttons_to_use.PAUSE) == KEY_DOWN || App->input->gamepad.START == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
 		return true;
 	}
 	return false;
 }
-//
+
+void ModuleInput::Defaultcontrols() {
+
+
+	keyboard_buttons.buttons_to_use.ACCEPT = SDL_SCANCODE_SPACE;
+	keyboard_buttons.buttons_to_use.RIGHT = SDL_SCANCODE_RIGHT;
+	keyboard_buttons.buttons_to_use.LEFT = SDL_SCANCODE_LEFT;
+	keyboard_buttons.buttons_to_use.DOWN = SDL_SCANCODE_DOWN;
+	keyboard_buttons.buttons_to_use.UP = SDL_SCANCODE_UP;
+	keyboard_buttons.buttons_to_use.DECLINE = SDL_SCANCODE_X;
+	keyboard_buttons.buttons_to_use.PAUSE = SDL_SCANCODE_ESCAPE;
+
+
+
+	keyboard_buttons.buttons_char.RIGHT == "RIGHT ARROW";
+	keyboard_buttons.buttons_char.LEFT == "LEFT ARROW";
+	keyboard_buttons.buttons_char.DOWN == "DOWN ARROW";
+	keyboard_buttons.buttons_char.UP == "UP ARROW";
+	keyboard_buttons.buttons_char.ACCEPT == "SPACE";
+	keyboard_buttons.buttons_char.DECLINE == "X";
+	keyboard_buttons.buttons_char.PAUSE == "ESC";
+}
+
+
+void ModuleInput::GetKeyPressed() {
+
+	static SDL_Event event;
+
+	const Uint8* keys = SDL_GetKeyboardState(NULL);
+	SDL_Scancode scancode = SDL_SCANCODE_UNKNOWN;
+
+	for (int i = 0; i < MAX_KEYS; ++i)
+	{
+		if (keys[i] == 1)
+		{
+			scancode = event.key.keysym.scancode;
+		}
+
+	}
+
+}
+
 //bool ModuleInput::Select() {
 //
 //	if (GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN || App->input->gamepad.SELECT == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
@@ -526,3 +569,4 @@ bool ModuleInput::Pause() {
 //	}
 //	return false;
 //}
+
