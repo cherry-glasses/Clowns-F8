@@ -75,6 +75,11 @@
     <debug_green x="0" y="0" width="64" height="32"/>
     <debug_red x="64" y="0" width="64" height="32"/>
     <debug_blue x="128" y="0" width="64" height="32"/>
+    <debug_yellow x="192" y="0" width="64" height="32"/>
+    <circle_green x="0" y="32" width="64" height="32"/>
+    <circle_red x="64" y="32" width="64" height="32"/>
+    <circle_blue x="128" y="32" width="64" height="32"/>
+    <circle_yellow x="192" y="32" width="64" height="32"/>
     <position_margin x="32" y="22"/>
     <sapphire>
       <texture value="Assets/Sprites/Main_Characters/Sapphire_Spritesheet.png"/>

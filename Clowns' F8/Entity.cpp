@@ -18,6 +18,16 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 		_config.parent().child("debug_red").attribute("width").as_int(), _config.parent().child("debug_red").attribute("height").as_int() };
 	debug_blue = { _config.parent().child("debug_blue").attribute("x").as_int(), _config.parent().child("debug_blue").attribute("y").as_int(),
 		_config.parent().child("debug_blue").attribute("width").as_int(), _config.parent().child("debug_blue").attribute("height").as_int() };
+	debug_yellow = { _config.parent().child("debug_yellow").attribute("x").as_int(), _config.parent().child("debug_yellow").attribute("y").as_int(),
+		_config.parent().child("debug_yellow").attribute("width").as_int(), _config.parent().child("debug_yellow").attribute("height").as_int() };
+	circle_green = { _config.parent().child("circle_green").attribute("x").as_int(), _config.parent().child("circle_green").attribute("y").as_int(),
+		_config.parent().child("circle_green").attribute("width").as_int(), _config.parent().child("circle_green").attribute("height").as_int() };
+	circle_red = { _config.parent().child("circle_red").attribute("x").as_int(), _config.parent().child("circle_red").attribute("y").as_int(),
+		_config.parent().child("circle_red").attribute("width").as_int(), _config.parent().child("circle_red").attribute("height").as_int() };
+	circle_blue = { _config.parent().child("circle_blue").attribute("x").as_int(), _config.parent().child("circle_blue").attribute("y").as_int(),
+		_config.parent().child("circle_blue").attribute("width").as_int(), _config.parent().child("circle_blue").attribute("height").as_int() };
+	circle_yellow = { _config.parent().child("circle_yellow").attribute("x").as_int(), _config.parent().child("circle_yellow").attribute("y").as_int(),
+		_config.parent().child("circle_yellow").attribute("width").as_int(), _config.parent().child("circle_yellow").attribute("height").as_int() };
 
 	name = _config.child("name").attribute("value").as_string("");
 	position_margin = { _config.parent().child("position_margin").attribute("x").as_int(), _config.parent().child("position_margin").attribute("y").as_int() };
@@ -37,13 +47,13 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	default_stats.Attack = _config.child("stats").attribute("attack").as_int();
 	default_stats.Ability_1 = _config.child("stats").attribute("ability_1").as_int();
 
-	evolution_stats.Hp = _config.child("stats").attribute("hp").as_int();
-	evolution_stats.Mana = _config.child("stats").attribute("mana").as_int();
-	evolution_stats.AtkF = _config.child("stats").attribute("atk_f").as_int();
-	evolution_stats.AtkS = _config.child("stats").attribute("atk_s").as_int();
-	evolution_stats.DefF = _config.child("stats").attribute("def_f").as_int();
-	evolution_stats.DefS = _config.child("stats").attribute("def_s").as_int();
-	evolution_stats.Crit = _config.child("stats").attribute("crit").as_int();
+	evolution_stats.Hp = _config.child("evolution").attribute("hp").as_int();
+	evolution_stats.Mana = _config.child("evolution").attribute("mana").as_int();
+	evolution_stats.AtkF = _config.child("evolution").attribute("atk_f").as_int();
+	evolution_stats.AtkS = _config.child("evolution").attribute("atk_s").as_int();
+	evolution_stats.DefF = _config.child("evolution").attribute("def_f").as_int();
+	evolution_stats.DefS = _config.child("evolution").attribute("def_s").as_int();
+	evolution_stats.Crit = _config.child("evolution").attribute("crit").as_int();
 
 	current_stats = default_stats;
 

@@ -138,6 +138,8 @@ public:
 	STATE current_state = ALIVE;
 	TURN current_turn = NONE;
 
+	SDL_Rect	current = { 0,0,0,0 };
+
 	std::pair<int, int>  position_margin;
 	std::string name;
 
@@ -154,7 +156,8 @@ protected:
 
 	MOVEMENT current_movement = IDLE_LEFT_BACK;
 	
-	Animation*	current_animation = nullptr;
+	Animation * current_animation = nullptr;
+
 	Animation idle_left_back;
 	Animation idle_right_back;
 	Animation idle_left_front;
@@ -216,12 +219,17 @@ protected:
 	Animation dead_back;
 
 	ENTITY_TYPE type = ENTITY_TYPE::NO_TYPE;
-	SDL_Rect	current = { 0,0,0,0 };
+	
 	SDL_Texture* entity_texture = nullptr;
 	SDL_Texture* debug_texture = nullptr;
 	SDL_Rect debug_green;
 	SDL_Rect debug_red;
 	SDL_Rect debug_blue;
+	SDL_Rect debug_yellow;
+	SDL_Rect circle_green;
+	SDL_Rect circle_red;
+	SDL_Rect circle_blue;
+	SDL_Rect circle_yellow;
 	std::pair<int, int>  position;
 	std::vector<std::pair<int, int>>  objective_position;
 	int tiles_range_attk = 0;

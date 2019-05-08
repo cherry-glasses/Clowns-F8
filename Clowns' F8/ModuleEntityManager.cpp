@@ -47,11 +47,6 @@ bool ModuleEntityManager::Awake(pugi::xml_node & _config)
 // Called before the first frame
 bool ModuleEntityManager::Start()
 {
-	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
-	{
-		(*entity)->Start();
-	}
-
 	return true;
 }
 
@@ -276,21 +271,57 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 	{
 	case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
 		tmp = new CharacterSapphire(_type, entity_configs.child("sapphire"));
+		tmp->default_stats.Hp += tmp->evolution_stats.Hp * level;
+		tmp->default_stats.Mana += tmp->evolution_stats.Mana * level;
+		tmp->default_stats.AtkF += tmp->evolution_stats.AtkF * level;
+		tmp->default_stats.AtkS += tmp->evolution_stats.AtkS * level;
+		tmp->default_stats.DefF += tmp->evolution_stats.DefF * level;
+		tmp->default_stats.DefS += tmp->evolution_stats.DefS * level;
+		tmp->default_stats.Crit += tmp->evolution_stats.Crit * level;
+
+		tmp->current_stats = tmp->default_stats;
 		entities.push_back(tmp);
 		characters.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
 		tmp = new CharacterIris(_type, entity_configs.child("iris"));
+		tmp->default_stats.Hp += tmp->evolution_stats.Hp * level;
+		tmp->default_stats.Mana += tmp->evolution_stats.Mana * level;
+		tmp->default_stats.AtkF += tmp->evolution_stats.AtkF * level;
+		tmp->default_stats.AtkS += tmp->evolution_stats.AtkS * level;
+		tmp->default_stats.DefF += tmp->evolution_stats.DefF * level;
+		tmp->default_stats.DefS += tmp->evolution_stats.DefS * level;
+		tmp->default_stats.Crit += tmp->evolution_stats.Crit * level;
+
+		tmp->current_stats = tmp->default_stats;
 		entities.push_back(tmp);
 		characters.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
 		tmp = new CharacterStorm(_type, entity_configs.child("storm"));
+		tmp->default_stats.Hp += tmp->evolution_stats.Hp * level;
+		tmp->default_stats.Mana += tmp->evolution_stats.Mana * level;
+		tmp->default_stats.AtkF += tmp->evolution_stats.AtkF * level;
+		tmp->default_stats.AtkS += tmp->evolution_stats.AtkS * level;
+		tmp->default_stats.DefF += tmp->evolution_stats.DefF * level;
+		tmp->default_stats.DefS += tmp->evolution_stats.DefS * level;
+		tmp->default_stats.Crit += tmp->evolution_stats.Crit * level;
+
+		tmp->current_stats = tmp->default_stats;
 		entities.push_back(tmp);
 		characters.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
 		tmp = new CharacterGeorgeB(_type, entity_configs.child("georgeb"));
+		tmp->default_stats.Hp += tmp->evolution_stats.Hp * level;
+		tmp->default_stats.Mana += tmp->evolution_stats.Mana * level;
+		tmp->default_stats.AtkF += tmp->evolution_stats.AtkF * level;
+		tmp->default_stats.AtkS += tmp->evolution_stats.AtkS * level;
+		tmp->default_stats.DefF += tmp->evolution_stats.DefF * level;
+		tmp->default_stats.DefS += tmp->evolution_stats.DefS * level;
+		tmp->default_stats.Crit += tmp->evolution_stats.Crit * level;
+
+		tmp->current_stats = tmp->default_stats;
 		entities.push_back(tmp);
 		characters.push_back(tmp);
 		george_b = (CharacterGeorgeB*) tmp;

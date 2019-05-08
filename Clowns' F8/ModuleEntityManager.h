@@ -63,6 +63,8 @@ public:
 
 	bool paused = false;
 
+	int level = 0;
+
 private:
 	
 	pugi::xml_node entity_configs;
