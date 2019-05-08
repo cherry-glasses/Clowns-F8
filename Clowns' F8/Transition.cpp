@@ -1,9 +1,6 @@
-#include "Log.h"
 #include "Application.h"
 #include "Transition.h"
 #include "ModuleTransitionManager.h"
-
-
 
 
 Transition::Transition(float transition_time)
@@ -63,7 +60,7 @@ void Transition::Action()
 
 void Transition::Exiting()
 {
-	percent = current_time->ReadSec()*(1 / transition_time);
+	percent = current_time->ReadSec() * (1 / transition_time);
 
 	if (current_time->ReadSec() >= transition_time)
 	{

@@ -31,7 +31,7 @@ public:
 	virtual bool Save(pugi::xml_node& _data) const;
 
 private:
-	void CreateMusic();
+
 	void Delete();
 	void CreateMenu();
 	void ChangeMapImage();

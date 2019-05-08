@@ -31,16 +31,15 @@ bool MainMenu::Start()
 	screen_height = App->window->GetScreenHeight();
 	App->input->Defaultcontrols();
 	App->audio->LoadFx(press_fx_name.c_str());
+
+	App->audio->PlayMusic("Main_menu_8_bits.ogg");
+	CreateMainMenu();
 	return true;
 }
 
 // Called before all Updates
 bool MainMenu::PreUpdate()
 {
-	if (!App->scene_manager->music_created) {
-		CreateMusic();
-		CreateMainMenu();
-	}
 
 	return true;
 }
@@ -184,13 +183,6 @@ bool MainMenu::Load(pugi::xml_node& _data)
 bool MainMenu::Save(pugi::xml_node& _data) const
 {
 	return true;
-}
-
-
-void MainMenu::CreateMusic()
-{
-	App->scene_manager->music_created = true;
-	App->audio->PlayMusic("Main_menu_8_bits.ogg");
 }
 
 void MainMenu::CreateMainMenu()

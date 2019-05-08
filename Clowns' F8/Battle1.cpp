@@ -27,23 +27,21 @@ bool Battle1::Start()
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
 
+	App->audio->PlayMusic("Battle_1_Song.ogg");
+	CreateBattle1();
+
 	return true;
 }
 
 // Called before all Updates
 bool Battle1::PreUpdate()
 {
-	if (!App->scene_manager->music_created) {
-		CreateMusic();
-		CreateBattle1();
-	}
 	return true;
 }
 
 // Called before all Updates
 bool Battle1::PostUpdate()
 {
-	
 	return true;
 }
 
@@ -60,20 +58,14 @@ bool Battle1::Save(pugi::xml_node& _data) const
 	return true;
 }
 
-void Battle1::CreateMusic()
-{
-	App->scene_manager->music_created = true;
-	App->audio->PlayMusic("Battle_1_Song.ogg");
-}
-
 void Battle1::CreateBattle1()
 {
 	App->map->Load("map_level1.tmx");
-	//App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
+	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
-	//App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
-	//App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_STORM);
-	//App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE1);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE2);

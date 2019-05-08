@@ -104,5 +104,4 @@ void ModuleSceneManager::ChangeScene(SCENE_TYPE _type)
 
 	current_scene->Start();
 	changing = false;
-	music_created = false;
 }

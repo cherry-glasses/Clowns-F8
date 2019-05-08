@@ -32,7 +32,6 @@ void Fade::Entering()
 
 void Fade::Action()
 {
-	
 
 	DrawFadeRect(255.0F);
 
@@ -47,12 +46,12 @@ void Fade::Action()
 
 void Fade::Exiting()
 {
-	Transition::Exiting();
-
+	
 	float normalized_alpha = floor(LerpValue(percent, 255, 0));
 
 	DrawFadeRect(normalized_alpha);
 
+	Transition::Exiting();
 	
 }
 

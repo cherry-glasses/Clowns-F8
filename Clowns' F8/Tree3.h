@@ -2,7 +2,6 @@
 #define _Tree3_H__
 
 #include "Object.h"
-#include "Animation.h"
 
 class Tree3 : public Object
 {

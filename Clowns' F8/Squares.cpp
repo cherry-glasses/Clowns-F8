@@ -1,4 +1,3 @@
-#include "Log.h"
 #include "Application.h"
 #include "Squares.h"
 #include "ModuleRender.h"
@@ -58,11 +57,11 @@ void Squares::Action()
 
 void Squares::Exiting()
 {
-	Transition::Exiting();
-
 	int num_Bars = (int)LerpValue(percent, total_squares_col * total_squares_row, 0);
 
 	DrawSquares(num_Bars);
+
+	Transition::Exiting();
 }
 
 void Squares::SetColor(Color color)

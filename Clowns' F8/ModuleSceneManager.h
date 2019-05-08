@@ -31,7 +31,6 @@ public:
 	void ChangeScene(SCENE_TYPE _type);
 	Scene* current_scene = nullptr;
 
-	bool music_created = false;
 	bool changing = false;
 
 	Language* language = nullptr;

@@ -2,7 +2,6 @@
 #define _BearTrap_H__
 
 #include "Object.h"
-#include "Animation.h"
 
 class BearTrap : public Object
 {

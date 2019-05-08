@@ -155,9 +155,11 @@
     <ClInclude Include="..\Clowns%27 F8\Polarbear.h" />
     <ClInclude Include="..\Clowns%27 F8\Slime.h" />
     <ClInclude Include="..\Clowns%27 F8\Squares.h" />
+    <ClInclude Include="..\Clowns%27 F8\Stone.h" />
     <ClInclude Include="..\Clowns%27 F8\Transition.h" />
     <ClInclude Include="..\Clowns%27 F8\Tree2.h" />
     <ClInclude Include="..\Clowns%27 F8\Tree3.h" />
+    <ClInclude Include="..\Clowns%27 F8\Volcano.h" />
     <ClInclude Include="..\Clowns%27 F8\Win.h" />
     <ClInclude Include="ChooseMap.h" />
     <ClInclude Include="Tree1.h" />
@@ -217,9 +219,11 @@
     <ClCompile Include="..\Clowns%27 F8\Polarbear.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Slime.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Squares.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Stone.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Transition.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Tree2.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Tree3.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Volcano.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Win.cpp" />
     <ClCompile Include="ChooseMap.cpp" />
     <ClCompile Include="Tree1.cpp" />

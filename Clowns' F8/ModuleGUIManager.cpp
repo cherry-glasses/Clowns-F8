@@ -85,6 +85,7 @@ bool ModuleGUIManager::CleanUp()
 {
 	//LOG("Freeing all gui elements");
 	App->textures->UnLoad(image_textures);
+	App->textures->UnLoad(button_textures);
 	for (uint i = 0; i < gui_elements.size(); ++i)
 	{
 		if (gui_elements[i] != nullptr)

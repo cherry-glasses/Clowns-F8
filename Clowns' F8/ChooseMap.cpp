@@ -28,16 +28,14 @@ bool ChooseMap::Start()
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
 
+	App->audio->PlayMusic("Main_menu_8_bits.ogg");
+
 	return true;
 }
 
 // Called before all Updates
 bool ChooseMap::PreUpdate()
 {
-	if (!App->scene_manager->music_created) {
-		CreateMusic();
-	}
-
 	return true;
 }
 
@@ -63,12 +61,12 @@ bool ChooseMap::Update(float _dt)
 	}
 	else if (map1_button->has_been_clicked && !App->scene_manager->changing)
 	{
-		App->transition_manager->CreateSquaresTransition(4, true, FIRST_BATTLE, Scene_1_color);
+		App->transition_manager->CreateSquaresTransition(2, true, FIRST_BATTLE, Scene_1_color);
 		App->scene_manager->changing = true;
 	}
 	else if (map2_button->has_been_clicked && !App->scene_manager->changing)
 	{
-		App->transition_manager->CreateSquaresTransition(4, true, SECOND_BATTLE, Scene_2_color);
+		App->transition_manager->CreateSquaresTransition(2, true, SECOND_BATTLE, Scene_2_color);
 		App->scene_manager->changing = true;
 	}
 	else if (map3_button->has_been_clicked && !App->scene_manager->changing)
@@ -108,13 +106,6 @@ bool ChooseMap::Load(pugi::xml_node& _data)
 bool ChooseMap::Save(pugi::xml_node& _data) const
 {
 	return true;
-}
-
-
-void ChooseMap::CreateMusic()
-{
-	App->scene_manager->music_created = true;
-	App->audio->PlayMusic("Main_menu_8_bits.ogg");
 }
 
 void ChooseMap::CreateMenu()

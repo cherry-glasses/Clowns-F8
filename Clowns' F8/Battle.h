@@ -31,8 +31,6 @@ public:
 
 	virtual bool Save(pugi::xml_node&) const { return true; };
 
-	virtual void CreateMusic() {};
-
 protected:
 	
 	void CreateUIBattle();

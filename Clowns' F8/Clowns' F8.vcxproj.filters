@@ -216,6 +216,12 @@
     <ClInclude Include="ChooseMap.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Stone.h">
+      <Filter>Entities\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Volcano.h">
+      <Filter>Entities\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -382,6 +388,12 @@
     </ClCompile>
     <ClCompile Include="ChooseMap.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Stone.cpp">
+      <Filter>Entities\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Volcano.cpp">
+      <Filter>Entities\Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

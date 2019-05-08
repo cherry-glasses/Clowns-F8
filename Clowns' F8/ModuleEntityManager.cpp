@@ -17,6 +17,8 @@
 #include "Tree1.h"
 #include "Tree2.h"
 #include "Tree3.h"
+#include "Stone.h"
+#include "Volcano.h"
 #include "BearTrap.h"
 #include "ModulePathfinding.h"
 #include "ModuleMap.h"
@@ -294,7 +296,7 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		george_b = (CharacterGeorgeB*) tmp;
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
-		for (int i = 0; i < 1; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			tmp = new Boneyman(_type, entity_configs.child("boneyman"), i);
 			entities.push_back(tmp);
@@ -349,6 +351,19 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 			entities.push_back(tmp);
 			objects.push_back(tmp);
 		}
+		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_STONE:
+		for (int i = 0; i < 15; i++)
+		{
+			tmp = new Stone(_type, entity_configs.child("stone"), i);
+			entities.push_back(tmp);
+			objects.push_back(tmp);
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_VOLCANO:
+		tmp = new Volcano(_type, entity_configs.child("volcano"));
+		entities.push_back(tmp);
+		objects.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_OBJECT_BEARTRAP:
 		tmp = new BearTrap(_type, entity_configs.child("beartrap"));

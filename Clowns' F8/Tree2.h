@@ -2,7 +2,6 @@
 #define _Tree2_H__
 
 #include "Object.h"
-#include "Animation.h"
 
 class Tree2 : public Object
 {

@@ -25,7 +25,7 @@ public:
 	virtual bool Save(pugi::xml_node&) const;
 
 private:
-	void CreateMusic();
+
 	void CreateBattle2();
 
 };

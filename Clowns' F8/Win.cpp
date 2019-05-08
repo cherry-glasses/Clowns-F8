@@ -28,17 +28,15 @@ bool Win::Start()
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
 
+	App->audio->PlayMusic("Main_menu_8_bits.ogg");
+	CreateWin();
+
 	return true;
 }
 
 // Called before all Updates
 bool Win::PreUpdate()
 {
-	if (!App->scene_manager->music_created) {
-		CreateMusic();
-		CreateWin();
-	}
-
 	return true;
 }
 
@@ -86,13 +84,6 @@ bool Win::Load(pugi::xml_node& _data)
 bool Win::Save(pugi::xml_node& _data) const
 {
 	return true;
-}
-
-
-void Win::CreateMusic()
-{
-	App->scene_manager->music_created = true;
-	App->audio->PlayMusic("Main_menu_8_bits.ogg");
 }
 
 void Win::CreateWin()
