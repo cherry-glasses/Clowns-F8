@@ -1,16 +1,16 @@
-#ifndef _Slime_H__
-#define _Slime_H__
+#ifndef _Polarpath_H__
+#define _Polarpath_H__
 
 #include "Enemy.h"
 #include "Animation.h"
 
-class Slime : public Enemy
+class Polarpath : public Enemy
 {
 public:
-	Slime(ENTITY_TYPE _type, pugi::xml_node _config);
+	Polarpath(ENTITY_TYPE _type, pugi::xml_node _config);
 
 	// Destructor
-	~Slime();
+	~Polarpath();
 
 	//Move and Attack
 	void SearchWalk();
@@ -26,5 +26,5 @@ public:
 
 };
 
-#endif // pawn
+#endif //!__Polarpath_H__
 

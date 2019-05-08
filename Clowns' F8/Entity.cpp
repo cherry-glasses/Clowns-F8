@@ -11,7 +11,7 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	type = _type;
 
 	entity_texture = App->textures->Load(_config.child("texture").attribute("value").as_string());
-	debug_texture = App->textures->Load(_config.child("debug_texture").attribute("value").as_string());
+	debug_texture = App->textures->Load(_config.parent().child("debug_texture").attribute("value").as_string());
 	debug_green = { _config.parent().child("debug_green").attribute("x").as_int(), _config.parent().child("debug_green").attribute("y").as_int(),
 		_config.parent().child("debug_green").attribute("width").as_int(), _config.parent().child("debug_green").attribute("height").as_int() };
 	debug_red = { _config.parent().child("debug_red").attribute("x").as_int(), _config.parent().child("debug_red").attribute("y").as_int(),

@@ -20,14 +20,14 @@ Battle2::~Battle2()
 // Called before the first frame
 bool Battle2::Start()
 {
-	battle_background = App->textures->Load("Assets/Maps/map_level_1.png");
-	battle_grid = App->textures->Load("Assets/Maps/grid_level_1.png");
+	battle_background = App->textures->Load("Assets/Maps/map_level_2.png");
+	battle_grid = App->textures->Load("Assets/Maps/grid_level_2.png");
 	battle_menu_background = App->textures->Load("Assets/Sprites/UI/option_menu_background.png");
 
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
 
-	App->audio->PlayMusic("Battle_1_Song.ogg");
+	App->audio->PlayMusic("Battle_2_Song.ogg");
 	CreateBattle2();
 
 	return true;
@@ -64,10 +64,16 @@ void Battle2::CreateBattle2()
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_STORM);
-	//App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BURGDOG);
+	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BURGDOG);
 	//App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_HOTDOG);
-	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_STONE);
-	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_VOLCANO);
+	//App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_STONE);
+	//App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_VOLCANO);
+
+	//App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+	/*App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE1);
+	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE2);
+	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE3);*/
 
 	CreateUIBattle();
 

@@ -12,8 +12,8 @@
 #include "Pinkking.h"
 #include "Burgdog.h"
 #include "Hotdog.h"
-#include "Slime.h"
 #include "Polarbear.h"
+#include "Polarpath.h"
 #include "Tree1.h"
 #include "Tree2.h"
 #include "Tree3.h"
@@ -308,23 +308,26 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		entities.push_back(tmp);
 		enemies.push_back(tmp);
 		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
+		for (int i = 0; i < 4; i++)
+		{
+			tmp = new Burgdog(_type, entity_configs.child("burgdog"));
+			entities.push_back(tmp);
+			enemies.push_back(tmp);
+		}
+		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
 		tmp = new Hotdog(_type, entity_configs.child("hotdog"));
 		entities.push_back(tmp);
 		enemies.push_back(tmp);
 		break;
-	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
-		tmp = new Burgdog(_type, entity_configs.child("burgdog"));
-		entities.push_back(tmp);
-		enemies.push_back(tmp);
-		break;
-	case ENTITY_TYPE::ENTITY_ENEMY_SLIME:
-		tmp = new Slime(_type, entity_configs.child("slime"));
-		entities.push_back(tmp);
-		enemies.push_back(tmp);
-		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_POLARBEAR:
 		tmp = new Polarbear(_type, entity_configs.child("polarbear"));
+		entities.push_back(tmp);
+		enemies.push_back(tmp);
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_POLARPATH:
+		tmp = new Polarpath(_type, entity_configs.child("polarpath"));
 		entities.push_back(tmp);
 		enemies.push_back(tmp);
 		break;
@@ -526,7 +529,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			}
 		}
 		break;
-	case ENTITY_TYPE::ENTITY_ENEMY_SLIME:
+	case ENTITY_TYPE::ENTITY_ENEMY_POLARPATH:
 		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
 		{
 			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)

@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "Slime.h"
+#include "Polarpath.h"
 #include "ModuleEntityManager.h"
 #include "ModulePathfinding.h"
 #include "ModuleRender.h"
@@ -7,16 +7,16 @@
 #include "Log.h"
 
 
-Slime::Slime(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
+Polarpath::Polarpath(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
 {
 	CurrentMovement(IDLE_LEFT_FRONT);
 	current = current_animation->GetCurrentFrame();
 }
-Slime::~Slime()
+Polarpath::~Polarpath()
 {
 }
 
-void Slime::SearchWalk()
+void Polarpath::SearchWalk()
 {
 	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
 	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
@@ -24,7 +24,7 @@ void Slime::SearchWalk()
 
 }
 
-void Slime::Walk(const std::vector<std::pair<int, int>> *_path)
+void Polarpath::Walk(const std::vector<std::pair<int, int>> *_path)
 {
 	//Debug
 	if (App->debug)
@@ -88,7 +88,7 @@ void Slime::Walk(const std::vector<std::pair<int, int>> *_path)
 	LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
 }
 
-void Slime::SearchAttack()
+void Polarpath::SearchAttack()
 {
 	objective_position.clear();
 	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
@@ -103,7 +103,7 @@ void Slime::SearchAttack()
 
 }
 
-void Slime::Attack(const std::vector<std::pair<int, int>> *_path)
+void Polarpath::Attack(const std::vector<std::pair<int, int>> *_path)
 {
 	//Debug
 	if (App->debug)
@@ -142,7 +142,7 @@ void Slime::Attack(const std::vector<std::pair<int, int>> *_path)
 
 
 			current_animation->Reset();
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_SLIME);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_POLARPATH);
 			if (current_movement == ATTACK_LEFT_FRONT)
 			{
 				CurrentMovement(IDLE_LEFT_FRONT);
@@ -168,7 +168,7 @@ void Slime::Attack(const std::vector<std::pair<int, int>> *_path)
 	}
 }
 
-void Slime::SearchAbility_1()
+void Polarpath::SearchAbility_1()
 {
 	objective_position.clear();
 	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
@@ -179,7 +179,7 @@ void Slime::SearchAbility_1()
 
 
 
-void Slime::Ability_1(const std::vector<std::pair<int, int>> *_path)
+void Polarpath::Ability_1(const std::vector<std::pair<int, int>> *_path)
 {
 	if (App->debug)
 	{
@@ -214,7 +214,7 @@ void Slime::Ability_1(const std::vector<std::pair<int, int>> *_path)
 		if (current_animation->isDone()) {
 			current_animation->Reset();
 			timer_skill_1 = 0;
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF*1.5, ENTITY_TYPE::ENTITY_ENEMY_SLIME);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF*1.5, ENTITY_TYPE::ENTITY_ENEMY_POLARPATH);
 			if (current_movement == ABILITY_1_LEFT_FRONT)
 			{
 				CurrentMovement(IDLE_LEFT_FRONT);
@@ -240,7 +240,7 @@ void Slime::Ability_1(const std::vector<std::pair<int, int>> *_path)
 	}
 }
 
-void Slime::CurrentMovement(MOVEMENT _movement) {
+void Polarpath::CurrentMovement(MOVEMENT _movement) {
 
 	switch (_movement)
 	{
