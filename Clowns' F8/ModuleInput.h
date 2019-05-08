@@ -181,6 +181,8 @@ public:
 
 	KeyboardButtons keyboard_buttons;
 	KEY_STATE*	keyboard;
+	SDL_Scancode scancode;
+	bool keyPressed = false;
 
 private:
 	bool		windowEvents[EW_COUNT];

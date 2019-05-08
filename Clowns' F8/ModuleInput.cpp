@@ -74,10 +74,14 @@ bool ModuleInput::PreUpdate()
 
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
 
+	keyPressed = false;
+	scancode = SDL_SCANCODE_UNKNOWN;
 	for (int i = 0; i < MAX_KEYS; ++i)
 	{
 		if (keys[i] == 1)
 		{
+			keyPressed = true;
+			scancode = event.key.keysym.scancode; 
 			if (keyboard[i] == KEY_IDLE)
 				keyboard[i] = KEY_DOWN;
 			else

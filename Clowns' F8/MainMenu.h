@@ -37,11 +37,13 @@ private:
 	void CreateOptionMenu();
 	void CreateControlsMenu();
 	void CreateCreditsMenu();
-	void ChangeControls(int control);
+	void ChangeControls(int &control, GUIButton* button);
 	void Delete();
 
 	void ControlLanguageAndMusic();
 
+public:
+	bool isWaittingButt = false;
 private:
 
 	SDL_Texture* main_menu_background = nullptr;
