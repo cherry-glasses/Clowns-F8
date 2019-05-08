@@ -71,11 +71,11 @@ void Battle2::CreateBattle2()
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_STORM);
-	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
-	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE1);
+	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_BURGDOG);
+	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_HOTDOG);
+	/*App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE1);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE2);
-	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE3);
+	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE3);*/
 
 	CreateUIBattle();
 
