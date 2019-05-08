@@ -650,7 +650,7 @@
       <texture value="Assets/Sprites/Enemies/Boneyman_Spritesheet.png"/>
       <position x="8" y="6"/>
       <name value="Boneyman"/>
-      <stats hp="70" mana="75" p_move="4" atk_f="85" atk_s="75" def_f="65" def_s="65" crit="0.3" agi="8"/>
+      <stats hp="75" mana="70" p_move="2" atk_f="75" atk_s="75" def_f="65" def_s="65" crit="0.3" agi="8"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="100" width="100" height="100"/>
@@ -754,7 +754,7 @@
       <texture value="Assets/Sprites/Enemies/Pinkking_Spritesheet.png"/>
       <position x="17" y="9"/>
       <name value="PinkKing"/>
-      <stats hp="130" mana="90" p_move="4" atk_f="80" atk_s="80" range_atk="4" def_f="80" def_s="80" crit="0.3" agi="9"/>
+      <stats hp="90" mana="120" p_move="5" atk_f="80" atk_s="80" range_atk="4" def_f="80" def_s="80" crit="0.3" agi="9"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="128" height="128"/>
@@ -852,7 +852,7 @@
       <texture value="Assets/Sprites/Enemies/Boneyman_Spritesheet.png"/>
       <position x="10" y="2"/>
       <name value="Burgdog"/>
-      <stats hp="70" mana="75" p_move="4" atk_f="85" atk_s="75" def_f="65" def_s="65" crit="0.3" agi="8"/>
+      <stats hp="80" mana="90" p_move="3" atk_f="75" atk_s="75" def_f="78" def_s="78" crit="0.3" agi="8"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="100" width="100" height="100"/>
@@ -955,8 +955,8 @@
     <hotdog>
       <texture value="Assets/Sprites/Enemies/Pinkking_Spritesheet.png"/>
       <position x="17" y="9"/>
-      <name value="PinkKing"/>
-      <stats hp="130" mana="90" p_move="4" atk_f="80" atk_s="80" range_atk="4" def_f="80" def_s="80" crit="0.3" agi="9"/>
+      <name value="Hotdog"/>
+      <stats hp="120" mana="120" p_move="6" atk_f="85" atk_s="85" range_atk="4" def_f="85" def_s="85" crit="0.2" agi="9"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="128" height="128"/>
