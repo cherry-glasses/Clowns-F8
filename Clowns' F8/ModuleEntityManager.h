@@ -51,7 +51,9 @@ public:
 
 	float CalculateDistance(std::pair<int, int> origin, std::pair<int, int> objective);
 
-	void ThrowAttack(std::vector<std::pair<int,int>> _positions, int _damage, ENTITY_TYPE _type);
+	void ThrowAttack(std::vector<std::pair<int,int>> _positions, int _damage, ENTITY_TYPE _type, bool _special);
+
+	void StartingTurn(Entity* _entity);
 	
 public:
 	std::list<Entity*> characters;

@@ -34,6 +34,16 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	default_stats.DefS = _config.child("stats").attribute("def_s").as_int();
 	default_stats.Crit = _config.child("stats").attribute("crit").as_int();
 	default_stats.Agi = _config.child("stats").attribute("agi").as_int();
+	default_stats.Attack = _config.child("stats").attribute("attack").as_int();
+	default_stats.Ability_1 = _config.child("stats").attribute("ability_1").as_int();
+
+	evolution_stats.Hp = _config.child("stats").attribute("hp").as_int();
+	evolution_stats.Mana = _config.child("stats").attribute("mana").as_int();
+	evolution_stats.AtkF = _config.child("stats").attribute("atk_f").as_int();
+	evolution_stats.AtkS = _config.child("stats").attribute("atk_s").as_int();
+	evolution_stats.DefF = _config.child("stats").attribute("def_f").as_int();
+	evolution_stats.DefS = _config.child("stats").attribute("def_s").as_int();
+	evolution_stats.Crit = _config.child("stats").attribute("crit").as_int();
 
 	current_stats = default_stats;
 

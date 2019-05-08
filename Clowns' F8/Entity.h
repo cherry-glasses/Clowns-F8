@@ -43,7 +43,22 @@ typedef struct {
 	int DefS;
 	int Crit;
 	int Agi;
+
+	int Attack;
+	int Ability_1;
 } Stats;
+
+typedef struct {
+	int Hp;
+	int Mana;
+
+	int AtkF;
+	int AtkS;
+	int DefF;
+	int DefS;
+	int Crit;
+
+} Evolutions;
 
 typedef struct {
 	std::string Attack_name;
@@ -109,9 +124,11 @@ public:
 
 	Stats default_stats;
 	Stats current_stats;
+	Evolutions evolution_stats;
 	Attacks_names attacks_names;
 	bool defend = false;
 	bool stunned = false;
+	bool critic = false;
 	bool flipX = false;
 
 	enum STATE { ALIVE, DEATH };

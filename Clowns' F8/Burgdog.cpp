@@ -144,7 +144,7 @@ void Burgdog::Attack(const std::vector<std::pair<int, int>> *_path)
 
 
 			current_animation->Reset();
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BURGDOG);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BURGDOG, false);
 			if (current_movement == ATTACK_LEFT_FRONT)
 			{
 				CurrentMovement(IDLE_LEFT_FRONT);
@@ -216,7 +216,7 @@ void Burgdog::Ability_1(const std::vector<std::pair<int, int>> *_path)
 		if (current_animation->isDone()) {
 			current_animation->Reset();
 			timer_skill_1 = 0;
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF*1.5, ENTITY_TYPE::ENTITY_ENEMY_BURGDOG);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF*1.5, ENTITY_TYPE::ENTITY_ENEMY_BURGDOG, false);
 			if (current_movement == ABILITY_1_LEFT_FRONT)
 			{
 				CurrentMovement(IDLE_LEFT_FRONT);
@@ -327,30 +327,6 @@ void Burgdog::CurrentMovement(MOVEMENT _movement) {
 	case Entity::ABILITY_1_LEFT_BACK:
 		current_movement = ABILITY_1_LEFT_BACK;
 		current_animation = &ability_1_left_back;
-		break;
-	case Entity::ABILITY_2_LEFT_FRONT:
-		current_movement = ABILITY_2_LEFT_FRONT;
-		current_animation = &ability_2_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-		current_turn = END_TURN;
-		break;
-	case Entity::ABILITY_2_RIGHT_FRONT:
-		current_movement = ABILITY_2_RIGHT_FRONT;
-		current_animation = &ability_2_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-
-		break;
-	case Entity::ABILITY_2_LEFT_BACK:
-		current_movement = ABILITY_2_LEFT_BACK;
-		current_animation = &ability_2_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-
-		break;
-	case Entity::ABILITY_2_RIGHT_BACK:
-		current_movement = ABILITY_2_RIGHT_BACK;
-		current_animation = &ability_2_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-
 		break;
 	case Entity::DEAD_LEFT_FRONT:
 		current_movement = DEAD_LEFT_FRONT;

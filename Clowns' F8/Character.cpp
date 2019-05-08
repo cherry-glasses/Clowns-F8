@@ -59,11 +59,37 @@ bool Character::Update(float _dt) {
 	}
 	else if (current_turn == ATTACK)
 	{
-		Attack();
+		if (critic) 
+		{
+			current_stats.AtkF = current_stats.AtkF * 1.25;
+			current_stats.AtkS = current_stats.AtkS * 1.25;
+			Attack();
+			critic = false;
+			current_stats.AtkF = current_stats.AtkF / 1.25;
+			current_stats.AtkS = current_stats.AtkS / 1.25;
+		}
+		else 
+		{
+			Attack();
+		}
+		
 	}
 	else if (current_turn == ABILITY_1)
 	{
-		Ability_1();
+		if (critic)
+		{
+			current_stats.AtkF = current_stats.AtkF * 1.25;
+			current_stats.AtkS = current_stats.AtkS * 1.25;
+			Ability_1();
+			critic = false;
+			current_stats.AtkF = current_stats.AtkF / 1.25;
+			current_stats.AtkS = current_stats.AtkS / 1.25;
+		}
+		else
+		{
+			Ability_1();
+		}
+		
 	}
 	else if (current_turn == DEFEND)
 	{

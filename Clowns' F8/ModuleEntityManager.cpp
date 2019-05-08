@@ -24,6 +24,7 @@
 #include "ModuleMap.h"
 #include "Scene.h"
 #include "Entity.h"
+#include <random>
 
 
 ModuleEntityManager::ModuleEntityManager() : Module()
@@ -92,8 +93,7 @@ bool ModuleEntityManager::PreUpdate()
 			{
 				entity++;
 				(*entity)->current_turn = Entity::TURN::SEARCH_MOVE;
-				(*entity)->current_stats.Mana += 10;
-				(*entity)->defend = false;
+				StartingTurn((*entity));
 			}
 			else {
 				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
@@ -110,7 +110,7 @@ bool ModuleEntityManager::PreUpdate()
 		if (std::find(enemies.begin(), enemies.end(), (*entity)) != enemies.end()) {
 			for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object) {
 				if ((*object)->GetType() == ENTITY_TYPE::ENTITY_OBJECT_BEARTRAP && (*object)->GetPosition() == (*entity)->GetPosition()) {
-					(*entity)->current_stats.Hp -= (george_b->current_stats.AtkS - (george_b->current_stats.AtkS * (*entity)->current_stats.DefS / 100));
+					(*entity)->current_stats.Hp -= 25 + george_b->current_stats.AtkF - (*entity)->current_stats.DefF;
 					((Object*)*object)->used = true;
 				}
 			}
@@ -397,7 +397,7 @@ bool ModuleEntityManager::DeleteEntity(Entity * entity)
 
 
 
-void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _positions, int _damage, ENTITY_TYPE _type)
+void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _positions, int _damage, ENTITY_TYPE _type, bool _special) 
 {
 	switch (_type)
 	{
@@ -408,7 +408,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			{
 				if ((*character)->GetPosition() == (*position))
 				{
-					(*character)->current_stats.Hp += _damage;
+					(*character)->current_stats.Hp += _damage / 2;
 				}
 			}
 		}
@@ -418,7 +418,15 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			{
 				if ((*enemie)->GetPosition() == (*position))
 				{
-					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefS / 100));
+					if (_special) 
+					{
+						(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
+					}
+					else
+					{
+						(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
+					}
+					
 				}
 			}
 		}
@@ -430,7 +438,14 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			{
 				if ((*enemie)->GetPosition() == (*position))
 				{
-					(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+					if (_special)
+					{
+						(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
+					}
+					else
+					{
+						(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
+					}
 				}
 			}
 		}
@@ -446,7 +461,14 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 						(*enemie)->stunned = true;
 					}
 					else {
-						(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefF / 100));
+						if (_special)
+						{
+							(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
+						}
+						else
+						{
+							(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
+						}
 					}
 				}
 			}
@@ -467,7 +489,14 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				{
 					if ((*enemie)->GetPosition() == (*position))
 					{
-						(*enemie)->current_stats.Hp -= (_damage - (_damage * (*enemie)->current_stats.DefS / 100));
+						if (_special)
+						{
+							(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
+						}
+						else
+						{
+							(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
+						}
 					}
 				}
 			}
@@ -481,10 +510,25 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				if ((*character)->GetPosition() == (*position))
 				{
 					if ((*character)->defend) {
-						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF * 1.2 / 100));
+						if (_special)
+						{
+							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
+						}
+						else
+						{
+							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
+						}
+						
 					}
 					else {
-						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF / 100));
+						if (_special)
+						{
+							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
+						}
+						else
+						{
+							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
+						}
 					}
 
 				}
@@ -499,10 +543,25 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				if ((*character)->GetPosition() == (*position))
 				{
 					if ((*character)->defend) {
-						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF * 1.2 / 100));
+						if (_special)
+						{
+							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
+						}
+						else
+						{
+							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
+						}
+
 					}
 					else {
-						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF / 100));
+						if (_special)
+						{
+							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
+						}
+						else
+						{
+							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
+						}
 					}
 					
 				}
@@ -519,10 +578,25 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				if ((*character)->GetPosition() == (*position))
 				{
 					if ((*character)->defend) {
-						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF * 1.2 / 100));
+						if (_special)
+						{
+							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
+						}
+						else
+						{
+							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
+						}
+
 					}
 					else {
-						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF / 100));
+						if (_special)
+						{
+							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
+						}
+						else
+						{
+							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
+						}
 					}
 
 				}
@@ -537,10 +611,25 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				if ((*character)->GetPosition() == (*position))
 				{
 					if ((*character)->defend) {
-						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF * 1.2 / 100));
+						if (_special)
+						{
+							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
+						}
+						else
+						{
+							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
+						}
+
 					}
 					else {
-						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF / 100));
+						if (_special)
+						{
+							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
+						}
+						else
+						{
+							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
+						}
 					}
 
 				}
@@ -555,10 +644,25 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				if ((*character)->GetPosition() == (*position))
 				{
 					if ((*character)->defend) {
-						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF * 1.2 / 100));
+						if (_special)
+						{
+							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
+						}
+						else
+						{
+							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
+						}
+
 					}
 					else {
-						(*character)->current_stats.Hp -= (_damage - (_damage * (*character)->current_stats.DefF / 100));
+						if (_special)
+						{
+							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
+						}
+						else
+						{
+							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
+						}
 					}
 
 				}
@@ -655,3 +759,20 @@ std::pair<int, int>* ModuleEntityManager::RangeOfAttack(std::pair<int, int> mypo
 	return ret;
 }
 
+void ModuleEntityManager::StartingTurn(Entity* _entity)
+{
+	_entity->current_stats.Mana += 10;
+	_entity->defend = false;
+
+
+	std::default_random_engine generator;
+	std::uniform_int_distribution<int> distribution(1, 100);
+	if (distribution(generator) < _entity->current_stats.Crit)
+	{
+		_entity->critic = true;
+	}
+	else 
+	{
+		_entity->critic = false;
+	}
+}

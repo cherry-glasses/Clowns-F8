@@ -161,7 +161,7 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 		CurrentMovement(ATTACK_BACK);
 
 	if (current_animation->isDone()) {
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING, false);
 		current_animation->Reset();
 		if (current_movement == ATTACK_FRONT)
 			CurrentMovement(IDLE_RIGHT);
@@ -180,7 +180,7 @@ void Pinkking::SearchAbility_1()
 void Pinkking::Ability_1(const std::vector<std::pair<int, int>> *_path)
 {
 	objective_position.push_back(nearposition);
-	App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS*1.5, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+	App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkS*1.5, ENTITY_TYPE::ENTITY_ENEMY_PINKKING, true);
 	current_turn = END_TURN;
 }
 

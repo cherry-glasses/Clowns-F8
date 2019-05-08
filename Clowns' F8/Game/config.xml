@@ -81,7 +81,8 @@
       <position x="6" y="18"/>
       <name value="Sapphire"/>
       <stats hp="79" mana="120" p_move="1" atk_f="60" atk_s="78" range_atk="5" range_ability_1="2" range_ability_2="5"
-             range_ability_3="7" def_f="70" def_s="80" crit="0.1"  agi="11"/>
+             range_ability_3="7" def_f="70" def_s="80" crit="10"  agi="11" attack ="22" ability_1="26"/>
+      <evolution hp="5" mana="15" atk_f="6" atk_s="5" def_f="6" def_s="6" crit="2"/>
       <attacks_names attack="Flower attack" ability_1="Hammer time" ability_2="Surprise hat" ability_3="Water time" 
                     ataque="Floretazo" habilidad_1="Martillazo" habilidad_2="Sombrero sorpresa" habilidad_3="Hora del Jugar"/>
       <animations>
@@ -275,8 +276,9 @@
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
       <position x="11" y="19"/>
       <name value="Iris"/>
-      <stats hp="270" mana="85" p_move="1" atk_f="78" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
-             range_ability_3="1" def_f="76" def_s="76" crit="0.2" agi="13"/>
+      <stats hp="78" mana="85" p_move="1" atk_f="82" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
+             range_ability_3="1" def_f="80" def_s="76" crit="20" agi="13" attack ="24" ability_1="25"/>/>
+      <evolution hp="4" mana="10" atk_f="6" atk_s="5" def_f="6" def_s="6" crit="3"/>
       <attacks_names attack="Fist attack" ability_1="Rabbit kick" ability_2="Carrot time" ability_3="Rabbit rage" 
                     ataque="Golpe de karate" habilidad_1="Patada conejil" habilidad_2="Hora de zanahoria" habilidad_3="Rabia Conejil"/>
       <animations>
@@ -430,8 +432,9 @@
       <texture value="Assets/Sprites/Main_Characters/Storm_Spritesheet.png"/>
       <position x="9" y="17"/>
       <name value="Storm"/>
-      <stats hp="110" mana="85" p_move="4" atk_f="75" atk_s="74" range_atk="1" range_ability_1="3" range_ability_2="7"
-             range_ability_3="7" def_f="80" def_s="70" crit="0.2"  agi="10"/>
+      <stats hp="90" mana="80" p_move="4" atk_f="75" atk_s="74" range_atk="1" range_ability_1="3" range_ability_2="7"
+             range_ability_3="7" def_f="85" def_s="83" crit="10"  agi="10" attack ="20" ability_1="0"/>/>
+      <evolution hp="5" mana="8" atk_f="4" atk_s="4" def_f="6" def_s="6" crit="2"/>
       <attacks_names attack="Acid throw" ability_1="Snail charge" ability_2="Time to hide" ability_3="Vampiric snail"
                     ataque="Escupitajo" habilidad_1="Caracol paralizante" habilidad_2="Hora del escondite" habilidad_3="Caracol vampírico"/>
       <animations>
@@ -529,8 +532,9 @@
       <texture value="Assets/Sprites/Main_Characters/George_Spritesheet.png"/>
       <position x="8" y="20"/>
       <name value="George B."/>
-      <stats hp="75" mana="95" p_move="4" atk_f="75" atk_s="75" range_atk="4" range_ability_1="6" range_ability_2="4"
-             range_ability_3="3" def_f="75" def_s="75" crit="0.08"  agi="12"/>
+      <stats hp="75" mana="95" p_move="5" atk_f="75" atk_s="75" range_atk="4" range_ability_1="6" range_ability_2="4"
+             range_ability_3="3" def_f="75" def_s="75" crit="8"  agi="12" attack ="25" ability_1="25"/>/>
+      <evolution hp="5" mana="10" atk_f="6" atk_s="6" def_f="6" def_s="6" crit="3"/>
       <attacks_names attack="Random throw" ability_1="Bear trap" ability_2="Cherry boom" ability_3="Flying birds"
                     ataque="Tiro aleatorio" habilidad_1="Trampa de oso" habilidad_2="Bomba cereza" habilidad_3="Hora de Hitchcock"/>
       <animations>
@@ -650,7 +654,7 @@
       <texture value="Assets/Sprites/Enemies/Boneyman_Spritesheet.png"/>
       <position x="8" y="6"/>
       <name value="Boneyman"/>
-      <stats hp="75" mana="70" p_move="2" atk_f="75" atk_s="75" def_f="65" def_s="65" crit="0.3" agi="8"/>
+      <stats hp="75" mana="70" p_move="2" atk_f="75" atk_s="75" def_f="65" def_s="65" crit="0.3" agi="8" attack ="20" ability_1="30"/>/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="100" width="100" height="100"/>
@@ -754,7 +758,7 @@
       <texture value="Assets/Sprites/Enemies/Pinkking_Spritesheet.png"/>
       <position x="17" y="9"/>
       <name value="PinkKing"/>
-      <stats hp="90" mana="120" p_move="5" atk_f="80" atk_s="80" range_atk="4" def_f="80" def_s="80" crit="0.3" agi="9"/>
+      <stats hp="90" mana="120" p_move="5" atk_f="80" atk_s="80" range_atk="4" def_f="80" def_s="80" crit="0.3" agi="9" attack ="30" ability_1="35"/>/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="128" height="128"/>
@@ -954,7 +958,7 @@
     </burgdog>
     <hotdog>
       <texture value="Assets/Sprites/Enemies/Pinkking_Spritesheet.png"/>
-      <position x="17" y="9"/>
+      <position x="19" y="5"/>
       <name value="Hotdog"/>
       <stats hp="120" mana="120" p_move="6" atk_f="85" atk_s="85" range_atk="4" def_f="85" def_s="85" crit="0.2" agi="9"/>
       <animations>
