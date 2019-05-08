@@ -850,8 +850,8 @@
     </pinkking>
     <burgdog>
       <texture value="Assets/Sprites/Enemies/Boneyman_Spritesheet.png"/>
-      <position x="8" y="6"/>
-      <name value="Boneyman"/>
+      <position x="10" y="2"/>
+      <name value="Burgdog"/>
       <stats hp="70" mana="75" p_move="4" atk_f="85" atk_s="75" def_f="65" def_s="65" crit="0.3" agi="8"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">

@@ -311,7 +311,7 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
 		for (int i = 0; i < 4; i++)
 		{
-			tmp = new Burgdog(_type, entity_configs.child("burgdog"));
+			tmp = new Burgdog(_type, entity_configs.child("burgdog"), i);
 			entities.push_back(tmp);
 			enemies.push_back(tmp);
 		}

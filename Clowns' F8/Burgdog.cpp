@@ -7,10 +7,12 @@
 #include "Log.h"
 
 
-Burgdog::Burgdog(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
+Burgdog::Burgdog(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Enemy(_type, _config)
 {
 	CurrentMovement(IDLE_LEFT_FRONT);
 	current = current_animation->GetCurrentFrame();
+	position = { position.first, (_copy * 128) + position.second };
+	current_stats.Agi -= _copy;
 }
 Burgdog::~Burgdog()
 {

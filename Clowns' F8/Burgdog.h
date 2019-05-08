@@ -7,7 +7,7 @@
 class Burgdog : public Enemy
 {
 public:
-	Burgdog(ENTITY_TYPE _type, pugi::xml_node _config);
+	Burgdog(ENTITY_TYPE _type, pugi::xml_node _config, int _copy);
 
 	// Destructor
 	~Burgdog();
