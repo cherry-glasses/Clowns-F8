@@ -108,22 +108,22 @@ bool MainMenu::Update(float _dt)
 			ChangeControls(App->input->keyboard_buttons.buttons_to_use.ACCEPT, accept_button);
 		}
 		if (decline_button->has_been_clicked) {
-
+			ChangeControls(App->input->keyboard_buttons.buttons_to_use.DECLINE, decline_button);
 		}
 		if (character_stats_button->has_been_clicked) {
-
+			ChangeControls(App->input->keyboard_buttons.buttons_to_use.STATS, character_stats_button);
 		}
 		if (characeter_abilities_button->has_been_clicked) {
-
+			ChangeControls(App->input->keyboard_buttons.buttons_to_use.CHARACABILITY, characeter_abilities_button);
 		}
 		if (abilities_button->has_been_clicked) {
-
+			ChangeControls(App->input->keyboard_buttons.buttons_to_use.ABILITY, abilities_button);
 		}
 		if (start_button->has_been_clicked) {
-
+			ChangeControls(App->input->keyboard_buttons.buttons_to_use.PAUSE, start_button);
 		}
 		if (select_button->has_been_clicked) {
-
+			ChangeControls(App->input->keyboard_buttons.buttons_to_use.ABILITYTREE, select_button);
 		}
 
 		else if (back_controls_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

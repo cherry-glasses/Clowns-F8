@@ -76,7 +76,11 @@ struct ButtonsToUse {
 	int ACCEPT;
 	int PAUSE;
 	int STATS;
+	int CHARACABILITY;
 	int ABILITY;
+	int ABILITYTREE;
+	
+	
 
 };
 
@@ -91,6 +95,8 @@ struct ButtonChar {
 	char* PAUSE = nullptr;
 	char* STATS = nullptr;
 	char* ABILITY = nullptr;
+	char* CHARACABILITY = nullptr;
+	char* ABILITYTREE = nullptr;
 };
 
 struct KeyboardButtons {
