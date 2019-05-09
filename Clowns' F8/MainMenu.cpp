@@ -324,13 +324,14 @@ void MainMenu::ControlLanguageAndMusic()
 
 void MainMenu::ChangeControls(int &control, GUIButton* button) {
 
-	if (isWaittingButt && App->input->scancode != SDL_SCANCODE_UNKNOWN)
+	if (isWaittingButt && App->input->scancode != SDL_SCANCODE_UNKNOWN && App->input->scancode != control && App->input->scancode != SDL_SCANCODE_ESCAPE)
 	{
 		control = App->input->scancode;
 		accept_button->has_been_clicked = false;
 		isWaittingButt = false;
 		
 	}
+	else
 	isWaittingButt = true;
 }
 
