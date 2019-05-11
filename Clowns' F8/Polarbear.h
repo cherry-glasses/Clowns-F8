@@ -7,7 +7,7 @@
 class Polarbear : public Enemy
 {
 public:
-	Polarbear(ENTITY_TYPE _type, pugi::xml_node _config);
+	Polarbear(ENTITY_TYPE _type, pugi::xml_node _config, int _copy);
 
 	// Destructor
 	~Polarbear();

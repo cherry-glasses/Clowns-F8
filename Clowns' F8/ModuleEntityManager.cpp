@@ -14,12 +14,6 @@
 #include "Hotdog.h"
 #include "Polarbear.h"
 #include "Polarpath.h"
-#include "Tree1.h"
-#include "Tree2.h"
-#include "Tree3.h"
-#include "Stone.h"
-#include "Volcano.h"
-#include "BearTrap.h"
 #include "ModulePathfinding.h"
 #include "ModuleMap.h"
 #include "Scene.h"
@@ -353,9 +347,12 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		enemies.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_POLARBEAR:
-		tmp = new Polarbear(_type, entity_configs.child("polarbear"));
-		entities.push_back(tmp);
-		enemies.push_back(tmp);
+		for (int i = 0; i < 4; i++)
+		{
+			tmp = new Polarbear(_type, entity_configs.child("polarbear"), i);
+			entities.push_back(tmp);
+			enemies.push_back(tmp);
+		}
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_POLARPATH:
 		tmp = new Polarpath(_type, entity_configs.child("polarpath"));
@@ -365,7 +362,7 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 	case ENTITY_TYPE::ENTITY_OBJECT_TREE1:
 		for (int i = 0; i < 5; i++)
 		{
-			tmp = new Tree1(_type, entity_configs.child("tree1"), i);
+			tmp = new Object(_type, entity_configs.child("tree1"), i);
 			entities.push_back(tmp);
 			objects.push_back(tmp);
 		}
@@ -373,7 +370,7 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 	case ENTITY_TYPE::ENTITY_OBJECT_TREE2:
 		for (int i = 0; i < 7; i++)
 		{
-			tmp = new Tree2(_type, entity_configs.child("tree2"), i);
+			tmp = new Object(_type, entity_configs.child("tree2"), i);
 			entities.push_back(tmp);
 			objects.push_back(tmp);
 		}
@@ -381,26 +378,40 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 	case ENTITY_TYPE::ENTITY_OBJECT_TREE3:
 		for (int i = 0; i < 15; i++)
 		{
-			tmp = new Tree3(_type, entity_configs.child("tree3"), i);
+			tmp = new Object(_type, entity_configs.child("tree3"), i);
 			entities.push_back(tmp);
 			objects.push_back(tmp);
 		}
 		break;
 	case ENTITY_TYPE::ENTITY_OBJECT_STONE:
-		for (int i = 0; i < 15; i++)
+		for (int i = 0; i < 13; i++)
 		{
-			tmp = new Stone(_type, entity_configs.child("stone"), i);
+			tmp = new Object(_type, entity_configs.child("stone"), i);
 			entities.push_back(tmp);
 			objects.push_back(tmp);
 		}
 		break;
 	case ENTITY_TYPE::ENTITY_OBJECT_VOLCANO:
-		tmp = new Volcano(_type, entity_configs.child("volcano"));
+		tmp = new Object(_type, entity_configs.child("volcano"), 0);
+		entities.push_back(tmp);
+		objects.push_back(tmp);
+		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_ICE:
+		for (int i = 0; i < 17; i++)
+		{
+			tmp = new Object(_type, entity_configs.child("ice"), i);
+			entities.push_back(tmp);
+			objects.push_back(tmp);
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_MOUNTAIN:
+		tmp = new Object(_type, entity_configs.child("mountain"), 0);
+		tmp->position_margin.second = 0;
 		entities.push_back(tmp);
 		objects.push_back(tmp);
 		break;
 	case ENTITY_TYPE::ENTITY_OBJECT_BEARTRAP:
-		tmp = new BearTrap(_type, entity_configs.child("beartrap"));
+		tmp = new Object(_type, entity_configs.child("beartrap"), 0);
 		entities.push_back(tmp);
 		objects.push_back(tmp);
 		break;
@@ -509,7 +520,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 		if (_damage == 0) {
 			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
 			{
-				BearTrap *tmp = (BearTrap*)CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_BEARTRAP);
+				Object *tmp = (Object*)CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_BEARTRAP);
 				(*tmp).SetPosition((*position).first, (*position).second);
 			}
 		}

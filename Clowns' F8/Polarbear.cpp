@@ -7,10 +7,21 @@
 #include "Log.h"
 
 
-Polarbear::Polarbear(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
+Polarbear::Polarbear(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Enemy(_type, _config)
 {
 	CurrentMovement(IDLE_LEFT_FRONT);
 	current = current_animation->GetCurrentFrame();
+
+	int i = 0;
+	pugi::xml_node _node = _config.child("position");
+	for (; _node; _node = _node.next_sibling("position")) {
+		if (_copy == i) {
+			position = App->map->MapToWorld(_node.attribute("x").as_int(), _node.attribute("y").as_int());
+		}
+		i++;
+	}
+
+	current_stats.Agi -= _copy;
 }
 Polarbear::~Polarbear()
 {

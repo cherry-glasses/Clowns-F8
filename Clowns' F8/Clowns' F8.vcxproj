@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{22D3C7EC-C963-4AD1-8C4A-8FCD551EE143}</ProjectGuid>
     <RootNamespace>ClownsF8</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>Clowns' F8</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -138,6 +138,7 @@
     <ClInclude Include="..\Clowns%27 F8\Battle.h" />
     <ClInclude Include="..\Clowns%27 F8\Battle1.h" />
     <ClInclude Include="..\Clowns%27 F8\Battle2.h" />
+    <ClInclude Include="..\Clowns%27 F8\Battle3.h" />
     <ClInclude Include="..\Clowns%27 F8\Boneyman.h" />
     <ClInclude Include="..\Clowns%27 F8\Burgdog.h" />
     <ClInclude Include="..\Clowns%27 F8\CharacterGeorgeB.h" />
@@ -155,15 +156,9 @@
     <ClInclude Include="..\Clowns%27 F8\Polarbear.h" />
     <ClInclude Include="Polarpath.h" />
     <ClInclude Include="..\Clowns%27 F8\Squares.h" />
-    <ClInclude Include="..\Clowns%27 F8\Stone.h" />
     <ClInclude Include="..\Clowns%27 F8\Transition.h" />
-    <ClInclude Include="..\Clowns%27 F8\Tree2.h" />
-    <ClInclude Include="..\Clowns%27 F8\Tree3.h" />
-    <ClInclude Include="..\Clowns%27 F8\Volcano.h" />
     <ClInclude Include="..\Clowns%27 F8\Win.h" />
     <ClInclude Include="ChooseMap.h" />
-    <ClInclude Include="Tree1.h" />
-    <ClInclude Include="..\Clowns%27 F8\BearTrap.h" />
     <ClInclude Include="..\Clowns%27 F8\Object.h" />
     <ClInclude Include="..\Clowns%27 F8\Pinkking.h" />
     <ClInclude Include="Hotdog.h" />
@@ -200,6 +195,7 @@
     <ClCompile Include="..\Clowns%27 F8\Battle.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Battle1.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Battle2.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Battle3.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Boneyman.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Burgdog.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Character.cpp" />
@@ -219,15 +215,9 @@
     <ClCompile Include="..\Clowns%27 F8\Polarbear.cpp" />
     <ClCompile Include="Polarpath.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Squares.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\Stone.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Transition.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\Tree2.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\Tree3.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\Volcano.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Win.cpp" />
     <ClCompile Include="ChooseMap.cpp" />
-    <ClCompile Include="Tree1.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\BearTrap.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Object.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Pinkking.cpp" />
     <ClCompile Include="Hotdog.cpp" />

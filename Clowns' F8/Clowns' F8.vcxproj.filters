@@ -147,15 +147,6 @@
     <ClInclude Include="..\Clowns%27 F8\Object.h">
       <Filter>Entities\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\Clowns%27 F8\BearTrap.h">
-      <Filter>Entities\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Tree1.h">
-      <Filter>Entities\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Clowns%27 F8\Tree2.h">
-      <Filter>Entities\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="..\Clowns%27 F8\ModuleTransitionManager.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -167,9 +158,6 @@
     </ClInclude>
     <ClInclude Include="..\Clowns%27 F8\Transition.h">
       <Filter>Transitions</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Clowns%27 F8\Tree3.h">
-      <Filter>Entities\Objects</Filter>
     </ClInclude>
     <ClInclude Include="..\Clowns%27 F8\ModuleSceneManager.h">
       <Filter>Modules</Filter>
@@ -213,14 +201,11 @@
     <ClInclude Include="ChooseMap.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Clowns%27 F8\Stone.h">
-      <Filter>Entities\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Clowns%27 F8\Volcano.h">
-      <Filter>Entities\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Polarpath.h">
       <Filter>Entities\EntitiesEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Battle3.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -314,20 +299,11 @@
     <ClCompile Include="..\Clowns%27 F8\CharacterGeorgeB.cpp">
       <Filter>Entities\EntitiesCharacters</Filter>
     </ClCompile>
-    <ClCompile Include="..\Clowns%27 F8\BearTrap.cpp">
-      <Filter>Entities\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Object.cpp">
       <Filter>Entities\Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Enemy.cpp">
       <Filter>Entities\EntitiesEnemies</Filter>
-    </ClCompile>
-    <ClCompile Include="Tree1.cpp">
-      <Filter>Entities\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Clowns%27 F8\Tree2.cpp">
-      <Filter>Entities\Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Color.cpp">
       <Filter>Containers</Filter>
@@ -340,9 +316,6 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Transition.cpp">
       <Filter>Transitions</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Clowns%27 F8\Tree3.cpp">
-      <Filter>Entities\Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\ModuleSceneManager.cpp">
       <Filter>Modules</Filter>
@@ -386,14 +359,11 @@
     <ClCompile Include="ChooseMap.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Clowns%27 F8\Stone.cpp">
-      <Filter>Entities\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Clowns%27 F8\Volcano.cpp">
-      <Filter>Entities\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Polarpath.cpp">
       <Filter>Entities\EntitiesEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Battle3.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

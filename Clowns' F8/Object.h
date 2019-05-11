@@ -7,10 +7,10 @@
 class Object : public Entity
 {
 public:
-	Object(ENTITY_TYPE _type, pugi::xml_node _config) : Entity(_type, _config) {}
+	Object(ENTITY_TYPE _type, pugi::xml_node _config, int _copy);
 
 	// Destructor
-	virtual ~Object() {}
+	virtual ~Object();
 
 	// Called before the first frame
 	virtual bool Start() { return true; }
