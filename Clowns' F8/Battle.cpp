@@ -111,7 +111,7 @@ bool Battle::Update(float _dt)
 				}
 				else
 				{
-					App->transition_manager->CreateFadeTransition(2, true, GLOBAL_MAP, White);
+					App->transition_manager->CreateFadeTransition(2, true, CHOOSE_MAP, White);
 				}
 				App->scene_manager->changing = true;
 			}

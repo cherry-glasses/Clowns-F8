@@ -76,8 +76,6 @@ void ModuleSceneManager::ChangeScene(SCENE_TYPE _type)
 	case MAIN_MENU:
 		current_scene = new MainMenu(_type, scene_configs);
 		break;
-	case GLOBAL_MAP:
-		break;
 	case FIRST_BATTLE:
 		current_scene = new Battle1(_type, scene_configs);
 		break;
