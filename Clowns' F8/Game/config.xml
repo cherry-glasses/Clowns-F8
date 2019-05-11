@@ -85,6 +85,15 @@
       <texture value="Assets/Sprites/Main_Characters/Sapphire_Spritesheet.png"/>
       <position x="6" y="18"/>
       <name value="Sapphire"/>
+      <exp value="0"/>
+      <levelup>
+        <nextlevel value="30"/>
+        <nextlevel value="50"/>
+        <nextlevel value="100"/>
+        <nextlevel value="180"/>
+        <nextlevel value="300"/>
+        <nextlevel value="500"/>
+      </levelup>
       <stats hp="79" mana="120" p_move="1" atk_f="60" atk_s="78" range_atk="5" range_ability_1="2" range_ability_2="5"
              range_ability_3="7" def_f="70" def_s="80" crit="10"  agi="11" attack ="22" ability_1="26"/>
       <evolution hp="5" mana="15" atk_f="6" atk_s="5" def_f="6" def_s="6" crit="2"/>
@@ -281,6 +290,15 @@
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
       <position x="11" y="19"/>
       <name value="Iris"/>
+      <exp value="0"/>
+      <levelup>
+        <nextlevel value="30"/>
+        <nextlevel value="50"/>
+        <nextlevel value="100"/>
+        <nextlevel value="180"/>
+        <nextlevel value="300"/>
+        <nextlevel value="500"/>
+      </levelup>
       <stats hp="78" mana="85" p_move="1" atk_f="82" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
              range_ability_3="1" def_f="80" def_s="76" crit="20" agi="13" attack ="24" ability_1="25"/>/>
       <evolution hp="4" mana="10" atk_f="6" atk_s="5" def_f="6" def_s="6" crit="3"/>
@@ -437,6 +455,15 @@
       <texture value="Assets/Sprites/Main_Characters/Storm_Spritesheet.png"/>
       <position x="9" y="17"/>
       <name value="Storm"/>
+      <exp value="0"/>
+      <levelup>
+        <nextlevel value="30"/>
+        <nextlevel value="50"/>
+        <nextlevel value="100"/>
+        <nextlevel value="180"/>
+        <nextlevel value="300"/>
+        <nextlevel value="500"/>
+      </levelup>
       <stats hp="90" mana="80" p_move="4" atk_f="75" atk_s="74" range_atk="1" range_ability_1="3" range_ability_2="7"
              range_ability_3="7" def_f="85" def_s="83" crit="10"  agi="10" attack ="20" ability_1="0"/>/>
       <evolution hp="5" mana="8" atk_f="4" atk_s="4" def_f="6" def_s="6" crit="2"/>
@@ -537,6 +564,15 @@
       <texture value="Assets/Sprites/Main_Characters/George_Spritesheet.png"/>
       <position x="8" y="20"/>
       <name value="George B."/>
+      <exp value="0"/>
+      <levelup>
+        <nextlevel value="30"/>
+        <nextlevel value="50"/>
+        <nextlevel value="100"/>
+        <nextlevel value="180"/>
+        <nextlevel value="300"/>
+        <nextlevel value="500"/>
+      </levelup>
       <stats hp="75" mana="95" p_move="5" atk_f="75" atk_s="75" range_atk="4" range_ability_1="6" range_ability_2="4"
              range_ability_3="3" def_f="75" def_s="75" crit="8"  agi="12" attack ="25" ability_1="25"/>/>
       <evolution hp="5" mana="10" atk_f="6" atk_s="6" def_f="6" def_s="6" crit="3"/>
@@ -662,6 +698,7 @@
       <position x="15" y="13"/>
       <position x="20" y="17"/>
       <name value="Boneyman"/>
+      <exp value="10"/>
       <stats hp="75" mana="70" p_move="2" atk_f="75" atk_s="75" def_f="65" def_s="65" crit="0.3" agi="8" attack ="20" ability_1="30"/>/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
@@ -766,6 +803,7 @@
       <texture value="Assets/Sprites/Enemies/Pinkking_Spritesheet.png"/>
       <position x="17" y="9"/>
       <name value="PinkKing"/>
+      <exp value="50"/>
       <stats hp="90" mana="120" p_move="5" atk_f="80" atk_s="80" range_atk="4" def_f="80" def_s="80" crit="0.3" agi="9" attack ="30" ability_1="35"/>/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
@@ -867,6 +905,7 @@
       <position x="14" y="8"/>
       <position x="19" y="4"/>
       <name value="Burgdog"/>
+      <exp value="20"/>
       <stats hp="80" mana="90" p_move="3" atk_f="75" atk_s="75" def_f="78" def_s="78" crit="0.3" agi="8"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
@@ -971,6 +1010,7 @@
       <texture value="Assets/Sprites/Enemies/Pinkking_Spritesheet.png"/>
       <position x="14" y="3"/>
       <name value="Hotdog"/>
+      <exp value="100"/>
       <stats hp="120" mana="120" p_move="6" atk_f="85" atk_s="85" range_atk="4" def_f="85" def_s="85" crit="0.2" agi="9"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
@@ -1072,6 +1112,7 @@
       <position x="19" y="10"/>
       <position x="22" y="12"/>
       <name value="Polar Bear"/>
+      <exp value="20"/>
       <stats hp="80" mana="90" p_move="3" atk_f="75" atk_s="75" def_f="78" def_s="78" crit="0.3" agi="8"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">
@@ -1176,6 +1217,7 @@
       <texture value="Assets/Sprites/Enemies/Pinkking_Spritesheet.png"/>
       <position x="22" y="8"/>
       <name value="Polar Path"/>
+      <exp value="100"/>
       <stats hp="120" mana="120" p_move="6" atk_f="85" atk_s="85" range_atk="4" def_f="85" def_s="85" crit="0.2" agi="9"/>
       <animations>
         <idle_left_front speed="0.2f" loop="true">

@@ -61,6 +61,8 @@ bool ModuleEntityManager::PreUpdate()
 	for (std::list<Entity*>::iterator enemy = enemies.begin(); enemy != enemies.end(); ++enemy)
 	{
 		if ((*enemy)->current_state == Entity::STATE::DEATH) {
+			// Level up and clean enemy
+			App->entity_manager->LevelUP((*enemy)->exp);
 			App->entity_manager->DeleteEntity((*enemy));
 			break;
 		}
@@ -99,8 +101,12 @@ bool ModuleEntityManager::PreUpdate()
 		if (std::find(enemies.begin(), enemies.end(), (*entity)) != enemies.end()) {
 			for (std::list<Entity*>::iterator object = objects.begin(); object != objects.end(); ++object) {
 				if ((*object)->GetType() == ENTITY_TYPE::ENTITY_OBJECT_BEARTRAP && (*object)->GetPosition() == (*entity)->GetPosition()) {
-					(*entity)->current_stats.Hp -= 25 + george_b->current_stats.AtkF - (*entity)->current_stats.DefF;
-					((Object*)*object)->used = true;
+					for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character) {
+						if ((*character)->GetType() == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB) {
+							(*entity)->current_stats.Hp -= 25 + (*character)->current_stats.AtkF - (*entity)->current_stats.DefF;
+							((Object*)*object)->used = true;
+						}
+					}
 				}
 			}
 		}
@@ -265,60 +271,27 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 	{
 	case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
 		tmp = new CharacterSapphire(_type, entity_configs.child("sapphire"));
-		tmp->default_stats.Hp += tmp->evolution_stats.Hp * level;
-		tmp->default_stats.Mana += tmp->evolution_stats.Mana * level;
-		tmp->default_stats.AtkF += tmp->evolution_stats.AtkF * level;
-		tmp->default_stats.AtkS += tmp->evolution_stats.AtkS * level;
-		tmp->default_stats.DefF += tmp->evolution_stats.DefF * level;
-		tmp->default_stats.DefS += tmp->evolution_stats.DefS * level;
-		tmp->default_stats.Crit += tmp->evolution_stats.Crit * level;
-
-		tmp->current_stats = tmp->default_stats;
 		entities.push_back(tmp);
 		characters.push_back(tmp);
+		LevelUP(0);
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
 		tmp = new CharacterIris(_type, entity_configs.child("iris"));
-		tmp->default_stats.Hp += tmp->evolution_stats.Hp * level;
-		tmp->default_stats.Mana += tmp->evolution_stats.Mana * level;
-		tmp->default_stats.AtkF += tmp->evolution_stats.AtkF * level;
-		tmp->default_stats.AtkS += tmp->evolution_stats.AtkS * level;
-		tmp->default_stats.DefF += tmp->evolution_stats.DefF * level;
-		tmp->default_stats.DefS += tmp->evolution_stats.DefS * level;
-		tmp->default_stats.Crit += tmp->evolution_stats.Crit * level;
-
-		tmp->current_stats = tmp->default_stats;
 		entities.push_back(tmp);
 		characters.push_back(tmp);
+		LevelUP(0);
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
 		tmp = new CharacterStorm(_type, entity_configs.child("storm"));
-		tmp->default_stats.Hp += tmp->evolution_stats.Hp * level;
-		tmp->default_stats.Mana += tmp->evolution_stats.Mana * level;
-		tmp->default_stats.AtkF += tmp->evolution_stats.AtkF * level;
-		tmp->default_stats.AtkS += tmp->evolution_stats.AtkS * level;
-		tmp->default_stats.DefF += tmp->evolution_stats.DefF * level;
-		tmp->default_stats.DefS += tmp->evolution_stats.DefS * level;
-		tmp->default_stats.Crit += tmp->evolution_stats.Crit * level;
-
-		tmp->current_stats = tmp->default_stats;
 		entities.push_back(tmp);
 		characters.push_back(tmp);
+		LevelUP(0);
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
 		tmp = new CharacterGeorgeB(_type, entity_configs.child("georgeb"));
-		tmp->default_stats.Hp += tmp->evolution_stats.Hp * level;
-		tmp->default_stats.Mana += tmp->evolution_stats.Mana * level;
-		tmp->default_stats.AtkF += tmp->evolution_stats.AtkF * level;
-		tmp->default_stats.AtkS += tmp->evolution_stats.AtkS * level;
-		tmp->default_stats.DefF += tmp->evolution_stats.DefF * level;
-		tmp->default_stats.DefS += tmp->evolution_stats.DefS * level;
-		tmp->default_stats.Crit += tmp->evolution_stats.Crit * level;
-
-		tmp->current_stats = tmp->default_stats;
 		entities.push_back(tmp);
 		characters.push_back(tmp);
-		george_b = (CharacterGeorgeB*) tmp;
+		LevelUP(0);
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
 		for (int i = 0; i < 4; i++)
@@ -816,5 +789,53 @@ void ModuleEntityManager::StartingTurn(Entity* _entity)
 	else 
 	{
 		_entity->critic = false;
+	}
+}
+
+void ModuleEntityManager::LevelUP(int _exp)
+{
+	for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+	{
+		if ((*character)->current_state == Entity::ALIVE) 
+		{
+
+			switch ((*character)->GetType())
+			{
+			case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
+				exp_sapphire += _exp;
+				(*character)->exp = exp_sapphire;
+				break;
+			case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
+				exp_iris += _exp;
+				(*character)->exp = exp_iris;
+				break;
+			case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
+				exp_storm += _exp;
+				(*character)->exp = exp_storm;
+				break;
+			case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
+				exp_georgeb += _exp;
+				(*character)->exp = exp_georgeb;
+				break;
+			default:
+				break;
+			}
+
+			if ((*character)->levels.at((*character)->level - 1) < (*character)->exp) 
+			{
+				++(*character)->level;
+
+				(*character)->default_stats.Hp += (*character)->evolution_stats.Hp * (*character)->level;
+				(*character)->default_stats.Mana += (*character)->evolution_stats.Mana * (*character)->level;
+				(*character)->default_stats.AtkF += (*character)->evolution_stats.AtkF * (*character)->level;
+				(*character)->default_stats.AtkS += (*character)->evolution_stats.AtkS * (*character)->level;
+				(*character)->default_stats.DefF += (*character)->evolution_stats.DefF * (*character)->level;
+				(*character)->default_stats.DefS += (*character)->evolution_stats.DefS * (*character)->level;
+				(*character)->default_stats.Crit += (*character)->evolution_stats.Crit * (*character)->level;
+
+				(*character)->current_stats = (*character)->default_stats;
+			}
+			
+		}
 	}
 }

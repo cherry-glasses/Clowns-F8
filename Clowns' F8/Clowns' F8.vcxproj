@@ -142,7 +142,6 @@
     <ClInclude Include="..\Clowns%27 F8\Boneyman.h" />
     <ClInclude Include="..\Clowns%27 F8\Burgdog.h" />
     <ClInclude Include="..\Clowns%27 F8\CharacterGeorgeB.h" />
-    <ClInclude Include="..\Clowns%27 F8\CharacterHektor.h" />
     <ClInclude Include="..\Clowns%27 F8\CharacterSapphire.h" />
     <ClInclude Include="..\Clowns%27 F8\CharacterStorm.h" />
     <ClInclude Include="..\Clowns%27 F8\ChooseCharacter.h" />
@@ -200,7 +199,6 @@
     <ClCompile Include="..\Clowns%27 F8\Burgdog.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Character.cpp" />
     <ClCompile Include="..\Clowns%27 F8\CharacterGeorgeB.cpp" />
-    <ClCompile Include="..\Clowns%27 F8\CharacterHektor.cpp" />
     <ClCompile Include="..\Clowns%27 F8\CharacterSapphire.cpp" />
     <ClCompile Include="..\Clowns%27 F8\CharacterStorm.cpp" />
     <ClCompile Include="..\Clowns%27 F8\ChooseCharacter.cpp" />

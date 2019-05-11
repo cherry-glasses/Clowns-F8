@@ -12,7 +12,6 @@ enum class ENTITY_TYPE
 	ENTITY_CHARACTER_IRIS,
 	ENTITY_CHARACTER_STORM,
 	ENTITY_CHARACTER_GEORGEB,
-	ENTITY_CHARACTER_HEKTOR,
 	ENTITY_ENEMY_BONEYMAN,
 	ENTITY_ENEMY_PINKKING,
 	ENTITY_ENEMY_BURGDOG,
@@ -132,6 +131,9 @@ public:
 	bool stunned = false;
 	bool critic = false;
 	bool flipX = false;
+	int exp = 0;
+	int level = 1;
+	std::vector<int> levels;
 
 	enum STATE { ALIVE, DEATH };
 	enum TURN { SEARCH_MOVE, SELECT_MOVE, MOVE, SELECT_ACTION, SEARCH_ATTACK, SELECT_ATTACK, ATTACK, 

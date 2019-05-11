@@ -92,7 +92,6 @@ bool Battle::Update(float _dt)
 		}
 
 		Navigate();
-
 	}
 	else
 	{
@@ -106,14 +105,13 @@ bool Battle::Update(float _dt)
 		else if (App->entity_manager->enemies.empty()) {
 			if (!App->scene_manager->changing)
 			{
-				App->entity_manager->level++;
-				if (type == SCENE_TYPE::FIRST_BATTLE)
+				if (type == SCENE_TYPE::FOURTH_BATTLE)
 				{
-					App->transition_manager->CreateFadeTransition(2, true, SECOND_BATTLE, Black);
+					App->transition_manager->CreateFadeTransition(2, true, WIN_SCENE, White);
 				}
-				else if (type == SCENE_TYPE::SECOND_BATTLE)
+				else
 				{
-					App->transition_manager->CreateFadeTransition(2, true, WIN_SCENE, Black);
+					App->transition_manager->CreateFadeTransition(2, true, GLOBAL_MAP, White);
 				}
 				App->scene_manager->changing = true;
 			}

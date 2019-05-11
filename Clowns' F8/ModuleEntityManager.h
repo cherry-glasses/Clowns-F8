@@ -54,6 +54,8 @@ public:
 	void ThrowAttack(std::vector<std::pair<int,int>> _positions, int _damage, ENTITY_TYPE _type, bool _special);
 
 	void StartingTurn(Entity* _entity);
+
+	void LevelUP(int _exp);
 	
 public:
 	std::list<Entity*> characters;
@@ -63,13 +65,14 @@ public:
 
 	bool paused = false;
 
-	int level = 0;
+	int exp_sapphire = 0;
+	int exp_iris = 0;
+	int exp_georgeb = 0;
+	int exp_storm = 0;
 
 private:
 	
 	pugi::xml_node entity_configs;
-
-	CharacterGeorgeB* george_b;
 
 	bool starting = true;
 	

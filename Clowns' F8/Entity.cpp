@@ -66,6 +66,13 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	attacks_names.Habilidad_2_nombre = _config.child("attacks_names").attribute("habilidad_2").as_string("Habilidad 2");
 	attacks_names.Habilidad_3_nombre = _config.child("attacks_names").attribute("habilidad_3").as_string("Habilidad 3");
 
+	exp = _config.child("exp").attribute("value").as_int();
+
+	pugi::xml_node _node = _config.child("levelup").child("nextlevel");
+	for (; _node; _node = _node.next_sibling("nextlevel")) {
+		levels.push_back(_node.attribute("value").as_int());
+	}
+
 	LoadAnim(_config);
 
 	current_turn = NONE;
