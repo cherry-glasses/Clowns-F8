@@ -821,7 +821,7 @@ void ModuleEntityManager::LevelUP(int _exp)
 				break;
 			}
 
-			if ((*character)->levels.at((*character)->level - 1) < (*character)->exp) 
+			if ((*character)->levels.at((*character)->level - 1) <= (*character)->exp) 
 			{
 				++(*character)->level;
 
