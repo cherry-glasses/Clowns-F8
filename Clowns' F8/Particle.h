@@ -14,7 +14,7 @@ private:
 
 	/*  This is the only variable we care about no matter if
 	   the particle is alive or dead */
-	unsigned int life = 0;
+	uint life = 0;
 
 	struct Vortex
 	{
@@ -31,9 +31,9 @@ private:
 		{
 			uint startLife;
 			std::pair<int, int> pos;
-			fPoint startVel;
-			fPoint endVel;
-			fPoint currentVel;
+			std::pair<int, int> startVel;
+			std::pair<int, int> endVel;
+			std::pair<int, int> currentVel;
 			float currentSize, startSize, endSize;
 			float ageRatio;
 			float angle;
@@ -65,7 +65,7 @@ public:
 	Particle();
 
 	// Initializes new generated particle
-	void Init(fPoint pos, float startSpeed, float endSpeed, float angle, double rotSpeed, float startSize, float endSize, unsigned int life, SDL_Rect textureRect, SDL_Color startColor, SDL_Color endColor, SDL_BlendMode blendMode, bool vortexSensitive);
+	void Init(std::pair<int, int> pos, float startSpeed, float endSpeed, float angle, double rotSpeed, float startSize, float endSize, uint life, SDL_Rect textureRect, SDL_Color startColor, SDL_Color endColor, SDL_BlendMode blendMode, bool vortexSensitive);
 
 	// Generic methods
 	void Update(float dt);
@@ -82,7 +82,7 @@ public:
 	float InterpolateBetweenRange(float min, float timeStep, float max);
 
 	// Adds a vortex to the system
-	void AddVortex(fPoint pos, float speed, float scale);
+	void AddVortex(std::pair<int, int> pos, float speed, float scale);
 
 	/* Calculates particle position considering its velocity
 	   and if there's a vortex in the system */
