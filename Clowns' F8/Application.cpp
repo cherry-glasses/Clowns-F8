@@ -12,6 +12,7 @@
 #include "ModuleEntityManager.h"
 #include "ModuleGUIManager.h"
 #include "ModulePathfinding.h"
+#include "ModuleParticleSystem.h"
 
 
 
@@ -32,6 +33,7 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	gui_manager = new ModuleGUIManager();
 	pathfinding = new ModulePathfinding();
 	transition_manager = new ModuleTransitionManager();
+	particle_system = new ModuleParticleSystem();
 	
 
 	// Ordered for awake / Start / Update
@@ -47,6 +49,7 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	AddModule(entity_manager);
 	AddModule(gui_manager);
 	AddModule(transition_manager);
+	AddModule(particle_system);
 
 	// render last to swap buffer
 	AddModule(render);
@@ -79,6 +82,18 @@ pugi::xml_node Application::LoadConfig(pugi::xml_document& _config_file) const
 	else
 		ret = _config_file.child("config");
 
+	return ret;
+}
+pugi::xml_node Application::LoadEmitters(pugi::xml_document& psystem_file) const
+{
+	pugi::xml_node ret;
+
+	pugi::xml_parse_result result = psystem_file.load_file("psystem_config.xml");
+
+	if (result == NULL)
+		LOG("Could not load xml file config.xml. Pugi error: %s", result.description());
+	else
+		ret = psystem_file.child("emitters");
 	return ret;
 }
 
@@ -401,4 +416,5 @@ const char* Application::GetTitle() const
 {
 	return title.c_str();
 }
+
 

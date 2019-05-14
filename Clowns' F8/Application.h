@@ -23,6 +23,7 @@ class ModuleEntityManager;
 class ModuleGUIManager;
 class ModulePathfinding;
 class ModuleTransitionManager;
+class ModuleParticleSystem;
 
 
 
@@ -60,11 +61,15 @@ public:
 	void SaveGame() const;
 	
 
+	//Load emitters config
+	pugi::xml_node LoadEmitters(pugi::xml_document& psystem_file) const;
 
 private:
 
 	// Load config file
 	pugi::xml_node LoadConfig(pugi::xml_document&) const;
+
+	
 
 	// Call modules before each loop iteration
 	void PrepareUpdate();
@@ -101,6 +106,7 @@ public:
 	ModuleGUIManager* gui_manager = nullptr;
 	ModulePathfinding* pathfinding = nullptr;
 	ModuleTransitionManager *transition_manager = nullptr;
+	ModuleParticleSystem	*particle_system	= nullptr;
 
 	bool debug = false;
 
