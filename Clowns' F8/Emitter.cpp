@@ -1,10 +1,10 @@
-#include "Emitter.h"
 #include "Application.h"
+#include "Emitter.h"
 #include "ParticlePool.h"
 #include <time.h>
 
 
-Emitter::Emitter(std::pair<int, int> pos, EmitterData data)
+Emitter::Emitter(std::pair<float, float> pos, EmitterData data)
 {
 	srand(time(NULL));
 
@@ -66,17 +66,17 @@ void Emitter::Update(float dt)
 	{
 		// Particle generation from pool
 
-		emissionRate = (int)(emitNumber + emitVariance * RangeRandomNum(emitVarianceRand.x, emitVarianceRand.y));
+		emissionRate = (int)(emitNumber + emitVariance * RangeRandomNum(emitVarianceRand.first, emitVarianceRand.second));
 
 		for (int i = 1; i <= emissionRate; i++)
 		{
-			float tmpStartSpeed = startSpeed * RangeRandomNum(startSpeedRand.x, startSpeedRand.y);
-			float tmpEndSpeed = endSpeed * RangeRandomNum(endSpeedRand.x, endSpeedRand.y);
-			float randAngle = RangeRandomNum(angleRange.x, angleRange.y);
-			float randStart = startSize * RangeRandomNum(startSizeRand.x, startSizeRand.y);
-			float randEnd = startSize * RangeRandomNum(startSizeRand.x, startSizeRand.y);
+			float tmpStartSpeed = startSpeed * RangeRandomNum(startSpeedRand.first, startSpeedRand.second);
+			float tmpEndSpeed = endSpeed * RangeRandomNum(endSpeedRand.first, endSpeedRand.second);
+			float randAngle = RangeRandomNum(angleRange.first, angleRange.second);
+			float randStart = startSize * RangeRandomNum(startSizeRand.first, startSizeRand.second);
+			float randEnd = startSize * RangeRandomNum(startSizeRand.first, startSizeRand.second);
 			float randRadius = RangeRandomNum(randStart, randEnd);
-			double randRotSpeed = rotSpeed * RangeRandomNum(rotSpeedRand.x, rotSpeedRand.y);
+			double randRotSpeed = rotSpeed * RangeRandomNum(rotSpeedRand.first, rotSpeedRand.second);
 
 			emitterPool->Generate(pos, tmpStartSpeed, tmpEndSpeed, randAngle, randRotSpeed, randRadius, endSize, maxParticleLife, textureRect, startColor, endColor, blendMode, vortexSensitive);
 			timeStep += timeStep;
@@ -122,7 +122,7 @@ bool Emitter::Draw(float dt)
 	/* NOTE: if lifetime is 0 and last particles have been updated
 	then the emitter is automatically destroyed */
 	if (emitterPool->Update(dt) == ParticleState::PARTICLE_DEAD && lifetime == 0.0f)
-		App->psystem->RemoveEmitter(this);
+		App->particle_system->RemoveEmitter(this);
 	else if (emitterPool->Update(dt) == ParticleState::PARTICLE_ALIVE_NOT_DRAWN)
 		ret = false;
 

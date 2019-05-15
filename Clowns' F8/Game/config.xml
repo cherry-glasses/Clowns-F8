@@ -94,8 +94,8 @@
         <nextlevel value="300"/>
         <nextlevel value="500"/>
       </levelup>
-      <stats hp="79" mana="120" p_move="1" atk_f="60" atk_s="78" range_atk="5" range_ability_1="2" range_ability_2="5"
-             range_ability_3="7" def_f="70" def_s="80" crit="10"  agi="11" attack ="22" ability_1="26"/>
+      <stats hp="79" mana="120" p_move="3" atk_f="60" atk_s="84" range_atk="5" range_ability_1="2" range_ability_2="5"
+             range_ability_3="7" def_f="70" def_s="80" crit="10"  agi="11" attack ="25" ability_1="26" ability_2="30" ability_3="35"/>
       <evolution hp="5" mana="15" atk_f="6" atk_s="5" def_f="6" def_s="6" crit="2"/>
       <attacks_names attack="Flower attack" ability_1="Hammer time" ability_2="Surprise hat" ability_3="Water time" 
                     ataque="Floretazo" habilidad_1="Martillazo" habilidad_2="Sombrero sorpresa" habilidad_3="Hora del Jugar"/>
@@ -228,6 +228,70 @@
           <frame x="220" y="256" width="110" height="128"/>
           <frame x="220" y="256" width="110" height="128"/>
         </ability_1_back>
+        <ability_2_left_front speed="0.2f" loop="false">
+          <frame x="220" y="384" width="110" height="128"/>
+          <frame x="220" y="384" width="110" height="128"/>
+        </ability_2_left_front>
+        <ability_2_right_front speed="0.2f" loop="false">
+          <frame x="330" y="384" width="110" height="128"/>
+          <frame x="330" y="384" width="110" height="128"/>
+        </ability_2_right_front>
+        <ability_2_left_back speed="0.2f" loop="false">
+          <frame x="220" y="256" width="110" height="128"/>
+          <frame x="220" y="256" width="110" height="128"/>
+        </ability_2_left_back>
+        <ability_2_right_back speed="0.2f" loop="false">
+          <frame x="330" y="256" width="110" height="128"/>
+          <frame x="330" y="256" width="110" height="128"/>
+        </ability_2_right_back>
+        <ability_2_left speed="0.2f" loop="false">
+          <frame x="220" y="384" width="110" height="128"/>
+          <frame x="220" y="384" width="110" height="128"/>
+        </ability_2_left>
+        <ability_2_right speed="0.2f" loop="false">
+          <frame x="330" y="384" width="110" height="128"/>
+          <frame x="330" y="384" width="110" height="128"/>
+        </ability_2_right>
+        <ability_2_front speed="0.2f" loop="false">
+          <frame x="220" y="384" width="110" height="128"/>
+          <frame x="220" y="384" width="110" height="128"/>
+        </ability_2_front>
+        <ability_2_back speed="0.2f" loop="false">
+          <frame x="220" y="256" width="110" height="128"/>
+          <frame x="220" y="256" width="110" height="128"/>
+        </ability_2_back>
+        <ability_3_left_front speed="0.2f" loop="false">
+          <frame x="220" y="384" width="110" height="128"/>
+          <frame x="220" y="384" width="110" height="128"/>
+        </ability_3_left_front>
+        <ability_3_right_front speed="0.2f" loop="false">
+          <frame x="330" y="384" width="110" height="128"/>
+          <frame x="330" y="384" width="110" height="128"/>
+        </ability_3_right_front>
+        <ability_3_left_back speed="0.2f" loop="false">
+          <frame x="220" y="256" width="110" height="128"/>
+          <frame x="220" y="256" width="110" height="128"/>
+        </ability_3_left_back>
+        <ability_3_right_back speed="0.2f" loop="false">
+          <frame x="330" y="256" width="110" height="128"/>
+          <frame x="330" y="256" width="110" height="128"/>
+        </ability_3_right_back>
+        <ability_3_left speed="0.2f" loop="false">
+          <frame x="220" y="384" width="110" height="128"/>
+          <frame x="220" y="384" width="110" height="128"/>
+        </ability_3_left>
+        <ability_3_right speed="0.2f" loop="false">
+          <frame x="330" y="384" width="110" height="128"/>
+          <frame x="330" y="384" width="110" height="128"/>
+        </ability_3_right>
+        <ability_3_front speed="0.2f" loop="false">
+          <frame x="220" y="384" width="110" height="128"/>
+          <frame x="220" y="384" width="110" height="128"/>
+        </ability_3_front>
+        <ability_3_back speed="0.2f" loop="false">
+          <frame x="220" y="256" width="110" height="128"/>
+          <frame x="220" y="256" width="110" height="128"/>
+        </ability_3_back>
         <defend_left_front speed="0.2f" loop="true">
           <frame x="0" y="128" width="110" height="128"/>
           <frame x="110" y="128" width="110" height="128"/>
@@ -299,8 +363,8 @@
         <nextlevel value="300"/>
         <nextlevel value="500"/>
       </levelup>
-      <stats hp="78" mana="85" p_move="1" atk_f="82" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
-             range_ability_3="1" def_f="80" def_s="76" crit="20" agi="13" attack ="24" ability_1="25"/>/>
+      <stats hp="78" mana="85" p_move="6" atk_f="82" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
+             range_ability_3="1" def_f="80" def_s="76" crit="20" agi="13" attack ="24" ability_1="25" ability_2="10" ability_3="40"/>
       <evolution hp="4" mana="10" atk_f="6" atk_s="5" def_f="6" def_s="6" crit="3"/>
       <attacks_names attack="Fist attack" ability_1="Rabbit kick" ability_2="Carrot time" ability_3="Rabbit rage" 
                     ataque="Golpe de karate" habilidad_1="Patada conejil" habilidad_2="Hora de zanahoria" habilidad_3="Rabia Conejil"/>
@@ -393,6 +457,38 @@
           <frame x="64" y="192" width="64" height="64"/>
           <frame x="64" y="192" width="64" height="64"/>
         </ability_1_right_back>
+        <ability_1_left_front speed="0.2f" loop="false">
+          <frame x="0" y="128" width="64" height="64"/>
+          <frame x="0" y="128" width="64" height="64"/>
+        </ability_1_left_front>
+        <ability_2_right_front speed="0.2f" loop="false">
+          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="64" y="128" width="64" height="64"/>
+        </ability_2_right_front>
+        <ability_2_left_back speed="0.2f" loop="false">
+          <frame x="0" y="192" width="64" height="64"/>
+          <frame x="0" y="192" width="64" height="64"/>
+        </ability_2_left_back>
+        <ability_2_right_back speed="0.2f" loop="false">
+          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="64" y="192" width="64" height="64"/>
+        </ability_2_right_back>
+        <ability_3_left_front speed="0.2f" loop="false">
+          <frame x="0" y="128" width="64" height="64"/>
+          <frame x="0" y="128" width="64" height="64"/>
+        </ability_3_left_front>
+        <ability_3_right_front speed="0.2f" loop="false">
+          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="64" y="128" width="64" height="64"/>
+        </ability_3_right_front>
+        <ability_3_left_back speed="0.2f" loop="false">
+          <frame x="0" y="192" width="64" height="64"/>
+          <frame x="0" y="192" width="64" height="64"/>
+        </ability_3_left_back>
+        <ability_3_right_back speed="0.2f" loop="false">
+          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="64" y="192" width="64" height="64"/>
+        </ability_3_right_back>
         <defend_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>
           <frame x="128" y="0" width="64" height="64"/>
@@ -465,7 +561,7 @@
         <nextlevel value="500"/>
       </levelup>
       <stats hp="90" mana="80" p_move="4" atk_f="75" atk_s="74" range_atk="1" range_ability_1="3" range_ability_2="7"
-             range_ability_3="7" def_f="85" def_s="83" crit="10"  agi="10" attack ="20" ability_1="0"/>/>
+             range_ability_3="7" def_f="85" def_s="83" crit="10"  agi="10" attack ="20" ability_1="0" ability_2="0" ability_3="0"/>
       <evolution hp="5" mana="8" atk_f="4" atk_s="4" def_f="6" def_s="6" crit="2"/>
       <attacks_names attack="Acid throw" ability_1="Snail charge" ability_2="Time to hide" ability_3="Vampiric snail"
                     ataque="Escupitajo" habilidad_1="Caracol paralizante" habilidad_2="Hora del escondite" habilidad_3="Caracol vampírico"/>
@@ -530,6 +626,38 @@
           <frame x="64" y="192" width="64" height="64"/>
           <frame x="64" y="192" width="64" height="64"/>
         </ability_1_right_back>
+        <ability_2_left_front speed="0.2f" loop="false">
+          <frame x="0" y="128" width="64" height="64"/>
+          <frame x="0" y="128" width="64" height="64"/>
+        </ability_2_left_front>
+        <ability_2_right_front speed="0.2f" loop="false">
+          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="64" y="128" width="64" height="64"/>
+        </ability_2_right_front>
+        <ability_2_left_back speed="0.2f" loop="false">
+          <frame x="0" y="192" width="64" height="64"/>
+          <frame x="0" y="192" width="64" height="64"/>
+        </ability_2_left_back>
+        <ability_2_right_back speed="0.2f" loop="false">
+          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="64" y="192" width="64" height="64"/>
+        </ability_2_right_back>
+        <ability_3_left_front speed="0.2f" loop="false">
+          <frame x="0" y="128" width="64" height="64"/>
+          <frame x="0" y="128" width="64" height="64"/>
+        </ability_3_left_front>
+        <ability_3_right_front speed="0.2f" loop="false">
+          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="64" y="128" width="64" height="64"/>
+        </ability_3_right_front>
+        <ability_3_left_back speed="0.2f" loop="false">
+          <frame x="0" y="192" width="64" height="64"/>
+          <frame x="0" y="192" width="64" height="64"/>
+        </ability_3_left_back>
+        <ability_3_right_back speed="0.2f" loop="false">
+          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="64" y="192" width="64" height="64"/>
+        </ability_3_right_back>
         <defend_left_front speed="0.2f" loop="true">
           <frame x="0" y="0" width="64" height="64"/>
           <frame x="128" y="0" width="64" height="64"/>
@@ -574,7 +702,7 @@
         <nextlevel value="500"/>
       </levelup>
       <stats hp="75" mana="95" p_move="5" atk_f="75" atk_s="75" range_atk="4" range_ability_1="6" range_ability_2="4"
-             range_ability_3="3" def_f="75" def_s="75" crit="8"  agi="12" attack ="25" ability_1="25"/>/>
+             range_ability_3="3" def_f="75" def_s="75" crit="8"  agi="12" attack ="25" ability_1="25" ability_2="33" ability_3="38"/>
       <evolution hp="5" mana="10" atk_f="6" atk_s="6" def_f="6" def_s="6" crit="3"/>
       <attacks_names attack="Random throw" ability_1="Bear trap" ability_2="Cherry boom" ability_3="Flying birds"
                     ataque="Tiro aleatorio" habilidad_1="Trampa de oso" habilidad_2="Bomba cereza" habilidad_3="Hora de Hitchcock"/>
@@ -661,6 +789,30 @@
           <frame x="64" y="192" width="64" height="64"/>
           <frame x="64" y="192" width="64" height="64"/>
         </ability_1_back>
+        <ability_2_right speed="0.2f" loop="false">
+          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="64" y="128" width="64" height="64"/>
+        </ability_2_right>
+        <ability_2_front speed="0.2f" loop="false">
+          <frame x="0" y="192" width="64" height="64"/>
+          <frame x="0" y="192" width="64" height="64"/>
+        </ability_2_front>
+        <ability_2_back speed="0.2f" loop="false">
+          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="64" y="192" width="64" height="64"/>
+        </ability_2_back>
+        <ability_3_right speed="0.2f" loop="false">
+          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="64" y="128" width="64" height="64"/>
+        </ability_3_right>
+        <ability_3_front speed="0.2f" loop="false">
+          <frame x="0" y="192" width="64" height="64"/>
+          <frame x="0" y="192" width="64" height="64"/>
+        </ability_3_front>
+        <ability_3_back speed="0.2f" loop="false">
+          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="64" y="192" width="64" height="64"/>
+        </ability_3_back>
         <defend_right speed="0.2f" loop="true">
           <frame x="0" y="64" width="64" height="64"/>
           <frame x="64" y="64" width="64" height="64"/>

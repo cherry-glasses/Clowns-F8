@@ -1,4 +1,3 @@
-
 #include "Log.h"
 #include "Application.h"
 #include "ModuleParticleSystem.h"
@@ -86,8 +85,8 @@ bool ModuleParticleSystem::PostUpdate()
 	{
 		std::list<Emitter*>::iterator it;
 
-		for (it = emittersList.begin(); it != emittersList.end() && ret; ++it)
-			ret = (*it)->Draw(App->dt);
+		/*for (it = emittersList.begin(); it != emittersList.end() && ret; ++it)
+			ret = (*it)->Draw(App->dt);*/
 	}
 
 	return ret;
@@ -163,8 +162,8 @@ void ModuleParticleSystem::LoadEmitterData(pugi::xml_node & emitter, EmitterType
 	EmitterData tmp;
 
 	// Angle range
-	tmp.angleRange.x = emitter.child("angleRange").attribute("min").as_float();
-	tmp.angleRange.y = emitter.child("angleRange").attribute("max").as_float();
+	tmp.angleRange.first = emitter.child("angleRange").attribute("min").as_float();
+	tmp.angleRange.second = emitter.child("angleRange").attribute("max").as_float();
 
 	// Particle speeds
 	tmp.rotSpeed = emitter.child("rotSpeed").attribute("value").as_double();
@@ -172,26 +171,26 @@ void ModuleParticleSystem::LoadEmitterData(pugi::xml_node & emitter, EmitterType
 	tmp.endSpeed = emitter.child("endSpeed").attribute("value").as_float();
 
 	// Random controls
-	tmp.startSpeedRand.x = emitter.child("startSpeed").attribute("randMin").as_float();
-	tmp.startSpeedRand.y = emitter.child("startSpeed").attribute("randMax").as_float();
+	tmp.startSpeedRand.first = emitter.child("startSpeed").attribute("randMin").as_float();
+	tmp.startSpeedRand.second = emitter.child("startSpeed").attribute("randMax").as_float();
 
-	tmp.endSpeedRand.x = emitter.child("endSpeed").attribute("randMin").as_float();
-	tmp.endSpeedRand.y = emitter.child("endSpeed").attribute("randMax").as_float();
+	tmp.endSpeedRand.first = emitter.child("endSpeed").attribute("randMin").as_float();
+	tmp.endSpeedRand.second = emitter.child("endSpeed").attribute("randMax").as_float();
 
-	tmp.rotSpeedRand.x = emitter.child("rotSpeed").attribute("randMin").as_float();
-	tmp.rotSpeedRand.y = emitter.child("rotSpeed").attribute("randMax").as_float();
+	tmp.rotSpeedRand.first = emitter.child("rotSpeed").attribute("randMin").as_float();
+	tmp.rotSpeedRand.second = emitter.child("rotSpeed").attribute("randMax").as_float();
 
-	tmp.emitVarianceRand.x = emitter.child("emitVariance").attribute("randMin").as_float();
-	tmp.emitVarianceRand.y = emitter.child("emitVariance").attribute("randMax").as_float();
+	tmp.emitVarianceRand.first = emitter.child("emitVariance").attribute("randMin").as_float();
+	tmp.emitVarianceRand.second = emitter.child("emitVariance").attribute("randMax").as_float();
 
-	tmp.lifeRand.x = emitter.child("maxParticleLife").attribute("randMin").as_float();
-	tmp.lifeRand.y = emitter.child("maxParticleLife").attribute("randMax").as_float();
+	tmp.lifeRand.first = emitter.child("maxParticleLife").attribute("randMin").as_float();
+	tmp.lifeRand.second = emitter.child("maxParticleLife").attribute("randMax").as_float();
 
-	tmp.startSizeRand.x = emitter.child("startSize").attribute("randMin").as_float();
-	tmp.startSizeRand.y = emitter.child("startSize").attribute("randMax").as_float();
+	tmp.startSizeRand.first = emitter.child("startSize").attribute("randMin").as_float();
+	tmp.startSizeRand.second = emitter.child("startSize").attribute("randMax").as_float();
 
-	tmp.endSizeRand.x = emitter.child("endSizeRand").attribute("randMin").as_float();
-	tmp.endSizeRand.y = emitter.child("endSizeRand").attribute("randMax").as_float();
+	tmp.endSizeRand.first = emitter.child("endSizeRand").attribute("randMin").as_float();
+	tmp.endSizeRand.second = emitter.child("endSizeRand").attribute("randMax").as_float();
 
 	// Particle size
 	tmp.startSize = emitter.child("startSize").attribute("value").as_float();

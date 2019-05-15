@@ -64,7 +64,7 @@ private:
 
 public:
 
-	Emitter(std::pair<int, int> pos, EmitterData data);
+	Emitter(std::pair<float, float> pos, EmitterData data);
 	// fPoint pos, uint emitNumber, uint emitVariance, uint maxParticleLife, fPoint angleRange, double rotSpeed, float maxSpeed, float startSize, float endSize, SDL_Rect textureRect, SDL_Color startColor = { 0, 0, 0, 0 }, SDL_Color endColor = { 0, 0, 0, 0 }, SDL_BlendMode blendMode = SDL_BlendMode::SDL_BLENDMODE_NONE, double lifetime = -1.0f
 	virtual ~Emitter();
 

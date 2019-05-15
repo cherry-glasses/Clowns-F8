@@ -37,6 +37,9 @@
     <Filter Include="Transitions">
       <UniqueIdentifier>{499715db-c79e-4722-840e-34fa782fd775}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particle">
+      <UniqueIdentifier>{299cc7c8-d7d0-4162-9919-5d783c050158}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Clowns%27 F8\Application.h">
@@ -204,6 +207,18 @@
     <ClInclude Include="..\Clowns%27 F8\Battle3.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ModuleParticleSystem.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ParticlePool.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Particle.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Emitter.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -358,6 +373,15 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Battle3.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ModuleParticleSystem.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ParticlePool.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Emitter.cpp">
+      <Filter>Particle</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

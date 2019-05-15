@@ -30,10 +30,10 @@ private:
 		struct ParticleState
 		{
 			uint startLife;
-			std::pair<int, int> pos;
-			std::pair<int, int> startVel;
-			std::pair<int, int> endVel;
-			std::pair<int, int> currentVel;
+			std::pair<float, float> pos;
+			std::pair<float, float> startVel;
+			std::pair<float, float> endVel;
+			std::pair<float, float> currentVel;
 			float currentSize, startSize, endSize;
 			float ageRatio;
 			float angle;
@@ -65,7 +65,7 @@ public:
 	Particle();
 
 	// Initializes new generated particle
-	void Init(std::pair<int, int> pos, float startSpeed, float endSpeed, float angle, double rotSpeed, float startSize, float endSize, uint life, SDL_Rect textureRect, SDL_Color startColor, SDL_Color endColor, SDL_BlendMode blendMode, bool vortexSensitive);
+	void Init(std::pair<float, float> pos, float startSpeed, float endSpeed, float angle, double rotSpeed, float startSize, float endSize, uint life, SDL_Rect textureRect, SDL_Color startColor, SDL_Color endColor, SDL_BlendMode blendMode, bool vortexSensitive);
 
 	// Generic methods
 	void Update(float dt);
@@ -82,7 +82,7 @@ public:
 	float InterpolateBetweenRange(float min, float timeStep, float max);
 
 	// Adds a vortex to the system
-	void AddVortex(std::pair<int, int> pos, float speed, float scale);
+	void AddVortex(std::pair<float, float> pos, float speed, float scale);
 
 	/* Calculates particle position considering its velocity
 	   and if there's a vortex in the system */

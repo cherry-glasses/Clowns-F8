@@ -30,6 +30,12 @@ public:
 	virtual void SearchAbility_1() {}
 	virtual void SelectAbility_1();
 	virtual void Ability_1();
+	virtual void SearchAbility_2() {}
+	virtual void SelectAbility_2();
+	virtual void Ability_2();
+	virtual void SearchAbility_3() {}
+	virtual void SelectAbility_3();
+	virtual void Ability_3();
 	virtual void Defend();
 	virtual void ComeBack();
 	virtual void CurrentMovement(MOVEMENT _movement) {}
