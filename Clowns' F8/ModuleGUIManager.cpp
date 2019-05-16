@@ -43,7 +43,7 @@ bool ModuleGUIManager::Update(float dt)
 	return true;
 }
 
-bool ModuleGUIManager::PostUpdate()
+bool ModuleGUIManager::PostUpdate(float _dt)
 {
 	for (uint i = 0; i < gui_elements.size(); ++i)
 		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_BUTTON)

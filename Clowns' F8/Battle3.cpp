@@ -40,7 +40,7 @@ bool Battle3::PreUpdate()
 }
 
 // Called before all Updates
-bool Battle3::PostUpdate()
+bool Battle3::PostUpdate(float dt)
 {
 	return true;
 }

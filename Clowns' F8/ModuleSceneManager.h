@@ -22,7 +22,7 @@ public:
 	// Called each loop iteration
 	virtual bool Update(float dt);
 	// Called each loop iteration
-	virtual bool PostUpdate();
+	virtual bool PostUpdate(float dt);
 	// Called before quitting
 	virtual bool CleanUp();
 	virtual bool Load(pugi::xml_node&);

@@ -10,7 +10,7 @@
 Polarpath::Polarpath(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
 {
 	CurrentMovement(IDLE_LEFT_FRONT);
-	current = current_animation->GetCurrentFrame();
+	current = current_animation->GetCurrentFrame(1);
 }
 Polarpath::~Polarpath()
 {

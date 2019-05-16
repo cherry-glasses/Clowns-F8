@@ -31,7 +31,7 @@ bool ModuleTransitionManager::Start()
 }
 
 
-bool ModuleTransitionManager::PostUpdate()
+bool ModuleTransitionManager::PostUpdate(float _dt)
 {
 	for (std::list<Transition*>::iterator transition = active_transitions.begin(); transition != active_transitions.end(); ++transition)
 	{
@@ -42,7 +42,7 @@ bool ModuleTransitionManager::PostUpdate()
 	}
 	for (std::list<Transition*>::iterator transition = active_transitions.begin(); transition != active_transitions.end(); ++transition)
 	{
-		(*transition)->PostUpdate();
+		(*transition)->PostUpdate(_dt);
 	}
 
 	return true;

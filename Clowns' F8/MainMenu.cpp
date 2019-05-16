@@ -146,7 +146,7 @@ bool MainMenu::Update(float _dt)
 }
 
 // Called before all Updates
-bool MainMenu::PostUpdate()
+bool MainMenu::PostUpdate(float dt)
 {
 	App->render->Blit(main_menu_background, 0, 0);
 

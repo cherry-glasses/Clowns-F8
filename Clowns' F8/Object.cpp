@@ -37,7 +37,7 @@ bool Object::Update(float dt)
 	return true;
 }
 
-bool Object::PostUpdate()
+bool Object::PostUpdate(float _dt)
 {
 	if (entity_texture != nullptr)
 	{

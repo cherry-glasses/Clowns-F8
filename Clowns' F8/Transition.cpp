@@ -22,7 +22,7 @@ Transition::~Transition()
 	delete current_time;
 }
 
-void Transition::PostUpdate()
+void Transition::PostUpdate(float dt)
 {
 	switch (state)
 	{

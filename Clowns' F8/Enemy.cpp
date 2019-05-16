@@ -66,7 +66,7 @@ bool Enemy::Update(float dt)
 	return true;
 }
 
-bool Enemy::PostUpdate()
+bool Enemy::PostUpdate(float _dt)
 {
 	if (entity_texture != nullptr)
 	{
@@ -86,7 +86,7 @@ bool Enemy::PostUpdate()
 			}
 
 		}
-		App->render->Blit(entity_texture, position.first - (current.w/2) + position_margin.first, position.second - current.h + position_margin.second, &current_animation->GetCurrentFrame(), 1.0f, flipX);
+		App->render->Blit(entity_texture, position.first - (current.w/2) + position_margin.first, position.second - current.h + position_margin.second, &current_animation->GetCurrentFrame(_dt), 1.0f, flipX);
 	}
 
 	return true;

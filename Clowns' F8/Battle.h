@@ -22,7 +22,7 @@ public:
 	bool Update(float dt);
 
 	// Called before all Updates
-	virtual bool PostUpdate() { return true; };
+	virtual bool PostUpdate(float _dt) { return true; };
 
 	// Called before quitting
 	bool CleanUp();

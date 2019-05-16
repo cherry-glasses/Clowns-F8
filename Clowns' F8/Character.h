@@ -18,7 +18,7 @@ public:
 	// Called each loop iteration
 	virtual bool PreUpdate();
 	virtual bool Update(float _dt);
-	virtual bool PostUpdate();
+	virtual bool PostUpdate(float _dt);
 
 	// Character thinks
 	virtual void SearchWalk() {}

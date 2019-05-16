@@ -9,7 +9,7 @@
 CharacterSapphire::CharacterSapphire(ENTITY_TYPE _type, pugi::xml_node _config) : Character(_type, _config)
 {
 	CurrentMovement(IDLE_RIGHT_FRONT);
-	current = current_animation->GetCurrentFrame();
+	current = current_animation->GetCurrentFrame(1);
 }
 
 CharacterSapphire::~CharacterSapphire() {

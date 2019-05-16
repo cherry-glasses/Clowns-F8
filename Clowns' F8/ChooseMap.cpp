@@ -80,7 +80,7 @@ bool ChooseMap::Update(float _dt)
 }
 
 // Called before all Updates
-bool ChooseMap::PostUpdate()
+bool ChooseMap::PostUpdate(float dt)
 {
 	App->render->Blit(menu_background, 0, 0);
 

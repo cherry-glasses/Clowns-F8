@@ -43,9 +43,9 @@ bool ModuleSceneManager::Update(float dt)
 	return current_scene->Update(dt);
 }
 
-bool ModuleSceneManager::PostUpdate()
+bool ModuleSceneManager::PostUpdate(float _dt)
 {
-	return current_scene->PostUpdate();
+	return current_scene->PostUpdate(_dt);
 }
 
 bool ModuleSceneManager::CleanUp()

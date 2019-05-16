@@ -33,7 +33,7 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	gui_manager = new ModuleGUIManager();
 	pathfinding = new ModulePathfinding();
 	transition_manager = new ModuleTransitionManager();
-	particle_system = new ModuleParticleSystem();
+//	particle_system = new ModuleParticleSystem();
 	
 
 	// Ordered for awake / Start / Update
@@ -49,7 +49,7 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	AddModule(entity_manager);
 	AddModule(gui_manager);
 	AddModule(transition_manager);
-	AddModule(particle_system);
+//	AddModule(particle_system);
 
 	// render last to swap buffer
 	AddModule(render);
@@ -284,7 +284,7 @@ bool Application::PostUpdate()
 			continue;
 		}
 
-		ret = (*item)->PostUpdate();
+		ret = (*item)->PostUpdate(dt);
 	}
 
 	return ret;

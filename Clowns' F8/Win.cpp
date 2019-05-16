@@ -58,7 +58,7 @@ bool Win::Update(float _dt)
 }
 
 // Called before all Updates
-bool Win::PostUpdate()
+bool Win::PostUpdate(float dt)
 {
 	App->render->Blit(win_background, 0, 0);
 

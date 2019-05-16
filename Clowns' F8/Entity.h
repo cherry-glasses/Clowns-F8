@@ -89,7 +89,7 @@ public:
 	// Called each loop iteration
 	virtual bool PreUpdate() {return true;}
 	virtual bool Update(float _dt) {return true;}
-	virtual bool PostUpdate() { return true; }
+	virtual bool PostUpdate(float _dt) { return true; }
 	
 	//Move and Attack
 	virtual void SearchWalk() {}

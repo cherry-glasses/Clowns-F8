@@ -58,7 +58,7 @@ bool Lose::Update(float _dt)
 }
 
 // Called before all Updates
-bool Lose::PostUpdate()
+bool Lose::PostUpdate(float dt)
 {
 	App->render->Blit(lose_background, 0, 0);
 

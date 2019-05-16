@@ -70,7 +70,7 @@ bool ModuleRender::Update(float _dt)
 	return true;
 }
 
-bool ModuleRender::PostUpdate()
+bool ModuleRender::PostUpdate(float _dt)
 {
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.b, background.a);
 	SDL_RenderPresent(renderer);

@@ -136,7 +136,7 @@ bool ModuleEntityManager::Update(float _dt)
 }
 
 
-bool ModuleEntityManager::PostUpdate()
+bool ModuleEntityManager::PostUpdate(float _dt)
 {
 	if (!paused) {
 		if (entities.size() > 1)
@@ -157,7 +157,7 @@ bool ModuleEntityManager::PostUpdate()
 			else if ((*entity)->current_stats.Mana < 0) {
 				(*entity)->current_stats.Mana = 0;
 			}
-			(*entity)->PostUpdate();
+			(*entity)->PostUpdate(_dt);
 
 		}
 

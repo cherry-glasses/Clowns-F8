@@ -18,7 +18,7 @@ public:
 	bool PreUpdate();
 
 	// Called before all Updates
-	bool PostUpdate();
+	bool PostUpdate(float dt);
 
 	// Load and Save
 	virtual bool Load(pugi::xml_node&);

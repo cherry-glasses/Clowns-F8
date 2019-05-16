@@ -19,7 +19,7 @@ public:
 	// Called before the first frame
 	virtual bool Start();
 	// Called each loop iteration
-	virtual bool PostUpdate();
+	virtual bool PostUpdate(float _dt);
 	// Called before quitting
 	virtual bool CleanUp();
 

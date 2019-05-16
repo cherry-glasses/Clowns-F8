@@ -10,7 +10,7 @@
 Burgdog::Burgdog(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Enemy(_type, _config)
 {
 	CurrentMovement(IDLE_LEFT_FRONT);
-	current = current_animation->GetCurrentFrame();
+	current = current_animation->GetCurrentFrame(1);
 	
 	int i = 0;
 	pugi::xml_node _node = _config.child("position");

@@ -141,7 +141,7 @@ bool Character::Update(float _dt) {
 	return true;
 }
 
-bool Character::PostUpdate() {
+bool Character::PostUpdate(float _dt) {
 
 	if (current_turn == END_TURN)
 	{
@@ -166,7 +166,7 @@ bool Character::PostUpdate() {
 			}
 
 		}
-		App->render->Blit(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second, &current_animation->GetCurrentFrame(), 1.0f, flipX);
+		App->render->Blit(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second, &current_animation->GetCurrentFrame(_dt), 1.0f, flipX);
 		
 	}
 

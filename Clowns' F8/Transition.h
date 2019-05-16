@@ -31,7 +31,7 @@ public:
 	Transition(float transition_time);
 	~Transition();
 
-	void PostUpdate();
+	void PostUpdate(float dt);
 
 
 	virtual void Entering();
