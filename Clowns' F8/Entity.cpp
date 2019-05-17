@@ -72,7 +72,7 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 
 	exp = _config.child("exp").attribute("value").as_int();
 
-	pugi::xml_node _node = _config.child("levelup").child("nextlevel");
+	pugi::xml_node _node = _config.parent().child("levelup").child("nextlevel");
 	for (; _node; _node = _node.next_sibling("nextlevel")) {
 		levels.push_back(_node.attribute("value").as_int());
 	}

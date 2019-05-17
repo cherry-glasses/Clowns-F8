@@ -122,6 +122,10 @@ protected:
 	GUILabel* resume_label = nullptr;
 	GUILabel* main_menu_label = nullptr;
 
+	bool character_ability1up = false;
+	bool character_ability2up = false;
+	bool character_ability3up = false;
+
 };
 
 #endif //!__Battle_H_
