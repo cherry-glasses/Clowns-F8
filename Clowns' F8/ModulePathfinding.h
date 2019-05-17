@@ -35,6 +35,7 @@ public:
 	// Utility: return true if pos is inside the map boundaries
 	bool CheckBoundaries(const std::pair<int, int>& pos) const;
 
+
 	// Utility: returns true is the tile is walkable
 	bool IsWalkable(const std::pair<int, int>& pos) const;
 

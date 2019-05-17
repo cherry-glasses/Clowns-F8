@@ -114,12 +114,12 @@ public:
 private:
 
 	ModuleList			modules;
-	float				dt = .0f;
+	float				dt;
 	int					argc;
 	char**				args;
 	std::string			title;
 	std::string			organization;
-	uint32				frame_rate;
+	float				frame_rate;
 	std::string			load_game;
 	std::string			save_game;
 	mutable bool		want_to_save = false;

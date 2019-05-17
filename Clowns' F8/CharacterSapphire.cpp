@@ -35,73 +35,6 @@ void CharacterSapphire::SearchWalk() {
 		}
 	}
 
-	/*std::pair<int, int> tmp;
-	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	inrange_mov_list.push_back(tmp);
-
-	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	for (int i = 1; i <= current_stats.PMove; i++)
-	{
-		tmp.first += 1;
-		inrange_mov_list.push_back(tmp);
-	}
-	
-	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	for (int i = 1; i <= current_stats.PMove; i++)
-	{
-		tmp.first += 1;
-		tmp.second += 1;
-		inrange_mov_list.push_back(tmp);
-	}
-	
-	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	for (int i = 1; i <= current_stats.PMove; i++)
-	{
-		tmp.second += 1;
-		inrange_mov_list.push_back(tmp);
-	}
-
-	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	for (int i = 1; i <= current_stats.PMove; i++)
-	{
-		tmp.first -= 1;
-		tmp.second += 1;
-		inrange_mov_list.push_back(tmp);
-	}
-	
-	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	for (int i = 1; i <= current_stats.PMove; i++) 
-	{
-		tmp.first -= 1;
-		inrange_mov_list.push_back(tmp);
-	}
-	
-	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	for (int i = 1; i <= current_stats.PMove; i++)
-	{
-		tmp.first -= 1;
-		tmp.second -= 1;
-		inrange_mov_list.push_back(tmp);
-	}
-	
-	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	for (int i = 1; i <= current_stats.PMove; i++)
-	{
-		tmp.second -= 1;
-		inrange_mov_list.push_back(tmp);
-	}
-	
-	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	for (int i = 1; i <= current_stats.PMove; i++)
-	{
-		tmp.first += 1;
-		tmp.second -= 1;
-		inrange_mov_list.push_back(tmp);
-	}
-	
-	tmp.first = NULL;
-	tmp.second = NULL;*/
-
 	for (int i = 0; i < tiles_range_attk; i++) {
 		inrange_mov_list.push_back({ range[i].first, range[i].second });
 	}
@@ -443,7 +376,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_2_LEFT_FRONT;
 		current_animation = &ability_2_left_front;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -451,7 +384,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_2_RIGHT_FRONT;
 		current_animation = &ability_2_right_front;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -459,7 +392,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_2_LEFT_BACK;
 		current_animation = &ability_2_left_back;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -467,7 +400,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_2_RIGHT_BACK;
 		current_animation = &ability_2_right_back;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -475,7 +408,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_2_LEFT;
 		current_animation = &ability_2_left;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -483,7 +416,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_2_RIGHT;
 		current_animation = &ability_2_right;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -491,7 +424,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_2_FRONT;
 		current_animation = &ability_2_front;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -499,7 +432,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_2_BACK;
 		current_animation = &ability_2_back;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -507,7 +440,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_3_LEFT_FRONT;
 		current_animation = &ability_3_left_front;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -515,7 +448,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_3_RIGHT_FRONT;
 		current_animation = &ability_3_right_front;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -523,7 +456,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_3_LEFT_BACK;
 		current_animation = &ability_3_left_back;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -531,7 +464,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_3_RIGHT_BACK;
 		current_animation = &ability_3_right_back;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -539,7 +472,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_3_LEFT;
 		current_animation = &ability_3_left;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -547,7 +480,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_3_RIGHT;
 		current_animation = &ability_3_right;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -555,7 +488,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_3_FRONT;
 		current_animation = &ability_3_front;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -563,7 +496,7 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_3_BACK;
 		current_animation = &ability_3_back;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE, false);
 			current_turn = END_TURN;
 		}
 		break;

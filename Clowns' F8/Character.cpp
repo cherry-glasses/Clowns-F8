@@ -213,7 +213,8 @@ void Character::SelectWalk() {
 	InputSelectMove();
 	
 	if (App->input->Accept() 
-		&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)) != inrange_mov_list.end()) {
+		&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)) != inrange_mov_list.end()
+		&& App->pathfinding->IsWalkable({ App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second) })) {
 		current_turn = Entity::MOVE;
 		comeback_position = { position.first, position.second };
 		comeback_movement = current_movement;
@@ -421,6 +422,7 @@ void Character::SelectAbility_1() {
 	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 	{
 		possible_map.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
+
 		if (i != Cap && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 		{
 			if (App->pathfinding->IsAttackable({ (*possible_mov).first , (*possible_mov).second }, type) 
@@ -435,7 +437,9 @@ void Character::SelectAbility_1() {
 			}
 		}
 
-		if (type == ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE) {
+		switch (type)
+		{
+		case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
 			if ((i == Cap + 1) && ((Cap + 1) % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 			{
 				App->render->Blit(debug_texture, possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second, &debug_green);
@@ -444,16 +448,16 @@ void Character::SelectAbility_1() {
 			{
 				App->render->Blit(debug_texture, possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second, &debug_green);
 			}
-			else if ((i == Cap + mod)  && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
+			else if ((i == Cap + mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 			{
 				App->render->Blit(debug_texture, possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second, &debug_green);
 			}
-			else if ((i == Cap - mod ) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
+			else if ((i == Cap - mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 			{
 				App->render->Blit(debug_texture, possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second, &debug_green);
 			}
-		}
-		if (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS) {
+			break;
+		case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
 			if (i == Cap) {
 				if (Cap == mod || Cap - 2 == mod) {
 					App->render->Blit(debug_texture, possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second, &debug_green);
@@ -463,15 +467,20 @@ void Character::SelectAbility_1() {
 					App->render->Blit(debug_texture, possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second, &debug_green);
 					App->render->Blit(debug_texture, possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second, &debug_green);
 				}
-			} 
+			}
+			break;
+		default:
+			break;
 		}
 		++i;
 	}
 
 	App->render->Blit(debug_texture, possible_map.at(Cap).first, possible_map.at(Cap).second, &debug_green);
 	
+	// Input Select Tiled
 	InputSelectAttack();
 
+	// Input Accept and Decline
 	if (App->input->Accept() 
 		&& (App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second), type)
 		|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second))
@@ -479,9 +488,11 @@ void Character::SelectAbility_1() {
 	{
 		current_turn = ABILITY_1;
 
-		if (type == ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE) {
-			int i = 0;
-			int mod = sqrt(possible_mov_list.size());
+		i = 0;
+		mod = sqrt(possible_mov_list.size());
+		switch (type)
+		{
+		case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
 			for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 			{
 				if ((i == Cap + 1) && ((Cap + 1) % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
@@ -502,10 +513,8 @@ void Character::SelectAbility_1() {
 				}
 				++i;
 			}
-		}
-		else if (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS) {
-			int i = 0;
-			int mod = sqrt(possible_mov_list.size());
+			break;
+		case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
 			for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 			{
 				if (i == Cap) {
@@ -518,7 +527,11 @@ void Character::SelectAbility_1() {
 						objective_position.push_back({ possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second });
 					}
 				}
+				++i;
 			}
+			break;
+		default:
+			break;
 		}
 
 		objective_position.push_back({ possible_map.at(Cap).first, possible_map.at(Cap).second });
@@ -631,50 +644,21 @@ void Character::SelectAbility_2() {
 			}
 		}
 
-		if (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS) {
-			if (i == Cap) {
-				if (Cap == mod || Cap - 2 == mod) {
-					App->render->Blit(debug_texture, possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second, &debug_green);
-					App->render->Blit(debug_texture, possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second, &debug_green);
-				}
-				else if (Cap == (mod / 2) || Cap + 1 == possible_mov_list.size() - (mod / 2)) {
-					App->render->Blit(debug_texture, possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second, &debug_green);
-					App->render->Blit(debug_texture, possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second, &debug_green);
-				}
-			}
-		}
 		++i;
 	}
 
 	App->render->Blit(debug_texture, possible_map.at(Cap).first, possible_map.at(Cap).second, &debug_green);
 
+	// Input Select Tiled
 	InputSelectAttack();
 
+	// Input Accept and Decline
 	if (App->input->Accept()
 		&& (App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second), type)
 			|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second))
 				&& App->pathfinding->IsTrapped(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)))))
 	{
 		current_turn = ABILITY_2;
-
-		
-		if (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS) {
-			int i = 0;
-			int mod = sqrt(possible_mov_list.size());
-			for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-			{
-				if (i == Cap) {
-					if (Cap == mod || Cap - 2 == mod) {
-						objective_position.push_back({ possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second });
-						objective_position.push_back({ possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second });
-					}
-					else if (Cap == (mod / 2) || Cap + 1 == possible_mov_list.size() - (mod / 2)) {
-						objective_position.push_back({ possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second });
-						objective_position.push_back({ possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second });
-					}
-				}
-			}
-		}
 
 		objective_position.push_back({ possible_map.at(Cap).first, possible_map.at(Cap).second });
 	}
@@ -771,7 +755,11 @@ void Character::SelectAbility_3() {
 	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 	{
 		possible_map.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
-		if (i != Cap && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
+
+		if (type == ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end()) {
+			App->render->Blit(debug_texture, possible_map.at(i).first, possible_map.at(i).second, &debug_green);
+		}
+		else if (i != Cap && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 		{
 			if (App->pathfinding->IsAttackable({ (*possible_mov).first , (*possible_mov).second }, type)
 				|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second })
@@ -785,25 +773,9 @@ void Character::SelectAbility_3() {
 			}
 		}
 
-		if (type == ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE) {
-			if ((i == Cap + 1) && ((Cap + 1) % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-			{
-				App->render->Blit(debug_texture, possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second, &debug_green);
-			}
-			else if ((i == Cap - 1) && (Cap % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-			{
-				App->render->Blit(debug_texture, possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second, &debug_green);
-			}
-			else if ((i == Cap + mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-			{
-				App->render->Blit(debug_texture, possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second, &debug_green);
-			}
-			else if ((i == Cap - mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-			{
-				App->render->Blit(debug_texture, possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second, &debug_green);
-			}
-		}
-		if (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS) {
+		switch (type)
+		{
+		case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
 			if (i == Cap) {
 				if (Cap == mod || Cap - 2 == mod) {
 					App->render->Blit(debug_texture, possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second, &debug_green);
@@ -814,7 +786,11 @@ void Character::SelectAbility_3() {
 					App->render->Blit(debug_texture, possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second, &debug_green);
 				}
 			}
+			break;
+		default:
+			break;
 		}
+
 		++i;
 	}
 
@@ -827,35 +803,20 @@ void Character::SelectAbility_3() {
 			|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second))
 				&& App->pathfinding->IsTrapped(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)))))
 	{
-		current_turn = ABILITY_1;
+		current_turn = ABILITY_3;
 
-		if (type == ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE) {
-			int i = 0;
-			int mod = sqrt(possible_mov_list.size());
+		i = 0;
+		mod = sqrt(possible_mov_list.size());
+		switch (type)
+		{
+		case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
 			for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 			{
-				if ((i == Cap + 1) && ((Cap + 1) % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-				{
-					objective_position.push_back({ possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second });
-				}
-				else if ((i == Cap - 1) && (Cap % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-				{
-					objective_position.push_back({ possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second });
-				}
-				else if ((i == Cap + mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-				{
-					objective_position.push_back({ possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second });
-				}
-				else if ((i == Cap - mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-				{
-					objective_position.push_back({ possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second });
-				}
+				objective_position.push_back({ possible_map.at(i).first, possible_map.at(i).second });
 				++i;
 			}
-		}
-		else if (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS) {
-			int i = 0;
-			int mod = sqrt(possible_mov_list.size());
+			break;
+		case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
 			for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 			{
 				if (i == Cap) {
@@ -868,7 +829,11 @@ void Character::SelectAbility_3() {
 						objective_position.push_back({ possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second });
 					}
 				}
+				++i;
 			}
+			break;
+		default:
+			break;
 		}
 
 		objective_position.push_back({ possible_map.at(Cap).first, possible_map.at(Cap).second });
