@@ -426,7 +426,7 @@ void Character::SelectAbility_1() {
 		{
 			if (App->pathfinding->IsAttackable({ (*possible_mov).first , (*possible_mov).second }, type) 
 				|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second })
-					&& App->pathfinding->IsTrapped({ (*possible_mov).first , (*possible_mov).second })))
+					&& App->pathfinding->CanTrap({ (*possible_mov).first , (*possible_mov).second })))
 			{
 				App->render->Blit(debug_texture, possible_map.at(i).first, possible_map.at(i).second, &debug_blue);
 			}
@@ -483,7 +483,8 @@ void Character::SelectAbility_1() {
 	if (App->input->Accept() 
 		&& (App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second), type)
 		|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second))
-			&& App->pathfinding->IsTrapped(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)))))
+			&& App->pathfinding->CanTrap(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)))
+			|| (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS)))
 	{
 		current_turn = ABILITY_1;
 
@@ -633,7 +634,7 @@ void Character::SelectAbility_2() {
 		{
 			if (App->pathfinding->IsAttackable({ (*possible_mov).first , (*possible_mov).second }, type)
 				|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second })
-					&& App->pathfinding->IsTrapped({ (*possible_mov).first , (*possible_mov).second })))
+					&& App->pathfinding->CanTrap({ (*possible_mov).first , (*possible_mov).second })))
 			{
 				App->render->Blit(debug_texture, possible_map.at(i).first, possible_map.at(i).second, &debug_blue);
 			}
@@ -654,8 +655,7 @@ void Character::SelectAbility_2() {
 	// Input Accept and Decline
 	if (App->input->Accept()
 		&& (App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second), type)
-			|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second))
-				&& App->pathfinding->IsTrapped(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)))))
+			|| (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS)))
 	{
 		current_turn = ABILITY_2;
 
@@ -755,14 +755,11 @@ void Character::SelectAbility_3() {
 	{
 		possible_map.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
 
-		if (type == ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end()) {
-			App->render->Blit(debug_texture, possible_map.at(i).first, possible_map.at(i).second, &debug_green);
-		}
-		else if (i != Cap && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
+		if (i != Cap && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 		{
 			if (App->pathfinding->IsAttackable({ (*possible_mov).first , (*possible_mov).second }, type)
 				|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second })
-					&& App->pathfinding->IsTrapped({ (*possible_mov).first , (*possible_mov).second })))
+					&& App->pathfinding->CanTrap({ (*possible_mov).first , (*possible_mov).second })))
 			{
 				App->render->Blit(debug_texture, possible_map.at(i).first, possible_map.at(i).second, &debug_blue);
 			}
@@ -770,24 +767,6 @@ void Character::SelectAbility_3() {
 			{
 				App->render->Blit(debug_texture, possible_map.at(i).first, possible_map.at(i).second, &debug_red);
 			}
-		}
-
-		switch (type)
-		{
-		case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
-			if (i == Cap) {
-				if (Cap == mod || Cap - 2 == mod) {
-					App->render->Blit(debug_texture, possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second, &debug_green);
-					App->render->Blit(debug_texture, possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second, &debug_green);
-				}
-				else if (Cap == (mod / 2) || Cap + 1 == possible_mov_list.size() - (mod / 2)) {
-					App->render->Blit(debug_texture, possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second, &debug_green);
-					App->render->Blit(debug_texture, possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second, &debug_green);
-				}
-			}
-			break;
-		default:
-			break;
 		}
 
 		++i;
@@ -800,41 +779,9 @@ void Character::SelectAbility_3() {
 	if (App->input->Accept()
 		&& (App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second), type)
 			|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second))
-				&& App->pathfinding->IsTrapped(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)))))
+				&& App->pathfinding->CanTrap(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)))))
 	{
 		current_turn = ABILITY_3;
-
-		i = 0;
-		mod = sqrt(possible_mov_list.size());
-		switch (type)
-		{
-		case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
-			for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-			{
-				objective_position.push_back({ possible_map.at(i).first, possible_map.at(i).second });
-				++i;
-			}
-			break;
-		case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
-			for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-			{
-				if (i == Cap) {
-					if (Cap == mod || Cap - 2 == mod) {
-						objective_position.push_back({ possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second });
-						objective_position.push_back({ possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second });
-					}
-					else if (Cap == (mod / 2) || Cap + 1 == possible_mov_list.size() - (mod / 2)) {
-						objective_position.push_back({ possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second });
-						objective_position.push_back({ possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second });
-					}
-				}
-				++i;
-			}
-			break;
-		default:
-			break;
-		}
-
 		objective_position.push_back({ possible_map.at(Cap).first, possible_map.at(Cap).second });
 	}
 	else if (App->input->Decline())

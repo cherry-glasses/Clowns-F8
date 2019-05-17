@@ -76,11 +76,6 @@ void CharacterStorm::SearchWalk() {
 }
 
 void CharacterStorm::SearchAttack() {
-	objective_position.clear();
-	inrange_mov_list.clear();
-	possible_mov_list.clear();
-	possible_map.clear();
-	Cap = -1;
 
 	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
 	int x = pos.first - current_stats.RangeAtk;
@@ -141,11 +136,6 @@ void CharacterStorm::SearchAttack() {
 }
 
 void CharacterStorm::SearchAbility_1() {
-	objective_position.clear();
-	inrange_mov_list.clear();
-	possible_mov_list.clear();
-	possible_map.clear();
-	Cap = -1;
 
 	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
 	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAbility_1, tiles_range_attk);

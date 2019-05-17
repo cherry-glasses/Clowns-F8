@@ -417,47 +417,65 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 	switch (_type)
 	{
 	case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
-		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
-		{
-			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+		if (_positions.empty()) { //Ability 3
+			for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
 			{
-				if ((*character)->GetPosition() == (*position))
+				(*character)->current_stats.Hp += _damage / 2;
+			}
+			for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
+			{
+				(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
+			}
+		}
+		else {
+			for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+			{
+				for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
 				{
-					(*character)->current_stats.Hp += _damage / 2;
+					if ((*character)->GetPosition() == (*position))
+					{
+						(*character)->current_stats.Hp += _damage / 2;
+					}
+				}
+			}
+			for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
+			{
+				for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+				{
+					if ((*enemie)->GetPosition() == (*position))
+					{
+						if (_special)
+						{
+							(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
+						}
+						else
+						{
+							(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
+						}
+
+					}
 				}
 			}
 		}
-		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
-		{
-			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
-			{
-				if ((*enemie)->GetPosition() == (*position))
-				{
-					if (_special) 
-					{
-						(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
-					}
-					else
-					{
-						(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
-					}
-					
-				}
-			}
-		}
+		
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
-		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
-		{
-			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+		if (_positions.empty()) { //Ability 2
+			for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
 			{
-				if ((*enemie)->GetPosition() == (*position))
+				if ((*character)->GetType() == ENTITY_TYPE::ENTITY_CHARACTER_IRIS) 
 				{
-					if (_special)
-					{
-						(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
-					}
-					else
+					(*character)->current_stats.AtkF += _damage;
+					(*character)->current_stats.DefF += _damage;
+				}
+			}
+		}
+		else {
+			for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
+			{
+				for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+				{
+					if ((*enemie)->GetPosition() == (*position))
 					{
 						(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
 					}

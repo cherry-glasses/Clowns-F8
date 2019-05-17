@@ -49,7 +49,7 @@ bool ModulePathfinding::IsWalkable(const std::pair<int, int>& _pos) const
 	uchar t = GetTileAt(_pos);
 	return t != INVALID_WALK_CODE && t > 0;
 }
-bool ModulePathfinding::IsTrapped(const std::pair<int, int>& _pos) const
+bool ModulePathfinding::CanTrap(const std::pair<int, int>& _pos) const
 {
 	for (std::list<Entity*>::iterator object = App->entity_manager->objects.begin(); object != App->entity_manager->objects.end(); ++object)
 	{
