@@ -525,11 +525,25 @@ void Battle::ActionsMenu()
 		}
 		else if (ability2_button->has_been_clicked)
 		{
-			ability2_button->Select(SELECTED);
+			DeleteAbilitiesMenu();
+			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+			{
+				if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+				{
+					(*character)->current_turn = Entity::TURN::SEARCH_ABILITY_2;
+				}
+			}
 		}
 		else if (ability3_button->has_been_clicked)
 		{
-			ability3_button->Select(SELECTED);
+			DeleteAbilitiesMenu();
+			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+			{
+				if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+				{
+					(*character)->current_turn = Entity::TURN::SEARCH_ABILITY_3;
+				}
+			}
 		}
 	}
 

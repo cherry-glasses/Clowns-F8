@@ -127,13 +127,11 @@ private:
 	bool				want_to_quit = false;
 
 	int					aux_seconds = 0;
-	Timer				startup_time;
 	Timer				frame_time;
 	Timer				last_sec_frame_time;
 	uint64				frame_count = 0;
 	uint32				last_sec_frame_count = 0;
 	uint32				prev_last_sec_frame_count = 0;
-	float				seconds_since_startup;
 
 
 	pugi::xml_document	config_file;

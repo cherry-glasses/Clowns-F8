@@ -40,6 +40,8 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	default_stats.AtkS = _config.child("stats").attribute("atk_s").as_int();
 	default_stats.RangeAtk = _config.child("stats").attribute("range_atk").as_int();
 	default_stats.RangeAbility_1 = _config.child("stats").attribute("range_ability_1").as_int();
+	default_stats.RangeAbility_2 = _config.child("stats").attribute("range_ability_2").as_int();
+	default_stats.RangeAbility_3 = _config.child("stats").attribute("range_ability_3").as_int();
 	default_stats.DefF = _config.child("stats").attribute("def_f").as_int();
 	default_stats.DefS = _config.child("stats").attribute("def_s").as_int();
 	default_stats.Crit = _config.child("stats").attribute("crit").as_int();

@@ -2,7 +2,7 @@
 
 <config>
   <app>
-    <framerate_cap rate="33"/>
+    <framerate_cap rate="60"/>
     <title>Clowns' F8</title>
     <organization>UPC - CITM - Cherry Glasses</organization>
     <save>save_game.xml</save>
@@ -363,7 +363,7 @@
         <nextlevel value="300"/>
         <nextlevel value="500"/>
       </levelup>
-      <stats hp="78" mana="85" p_move="6" atk_f="82" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
+      <stats hp="78" mana="85" p_move="3" atk_f="82" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
              range_ability_3="1" def_f="80" def_s="76" crit="20" agi="13" attack ="24" ability_1="25" ability_2="10" ability_3="40"/>
       <evolution hp="4" mana="10" atk_f="6" atk_s="5" def_f="6" def_s="6" crit="3"/>
       <attacks_names attack="Fist attack" ability_1="Rabbit kick" ability_2="Carrot time" ability_3="Rabbit rage" 
@@ -701,7 +701,7 @@
         <nextlevel value="300"/>
         <nextlevel value="500"/>
       </levelup>
-      <stats hp="75" mana="95" p_move="5" atk_f="75" atk_s="75" range_atk="4" range_ability_1="6" range_ability_2="4"
+      <stats hp="75" mana="95" p_move="4" atk_f="75" atk_s="75" range_atk="4" range_ability_1="6" range_ability_2="4"
              range_ability_3="3" def_f="75" def_s="75" crit="8"  agi="12" attack ="25" ability_1="25" ability_2="33" ability_3="38"/>
       <evolution hp="5" mana="10" atk_f="6" atk_s="6" def_f="6" def_s="6" crit="3"/>
       <attacks_names attack="Random throw" ability_1="Bear trap" ability_2="Cherry boom" ability_3="Flying birds"

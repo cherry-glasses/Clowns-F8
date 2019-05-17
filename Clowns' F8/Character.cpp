@@ -262,6 +262,7 @@ void Character::Walk()
 
 	// Ending walk and start idle animation
 	if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
+		EndTurn();
 		if (current_movement == WALK_LEFT_FRONT)
 		{
 			CurrentMovement(IDLE_LEFT_FRONT);
@@ -295,6 +296,7 @@ void Character::Walk()
 			CurrentMovement(IDLE_BACK);
 		}
 		current_turn = SELECT_ACTION;
+		
 	}
 
 }
@@ -334,6 +336,7 @@ void Character::SelectAttack() {
 	}
 	else if (App->input->Decline()) 
 	{
+		EndTurn();
 		current_turn = SELECT_ACTION;
 	}
 
@@ -371,8 +374,7 @@ void Character::Attack()
 
 	// Ending attack and start idle animation
 	if (current_animation->isDone()) {
-		current_animation->Reset();
-		critic = false;
+		EndTurn();
 		if (current_movement == ATTACK_LEFT_FRONT)
 		{
 			CurrentMovement(IDLE_LEFT_FRONT);
@@ -523,6 +525,7 @@ void Character::SelectAbility_1() {
 	}
 	else if (App->input->Decline())
 	{
+		EndTurn();
 		current_turn = SELECT_ACTION;
 	}
 }
@@ -565,8 +568,8 @@ void Character::Ability_1()
 
 	// Ending attack and start idle animation
 	if (current_animation->isDone()) {
-		current_animation->Reset();
 		current_stats.Mana -= 25;
+		EndTurn();
 		if (current_movement == ABILITY_1_LEFT_FRONT)
 		{
 			CurrentMovement(IDLE_LEFT_FRONT);
@@ -599,6 +602,7 @@ void Character::Ability_1()
 		{
 			CurrentMovement(IDLE_BACK);
 		}
+
 	}
 }
 
@@ -627,24 +631,6 @@ void Character::SelectAbility_2() {
 			}
 		}
 
-		if (type == ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE) {
-			if ((i == Cap + 1) && ((Cap + 1) % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-			{
-				App->render->Blit(debug_texture, possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second, &debug_green);
-			}
-			else if ((i == Cap - 1) && (Cap % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-			{
-				App->render->Blit(debug_texture, possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second, &debug_green);
-			}
-			else if ((i == Cap + mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-			{
-				App->render->Blit(debug_texture, possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second, &debug_green);
-			}
-			else if ((i == Cap - mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-			{
-				App->render->Blit(debug_texture, possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second, &debug_green);
-			}
-		}
 		if (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS) {
 			if (i == Cap) {
 				if (Cap == mod || Cap - 2 == mod) {
@@ -669,33 +655,10 @@ void Character::SelectAbility_2() {
 			|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second))
 				&& App->pathfinding->IsTrapped(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)))))
 	{
-		current_turn = ABILITY_1;
+		current_turn = ABILITY_2;
 
-		if (type == ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE) {
-			int i = 0;
-			int mod = sqrt(possible_mov_list.size());
-			for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-			{
-				if ((i == Cap + 1) && ((Cap + 1) % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-				{
-					objective_position.push_back({ possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second });
-				}
-				else if ((i == Cap - 1) && (Cap % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-				{
-					objective_position.push_back({ possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second });
-				}
-				else if ((i == Cap + mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-				{
-					objective_position.push_back({ possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second });
-				}
-				else if ((i == Cap - mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-				{
-					objective_position.push_back({ possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second });
-				}
-				++i;
-			}
-		}
-		else if (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS) {
+		
+		if (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS) {
 			int i = 0;
 			int mod = sqrt(possible_mov_list.size());
 			for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -717,6 +680,7 @@ void Character::SelectAbility_2() {
 	}
 	else if (App->input->Decline())
 	{
+		EndTurn();
 		current_turn = SELECT_ACTION;
 	}
 }
@@ -759,8 +723,8 @@ void Character::Ability_2()
 
 	// Ending attack and start idle animation
 	if (current_animation->isDone()) {
-		current_animation->Reset();
 		current_stats.Mana -= 50;
+		EndTurn();
 		if (current_movement == ABILITY_2_LEFT_FRONT)
 		{
 			CurrentMovement(IDLE_LEFT_FRONT);
@@ -911,6 +875,7 @@ void Character::SelectAbility_3() {
 	}
 	else if (App->input->Decline())
 	{
+		EndTurn();
 		current_turn = SELECT_ACTION;
 	}
 }
@@ -953,8 +918,8 @@ void Character::Ability_3()
 
 	// Ending attack and start idle animation
 	if (current_animation->isDone()) {
-		current_animation->Reset();
 		current_stats.Mana -= 100;
+		EndTurn();
 		if (current_movement == ABILITY_3_LEFT_FRONT)
 		{
 			CurrentMovement(IDLE_LEFT_FRONT);
@@ -1052,7 +1017,11 @@ void Character::ComeBack()
 {
 	position = comeback_position;
 	CurrentMovement(comeback_movement);
-	EndTurn();
+	possible_mov_list.clear();
+	inrange_mov_list.clear();
+	possible_map.clear();
+	objective_position.clear();
+	Cap = -1;
 	current_turn = SEARCH_MOVE;
 }
 
@@ -1119,4 +1088,6 @@ void Character::EndTurn() {
 	possible_map.clear();
 	objective_position.clear();
 	Cap = -1;
+	current_animation->Reset();
+	critic = false;
 }
