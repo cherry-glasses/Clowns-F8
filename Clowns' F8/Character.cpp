@@ -653,7 +653,7 @@ void Character::SelectAbility_2() {
 	// Input Accept and Decline
 	if (App->input->Accept()
 		&& (App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second), type)
-			|| (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS)))
+			|| (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS) || type == ENTITY_TYPE::ENTITY_CHARACTER_STORM))
 	{
 		current_turn = ABILITY_2;
 

@@ -16,8 +16,8 @@ public:
 	void SearchWalk();
 	void SearchAttack();
 	void SearchAbility_1();
-	void Hability_2() {}
-	void Hability_3() {}
+	void SearchAbility_2();
+	void SearchAbility_3();
 
 	void CurrentMovement(MOVEMENT _movement);
 

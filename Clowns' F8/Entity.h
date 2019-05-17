@@ -131,6 +131,7 @@ public:
 	Attacks_names attacks_names;
 	bool defend = false;
 	bool stunned = false;
+	bool invulnerable = false;
 	bool critic = false;
 	bool flipX = false;
 	int exp = 0;

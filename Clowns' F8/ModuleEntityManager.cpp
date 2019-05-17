@@ -90,6 +90,7 @@ bool ModuleEntityManager::PreUpdate()
 				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
 				(*entity)->current_stats.Mana += 10;
 				(*entity)->defend = false;
+				(*entity)->invulnerable = false;
 			}
 		}
 		if ((*entity)->stunned == true && (*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
@@ -484,23 +485,34 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 		}
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
-		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
-		{
-			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+		if (_positions.empty()) { //Ability 2
+			for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
 			{
-				if ((*enemie)->GetPosition() == (*position))
+				if ((*character)->GetType() == ENTITY_TYPE::ENTITY_CHARACTER_STORM)
 				{
-					if (_damage == 0) {
-						(*enemie)->stunned = true;
-					}
-					else {
-						if (_special)
-						{
-							(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
+					(*character)->invulnerable = true;
+				}
+			}
+		}
+		else { 
+			for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
+			{
+				for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+				{
+					if ((*enemie)->GetPosition() == (*position))
+					{
+						if (_damage == 0) { // Ability 1
+							(*enemie)->stunned = true;
 						}
-						else
-						{
-							(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
+						else { // Attack and Ability 3
+							if (_special)
+							{
+								(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
+							}
+							else
+							{
+								(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
+							}
 						}
 					}
 				}
@@ -538,32 +550,35 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 	case ENTITY_TYPE::ENTITY_ENEMY_PINKKING:
 		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
 		{
-			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			if (!(*character)->invulnerable) 
 			{
-				if ((*character)->GetPosition() == (*position))
+				for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
 				{
-					if ((*character)->defend) {
-						if (_special)
-						{
-							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
-						}
-						else
-						{
-							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
-						}
-						
-					}
-					else {
-						if (_special)
-						{
-							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
-						}
-						else
-						{
-							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
-						}
-					}
+					if ((*character)->GetPosition() == (*position))
+					{
+						if ((*character)->defend) {
+							if (_special)
+							{
+								(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
+							}
+							else
+							{
+								(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
+							}
 
+						}
+						else {
+							if (_special)
+							{
+								(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
+							}
+							else
+							{
+								(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
+							}
+						}
+
+					}
 				}
 			}
 		}
@@ -571,32 +586,35 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 	case ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN:
 		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
 		{
-			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			if (!(*character)->invulnerable) 
 			{
-				if ((*character)->GetPosition() == (*position))
+				for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
 				{
-					if ((*character)->defend) {
-						if (_special)
-						{
-							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
+					if ((*character)->GetPosition() == (*position))
+					{
+						if ((*character)->defend) {
+							if (_special)
+							{
+								(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
+							}
+							else
+							{
+								(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
+							}
+
 						}
-						else
-						{
-							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
+						else {
+							if (_special)
+							{
+								(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
+							}
+							else
+							{
+								(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
+							}
 						}
 
 					}
-					else {
-						if (_special)
-						{
-							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
-						}
-						else
-						{
-							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
-						}
-					}
-					
 				}
 			}
 		}
@@ -606,32 +624,35 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
 		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
 		{
-			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			if (!(*character)->invulnerable)
 			{
-				if ((*character)->GetPosition() == (*position))
+				for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
 				{
-					if ((*character)->defend) {
-						if (_special)
-						{
-							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
+					if ((*character)->GetPosition() == (*position))
+					{
+						if ((*character)->defend) {
+							if (_special)
+							{
+								(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
+							}
+							else
+							{
+								(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
+							}
+
 						}
-						else
-						{
-							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
+						else {
+							if (_special)
+							{
+								(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
+							}
+							else
+							{
+								(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
+							}
 						}
 
 					}
-					else {
-						if (_special)
-						{
-							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
-						}
-						else
-						{
-							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
-						}
-					}
-
 				}
 			}
 		}
@@ -639,32 +660,35 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 	case ENTITY_TYPE::ENTITY_ENEMY_POLARPATH:
 		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
 		{
-			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			if (!(*character)->invulnerable)
 			{
-				if ((*character)->GetPosition() == (*position))
+				for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
 				{
-					if ((*character)->defend) {
-						if (_special)
-						{
-							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
+					if ((*character)->GetPosition() == (*position))
+					{
+						if ((*character)->defend) {
+							if (_special)
+							{
+								(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
+							}
+							else
+							{
+								(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
+							}
+
 						}
-						else
-						{
-							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
+						else {
+							if (_special)
+							{
+								(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
+							}
+							else
+							{
+								(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
+							}
 						}
 
 					}
-					else {
-						if (_special)
-						{
-							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
-						}
-						else
-						{
-							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
-						}
-					}
-
 				}
 			}
 		}
@@ -672,32 +696,35 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 	case ENTITY_TYPE::ENTITY_ENEMY_POLARBEAR:
 		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
 		{
-			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			if (!(*character)->invulnerable)
 			{
-				if ((*character)->GetPosition() == (*position))
+				for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
 				{
-					if ((*character)->defend) {
-						if (_special)
-						{
-							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
+					if ((*character)->GetPosition() == (*position))
+					{
+						if ((*character)->defend) {
+							if (_special)
+							{
+								(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
+							}
+							else
+							{
+								(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
+							}
+
 						}
-						else
-						{
-							(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
+						else {
+							if (_special)
+							{
+								(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
+							}
+							else
+							{
+								(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
+							}
 						}
 
 					}
-					else {
-						if (_special)
-						{
-							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
-						}
-						else
-						{
-							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
-						}
-					}
-
 				}
 			}
 		}
