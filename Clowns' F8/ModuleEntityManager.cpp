@@ -427,7 +427,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
 			}
 		}
-		else {
+		else { // Attack, Ability 1 and Ability 2
 			for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
 			{
 				for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
@@ -470,7 +470,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				}
 			}
 		}
-		else {
+		else { //Attack, Ability 1 and Ability 3
 			for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
 			{
 				for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
@@ -508,14 +508,14 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 		}
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
-		if (_damage == 0) {
+		if (_damage == 0) { //Ability 1
 			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
 			{
 				Object *tmp = (Object*)CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_BEARTRAP);
 				(*tmp).SetPosition((*position).first, (*position).second);
 			}
 		}
-		else {
+		else { //Attack, Ability 2 and Ability 3
 			for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
 			{
 				for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
