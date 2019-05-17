@@ -25,6 +25,8 @@ public:
 	void InputSelectMove();
 	void InputSelectAttack();
 
+	int vampire_count = 0;
+
 };
 
 #endif // !__CharacterStorm_H__

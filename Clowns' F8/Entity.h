@@ -132,6 +132,7 @@ public:
 	bool defend = false;
 	bool stunned = false;
 	bool invulnerable = false;
+	bool vampire = false;
 	bool critic = false;
 	bool flipX = false;
 	int exp = 0;

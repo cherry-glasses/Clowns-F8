@@ -485,12 +485,25 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 		}
 		break;
 	case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
-		if (_positions.empty()) { //Ability 2
-			for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+		if (_positions.empty()) {
+			if (_damage == 0) // Ability 2
 			{
-				if ((*character)->GetType() == ENTITY_TYPE::ENTITY_CHARACTER_STORM)
+				for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
 				{
-					(*character)->invulnerable = true;
+					if ((*character)->GetType() == ENTITY_TYPE::ENTITY_CHARACTER_STORM)
+					{
+						(*character)->invulnerable = true;
+					}
+				}
+			}
+			else // Ability 3
+			{
+				for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+				{
+					if ((*character)->GetType() == ENTITY_TYPE::ENTITY_CHARACTER_STORM)
+					{
+						(*character)->vampire = true;
+					}
 				}
 			}
 		}
@@ -501,17 +514,19 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				{
 					if ((*enemie)->GetPosition() == (*position))
 					{
-						if (_damage == 0) { // Ability 1
+						if (_damage == 0) // Ability 1
+						{ 
 							(*enemie)->stunned = true;
 						}
-						else { // Attack and Ability 3
-							if (_special)
+						else { // Attack and Ability 3 Suck
+							(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
+
+							for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
 							{
-								(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
-							}
-							else
-							{
-								(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
+								if ((*character)->GetType() == ENTITY_TYPE::ENTITY_CHARACTER_STORM && (*character)->vampire)
+								{
+									(*character)->current_stats.Hp += (_damage - (*enemie)->current_stats.DefF) / 2;
+								}
 							}
 						}
 					}

@@ -701,7 +701,7 @@
         <nextlevel value="300"/>
         <nextlevel value="500"/>
       </levelup>
-      <stats hp="75" mana="100" p_move="4" atk_f="75" atk_s="75" range_atk="4" range_ability_1="6" range_ability_2="4"
+      <stats hp="75" mana="95" p_move="4" atk_f="75" atk_s="75" range_atk="4" range_ability_1="6" range_ability_2="4"
              range_ability_3="3" def_f="75" def_s="75" crit="8"  agi="12" attack ="25" ability_1="25" ability_2="33" ability_3="38"/>
       <evolution hp="5" mana="10" atk_f="6" atk_s="6" def_f="6" def_s="6" crit="3"/>
       <attacks_names attack="Random throw" ability_1="Bear trap" ability_2="Cherry boom" ability_3="Flying birds"

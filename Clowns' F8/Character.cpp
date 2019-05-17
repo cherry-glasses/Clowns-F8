@@ -218,6 +218,8 @@ void Character::SelectWalk() {
 		comeback_position = { position.first, position.second };
 		comeback_movement = current_movement;
 	}
+
+	possible_map.clear();
 }
 
 void Character::Walk()
@@ -340,6 +342,7 @@ void Character::SelectAttack() {
 		current_turn = SELECT_ACTION;
 	}
 
+	possible_map.clear();
 }
 
 void Character::Attack()
@@ -541,6 +544,8 @@ void Character::SelectAbility_1() {
 		EndTurn();
 		current_turn = SELECT_ACTION;
 	}
+
+	possible_map.clear();
 }
 
 void Character::Ability_1()
@@ -664,6 +669,8 @@ void Character::SelectAbility_2() {
 		EndTurn();
 		current_turn = SELECT_ACTION;
 	}
+
+	possible_map.clear();
 }
 
 void Character::Ability_2()
@@ -802,6 +809,8 @@ void Character::SelectAbility_3() {
 		EndTurn();
 		current_turn = SELECT_ACTION;
 	}
+
+	possible_map.clear();
 }
 
 void Character::Ability_3()
