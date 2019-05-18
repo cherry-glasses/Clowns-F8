@@ -219,6 +219,9 @@
     <ClInclude Include="..\Clowns%27 F8\Emitter.h">
       <Filter>Particle</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\CherryBlackGlasses.h">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -382,6 +385,9 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Emitter.cpp">
       <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\CherryBlackGlasses.cpp">
+      <Filter>Entities\EntitiesEnemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

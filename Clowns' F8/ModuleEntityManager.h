@@ -41,6 +41,8 @@ public:
 
 	std::pair<int, int> CharactersPrioritzationAttack(std::pair<int, int>* AttackRange, int AttackRangeint);
 
+	std::pair<int, int> AiHeals(std::pair<int, int>* AttackRange, int AttackRangeint);
+
 	// Myposition = position, Radius = zone of effect, size: returns the size of the array.
 	std::pair<int, int>* RangeOfAttack(std::pair<int, int> myposition, int radius, int& size);
 	inline bool InRange(std::pair<int, int> myposition, std::pair<int, int> tiledposition, int radius) { return (sqrt(((tiledposition.first - myposition.first)*(tiledposition.first - myposition.first)) + ((tiledposition.second - myposition.second)*(tiledposition.second - myposition.second))) <= (sqrt((radius*radius)+1))); };

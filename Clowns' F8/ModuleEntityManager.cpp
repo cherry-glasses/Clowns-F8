@@ -5,6 +5,7 @@
 #include "Character.h"
 #include "Object.h"
 #include "CharacterSapphire.h"
+#include "CherryBlackGlasses.h"
 #include "CharacterIris.h"
 #include "CharacterStorm.h"
 #include "CharacterGeorgeB.h"
@@ -264,6 +265,52 @@ std::pair<int, int> ModuleEntityManager::CharactersPrioritzationAttack(std::pair
 	return (*Charrr).GetPosition();
 }
 
+std::pair<int, int> ModuleEntityManager::AiHeals(std::pair<int, int>* AttackRange, int AttackRangeint)
+{
+	Entity* Charrr = nullptr;
+
+	std::pair<int, int> position;
+	for (int i = 0; i < AttackRangeint; i++) {
+		std::pair<int, int> pos = App->map->MapToWorld(AttackRange[i].first, AttackRange[i].second);
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character) {
+			if (pos == (*character)->GetPosition()) {
+				if (Charrr == nullptr) {
+					Charrr = (*character);
+				}
+				else {
+					if ((*Charrr).current_stats.DefF >= (*character)->current_stats.DefF) {
+						Charrr = (*character);
+					}
+				}
+			}
+
+
+		}
+
+	}
+	position = Charrr->GetPosition();
+
+	for (int i = 0; i < AttackRangeint; i++) {
+		std::pair<int, int> pos = App->map->MapToWorld(AttackRange[i].first, AttackRange[i].second);
+		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie) {
+			if (pos == (*enemie)->GetPosition()) {
+
+				if ((*enemie)->current_stats.Hp <= ((*enemie)->default_stats.Hp / 3)) {
+					position = (*enemie)->GetPosition();
+					break;
+				}
+
+			}
+
+
+		}
+
+
+	}
+
+	return position;
+}
+
 Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 {
 	Entity* tmp = nullptr;
@@ -333,6 +380,13 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		entities.push_back(tmp);
 		enemies.push_back(tmp);
 		break;
+
+	case ENTITY_TYPE::ENTITY_ENEMY_CHERRYBLACKGLASSES:
+		tmp = new CherryBlackGlasses(_type, entity_configs.child("pinkking")); //hay que cambiar esto
+		entities.push_back(tmp);
+		enemies.push_back(tmp);
+		break;
+
 	case ENTITY_TYPE::ENTITY_OBJECT_TREE1:
 		for (int i = 0; i < 5; i++)
 		{
@@ -635,6 +689,40 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 		}
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_HOTDOG:
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+		{
+			if (!(*character)->invulnerable)
+			{
+				for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+				{
+					if ((*character)->GetPosition() == (*position))
+					{
+						if ((*character)->defend) {
+							if (_special)
+							{
+								(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
+							}
+							else
+							{
+								(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
+							}
+
+						}
+						else {
+							if (_special)
+							{
+								(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
+							}
+							else
+							{
+								(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
+							}
+						}
+
+					}
+				}
+			}
+		}
 		break;
 	case ENTITY_TYPE::ENTITY_ENEMY_BURGDOG:
 		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
@@ -743,6 +831,40 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				}
 			}
 		}
+		break;
+	case ENTITY_TYPE::ENTITY_ENEMY_CHERRYBLACKGLASSES:
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				
+
+				if (_special)
+				{
+					(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
+				}
+				else
+				{
+					(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
+				}
+			}
+		}
+		for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
+		{
+			for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+			{
+				if ((*enemie)->GetPosition() == (*position))
+				{
+					if ((*enemie)->GetPosition() == (*position))
+					{
+						(*enemie)->current_stats.Hp += _damage / 2;
+					}
+
+				}
+			}
+		}
+		
+
 		break;
 	case ENTITY_TYPE::NO_TYPE:
 		break;
