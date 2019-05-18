@@ -62,7 +62,7 @@ bool ModuleParticleSystem::Update(float dt)
 	return true;
 }
 
-bool ModuleParticleSystem::PostUpdate()
+bool ModuleParticleSystem::PostUpdate(float _dt)
 {
 	bool ret = true;
 
@@ -85,8 +85,8 @@ bool ModuleParticleSystem::PostUpdate()
 	{
 		std::list<Emitter*>::iterator it;
 
-		/*for (it = emittersList.begin(); it != emittersList.end() && ret; ++it)
-			ret = (*it)->Draw(App->dt);*/
+		for (it = emittersList.begin(); it != emittersList.end() && ret; ++it)
+			ret = (*it)->Draw(_dt);
 	}
 
 	return ret;

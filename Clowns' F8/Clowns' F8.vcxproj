@@ -139,6 +139,7 @@
     <ClInclude Include="..\Clowns%27 F8\Battle1.h" />
     <ClInclude Include="..\Clowns%27 F8\Battle2.h" />
     <ClInclude Include="..\Clowns%27 F8\Battle3.h" />
+    <ClInclude Include="..\Clowns%27 F8\Battle4.h" />
     <ClInclude Include="..\Clowns%27 F8\Boneyman.h" />
     <ClInclude Include="..\Clowns%27 F8\Burgdog.h" />
     <ClInclude Include="..\Clowns%27 F8\CharacterGeorgeB.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="..\Clowns%27 F8\Battle1.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Battle2.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Battle3.cpp" />
+    <ClCompile Include="..\Clowns%27 F8\Battle4.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Boneyman.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Burgdog.cpp" />
     <ClCompile Include="..\Clowns%27 F8\Character.cpp" />

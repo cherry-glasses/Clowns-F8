@@ -222,6 +222,9 @@
     <ClInclude Include="..\Clowns%27 F8\CherryBlackGlasses.h">
       <Filter>Entities\EntitiesEnemies</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Battle4.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -391,6 +394,9 @@
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Particle.cpp">
       <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Battle4.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

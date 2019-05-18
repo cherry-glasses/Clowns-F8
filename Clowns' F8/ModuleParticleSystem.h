@@ -81,7 +81,7 @@ public:
 	bool Update(float dt);
 
 	// Called after all Updates
-	bool PostUpdate();
+	bool PostUpdate(float _dt);
 
 	// Called before quitting
 	bool CleanUp();
