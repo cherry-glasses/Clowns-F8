@@ -389,5 +389,8 @@
     <ClCompile Include="..\Clowns%27 F8\CherryBlackGlasses.cpp">
       <Filter>Entities\EntitiesEnemies</Filter>
     </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Particle.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

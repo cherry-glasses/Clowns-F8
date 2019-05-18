@@ -18,7 +18,7 @@ private:
 
 	struct Vortex
 	{
-		std::pair<int, int> pos = { 0.0f, 0.0f };
+		std::pair<float, float> pos = { 0.0f, 0.0f };
 		float speed = 0.0f;
 		float scale = 0.0f;
 	} vortex;
