@@ -35,6 +35,7 @@ public:
 
 	// Blit
 	bool Blit(SDL_Texture* _texture, int _x, int _y, const SDL_Rect* _section = NULL, float _speed = 1.0f, bool _flipX = false, double _angle = 0, int _pivot_x = INT_MAX, int _pivot_y = INT_MAX) const;
+	bool BlitParticle(SDL_Texture* texture, int x, int y, const SDL_Rect* section, const SDL_Rect* rectSize, SDL_Color color, SDL_BlendMode blendMode, float speed, double angle, int pivot_x, int pivot_y) const;
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true) const;
 
 public:
