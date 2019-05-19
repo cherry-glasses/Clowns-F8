@@ -1537,7 +1537,7 @@
       </animations>
     </polarpath>
     <cherryblackglasses>
-	 <texture value="Assets/Sprites/Enemies/Pinkking_Spritesheet.png"/>
+	    <texture value="Assets/Sprites/Enemies/Pinkking_Spritesheet.png"/>
       <sfx>
         <attack_sfx value="Sapphire_Flower_Attack.wav"/>
         <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
@@ -1547,7 +1547,7 @@
         <defend_sfx value="Sapphire_Defend.wav"/>
         <dead_sfx value="Sapphire_Dead.wav"/>
       </sfx>
-      <position x="22" y="8"/>
+      <position x="18" y="4"/>
       <name value="Cherry Black Glasses"/>
       <exp value="400"/>
       <stats hp="150" mana="120" p_move="6" atk_f="95" atk_s="95" range_atk="7" def_f="95" def_s="95" crit="0.2" agi="5"/>
@@ -1734,31 +1734,49 @@
     <mountain_2>
       <texture value="Assets/Sprites/Objects/mountain_2.png"/>
       <size width="469" height="402"/>
-      <position x="4" y="0"/>
+      <position x="7" y="10"/>
     </mountain_2>
     <stone_2>
       <texture value="Assets/Sprites/Objects/stone_2.png"/>
       <size width="50" height="53"/>
-      <position x="1" y="6"/>
-      <position x="2" y="5"/>
-      <position x="2" y="6"/>
-      <position x="20" y="7"/>
-      <position x="21" y="6"/>
+      <position x="4" y="23"/>
+      <position x="5" y="23"/>
+      <position x="9" y="6"/>
+      <position x="10" y="14"/>
+      <position x="11" y="14"/>
+      <position x="11" y="18"/>
+      <position x="16" y="19"/>
+      <position x="17" y="4"/>
+      <position x="20" y="10"/>
+      <position x="21" y="10"/>
     </stone_2>
     <stone_3>
       <texture value="Assets/Sprites/Objects/stone_3.png"/>
       <size width="49" height="41"/>
-      <position x="1" y="6"/>
-      <position x="2" y="5"/>
-      <position x="2" y="6"/>
-      <position x="20" y="7"/>
-      <position x="21" y="6"/>
+      <position x="13" y="21"/>
+      <position x="13" y="22"/>
+      <position x="14" y="21"/>
+      <position x="14" y="22"/>
+      <position x="15" y="21"/>
+      <position x="15" y="22"/>
     </stone_3>
+    <stalagmite>
+      <texture value="Assets/Sprites/Objects/stalagmite.png"/>
+      <size width="83" height="215"/>
+      <position x="6" y="16"/>
+      <position x="9" y="22"/>
+      <position x="9" y="1"/>
+      <position x="9" y="3"/>
+      <position x="9" y="11"/>
+      <position x="18" y="17"/>
+      <position x="20" y="17"/>
+      <position x="20" y="19"/>
+      <position x="21" y="5"/>
+    </stalagmite>
     <bloodstream>
       <texture value="Assets/Sprites/Objects/bloodstream.png"/>
       <size width="294" height="70"/>
-      <position x="1" y="6"/>
-      <position x="2" y="5"/>
+      <position x="21" y="20"/>
     </bloodstream>
     <beartrap>
       <texture value="Assets/Sprites/Objects/bear_trap.png"/>

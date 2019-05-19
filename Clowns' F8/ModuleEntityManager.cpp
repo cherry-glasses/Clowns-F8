@@ -419,6 +419,30 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 			objects.push_back(tmp);
 		}
 		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_STONE2:
+		for (int i = 0; i < 10; i++)
+		{
+			tmp = new Object(_type, entity_configs.child("stone_2"), i);
+			entities.push_back(tmp);
+			objects.push_back(tmp);
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_STONE3:
+		for (int i = 0; i < 6; i++)
+		{
+			tmp = new Object(_type, entity_configs.child("stone_3"), i);
+			entities.push_back(tmp);
+			objects.push_back(tmp);
+		}
+		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_STALAGMITE:
+		for (int i = 0; i < 9; i++)
+		{
+			tmp = new Object(_type, entity_configs.child("stalagmite"), i);
+			entities.push_back(tmp);
+			objects.push_back(tmp);
+		}
+		break;
 	case ENTITY_TYPE::ENTITY_OBJECT_VOLCANO:
 		tmp = new Object(_type, entity_configs.child("volcano"), 0);
 		entities.push_back(tmp);
@@ -437,6 +461,20 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		tmp->position_margin.second = 0;
 		entities.push_back(tmp);
 		objects.push_back(tmp);
+		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_MOUNTAIN2:
+		tmp = new Object(_type, entity_configs.child("mountain_2"), 0);
+		tmp->position_margin.second = 0;
+		entities.push_back(tmp);
+		objects.push_back(tmp);
+		break;
+	case ENTITY_TYPE::ENTITY_OBJECT_BLOODSTREAM:
+		for (int i = 0; i < 2; i++)
+		{
+			tmp = new Object(_type, entity_configs.child("bloodstream"), i);
+			entities.push_back(tmp);
+			objects.push_back(tmp);
+		}
 		break;
 	case ENTITY_TYPE::ENTITY_OBJECT_BEARTRAP:
 		tmp = new Object(_type, entity_configs.child("beartrap"), 0);
