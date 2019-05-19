@@ -54,6 +54,7 @@ bool ChooseMap::Update(float _dt)
 
 	if (App->input->Right())
 	{
+		App->audio->PlayFx(1, 0);
 		if (map_selected < 4) ++map_selected;
 		else map_selected = 1;
 		App->gui_manager->DeleteAllGUIElements();
@@ -61,6 +62,7 @@ bool ChooseMap::Update(float _dt)
 	}
 	if (App->input->Left())
 	{
+		App->audio->PlayFx(1, 0);
 		if (map_selected > 1) --map_selected;
 		else map_selected = 4;
 		App->gui_manager->DeleteAllGUIElements();
