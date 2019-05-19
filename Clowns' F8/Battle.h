@@ -80,7 +80,6 @@ protected:
 	std::vector<int> mana_x;
 	std::vector<int> enemies_life_x;
 	std::vector<std::pair<int, int>> life_position;
-	std::vector<std::pair<int, int>> enemies_life_position;
 	std::vector<std::pair<int, int>> mana_position;
 	std::vector<std::pair<int, int>> port_position;
 	std::vector<std::pair<int, int>> portrait_position;

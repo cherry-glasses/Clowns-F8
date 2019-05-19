@@ -61,6 +61,7 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 
 	current_stats = default_stats;
 
+	//Names
 	attacks_names.Attack_name = _config.child("attacks_names").attribute("attack").as_string("Attack");
 	attacks_names.Ability_1_name = _config.child("attacks_names").attribute("ability_1").as_string("Ability 1");
 	attacks_names.Ability_2_name = _config.child("attacks_names").attribute("ability_2").as_string("Ability 2");
@@ -69,6 +70,14 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	attacks_names.Habilidad_1_nombre = _config.child("attacks_names").attribute("habilidad_1").as_string("Habilidad 1");
 	attacks_names.Habilidad_2_nombre = _config.child("attacks_names").attribute("habilidad_2").as_string("Habilidad 2");
 	attacks_names.Habilidad_3_nombre = _config.child("attacks_names").attribute("habilidad_3").as_string("Habilidad 3");
+
+	//FXSounds
+	sfx.Attack_SFX = App->audio->LoadFx(_config.child("sfx").child("attack_sfx").attribute("value").as_string());
+	sfx.Ability_1_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_1_sfx").attribute("value").as_string());
+	sfx.Ability_2_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_2_sfx").attribute("value").as_string());
+	sfx.Ability_3_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_3_sfx").attribute("value").as_string());
+	sfx.Dead_SFX = App->audio->LoadFx(_config.child("sfx").child("dead_sfx").attribute("value").as_string());
+
 
 	exp = _config.child("exp").attribute("value").as_int();
 

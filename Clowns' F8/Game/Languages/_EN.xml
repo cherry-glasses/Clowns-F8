@@ -34,5 +34,6 @@
     <map1 value="EASTLANDS"/>
     <map2 value="BLAZELANDS"/>
     <map3 value="BLIZZLANDS"/>
+    <map4 value="FINAL BOSS"/>
   </choose_map_scene>
 </language>

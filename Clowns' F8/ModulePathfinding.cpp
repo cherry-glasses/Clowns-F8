@@ -39,8 +39,8 @@ void ModulePathfinding::SetMap(uint width, uint height, uchar* data)
 // Utility: return true if pos is inside the map boundaries
 bool ModulePathfinding::CheckBoundaries(const std::pair<int, int>& pos) const
 {
-	return (pos.first >= 0 && pos.first <= (int)width &&
-		pos.second >= 0 && pos.second <= (int)height);
+	return (pos.first >= 0 && pos.first < (int)width &&
+		pos.second >= 0 && pos.second < (int)height);
 }
 
 // Utility: returns true is the tile is walkable

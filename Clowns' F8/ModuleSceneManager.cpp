@@ -86,6 +86,7 @@ void ModuleSceneManager::ChangeScene(SCENE_TYPE _type)
 		current_scene = new Battle3(_type, scene_configs);
 		break;
 	case FOURTH_BATTLE:
+		current_scene = new ChooseMap(_type, scene_configs);
 		break;
 	case WIN_SCENE:
 		current_scene = new Win(_type, scene_configs);

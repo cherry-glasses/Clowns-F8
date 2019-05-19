@@ -76,6 +76,18 @@ typedef struct {
 	
 } Attacks_names;
 
+typedef struct {
+	int Attack_SFX;
+	int Ability_1_SFX;
+	int Ability_2_SFX;
+	int Ability_3_SFX;
+
+	int Defend_SFX;
+	int Critic_SFX;
+	int Dead_SFX;
+
+} SFX;
+
 class Entity
 {
 
@@ -130,6 +142,7 @@ public:
 	Stats current_stats;
 	Evolutions evolution_stats;
 	Attacks_names attacks_names;
+	SFX sfx;
 	bool defend = false;
 	bool stunned = false;
 	bool invulnerable = false;
@@ -255,6 +268,8 @@ protected:
 	std::vector<std::pair<int, int>>  objective_position;
 	int tiles_range_attk = 0;
 	std::pair<int, int>* range;
+
+	bool sound_fx = false;
 	
 	
 };

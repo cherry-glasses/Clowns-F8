@@ -35,5 +35,6 @@
     <map1 value="TIERRAS DEL ESTE"/>
     <map2 value="TIERRAS ABRASADAS"/>
     <map3 value="TIERRAS POLARES"/>
+    <map4 value="JEFE FINAL"/>
   </choose_map_scene>
 </language>

@@ -43,6 +43,7 @@ public:
 	std::string map1 = "";
 	std::string map2 = "";
 	std::string map3 = "";
+	std::string map4 = "";
 };
 
 

@@ -105,18 +105,30 @@ bool Battle::Update(float _dt)
 		else if (App->entity_manager->enemies.empty()) {
 			if (!App->scene_manager->changing)
 			{
-				if (type == SCENE_TYPE::FOURTH_BATTLE)
+				switch (type)
 				{
+				case FIRST_BATTLE:
+					battle1_passed = true;
+					App->transition_manager->CreateFadeTransition(1, true, CHOOSE_MAP, White);
+					break;
+				case SECOND_BATTLE:
+					battle2_passed = true;
+					App->transition_manager->CreateFadeTransition(1, true, CHOOSE_MAP, White);
+					break;
+				case THIRD_BATTLE:
+					battle3_passed = true;
+					App->transition_manager->CreateFadeTransition(1, true, CHOOSE_MAP, White);
+					break;
+				case FOURTH_BATTLE:
 					App->transition_manager->CreateFadeTransition(2, true, WIN_SCENE, White);
-				}
-				else
-				{
-					App->transition_manager->CreateFadeTransition(2, true, CHOOSE_MAP, White);
+					break;
+				default:
+					break;
 				}
 				App->scene_manager->changing = true;
 			}
 		}
-		else {
+	//	else {
 			UpdateCharacters();
 			UpdateEnemies();
 			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
@@ -127,7 +139,7 @@ bool Battle::Update(float _dt)
 				}
 			}
 
-		}
+		//}
 		App->render->Blit(battle_background, 0 - (screen_width / 2), 0 - (screen_height / 8));
 		App->render->Blit(battle_grid, 0 - (screen_width / 2), 0 - (screen_height / 8));
 		App->map->Draw();
@@ -192,9 +204,8 @@ void Battle::CreateUIBattle()
 	{
 		enemy_stun_image.push_back(nullptr);
 		enemy_stun_image_created.push_back(false);
-		enemies_life_position.push_back((*enemy)->GetPosition());
 		enemies_life_x.push_back((64 * (*enemy)->current_stats.Hp) / (*enemy)->default_stats.Hp);
-		enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, enemies_life_position.at(i).first, enemies_life_position.at(i).second + (*enemy)->position_margin.second - (*enemy)->current.h, { 0, 58, enemies_life_x.at(i) , 5 }));
+		enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, (*enemy)->GetPosition().first, (*enemy)->GetPosition().second + (*enemy)->position_margin.second - (*enemy)->current.h, { 0, 58, enemies_life_x.at(i) , 5 }));
 		++i;
 	}
 }
@@ -211,13 +222,17 @@ void Battle::CreateAttackMenu()
 			buttons2.push_back(attack_button);
 			if ((*character)->level >= 2)
 			{
+				character_ability1up = true;
 				ability_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, act_menu_position.at(i).first, act_menu_position.at(i).second + 39, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
 				buttons2.push_back(ability_button);
 				defend_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, act_menu_position.at(i).first, act_menu_position.at(i).second + 78, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
 				
 			}
-			else 
+			else
+			{
 				defend_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, act_menu_position.at(i).first, act_menu_position.at(i).second + 39, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
+				character_ability1up = false;
+			}
 			buttons2.push_back(defend_button);
 			attack_button->Select(SELECTED);
 			if ((*character)->level >= 2)
@@ -379,14 +394,12 @@ void Battle::UpdateCharacters()
 void Battle::UpdateEnemies()
 {
 	int i = 0;
-	bool change = false;
 	for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
 	{
 		if (enemies_life_x.at(i) != ((64 * (*enemy)->current_stats.Hp) / (*enemy)->default_stats.Hp)
-			|| enemies_life_position.at(i).first != (*enemy)->GetPosition().first ||
-			enemies_life_position.at(i).second != (*enemy)->GetPosition().second);
+			|| enemies_life.at(i)->position.first != (*enemy)->GetPosition().first ||
+			enemies_life.at(i)->position.second != (*enemy)->GetPosition().second + (*enemy)->position_margin.second - (*enemy)->current.h)
 		{
-			if (!change) change = true;
 			UpdateEnemyPortraits(*enemy, i);
 		}
 		if ((*enemy)->stunned && !enemy_stun_image_created.at(i))
@@ -401,15 +414,7 @@ void Battle::UpdateEnemies()
 		}
 		++i;
 	}
-	if (change)
-	{
-		enemies_life_position.clear();
-		for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
-		{
-			enemies_life_position.push_back((*enemy)->GetPosition());
-		}
-		change = false;
-	}
+	
 	if (enemies_life.size() > App->entity_manager->enemies.size())
 	{
 		App->gui_manager->DeleteGUIElement(enemies_life.back());

@@ -55,10 +55,6 @@ protected:
 	void NavigateDown();
 	void NavigateUp();
 
-	//Win and Lose
-	/*void Win();
-	void Lose();*/
-
 public:
 	SCENE_TYPE type = SCENE_TYPE::NONE;
 
@@ -87,6 +83,10 @@ protected:
 	int screen_width, screen_height;
 	
 	std::string	press_fx_name = "";
+
+	bool battle1_passed = false;
+	bool battle2_passed = false;
+	bool battle3_passed = false;
 
 	
 

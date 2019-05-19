@@ -382,7 +382,7 @@ Entity* ModuleEntityManager::CreateEntity(ENTITY_TYPE _type)
 		break;
 
 	case ENTITY_TYPE::ENTITY_ENEMY_CHERRYBLACKGLASSES:
-		tmp = new CherryBlackGlasses(_type, entity_configs.child("pinkking")); //hay que cambiar esto
+		tmp = new CherryBlackGlasses(_type, entity_configs.child("cherryblackglasses")); //hay que cambiar esto
 		entities.push_back(tmp);
 		enemies.push_back(tmp);
 		break;
