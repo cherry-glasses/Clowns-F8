@@ -5,6 +5,7 @@
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModulePathfinding.h"
+#include "ModuleAudio.h"
 
 
 bool Character::PreUpdate() {
@@ -214,9 +215,17 @@ void Character::SelectWalk() {
 	
 	if (App->input->Accept() 
 		&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)) != inrange_mov_list.end()) {
-		current_turn = Entity::MOVE;
-		comeback_position = { position.first, position.second };
-		comeback_movement = current_movement;
+
+ 		if (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS && App->pathfinding->IsWalkable({ possible_map.at(Cap).first, possible_map.at(Cap).second })) {
+			current_turn = Entity::MOVE;
+			comeback_position = { position.first, position.second };
+			comeback_movement = current_movement;
+		}
+		else if (type != ENTITY_TYPE::ENTITY_CHARACTER_IRIS) {
+			current_turn = Entity::MOVE;
+			comeback_position = { position.first, position.second };
+			comeback_movement = current_movement;
+		}
 	}
 
 	possible_map.clear();
@@ -347,6 +356,11 @@ void Character::SelectAttack() {
 
 void Character::Attack()
 {
+	if (!sound_fx) {
+		App->audio->PlayFx(sfx.Attack_SFX);
+		sound_fx = true;
+	}
+	
 	if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
 		CurrentMovement(ATTACK_LEFT_FRONT);
 	}
@@ -551,6 +565,10 @@ void Character::SelectAbility_1() {
 void Character::Ability_1()
 {
 	if (current_stats.Mana >= 25) {
+		if (!sound_fx) {
+			App->audio->PlayFx(sfx.Ability_1_SFX);
+			sound_fx = true;
+		}
 		if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
 			CurrentMovement(ABILITY_1_LEFT_FRONT);
 		}
@@ -676,6 +694,10 @@ void Character::SelectAbility_2() {
 void Character::Ability_2()
 {
 	if (current_stats.Mana >= 50) {
+		if (!sound_fx) {
+			App->audio->PlayFx(sfx.Ability_2_SFX);
+			sound_fx = true;
+		}
 		if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
 			CurrentMovement(ABILITY_2_LEFT_FRONT);
 		}
@@ -816,6 +838,10 @@ void Character::SelectAbility_3() {
 void Character::Ability_3()
 {
 	if (current_stats.Mana >= 100) {
+		if (!sound_fx) {
+			App->audio->PlayFx(sfx.Ability_3_SFX);
+			sound_fx = true;
+		}
 		if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
 			CurrentMovement(ABILITY_3_LEFT_FRONT);
 		}
@@ -890,6 +916,7 @@ void Character::Ability_3()
 
 void Character::Defend()
 {
+	App->audio->PlayFx(sfx.Defend_SFX);
 	defend = true;
 	switch (current_movement)
 	{
@@ -944,6 +971,7 @@ void Character::Defend()
 	default:
 		break;
 	}
+	sound_fx = false;
 }
 
 void Character::ComeBack()
@@ -960,6 +988,8 @@ void Character::ComeBack()
 
 void Character::Die()
 {
+	App->audio->PlayFx(sfx.Dead_SFX);
+		
 	switch (current_movement)
 	{
 	case Entity::IDLE_LEFT_FRONT:
@@ -1023,4 +1053,5 @@ void Character::EndTurn() {
 	Cap = -1;
 	current_animation->Reset();
 	critic = false;
+	sound_fx = false;
 }

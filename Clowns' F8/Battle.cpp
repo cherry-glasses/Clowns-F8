@@ -211,13 +211,17 @@ void Battle::CreateAttackMenu()
 			buttons2.push_back(attack_button);
 			if ((*character)->level >= 2)
 			{
+				character_ability1up = true;
 				ability_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, act_menu_position.at(i).first, act_menu_position.at(i).second + 39, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
 				buttons2.push_back(ability_button);
 				defend_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, act_menu_position.at(i).first, act_menu_position.at(i).second + 78, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
 				
 			}
-			else 
+			else
+			{
 				defend_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, act_menu_position.at(i).first, act_menu_position.at(i).second + 39, { 288, 0, 173, 39 }, { 288, 39, 173, 39 }, { 288, 78, 173, 39 });
+				character_ability1up = false;
+			}
 			buttons2.push_back(defend_button);
 			attack_button->Select(SELECTED);
 			if ((*character)->level >= 2)

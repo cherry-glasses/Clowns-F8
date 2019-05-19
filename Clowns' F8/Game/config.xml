@@ -93,10 +93,19 @@
     </levelup>
     <sapphire>
       <texture value="Assets/Sprites/Main_Characters/Sapphire_Spritesheet.png"/>
+      <sfx>
+        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
+        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
+        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
+        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
+        <critic_sfx value="Sapphire_Critic.wav"/>
+        <defend_sfx value="Sapphire_Defend.wav"/>
+        <dead_sfx value="Sapphire_Dead.wav"/>
+      </sfx>
       <position x="6" y="18"/>
       <name value="Sapphire"/>
       <exp value="0"/>
-      <stats hp="79" mana="120" p_move="3" atk_f="60" atk_s="84" range_atk="5" range_ability_1="2" range_ability_2="5"
+      <stats hp="79" mana="120" p_move="1" atk_f="60" atk_s="84" range_atk="5" range_ability_1="2" range_ability_2="5"
              range_ability_3="15" def_f="70" def_s="80" crit="10"  agi="11" attack ="25" ability_1="26" ability_2="30" ability_3="35"/>
       <evolution hp="5" mana="15" atk_f="6" atk_s="5" def_f="6" def_s="6" crit="2"/>
       <attacks_names attack="Flower attack" ability_1="Hammer time" ability_2="Surprise hat" ability_3="Water time" 
@@ -354,6 +363,15 @@
     </sapphire>
     <iris>
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
+      <sfx>
+        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
+        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
+        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
+        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
+        <critic_sfx value="Sapphire_Critic.wav"/>
+        <defend_sfx value="Sapphire_Defend.wav"/>
+        <dead_sfx value="Sapphire_Dead.wav"/>
+      </sfx>
       <position x="11" y="19"/>
       <name value="Iris"/>
       <exp value="0"/>
@@ -543,6 +561,15 @@
     </iris>
     <storm>
       <texture value="Assets/Sprites/Main_Characters/Storm_Spritesheet.png"/>
+      <sfx>
+        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
+        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
+        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
+        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
+        <critic_sfx value="Sapphire_Critic.wav"/>
+        <defend_sfx value="Sapphire_Defend.wav"/>
+        <dead_sfx value="Sapphire_Dead.wav"/>
+      </sfx>
       <position x="9" y="17"/>
       <name value="Storm"/>
       <exp value="0"/>
@@ -676,6 +703,15 @@
     </storm>
     <georgeb>
       <texture value="Assets/Sprites/Main_Characters/George_Spritesheet.png"/>
+      <sfx>
+        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
+        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
+        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
+        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
+        <critic_sfx value="Sapphire_Critic.wav"/>
+        <defend_sfx value="Sapphire_Defend.wav"/>
+        <dead_sfx value="Sapphire_Dead.wav"/>
+      </sfx>
       <position x="8" y="20"/>
       <name value="George B."/>
       <exp value="0"/>
@@ -823,6 +859,15 @@
     </georgeb>
     <boneyman>
       <texture value="Assets/Sprites/Enemies/Boneyman_Spritesheet.png"/>
+      <sfx>
+        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
+        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
+        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
+        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
+        <critic_sfx value="Sapphire_Critic.wav"/>
+        <defend_sfx value="Sapphire_Defend.wav"/>
+        <dead_sfx value="Sapphire_Dead.wav"/>
+      </sfx>
       <position x="5" y="8"/>
       <position x="11" y="11"/>
       <position x="15" y="13"/>
@@ -931,6 +976,15 @@
     </boneyman>
     <pinkking>
       <texture value="Assets/Sprites/Enemies/Pinkking_Spritesheet.png"/>
+      <sfx>
+        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
+        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
+        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
+        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
+        <critic_sfx value="Sapphire_Critic.wav"/>
+        <defend_sfx value="Sapphire_Defend.wav"/>
+        <dead_sfx value="Sapphire_Dead.wav"/>
+      </sfx>
       <position x="17" y="9"/>
       <name value="PinkKing"/>
       <exp value="50"/>
@@ -1030,6 +1084,15 @@
     </pinkking>
     <burgdog>
       <texture value="Assets/Sprites/Enemies/Boneyman_Spritesheet.png"/>
+      <sfx>
+        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
+        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
+        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
+        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
+        <critic_sfx value="Sapphire_Critic.wav"/>
+        <defend_sfx value="Sapphire_Defend.wav"/>
+        <dead_sfx value="Sapphire_Dead.wav"/>
+      </sfx>
       <position x="4" y="8"/>
       <position x="9" y="4"/>
       <position x="14" y="8"/>
@@ -1138,6 +1201,15 @@
     </burgdog>
     <hotdog>
       <texture value="Assets/Sprites/Enemies/Pinkking_Spritesheet.png"/>
+      <sfx>
+        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
+        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
+        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
+        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
+        <critic_sfx value="Sapphire_Critic.wav"/>
+        <defend_sfx value="Sapphire_Defend.wav"/>
+        <dead_sfx value="Sapphire_Dead.wav"/>
+      </sfx>
       <position x="14" y="3"/>
       <name value="Hotdog"/>
       <exp value="100"/>
@@ -1237,6 +1309,15 @@
     </hotdog>
     <polarbear>
       <texture value="Assets/Sprites/Enemies/Boneyman_Spritesheet.png"/>
+      <sfx>
+        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
+        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
+        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
+        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
+        <critic_sfx value="Sapphire_Critic.wav"/>
+        <defend_sfx value="Sapphire_Defend.wav"/>
+        <dead_sfx value="Sapphire_Dead.wav"/>
+      </sfx>
       <position x="16" y="4"/>
       <position x="17" y="7"/>
       <position x="19" y="10"/>
@@ -1345,6 +1426,15 @@
     </polarbear>
     <polarpath>
       <texture value="Assets/Sprites/Enemies/Pinkking_Spritesheet.png"/>
+      <sfx>
+        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
+        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
+        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
+        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
+        <critic_sfx value="Sapphire_Critic.wav"/>
+        <defend_sfx value="Sapphire_Defend.wav"/>
+        <dead_sfx value="Sapphire_Dead.wav"/>
+      </sfx>
       <position x="22" y="8"/>
       <name value="Polar Path"/>
       <exp value="100"/>
