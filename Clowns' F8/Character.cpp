@@ -501,7 +501,7 @@ void Character::SelectAbility_1() {
 		&& (App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second), type)
 		|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second))
 			&& App->pathfinding->CanTrap(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)))
-			|| (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS)))
+			|| type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS))
 	{
 		current_turn = ABILITY_1;
 
@@ -559,7 +559,7 @@ void Character::SelectAbility_1() {
 		current_turn = SELECT_ACTION;
 	}
 
-	possible_map.clear();
+	/*possible_map.clear();*/
 }
 
 void Character::Ability_1()
