@@ -159,11 +159,11 @@ void ChooseMap::NavigateMaps()
 {
 	if (App->input->Right())
 	{
-		if (map_selected == 1 && battle1_passed) {
+		if (map_selected == 1 && App->scene_manager->battle1_passed) {
 			App->audio->PlayFx(1, 0);
 			map_selected = 3;
 		}
-		else if ((map_selected == 2 || map_selected == 3) && battle3_passed && battle2_passed)
+		else if ((map_selected == 2 || map_selected == 3) && App->scene_manager->battle3_passed && App->scene_manager->battle2_passed)
 		{
 			App->audio->PlayFx(1, 0);
 			map_selected = 4;
@@ -189,7 +189,7 @@ void ChooseMap::NavigateMaps()
 	}
 	else if (App->input->Up())
 	{
-		if ((map_selected == 1 && battle1_passed) || map_selected == 3 || map_selected == 4) {
+		if ((map_selected == 1 && App->scene_manager->battle1_passed) || map_selected == 3 || map_selected == 4) {
 			App->audio->PlayFx(1, 0);
 			map_selected = 2;
 		}
@@ -198,7 +198,7 @@ void ChooseMap::NavigateMaps()
 	}
 	else if (App->input->Down())
 	{
-		if ((map_selected == 1 && battle1_passed) || map_selected == 2 || map_selected == 4) {
+		if ((map_selected == 1 && App->scene_manager->battle1_passed) || map_selected == 2 || map_selected == 4) {
 			App->audio->PlayFx(1, 0);
 			map_selected = 3;
 		}
