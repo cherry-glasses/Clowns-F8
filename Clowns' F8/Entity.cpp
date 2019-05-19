@@ -135,6 +135,7 @@ bool Entity::CleanUp()
 		App->textures->UnLoad(debug_texture);
 		debug_texture = nullptr;
 	}
+	
 	return true;
 }
 

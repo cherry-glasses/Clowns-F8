@@ -86,12 +86,7 @@ bool ModuleAudio::CleanUp()
 		Mix_FreeMusic(music);
 	}
 
-	for (int i = 0; i < fx.size(); i++)
-	{
-		Mix_FreeChunk(fx[i]);
-	}
-
-	fx.clear();
+	UnloadAllFx();
 	
 	Mix_CloseAudio();
 	Mix_Quit();
@@ -195,6 +190,40 @@ bool ModuleAudio::PlayFx(unsigned int _id, int _repeat)
 	}
 
 	return ret;
+}
+
+// UnLoad WAV
+bool ModuleAudio::UnloadFx(int _id)
+{
+	if (!active)
+		return true;
+
+	bool ret = false;
+
+	for (std::vector<Mix_Chunk*>::iterator element = fx.begin(); element != fx.end(); ++element)
+	{
+		if (fx[_id - 1] == (*element))
+		{
+			Mix_FreeChunk(fx[_id - 1]);
+			fx[_id - 1] = nullptr;
+			fx.erase(element);
+			return true;
+		}
+	}
+
+	return ret;
+}
+
+// UnLoad all WAV
+void ModuleAudio::UnloadAllFx()
+{
+	for (int i = 0; i < fx.size(); i++)
+	{
+		Mix_FreeChunk(fx[i]);
+	}
+
+	fx.clear();
+
 }
 
 void ModuleAudio::StopMusic(int _mut)

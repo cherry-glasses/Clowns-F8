@@ -156,6 +156,7 @@ bool Battle::CleanUp()
 	App->gui_manager->DeleteAllGUIElements();
 
 	App->map->CleanUp();
+	App->audio->UnloadAllFx();
 	App->entity_manager->CleanUp();
 	return true;
 }
