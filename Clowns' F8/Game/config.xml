@@ -379,7 +379,7 @@
       <position x="11" y="19"/>
       <name value="Iris"/>
       <exp value="0"/>
-      <stats hp="78" mana="85" p_move="3" atk_f="82" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
+      <stats hp="78" mana="85" p_move="1" atk_f="82" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
              range_ability_3="1" def_f="80" def_s="76" crit="20" agi="13" attack ="24" ability_1="25" ability_2="10" ability_3="40"/>
       <evolution hp="4" mana="10" atk_f="6" atk_s="5" def_f="6" def_s="6" crit="3"/>
       <attacks_names attack="Fist attack" ability_1="Rabbit kick" ability_2="Carrot time" ability_3="Rabbit rage" 

@@ -53,23 +53,7 @@ bool ChooseMap::Update(float _dt)
 {
 	bool ret = true;
 
-	if (App->input->Right())
-	{
-		App->audio->PlayFx(1, 0);
-		if (map_selected < 4) ++map_selected;
-		else map_selected = 1;
-		App->gui_manager->DeleteAllGUIElements();
-		CreateMenu();
-	}
-	if (App->input->Left())
-	{
-		App->audio->PlayFx(1, 0);
-		if (map_selected > 1) --map_selected;
-		else map_selected = 4;
-		App->gui_manager->DeleteAllGUIElements();
-		CreateMenu();
-	} 
-	App->render->Blit(menu_background, 0, 0);
+	NavigateMaps();
 	
 	if (map_selected != 2) App->render->Blit(maps_texture, (screen_width / 2) - (map2.w/2), (screen_height / 2) - map2.h, &map2);
 	if (map_selected != 4) App->render->Blit(maps_texture, (screen_width / 2) - (map2.w / 2), (screen_height / 2) - (map4.h / 5), &map4);
@@ -168,5 +152,57 @@ void ChooseMap::CreateMenu()
 	case 4:
 		map4_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2) + map4.w, (screen_height / 2), App->scene_manager->language->map4, { 254, 0, 114, 255 }, App->gui_manager->default_font_used);
 		break;
+	}
+}
+
+void ChooseMap::NavigateMaps()
+{
+	if (App->input->Right())
+	{
+		if (map_selected == 1 && battle1_passed) {
+			App->audio->PlayFx(1, 0);
+			map_selected = 3;
+		}
+		else if ((map_selected == 2 || map_selected == 3) && battle3_passed && battle2_passed)
+		{
+			App->audio->PlayFx(1, 0);
+			map_selected = 4;
+		}
+		App->gui_manager->DeleteAllGUIElements();
+		CreateMenu();
+
+	}
+	else if (App->input->Left())
+	{
+		if (map_selected == 2 || map_selected == 3)
+		{
+			App->audio->PlayFx(1, 0);
+			map_selected = 1;
+		}
+		else if (map_selected == 4 )
+		{
+			App->audio->PlayFx(1, 0);
+			--map_selected;
+		}
+		App->gui_manager->DeleteAllGUIElements();
+		CreateMenu();
+	}
+	else if (App->input->Up())
+	{
+		if ((map_selected == 1 && battle1_passed) || map_selected == 3 || map_selected == 4) {
+			App->audio->PlayFx(1, 0);
+			map_selected = 2;
+		}
+		App->gui_manager->DeleteAllGUIElements();
+		CreateMenu();
+	}
+	else if (App->input->Down())
+	{
+		if ((map_selected == 1 && battle1_passed) || map_selected == 2 || map_selected == 4) {
+			App->audio->PlayFx(1, 0);
+			map_selected = 3;
+		}
+		App->gui_manager->DeleteAllGUIElements();
+		CreateMenu();
 	}
 }

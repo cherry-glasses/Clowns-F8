@@ -105,13 +105,25 @@ bool Battle::Update(float _dt)
 		else if (App->entity_manager->enemies.empty()) {
 			if (!App->scene_manager->changing)
 			{
-				if (type == SCENE_TYPE::FOURTH_BATTLE)
+				switch (type)
 				{
+				case FIRST_BATTLE:
+					battle1_passed = true;
+					App->transition_manager->CreateFadeTransition(1, true, CHOOSE_MAP, White);
+					break;
+				case SECOND_BATTLE:
+					battle2_passed = true;
+					App->transition_manager->CreateFadeTransition(1, true, CHOOSE_MAP, White);
+					break;
+				case THIRD_BATTLE:
+					battle3_passed = true;
+					App->transition_manager->CreateFadeTransition(1, true, CHOOSE_MAP, White);
+					break;
+				case FOURTH_BATTLE:
 					App->transition_manager->CreateFadeTransition(2, true, WIN_SCENE, White);
-				}
-				else
-				{
-					App->transition_manager->CreateFadeTransition(2, true, CHOOSE_MAP, White);
+					break;
+				default:
+					break;
 				}
 				App->scene_manager->changing = true;
 			}

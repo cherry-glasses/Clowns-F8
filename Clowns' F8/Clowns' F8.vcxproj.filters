@@ -189,9 +189,6 @@
     <ClInclude Include="..\Clowns%27 F8\Lose.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Clowns%27 F8\ChooseCharacter.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Clowns%27 F8\Burgdog.h">
       <Filter>Entities\EntitiesEnemies</Filter>
     </ClInclude>
@@ -360,9 +357,6 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Lose.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Clowns%27 F8\ChooseCharacter.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Burgdog.cpp">

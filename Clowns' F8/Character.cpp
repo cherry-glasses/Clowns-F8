@@ -216,7 +216,7 @@ void Character::SelectWalk() {
 	if (App->input->Accept() 
 		&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)) != inrange_mov_list.end()) {
 
- 		if (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS && App->pathfinding->IsWalkable({ possible_map.at(Cap).first, possible_map.at(Cap).second })) {
+ 		if (type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS && App->pathfinding->IsWalkable(App->map->WorldToMap( possible_map.at(Cap).first, possible_map.at(Cap).second ))) {
 			current_turn = Entity::MOVE;
 			comeback_position = { position.first, position.second };
 			comeback_movement = current_movement;
