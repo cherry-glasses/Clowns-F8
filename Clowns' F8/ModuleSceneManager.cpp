@@ -4,6 +4,7 @@
 #include "Battle1.h"
 #include "Battle2.h"
 #include "Battle3.h"
+#include "Battle4.h"
 #include "Win.h"
 #include "Lose.h"
 #include "ChooseMap.h"
@@ -86,7 +87,7 @@ void ModuleSceneManager::ChangeScene(SCENE_TYPE _type)
 		current_scene = new Battle3(_type, scene_configs);
 		break;
 	case FOURTH_BATTLE:
-		current_scene = new ChooseMap(_type, scene_configs);
+		current_scene = new Battle4(_type, scene_configs);
 		break;
 	case WIN_SCENE:
 		current_scene = new Win(_type, scene_configs);

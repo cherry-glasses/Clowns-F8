@@ -1731,6 +1731,35 @@
       <size width="431" height="252"/>
       <position x="25" y="25"/>
     </mountain>
+    <mountain_2>
+      <texture value="Assets/Sprites/Objects/mountain_2.png"/>
+      <size width="469" height="402"/>
+      <position x="4" y="0"/>
+    </mountain_2>
+    <stone_2>
+      <texture value="Assets/Sprites/Objects/stone_2.png"/>
+      <size width="50" height="53"/>
+      <position x="1" y="6"/>
+      <position x="2" y="5"/>
+      <position x="2" y="6"/>
+      <position x="20" y="7"/>
+      <position x="21" y="6"/>
+    </stone_2>
+    <stone_3>
+      <texture value="Assets/Sprites/Objects/stone_3.png"/>
+      <size width="49" height="41"/>
+      <position x="1" y="6"/>
+      <position x="2" y="5"/>
+      <position x="2" y="6"/>
+      <position x="20" y="7"/>
+      <position x="21" y="6"/>
+    </stone_3>
+    <bloodstream>
+      <texture value="Assets/Sprites/Objects/bloodstream.png"/>
+      <size width="294" height="70"/>
+      <position x="1" y="6"/>
+      <position x="2" y="5"/>
+    </bloodstream>
     <beartrap>
       <texture value="Assets/Sprites/Objects/bear_trap.png"/>
       <size width="32" height="32"/>

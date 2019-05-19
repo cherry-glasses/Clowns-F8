@@ -69,6 +69,10 @@ void Battle4::CreateBattle4()
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_HOTDOG);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_POLARPATH);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_CHERRYBLACKGLASSES);
+	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_MOUNTAIN2);
+	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_STONE2);
+	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_STONE3);
+	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_BLOODSTREAM);
 
 	CreateUIBattle();
 

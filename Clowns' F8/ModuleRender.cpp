@@ -106,7 +106,8 @@ bool ModuleRender::Blit(SDL_Texture* _texture, int _x, int _y, const SDL_Rect* _
 	SDL_Rect rect;
 	if (App->scene_manager->current_scene->type == SCENE_TYPE::FIRST_BATTLE
 		|| App->scene_manager->current_scene->type == SCENE_TYPE::SECOND_BATTLE
-		|| App->scene_manager->current_scene->type == SCENE_TYPE::THIRD_BATTLE) {
+		|| App->scene_manager->current_scene->type == SCENE_TYPE::THIRD_BATTLE
+		|| App->scene_manager->current_scene->type == SCENE_TYPE::FOURTH_BATTLE) {
 		rect.x = (int)(camera.x * _speed) + (_x + App->window->GetScreenWidth() / 2) * scale;
 		rect.y = (int)(camera.y * _speed) + (_y + App->window->GetScreenHeight() / 8) * scale;
 	}
