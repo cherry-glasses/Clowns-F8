@@ -94,6 +94,7 @@ bool ModuleGUIManager::CleanUp()
 			gui_elements[i] = nullptr;
 		}
 	}
+	gui_elements.clear();
 
 	return true;
 }
@@ -217,4 +218,5 @@ void ModuleGUIManager::DeleteAllGUIElements()
 			gui_elements[i] = nullptr;
 		}
 	}
+	gui_elements.clear();
 }

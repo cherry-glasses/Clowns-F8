@@ -204,9 +204,8 @@ void Battle::CreateUIBattle()
 	{
 		enemy_stun_image.push_back(nullptr);
 		enemy_stun_image_created.push_back(false);
-		enemies_life_position.push_back((*enemy)->GetPosition());
 		enemies_life_x.push_back((64 * (*enemy)->current_stats.Hp) / (*enemy)->default_stats.Hp);
-		enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, enemies_life_position.at(i).first, enemies_life_position.at(i).second + (*enemy)->position_margin.second - (*enemy)->current.h, { 0, 58, enemies_life_x.at(i) , 5 }));
+		enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, (*enemy)->GetPosition().first, (*enemy)->GetPosition().second + (*enemy)->position_margin.second - (*enemy)->current.h, { 0, 58, enemies_life_x.at(i) , 5 }));
 		++i;
 	}
 }
@@ -395,14 +394,12 @@ void Battle::UpdateCharacters()
 void Battle::UpdateEnemies()
 {
 	int i = 0;
-	bool change = false;
 	for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
 	{
 		if (enemies_life_x.at(i) != ((64 * (*enemy)->current_stats.Hp) / (*enemy)->default_stats.Hp)
-			|| enemies_life_position.at(i).first != (*enemy)->GetPosition().first ||
-			enemies_life_position.at(i).second != (*enemy)->GetPosition().second);
+			|| enemies_life.at(i)->position.first != (*enemy)->GetPosition().first ||
+			enemies_life.at(i)->position.second != (*enemy)->GetPosition().second + (*enemy)->position_margin.second - (*enemy)->current.h)
 		{
-			if (!change) change = true;
 			UpdateEnemyPortraits(*enemy, i);
 		}
 		if ((*enemy)->stunned && !enemy_stun_image_created.at(i))
@@ -417,15 +414,7 @@ void Battle::UpdateEnemies()
 		}
 		++i;
 	}
-	if (change)
-	{
-		enemies_life_position.clear();
-		for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
-		{
-			enemies_life_position.push_back((*enemy)->GetPosition());
-		}
-		change = false;
-	}
+	
 	if (enemies_life.size() > App->entity_manager->enemies.size())
 	{
 		App->gui_manager->DeleteGUIElement(enemies_life.back());
