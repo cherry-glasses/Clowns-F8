@@ -32,8 +32,13 @@ public:
 	Scene* current_scene = nullptr;
 
 	bool changing = false;
+	bool battle1_passed = false;
+	bool battle2_passed = false;
+	bool battle3_passed = false;
 
 	Language* language = nullptr;
+
+	
 
 private:
 	pugi::xml_node scene_configs;

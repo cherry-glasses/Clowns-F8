@@ -84,11 +84,6 @@ protected:
 	
 	std::string	press_fx_name = "";
 
-	bool battle1_passed = false;
-	bool battle2_passed = false;
-	bool battle3_passed = false;
-
-	
 
 };
 
