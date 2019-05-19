@@ -57,6 +57,7 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		map1 = config.child("choose_map_scene").child("map1").attribute("value").as_string("");
 		map2 = config.child("choose_map_scene").child("map2").attribute("value").as_string("");
 		map3 = config.child("choose_map_scene").child("map3").attribute("value").as_string("");
+		map4 = config.child("choose_map_scene").child("map4").attribute("value").as_string("");
 
 	}
 	

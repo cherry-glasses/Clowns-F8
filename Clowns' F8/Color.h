@@ -37,5 +37,5 @@ extern Color DarkGray;
 extern Color Scene_1_color;
 extern Color Scene_2_color;
 extern Color Scene_3_color;
-
+extern Color Scene_4_color;
 #endif

@@ -32,25 +32,22 @@ public:
 
 private:
 
-	void Delete();
 	void CreateMenu();
-	void ChangeMapImage();
 
 private:
 
-	bool menu_created = false;
 	SDL_Texture * menu_background = nullptr;
-	GUIButton* map1_button = nullptr;
-	GUIButton* map2_button = nullptr;
-	GUIButton* map3_button = nullptr;
-	GUIButton* back_button = nullptr;
+	SDL_Texture * maps_texture = nullptr;
 	GUILabel* map1_label = nullptr;
 	GUILabel* map2_label = nullptr;
 	GUILabel* map3_label = nullptr;
-	GUILabel* back_label = nullptr;
-	GUIImage* map_image = nullptr;
-	GUIImage* frame = nullptr;
-
+	GUILabel* map4_label = nullptr;
+	SDL_Rect alpha;
+	SDL_Rect map1, map2, map3, map4;
+	std::pair<int, int> UI_maps_size;
+	int margin;
+	int map_selected;
+	
 };
 
 #endif //!__ChooseMap_H_
