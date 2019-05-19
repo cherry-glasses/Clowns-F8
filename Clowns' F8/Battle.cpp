@@ -95,7 +95,7 @@ bool Battle::Update(float _dt)
 	}
 	else
 	{
-		/*if (!App->entity_manager->ThereAreCharAlive()) {
+		if (!App->entity_manager->ThereAreCharAlive()) {
 			if (!App->scene_manager->changing)
 			{
 				App->transition_manager->CreateFadeTransition(2, true, LOSE_SCENE, Black);
@@ -115,7 +115,7 @@ bool Battle::Update(float _dt)
 				}
 				App->scene_manager->changing = true;
 			}
-		}*/
+		}
 	//	else {
 			UpdateCharacters();
 			UpdateEnemies();
