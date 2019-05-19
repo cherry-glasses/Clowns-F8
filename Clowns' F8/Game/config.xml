@@ -55,7 +55,10 @@
       <sapphire x="124" y="67" w="64" h="66"/>
       <george_b x="191" y="67" w="64" h="66"/>
     </portraits>
-    <UI_maps w="763" h =" 419" margin="7"/>
+    <map1 x="699" y="0" w="172" h="109"/>
+    <map2 x="400" y="0" w="107" h="96"/>
+    <map3 x="507" y="0" w="192" h="112"/>
+    <map4 x="871" y="0" w=" 251" h="99"/>
   </scene_manager>
 
   <audio>

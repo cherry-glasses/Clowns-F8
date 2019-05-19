@@ -44,8 +44,6 @@ private:
 	GUILabel* map4_label = nullptr;
 	SDL_Rect alpha;
 	SDL_Rect map1, map2, map3, map4;
-	std::pair<int, int> UI_maps_size;
-	int margin;
 	int map_selected;
 	
 };
