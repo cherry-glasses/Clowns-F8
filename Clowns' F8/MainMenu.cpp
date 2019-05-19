@@ -62,6 +62,11 @@ bool MainMenu::Update(float _dt)
 		}
 		else if (load_game_button->has_been_clicked)
 		{
+			if (!App->scene_manager->changing)
+			{
+				App->transition_manager->CreateFadeTransition(1, true, CHOOSE_MAP, Black);
+				App->scene_manager->changing = true;
+			}
 		}
 		else if (options_button->has_been_clicked)
 		{
