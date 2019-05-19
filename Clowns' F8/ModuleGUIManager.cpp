@@ -197,14 +197,17 @@ return true;
 
 void ModuleGUIManager::DeleteGUIElement(GUIElement* e)
 {
-	for (int i = 0; i < gui_elements.size(); ++i)
+	int i = 0;
+	for (std::vector<GUIElement*>::iterator element = gui_elements.begin(); element != gui_elements.end(); ++element)
 	{
-		if (gui_elements[i] == e)
+		if ((*element) == e)
 		{
 			delete gui_elements[i];
 			gui_elements[i] = nullptr;
+			gui_elements.erase(element);
 			break;
 		}
+		++i;
 	}
 }
 
