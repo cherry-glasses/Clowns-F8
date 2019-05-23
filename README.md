@@ -30,7 +30,12 @@ The player will have to think about finding more than one way in order to overco
 
 [GitHub Account](https://github.com/guillemsanchez)
 
-### Art: `Eric Jiménez`
+### Art: `Kevin`
+<img src="https://avatars3.githubusercontent.com/u/32524211?s=400&v=4" width="160" height="160">
+
+[GitHub Account](https://github.com/dusthandler)
+
+### Code-UI-Art Coordinator: `Eric Jiménez`
 <img src="https://github.com/cherry-glasses/Project-2-Game/blob/master/Documents/Wiki_Resources/img/BunnyDormido.png" width="160" height="160">
 
 [GitHub Account](https://github.com/EricJPbunny)
