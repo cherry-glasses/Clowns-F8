@@ -194,7 +194,7 @@ void Character::SelectWalk() {
 		possible_map.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
 
 		if (i != Cap && (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end()
-			|| type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS))
+			))
 		{
 			if (App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second })
 				&& !App->pathfinding->IsUsed({ (*possible_mov).first , (*possible_mov).second }, this)

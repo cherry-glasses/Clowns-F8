@@ -601,7 +601,8 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 
 void CharacterIris::InputSelectMove() {
 
-	if (App->input->Left()) {
+	
+	if (App->input->LeftUp()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -628,7 +629,7 @@ void CharacterIris::InputSelectMove() {
 			++i;
 		}
 	}
-	else if (App->input->Right()) {
+	else if (App->input->RightDown()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -655,7 +656,7 @@ void CharacterIris::InputSelectMove() {
 			++i;
 		}
 	}
-	else if (App->input->Down()) {
+	else if (App->input->LeftDown()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -682,7 +683,7 @@ void CharacterIris::InputSelectMove() {
 			++i;
 		}
 	}
-	else if (App->input->Up()) {
+	else if (App->input->RightUp()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -699,6 +700,114 @@ void CharacterIris::InputSelectMove() {
 						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second - 1 == (*possible_mov_2).second)
 						{
 							Cap -= sqrt(possible_mov_list.size());
+							i = possible_mov_list.size();
+							break;
+						}
+					}
+					++j;
+				}
+			}
+			++i;
+		}
+	}
+	else if (App->input->Left()) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i >= possible_mov_list.size()) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				int j = 0;
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if (j == Cap - 1 + sqrt(possible_mov_list.size())) {
+						if ((*possible_mov).first  == (*possible_mov_2).first && (*possible_mov).second + 1 == (*possible_mov_2).second)
+						{
+							Cap += sqrt(possible_mov_list.size()) - 1;
+							i = possible_mov_list.size();
+							break;
+						}
+					}
+					++j;
+				}
+			}
+			++i;
+		}
+	}
+	else if (App->input->Right()) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i >= possible_mov_list.size()) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				int j = 0;
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if (j == Cap + 1 - sqrt(possible_mov_list.size())) {
+						if ((*possible_mov).first + 1 == (*possible_mov_2).first && (*possible_mov).second - 1 == (*possible_mov_2).second)
+						{
+							Cap -= sqrt(possible_mov_list.size()) - 1;
+							i = possible_mov_list.size();
+							break;
+						}
+					}
+					++j;
+				}
+			}
+			++i;
+		}
+	}
+	else if (App->input->Up()) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i >= possible_mov_list.size()) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				int j = 0;
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if (j == Cap - 1 - sqrt(possible_mov_list.size())) {
+						if ((*possible_mov).first - 1 == (*possible_mov_2).first && (*possible_mov).second - 1 == (*possible_mov_2).second)
+						{
+							Cap -= sqrt(possible_mov_list.size()) + 1;
+							i = possible_mov_list.size();
+							break;
+						}
+					}
+					++j;
+				}
+			}
+			++i;
+		}
+	}
+	else if (App->input->Down()) {
+
+		int i = 0;
+		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+		{
+			if (i >= possible_mov_list.size()) {
+				break;
+			}
+			else if (i == Cap)
+			{
+				int j = 0;
+				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
+				{
+					if (j == Cap + 1 + sqrt(possible_mov_list.size())) {
+						if ((*possible_mov).first + 1 == (*possible_mov_2).first && (*possible_mov).second + 1 == (*possible_mov_2).second)
+						{
+							Cap += sqrt(possible_mov_list.size()) + 1;
 							i = possible_mov_list.size();
 							break;
 						}

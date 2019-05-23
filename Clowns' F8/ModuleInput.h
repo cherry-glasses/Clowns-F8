@@ -7,6 +7,7 @@
 
 #define NUM_MOUSE_BUTTONS 5
 #define MAX_KEYS 300
+#define MAX_COUNT_INPUT 20
 
 enum EVENT_WINDOW
 {
@@ -175,6 +176,10 @@ public:
 	bool Right();
 	bool Down();
 	bool Up();
+	bool LeftUp();
+	bool RightUp();
+	bool LeftDown();
+	bool RightDown();
 	bool Accept();
 	bool Decline();
 	bool Pause();
@@ -200,6 +205,11 @@ private:
 	int			mouse_motion_y;
 	int			mouse_x;
 	int			mouse_y;
+	
+	int			count_repeat = 0;
+	int			count_repeat_mix = 0;
+
+	void CleanCount();
 
 	SDL_GameController* controller;
 	SDL_Joystick *joystick;

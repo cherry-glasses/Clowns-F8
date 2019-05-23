@@ -442,35 +442,106 @@ void ModuleInput::buttonForGamepad() {
 	}
 
 }
-bool ModuleInput::Left() {
 
-	if (GetKey(keyboard_buttons.buttons_to_use.LEFT) == KEY_DOWN || gamepad.CROSS_LEFT == GAMEPAD_STATE::PAD_BUTTON_DOWN || gamepad.JOYSTICK_LEFT == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+void ModuleInput::CleanCount() {
+
+	count_repeat = 0;
+	count_repeat_mix = 0;
+}
+
+bool ModuleInput::Left() {
+	
+	if (GetKey(keyboard_buttons.buttons_to_use.LEFT) == KEY_DOWN 
+		|| gamepad.CROSS_LEFT == GAMEPAD_STATE::PAD_BUTTON_DOWN
+		|| (gamepad.JOYSTICK_LEFT == GAMEPAD_STATE::PAD_BUTTON_REPEAT && count_repeat > MAX_COUNT_INPUT)) {
+		CleanCount();
 		return true;
 	}
+	++count_repeat;
 	return false;
 }
 
 bool ModuleInput::Right() {
-
-	if (GetKey(keyboard_buttons.buttons_to_use.RIGHT) == KEY_DOWN || gamepad.CROSS_RIGHT == GAMEPAD_STATE::PAD_BUTTON_DOWN || gamepad.JOYSTICK_RIGHT == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+	
+	if (GetKey(keyboard_buttons.buttons_to_use.RIGHT) == KEY_DOWN 
+		|| gamepad.CROSS_RIGHT == GAMEPAD_STATE::PAD_BUTTON_DOWN
+		|| (gamepad.JOYSTICK_RIGHT == GAMEPAD_STATE::PAD_BUTTON_REPEAT && count_repeat > MAX_COUNT_INPUT)) {
+		CleanCount();
 		return true;
 	}
+	++count_repeat;
 	return false;
 }
 
 bool ModuleInput::Down() {
-
-	if (GetKey(keyboard_buttons.buttons_to_use.DOWN) == KEY_DOWN ||gamepad.CROSS_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN || gamepad.JOYSTICK_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+	
+	if (GetKey(keyboard_buttons.buttons_to_use.DOWN) == KEY_DOWN 
+		|| gamepad.CROSS_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN
+		|| (gamepad.JOYSTICK_DOWN == GAMEPAD_STATE::PAD_BUTTON_REPEAT && count_repeat > MAX_COUNT_INPUT)) {
+		CleanCount();
 		return true;
 	}
+	++count_repeat;
 	return false;
 }
 
 bool ModuleInput::Up() {
-
-	if (GetKey(keyboard_buttons.buttons_to_use.UP) == KEY_DOWN || gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN || gamepad.JOYSTICK_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+	
+	if (GetKey(keyboard_buttons.buttons_to_use.UP) == KEY_DOWN 
+		|| gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN
+		|| (gamepad.JOYSTICK_UP == GAMEPAD_STATE::PAD_BUTTON_REPEAT && count_repeat > MAX_COUNT_INPUT)) {
+		CleanCount();
 		return true;
 	}
+	++count_repeat;
+	return false;
+}
+
+bool ModuleInput::LeftUp() {
+
+	if (gamepad.JOYSTICK_LEFT == GAMEPAD_STATE::PAD_BUTTON_REPEAT
+		&& gamepad.JOYSTICK_UP == GAMEPAD_STATE::PAD_BUTTON_REPEAT 
+		&& count_repeat_mix >= MAX_COUNT_INPUT - 10){
+		CleanCount();
+		return true;
+	}
+	++count_repeat_mix;
+	return false;
+}
+
+bool ModuleInput::RightUp() {
+
+	if (gamepad.JOYSTICK_RIGHT == GAMEPAD_STATE::PAD_BUTTON_REPEAT
+		&& gamepad.JOYSTICK_UP == GAMEPAD_STATE::PAD_BUTTON_REPEAT 
+		&& count_repeat_mix >= MAX_COUNT_INPUT - 10) {
+		CleanCount();
+		return true;
+	}
+	++count_repeat_mix;
+	return false;
+}
+
+bool ModuleInput::LeftDown() {
+
+	if (gamepad.JOYSTICK_LEFT == GAMEPAD_STATE::PAD_BUTTON_REPEAT
+		&& gamepad.JOYSTICK_DOWN == GAMEPAD_STATE::PAD_BUTTON_REPEAT 
+		&& count_repeat_mix >= MAX_COUNT_INPUT - 10) {
+		CleanCount();
+		return true;
+	}
+	++count_repeat_mix;
+	return false;
+}
+
+bool ModuleInput::RightDown() {
+
+	if (gamepad.JOYSTICK_RIGHT == GAMEPAD_STATE::PAD_BUTTON_REPEAT
+		&& gamepad.JOYSTICK_DOWN == GAMEPAD_STATE::PAD_BUTTON_REPEAT 
+		&& count_repeat_mix >= MAX_COUNT_INPUT - 10) {
+		CleanCount();
+		return true;
+	}
+	++count_repeat_mix;
 	return false;
 }
 

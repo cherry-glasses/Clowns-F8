@@ -451,7 +451,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 
 void CharacterStorm::InputSelectMove() {
 
-	if (App->input->Left()) {
+	if (App->input->LeftUp()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -483,7 +483,7 @@ void CharacterStorm::InputSelectMove() {
 			++i;
 		}
 	}
-	else if (App->input->Right()) {
+	else if (App->input->RightDown()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -515,7 +515,7 @@ void CharacterStorm::InputSelectMove() {
 			++i;
 		}
 	}
-	else if (App->input->Down()) {
+	else if (App->input->LeftDown()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
@@ -547,7 +547,7 @@ void CharacterStorm::InputSelectMove() {
 			++i;
 		}
 	}
-	else if (App->input->Up()) {
+	else if (App->input->RightUp()) {
 
 		int i = 0;
 		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
