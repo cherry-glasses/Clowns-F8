@@ -4,265 +4,349 @@
 #include "ModulePathfinding.h"
 #include "ModuleRender.h"
 #include "ModuleMap.h"
+#include "Log.h"
 
-
-Hotdog::Hotdog(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
-{
-	CurrentMovement(IDLE_LEFT_FRONT);
-	current = current_animation->GetCurrentFrame();
+Hotdog::Hotdog(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config) {
+	CurrentMovement(IDLE_LEFT);
+	current = current_animation->GetCurrentFrame(1);
 }
 Hotdog::~Hotdog()
 {
 }
 
 
-// Actions (SearchWalk, Walk, Attack, Hability 1, Hability 2, Die)
-void Hotdog::SearchWalk()
-{
-	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
-	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
+void Hotdog::SearchWalk() {
+	nearposition = App->entity_manager->NearestCharacter(position);
+	nearposition = App->map->WorldToMap(nearposition.first, nearposition.second);
+	App->pathfinding->CreatePathKnight(App->map->WorldToMap(position.first, position.second), nearposition);
+	first = false;
+	second = false;
 	current_turn = MOVE;
 }
 
-void Hotdog::Walk(const std::vector<std::pair<int, int>> *_path)
-{
-	if (App->debug) 
+void Hotdog::Walk(const std::vector<std::pair<int, int>>* _path) {
+
+	if (App->debug)
 	{
 		for (uint i = 0; i < _path->size(); ++i)
 		{
 			std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
-			App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_green);
+			App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_blue);
 		}
 	}
 
-	if (_path->size() > 2 && (_path->at(0).first == _path->at(2).first || _path->at(0).second == _path->at(2).second))
-	{
-		objective_position.push_back(App->map->MapToWorld(_path->at(2).first, _path->at(2).second));
-	}
-	else if (_path->size() > 1)
-	{
-		objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
-	}
+	nearposition = App->entity_manager->NearestCharacter(position);
+	nearposition = App->map->WorldToMap(nearposition.first, nearposition.second); //posicion en mapa del enemigo mas cercano a Hotdog
 
-	if (_path->size() > 2) {
-		if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
-			CurrentMovement(WALK_LEFT_FRONT);
+
+	if (!App->pathfinding->IsUsed(_path->at(1), this)) //si no esta en una casilla adyacente al enemigo
+	{
+		if (!inRange) {
+			objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
 		}
-		else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-			CurrentMovement(WALK_RIGHT_FRONT);
+
+		pos = App->map->WorldToMap(position.first, position.second);
+		inRange = false;
+
+
+		if (_path->at(0).first == (_path->at(1).first + 2)) {
+
+			LOG("pos: %i.%i | path(1): %i,%i", pos.first, pos.second, _path->at(1).first, _path->at(1).second);
+			LOG("position: %i,%i | objective: %i,%i", position.first, position.second, objective_position.back().first, objective_position.back().second);
+
+			//por que no entra en el if de abajo del todo, de cuando llega a la posicion exacta de pixeles
+
+			if (position != App->map->MapToWorld(_path->at(0).first - 2, _path->at(0).second) && !first && !second) //que este en el mismo eje x que la posicion final
+				CurrentMovement(WALK_LEFT_FRONT);
+			else if ((pos.second < _path->at(1).second) || first) //pa'rriba
+			{
+				first = true;
+				CurrentMovement(WALK_LEFT_BACK);
+			}
+
+			else if ((pos.second > _path->at(1).second) || second) //pa'bajo
+			{
+				second = true;
+				CurrentMovement(WALK_RIGHT_FRONT);
+			}
+			//else
+				//current_turn = END_TURN;
 		}
-		else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-			CurrentMovement(WALK_LEFT_BACK);
-		}
-		else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
-			CurrentMovement(WALK_RIGHT_BACK);
-		}
+		else
+			if (_path->at(0).first == (_path->at(1).first - 2)) {
+				if (position != App->map->MapToWorld(_path->at(0).first + 2, _path->at(0).second) && !first && !second) //que este en el mismo eje x que la posicion final
+					CurrentMovement(WALK_RIGHT_BACK);
+				else if ((pos.second < _path->at(1).second) || first) //pa'rriba
+				{
+					first = true;
+					CurrentMovement(WALK_LEFT_BACK);
+				}
+
+				else if ((pos.second > _path->at(1).second) || second) //pa'bajo
+				{
+					second = true;
+					CurrentMovement(WALK_RIGHT_FRONT);
+				}
+			}
+			else
+				if (_path->at(0).second == (_path->at(1).second - 2)) {		//este va bien
+
+					if (position != App->map->MapToWorld(_path->at(0).first, _path->at(0).second + 2) && !first && !second) //que este en el mismo eje x que la posicion final
+						CurrentMovement(WALK_LEFT_BACK);
+					else if ((pos.first < _path->at(1).first) || first) //pa'rriba
+					{
+						first = true;
+						CurrentMovement(WALK_RIGHT_BACK);
+					}
+
+					else if ((pos.first > _path->at(1).first) || second) //pa'bajo
+					{
+						second = true;
+						CurrentMovement(WALK_LEFT_FRONT);
+					}
+				}
+				else
+					if (_path->at(0).second == (_path->at(1).second + 2)) {
+
+						if (position != App->map->MapToWorld(_path->at(0).first, _path->at(0).second - 2) && !first && !second) //que este en el mismo eje x que la posicion final
+							CurrentMovement(WALK_RIGHT_FRONT);
+						else if ((pos.first < _path->at(1).first) || first) //pa'rriba
+						{
+							first = true;
+							CurrentMovement(WALK_RIGHT_BACK);
+						}
+
+						else if ((pos.first > _path->at(1).first) || second) //pa'bajo
+						{
+							second = true;
+							CurrentMovement(WALK_LEFT_FRONT);
+						}
+					}
+
 		current_turn = MOVE;
+
+		if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
+
+			if (current_movement == WALK_LEFT_FRONT)
+			{
+				CurrentMovement(IDLE_LEFT);
+			}
+			else if (current_movement == WALK_RIGHT_FRONT)
+			{
+				CurrentMovement(IDLE_RIGHT);
+			}
+			else if (current_movement == WALK_RIGHT_BACK)
+			{
+				CurrentMovement(IDLE_LEFT);
+			}
+			else if (current_movement == WALK_LEFT_BACK)
+			{
+				CurrentMovement(IDLE_LEFT);
+			}
+			inDanger = false;
+
+			pos = App->map->WorldToMap(position.first, position.second);
+
+			inRange = (App->entity_manager->CalculateDistance(pos, nearposition) <= 3);	//cambiar por el rango del boss
+			if (inRange)
+				current_turn = SEARCH_ATTACK;
+			else
+				current_turn = END_TURN;
+		}
+
 	}
 	else {
-		current_turn = SEARCH_ATTACK;
-	}
-
-	if (objective_position.back().first == position.first || objective_position.back().second == position.second) {
-		if (current_movement == WALK_LEFT_FRONT)
-		{
-			CurrentMovement(IDLE_LEFT_FRONT);
-		}
-		else if (current_movement == WALK_RIGHT_FRONT)
-		{
-			CurrentMovement(IDLE_RIGHT_FRONT);
-		}
-		else if (current_movement == WALK_LEFT_BACK)
-		{
-			CurrentMovement(IDLE_LEFT_BACK);
-		}
-		else if (current_movement == WALK_RIGHT_BACK)
-		{
-			CurrentMovement(IDLE_RIGHT_BACK);
-		}
-		current_turn = SEARCH_ATTACK;
+		if (App->entity_manager->CalculateDistance(pos, nearposition) <= 3)	//cambiar por el rango del boss
+			current_turn = SEARCH_ATTACK;
+		else
+			current_turn = END_TURN;
 	}
 }
 
-void Hotdog::SearchAttack()
-{
-	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
-	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
+
+void Hotdog::SearchAttack() {
+	objective_position.clear();
+	nearposition = App->entity_manager->NearestCharacter(position);
 	current_turn = ATTACK;
-	//IA Attack. Into range of position + attack. If enemy is near to dead. If enemy def.
 }
 
-void Hotdog::Attack(const std::vector<std::pair<int, int>> *_path)
+void Hotdog::Attack(const std::vector<std::pair<int, int>>* _path)
 {
-	if (App->debug) 
-	{
-		for (uint i = 0; i < _path->size() && 2 == _path->size(); ++i)
-		{
-			std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
-			App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_green);
-		}
-	}
+	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
+	range = App->entity_manager->RangeOfAttack(pos, 3, tiles_range_attk);	//cambiar por el rango del boss
+	std::pair<int, int> car = App->entity_manager->CharactersPrioritzationAttack(range, tiles_range_attk);
+	objective_position.push_back(car);
+	car = App->map->WorldToMap(car.first, car.second);
 
-	if (_path->size() == 2) {
-		objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
-		if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
-			CurrentMovement(ATTACK_LEFT_FRONT);
-		}
-		else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-			CurrentMovement(ATTACK_RIGHT_FRONT);
-		}
-		else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-			CurrentMovement(ATTACK_LEFT_BACK);
-		}
-		else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
-			CurrentMovement(ATTACK_RIGHT_BACK);
-		}
-	}
+	if (car.first > pos.first)
+		CurrentMovement(ATTACK_FRONT);
 	else
-	{
+		CurrentMovement(ATTACK_BACK);
+
+	if (current_animation->isDone()) {
+
+		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_HOTDOG, false);	//hay que cambiar esto
+
+		current_animation->Reset();
+		if (current_movement == ATTACK_FRONT)
+			CurrentMovement(IDLE_RIGHT);
+		else
+			CurrentMovement(IDLE_LEFT);
 		current_turn = END_TURN;
 	}
 }
+
 
 void Hotdog::CurrentMovement(MOVEMENT _movement) {
 
 	switch (_movement)
 	{
-	case Entity::IDLE_LEFT_FRONT:
-		current_movement = IDLE_LEFT_FRONT;
-		current_animation = &idle_left_front;
+	case Entity::IDLE_LEFT:
+		current_movement = IDLE_LEFT;
+		current_animation = &idle_left;
+		flipX = false;
 		break;
-	case Entity::IDLE_RIGHT_FRONT:
-		current_movement = IDLE_RIGHT_FRONT;
-		current_animation = &idle_right_front;
+	case Entity::IDLE_RIGHT:
+		current_movement = IDLE_RIGHT;
+		current_animation = &idle_left;
+		flipX = true;
 		break;
-	case Entity::IDLE_LEFT_BACK:
-		current_movement = IDLE_LEFT_BACK;
-		current_animation = &idle_left_back;
+	case Entity::IDLE_FRONT:
+		current_movement = IDLE_FRONT;
+		current_animation = &idle_front;
+		flipX = false;
 		break;
-	case Entity::IDLE_RIGHT_BACK:
-		current_movement = IDLE_RIGHT_BACK;
-		current_animation = &idle_right_back;
+	case Entity::IDLE_BACK:
+		current_movement = IDLE_BACK;
+		current_animation = &idle_back;
+		flipX = false;
 		break;
-	case Entity::WALK_LEFT_FRONT:
-		current_movement = WALK_LEFT_FRONT;
-		current_animation = &walk_left_front;
+	case Entity::WALK_FRONT:										//------- MOVIMIENTO
+		current_movement = WALK_FRONT;
+		current_animation = &walk_front;
+		flipX = false;
+		position.second += 2;
+		break;
+	case Entity::WALK_RIGHT:
+		current_movement = WALK_RIGHT;
+		current_animation = &walk_left;
+		position.first += 2;
+		flipX = true;
+		break;
+	case Entity::WALK_BACK:
+		current_movement = WALK_BACK;
+		current_animation = &walk_back;
+		flipX = false;
+		position.second -= 2;
+		break;
+	case Entity::WALK_LEFT:
+		current_movement = WALK_LEFT;
+		current_animation = &walk_left;
+		flipX = false;
 		position.first -= 2;
-		position.second++;
 		break;
 	case Entity::WALK_RIGHT_FRONT:
 		current_movement = WALK_RIGHT_FRONT;
-		current_animation = &walk_right_front;
+		current_animation = &walk_left;
+		flipX = false;
 		position.first += 2;
-		position.second++;
-		break;
-	case Entity::WALK_LEFT_BACK:
-		current_movement = WALK_LEFT_BACK;
-		current_animation = &walk_left_back;
-		position.first -= 2;
-		position.second--;
+		position.second -= 1;
 		break;
 	case Entity::WALK_RIGHT_BACK:
 		current_movement = WALK_RIGHT_BACK;
-		current_animation = &walk_right_back;
+		current_animation = &walk_left;
 		position.first += 2;
-		position.second--;
+		position.second += 1;
+		flipX = true;
 		break;
-	case Entity::ATTACK_LEFT_FRONT:
-		current_movement = ATTACK_LEFT_FRONT;
-		current_animation = &attack_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+	case Entity::WALK_LEFT_BACK:
+		current_movement = WALK_LEFT_BACK;
+		current_animation = &walk_front;
+		flipX = false;
+		position.first -= 2;
+		position.second += 1;
+		break;
+	case Entity::WALK_LEFT_FRONT:								//------------MOVIMIENTO
+		current_movement = WALK_LEFT_FRONT;
+		current_animation = &walk_back;
+		flipX = false;
+		position.first -= 2;
+		position.second -= 1;
+		break;
+	case Entity::ATTACK_LEFT:
+		current_movement = ATTACK_LEFT;
+		current_animation = &attack_left;
+		flipX = false;
+		break;
+	case Entity::ATTACK_RIGHT:
+		current_movement = ATTACK_RIGHT;
+		current_animation = &attack_left;
+		flipX = true;
+		break;
+	case Entity::ATTACK_FRONT:
+		current_movement = ATTACK_FRONT;
+		current_animation = &attack_front;
+		flipX = false;
+		break;
+	case Entity::ATTACK_BACK:
+		current_movement = ATTACK_BACK;
+		current_animation = &attack_back;
+		flipX = false;
+		break;
+	case Entity::ABILITY_1_LEFT:
+		current_movement = ABILITY_1_LEFT;
+		current_animation = &ability_1_left;
+		flipX = false;
 		current_turn = END_TURN;
 		break;
-	case Entity::ATTACK_RIGHT_FRONT:
-		current_movement = ATTACK_RIGHT_FRONT;
-		current_animation = &attack_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+	case Entity::ABILITY_1_RIGHT:
+		current_movement = ABILITY_1_RIGHT;
+		current_animation = &ability_1_left;
+		flipX = true;
 		current_turn = END_TURN;
 		break;
-	case Entity::ATTACK_LEFT_BACK:
-		current_movement = ATTACK_LEFT_BACK;
-		current_animation = &attack_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
+	case Entity::ABILITY_1_FRONT:
+		current_movement = ABILITY_1_FRONT;
+		current_animation = &ability_1_front;
+		flipX = false;
+		break;
+	case Entity::ABILITY_1_BACK:
+		current_movement = ABILITY_1_BACK;
+		current_animation = &ability_1_back;
+		flipX = false;
 		current_turn = END_TURN;
 		break;
-	case Entity::ATTACK_RIGHT_BACK:
-		current_movement = ATTACK_RIGHT_BACK;
-		current_animation = &attack_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-		current_turn = END_TURN;
+	case Entity::DEAD_LEFT:
+		current_movement = DEAD_LEFT;
+		current_animation = &dead_left;
+		flipX = false;
+		if (current_animation->Finished()) {
+			current_state = DEATH;
+		}
 		break;
-	case Entity::ABILITY_1_LEFT_FRONT:
-		current_movement = ABILITY_1_LEFT_FRONT;
-		current_animation = &ability_1_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-		current_turn = END_TURN;
+	case Entity::DEAD_RIGHT:
+		current_movement = DEAD_RIGHT;
+		current_animation = &dead_left;
+		flipX = true;
+		if (current_animation->Finished()) {
+			current_state = DEATH;
+		}
 		break;
-	case Entity::ABILITY_1_RIGHT_FRONT:
-		current_movement = ABILITY_1_RIGHT_FRONT;
-		current_animation = &ability_1_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-		current_turn = END_TURN;
+	case Entity::DEAD_FRONT:
+		current_movement = DEAD_FRONT;
+		current_animation = &dead_front;
+		flipX = false;
+		if (current_animation->Finished()) {
+			current_state = DEATH;
+		}
 		break;
-	case Entity::ABILITY_1_LEFT_BACK:
-		current_movement = ABILITY_1_LEFT_BACK;
-		current_animation = &ability_1_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-		current_turn = END_TURN;
-		break;
-	case Entity::ABILITY_1_RIGHT_BACK: // ME HE QUEDADO AQUÍ
-		current_movement = ABILITY_1_RIGHT_BACK;
-		current_animation = &ability_1_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-		current_turn = END_TURN;
-		break;
-	case Entity::ABILITY_2_LEFT_FRONT:
-		current_movement = ABILITY_2_LEFT_FRONT;
-		current_animation = &ability_2_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-		current_turn = END_TURN;
-		break;
-	case Entity::ABILITY_2_RIGHT_FRONT:
-		current_movement = ABILITY_2_RIGHT_FRONT;
-		current_animation = &ability_2_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-		current_turn = END_TURN;
-		break;
-	case Entity::ABILITY_2_LEFT_BACK:
-		current_movement = ABILITY_2_LEFT_BACK;
-		current_animation = &ability_2_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-		current_turn = END_TURN;
-		break;
-	case Entity::ABILITY_2_RIGHT_BACK:
-		current_movement = ABILITY_2_RIGHT_BACK;
-		current_animation = &ability_2_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-		current_turn = END_TURN;
-		break;
-	case Entity::DEAD_LEFT_FRONT:
-		current_movement = DEAD_LEFT_FRONT;
-		current_animation = &dead_left_front;
-		current_state = DEATH;
-		current_turn = END_TURN;
-		break;
-	case Entity::DEAD_RIGHT_FRONT:
-		current_movement = DEAD_RIGHT_FRONT;
-		current_animation = &dead_right_front;
-		current_state = DEATH;
-		current_turn = END_TURN;
-		break;
-	case Entity::DEAD_LEFT_BACK:
-		current_movement = DEAD_LEFT_BACK;
-		current_animation = &dead_left_back;
-		current_state = DEATH;
-		current_turn = END_TURN;
-		break;
-	case Entity::DEAD_RIGHT_BACK:
-		current_movement = DEAD_RIGHT_BACK;
-		current_animation = &dead_right_back;
-		current_state = DEATH;
-		current_turn = END_TURN;
+	case Entity::DEAD_BACK:
+		current_movement = DEAD_BACK;
+		current_animation = &dead_back;
+		flipX = false;
+		if (current_animation->Finished()) {
+			current_state = DEATH;
+		}
 		break;
 	default:
 		break;

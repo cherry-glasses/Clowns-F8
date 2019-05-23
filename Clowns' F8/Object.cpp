@@ -1,4 +1,3 @@
-#include "Log.h"
 #include "Application.h"
 #include "Object.h"
 #include "ModuleEntityManager.h"
@@ -7,6 +6,21 @@
 #include "ModuleRender.h"
 #include "ModuleMap.h"
 
+Object::Object(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Entity(_type, _config)
+{
+	int i = 0;
+	pugi::xml_node _node = _config.child("position");
+	for (; _node; _node = _node.next_sibling("position")) {
+		if (_copy == i) {
+			position = App->map->MapToWorld(_node.attribute("x").as_int(), _node.attribute("y").as_int());
+		}
+		i++;
+	}
+	current = { 0 , 0, _config.child("size").attribute("width").as_int(), _config.child("size").attribute("height").as_int() };
+}
+Object::~Object()
+{
+}
 
 bool Object::PreUpdate()
 {
@@ -23,7 +37,7 @@ bool Object::Update(float dt)
 	return true;
 }
 
-bool Object::PostUpdate()
+bool Object::PostUpdate(float _dt)
 {
 	if (entity_texture != nullptr)
 	{

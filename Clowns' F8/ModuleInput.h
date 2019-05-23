@@ -53,6 +53,10 @@ struct Gamepad {
 	GAMEPAD_STATE CROSS_RIGHT;
 
 	GAMEPAD_STATE START;
+	GAMEPAD_STATE SELECT;
+	GAMEPAD_STATE L1;
+	GAMEPAD_STATE L2;
+	GAMEPAD_STATE R1;
 
 	GAMEPAD_STATE JOYSTICK_UP;
 	GAMEPAD_STATE JOYSTICK_DOWN;
@@ -60,12 +64,51 @@ struct Gamepad {
 	GAMEPAD_STATE JOYSTICK_RIGHT;
 
 	
-	//GAMEPAD_STATE SELECT;
-	//GAMEPAD_STATE L1;
-	//GAMEPAD_STATE L2; 
-	//GAMEPAD_STATE R1;
+
 };
 
+struct ButtonsToUse {
+
+	int UP;
+	int DOWN;
+	int LEFT;
+	int RIGHT;
+	int DECLINE;
+	int ACCEPT;
+	int PAUSE;
+	int STATS;
+	int CHARACABILITY;
+	int ABILITY;
+	int ABILITYTREE;
+	
+	
+
+};
+
+
+struct ButtonChar {
+	char* UP = nullptr;
+	char* DOWN = nullptr;
+	char* LEFT = nullptr;
+	char* RIGHT = nullptr;
+	char* DECLINE = nullptr;
+	char* ACCEPT = nullptr;
+	char* PAUSE = nullptr;
+	char* STATS = nullptr;
+	char* ABILITY = nullptr;
+	char* CHARACABILITY = nullptr;
+	char* ABILITYTREE = nullptr;
+};
+
+struct KeyboardButtons {
+	ButtonsToUse buttons_to_use;
+	ButtonChar buttons_char;
+};
+
+struct ControllerButtons {
+	ButtonsToUse buttons_to_use;
+	ButtonChar buttons_char;
+};
 
 class ModuleInput : public Module
 {
@@ -124,6 +167,9 @@ public:
 
 	Gamepad gamepad;
 	void buttonForGamepad();
+	void Defaultcontrols();
+
+	void GetKeyPressed();
 
 	bool Left();
 	bool Right();
@@ -138,11 +184,16 @@ public:
 	//bool Showabilities();
 	//
 
+	int space;
 
+	KeyboardButtons keyboard_buttons;
+	KEY_STATE*	keyboard;
+	SDL_Scancode scancode;
+	bool keyPressed = false;
 
 private:
 	bool		windowEvents[EW_COUNT];
-	KEY_STATE*	keyboard;
+
 	KEY_STATE	mouse_buttons[NUM_MOUSE_BUTTONS];
 
 	int			mouse_motion_x;

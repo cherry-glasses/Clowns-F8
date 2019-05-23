@@ -7,11 +7,12 @@
 #include "ModuleAudio.h"
 #include "ModuleFonts.h"
 #include "ModuleMap.h"
-#include "Scene.h"
+#include "ModuleSceneManager.h"
 #include "ModuleTransitionManager.h"
 #include "ModuleEntityManager.h"
 #include "ModuleGUIManager.h"
 #include "ModulePathfinding.h"
+#include "ModuleParticleSystem.h"
 
 
 
@@ -27,11 +28,12 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	audio = new ModuleAudio();
 	fonts = new ModuleFonts();
 	map = new ModuleMap();
-	scene = new Scene();
+	scene_manager = new ModuleSceneManager();
 	entity_manager = new ModuleEntityManager();
 	gui_manager = new ModuleGUIManager();
 	pathfinding = new ModulePathfinding();
 	transition_manager = new ModuleTransitionManager();
+//	particle_system = new ModuleParticleSystem();
 	
 
 	// Ordered for awake / Start / Update
@@ -43,10 +45,11 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	AddModule(fonts);
 	AddModule(map);
 	AddModule(pathfinding);
-	AddModule(scene);
+	AddModule(scene_manager);
 	AddModule(entity_manager);
 	AddModule(gui_manager);
 	AddModule(transition_manager);
+//	AddModule(particle_system);
 
 	// render last to swap buffer
 	AddModule(render);
@@ -79,6 +82,18 @@ pugi::xml_node Application::LoadConfig(pugi::xml_document& _config_file) const
 	else
 		ret = _config_file.child("config");
 
+	return ret;
+}
+pugi::xml_node Application::LoadEmitters(pugi::xml_document& psystem_file) const
+{
+	pugi::xml_node ret;
+
+	pugi::xml_parse_result result = psystem_file.load_file("psystem_config.xml");
+
+	if (result == NULL)
+		LOG("Could not load xml file config.xml. Pugi error: %s", result.description());
+	else
+		ret = psystem_file.child("emitters");
 	return ret;
 }
 
@@ -159,10 +174,12 @@ bool Application::Update()
 
 void Application::PrepareUpdate()
 {
-	frame_count++;
 	last_sec_frame_count++;
 
 	dt = frame_time.ReadSec();
+	if (dt > frame_rate / 1000)
+		dt = frame_rate / 1000;
+
 	frame_time.Start();
 }
 
@@ -171,12 +188,12 @@ void Application::FinishUpdate()
 {
 	if (want_to_save == true) 
 	{
-		//SavegameNow();
+		SavegameNow();
 	}
 		
 	if (want_to_load == true)
 	{
-		//LoadGameNow();
+		LoadGameNow();
 	}
 		
 	// Framerate calculations --
@@ -187,31 +204,22 @@ void Application::FinishUpdate()
 		last_sec_frame_count = 0;
 	}
 
-	float avg_fps = float(frame_count) / startup_time.ReadSec();
-	seconds_since_startup = startup_time.ReadSec();
-	if (aux_seconds < seconds_since_startup) 
-	{
-		aux_seconds++;
-		//App->scene->HUDUpdate();
-	}
-
-
-	uint32 last_frame_ms = frame_time.Read();
+	double last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
 	//BROFILER_CATEGORY("Waiting", Profiler::Color::SeaGreen);
 
-	if (last_frame_ms < frame_rate)
+	static char title[256];
+	sprintf_s(title, 256, " FPS: %i Last Frame Ms: %.2f",
+		frames_on_last_update, last_frame_ms);
+	App->window->SetTitle(title);
+	
+	float waiting_time = (1000 / frame_rate);
+	if (last_frame_ms < waiting_time)
 	{
-		PerfTimer delay_timer;
-		SDL_Delay(frame_rate - last_frame_ms);
-		//LOG("waited for: %.2f ms expected time: %u ms", delay_timer.ReadMs(), frame_rate - last_frame_ms);
+		waiting_time -= last_frame_ms;
+		SDL_Delay(waiting_time);
 	}
-
-	/*static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
-		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
-	App->window->SetTitle(title);*/
 }
 
 bool Application::PreUpdate()
@@ -269,7 +277,7 @@ bool Application::PostUpdate()
 			continue;
 		}
 
-		ret = (*item)->PostUpdate();
+		ret = (*item)->PostUpdate(dt);
 	}
 
 	return ret;
@@ -401,4 +409,5 @@ const char* Application::GetTitle() const
 {
 	return title.c_str();
 }
+
 

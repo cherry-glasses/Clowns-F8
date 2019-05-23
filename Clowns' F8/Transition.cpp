@@ -1,14 +1,7 @@
-#include "Log.h"
 #include "Application.h"
 #include "Transition.h"
 #include "ModuleTransitionManager.h"
 
-
-
-
-Transition::Transition()
-{
-}
 
 Transition::Transition(float transition_time)
 {
@@ -20,6 +13,7 @@ Transition::Transition(float transition_time)
 
 	state = TransitionState::ENTERING;
 
+	App->transition_manager->transitioning = true;
 }
 
 
@@ -28,16 +22,7 @@ Transition::~Transition()
 	delete current_time;
 }
 
-void Transition::PreUpdate()
-{
-}
-
-void Transition::Update()
-{
-
-}
-
-void Transition::PostUpdate()
+void Transition::PostUpdate(float dt)
 {
 	switch (state)
 	{
@@ -59,6 +44,8 @@ void Transition::PostUpdate()
 
 void Transition::Entering()
 {
+	percent = current_time->ReadSec()*(1 / transition_time);
+
 	if (current_time->ReadSec() >= transition_time)
 	{
 		state = TransitionState::ACTION;
@@ -67,19 +54,24 @@ void Transition::Entering()
 
 void Transition::Action()
 {
-	current_time->Stop();
-
-	transition_time += transition_time;
+	current_time->Start();
 	state = TransitionState::EXITING;
 }
 
 void Transition::Exiting()
 {
-	current_time->Resume();
+	percent = current_time->ReadSec() * (1 / transition_time);
 
 	if (current_time->ReadSec() >= transition_time)
 	{
 		state = TransitionState::NONE;
-		App->transition_manager->DestroyTransition(this);
+		App->transition_manager->transitioning = false;
+		todestroy = true;
+		//App->transition_manager->DestroyTransition(this);
 	}
+}
+
+float Transition::LerpValue(float percent, float start, float end)
+{
+	return start + percent * (end - start);
 }

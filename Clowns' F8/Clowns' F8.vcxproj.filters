@@ -37,6 +37,9 @@
     <Filter Include="Transitions">
       <UniqueIdentifier>{499715db-c79e-4722-840e-34fa782fd775}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Particle">
+      <UniqueIdentifier>{299cc7c8-d7d0-4162-9919-5d783c050158}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Clowns%27 F8\Application.h">
@@ -147,15 +150,6 @@
     <ClInclude Include="..\Clowns%27 F8\Object.h">
       <Filter>Entities\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\Clowns%27 F8\BearTrap.h">
-      <Filter>Entities\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Tree1.h">
-      <Filter>Entities\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Clowns%27 F8\Tree2.h">
-      <Filter>Entities\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="..\Clowns%27 F8\ModuleTransitionManager.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -168,8 +162,65 @@
     <ClInclude Include="..\Clowns%27 F8\Transition.h">
       <Filter>Transitions</Filter>
     </ClInclude>
-    <ClInclude Include="..\Clowns%27 F8\Tree3.h">
-      <Filter>Entities\Objects</Filter>
+    <ClInclude Include="..\Clowns%27 F8\ModuleSceneManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\MainMenu.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Battle1.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Battle.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Language.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Squares.h">
+      <Filter>Transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Battle2.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Win.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Lose.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Burgdog.h">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Polarbear.h">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ChooseMap.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Polarpath.h">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Battle3.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ModuleParticleSystem.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ParticlePool.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Particle.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Emitter.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\CherryBlackGlasses.h">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\Battle4.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -263,20 +314,11 @@
     <ClCompile Include="..\Clowns%27 F8\CharacterGeorgeB.cpp">
       <Filter>Entities\EntitiesCharacters</Filter>
     </ClCompile>
-    <ClCompile Include="..\Clowns%27 F8\BearTrap.cpp">
-      <Filter>Entities\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Object.cpp">
       <Filter>Entities\Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Enemy.cpp">
       <Filter>Entities\EntitiesEnemies</Filter>
-    </ClCompile>
-    <ClCompile Include="Tree1.cpp">
-      <Filter>Entities\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Clowns%27 F8\Tree2.cpp">
-      <Filter>Entities\Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\Clowns%27 F8\Color.cpp">
       <Filter>Containers</Filter>
@@ -290,8 +332,65 @@
     <ClCompile Include="..\Clowns%27 F8\Transition.cpp">
       <Filter>Transitions</Filter>
     </ClCompile>
-    <ClCompile Include="..\Clowns%27 F8\Tree3.cpp">
-      <Filter>Entities\Objects</Filter>
+    <ClCompile Include="..\Clowns%27 F8\ModuleSceneManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\MainMenu.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Battle1.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Battle.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Language.cpp">
+      <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Squares.cpp">
+      <Filter>Transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Battle2.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Win.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Lose.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Burgdog.cpp">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Polarbear.cpp">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ChooseMap.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Polarpath.cpp">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Battle3.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ModuleParticleSystem.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ParticlePool.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Emitter.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\CherryBlackGlasses.cpp">
+      <Filter>Entities\EntitiesEnemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Particle.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\Battle4.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

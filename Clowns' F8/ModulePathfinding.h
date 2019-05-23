@@ -29,17 +29,22 @@ public:
 	int CreatePathBishop(const std::pair<int, int>& origin, const std::pair<int, int>& destination, int Movment);
 	//Para las torres <3
 	int CreatePathTower(const std::pair<int, int>& origin, const std::pair<int, int>& destination, int Movment);
+
+	int CreatePathKnight(const std::pair<int, int>& origin, const std::pair<int, int>& destination);
+
+	int CreatePathQueen(const std::pair<int, int>& origin, const std::pair<int, int>& destination, int Movment);
 	// To request all tiles involved in the last generated path
 	const std::vector<std::pair<int, int>>* GetLastPath() const;
 
 	// Utility: return true if pos is inside the map boundaries
 	bool CheckBoundaries(const std::pair<int, int>& pos) const;
 
+
 	// Utility: returns true is the tile is walkable
 	bool IsWalkable(const std::pair<int, int>& pos) const;
 
 	// Utility: returns true is the tile is walkable
-	bool IsTrapped(const std::pair<int, int>& pos) const;
+	bool CanTrap(const std::pair<int, int>& pos) const;
 
 	// Utility: returns true is the tile is used by otrhe entity
 	bool IsUsed(const std::pair<int, int>& pos, Entity* _entity) const;
@@ -80,6 +85,8 @@ struct PathNode
 	uint FindWalkableAdjacents(PathList& list_to_fill) const;
 	uint FindWalkableAdjacentsBishop(PathList& list_to_fill, int Movment_Points)const;
 	uint FindWalkableAdjacentsTower(PathList& list_to_fill, int Movment_Points) const;
+	uint FindWalkableAdjacentsKnight(PathList& list_to_fill) const;
+	uint FindWalkableAdjacentsQueen(PathList& list_to_fill, int Movment_Points) const;
 
 	// Calculates this tile score
 	int Score() const;

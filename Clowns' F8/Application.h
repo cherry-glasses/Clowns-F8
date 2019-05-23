@@ -18,11 +18,12 @@ class ModuleTextures;
 class ModuleAudio;
 class ModuleFonts;
 class ModuleMap;
-class Scene;
+class ModuleSceneManager;
 class ModuleEntityManager;
 class ModuleGUIManager;
 class ModulePathfinding;
 class ModuleTransitionManager;
+class ModuleParticleSystem;
 
 
 
@@ -60,11 +61,15 @@ public:
 	void SaveGame() const;
 	
 
+	//Load emitters config
+	pugi::xml_node LoadEmitters(pugi::xml_document& psystem_file) const;
 
 private:
 
 	// Load config file
 	pugi::xml_node LoadConfig(pugi::xml_document&) const;
+
+	
 
 	// Call modules before each loop iteration
 	void PrepareUpdate();
@@ -96,11 +101,12 @@ public:
 	ModuleAudio* audio = nullptr;
 	ModuleFonts* fonts = nullptr;
 	ModuleMap* map = nullptr;
-	Scene* scene = nullptr;
+	ModuleSceneManager* scene_manager = nullptr;
 	ModuleEntityManager* entity_manager = nullptr;
 	ModuleGUIManager* gui_manager = nullptr;
 	ModulePathfinding* pathfinding = nullptr;
 	ModuleTransitionManager *transition_manager = nullptr;
+	ModuleParticleSystem	*particle_system	= nullptr;
 
 	bool debug = false;
 
@@ -108,12 +114,12 @@ public:
 private:
 
 	ModuleList			modules;
-	float				dt = .0f;
+	float				dt;
 	int					argc;
 	char**				args;
 	std::string			title;
 	std::string			organization;
-	uint32				frame_rate;
+	float				frame_rate;
 	std::string			load_game;
 	std::string			save_game;
 	mutable bool		want_to_save = false;
@@ -121,13 +127,11 @@ private:
 	bool				want_to_quit = false;
 
 	int					aux_seconds = 0;
-	Timer				startup_time;
 	Timer				frame_time;
 	Timer				last_sec_frame_time;
 	uint64				frame_count = 0;
 	uint32				last_sec_frame_count = 0;
 	uint32				prev_last_sec_frame_count = 0;
-	float				seconds_since_startup;
 
 
 	pugi::xml_document	config_file;

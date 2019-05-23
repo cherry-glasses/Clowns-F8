@@ -11,13 +11,23 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	type = _type;
 
 	entity_texture = App->textures->Load(_config.child("texture").attribute("value").as_string());
-	debug_texture = App->textures->Load(_config.child("debug_texture").attribute("value").as_string());
+	debug_texture = App->textures->Load(_config.parent().child("debug_texture").attribute("value").as_string());
 	debug_green = { _config.parent().child("debug_green").attribute("x").as_int(), _config.parent().child("debug_green").attribute("y").as_int(),
 		_config.parent().child("debug_green").attribute("width").as_int(), _config.parent().child("debug_green").attribute("height").as_int() };
 	debug_red = { _config.parent().child("debug_red").attribute("x").as_int(), _config.parent().child("debug_red").attribute("y").as_int(),
 		_config.parent().child("debug_red").attribute("width").as_int(), _config.parent().child("debug_red").attribute("height").as_int() };
 	debug_blue = { _config.parent().child("debug_blue").attribute("x").as_int(), _config.parent().child("debug_blue").attribute("y").as_int(),
 		_config.parent().child("debug_blue").attribute("width").as_int(), _config.parent().child("debug_blue").attribute("height").as_int() };
+	debug_yellow = { _config.parent().child("debug_yellow").attribute("x").as_int(), _config.parent().child("debug_yellow").attribute("y").as_int(),
+		_config.parent().child("debug_yellow").attribute("width").as_int(), _config.parent().child("debug_yellow").attribute("height").as_int() };
+	circle_green = { _config.parent().child("circle_green").attribute("x").as_int(), _config.parent().child("circle_green").attribute("y").as_int(),
+		_config.parent().child("circle_green").attribute("width").as_int(), _config.parent().child("circle_green").attribute("height").as_int() };
+	circle_red = { _config.parent().child("circle_red").attribute("x").as_int(), _config.parent().child("circle_red").attribute("y").as_int(),
+		_config.parent().child("circle_red").attribute("width").as_int(), _config.parent().child("circle_red").attribute("height").as_int() };
+	circle_blue = { _config.parent().child("circle_blue").attribute("x").as_int(), _config.parent().child("circle_blue").attribute("y").as_int(),
+		_config.parent().child("circle_blue").attribute("width").as_int(), _config.parent().child("circle_blue").attribute("height").as_int() };
+	circle_yellow = { _config.parent().child("circle_yellow").attribute("x").as_int(), _config.parent().child("circle_yellow").attribute("y").as_int(),
+		_config.parent().child("circle_yellow").attribute("width").as_int(), _config.parent().child("circle_yellow").attribute("height").as_int() };
 
 	name = _config.child("name").attribute("value").as_string("");
 	position_margin = { _config.parent().child("position_margin").attribute("x").as_int(), _config.parent().child("position_margin").attribute("y").as_int() };
@@ -30,13 +40,28 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	default_stats.AtkS = _config.child("stats").attribute("atk_s").as_int();
 	default_stats.RangeAtk = _config.child("stats").attribute("range_atk").as_int();
 	default_stats.RangeAbility_1 = _config.child("stats").attribute("range_ability_1").as_int();
+	default_stats.RangeAbility_2 = _config.child("stats").attribute("range_ability_2").as_int();
+	default_stats.RangeAbility_3 = _config.child("stats").attribute("range_ability_3").as_int();
 	default_stats.DefF = _config.child("stats").attribute("def_f").as_int();
 	default_stats.DefS = _config.child("stats").attribute("def_s").as_int();
 	default_stats.Crit = _config.child("stats").attribute("crit").as_int();
 	default_stats.Agi = _config.child("stats").attribute("agi").as_int();
+	default_stats.Attack = _config.child("stats").attribute("attack").as_int();
+	default_stats.Ability_1 = _config.child("stats").attribute("ability_1").as_int();
+	default_stats.Ability_2 = _config.child("stats").attribute("ability_2").as_int();
+	default_stats.Ability_3 = _config.child("stats").attribute("ability_3").as_int();
+
+	evolution_stats.Hp = _config.child("evolution").attribute("hp").as_int();
+	evolution_stats.Mana = _config.child("evolution").attribute("mana").as_int();
+	evolution_stats.AtkF = _config.child("evolution").attribute("atk_f").as_int();
+	evolution_stats.AtkS = _config.child("evolution").attribute("atk_s").as_int();
+	evolution_stats.DefF = _config.child("evolution").attribute("def_f").as_int();
+	evolution_stats.DefS = _config.child("evolution").attribute("def_s").as_int();
+	evolution_stats.Crit = _config.child("evolution").attribute("crit").as_int();
 
 	current_stats = default_stats;
 
+	//Names
 	attacks_names.Attack_name = _config.child("attacks_names").attribute("attack").as_string("Attack");
 	attacks_names.Ability_1_name = _config.child("attacks_names").attribute("ability_1").as_string("Ability 1");
 	attacks_names.Ability_2_name = _config.child("attacks_names").attribute("ability_2").as_string("Ability 2");
@@ -45,6 +70,21 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	attacks_names.Habilidad_1_nombre = _config.child("attacks_names").attribute("habilidad_1").as_string("Habilidad 1");
 	attacks_names.Habilidad_2_nombre = _config.child("attacks_names").attribute("habilidad_2").as_string("Habilidad 2");
 	attacks_names.Habilidad_3_nombre = _config.child("attacks_names").attribute("habilidad_3").as_string("Habilidad 3");
+
+	//FXSounds
+	sfx.Attack_SFX = App->audio->LoadFx(_config.child("sfx").child("attack_sfx").attribute("value").as_string());
+	sfx.Ability_1_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_1_sfx").attribute("value").as_string());
+	sfx.Ability_2_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_2_sfx").attribute("value").as_string());
+	sfx.Ability_3_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_3_sfx").attribute("value").as_string());
+	sfx.Dead_SFX = App->audio->LoadFx(_config.child("sfx").child("dead_sfx").attribute("value").as_string());
+
+
+	exp = _config.child("exp").attribute("value").as_int();
+
+	pugi::xml_node _node = _config.parent().child("levelup").child("nextlevel");
+	for (; _node; _node = _node.next_sibling("nextlevel")) {
+		levels.push_back(_node.attribute("value").as_int());
+	}
 
 	LoadAnim(_config);
 
@@ -95,6 +135,7 @@ bool Entity::CleanUp()
 		App->textures->UnLoad(debug_texture);
 		debug_texture = nullptr;
 	}
+	
 	return true;
 }
 
@@ -226,7 +267,7 @@ void Entity::LoadAnim(pugi::xml_node _config)
 	attack_back.speed = _config.child("animations").child("attack_back").attribute("speed").as_float();
 	attack_back.loop = _config.child("animations").child("attack_back").attribute("loop").as_bool(true);
 
-	// Ability
+	// Ability 1
 	LoadAnimation(_config.child("animations").child("ability_1_left_front").child("frame"), ability_1_left_front);
 	ability_1_left_front.speed = _config.child("animations").child("ability_1_left_front").attribute("speed").as_float();
 	ability_1_left_front.loop = _config.child("animations").child("ability_1_left_front").attribute("loop").as_bool(true);
@@ -259,6 +300,71 @@ void Entity::LoadAnim(pugi::xml_node _config)
 	ability_1_back.speed = _config.child("animations").child("ability_1_back").attribute("speed").as_float();
 	ability_1_back.loop = _config.child("animations").child("ability_1_back").attribute("loop").as_bool(true);
 
+	// Ability 2
+	LoadAnimation(_config.child("animations").child("ability_2_left_front").child("frame"), ability_2_left_front);
+	ability_2_left_front.speed = _config.child("animations").child("ability_2_left_front").attribute("speed").as_float();
+	ability_2_left_front.loop = _config.child("animations").child("ability_2_left_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("ability_2_right_front").child("frame"), ability_2_right_front);
+	ability_2_right_front.speed = _config.child("animations").child("ability_2_right_front").attribute("speed").as_float();
+	ability_2_right_front.loop = _config.child("animations").child("ability_2_right_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("ability_2_left_back").child("frame"), ability_2_left_back);
+	ability_2_left_back.speed = _config.child("animations").child("ability_2_left_back").attribute("speed").as_float();
+	ability_2_left_back.loop = _config.child("animations").child("ability_2_left_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("ability_2_right_back").child("frame"), ability_2_right_back);
+	ability_2_right_back.speed = _config.child("animations").child("ability_2_right_back").attribute("speed").as_float();
+	ability_2_right_back.loop = _config.child("animations").child("ability_2_right_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("ability_2_left").child("frame"), ability_2_left);
+	ability_2_left.speed = _config.child("animations").child("ability_2_left").attribute("speed").as_float();
+	ability_2_left.loop = _config.child("animations").child("ability_2_left").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("ability_2_right").child("frame"), ability_2_right);
+	ability_2_right.speed = _config.child("animations").child("ability_2_right").attribute("speed").as_float();
+	ability_2_right.loop = _config.child("animations").child("ability_2_right").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("ability_2_front").child("frame"), ability_2_front);
+	ability_2_front.speed = _config.child("animations").child("ability_2_front").attribute("speed").as_float();
+	ability_2_front.loop = _config.child("animations").child("ability_2_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("ability_2_back").child("frame"), ability_2_back);
+	ability_2_back.speed = _config.child("animations").child("ability_2_back").attribute("speed").as_float();
+	ability_2_back.loop = _config.child("animations").child("ability_2_back").attribute("loop").as_bool(true);
+
+	// Ability 3
+	LoadAnimation(_config.child("animations").child("ability_3_left_front").child("frame"), ability_3_left_front);
+	ability_3_left_front.speed = _config.child("animations").child("ability_3_left_front").attribute("speed").as_float();
+	ability_3_left_front.loop = _config.child("animations").child("ability_3_left_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("ability_3_right_front").child("frame"), ability_3_right_front);
+	ability_3_right_front.speed = _config.child("animations").child("ability_3_right_front").attribute("speed").as_float();
+	ability_3_right_front.loop = _config.child("animations").child("ability_3_right_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("ability_3_left_back").child("frame"), ability_3_left_back);
+	ability_3_left_back.speed = _config.child("animations").child("ability_3_left_back").attribute("speed").as_float();
+	ability_3_left_back.loop = _config.child("animations").child("ability_3_left_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("ability_3_right_back").child("frame"), ability_3_right_back);
+	ability_3_right_back.speed = _config.child("animations").child("ability_3_right_back").attribute("speed").as_float();
+	ability_3_right_back.loop = _config.child("animations").child("ability_3_right_back").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("ability_3_left").child("frame"), ability_3_left);
+	ability_3_left.speed = _config.child("animations").child("ability_3_left").attribute("speed").as_float();
+	ability_3_left.loop = _config.child("animations").child("ability_3_left").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("ability_3_right").child("frame"), ability_3_right);
+	ability_3_right.speed = _config.child("animations").child("ability_3_right").attribute("speed").as_float();
+	ability_3_right.loop = _config.child("animations").child("ability_3_right").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("ability_3_front").child("frame"), ability_3_front);
+	ability_3_front.speed = _config.child("animations").child("ability_3_front").attribute("speed").as_float();
+	ability_3_front.loop = _config.child("animations").child("ability_3_front").attribute("loop").as_bool(true);
+
+	LoadAnimation(_config.child("animations").child("ability_3_back").child("frame"), ability_3_back);
+	ability_3_back.speed = _config.child("animations").child("ability_3_back").attribute("speed").as_float();
+	ability_3_back.loop = _config.child("animations").child("ability_3_back").attribute("loop").as_bool(true);
 
 	// DEFEND
 	LoadAnimation(_config.child("animations").child("defend_left_front").child("frame"), defend_left_front);

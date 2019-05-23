@@ -17,12 +17,17 @@ public:
 	void Walk(const std::vector<std::pair<int, int>> *_path);
 	void SearchAttack();
 	void Attack(const std::vector<std::pair<int, int>> *_path);
-	void Hability_1() {}
-	void Hability_2() {}
-	void Hability_3() {}
+
+	//void Hability_1() {}
+	//void Hability_2() {}
+	//void Hability_3() {}
 
 	void CurrentMovement(MOVEMENT _movement);
 
+private:
+
+	bool first = false;
+	bool second = false;
 
 };
 

@@ -4,31 +4,39 @@
 #include "ModulePathfinding.h"
 #include "ModuleRender.h"
 #include "ModuleMap.h"
+#include "Log.h"
 
 
 Boneyman::Boneyman(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Enemy(_type, _config)
 {
 	CurrentMovement(IDLE_LEFT_FRONT);
-	current = current_animation->GetCurrentFrame();
-	position = { position.first, (_copy * 128) + position.second };
+	current = current_animation->GetCurrentFrame(1);
+
+	int i = 0;
+	pugi::xml_node _node = _config.child("position");
+	for (; _node; _node = _node.next_sibling("position")) {
+		if (_copy == i) {
+			position = App->map->MapToWorld(_node.attribute("x").as_int(), _node.attribute("y").as_int());
+		}
+		i++;
+	}
 	current_stats.Agi -= _copy;
 }
 Boneyman::~Boneyman()
 {
 }
 
-
-
-// Actions (SearchWalk, Walk, Attack, Hability 1, Hability 2, Die)
 void Boneyman::SearchWalk()
 {
-	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
+	nearposition = App->entity_manager->NearestCharacter(position);
 	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
 	current_turn = MOVE;
+
 }
 
 void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 {
+	//Debug
 	if (App->debug)
 	{
 		for (uint i = 0; i < _path->size(); ++i)
@@ -38,11 +46,12 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 		}
 	}
 
-	if (_path->size() > 3 && (_path->at(0).first == _path->at(2).first || _path->at(0).second == _path->at(2).second))
+	//Pawn walk
+	if ((_path->size() > 3 && (_path->at(0).first == _path->at(2).first || _path->at(0).second == _path->at(2).second)) && !App->pathfinding->IsUsed(_path->at(2), this))
 	{
 		objective_position.push_back(App->map->MapToWorld(_path->at(2).first, _path->at(2).second));
 	}
-	else if (_path->size() > 1)
+	else if (_path->size() > 1 && !App->pathfinding->IsUsed(_path->at(1),this))
 	{
 		objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
 	}
@@ -60,13 +69,13 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 		else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
 			CurrentMovement(WALK_RIGHT_BACK);
 		}
-		current_turn = MOVE;
+		//current_turn = MOVE;
 	}
 	else {
 		current_turn = SEARCH_ATTACK;
 	}
 
-	if (objective_position.back().first == position.first || objective_position.back().second == position.second) {
+	if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
 		if (current_movement == WALK_LEFT_FRONT)
 		{
 			CurrentMovement(IDLE_LEFT_FRONT);
@@ -83,9 +92,10 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 		{
 			CurrentMovement(IDLE_RIGHT_BACK);
 		}
-
+		//current_turn = SEARCH_MOVE;
 		current_turn = SEARCH_ATTACK;
 	}
+	LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
 }
 
 void Boneyman::SearchAttack()
@@ -93,11 +103,94 @@ void Boneyman::SearchAttack()
 	objective_position.clear();
 	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
 	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
-	current_turn = ATTACK;
-	//IA Attack. Into range of position + attack. If enemy is near to dead. If enemy def.
+	
+	//Skill_1
+	if (timer_skill_1 == 2) {
+		current_turn = SEARCH_ABILITY_1;
+		
+	}
+	else
+		current_turn = ATTACK;
+
 }
 
 void Boneyman::Attack(const std::vector<std::pair<int, int>> *_path)
+{
+	//Debug
+	if (App->debug)
+	{
+		for (uint i = 0; i < _path->size() && 2 == _path->size(); ++i)
+		{
+			std::pair<int, int> pos_debug = App->map->MapToWorld(_path->at(i).first, _path->at(i).second);
+			App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_green);
+		}
+	}
+
+	if (_path->size() == 2) {
+
+		objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
+
+		if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
+			CurrentMovement(ATTACK_LEFT_FRONT);
+		}
+		else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+			CurrentMovement(ATTACK_RIGHT_FRONT);
+		}
+		else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+			CurrentMovement(ATTACK_LEFT_BACK);
+		}
+		else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
+			CurrentMovement(ATTACK_RIGHT_BACK);
+		}
+		else {
+			CurrentMovement(ATTACK_LEFT_FRONT);
+		}
+
+
+		if (current_animation->isDone()) {
+			//Skill_1
+			timer_skill_1++;
+			
+
+			current_animation->Reset();
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN, false);
+			if (current_movement == ATTACK_LEFT_FRONT)
+			{
+				CurrentMovement(IDLE_LEFT_FRONT);
+			}
+			else if (current_movement == ATTACK_RIGHT_FRONT)
+			{
+				CurrentMovement(IDLE_RIGHT_FRONT);
+			}
+			else if (current_movement == ATTACK_LEFT_BACK)
+			{
+				CurrentMovement(IDLE_LEFT_BACK);
+			}
+			else if (current_movement == ATTACK_RIGHT_BACK)
+			{
+				CurrentMovement(IDLE_RIGHT_BACK);
+			}
+			current_turn = END_TURN;
+		}
+	}
+	else
+	{
+		current_turn = END_TURN;
+	}
+}
+
+void Boneyman::SearchAbility_1()
+{
+	objective_position.clear();
+	std::pair<int, int> nearposition = App->entity_manager->NearestCharacter(position);
+	App->pathfinding->CreatePath(App->map->WorldToMap(position.first, position.second), App->map->WorldToMap(nearposition.first, nearposition.second));
+	current_turn = ABILITY_1;
+}
+
+
+
+
+void Boneyman::Ability_1(const std::vector<std::pair<int, int>> *_path)
 {
 	if (App->debug)
 	{
@@ -108,94 +201,48 @@ void Boneyman::Attack(const std::vector<std::pair<int, int>> *_path)
 		}
 	}
 
-	bool ability = false;
-	
 
 	if (_path->size() == 2) {
-		if (_path->at(0).first % 2 == 1)
-			ability = true;
-		
 		objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
-
-		if (ability) {
-			if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
-				CurrentMovement(ABILITY_1_LEFT_FRONT);
-			}
-			else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-				CurrentMovement(ABILITY_1_RIGHT_FRONT);
-			}
-			else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-				CurrentMovement(ABILITY_1_LEFT_BACK);
-			}
-			else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
-				CurrentMovement(ABILITY_1_RIGHT_BACK);
-			}
-			else {
-				CurrentMovement(ABILITY_1_LEFT_FRONT);
-			}
+		if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
+			CurrentMovement(ABILITY_1_LEFT_FRONT);
+		}
+		else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+			CurrentMovement(ABILITY_1_RIGHT_FRONT);
+		}
+		else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+			CurrentMovement(ABILITY_1_LEFT_BACK);
+		}
+		else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
+			CurrentMovement(ABILITY_1_RIGHT_BACK);
 		}
 		else {
-			if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
-				CurrentMovement(ATTACK_LEFT_FRONT);
-			}
-			else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-				CurrentMovement(ATTACK_RIGHT_FRONT);
-			}
-			else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-				CurrentMovement(ATTACK_LEFT_BACK);
-			}
-			else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
-				CurrentMovement(ATTACK_RIGHT_BACK);
-			}
-			else {
-				CurrentMovement(ATTACK_LEFT_FRONT);
-			}
+			CurrentMovement(ABILITY_1_LEFT_FRONT);
 		}
-		
+
+
 
 		if (current_animation->isDone()) {
 			current_animation->Reset();
-			if (ability) {
-				current_stats.Mana -= 25;
-				App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF*1.5, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-				if (current_movement == ABILITY_1_LEFT_FRONT)
-				{
-					CurrentMovement(IDLE_LEFT_FRONT);
-				}
-				else if (current_movement == ABILITY_1_RIGHT_FRONT)
-				{
-					CurrentMovement(IDLE_RIGHT_FRONT);
-				}
-				else if (current_movement == ABILITY_1_LEFT_BACK)
-				{
-					CurrentMovement(IDLE_LEFT_BACK);
-				}
-				else if (current_movement == ABILITY_1_RIGHT_BACK)
-				{
-					CurrentMovement(IDLE_RIGHT_BACK);
-				}
-				current_turn = END_TURN;
+			timer_skill_1 = 0;
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkF*1.5, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN, false);
+			if (current_movement == ABILITY_1_LEFT_FRONT)
+			{
+				CurrentMovement(IDLE_LEFT_FRONT);
 			}
-			else {
-				App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-				if (current_movement == ATTACK_LEFT_FRONT)
-				{
-					CurrentMovement(IDLE_LEFT_FRONT);
-				}
-				else if (current_movement == ATTACK_RIGHT_FRONT)
-				{
-					CurrentMovement(IDLE_RIGHT_FRONT);
-				}
-				else if (current_movement == ATTACK_LEFT_BACK)
-				{
-					CurrentMovement(IDLE_LEFT_BACK);
-				}
-				else if (current_movement == ATTACK_RIGHT_BACK)
-				{
-					CurrentMovement(IDLE_RIGHT_BACK);
-				}
-				current_turn = END_TURN;
+			else if (current_movement == ABILITY_1_RIGHT_FRONT)
+			{
+				CurrentMovement(IDLE_RIGHT_FRONT);
 			}
+			else if (current_movement == ABILITY_1_LEFT_BACK)
+			{
+				CurrentMovement(IDLE_LEFT_BACK);
+			}
+			else if (current_movement == ABILITY_1_RIGHT_BACK)
+			{
+				CurrentMovement(IDLE_RIGHT_BACK);
+			}
+			current_turn = END_TURN;
 		}
 	}
 	else
@@ -289,30 +336,6 @@ void Boneyman::CurrentMovement(MOVEMENT _movement) {
 	case Entity::ABILITY_1_LEFT_BACK:
 		current_movement = ABILITY_1_LEFT_BACK;
 		current_animation = &ability_1_left_back;
-		break;
-	case Entity::ABILITY_2_LEFT_FRONT:
-		current_movement = ABILITY_2_LEFT_FRONT;
-		current_animation = &ability_2_left_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-		current_turn = END_TURN;
-		break;
-	case Entity::ABILITY_2_RIGHT_FRONT:
-		current_movement = ABILITY_2_RIGHT_FRONT;
-		current_animation = &ability_2_right_front;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-
-		break;
-	case Entity::ABILITY_2_LEFT_BACK:
-		current_movement = ABILITY_2_LEFT_BACK;
-		current_animation = &ability_2_left_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-
-		break;
-	case Entity::ABILITY_2_RIGHT_BACK:
-		current_movement = ABILITY_2_RIGHT_BACK;
-		current_animation = &ability_2_right_back;
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BONEYMAN);
-
 		break;
 	case Entity::DEAD_LEFT_FRONT:
 		current_movement = DEAD_LEFT_FRONT;

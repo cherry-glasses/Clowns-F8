@@ -11,7 +11,7 @@
 Pinkking::Pinkking(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config)
 {
 	CurrentMovement(IDLE_LEFT);
-	current = current_animation->GetCurrentFrame();
+	current = current_animation->GetCurrentFrame(1);
 }
 Pinkking::~Pinkking()
 {
@@ -23,10 +23,12 @@ Pinkking::~Pinkking()
 // Actions (SearchWalk, Walk, Attack, Hability 1, Hability 2, Die)
 void Pinkking::SearchWalk()
 {
-	
+	//objective_position.clear();
 	nearposition = App->entity_manager->NearestCharacter(position);
 	nearposition = App->map->WorldToMap(nearposition.first, nearposition.second);
 	App->pathfinding->CreatePathBishop(App->map->WorldToMap(position.first, position.second), nearposition, current_stats.PMove);
+
+	//Skill_1
 	if (timer_skill_1 == 3) {
 		current_turn = SEARCH_ABILITY_1;
 		timer_skill_1 = 0;
@@ -48,75 +50,102 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 			App->render->Blit(debug_texture, pos_debug.first, pos_debug.second, &debug_green);
 		}
 	}
-	if (_path->size() > 1) {
-		if (!App->pathfinding->IsUsed(_path->at(1), this)) {
-			if (_path->size() > 1)
-			{
+
+	//Bishop Movment + Rush_attack
+
+	nearposition = App->entity_manager->NearestCharacter(position);
+	nearposition = App->map->WorldToMap(nearposition.first, nearposition.second);
+
+	std::pair<int, int> object;
+
+
+	if (_path->size() > 1 )
+	{
+		if (!App->pathfinding->IsUsed(_path->at(1), this)) 
+		{
+			if (!inRange) {
 				objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
+				
 			}
+				
 
-			if (sqrt((nearposition.first - _path->at(0).first)*(nearposition.first - _path->at(0).first) + (nearposition.second - _path->at(0).second)*(nearposition.second - _path->at(0).second)) > current_stats.RangeAtk) {
-				if (_path->at(0).first >= _path->at(1).first && _path->at(0).second <= _path->at(1).second) {
-					CurrentMovement(WALK_LEFT);
-				}
-				else if (_path->at(0).first >= _path->at(1).first && _path->at(0).second >= _path->at(1).second) {
-					CurrentMovement(WALK_BACK);
-				}
-				else if (_path->at(0).first <= _path->at(1).first && _path->at(0).second <= _path->at(1).second) {
-					CurrentMovement(WALK_FRONT);
-				}
-				else if (_path->at(0).first <= _path->at(1).first && _path->at(0).second >= _path->at(1).second) {
-					CurrentMovement(WALK_RIGHT);
-				}
-				current_turn = MOVE;
+			inRange = false;
+			
+			if (_path->at(0).first >= _path->at(1).first && _path->at(0).second <= _path->at(1).second) {
+				CurrentMovement(WALK_LEFT);
 			}
-			else {
+			else if (_path->at(0).first >= _path->at(1).first && _path->at(0).second >= _path->at(1).second) {
+				CurrentMovement(WALK_BACK);
+			}
+			else if (_path->at(0).first <= _path->at(1).first && _path->at(0).second <= _path->at(1).second) {
+				CurrentMovement(WALK_FRONT);
+			}
+			else if (_path->at(0).first <= _path->at(1).first && _path->at(0).second >= _path->at(1).second) {
+				CurrentMovement(WALK_RIGHT);
+			}
+			current_turn = MOVE;
+			pos = App->map->WorldToMap(position.first, position.second);
+			if (App->entity_manager->CalculateDistance(pos, nearposition) < current_stats.RangeAtk && (App->map->MapToWorld(pos.first, pos.second) == position)){
 				current_turn = SEARCH_ATTACK;
-				//current_turn = END_TURN;
+
 			}
 
-
-			if ((objective_position.back().first == position.first && objective_position.back().second == position.second) || (objective_position.back().first == position.first && objective_position.back().second == position.second)) {
-				CurrentMovement(IDLE_LEFT);
-
-				if (sqrt((nearposition.first - _path->at(0).first)*(nearposition.first - _path->at(0).first) + (nearposition.second - _path->at(0).second)*(nearposition.second - _path->at(0).second)) <= current_stats.RangeAtk)
+			std::pair<int, int> cancer = App->map->MapToWorld(pos.first,pos.second);
+			
+			LOG("posii %i , %i , cancer %i ,%i", position.first, position.second,cancer.first, cancer.second);
+			//std::pair<int, int> yoooo = App->map->WorldToMap(objective_position.back().first, objective_position.back().second);
+			if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
+				
+				if (current_movement == WALK_LEFT)
+				{
+					CurrentMovement(IDLE_LEFT);
+				}
+				else if (current_movement == WALK_RIGHT)
+				{
+					CurrentMovement(IDLE_RIGHT);
+				}
+				else if (current_movement == WALK_BACK)
+				{
+					CurrentMovement(IDLE_LEFT);
+				}
+				else if (current_movement == WALK_FRONT)
+				{
+					CurrentMovement(IDLE_LEFT);
+				}
+				inDanger = false;
+				if (inRange)
 					current_turn = SEARCH_ATTACK;
 				else
 					current_turn = END_TURN;
-
-
 			}
-		}
 
+		}
 		else {
-			if (sqrt((nearposition.first - _path->at(0).first)*(nearposition.first - _path->at(0).first) + (nearposition.second - _path->at(0).second)*(nearposition.second - _path->at(0).second)) <= current_stats.RangeAtk)
+			if (App->entity_manager->CalculateDistance(pos, nearposition) <= current_stats.RangeAtk)
 				current_turn = SEARCH_ATTACK;
 			else
 				current_turn = END_TURN;
 		}
+
+
 	}
-	
+
 	else {
-		if (App->entity_manager->ThereAreCharAlive()) {
-			if (sqrt((nearposition.first - _path->at(0).first)*(nearposition.first - _path->at(0).first) + (nearposition.second - _path->at(0).second)*(nearposition.second - _path->at(0).second)) <= current_stats.RangeAtk)
-				current_turn = SEARCH_ATTACK;
-		}
-		
+		if (App->entity_manager->CalculateDistance(pos, nearposition) <= current_stats.RangeAtk)
+			current_turn = SEARCH_ATTACK;
 		else
 			current_turn = END_TURN;
+
 	}
-		
 	
-	LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
 	
-		
 }
 
 void Pinkking::SearchAttack()
 {
+	objective_position.clear();
 	nearposition = App->entity_manager->NearestCharacter(position);
 	current_turn = ATTACK;
-
 }
 
 void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
@@ -132,7 +161,7 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 		CurrentMovement(ATTACK_BACK);
 
 	if (current_animation->isDone()) {
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING, false);
 		current_animation->Reset();
 		if (current_movement == ATTACK_FRONT)
 			CurrentMovement(IDLE_RIGHT);
@@ -140,10 +169,6 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 			CurrentMovement(IDLE_LEFT);
 		current_turn = END_TURN;
 	}
-
-	/*App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
-	current_turn = END_TURN;*/
-	
 }
 
 void Pinkking::SearchAbility_1()
@@ -152,28 +177,46 @@ void Pinkking::SearchAbility_1()
 	current_turn = ABILITY_1;
 }
 
-void Pinkking::Ability_1()
+void Pinkking::Ability_1(const std::vector<std::pair<int, int>> *_path)
 {
 	objective_position.push_back(nearposition);
-	std::pair<int, int> tmp_1 = App->map->WorldToMap(position.first, position.second);
-	std::pair<int,int> tmp_2 = App->map->WorldToMap(nearposition.first, nearposition.second);
-	//int dmg = current_stats.AtkS / sqrt((tmp_2.first - tmp_1.first)*(tmp_2.first - tmp_1.first) + (tmp_2.second - tmp_1.second)*(tmp_2.second - tmp_1.second));
-
-
-	/*current_movement = ABILITY_1_FRONT;
-	if (current_animation->isDone()) {
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
-		current_animation->Reset();
-		current_movment = IDLE_LEFT_FRONT;
-		current_turn = END_TURN;
-		
-	}*/
-	
-	App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS*1.5, ENTITY_TYPE::ENTITY_ENEMY_PINKKING);
+	App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkS*1.5, ENTITY_TYPE::ENTITY_ENEMY_PINKKING, true);
 	current_turn = END_TURN;
-	// blit de la sombra en esa posicion
 }
 
+
+std::pair<int, int> Pinkking::Next_cell(std::pair<int, int> pos)
+{
+	std::pair<int, int> ret = pos;
+
+	switch (current_movement) 
+	{
+	case Entity::WALK_LEFT:
+		ret.first -= 1;
+		ret.second += 1;
+
+		break;
+	case Entity::WALK_RIGHT:
+		ret.first -= 1;
+		ret.second += 1;
+
+		break;
+	case Entity::WALK_FRONT:
+		ret.first -= 1;
+		ret.second += 1;
+
+		break;
+	case Entity::WALK_BACK:
+		ret.first -= 1;
+		ret.second += 1;
+
+		break;
+	default:
+		break;
+	}
+	ret = App->map->MapToWorld(ret.first, ret.second);
+	return ret;
+}
 
 void Pinkking::CurrentMovement(MOVEMENT _movement) {
 

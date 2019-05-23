@@ -28,7 +28,7 @@ return true;
 
 bool ModuleGUIManager::Start()
 {
-	image_textures = App->textures->Load("Assets/Sprites/UI/cherry_logo.png");
+	image_textures = App->textures->Load("Assets/Sprites/UI/UI_sprites.png");
 	button_textures = App->textures->Load("Assets/Sprites/UI/buttons.png");
 	return true;
 }
@@ -43,7 +43,7 @@ bool ModuleGUIManager::Update(float dt)
 	return true;
 }
 
-bool ModuleGUIManager::PostUpdate()
+bool ModuleGUIManager::PostUpdate(float _dt)
 {
 	for (uint i = 0; i < gui_elements.size(); ++i)
 		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_BUTTON)
@@ -85,6 +85,7 @@ bool ModuleGUIManager::CleanUp()
 {
 	//LOG("Freeing all gui elements");
 	App->textures->UnLoad(image_textures);
+	App->textures->UnLoad(button_textures);
 	for (uint i = 0; i < gui_elements.size(); ++i)
 	{
 		if (gui_elements[i] != nullptr)
@@ -93,6 +94,7 @@ bool ModuleGUIManager::CleanUp()
 			gui_elements[i] = nullptr;
 		}
 	}
+	gui_elements.clear();
 
 	return true;
 }
@@ -195,14 +197,17 @@ return true;
 
 void ModuleGUIManager::DeleteGUIElement(GUIElement* e)
 {
-	for (int i = 0; i < gui_elements.size(); ++i)
+	int i = 0;
+	for (std::vector<GUIElement*>::iterator element = gui_elements.begin(); element != gui_elements.end(); ++element)
 	{
-		if (gui_elements[i] == e)
+		if ((*element) == e)
 		{
 			delete gui_elements[i];
 			gui_elements[i] = nullptr;
+			gui_elements.erase(element);
 			break;
 		}
+		++i;
 	}
 }
 
@@ -216,4 +221,5 @@ void ModuleGUIManager::DeleteAllGUIElements()
 			gui_elements[i] = nullptr;
 		}
 	}
+	gui_elements.clear();
 }

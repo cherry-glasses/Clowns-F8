@@ -18,13 +18,18 @@ public:
 	void SearchAttack();
 	void Attack(const std::vector<std::pair<int, int>> *_path);
 	void SearchAbility_1();
-	void Ability_1();
-	void Hability_2() {}
-	void Hability_3() {}
+	void Ability_1(const std::vector<std::pair<int, int>> *_path);
+	void SearchAbility_2() {}
+	void Ability_2() {}
+	std::pair<int, int> Next_cell(std::pair<int,int> pos);
 
+
+	std::pair<int, int> cancer_1;
+	bool cancer_3 = false;
+	std::pair<int, int> cancer_2;
 	void CurrentMovement(MOVEMENT _movement);
 
-	int timer_skill_1 = 0;
+
 
 
 };

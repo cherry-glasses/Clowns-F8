@@ -9,7 +9,7 @@
 CharacterGeorgeB::CharacterGeorgeB(ENTITY_TYPE _type, pugi::xml_node _config) : Character(_type, _config)
 {
 	CurrentMovement(IDLE_RIGHT);
-	current = current_animation->GetCurrentFrame();
+	current = current_animation->GetCurrentFrame(1);
 }
 
 CharacterGeorgeB::~CharacterGeorgeB() {
@@ -80,11 +80,6 @@ void CharacterGeorgeB::SearchWalk() {
 }
 
 void CharacterGeorgeB::SearchAttack() {
-	objective_position.clear();
-	inrange_mov_list.clear();
-	possible_mov_list.clear();
-	possible_map.clear();
-	Cap = -1;
 
 	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
 	int x = pos.first - current_stats.RangeAtk;
@@ -149,11 +144,6 @@ void CharacterGeorgeB::SearchAttack() {
 }
 
 void CharacterGeorgeB::SearchAbility_1() {
-	objective_position.clear();
-	inrange_mov_list.clear();
-	possible_mov_list.clear();
-	possible_map.clear();
-	Cap = -1;
 
 	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
 	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAbility_1, tiles_range_attk);
@@ -216,6 +206,101 @@ void CharacterGeorgeB::SearchAbility_1() {
 	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.second < b.second; });
 
 	current_turn = Entity::SELECT_ABILITY_1;
+
+}
+
+void CharacterGeorgeB::SearchAbility_2() {
+
+	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
+	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAbility_2, tiles_range_attk);
+	int x = pos.first - current_stats.RangeAbility_2;
+	int y = pos.second - current_stats.RangeAbility_2;
+	for (int i = 0; i < ((current_stats.RangeAbility_2 * 2) + 1) * ((current_stats.RangeAbility_2 * 2) + 1); i++)
+	{
+		possible_mov_list.push_back({ x, y });
+		++x;
+		if (x > pos.first + current_stats.RangeAbility_2) {
+			x = pos.first - current_stats.RangeAbility_2;
+			++y;
+		}
+		if (y > pos.second + current_stats.RangeAbility_2) {
+			y = pos.second - current_stats.RangeAbility_2;
+		}
+	}
+
+	std::pair<int, int> tmp;
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	inrange_mov_list.push_back(tmp);
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.RangeAbility_2; i++)
+	{
+		tmp.first += 1;
+		tmp.second -= 1;
+		inrange_mov_list.push_back(tmp);
+	}
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.RangeAbility_2; i++)
+	{
+		tmp.first -= 1;
+		tmp.second += 1;
+		inrange_mov_list.push_back(tmp);
+	}
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.RangeAbility_2; i++)
+	{
+		tmp.first += 1;
+		tmp.second += 1;
+		inrange_mov_list.push_back(tmp);
+	}
+
+	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
+	for (int i = 1; i <= current_stats.RangeAbility_2; i++)
+	{
+		tmp.first -= 1;
+		tmp.second -= 1;
+		inrange_mov_list.push_back(tmp);
+	}
+
+
+	tmp.first = NULL;
+	tmp.second = NULL;
+
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.first < b.first; });
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.second < b.second; });
+
+	current_turn = Entity::SELECT_ABILITY_2;
+
+}
+
+void CharacterGeorgeB::SearchAbility_3() {
+
+	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
+	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAbility_3, tiles_range_attk);
+	int x = pos.first - current_stats.RangeAbility_3;
+	int y = pos.second - current_stats.RangeAbility_3;
+	for (int i = 0; i < ((current_stats.RangeAbility_3 * 2) + 1) * ((current_stats.RangeAbility_3 * 2) + 1); i++)
+	{
+		possible_mov_list.push_back({ x, y });
+		++x;
+		if (x > pos.first + current_stats.RangeAbility_3) {
+			x = pos.first - current_stats.RangeAbility_3;
+			++y;
+		}
+		if (y > pos.second + current_stats.RangeAbility_3) {
+			y = pos.second - current_stats.RangeAbility_3;
+		}
+	}
+	for (int i = 0; i < tiles_range_attk; i++) {
+		inrange_mov_list.push_back({ range[i].first, range[i].second });
+	}
+
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.first < b.first; });
+	inrange_mov_list.sort([](const std::pair<int, int> & a, const std::pair<int, int> & b) { return a.second < b.second; });
+
+	current_turn = Entity::SELECT_ABILITY_3;
 
 }
 
@@ -284,7 +369,7 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &attack_right;
 		flipX = true;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB, true);
 			current_turn = END_TURN;
 		}
 		break;
@@ -293,7 +378,7 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &attack_right;
 		flipX = false;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB, true);
 			current_turn = END_TURN;
 		}
 		break;
@@ -302,7 +387,7 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &attack_front;
 		flipX = false;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB, true);
 			current_turn = END_TURN;
 		}
 		break;
@@ -311,7 +396,7 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &attack_back;
 		flipX = false;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB, true);
 			current_turn = END_TURN;
 		}
 		break;
@@ -320,7 +405,7 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_1_right;
 		flipX = true;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -329,7 +414,7 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_1_right;
 		flipX = false;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -338,7 +423,7 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_1_front;
 		flipX = false;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -347,7 +432,79 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_1_back;
 		flipX = false;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB);
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB, false);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_2_LEFT:
+		current_movement = ABILITY_2_LEFT;
+		current_animation = &ability_2_right;
+		flipX = true;
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB, true);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_2_RIGHT:
+		current_movement = ABILITY_2_RIGHT;
+		current_animation = &ability_2_right;
+		flipX = false;
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB, true);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_2_FRONT:
+		current_movement = ABILITY_2_FRONT;
+		current_animation = &ability_2_front;
+		flipX = false;
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB, true);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_2_BACK:
+		current_movement = ABILITY_2_BACK;
+		current_animation = &ability_2_back;
+		flipX = false;
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB, true);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_3_LEFT:
+		current_movement = ABILITY_3_LEFT;
+		current_animation = &ability_3_right;
+		flipX = true;
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB, true);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_3_RIGHT:
+		current_movement = ABILITY_3_RIGHT;
+		current_animation = &ability_3_right;
+		flipX = false;
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB, true);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_3_FRONT:
+		current_movement = ABILITY_3_FRONT;
+		current_animation = &ability_3_front;
+		flipX = false;
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB, true);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_3_BACK:
+		current_movement = ABILITY_3_BACK;
+		current_animation = &ability_3_back;
+		flipX = false;
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkS, ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB, true);
 			current_turn = END_TURN;
 		}
 		break;

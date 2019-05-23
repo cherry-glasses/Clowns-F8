@@ -9,7 +9,7 @@
 CharacterStorm::CharacterStorm(ENTITY_TYPE _type, pugi::xml_node _config) : Character(_type, _config)
 {
 	CurrentMovement(IDLE_RIGHT_FRONT);
-	current = current_animation->GetCurrentFrame();
+	current = current_animation->GetCurrentFrame(1);
 }
 
 CharacterStorm::~CharacterStorm() {
@@ -18,6 +18,15 @@ CharacterStorm::~CharacterStorm() {
 
 void CharacterStorm::SearchWalk() {
 
+	//Vampire Count
+	if (vampire && vampire_count < 3) {
+		vampire_count++;
+	}
+	else {
+		vampire_count = 0;
+	}
+
+	//SearchWalk
 	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
 	int x = pos.first - current_stats.PMove;
 	int y = pos.second - current_stats.PMove;
@@ -76,11 +85,6 @@ void CharacterStorm::SearchWalk() {
 }
 
 void CharacterStorm::SearchAttack() {
-	objective_position.clear();
-	inrange_mov_list.clear();
-	possible_mov_list.clear();
-	possible_map.clear();
-	Cap = -1;
 
 	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
 	int x = pos.first - current_stats.RangeAtk;
@@ -141,11 +145,6 @@ void CharacterStorm::SearchAttack() {
 }
 
 void CharacterStorm::SearchAbility_1() {
-	objective_position.clear();
-	inrange_mov_list.clear();
-	possible_mov_list.clear();
-	possible_map.clear();
-	Cap = -1;
 
 	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
 	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAbility_1, tiles_range_attk);
@@ -207,6 +206,24 @@ void CharacterStorm::SearchAbility_1() {
 
 }
 
+void CharacterStorm::SearchAbility_2() {
+
+	possible_mov_list.push_back({ App->map->WorldToMap(position.first, position.second) });
+	inrange_mov_list.push_back({ App->map->WorldToMap(position.first, position.second) });
+
+	current_turn = Entity::SELECT_ABILITY_2;
+
+}
+
+void CharacterStorm::SearchAbility_3() {
+
+	possible_mov_list.push_back({ App->map->WorldToMap(position.first, position.second) });
+	inrange_mov_list.push_back({ App->map->WorldToMap(position.first, position.second) });
+
+	current_turn = Entity::SELECT_ABILITY_3;
+
+}
+
 void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 
 	switch (_movement)
@@ -255,7 +272,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ATTACK_LEFT_FRONT;
 		current_animation = &attack_left_front;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -263,7 +280,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ATTACK_RIGHT_FRONT;
 		current_animation = &attack_right_front;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -271,7 +288,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ATTACK_LEFT_BACK;
 		current_animation = &attack_left_back;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -279,7 +296,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ATTACK_RIGHT_BACK;
 		current_animation = &attack_right_back;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -287,7 +304,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_1_LEFT_FRONT;
 		current_animation = &ability_1_left_front;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -295,7 +312,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_1_RIGHT_FRONT;
 		current_animation = &ability_1_right_front;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -303,7 +320,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_1_LEFT_BACK;
 		current_animation = &ability_1_left_back;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
 			current_turn = END_TURN;
 		}
 		break;
@@ -311,7 +328,79 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_movement = ABILITY_1_RIGHT_BACK;
 		current_animation = &ability_1_right_back;
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM);
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_2_LEFT_FRONT:
+		current_movement = ABILITY_2_LEFT_FRONT;
+		current_animation = &ability_2_left_front;
+		objective_position.clear();
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_2_RIGHT_FRONT:
+		current_movement = ABILITY_2_RIGHT_FRONT;
+		current_animation = &ability_2_right_front;
+		objective_position.clear();
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_2_LEFT_BACK:
+		current_movement = ABILITY_2_LEFT_BACK;
+		current_animation = &ability_2_left_back;
+		objective_position.clear();
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_2_RIGHT_BACK:
+		current_movement = ABILITY_2_RIGHT_BACK;
+		current_animation = &ability_2_right_back;
+		objective_position.clear();
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_3_LEFT_FRONT:
+		current_movement = ABILITY_3_LEFT_FRONT;
+		current_animation = &ability_3_left_front;
+		objective_position.clear();
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, 1, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_3_RIGHT_FRONT:
+		current_movement = ABILITY_3_RIGHT_FRONT;
+		current_animation = &ability_3_right_front;
+		objective_position.clear();
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, 1, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_3_LEFT_BACK:
+		current_movement = ABILITY_3_LEFT_BACK;
+		current_animation = &ability_3_left_back;
+		objective_position.clear();
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, 1, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
+			current_turn = END_TURN;
+		}
+		break;
+	case Entity::ABILITY_3_RIGHT_BACK:
+		current_movement = ABILITY_3_RIGHT_BACK;
+		current_animation = &ability_3_right_back;
+		objective_position.clear();
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, 1, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
 			current_turn = END_TURN;
 		}
 		break;

@@ -7,10 +7,10 @@
 class Object : public Entity
 {
 public:
-	Object(ENTITY_TYPE _type, pugi::xml_node _config) : Entity(_type, _config) {}
+	Object(ENTITY_TYPE _type, pugi::xml_node _config, int _copy);
 
 	// Destructor
-	virtual ~Object() {}
+	virtual ~Object();
 
 	// Called before the first frame
 	virtual bool Start() { return true; }
@@ -18,7 +18,7 @@ public:
 	// Called each loop iteration
 	virtual bool PreUpdate();
 	virtual bool Update(float _dt);
-	virtual bool PostUpdate();
+	virtual bool PostUpdate(float _dt);
 
 
 	// Called before quitting

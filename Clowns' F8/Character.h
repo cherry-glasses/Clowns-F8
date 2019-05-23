@@ -18,7 +18,7 @@ public:
 	// Called each loop iteration
 	virtual bool PreUpdate();
 	virtual bool Update(float _dt);
-	virtual bool PostUpdate();
+	virtual bool PostUpdate(float _dt);
 
 	// Character thinks
 	virtual void SearchWalk() {}
@@ -30,7 +30,14 @@ public:
 	virtual void SearchAbility_1() {}
 	virtual void SelectAbility_1();
 	virtual void Ability_1();
+	virtual void SearchAbility_2() {}
+	virtual void SelectAbility_2();
+	virtual void Ability_2();
+	virtual void SearchAbility_3() {}
+	virtual void SelectAbility_3();
+	virtual void Ability_3();
 	virtual void Defend();
+	virtual void ComeBack();
 	virtual void CurrentMovement(MOVEMENT _movement) {}
 	virtual void EndTurn();
 	virtual void Die();
@@ -49,6 +56,8 @@ protected:
 	std::list<std::pair<int, int>> possible_mov_list;
 	std::list<std::pair<int, int>> inrange_mov_list;
 	std::vector<std::pair<int, int>> possible_map;
+	std::pair<int, int> comeback_position;
+	MOVEMENT comeback_movement;
 };
 
 #endif // !__Character_H__

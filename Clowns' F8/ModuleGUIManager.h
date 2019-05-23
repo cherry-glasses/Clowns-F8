@@ -32,7 +32,7 @@ public:
 
 	bool Start();
 	bool Update(float dt);
-	bool PostUpdate();
+	bool PostUpdate(float _dt);
 	bool CleanUp();
 
 	bool Load(pugi::xml_node&);
