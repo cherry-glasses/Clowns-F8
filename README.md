@@ -10,19 +10,13 @@ The player will have to think about finding more than one way in order to overco
 
 ## Team Members
 
-### Lead: `Cere Venteo`
+### Lead and Management: `Cere Venteo`
 ![Cere Venteo Screenshot](https://raw.githubusercontent.com/AlmaCeax/ProjectI-AlmaCeax/master/Wiki/0.Home/cere.jpg)
 
 [GitHub Account](https://github.com/CereVenteo)
 
-### Management: `Gerard Berenguer`
-![Gerard Berenguer Screenshot](https://github.com/cherry-glasses/Project-2-Game/blob/master/Documents/Wiki_Resources/img/Gerard.jpg)
-
-[GitHub Account](https://github.com/GerardBP77)
-
 ### Game Design: `Aleix Castillo`
 <img src="https://github.com/cherry-glasses/Project-2-Game/blob/master/Documents/Wiki_Resources/img/fotoaleix.JPG" width="160" height="160">
-
 
 [GitHub Account](https://github.com/AleixCas95)
 
