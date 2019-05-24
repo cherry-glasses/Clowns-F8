@@ -7,7 +7,8 @@
 
 #define NUM_MOUSE_BUTTONS 5
 #define MAX_KEYS 300
-#define MAX_COUNT_INPUT 20
+#define MAX_COUNT_INPUT 30
+#define MAX_COUNT_INPUT_MIX 26
 
 enum EVENT_WINDOW
 {
@@ -81,8 +82,6 @@ struct ButtonsToUse {
 	int CHARACABILITY;
 	int ABILITY;
 	int ABILITYTREE;
-	
-	
 
 };
 

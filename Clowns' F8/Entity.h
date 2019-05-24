@@ -155,7 +155,7 @@ public:
 	bool critic = false;
 	bool flipX = false;
 	int exp = 0;
-	int level = 1;
+	int level = 8;
 	std::vector<int> levels;
 
 	enum STATE { ALIVE, DEATH };

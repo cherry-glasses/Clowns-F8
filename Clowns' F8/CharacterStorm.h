@@ -21,10 +21,6 @@ public:
 
 	void CurrentMovement(MOVEMENT _movement);
 
-	//Move and Attack Select
-	void InputSelectMove();
-	void InputSelectAttack();
-
 	int vampire_count = 0;
 
 };

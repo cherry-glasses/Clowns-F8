@@ -47,8 +47,7 @@ public:
 	virtual bool Save(pugi::xml_node&) const;
 
 	//Moves and Attack Select
-	virtual void InputSelectMove() {}
-	virtual void InputSelectAttack() {}
+	virtual void InputSelectMove();
 
 protected:
 

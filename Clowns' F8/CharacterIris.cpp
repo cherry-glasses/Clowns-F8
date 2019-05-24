@@ -10,6 +10,21 @@ CharacterIris::CharacterIris(ENTITY_TYPE _type, pugi::xml_node _config) : Charac
 {
 	CurrentMovement(IDLE_RIGHT_FRONT);
 	current = current_animation->GetCurrentFrame(1);
+	std::pair<int, int> pos = { 12,12 };
+	int x = 0;
+	int y = 0;
+	for (int i = 0; i < (25 * 25); i++)
+	{
+		possible_mov_list.push_back({ x, y });
+		++x;
+		if (x > 24) {
+			x = 0;
+			++y;
+		}
+		if (y > 24) {
+			y = 0;
+		}
+	}
 }
 
 CharacterIris::~CharacterIris() {
@@ -17,22 +32,6 @@ CharacterIris::~CharacterIris() {
 }
 
 void CharacterIris::SearchWalk() {
-
-	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
-	int x = pos.first - (current_stats.PMove * 2);
-	int y = pos.second - (current_stats.PMove * 2);
-	for (int i = 0; i < ((current_stats.PMove * 4) + 1) * ((current_stats.PMove * 4) + 1); i++)
-	{
-		possible_mov_list.push_back({ x, y });
-		++x;
-		if (x > pos.first + (current_stats.PMove * 2)) {
-			x = pos.first - (current_stats.PMove * 2);
-			++y;
-		}
-		if (y > pos.second + (current_stats.PMove * 2)) {
-			y = pos.second - (current_stats.PMove * 2);
-		}
-	}
 
 	std::pair<int, int> tmp;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
@@ -113,22 +112,6 @@ void CharacterIris::SearchWalk() {
 
 void CharacterIris::SearchAttack() {
 
-	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
-	int x = pos.first - current_stats.RangeAtk;
-	int y = pos.second - current_stats.RangeAtk;
-	for (int i = 0; i < ((current_stats.RangeAtk * 2) + 1) * ((current_stats.RangeAtk * 2) + 1); i++)
-	{
-		possible_mov_list.push_back({ x, y });
-		++x;
-		if (x > pos.first + current_stats.RangeAtk) {
-			x = pos.first - current_stats.RangeAtk;
-			++y;
-		}
-		if (y > pos.second + current_stats.RangeAtk) {
-			y = pos.second - current_stats.RangeAtk;
-		}
-	}
-
 	std::pair<int, int> tmp;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	inrange_mov_list.push_back(tmp);
@@ -172,23 +155,6 @@ void CharacterIris::SearchAttack() {
 }
 
 void CharacterIris::SearchAbility_1() {
-
-	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
-	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAbility_1, tiles_range_attk);
-	int x = pos.first - current_stats.RangeAbility_1;
-	int y = pos.second - current_stats.RangeAbility_1;
-	for (int i = 0; i < ((current_stats.RangeAbility_1 * 2) + 1) * ((current_stats.RangeAbility_1 * 2) + 1); i++)
-	{
-		possible_mov_list.push_back({ x, y });
-		++x;
-		if (x > pos.first + current_stats.RangeAbility_1) {
-			x = pos.first - current_stats.RangeAbility_1;
-			++y;
-		}
-		if (y > pos.second + current_stats.RangeAbility_1) {
-			y = pos.second - current_stats.RangeAbility_1;
-		}
-	}
 
 	std::pair<int, int> tmp;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
@@ -234,29 +200,11 @@ void CharacterIris::SearchAbility_1() {
 
 void CharacterIris::SearchAbility_2() {
 
-	possible_mov_list.push_back({ App->map->WorldToMap(position.first, position.second) });
 	inrange_mov_list.push_back({ App->map->WorldToMap(position.first, position.second) });
-
 	current_turn = Entity::SELECT_ABILITY_2;
 }
 
 void CharacterIris::SearchAbility_3() {
-
-	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
-	int x = pos.first - current_stats.RangeAtk;
-	int y = pos.second - current_stats.RangeAtk;
-	for (int i = 0; i < ((current_stats.RangeAtk * 2) + 1) * ((current_stats.RangeAtk * 2) + 1); i++)
-	{
-		possible_mov_list.push_back({ x, y });
-		++x;
-		if (x > pos.first + current_stats.RangeAtk) {
-			x = pos.first - current_stats.RangeAtk;
-			++y;
-		}
-		if (y > pos.second + current_stats.RangeAtk) {
-			y = pos.second - current_stats.RangeAtk;
-		}
-	}
 
 	std::pair<int, int> tmp;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
@@ -445,38 +393,11 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 			current_turn = END_TURN;
 		}
 		break;
-	case Entity::ABILITY_2_LEFT_FRONT:
-		current_movement = ABILITY_2_LEFT_FRONT;
-		current_animation = &ability_2_left_front;
-		objective_position.clear();
-		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
-			current_turn = END_TURN;
-		}
-		break;
-	case Entity::ABILITY_2_RIGHT_FRONT:
-		current_movement = ABILITY_2_RIGHT_FRONT;
+	case Entity::ABILITY_2_RIGHT:
+		current_movement = ABILITY_2_RIGHT;
 		current_animation = &ability_2_right_front;
-		objective_position.clear();
 		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
-			current_turn = END_TURN;
-		}
-		break;
-	case Entity::ABILITY_2_LEFT_BACK:
-		current_movement = ABILITY_2_LEFT_BACK;
-		current_animation = &ability_2_left_back;
-		objective_position.clear();
-		if (current_animation->isDone()) {
-			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
-			current_turn = END_TURN;
-		}
-		break;
-	case Entity::ABILITY_2_RIGHT_BACK:
-		current_movement = ABILITY_2_RIGHT_BACK;
-		current_animation = &ability_2_right_back;
-		objective_position.clear();
-		if (current_animation->isDone()) {
+			objective_position.clear();
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
 			current_turn = END_TURN;
 		}
@@ -598,348 +519,3 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 	}
 }
 
-
-void CharacterIris::InputSelectMove() {
-
-	
-	if (App->input->LeftUp()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap - 1) {
-						if ((*possible_mov).first - 1 == (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
-						{
-							Cap -= 1;
-							i = possible_mov_list.size();
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-	else if (App->input->RightDown()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap + 1) {
-						if ((*possible_mov).first + 1 == (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
-						{
-							Cap += 1;
-							i = possible_mov_list.size();
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-	else if (App->input->LeftDown()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap + sqrt(possible_mov_list.size())) {
-						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second + 1 == (*possible_mov_2).second)
-						{
-							Cap += sqrt(possible_mov_list.size());
-							i = possible_mov_list.size();
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-	else if (App->input->RightUp()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap - sqrt(possible_mov_list.size())) {
-						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second - 1 == (*possible_mov_2).second)
-						{
-							Cap -= sqrt(possible_mov_list.size());
-							i = possible_mov_list.size();
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-	else if (App->input->Left()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap - 1 + sqrt(possible_mov_list.size())) {
-						if ((*possible_mov).first  == (*possible_mov_2).first && (*possible_mov).second + 1 == (*possible_mov_2).second)
-						{
-							Cap += sqrt(possible_mov_list.size()) - 1;
-							i = possible_mov_list.size();
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-	else if (App->input->Right()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap + 1 - sqrt(possible_mov_list.size())) {
-						if ((*possible_mov).first + 1 == (*possible_mov_2).first && (*possible_mov).second - 1 == (*possible_mov_2).second)
-						{
-							Cap -= sqrt(possible_mov_list.size()) - 1;
-							i = possible_mov_list.size();
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-	else if (App->input->Up()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap - 1 - sqrt(possible_mov_list.size())) {
-						if ((*possible_mov).first - 1 == (*possible_mov_2).first && (*possible_mov).second - 1 == (*possible_mov_2).second)
-						{
-							Cap -= sqrt(possible_mov_list.size()) + 1;
-							i = possible_mov_list.size();
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-	else if (App->input->Down()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap + 1 + sqrt(possible_mov_list.size())) {
-						if ((*possible_mov).first + 1 == (*possible_mov_2).first && (*possible_mov).second + 1 == (*possible_mov_2).second)
-						{
-							Cap += sqrt(possible_mov_list.size()) + 1;
-							i = possible_mov_list.size();
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-}
-
-void CharacterIris::InputSelectAttack() {
-
-	if (App->input->Left()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap - 1) {
-						if ((*possible_mov).first > (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
-						{
-							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
-							{
-								Cap -= 1;
-								i = possible_mov_list.size();
-							}
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-	else if (App->input->Right()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap + 1) {
-						if ((*possible_mov).first < (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
-						{
-							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
-							{
-								Cap += 1;
-								i = possible_mov_list.size();
-							}
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-	else if (App->input->Down()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap + sqrt(possible_mov_list.size())) {
-						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
-						{
-							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
-							{
-								Cap += sqrt(possible_mov_list.size());
-								i = possible_mov_list.size();
-							}
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-	else if (App->input->Up()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap - sqrt(possible_mov_list.size())) {
-						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
-						{
-							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
-							{
-								Cap -= sqrt(possible_mov_list.size());
-								i = possible_mov_list.size();
-							}
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-}

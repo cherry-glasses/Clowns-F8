@@ -451,9 +451,9 @@ void ModuleInput::CleanCount() {
 
 bool ModuleInput::Left() {
 	
-	if (GetKey(keyboard_buttons.buttons_to_use.LEFT) == KEY_DOWN 
-		|| gamepad.CROSS_LEFT == GAMEPAD_STATE::PAD_BUTTON_DOWN
-		|| (gamepad.JOYSTICK_LEFT == GAMEPAD_STATE::PAD_BUTTON_REPEAT && count_repeat > MAX_COUNT_INPUT)) {
+	if ((GetKey(keyboard_buttons.buttons_to_use.LEFT) == KEY_REPEAT 
+		|| gamepad.JOYSTICK_LEFT == GAMEPAD_STATE::PAD_BUTTON_REPEAT) && count_repeat > MAX_COUNT_INPUT) 
+	{
 		CleanCount();
 		return true;
 	}
@@ -463,9 +463,9 @@ bool ModuleInput::Left() {
 
 bool ModuleInput::Right() {
 	
-	if (GetKey(keyboard_buttons.buttons_to_use.RIGHT) == KEY_DOWN 
-		|| gamepad.CROSS_RIGHT == GAMEPAD_STATE::PAD_BUTTON_DOWN
-		|| (gamepad.JOYSTICK_RIGHT == GAMEPAD_STATE::PAD_BUTTON_REPEAT && count_repeat > MAX_COUNT_INPUT)) {
+	if ((GetKey(keyboard_buttons.buttons_to_use.RIGHT) == KEY_REPEAT
+		|| gamepad.JOYSTICK_RIGHT == GAMEPAD_STATE::PAD_BUTTON_REPEAT) && count_repeat > MAX_COUNT_INPUT) 
+	{
 		CleanCount();
 		return true;
 	}
@@ -475,9 +475,9 @@ bool ModuleInput::Right() {
 
 bool ModuleInput::Down() {
 	
-	if (GetKey(keyboard_buttons.buttons_to_use.DOWN) == KEY_DOWN 
-		|| gamepad.CROSS_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN
-		|| (gamepad.JOYSTICK_DOWN == GAMEPAD_STATE::PAD_BUTTON_REPEAT && count_repeat > MAX_COUNT_INPUT)) {
+	if ((GetKey(keyboard_buttons.buttons_to_use.DOWN) == KEY_REPEAT
+		|| gamepad.JOYSTICK_DOWN == GAMEPAD_STATE::PAD_BUTTON_REPEAT) && count_repeat > MAX_COUNT_INPUT)
+	{
 		CleanCount();
 		return true;
 	}
@@ -487,9 +487,9 @@ bool ModuleInput::Down() {
 
 bool ModuleInput::Up() {
 	
-	if (GetKey(keyboard_buttons.buttons_to_use.UP) == KEY_DOWN 
-		|| gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN
-		|| (gamepad.JOYSTICK_UP == GAMEPAD_STATE::PAD_BUTTON_REPEAT && count_repeat > MAX_COUNT_INPUT)) {
+	if ((GetKey(keyboard_buttons.buttons_to_use.UP) == KEY_REPEAT
+		|| gamepad.JOYSTICK_UP == GAMEPAD_STATE::PAD_BUTTON_REPEAT) && count_repeat > MAX_COUNT_INPUT)
+	{
 		CleanCount();
 		return true;
 	}
@@ -499,9 +499,12 @@ bool ModuleInput::Up() {
 
 bool ModuleInput::LeftUp() {
 
-	if (gamepad.JOYSTICK_LEFT == GAMEPAD_STATE::PAD_BUTTON_REPEAT
-		&& gamepad.JOYSTICK_UP == GAMEPAD_STATE::PAD_BUTTON_REPEAT 
-		&& count_repeat_mix >= MAX_COUNT_INPUT - 10){
+	if (((GetKey(keyboard_buttons.buttons_to_use.LEFT) == KEY_REPEAT
+		&& GetKey(keyboard_buttons.buttons_to_use.UP) == KEY_REPEAT)
+		||	(gamepad.JOYSTICK_LEFT == GAMEPAD_STATE::PAD_BUTTON_REPEAT
+		&& gamepad.JOYSTICK_UP == GAMEPAD_STATE::PAD_BUTTON_REPEAT))
+		&& count_repeat_mix > MAX_COUNT_INPUT_MIX)
+	{
 		CleanCount();
 		return true;
 	}
@@ -511,9 +514,12 @@ bool ModuleInput::LeftUp() {
 
 bool ModuleInput::RightUp() {
 
-	if (gamepad.JOYSTICK_RIGHT == GAMEPAD_STATE::PAD_BUTTON_REPEAT
-		&& gamepad.JOYSTICK_UP == GAMEPAD_STATE::PAD_BUTTON_REPEAT 
-		&& count_repeat_mix >= MAX_COUNT_INPUT - 10) {
+	if (((GetKey(keyboard_buttons.buttons_to_use.RIGHT) == KEY_REPEAT
+		&& GetKey(keyboard_buttons.buttons_to_use.UP) == KEY_REPEAT)
+		|| (gamepad.JOYSTICK_RIGHT == GAMEPAD_STATE::PAD_BUTTON_REPEAT
+		&& gamepad.JOYSTICK_UP == GAMEPAD_STATE::PAD_BUTTON_REPEAT))
+		&& count_repeat_mix > MAX_COUNT_INPUT_MIX) 
+	{
 		CleanCount();
 		return true;
 	}
@@ -523,9 +529,12 @@ bool ModuleInput::RightUp() {
 
 bool ModuleInput::LeftDown() {
 
-	if (gamepad.JOYSTICK_LEFT == GAMEPAD_STATE::PAD_BUTTON_REPEAT
-		&& gamepad.JOYSTICK_DOWN == GAMEPAD_STATE::PAD_BUTTON_REPEAT 
-		&& count_repeat_mix >= MAX_COUNT_INPUT - 10) {
+	if (((GetKey(keyboard_buttons.buttons_to_use.LEFT) == KEY_REPEAT
+		&& GetKey(keyboard_buttons.buttons_to_use.DOWN) == KEY_REPEAT)
+		|| (gamepad.JOYSTICK_LEFT == GAMEPAD_STATE::PAD_BUTTON_REPEAT
+		&& gamepad.JOYSTICK_DOWN == GAMEPAD_STATE::PAD_BUTTON_REPEAT))
+		&& count_repeat_mix > MAX_COUNT_INPUT_MIX)
+	{
 		CleanCount();
 		return true;
 	}
@@ -535,9 +544,12 @@ bool ModuleInput::LeftDown() {
 
 bool ModuleInput::RightDown() {
 
-	if (gamepad.JOYSTICK_RIGHT == GAMEPAD_STATE::PAD_BUTTON_REPEAT
-		&& gamepad.JOYSTICK_DOWN == GAMEPAD_STATE::PAD_BUTTON_REPEAT 
-		&& count_repeat_mix >= MAX_COUNT_INPUT - 10) {
+	if (((GetKey(keyboard_buttons.buttons_to_use.RIGHT) == KEY_REPEAT
+		&& GetKey(keyboard_buttons.buttons_to_use.DOWN) == KEY_REPEAT)
+		|| (gamepad.JOYSTICK_RIGHT == GAMEPAD_STATE::PAD_BUTTON_REPEAT
+		&& gamepad.JOYSTICK_DOWN == GAMEPAD_STATE::PAD_BUTTON_REPEAT))
+		&& count_repeat_mix > MAX_COUNT_INPUT_MIX)
+	{
 		CleanCount();
 		return true;
 	}
