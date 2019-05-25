@@ -8,7 +8,6 @@
 #include "Win.h"
 #include "Lose.h"
 #include "ChooseMap.h"
-#include "Language.h"
 
 
 ModuleSceneManager::ModuleSceneManager()

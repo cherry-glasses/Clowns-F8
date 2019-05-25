@@ -4,6 +4,7 @@
 #include "ModuleInput.h"
 #include "ModulePathfinding.h"
 #include "ModuleEntityManager.h"
+#include "ModuleSceneManager.h"
 
 
 CharacterStorm::CharacterStorm(ENTITY_TYPE _type, pugi::xml_node _config) : Character(_type, _config)
@@ -25,6 +26,11 @@ CharacterStorm::CharacterStorm(ENTITY_TYPE _type, pugi::xml_node _config) : Char
 			y = 0;
 		}
 	}
+
+	attacks_names.Attack_name = App->scene_manager->language->attack_storm;
+	attacks_names.Ability_1_name = App->scene_manager->language->ability1_storm;
+	attacks_names.Ability_2_name = App->scene_manager->language->ability2_storm;
+	attacks_names.Ability_3_name = App->scene_manager->language->ability3_storm;
 }
 
 CharacterStorm::~CharacterStorm() {

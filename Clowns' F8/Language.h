@@ -44,6 +44,26 @@ public:
 	std::string map2 = "";
 	std::string map3 = "";
 	std::string map4 = "";
+
+	std::string attack_sapphire = "";
+	std::string ability1_sapphire = "";
+	std::string ability2_sapphire = "";
+	std::string ability3_sapphire = "";
+
+	std::string attack_iris = "";
+	std::string ability1_iris = "";
+	std::string ability2_iris = "";
+	std::string ability3_iris = "";
+
+	std::string attack_storm = "";
+	std::string ability1_storm = "";
+	std::string ability2_storm = "";
+	std::string ability3_storm = "";
+
+	std::string attack_georgeb = "";
+	std::string ability1_georgeb = "";
+	std::string ability2_georgeb = "";
+	std::string ability3_georgeb = "";
 };
 
 

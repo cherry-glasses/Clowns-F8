@@ -26,6 +26,10 @@
     <main_menu value="MAIN MENU"/>
     <battle_abilities value="Abilities"/>
     <defend value="Defend"/>
+    <sapphire attack="Flower attack" ability_1="Hammer time" ability_2="Surprise hat" ability_3="Water time"/>
+    <iris attack="Fist attack" ability_1="Rabbit kick" ability_2="Carrot time" ability_3="Rabbit rage"/>
+    <storm attack="Acid throw" ability_1="Snail charge" ability_2="Time to hide" ability_3="Vampiric snail"/>
+    <georgeb attack="Random throw" ability_1="Bear trap" ability_2="Cherry boom" ability_3="Flying birds"/>
   </battle_scene>
   <win_scene>
     <win_accept value="PRESS ACCEPT TO RETURN TO MAIN MENU"/>

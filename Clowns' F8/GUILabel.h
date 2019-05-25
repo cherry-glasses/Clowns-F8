@@ -12,7 +12,7 @@
 class GUILabel : public GUIElement
 {
 public:
-	GUILabel(int x, int y, std::string text, SDL_Color color, _TTF_Font* font, int curr, int def, GUIElement* son);
+	GUILabel(int x, int y, std::string text, SDL_Color color, _TTF_Font* font, int curr, int def, GUIElement* son, bool centrated = true);
 	~GUILabel()
 	{
 		App->textures->UnLoad(tex);

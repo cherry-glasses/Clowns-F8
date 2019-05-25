@@ -6,7 +6,7 @@
 
 #include "SDL_ttf/include/SDL_ttf.h"
 
-GUILabel::GUILabel(int x, int y, std::string text, SDL_Color color, _TTF_Font* font, int curr, int def, GUIElement* son) : GUIElement(type, x, y, area, son)
+GUILabel::GUILabel(int x, int y, std::string text, SDL_Color color, _TTF_Font* font, int curr, int def, GUIElement* son, bool centrated) : GUIElement(type, x, y, area, son)
 {
 	type = GUI_ELEMENT_TYPE::GUI_LABEL;
 
@@ -32,8 +32,17 @@ GUILabel::GUILabel(int x, int y, std::string text, SDL_Color color, _TTF_Font* f
 	area.x = 0;
 	area.y = 0;
 
-	position.first = x - (area.w/2) ;
-	position.second = y - (area.h / 2);
+	if (centrated)
+	{
+		position.first = x - (area.w / 2);
+		position.second = y - (area.h / 2);
+	}
+	else
+	{
+		position.first = x;
+		position.second = y;
+	}
+	
 }
 
 void GUILabel::Update(float dt)

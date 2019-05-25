@@ -20,13 +20,16 @@
     <abilities value="HABILIDADES"/>
     <pause value="PAUSA"/>
     <select value="SELECT"/>
-   
   </main_menu_scene>
   <battle_scene>
     <resume value="CONTINUAR"/>
     <main_menu value="MENU PRINCIPAL"/>
     <battle_abilities value="Habilidades"/>
     <defend value="Defender"/>
+    <sapphire attack="Floretazo" ability_1="Martillazo" ability_2="Sombrero sorpresa" ability_3="Hora del Jugar"/>
+    <iris attack="Golpe de karate" ability_1="Patada conejil" ability_2="Hora de zanahoria" ability_3="Rabia Conejil"/>
+    <storm attack="Escupitajo" ability_1="Caracol paralizante" ability_2="Hora del escondite" ability_3="Caracol vampírico"/>
+    <georgeb attack="Tiro aleatorio" ability_1="Trampa de oso" ability_2="Bomba cereza" ability_3="Hora de Hitchcock"/>
   </battle_scene>
   <win_scene>
     <press_accept value="PULSA ACEPTAR PARA VOLVER AL MENÚ PRINCIPAL"/>

@@ -2,7 +2,6 @@
 #include "Battle2.h"
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
-#include "ModuleWindow.h"
 #include "ModuleMap.h"
 #include "ModuleEntityManager.h"
 
@@ -23,9 +22,6 @@ bool Battle2::Start()
 	battle_background = App->textures->Load("Assets/Maps/map_level_2.png");
 	battle_grid = App->textures->Load("Assets/Maps/grid_level_2.png");
 	battle_menu_background = App->textures->Load("Assets/Sprites/UI/option_menu_background.png");
-
-	screen_width = App->window->GetScreenWidth();
-	screen_height = App->window->GetScreenHeight();
 
 	App->audio->PlayMusic("Battle_2_Song.ogg");
 	CreateBattle2();

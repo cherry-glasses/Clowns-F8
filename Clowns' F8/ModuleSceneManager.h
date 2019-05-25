@@ -2,8 +2,8 @@
 #define __ModuleSceneManager_H__
 
 #include "Module.h"
+#include "Language.h"
 
-class Language;
 class Scene;
 enum SCENE_TYPE;
 

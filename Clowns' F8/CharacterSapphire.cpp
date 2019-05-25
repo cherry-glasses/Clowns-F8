@@ -4,6 +4,7 @@
 #include "ModuleInput.h"
 #include "ModulePathfinding.h"
 #include "ModuleEntityManager.h"
+#include "ModuleSceneManager.h"
 
 
 CharacterSapphire::CharacterSapphire(ENTITY_TYPE _type, pugi::xml_node _config) : Character(_type, _config)
@@ -25,6 +26,10 @@ CharacterSapphire::CharacterSapphire(ENTITY_TYPE _type, pugi::xml_node _config) 
 			y = 0;
 		}
 	}
+	attacks_names.Attack_name = App->scene_manager->language->attack_sapphire;
+	attacks_names.Ability_1_name = App->scene_manager->language->ability1_sapphire;
+	attacks_names.Ability_2_name = App->scene_manager->language->ability2_sapphire;
+	attacks_names.Ability_3_name = App->scene_manager->language->ability3_sapphire;
 }
 
 CharacterSapphire::~CharacterSapphire() {

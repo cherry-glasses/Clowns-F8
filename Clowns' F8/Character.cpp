@@ -139,6 +139,12 @@ bool Character::Update(float _dt) {
 		Defend();
 	}
 
+	if (Cap != -1 && possible_map.size() > 0)
+	{
+		target = possible_map.at(Cap);
+		possible_map.clear();
+	}
+	
 	return true;
 }
 
@@ -189,8 +195,6 @@ void Character::SelectWalk() {
 		Cap = tmp.first + (tmp.second * 25);
 	}
 
-	std::vector<std::pair<int, int>> stop;
-
 	int i = 0;
 	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 	{
@@ -208,7 +212,6 @@ void Character::SelectWalk() {
 			else
 			{
 				App->render->Blit(debug_texture, possible_map.at(i).first, possible_map.at(i).second, &debug_red);
-				stop.push_back(App->map->WorldToMap(possible_map.at(i).first, possible_map.at(i).second));
 			}
 		}
 		++i;
@@ -227,9 +230,6 @@ void Character::SelectWalk() {
 		comeback_movement = current_movement;
 		
 	}
-
-	possible_map.clear();
-	stop.clear();
 }
 
 void Character::Walk()
@@ -353,8 +353,6 @@ void Character::SelectAttack() {
 		EndTurn();
 		current_turn = SELECT_ACTION;
 	}
-
-	possible_map.clear();
 }
 
 void Character::Attack()
@@ -562,8 +560,6 @@ void Character::SelectAbility_1() {
 		EndTurn();
 		current_turn = SELECT_ACTION;
 	}
-
-	possible_map.clear();
 }
 
 void Character::Ability_1()
@@ -695,8 +691,6 @@ void Character::SelectAbility_2() {
 		EndTurn();
 		current_turn = SELECT_ACTION;
 	}
-
-	possible_map.clear();
 }
 
 void Character::Ability_2()
@@ -836,8 +830,6 @@ void Character::SelectAbility_3() {
 		EndTurn();
 		current_turn = SELECT_ACTION;
 	}
-
-	possible_map.clear();
 }
 
 void Character::Ability_3()

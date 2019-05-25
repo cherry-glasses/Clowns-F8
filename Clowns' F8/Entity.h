@@ -71,13 +71,9 @@ typedef struct {
 
 typedef struct {
 	std::string Attack_name;
-	std::string Ataque_nombre;
 	std::string Ability_1_name;
 	std::string Ability_2_name;
 	std::string Ability_3_name;
-	std::string Habilidad_1_nombre;
-	std::string Habilidad_2_nombre;
-	std::string Habilidad_3_nombre;
 	
 } Attacks_names;
 
@@ -143,6 +139,7 @@ public:
 
 public:
 
+	SDL_Rect portrait;
 	Stats default_stats;
 	Stats current_stats;
 	Evolutions evolution_stats;
@@ -157,6 +154,7 @@ public:
 	int exp = 0;
 	int level = 8;
 	std::vector<int> levels;
+	std::pair<int, int> target;
 
 	enum STATE { ALIVE, DEATH };
 	enum TURN { SEARCH_MOVE, SELECT_MOVE, MOVE, SELECT_ACTION, SEARCH_ATTACK, SELECT_ATTACK, ATTACK, 

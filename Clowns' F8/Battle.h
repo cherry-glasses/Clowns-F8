@@ -43,6 +43,8 @@ protected:
 	void UpdateCharacterPortraits(Entity* _character, int _i);
 	void UpdateEnemyPortraits(Entity* _enemy, int _i);
 
+	void ShowEntityInfo(Entity* _entity);
+
 	void DeleteAttackMenu();
 	void DeleteAbilitiesMenu();
 	void DeleteOptionsIngame();
@@ -68,23 +70,31 @@ protected:
 	GUIButton* ability1_button = nullptr;
 	GUIButton* ability2_button = nullptr;
 	GUIButton* ability3_button = nullptr;
+
+
+	std::pair<int, int> portrait_margin;
+	std::pair<int, int> life_margin;
+	std::pair<int, int> mana_margin;
+	std::pair<int, int> port_margin;
+	std::pair<int, int> name_margin;
+	std::pair<int, int> level_margin;
+	std::pair<int, int> actions_margin;
+
 	std::vector<GUIImage*> life;
 	std::vector<GUIImage*> enemies_life;
 	std::vector<GUIImage*> mana;
 	std::vector<GUIImage*> portrait;
 	std::vector<GUIImage*> port;
 	std::vector<GUILabel*> character_names;
+	std::vector<GUILabel*> character_levels;
 	std::vector<GUILabel*> life_numbers;
 	std::vector<GUILabel*> mana_numbers;
 	std::vector<int> life_x;
 	std::vector<int> mana_x;
 	std::vector<int> enemies_life_x;
-	std::vector<std::pair<int, int>> life_position;
-	std::vector<std::pair<int, int>> mana_position;
-	std::vector<std::pair<int, int>> port_position;
 	std::vector<std::pair<int, int>> portrait_position;
-	std::vector<std::pair<int, int>> name_position;
 	std::vector<std::pair<int, int>> act_menu_position;
+
 	bool waiting_for_input = false;
 
 	std::list<GUIButton*> buttons2;
@@ -124,6 +134,27 @@ protected:
 	bool character_ability1up = false;
 	bool character_ability2up = false;
 	bool character_ability3up = false;
+
+	//Showing info entities
+	SDL_Rect board;
+	std::pair<int, int> port_board;
+	std::pair<int, int> name_board;
+	std::pair<int, int> life_board;
+	std::pair<int, int> mana_board;
+	std::pair<int, int> attack_board;
+	std::pair<int, int> ability_1_board;
+	std::pair<int, int> ability_2_board;
+	std::pair<int, int> ability_3_board;
+
+	GUIImage* board_entity = nullptr;
+	GUIImage* port_entity = nullptr;
+	GUILabel* name_entity = nullptr;
+	GUILabel* life_entity = nullptr;
+	GUILabel* mana_entity = nullptr;
+	GUILabel* attack_entity = nullptr;
+	GUILabel* ability1_entity = nullptr;
+	GUILabel* ability2_entity = nullptr;
+	GUILabel* ability3_entity = nullptr;
 
 };
 

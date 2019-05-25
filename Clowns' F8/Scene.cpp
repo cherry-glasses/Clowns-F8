@@ -3,6 +3,7 @@
 #include "GUIImage.h"
 #include "GUIButton.h"
 #include "GUILabel.h"
+#include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
 #include "Scene.h"
@@ -20,21 +21,9 @@ Scene::Scene(SCENE_TYPE _type, pugi::xml_node& _config)
 		_config.child("cherry_glasses_logo").attribute("w").as_int() , _config.child("cherry_glasses_logo").attribute("h").as_int() };
 	option_background = { _config.child("option_background").attribute("x").as_int(), _config.child("option_background").attribute("y").as_int(),
 		_config.child("option_background").attribute("w").as_int() , _config.child("option_background").attribute("h").as_int() };
-	iris_portrait = { _config.child("portraits").child("iris").attribute("x").as_int(), _config.child("portraits").child("iris").attribute("y").as_int(),
-		_config.child("portraits").child("iris").attribute("w").as_int() , _config.child("portraits").child("iris").attribute("h").as_int() };
-	sapphire_portrait = { _config.child("portraits").child("sapphire").attribute("x").as_int(), _config.child("portraits").child("sapphire").attribute("y").as_int(),
-		_config.child("portraits").child("sapphire").attribute("w").as_int() , _config.child("portraits").child("sapphire").attribute("h").as_int() };
-	storm_portrait = { _config.child("portraits").child("storm").attribute("x").as_int(), _config.child("portraits").child("storm").attribute("y").as_int(),
-		_config.child("portraits").child("storm").attribute("w").as_int() , _config.child("portraits").child("storm").attribute("h").as_int() };
-	george_b_portrait = { _config.child("portraits").child("george_b").attribute("x").as_int(), _config.child("portraits").child("george_b").attribute("y").as_int(),
-		_config.child("portraits").child("george_b").attribute("w").as_int() , _config.child("portraits").child("george_b").attribute("h").as_int() };
-	life_margin = { _config.child("life_position").attribute("margin_x").as_int(), _config.child("life_position").attribute("margin_y").as_int() };
-	mana_margin = { _config.child("mana_position").attribute("margin_x").as_int(), _config.child("mana_position").attribute("margin_y").as_int() };
-	actions_margin = { _config.child("actions_position").attribute("margin_x").as_int(), _config.child("actions_position").attribute("margin_y").as_int() };
-	port_margin = { _config.child("port_position").attribute("margin_x").as_int(), _config.child("port_position").attribute("margin_y").as_int() };
-	portrait_margin = { _config.child("portrait_position").attribute("margin_x").as_int(), _config.child("portrait_position").attribute("margin_y").as_int() };
-	name_margin = { _config.child("name_position").attribute("margin_x").as_int(), _config.child("name_position").attribute("margin_y").as_int() };
-	
+
+	screen_width = App->window->GetScreenWidth();
+	screen_height = App->window->GetScreenHeight();
 
 	//Audio
 	press_fx_name = _config.child("press_fx_name").attribute("source").as_string();
