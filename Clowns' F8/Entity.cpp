@@ -45,6 +45,7 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	default_stats.DefF = _config.child("stats").attribute("def_f").as_int();
 	default_stats.DefS = _config.child("stats").attribute("def_s").as_int();
 	default_stats.Crit = _config.child("stats").attribute("crit").as_int();
+	default_stats.Eva = _config.child("stats").attribute("eva").as_int();
 	default_stats.Agi = _config.child("stats").attribute("agi").as_int();
 	default_stats.Attack = _config.child("stats").attribute("attack").as_int();
 	default_stats.Ability_1 = _config.child("stats").attribute("ability_1").as_int();

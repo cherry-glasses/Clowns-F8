@@ -49,6 +49,7 @@ typedef struct {
 	int DefF;
 	int DefS;
 	int Crit;
+	int Eva;
 	int Agi;
 
 	int Attack;
@@ -152,7 +153,7 @@ public:
 	bool critic = false;
 	bool flipX = false;
 	int exp = 0;
-	int level = 8;
+	int level = 1;
 	std::vector<int> levels;
 	std::pair<int, int> target;
 

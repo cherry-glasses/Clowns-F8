@@ -584,6 +584,30 @@ bool ModuleInput::Pause() {
 	return false;
 }
 
+bool ModuleInput::LevelUp() {
+
+	if (GetKey(keyboard_buttons.buttons_to_use.LEVELUP) == KEY_DOWN || App->input->gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}
+
+bool ModuleInput::LevelDown() {
+
+	if (GetKey(keyboard_buttons.buttons_to_use.LEVELDOWN) == KEY_DOWN || App->input->gamepad.CROSS_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}
+
+bool ModuleInput::AllMaps() {
+
+	if (GetKey(keyboard_buttons.buttons_to_use.ALLMAPS) == KEY_DOWN || App->input->gamepad.CROSS_RIGHT == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}
+
 void ModuleInput::Defaultcontrols() {
 
 
@@ -594,7 +618,8 @@ void ModuleInput::Defaultcontrols() {
 	keyboard_buttons.buttons_to_use.UP = SDL_SCANCODE_UP;
 	keyboard_buttons.buttons_to_use.DECLINE = SDL_SCANCODE_X;
 	keyboard_buttons.buttons_to_use.PAUSE = SDL_SCANCODE_ESCAPE;
-
+	keyboard_buttons.buttons_to_use.LEVELUP = SDL_SCANCODE_F4;
+	keyboard_buttons.buttons_to_use.LEVELDOWN = SDL_SCANCODE_F3;
 
 
 	keyboard_buttons.buttons_char.RIGHT == "RIGHT ARROW";

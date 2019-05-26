@@ -112,6 +112,8 @@ bool ModuleEntityManager::PreUpdate()
 				}
 			}
 		}
+
+		
 		
 		(*entity)->PreUpdate();
 		
@@ -1041,19 +1043,35 @@ void ModuleEntityManager::LevelUP(int _exp)
 				break;
 			}
 
-			if ((*character)->levels.at((*character)->level - 1) <= (*character)->exp) 
+			if ((*character)->level < 10 && (*character)->levels.at((*character)->level - 1) <= (*character)->exp)
 			{
-				++(*character)->level;
+				
 
-				(*character)->default_stats.Hp += (*character)->evolution_stats.Hp * (*character)->level;
-				(*character)->default_stats.Mana += (*character)->evolution_stats.Mana * (*character)->level;
-				(*character)->default_stats.AtkF += (*character)->evolution_stats.AtkF * (*character)->level;
-				(*character)->default_stats.AtkS += (*character)->evolution_stats.AtkS * (*character)->level;
-				(*character)->default_stats.DefF += (*character)->evolution_stats.DefF * (*character)->level;
-				(*character)->default_stats.DefS += (*character)->evolution_stats.DefS * (*character)->level;
-				(*character)->default_stats.Crit += (*character)->evolution_stats.Crit * (*character)->level;
+				(*character)->default_stats.Hp += (*character)->evolution_stats.Hp * (*character)->level * (*character)->level;
+				(*character)->default_stats.Mana += (*character)->evolution_stats.Mana * (*character)->level * (*character)->level;
+				(*character)->default_stats.AtkF += (*character)->evolution_stats.AtkF * (*character)->level * (*character)->level;
+				(*character)->default_stats.AtkS += (*character)->evolution_stats.AtkS * (*character)->level * (*character)->level;
+				(*character)->default_stats.DefF += (*character)->evolution_stats.DefF * (*character)->level * (*character)->level;
+				(*character)->default_stats.DefS += (*character)->evolution_stats.DefS * (*character)->level * (*character)->level;
+				(*character)->default_stats.Crit += (*character)->evolution_stats.Crit * (*character)->level * (*character)->level;
 
 				(*character)->current_stats = (*character)->default_stats;
+				++(*character)->level;
+			}
+			else if ((*character)->level > 1 && (*character)->levels.at((*character)->level - 2) > (*character)->exp)
+			{
+				--(*character)->level;
+
+				(*character)->default_stats.Hp -= (*character)->evolution_stats.Hp * (*character)->level * (*character)->level;
+				(*character)->default_stats.Mana -= (*character)->evolution_stats.Mana * (*character)->level * (*character)->level;
+				(*character)->default_stats.AtkF -= (*character)->evolution_stats.AtkF * (*character)->level * (*character)->level;
+				(*character)->default_stats.AtkS -= (*character)->evolution_stats.AtkS * (*character)->level * (*character)->level;
+				(*character)->default_stats.DefF -= (*character)->evolution_stats.DefF * (*character)->level * (*character)->level;
+				(*character)->default_stats.DefS -= (*character)->evolution_stats.DefS * (*character)->level * (*character)->level;
+				(*character)->default_stats.Crit -= (*character)->evolution_stats.Crit * (*character)->level * (*character)->level;
+
+				(*character)->current_stats = (*character)->default_stats;
+				
 			}
 			
 		}

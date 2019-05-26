@@ -82,6 +82,9 @@ struct ButtonsToUse {
 	int CHARACABILITY;
 	int ABILITY;
 	int ABILITYTREE;
+	int LEVELUP;
+	int LEVELDOWN;
+	int ALLMAPS;
 
 };
 
@@ -98,6 +101,9 @@ struct ButtonChar {
 	char* ABILITY = nullptr;
 	char* CHARACABILITY = nullptr;
 	char* ABILITYTREE = nullptr;
+	char* LEVELUP = nullptr;
+	char* LEVELDOWN = nullptr;
+	char* ALLMAPS = nullptr;
 };
 
 struct KeyboardButtons {
@@ -187,6 +193,9 @@ public:
 	//bool Showcharacterabilities();
 	//bool Showabilities();
 	//
+	bool LevelUp();
+	bool LevelDown();
+	bool AllMaps();
 
 	int space;
 

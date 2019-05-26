@@ -5,6 +5,7 @@
 #include "Language.h"
 
 class Scene;
+struct SDL_Texture;
 enum SCENE_TYPE;
 
 class ModuleSceneManager :	public Module
@@ -37,7 +38,7 @@ public:
 	bool battle3_passed = false;
 
 	Language* language = nullptr;
-
+	SDL_Texture* objects_texture = nullptr;
 	
 
 private:

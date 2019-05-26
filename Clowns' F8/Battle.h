@@ -44,6 +44,7 @@ protected:
 	void UpdateEnemyPortraits(Entity* _enemy, int _i);
 
 	void ShowEntityInfo(Entity* _entity);
+	void LevelUp(bool _up);
 
 	void DeleteAttackMenu();
 	void DeleteAbilitiesMenu();
@@ -136,6 +137,7 @@ protected:
 	bool character_ability3up = false;
 
 	//Showing info entities
+	std::pair<int, int> aux_target = { 0,0 };
 	SDL_Rect board;
 	std::pair<int, int> port_board;
 	std::pair<int, int> name_board;
@@ -149,8 +151,16 @@ protected:
 	GUIImage* board_entity = nullptr;
 	GUIImage* port_entity = nullptr;
 	GUILabel* name_entity = nullptr;
+	GUILabel* lvl_entity = nullptr;
+	GUILabel* exp_entity = nullptr;
 	GUILabel* life_entity = nullptr;
 	GUILabel* mana_entity = nullptr;
+	GUILabel* atk_f_entity = nullptr;
+	GUILabel* def_f_entity = nullptr;
+	GUILabel* atk_s_entity = nullptr;
+	GUILabel* def_s_entity = nullptr;
+	GUILabel* crit_entity = nullptr;
+	GUILabel* eva_entity = nullptr;
 	GUILabel* attack_entity = nullptr;
 	GUILabel* ability1_entity = nullptr;
 	GUILabel* ability2_entity = nullptr;

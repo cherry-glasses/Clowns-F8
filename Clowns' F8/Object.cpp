@@ -5,6 +5,7 @@
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
 #include "ModuleMap.h"
+#include "ModuleSceneManager.h"
 
 Object::Object(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Entity(_type, _config)
 {
@@ -16,7 +17,9 @@ Object::Object(ENTITY_TYPE _type, pugi::xml_node _config, int _copy) : Entity(_t
 		}
 		i++;
 	}
-	current = { 0 , 0, _config.child("size").attribute("width").as_int(), _config.child("size").attribute("height").as_int() };
+	entity_texture = App->scene_manager->objects_texture;
+	current = { _config.child("size").attribute("x").as_int() , _config.child("size").attribute("y").as_int(),
+		_config.child("size").attribute("width").as_int(), _config.child("size").attribute("height").as_int() };
 }
 Object::~Object()
 {
@@ -41,7 +44,7 @@ bool Object::PostUpdate(float _dt)
 {
 	if (entity_texture != nullptr)
 	{
-		App->render->Blit(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second);
+		App->render->Blit(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second, &current);
 	}
 
 	return true;

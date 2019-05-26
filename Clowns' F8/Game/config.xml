@@ -36,6 +36,7 @@
   </map>
   
   <scene_manager>
+    <texture value="Assets/Sprites/Objects/objects_atlas.png"/>
     <button x="0" y="0" w="288" h="64" margin="40"/>
     <small_button x="0" y="0" w="173" h="39" margin="40"/>
     <option_background x="0" y="0" w="551" h="720"/>
@@ -54,15 +55,15 @@
     <map2 x="400" y="0" w="107" h="96"/>
     <map3 x="507" y="0" w="192" h="112"/>
     <map4 x="871" y="0" w=" 251" h="99"/>
-    <board x="320" y="160" w="650" h="130">
-      <port margin_x="10" margin_y="10"/>
-      <name margin_x="100" margin_y="15"/>
-      <life margin_x="350" margin_y="15"/>
-      <mana margin_x="450" margin_y="15"/>
-      <attack margin_x="100" margin_y="40"/>
-      <ability_1 margin_x="100" margin_y="65"/>
-      <ability_2 margin_x="100" margin_y="90"/>
-      <ability_3 margin_x="100" margin_y="115"/>
+    <board x="320" y="160" w="750" h="170">
+      <port margin_x="10" margin_y="40"/>
+      <name margin_x="10" margin_y="5"/>
+      <life margin_x="450" margin_y="5"/>
+      <mana margin_x="600" margin_y="5"/>
+      <attack margin_x="120" margin_y="5"/>
+      <ability_1 margin_x="120" margin_y="35"/>
+      <ability_2 margin_x="120" margin_y="65"/>
+      <ability_3 margin_x="120" margin_y="95"/>
     </board>
   </scene_manager>
 
@@ -91,14 +92,15 @@
     <circle_yellow x="192" y="32" width="64" height="32"/>
     <position_margin x="32" y="22"/>
     <levelup>
-      <nextlevel value="30"/>
+      <nextlevel value="20"/>
       <nextlevel value="50"/>
-      <nextlevel value="100"/>
-      <nextlevel value="180"/>
-      <nextlevel value="300"/>
-      <nextlevel value="500"/>
-      <nextlevel value="1200"/>
-      <nextlevel value="2800"/>
+      <nextlevel value="130"/>
+      <nextlevel value="310"/>
+      <nextlevel value="750"/>
+      <nextlevel value="1810"/>
+      <nextlevel value="4370"/>
+      <nextlevel value="10550"/>
+      <nextlevel value="25470"/>
     </levelup>
     <sapphire>
       <texture value="Assets/Sprites/Main_Characters/Sapphire_Spritesheet.png"/>
@@ -114,7 +116,7 @@
       <name value="Sapphire"/>
       <exp value="0"/>
       <stats hp="79" mana="120" p_move="1" atk_f="60" atk_s="84" range_atk="5" range_ability_1="2" range_ability_2="5"
-             range_ability_3="15" def_f="70" def_s="80" crit="10"  agi="11" attack ="25" ability_1="26" ability_2="30" ability_3="35"/>
+             range_ability_3="15" def_f="70" def_s="80" crit="10" eva="25" agi="11" attack ="25" ability_1="26" ability_2="30" ability_3="35"/>
       <evolution hp="5" mana="15" atk_f="6" atk_s="5" def_f="6" def_s="6" crit="2"/>
       <animations>
         <idle_left_front speed="5.0f" loop="true">
@@ -381,7 +383,7 @@
       <name value="Iris"/>
       <exp value="0"/>
       <stats hp="78" mana="85" p_move="1" atk_f="82" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
-             range_ability_3="1" def_f="80" def_s="76" crit="20" agi="13" attack ="24" ability_1="25" ability_2="10" ability_3="40"/>
+             range_ability_3="1" def_f="80" def_s="76" crit="20" eva="40" agi="13" attack ="24" ability_1="25" ability_2="10" ability_3="40"/>
       <evolution hp="4" mana="10" atk_f="6" atk_s="5" def_f="6" def_s="6" crit="3"/>
       <animations>
         <idle_left_front speed="5.0f" loop="true">
@@ -576,7 +578,7 @@
       <name value="Storm"/>
       <exp value="0"/>
       <stats hp="90" mana="80" p_move="4" atk_f="75" atk_s="74" range_atk="1" range_ability_1="3" range_ability_2="7"
-             range_ability_3="7" def_f="85" def_s="83" crit="10"  agi="10" attack ="20" ability_1="0" ability_2="0" ability_3="0"/>
+             range_ability_3="7" def_f="85" def_s="83" crit="10" eva="15" agi="10" attack ="20" ability_1="0" ability_2="0" ability_3="0"/>
       <evolution hp="5" mana="8" atk_f="4" atk_s="4" def_f="6" def_s="6" crit="2"/>
       <animations>
         <idle_left_front speed="5.0f" loop="true">
@@ -715,7 +717,7 @@
       <name value="George B."/>
       <exp value="0"/>
       <stats hp="75" mana="95" p_move="4" atk_f="75" atk_s="75" range_atk="4" range_ability_1="6" range_ability_2="4"
-             range_ability_3="3" def_f="75" def_s="75" crit="8"  agi="12" attack ="25" ability_1="25" ability_2="33" ability_3="38"/>
+             range_ability_3="3" def_f="75" def_s="75" crit="8" eva="20" agi="12" attack ="25" ability_1="25" ability_2="33" ability_3="38"/>
       <evolution hp="5" mana="10" atk_f="6" atk_s="6" def_f="6" def_s="6" crit="3"/>
       <animations>
         <idle_right speed="5.0f" loop="true">
@@ -1624,8 +1626,7 @@
       </animations>
     </cherryblackglasses>
     <tree1>
-      <texture value="Assets/Sprites/Objects/tree_1.png"/>
-      <size x="0" y="0" width="96" height="128"/>
+      <size x="0" y="0" width="96" height="125"/>
       <position x="3" y="24"/>
       <position x="0" y="15"/>
       <position x="0" y="13"/>
@@ -1633,8 +1634,7 @@
       <position x="0" y="9"/>
     </tree1>
     <tree2>
-      <texture value="Assets/Sprites/Objects/tree_2.png"/>
-      <size width="128" height="128"/>
+      <size x="128" y="0" width="120" height="127"/>
       <position x="0" y="24"/>
       <position x="1" y="24"/>
       <position x="2" y="24"/>
@@ -1644,8 +1644,7 @@
       <position x="0" y="10"/>
     </tree2>
     <tree3>
-      <texture value="Assets/Sprites/Objects/tree_3.png"/>
-      <size width="128" height="96"/>
+      <size x="256" y="0" width="125" height="90"/>
       <position x="8" y="14"/>
       <position x="9" y="14"/>
       <position x="8" y="13"/>
@@ -1663,8 +1662,7 @@
       <position x="15" y="6"/>
     </tree3>
     <stone>
-      <texture value="Assets/Sprites/Objects/stone.png"/>
-      <size width="49" height="41"/>
+      <size x="0" y="128" width="49" height="41"/>
       <position x="1" y="6"/>
       <position x="2" y="5"/>
       <position x="2" y="6"/>
@@ -1680,13 +1678,11 @@
       <position x="18" y="19"/>
     </stone>
     <volcano>
-      <texture value="Assets/Sprites/Objects/volcano.png"/>
-      <size width="309" height="224"/>
+      <size x="576" y="576" width="309" height="224"/>
       <position x="12" y="13"/>
     </volcano>
     <ice>
-      <texture value="Assets/Sprites/Objects/ice.png"/>
-      <size width="94" height="99"/>
+      <size x="384" y="0" width="94" height="99"/>
       <position x="1" y="1"/>
       <position x="1" y="2"/>
       <position x="2" y="1"/>
@@ -1706,18 +1702,15 @@
       <position x="17" y="10"/>
     </ice>
     <mountain>
-      <texture value="Assets/Sprites/Objects/mountain.png"/>
-      <size width="431" height="252"/>
+      <size x="0" y="320" width="431" height="252"/>
       <position x="25" y="25"/>
     </mountain>
     <mountain_2>
-      <texture value="Assets/Sprites/Objects/mountain_2.png"/>
-      <size width="469" height="402"/>
+      <size x="0" y="576" width="469" height="402"/>
       <position x="7" y="10"/>
     </mountain_2>
     <stone_2>
-      <texture value="Assets/Sprites/Objects/stone_2.png"/>
-      <size width="50" height="53"/>
+      <size x="64" y="128" width="50" height="53"/>
       <position x="4" y="23"/>
       <position x="5" y="23"/>
       <position x="9" y="6"/>
@@ -1730,8 +1723,7 @@
       <position x="21" y="10"/>
     </stone_2>
     <stone_3>
-      <texture value="Assets/Sprites/Objects/stone_3.png"/>
-      <size width="49" height="41"/>
+      <size x="128" y="128" width="49" height="41"/>
       <position x="13" y="21"/>
       <position x="13" y="22"/>
       <position x="14" y="21"/>
@@ -1740,8 +1732,7 @@
       <position x="15" y="22"/>
     </stone_3>
     <stalagmite>
-      <texture value="Assets/Sprites/Objects/stalagmite.png"/>
-      <size width="83" height="215"/>
+      <size x="576" y="320" width="83" height="215"/>
       <position x="6" y="16"/>
       <position x="9" y="22"/>
       <position x="9" y="1"/>
@@ -1753,13 +1744,11 @@
       <position x="21" y="5"/>
     </stalagmite>
     <bloodstream>
-      <texture value="Assets/Sprites/Objects/bloodstream.png"/>
-      <size width="294" height="70"/>
+      <size x="0" y="192" width="294" height="70"/>
       <position x="21" y="20"/>
     </bloodstream>
     <beartrap>
-      <texture value="Assets/Sprites/Objects/bear_trap.png"/>
-      <size width="32" height="32"/>
+      <size x="192" y="128" width="32" height="32"/>
     </beartrap>
   </entity_manager>
 

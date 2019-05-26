@@ -146,7 +146,7 @@ bool Application::Update()
 {
 	bool ret = true;
 
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || App->input->gamepad.CROSS_LEFT == GAMEPAD_STATE::PAD_BUTTON_DOWN)
 	{
 		debug = !debug;
 	}
