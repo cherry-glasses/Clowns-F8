@@ -40,15 +40,6 @@ bool Object::Update(float dt)
 	return true;
 }
 
-bool Object::PostUpdate(float _dt)
-{
-	if (entity_texture != nullptr)
-	{
-		App->render->Blit(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second, &current);
-	}
-
-	return true;
-}
 
 // Load and Save
 bool Object::Load(pugi::xml_node& node)

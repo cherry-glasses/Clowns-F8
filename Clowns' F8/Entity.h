@@ -103,7 +103,7 @@ public:
 	// Called each loop iteration
 	virtual bool PreUpdate() {return true;}
 	virtual bool Update(float _dt) {return true;}
-	virtual bool PostUpdate(float _dt) { return true; }
+	virtual bool PostUpdate(float _dt);
 	
 	//Move and Attack
 	virtual void SearchWalk() {}
@@ -267,10 +267,13 @@ protected:
 	SDL_Rect circle_red;
 	SDL_Rect circle_blue;
 	SDL_Rect circle_yellow;
+
 	std::pair<int, int>  position;
 	std::vector<std::pair<int, int>>  objective_position;
 	int tiles_range_attk = 0;
 	std::pair<int, int>* range;
+
+	bool istargeted = false;
 
 	bool sound_fx = false;
 	

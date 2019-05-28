@@ -202,7 +202,7 @@ void ModuleGUIManager::DeleteGUIElement(GUIElement* e)
 	{
 		if ((*element) == e)
 		{
-			delete gui_elements[i];
+			//delete gui_elements[i];
 			gui_elements[i] = nullptr;
 			gui_elements.erase(element);
 			break;

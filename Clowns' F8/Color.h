@@ -40,4 +40,6 @@ extern Color Scene_3_color;
 extern Color Scene_4_color;
 extern Color Defend_color;
 extern Color Crit_color;
+extern Color Alpha_color;
+
 #endif

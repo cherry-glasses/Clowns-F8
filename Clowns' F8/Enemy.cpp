@@ -66,31 +66,6 @@ bool Enemy::Update(float dt)
 	return true;
 }
 
-bool Enemy::PostUpdate(float _dt)
-{
-	if (entity_texture != nullptr)
-	{
-		if (critic)
-		{
-			App->render->Blit(debug_texture, position.first, position.second, &circle_yellow);
-		}
-		else
-		{
-			if (current_turn != NONE)
-			{
-				App->render->Blit(debug_texture, position.first, position.second, &circle_green);
-			}
-			else
-			{
-				App->render->Blit(debug_texture, position.first, position.second, &circle_red);
-			}
-
-		}
-		App->render->Blit(entity_texture, position.first - (current.w/2) + position_margin.first, position.second - current.h + position_margin.second, &current_animation->GetCurrentFrame(_dt), 1.0f, flipX);
-	}
-
-	return true;
-}
 
 // Load and Save
 bool Enemy::Load(pugi::xml_node& node)

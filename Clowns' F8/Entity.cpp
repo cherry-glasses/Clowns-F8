@@ -4,6 +4,8 @@
 #include "ModuleRender.h"
 #include "Entity.h"
 #include "ModuleMap.h"
+#include "ModuleEntityManager.h"
+#include "Color.h"
 
 
 Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
@@ -89,6 +91,88 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 
 }
 
+bool Entity::PostUpdate(float _dt) {
+
+	if (!(std::find(App->entity_manager->objects.begin(), App->entity_manager->objects.end(), this) != App->entity_manager->objects.end()))
+	{
+		current = current_animation->GetCurrentFrame(_dt);
+
+		if (entity_texture != nullptr)
+		{
+			if (critic)
+			{
+				App->render->Blit(debug_texture, position.first, position.second, &circle_yellow);
+			}
+			else
+			{
+				if (current_turn != NONE)
+				{
+					App->render->Blit(debug_texture, position.first, position.second, &circle_green);
+				}
+				else
+				{
+					App->render->Blit(debug_texture, position.first, position.second, &circle_blue);
+				}
+
+			}
+
+			App->render->Blit(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second, &current, 1.0f, flipX);
+			
+			if (defend)
+			{
+				SDL_Color def_color = { Defend_color.r, Defend_color.g, Defend_color.b, Defend_color.a };
+				App->render->BlitParticle(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second,
+					&current, NULL, def_color, SDL_BlendMode::SDL_BLENDMODE_BLEND, 1.0f, 0);
+			}
+			else if (critic)
+			{
+				SDL_Color crit_color = { Crit_color.r, Crit_color.g, Crit_color.b, Crit_color.a };
+				App->render->BlitParticle(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second,
+					&current, NULL, crit_color, SDL_BlendMode::SDL_BLENDMODE_BLEND, 1.0f, 0);
+			}
+
+			istargeted = false;
+			for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
+			{
+				if ((*entity)->target == this->position)
+				{
+					this->istargeted = true;
+				}
+			}
+
+			for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
+			{
+				if ((*entity)->position.first == this->position.first && (*entity)->position.second < this->position.second	&& 
+					(*entity)->position.second + 50 > this->position.second && this->current_turn == TURN::NONE	&& !(this->istargeted)
+					&& !(std::find(App->entity_manager->objects.begin(), App->entity_manager->objects.end(), (*entity)) != App->entity_manager->objects.end()))
+				{
+					SDL_Color alpha_color = { Alpha_color.r, Alpha_color.g, Alpha_color.b, Alpha_color.a };
+					App->render->BlitParticle(entity_texture, this->position.first - (this->current.w / 2) + this->position_margin.first, this->position.second - this->current.h + this->position_margin.second,
+						&this->current, NULL, alpha_color, SDL_BlendMode::SDL_BLENDMODE_BLEND, 1.0f, 0);
+				}
+			}
+
+		}
+	}
+	else
+	{
+		SDL_Rect current_aux = this->current;
+		App->render->Blit(entity_texture, position.first - (current_aux.w / 2) + position_margin.first, position.second - current_aux.h + position_margin.second, &current_aux, 1.0f, flipX);
+		for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
+		{
+			if ((*entity)->position.first == this->position.first && (*entity)->position.second < this->position.second
+				&& (*entity)->position.second + 50 > this->position.second 
+				&& !(std::find(App->entity_manager->objects.begin(), App->entity_manager->objects.end(), (*entity)) != App->entity_manager->objects.end()))
+			{
+				SDL_Color alpha_color = { Alpha_color.r, Alpha_color.g, Alpha_color.b, Alpha_color.a };
+				App->render->BlitParticle(this->entity_texture, this->position.first - (current_aux.w / 2) + this->position_margin.first, this->position.second - current_aux.h + this->position_margin.second,
+					&current_aux, NULL, alpha_color, SDL_BlendMode::SDL_BLENDMODE_BLEND, 1.0f, 0);
+			}
+		}
+	}
+		
+	return true;
+}
 
 bool Entity::Load(pugi::xml_node & _file)
 {
@@ -99,6 +183,8 @@ bool Entity::Save(pugi::xml_node & _file) const
 {
 	return true;
 }
+
+
 
 void Entity::PlaySFX(const int _channel, const int _repeat) const
 {

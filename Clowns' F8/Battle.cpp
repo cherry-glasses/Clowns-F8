@@ -168,12 +168,18 @@ bool Battle::Update(float _dt)
 			{
 				for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
 				{
-					if ((*entity)->GetPosition() == (*character)->target && aux_target != (*character)->target)
+					if ((*entity)->GetPosition() == (*character)->target && aux_target != (*character)->target
+						&& !(std::find(App->entity_manager->objects.begin(), App->entity_manager->objects.end(), (*entity)) != App->entity_manager->objects.end()))
 					{
 						aux_target = (*character)->target;
 						ShowEntityInfo((*entity));
 					}
+					else if(aux_target != (*character)->target)
+					{
+						DeleteEntityInfo();
+					}
 				}
+				aux_target = (*character)->target;
 			}
 			
 		}
@@ -539,6 +545,27 @@ void Battle::LevelUp(bool _up)
 }
 
 // DELETES -------------------------------------------------------------------------------------------
+
+void Battle::DeleteEntityInfo()
+{
+	App->gui_manager->DeleteGUIElement(board_entity);
+	App->gui_manager->DeleteGUIElement(port_entity);
+	App->gui_manager->DeleteGUIElement(name_entity);
+	App->gui_manager->DeleteGUIElement(lvl_entity);
+	App->gui_manager->DeleteGUIElement(exp_entity);
+	App->gui_manager->DeleteGUIElement(life_entity);
+	App->gui_manager->DeleteGUIElement(mana_entity);
+	App->gui_manager->DeleteGUIElement(atk_f_entity);
+	App->gui_manager->DeleteGUIElement(def_f_entity);
+	App->gui_manager->DeleteGUIElement(atk_s_entity);
+	App->gui_manager->DeleteGUIElement(def_s_entity);
+	App->gui_manager->DeleteGUIElement(crit_entity);
+	App->gui_manager->DeleteGUIElement(eva_entity);
+	App->gui_manager->DeleteGUIElement(attack_entity);
+	App->gui_manager->DeleteGUIElement(ability1_entity);
+	App->gui_manager->DeleteGUIElement(ability2_entity);
+	App->gui_manager->DeleteGUIElement(ability3_entity);
+}
 
 void Battle::DeleteOptionsIngame()
 {

@@ -46,6 +46,7 @@ protected:
 	void ShowEntityInfo(Entity* _entity);
 	void LevelUp(bool _up);
 
+	void DeleteEntityInfo();
 	void DeleteAttackMenu();
 	void DeleteAbilitiesMenu();
 	void DeleteOptionsIngame();
