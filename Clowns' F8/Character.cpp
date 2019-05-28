@@ -6,6 +6,7 @@
 #include "ModuleInput.h"
 #include "ModulePathfinding.h"
 #include "ModuleAudio.h"
+#include "Color.h"
 
 
 bool Character::PreUpdate() {
@@ -173,8 +174,21 @@ bool Character::PostUpdate(float _dt) {
 			}
 
 		}
-		App->render->Blit(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second, &current_animation->GetCurrentFrame(_dt), 1.0f, flipX);
 		
+		App->render->Blit(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second, &current_animation->GetCurrentFrame(_dt), 1.0f, flipX);
+		if (defend)
+		{
+			SDL_Color def_color = { Defend_color.r, Defend_color.g, Defend_color.b, Defend_color.a };
+			App->render->BlitParticle(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second,
+				&current, NULL, def_color, SDL_BlendMode::SDL_BLENDMODE_BLEND, 1.0f, 0);
+		}
+		else if (critic)
+		{
+			SDL_Color crit_color = { Crit_color.r, Crit_color.g, Crit_color.b, Crit_color.a };
+			App->render->BlitParticle(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second,
+				&current, NULL, crit_color, SDL_BlendMode::SDL_BLENDMODE_BLEND, 1.0f, 0);
+		}
+
 	}
 
 	return true;

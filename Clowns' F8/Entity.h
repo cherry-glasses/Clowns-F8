@@ -83,9 +83,8 @@ typedef struct {
 	int Ability_1_SFX;
 	int Ability_2_SFX;
 	int Ability_3_SFX;
-
-	int Defend_SFX;
-	int Critic_SFX;
+	int	Defend_SFX;
+	int	Critic_SFX;
 	int Dead_SFX;
 
 } SFX;
@@ -129,7 +128,7 @@ public:
 
 	}
 
-	void AddFX(const int _channel, const int _repeat) const;
+	void PlaySFX(const int _channel, const int _repeat) const;
 	void LoadAnim(pugi::xml_node _config);
 	bool LoadAnimation(pugi::xml_node _node, Animation &_anim);
 

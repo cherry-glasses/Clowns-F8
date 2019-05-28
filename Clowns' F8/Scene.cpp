@@ -25,9 +25,6 @@ Scene::Scene(SCENE_TYPE _type, pugi::xml_node& _config)
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
 
-	//Audio
-	press_fx_name = _config.child("press_fx_name").attribute("source").as_string();
-
 }
 
 // Destructor
@@ -51,7 +48,7 @@ void Scene::Navigate()
 
 void Scene::NavigateDown()
 {
-	App->audio->PlayFx(1, 0);
+	App->audio->PlayFx(press_sfx);
 	for (std::list<GUIButton*>::const_iterator it_vector = buttons.begin(); it_vector != buttons.end(); ++it_vector)
 	{
 		if ((*it_vector)->current_state == SELECTED) {
@@ -73,7 +70,7 @@ void Scene::NavigateDown()
 
 void Scene::NavigateUp()
 {
-	App->audio->PlayFx(1, 0);
+	App->audio->PlayFx(press_sfx);
 	for (std::list<GUIButton*>::const_iterator it_vector = buttons.begin(); it_vector != buttons.end(); ++it_vector)
 	{
 		if ((*it_vector)->current_state == SELECTED) {

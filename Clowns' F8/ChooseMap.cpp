@@ -20,6 +20,8 @@ ChooseMap::ChooseMap(SCENE_TYPE _type, pugi::xml_node& _config) : Scene(_type, _
 		_config.child("map3").attribute("w").as_int(), _config.child("map3").attribute("h").as_int() };
 	map4 = { _config.child("map4").attribute("x").as_int(), _config.child("map4").attribute("y").as_int(),
 		_config.child("map4").attribute("w").as_int(), _config.child("map4").attribute("h").as_int() };
+
+	press_sfx = App->audio->LoadFx(_config.child("press_fx_name").attribute("source").as_string());
 }
 
 // Destructor
@@ -119,6 +121,7 @@ bool ChooseMap::CleanUp()
 {
 	App->textures->UnLoad(menu_background);
 	App->textures->UnLoad(maps_texture);
+	App->audio->UnloadAllFx();
 	App->gui_manager->DeleteAllGUIElements();
 	return true;
 }
@@ -160,12 +163,12 @@ void ChooseMap::NavigateMaps()
 	if (App->input->Right())
 	{
 		if (map_selected == 1 && App->scene_manager->battle1_passed) {
-			App->audio->PlayFx(1, 0);
+			App->audio->PlayFx(press_sfx);
 			map_selected = 3;
 		}
 		else if ((map_selected == 2 || map_selected == 3) && App->scene_manager->battle3_passed && App->scene_manager->battle2_passed)
 		{
-			App->audio->PlayFx(1, 0);
+			App->audio->PlayFx(press_sfx);
 			map_selected = 4;
 		}
 		App->gui_manager->DeleteAllGUIElements();
@@ -176,12 +179,12 @@ void ChooseMap::NavigateMaps()
 	{
 		if (map_selected == 2 || map_selected == 3)
 		{
-			App->audio->PlayFx(1, 0);
+			App->audio->PlayFx(press_sfx);
 			map_selected = 1;
 		}
 		else if (map_selected == 4 )
 		{
-			App->audio->PlayFx(1, 0);
+			App->audio->PlayFx(press_sfx);
 			--map_selected;
 		}
 		App->gui_manager->DeleteAllGUIElements();
@@ -190,7 +193,7 @@ void ChooseMap::NavigateMaps()
 	else if (App->input->Up())
 	{
 		if ((map_selected == 1 && App->scene_manager->battle1_passed) || map_selected == 3 || map_selected == 4) {
-			App->audio->PlayFx(1, 0);
+			App->audio->PlayFx(press_sfx);
 			map_selected = 2;
 		}
 		App->gui_manager->DeleteAllGUIElements();
@@ -199,7 +202,7 @@ void ChooseMap::NavigateMaps()
 	else if (App->input->Down())
 	{
 		if ((map_selected == 1 && App->scene_manager->battle1_passed) || map_selected == 2 || map_selected == 4) {
-			App->audio->PlayFx(1, 0);
+			App->audio->PlayFx(press_sfx);
 			map_selected = 3;
 		}
 		App->gui_manager->DeleteAllGUIElements();

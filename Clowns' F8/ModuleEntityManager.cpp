@@ -81,17 +81,16 @@ bool ModuleEntityManager::PreUpdate()
 		if ((*entity)->current_turn == Entity::TURN::END_TURN)
 		{
 			(*entity)->current_turn = Entity::TURN::NONE;
+			(*entity)->critic = false;
 			if (*entity != entities.back())
 			{
-				entity++;
+				++entity;
 				(*entity)->current_turn = Entity::TURN::SEARCH_MOVE;
 				StartingTurn((*entity));
 			}
 			else {
 				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
-				(*entity)->current_stats.Mana += 10;
-				(*entity)->defend = false;
-				(*entity)->invulnerable = false;
+				StartingTurn(entities.front());
 			}
 		}
 		if ((*entity)->stunned == true && (*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
@@ -285,8 +284,6 @@ std::pair<int, int> ModuleEntityManager::AiHeals(std::pair<int, int>* AttackRang
 					}
 				}
 			}
-
-
 		}
 
 	}
@@ -1000,7 +997,7 @@ void ModuleEntityManager::StartingTurn(Entity* _entity)
 {
 	_entity->current_stats.Mana += 10;
 	_entity->defend = false;
-
+	_entity->invulnerable = false;
 
 	std::default_random_engine generator;
 	std::uniform_int_distribution<int> distribution(1, 100);

@@ -70,8 +70,10 @@ protected:
 
 	int screen_width, screen_height;
 	
-	std::string	press_fx_name = "";
-
+	// Audios
+	int	press_sfx;
+	int	defend_sfx;
+	int	critic_sfx;
 
 };
 

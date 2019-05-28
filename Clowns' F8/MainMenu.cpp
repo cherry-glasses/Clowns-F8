@@ -12,7 +12,7 @@
 
 MainMenu::MainMenu(SCENE_TYPE _type, pugi::xml_node& _config) : Scene(_type, _config)
 {
-	
+	press_sfx = App->audio->LoadFx(_config.child("press_fx_name").attribute("source").as_string());
 }
 
 // Destructor
@@ -30,9 +30,9 @@ bool MainMenu::Start()
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
 	App->input->Defaultcontrols();
-	App->audio->LoadFx(press_fx_name.c_str());
 
 	App->audio->PlayMusic("Main_menu_8_bits.ogg");
+
 	CreateMainMenu();
 	return true;
 }
@@ -173,6 +173,7 @@ bool MainMenu::CleanUp()
 	App->textures->UnLoad(main_menu_background);
 	App->textures->UnLoad(option_menu_background);
 	App->textures->UnLoad(credits_menu_background);
+	App->audio->UnloadAllFx();
 	Delete();
 	return true;
 }

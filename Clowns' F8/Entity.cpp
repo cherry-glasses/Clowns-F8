@@ -71,6 +71,8 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	sfx.Ability_1_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_1_sfx").attribute("value").as_string());
 	sfx.Ability_2_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_2_sfx").attribute("value").as_string());
 	sfx.Ability_3_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_3_sfx").attribute("value").as_string());
+	sfx.Defend_SFX = App->audio->LoadFx(_config.child("sfx").child("defend_sfx").attribute("value").as_string());
+	sfx.Critic_SFX = App->audio->LoadFx(_config.child("sfx").child("critic_sfx").attribute("value").as_string());
 	sfx.Dead_SFX = App->audio->LoadFx(_config.child("sfx").child("dead_sfx").attribute("value").as_string());
 
 
@@ -98,7 +100,7 @@ bool Entity::Save(pugi::xml_node & _file) const
 	return true;
 }
 
-void Entity::AddFX(const int _channel, const int _repeat) const
+void Entity::PlaySFX(const int _channel, const int _repeat) const
 {
 	App->audio->PlayFx(_channel, _repeat);
 }
@@ -130,6 +132,14 @@ bool Entity::CleanUp()
 		App->textures->UnLoad(debug_texture);
 		debug_texture = nullptr;
 	}
+
+	App->audio->UnloadFx(sfx.Attack_SFX);
+	App->audio->UnloadFx(sfx.Ability_1_SFX);
+	App->audio->UnloadFx(sfx.Ability_2_SFX);
+	App->audio->UnloadFx(sfx.Ability_3_SFX);
+	App->audio->UnloadFx(sfx.Defend_SFX);
+	App->audio->UnloadFx(sfx.Critic_SFX);
+	App->audio->UnloadFx(sfx.Dead_SFX);
 	
 	return true;
 }
