@@ -69,6 +69,11 @@ bool Battle::Update(float _dt)
 {
 	bool ret = true;
 
+	if (first_level_tut == true) {
+		Tutoriallogic();
+	}
+
+
 	if (App->input->Pause() || ingame_options_menu_created)
 	{
 		App->render->Blit(battle_menu_background, 0 - (option_background.w / 2), (screen_height / 2.7) - (option_background.h / 2));
@@ -773,4 +778,87 @@ void Battle::ControlLanguageAndMusic()
 		App->audio->VolumeDown();
 		volume_down_button->Select(SELECTED);
 	}
+}
+
+void Battle::Createtutorial()
+{
+	switch (logic)
+	{
+	case Battle::GRETTINGS:
+		lets_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), (screen_height / 2) - (option_background.h / 2) + (button.h * 1.5), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+		buttons_tutorial.push_back(lets_button);
+		lets_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second + (button.h / 2), App->scene_manager->language->lets_do_it_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		gretings_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - (button.h / 2), App->scene_manager->language->greatings_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		lets_button->Select(SELECTED);
+		break;
+	case Battle::MOVE:
+		break;
+	case Battle::DEFENS:
+		break;
+	case Battle::ATTACK:
+		break;
+	default:
+		break;
+	}
+
+	Is_created_tut = true;
+
+
+}
+
+void Battle::Tutoriallogic()
+{
+	switch (logic)
+	{
+	case Battle::GRETTINGS:
+		if (!Is_created_tut)
+			Createtutorial();
+		
+
+
+		if (lets_button->has_been_clicked) {
+			App->scene_manager->tutorial_block = false;
+			Destroytutorial();
+			logic = MOVE;
+		}
+
+		break;
+	case Battle::MOVE:
+		break;
+	case Battle::DEFENS:
+		break;
+	case Battle::ATTACK:
+		break;
+	default:
+		break;
+	}
+
+	
+
+
+
+}
+
+void Battle::Destroytutorial()
+{
+	switch (logic)
+	{
+	case Battle::GRETTINGS:
+		App->gui_manager->DeleteGUIElement(gretings_label);
+		App->gui_manager->DeleteGUIElement(lets_button);
+		App->gui_manager->DeleteGUIElement(lets_label);
+		buttons_tutorial.clear();
+
+		break;
+	case Battle::MOVE:
+		break;
+	case Battle::DEFENS:
+		break;
+	case Battle::ATTACK:
+		break;
+	default:
+		break;
+	}
+
+	Is_created_tut = false;
 }

@@ -40,6 +40,7 @@ public:
 	Language* language = nullptr;
 	SDL_Texture* objects_texture = nullptr;
 	
+	bool tutorial_block = true;
 
 private:
 	pugi::xml_node scene_configs;

@@ -51,9 +51,18 @@ protected:
 	void DeleteAbilitiesMenu();
 	void DeleteOptionsIngame();
 
+	
+
 	void ActionsMenu();
 
 	void ControlLanguageAndMusic();
+
+	//tutorial
+
+	void Createtutorial();
+	void Tutoriallogic();
+	void Destroytutorial();
+
 
 protected:
 
@@ -166,6 +175,33 @@ protected:
 	GUILabel* ability1_entity = nullptr;
 	GUILabel* ability2_entity = nullptr;
 	GUILabel* ability3_entity = nullptr;
+
+
+	//tutorial
+
+	std::list<GUIButton*> buttons_tutorial;
+	GUILabel* lets_label = nullptr;
+	GUILabel* gretings_label = nullptr;
+	GUIButton* lets_button = nullptr;
+
+	//tutorial bools
+
+	bool Is_created_tut = false;
+	bool first_level_tut = true;
+
+
+	//tutorial logic
+
+	enum TUTORIAL {
+		GRETTINGS,
+		MOVE,
+		DEFENS,
+		ATTACK,
+		OFF
+	};
+	
+	TUTORIAL logic = GRETTINGS;
+
 
 };
 

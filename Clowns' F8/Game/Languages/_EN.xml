@@ -26,6 +26,11 @@
     <main_menu value="MAIN MENU"/>
     <battle_abilities value="Abilities"/>
     <defend value="Defend"/>
+    <greating value="Aquí saludaré"/>
+    <move value="Aquí enseñaré a como moverse"/>
+    <def value="Aquí enseñaré las posibilidades"/>
+    <atq value="Aquí enseñaré como atacar"/>
+    <lets value="Lets do it!"/>
     <sapphire attack="Flower attack" ability_1="Hammer time" ability_2="Surprise hat" ability_3="Water time"/>
     <iris attack="Fist attack" ability_1="Rabbit kick" ability_2="Carrot time" ability_3="Rabbit rage"/>
     <storm attack="Acid throw" ability_1="Snail charge" ability_2="Time to hide" ability_3="Vampiric snail"/>

@@ -79,6 +79,10 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		ability3_storm = config.child("battle_scene").child("storm").attribute("ability_3").as_string("");
 		ability3_georgeb = config.child("battle_scene").child("georgeb").attribute("ability_3").as_string("");
 
+		//tutorial
+
+		lets_do_it_tutorial = config.child("battle_scene").child("lets").attribute("value").as_string("");
+		greatings_tutorial = config.child("battle_scene").child("greating").attribute("value").as_string("");
 	}
 	
 

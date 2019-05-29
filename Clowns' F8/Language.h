@@ -64,6 +64,9 @@ public:
 	std::string ability1_georgeb = "";
 	std::string ability2_georgeb = "";
 	std::string ability3_georgeb = "";
+
+	std::string greatings_tutorial = "";
+	std::string lets_do_it_tutorial = "";
 };
 
 

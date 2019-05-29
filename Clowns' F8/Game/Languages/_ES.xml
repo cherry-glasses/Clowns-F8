@@ -26,6 +26,11 @@
     <main_menu value="MENU PRINCIPAL"/>
     <battle_abilities value="Habilidades"/>
     <defend value="Defender"/>
+    <greating value="Aquí saludaré"/>
+    <move value="Aquí enseñaré a como moverse"/>
+    <def value="Aquí enseñaré las posibilidades"/>
+    <atq value="Aquí enseñaré como atacar"/>
+    <lets value="Lets do it!"/>
     <sapphire attack="Floretazo" ability_1="Martillazo" ability_2="Sombrero sorpresa" ability_3="Hora del Jugar"/>
     <iris attack="Golpe de karate" ability_1="Patada conejil" ability_2="Hora de zanahoria" ability_3="Rabia Conejil"/>
     <storm attack="Escupitajo" ability_1="Caracol paralizante" ability_2="Hora del escondite" ability_3="Caracol vampírico"/>
