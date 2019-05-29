@@ -52,7 +52,7 @@ bool ModuleEntityManager::PreUpdate()
 	if (entities.size() > 1) 
 	{
 		OrderEntitiesByAgility();
-		if (starting) 
+		if (starting && !App->scene_manager->tutorial_block) 
 		{
 			Entity *entityfirst = entities.front();
 			entityfirst->current_turn = Entity::TURN::SEARCH_MOVE;
@@ -78,7 +78,7 @@ bool ModuleEntityManager::PreUpdate()
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
 		
-		if ((*entity)->current_turn == Entity::TURN::END_TURN)
+		if ((*entity)->current_turn == Entity::TURN::END_TURN && !App->scene_manager->tutorial_block)
 		{
 			(*entity)->current_turn = Entity::TURN::NONE;
 			(*entity)->critic = false;

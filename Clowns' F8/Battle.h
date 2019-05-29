@@ -181,7 +181,7 @@ protected:
 
 	std::list<GUIButton*> buttons_tutorial;
 	GUILabel* lets_label = nullptr;
-	GUILabel* gretings_label = nullptr;
+	GUILabel* tutorial_general_label = nullptr;
 	GUIButton* lets_button = nullptr;
 
 	//tutorial bools
