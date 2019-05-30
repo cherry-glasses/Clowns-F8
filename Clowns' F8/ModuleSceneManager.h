@@ -41,6 +41,7 @@ public:
 	SDL_Texture* objects_texture = nullptr;
 	
 	bool tutorial_block = true;
+	bool tutorial_block_actions = true;
 
 private:
 	pugi::xml_node scene_configs;

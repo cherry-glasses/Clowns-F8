@@ -68,6 +68,7 @@ public:
 	std::string greatings_tutorial = "";
 	std::string lets_do_it_tutorial = "";
 	std::string movemnent_tutorial = "";
+	std::string defens_tutorial = "";
 };
 
 

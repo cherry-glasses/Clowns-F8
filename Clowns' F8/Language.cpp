@@ -84,6 +84,7 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		lets_do_it_tutorial = config.child("battle_scene").child("lets").attribute("value").as_string("");
 		greatings_tutorial = config.child("battle_scene").child("greating").attribute("value").as_string("");
 		movemnent_tutorial = config.child("battle_scene").child("move").attribute("value").as_string("");
+		defens_tutorial = config.child("battle_scene").child("def").attribute("value").as_string("");
 	}
 	
 

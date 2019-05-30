@@ -188,6 +188,7 @@ protected:
 
 	bool Is_created_tut = false;
 	bool first_level_tut = true;
+	bool first_char = false;
 
 
 	//tutorial logic
