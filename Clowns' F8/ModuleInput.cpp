@@ -620,6 +620,7 @@ void ModuleInput::Defaultcontrols() {
 	keyboard_buttons.buttons_to_use.PAUSE = SDL_SCANCODE_ESCAPE;
 	keyboard_buttons.buttons_to_use.LEVELUP = SDL_SCANCODE_F4;
 	keyboard_buttons.buttons_to_use.LEVELDOWN = SDL_SCANCODE_F3;
+	keyboard_buttons.buttons_to_use.ALLMAPS = SDL_SCANCODE_F2;
 
 
 	keyboard_buttons.buttons_char.RIGHT == "RIGHT ARROW";

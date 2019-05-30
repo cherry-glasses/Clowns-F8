@@ -160,6 +160,44 @@ void ChooseMap::CreateMenu()
 
 void ChooseMap::NavigateMaps()
 {
+	if (App->input->AllMaps() && !debug_maps)
+	{
+		if (!App->scene_manager->battle1_passed)
+		{
+			App->scene_manager->battle1_passed = true;
+			debug_map_1 = true;
+		}
+		if (!App->scene_manager->battle2_passed)
+		{
+			App->scene_manager->battle2_passed = true;
+			debug_map_2 = true;
+		}
+		if (!App->scene_manager->battle3_passed)
+		{
+			App->scene_manager->battle3_passed = true;
+			debug_map_3 = true;
+		}
+		debug_maps = true;
+	}
+	else if(App->input->AllMaps())
+	{
+		if (debug_map_1)
+		{
+			App->scene_manager->battle1_passed = false;
+			debug_map_1 = false;
+		}
+		if (debug_map_2)
+		{
+			App->scene_manager->battle2_passed = false;
+			debug_map_2 = false;
+		}
+		if (debug_map_3)
+		{
+			App->scene_manager->battle3_passed = false;
+			debug_map_3 = false;
+		}
+		debug_maps = false;
+	}
 	if (App->input->Right())
 	{
 		if (map_selected == 1 && App->scene_manager->battle1_passed) {

@@ -46,6 +46,10 @@ private:
 	SDL_Rect alpha;
 	SDL_Rect map1, map2, map3, map4;
 	int map_selected;
+	bool debug_maps = false;
+	bool debug_map_1 = false;
+	bool debug_map_2 = false;
+	bool debug_map_3 = false;
 	
 	
 };
