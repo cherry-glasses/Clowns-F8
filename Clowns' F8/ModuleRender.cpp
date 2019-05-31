@@ -171,8 +171,17 @@ bool ModuleRender::BlitParticle(SDL_Texture * texture, int x, int y, const SDL_R
 	uint scale = App->window->GetScale();
 
 	SDL_Rect rect;
-	rect.x = (int)(camera.x * speed) + x * scale;
-	rect.y = (int)(camera.y * speed) + y * scale;
+	if (App->scene_manager->current_scene->type == SCENE_TYPE::FIRST_BATTLE
+		|| App->scene_manager->current_scene->type == SCENE_TYPE::SECOND_BATTLE
+		|| App->scene_manager->current_scene->type == SCENE_TYPE::THIRD_BATTLE
+		|| App->scene_manager->current_scene->type == SCENE_TYPE::FOURTH_BATTLE) {
+		rect.x = (int)(camera.x * speed) + (x + App->window->GetScreenWidth() / 2) * scale;
+		rect.y = (int)(camera.y * speed) + (y + App->window->GetScreenHeight() / 8) * scale;
+	}
+	else {
+		rect.x = (int)(camera.x * speed) + x * scale;
+		rect.y = (int)(camera.y * speed) + y * scale;
+	}
 
 	if (rectSize != NULL)
 	{

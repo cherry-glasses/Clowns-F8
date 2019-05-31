@@ -96,7 +96,7 @@ bool Entity::PostUpdate(float _dt) {
 	if (!(std::find(App->entity_manager->objects.begin(), App->entity_manager->objects.end(), this) != App->entity_manager->objects.end()))
 	{
 		current = current_animation->GetCurrentFrame(_dt);
-
+		
 		if (entity_texture != nullptr)
 		{
 			if (critic)
@@ -134,21 +134,21 @@ bool Entity::PostUpdate(float _dt) {
 			istargeted = false;
 			for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
 			{
-				if ((*entity)->target == this->position)
+				if ((*entity)->target == position)
 				{
-					this->istargeted = true;
+					istargeted = true;
 				}
 			}
 
 			for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
 			{
-				if ((*entity)->position.first == this->position.first && (*entity)->position.second < this->position.second	&& 
-					(*entity)->position.second + 50 > this->position.second && this->current_turn == TURN::NONE	&& !(this->istargeted)
+				if ((*entity)->position.first == position.first && (*entity)->position.second < position.second	&& 
+					(*entity)->position.second + 50 > position.second && current_turn == TURN::NONE	&& !(istargeted)
 					&& !(std::find(App->entity_manager->objects.begin(), App->entity_manager->objects.end(), (*entity)) != App->entity_manager->objects.end()))
 				{
 					SDL_Color alpha_color = { Alpha_color.r, Alpha_color.g, Alpha_color.b, Alpha_color.a };
-					App->render->BlitParticle(entity_texture, this->position.first - (this->current.w / 2) + this->position_margin.first, this->position.second - this->current.h + this->position_margin.second,
-						&this->current, NULL, alpha_color, SDL_BlendMode::SDL_BLENDMODE_BLEND, 1.0f, 0);
+					App->render->BlitParticle(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second,
+						&current, NULL, alpha_color, SDL_BlendMode::SDL_BLENDMODE_BLEND, 1.0f, 0);
 				}
 			}
 
@@ -156,16 +156,16 @@ bool Entity::PostUpdate(float _dt) {
 	}
 	else
 	{
-		SDL_Rect current_aux = this->current;
+		SDL_Rect current_aux = current;
 		App->render->Blit(entity_texture, position.first - (current_aux.w / 2) + position_margin.first, position.second - current_aux.h + position_margin.second, &current_aux, 1.0f, flipX);
 		for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
 		{
-			if ((*entity)->position.first == this->position.first && (*entity)->position.second < this->position.second
-				&& (*entity)->position.second + 50 > this->position.second 
+			if ((*entity)->position.first == position.first && (*entity)->position.second < position.second
+				&& (*entity)->position.second + 50 > position.second 
 				&& !(std::find(App->entity_manager->objects.begin(), App->entity_manager->objects.end(), (*entity)) != App->entity_manager->objects.end()))
 			{
 				SDL_Color alpha_color = { Alpha_color.r, Alpha_color.g, Alpha_color.b, Alpha_color.a };
-				App->render->BlitParticle(this->entity_texture, this->position.first - (current_aux.w / 2) + this->position_margin.first, this->position.second - current_aux.h + this->position_margin.second,
+				App->render->BlitParticle(entity_texture, position.first - (current_aux.w / 2) + position_margin.first, position.second - current_aux.h + position_margin.second,
 					&current_aux, NULL, alpha_color, SDL_BlendMode::SDL_BLENDMODE_BLEND, 1.0f, 0);
 			}
 		}
