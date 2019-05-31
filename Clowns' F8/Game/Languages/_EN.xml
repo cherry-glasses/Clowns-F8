@@ -45,4 +45,14 @@
     <map3 value="BLIZZLANDS"/>
     <map4 value="FINAL BOSS"/>
   </choose_map_scene>
+  <intro_scene>
+    <line1 value="Let us tell you a story. But not just any story. This may sound familiar to you, or perhaps not; for this"/>
+    <line2 value="happened in a different time, in a different era, an era long gone, or an era that is still to come as it"/>
+    <line3 value="may be. Or perchance it was in a whole different world, who knows... But anyway, this is of little"/>
+    <line4 value="importance to you, I know, you are here for the story and I shall tell it to you. But please bear in "/>
+    <line5 value="mind: some stories come from legends, and legends fade from myths, and what is a myth, but an "/>
+    <line6 value="exaggeration of a great accomplishment made by somebody in another time... Who knows if the "/>
+    <line7 value="characters in this story ever existed or were inspired by some unusual folks... Oh my, we are rambling "/>
+    <line8 value="again aren't we? Why didn't you stop us? It is time already for the story to begin, don't you think?"/>
+  </intro_scene>
 </language>

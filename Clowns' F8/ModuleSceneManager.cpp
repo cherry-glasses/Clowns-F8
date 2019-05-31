@@ -8,6 +8,7 @@
 #include "Win.h"
 #include "Lose.h"
 #include "ChooseMap.h"
+#include "Intro.h"
 
 
 ModuleSceneManager::ModuleSceneManager()
@@ -96,6 +97,9 @@ void ModuleSceneManager::ChangeScene(SCENE_TYPE _type)
 		break;
 	case CHOOSE_MAP:
 		current_scene = new ChooseMap(_type, scene_configs);
+		break;
+	case INTRO:
+		current_scene = new Intro(_type, scene_configs);
 		break;
 	case NONE:
 		break;

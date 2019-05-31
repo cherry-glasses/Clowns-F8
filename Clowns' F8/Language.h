@@ -11,7 +11,9 @@ class Language
 public:
 
 	Language();
-	~Language() {};
+	~Language() {
+		lines.clear();
+	};
 
 	void SetLanguage(LANGUAGE_TYPE language);
 
@@ -44,6 +46,9 @@ public:
 	std::string map2 = "";
 	std::string map3 = "";
 	std::string map4 = "";
+
+	//intro
+	std::vector<std::string> lines;
 
 	std::string attack_sapphire = "";
 	std::string ability1_sapphire = "";
