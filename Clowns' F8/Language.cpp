@@ -68,7 +68,20 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		lines.push_back(config.child("intro_scene").child("line7").attribute("value").as_string(""));
 		lines.push_back(config.child("intro_scene").child("line8").attribute("value").as_string(""));
 
-		//lines.push_back(config.child("intro_scene").child("line9").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line9").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line10").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line11").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line12").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line13").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line14").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line15").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line16").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line17").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line18").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line19").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line20").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line21").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line22").attribute("value").as_string(""));
 
 		attack_sapphire = config.child("battle_scene").child("sapphire").attribute("attack").as_string("");
 		attack_iris = config.child("battle_scene").child("iris").attribute("attack").as_string("");

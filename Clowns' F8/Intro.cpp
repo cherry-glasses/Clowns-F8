@@ -56,46 +56,33 @@ bool Intro::Update(float _dt)
 		}
 		if (App->input->Accept())
 		{
-			which_text = 3;
+			which_text = 1;
 			lines_created = false;
 			App->gui_manager->DeleteAllGUIElements();
 			labels.clear();
 		}
 	}
-	/*else if (which_text == 1)
-	{
-		which_text = 2;
-		if (!App->scene_manager->changing)
-		{
-			App->transition_manager->CreateFadeTransition(1, true, INTRO, Black);
-			App->scene_manager->changing = true;
-		}
-	}
-	else if (which_text == 2)
+	else if (which_text == 1)
 	{
 		if (!lines_created)
 		{
-			for (int i = 8; i < 10; ++i)
+			for (int i = 8; i < 22; ++i)
 			{
-				labels.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5, 300, App->scene_manager->language->lines.at(i), { 255, 255, 255, 255 }, App->gui_manager->default_font_used));
+				labels.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5, 300 + 40 * (i - 8), App->scene_manager->language->lines.at(i), { 255, 255, 255, 255 }, App->gui_manager->default_font_used));
 			}
 
 			lines_created = true;
 		}
 		if (App->input->Accept())
 		{
-			which_text = 2;
 			lines_created = false;
 			App->gui_manager->DeleteAllGUIElements();
 			labels.clear();
-		}
-	}*/
-	else if (which_text == 3)
-	{
-		if (!App->scene_manager->changing)
-		{
-			App->transition_manager->CreateFadeTransition(1, true, CHOOSE_MAP, Black);
-			App->scene_manager->changing = true;
+			if (!App->scene_manager->changing)
+			{
+				App->transition_manager->CreateFadeTransition(1, true, CHOOSE_MAP, Black);
+				App->scene_manager->changing = true;
+			}
 		}
 	}
 
