@@ -59,6 +59,8 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		map3 = config.child("choose_map_scene").child("map3").attribute("value").as_string("");
 		map4 = config.child("choose_map_scene").child("map4").attribute("value").as_string("");
 
+		intro_text = config.child("intro_scene").child("intro_text").attribute("value").as_string("");
+
 		attack_sapphire = config.child("battle_scene").child("sapphire").attribute("attack").as_string("");
 		attack_iris = config.child("battle_scene").child("iris").attribute("attack").as_string("");
 		attack_storm = config.child("battle_scene").child("storm").attribute("attack").as_string("");

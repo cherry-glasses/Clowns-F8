@@ -30,7 +30,7 @@ public:
 	bool Unload(_TTF_Font* _font);
 
 	// Create a surface from text
-	SDL_Texture* Print(const char* _text, SDL_Color _color = { 255, 255, 255, 255 }, _TTF_Font* _font = NULL);
+	SDL_Texture* Print(const char* _text, SDL_Color _color = { 255, 255, 255, 255 }, _TTF_Font* _font = NULL, int max_width = 0);
 
 	bool CalcSize(const char* _text, int& _width, int& _height, _TTF_Font* _font = NULL) const;
 

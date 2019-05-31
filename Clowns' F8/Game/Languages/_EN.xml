@@ -45,4 +45,11 @@
     <map3 value="BLIZZLANDS"/>
     <map4 value="FINAL BOSS"/>
   </choose_map_scene>
+  <intro_scene>
+    <intro_text value ="This is a test.\n Will this be in another line?\nand this?\n
+                
+                and this too?\n
+                
+               what about this"/>
+  </intro_scene>
 </language>

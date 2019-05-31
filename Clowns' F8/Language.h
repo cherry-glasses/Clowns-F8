@@ -44,6 +44,7 @@ public:
 	std::string map2 = "";
 	std::string map3 = "";
 	std::string map4 = "";
+	std::string intro_text = "";
 
 	std::string attack_sapphire = "";
 	std::string ability1_sapphire = "";
