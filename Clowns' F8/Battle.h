@@ -183,6 +183,12 @@ protected:
 	GUILabel* lets_label = nullptr;
 	GUILabel* tutorial_general_label = nullptr;
 	GUIButton* lets_button = nullptr;
+	GUILabel* tutorial_general_label_2 = nullptr;
+	GUILabel* tutorial_general_label_3 = nullptr;
+	GUILabel* tutorial_general_label_4 = nullptr;
+	GUILabel* tutorial_general_label_5 = nullptr;
+	GUILabel* tutorial_general_label_6 = nullptr;
+
 
 	//tutorial bools
 

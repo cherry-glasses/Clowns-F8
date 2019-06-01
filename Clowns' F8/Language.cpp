@@ -112,6 +112,19 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		greatings_tutorial = config.child("battle_scene").child("greating").attribute("value").as_string("");
 		movemnent_tutorial = config.child("battle_scene").child("move").attribute("value").as_string("");
 		defens_tutorial = config.child("battle_scene").child("def").attribute("value").as_string("");
+		greatings_2 = config.child("battle_scene").child("greating_2").attribute("value").as_string("");
+		greatings_3 = config.child("battle_scene").child("greating_3").attribute("value").as_string("");
+		movemnent_2 = config.child("battle_scene").child("move_2").attribute("value").as_string("");
+		movemnent_3 = config.child("battle_scene").child("move_3").attribute("value").as_string("");
+		movemnent_4 = config.child("battle_scene").child("move_4").attribute("value").as_string("");
+		movemnent_5 = config.child("battle_scene").child("move_5").attribute("value").as_string("");
+		movemnent_6 = config.child("battle_scene").child("move_6").attribute("value").as_string("");
+		defens_2 = config.child("battle_scene").child("def_2").attribute("value").as_string("");
+		defens_3 = config.child("battle_scene").child("def_3").attribute("value").as_string("");
+		defens_4 = config.child("battle_scene").child("def_4").attribute("value").as_string("");
+		defens_5 = config.child("battle_scene").child("def_5").attribute("value").as_string("");
+		defens_6 = config.child("battle_scene").child("def_6").attribute("value").as_string("");
+
 	}
 	
 

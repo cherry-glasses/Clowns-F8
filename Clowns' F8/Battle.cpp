@@ -794,21 +794,34 @@ void Battle::Createtutorial()
 		lets_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (button.w / 2), (screen_height / 2) - (option_background.h / 2) + (button.h * 1.5), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 		buttons_tutorial.push_back(lets_button);
 		lets_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second + (button.h / 2), App->scene_manager->language->lets_do_it_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		tutorial_general_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - (button.h / 2), App->scene_manager->language->greatings_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 3*(button.h / 2), App->scene_manager->language->greatings_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_2 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 2*(button.h / 2), App->scene_manager->language->greatings_2, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_3 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - (button.h / 2), App->scene_manager->language->greatings_3, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 		lets_button->Select(SELECTED);
 		break;
 	case Battle::MOVE:
 		lets_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (button.w / 2), (screen_height / 2) - (option_background.h / 2) + (button.h * 1.5), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 		buttons_tutorial.push_back(lets_button);
 		lets_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second + (button.h / 2), App->scene_manager->language->lets_do_it_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		tutorial_general_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - (button.h / 2), App->scene_manager->language->movemnent_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 6*(button.h / 2), App->scene_manager->language->movemnent_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_2 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 5*(button.h / 2), App->scene_manager->language->movemnent_2, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_3 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 4*(button.h / 2), App->scene_manager->language->movemnent_3, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_4 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 3*(button.h / 2), App->scene_manager->language->movemnent_4, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_5 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 2*(button.h / 2), App->scene_manager->language->movemnent_5, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_6 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - (button.h / 2), App->scene_manager->language->movemnent_6, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 		lets_button->Select(SELECTED);
 		break;
 	case Battle::DEFENS:
 		lets_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (button.w / 2), (screen_height / 2) - (option_background.h / 2) + (button.h * 1.5), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 		buttons_tutorial.push_back(lets_button);
 		lets_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second + (button.h / 2), App->scene_manager->language->lets_do_it_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-		tutorial_general_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - (button.h / 2), App->scene_manager->language->defens_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 6 * (button.h / 2), App->scene_manager->language->defens_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_2 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 5 * (button.h / 2), App->scene_manager->language->defens_2, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_3 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 4 * (button.h / 2), App->scene_manager->language->defens_3, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_4 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 3 * (button.h / 2), App->scene_manager->language->defens_4, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_5 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 2 * (button.h / 2), App->scene_manager->language->defens_5, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_6 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - (button.h / 2), App->scene_manager->language->defens_6, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		lets_button->Select(SELECTED);
 		lets_button->Select(SELECTED);
 		break;
 	case Battle::ATTACK:
@@ -887,6 +900,8 @@ void Battle::Destroytutorial()
 	{
 	case Battle::GRETTINGS:
 		App->gui_manager->DeleteGUIElement(tutorial_general_label);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_2);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_3);
 		App->gui_manager->DeleteGUIElement(lets_button);
 		App->gui_manager->DeleteGUIElement(lets_label);
 		buttons_tutorial.clear();
@@ -894,6 +909,12 @@ void Battle::Destroytutorial()
 		break;
 	case Battle::MOVE:
 		App->gui_manager->DeleteGUIElement(tutorial_general_label);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_2);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_3);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_4);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_5);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_6);
+		
 		App->gui_manager->DeleteGUIElement(lets_button);
 		App->gui_manager->DeleteGUIElement(lets_label);
 		buttons_tutorial.clear();
@@ -901,6 +922,12 @@ void Battle::Destroytutorial()
 		break;
 	case Battle::DEFENS:
 		App->gui_manager->DeleteGUIElement(tutorial_general_label);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_2);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_3);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_4);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_5);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_6);
+
 		App->gui_manager->DeleteGUIElement(lets_button);
 		App->gui_manager->DeleteGUIElement(lets_label);
 		buttons_tutorial.clear();

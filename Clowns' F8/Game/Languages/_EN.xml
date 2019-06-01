@@ -26,9 +26,21 @@
     <choose_map value="CHOOSE MAP"/>
     <battle_abilities value="Abilities"/>
     <defend value="Defend"/>
-    <greating value="Aquí saludaré"/>
-    <move value="Aquí enseñaré a como moverse"/>
-    <def value="Aquí enseñaré las posibilidades"/>
+    <greating value="Hello, welkome to the magnificient kingdom of Citemia"/>
+    <greating_2 value="my name is Alfred littletexts and I will teach you how to"/>
+    <greating_3 value="fight in this kingdom"/>
+    <move value="First of all let's move,"/>
+    <move_2 value="the character will move to the box marked in green"/>
+    <move_3 value="you can move the blue box with the little arrows"/>
+    <move_4 value="or with the right nunchuk of the command"/>
+    <move_5 value="you can only go to the boxes marked in blue"/>
+    <move_6 value="if you pass over some enemy he will give you his information"/>
+    <def value="This is the skills tab"/>
+    <def_2 value="for now you can only attack and defend yourself"/>
+    <def_3 value="but if you kill many enemies you will get skills"/>
+    <def_4 value="do not forget that using the -x-"/>
+    <def_5 value="You can go back between selections"/>
+    <def_6 value="as now there is no enemy usa defense to pass the turn"/>
     <atq value="Aquí enseñaré como atacar"/>
     <lets value="Lets do it!"/>
     <sapphire attack="Flower attack" ability_1="Hammer time" ability_2="Surprise hat" ability_3="Water time"/>

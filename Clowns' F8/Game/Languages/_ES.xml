@@ -26,9 +26,21 @@
     <choose_map value="SELECCIONAR MAPA"/>
     <battle_abilities value="Habilidades"/>
     <defend value="Defender"/>
-    <greating value="Aquí saludaré"/>
-    <move value="Aquí enseñaré a como moverse"/>
-    <def value="Aquí enseñaré las posibilidades"/>
+    <greating value="Hola, bienvenido a el magnifico reino de Citemia"/>
+    <greating_2 value="mi nombre es Alfred el Textitos y te voy a enseñar"/>
+    <greating_3 value="a pelear en este reino, dale a espacio"/>
+    <move value="En primer lugar vamos a movernos,"/>
+    <move_2 value="el personaje se movera a la casilla marcada en verde"/>
+    <move_3 value="puedes mover la casilla azul con las flechitas"/>
+    <move_4 value="o con el nunchuk derecho del mando"/>
+    <move_5 value="solo puedes ir a las casillas marcadas en azul"/>
+    <move_6 value="si pasas por encima de algun enemigo te dara su informacion"/>
+    <def value="Esta es la pestaña de habilidades"/>
+    <def_2 value="por ahora solo puedes atacar y defenderte"/>
+    <def_3 value="pero si matas muchos enemigos obtendras habilidades"/>
+    <def_4 value="que no se te olvide que utilizando la -x- "/>
+    <def_5 value="puedes retroceder entre selecciones"/>
+    <def_6 value="como ahora no hay ningun enmigo usa la defensa para pasar de turno"/>
     <atq value="Aquí enseñaré como atacar"/>
     <lets value="Lets do it!"/>
     <sapphire attack="Floretazo" ability_1="Martillazo" ability_2="Sombrero sorpresa" ability_3="Hora del Jugar"/>

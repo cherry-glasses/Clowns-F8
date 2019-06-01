@@ -74,9 +74,21 @@ public:
 	std::string ability3_georgeb = "";
 
 	std::string greatings_tutorial = "";
+	std::string greatings_2 = "";
+	std::string greatings_3 = "";
 	std::string lets_do_it_tutorial = "";
 	std::string movemnent_tutorial = "";
+	std::string movemnent_2 = "";
+	std::string movemnent_3 = "";
+	std::string movemnent_4 = "";
+	std::string movemnent_5 = "";
+	std::string movemnent_6 = "";
 	std::string defens_tutorial = "";
+	std::string defens_2 = "";
+	std::string defens_3 = "";
+	std::string defens_4 = "";
+	std::string defens_5 = "";
+	std::string defens_6 = "";
 };
 
 
