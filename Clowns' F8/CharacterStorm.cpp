@@ -219,11 +219,13 @@ void CharacterStorm::SearchAbility_3() {
 
 void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 
+	flipX = false;
 	switch (_movement)
 	{
 	case Entity::IDLE_LEFT_FRONT:
 		current_movement = IDLE_LEFT_FRONT;
-		current_animation = &idle_left_front;
+		current_animation = &idle_right_front;
+		flipX = true;
 		break;
 	case Entity::IDLE_RIGHT_FRONT:
 		current_movement = IDLE_RIGHT_FRONT;
@@ -231,7 +233,8 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::IDLE_LEFT_BACK:
 		current_movement = IDLE_LEFT_BACK;
-		current_animation = &idle_left_back;
+		current_animation = &idle_right_back;
+		flipX = true;
 		break;
 	case Entity::IDLE_RIGHT_BACK:
 		current_movement = IDLE_RIGHT_BACK;
@@ -239,7 +242,8 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::WALK_LEFT_FRONT:
 		current_movement = WALK_LEFT_FRONT;
-		current_animation = &walk_left_front;
+		current_animation = &walk_right_front;
+		flipX = true;
 		position.first -= 4;
 		position.second += 2;
 		break;
@@ -251,7 +255,8 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::WALK_LEFT_BACK:
 		current_movement = WALK_LEFT_BACK;
-		current_animation = &walk_left_back;
+		current_animation = &walk_right_back;
+		flipX = true;
 		position.first -= 4;
 		position.second -= 2;
 		break;
@@ -263,7 +268,8 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::ATTACK_LEFT_FRONT:
 		current_movement = ATTACK_LEFT_FRONT;
-		current_animation = &attack_left_front;
+		current_animation = &attack_right_front;
+		flipX = true;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
 			current_turn = END_TURN;
@@ -279,7 +285,8 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::ATTACK_LEFT_BACK:
 		current_movement = ATTACK_LEFT_BACK;
-		current_animation = &attack_left_back;
+		current_animation = &attack_right_back;
+		flipX = true;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
 			current_turn = END_TURN;
@@ -295,7 +302,8 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::ABILITY_1_LEFT_FRONT:
 		current_movement = ABILITY_1_LEFT_FRONT;
-		current_animation = &ability_1_left_front;
+		current_animation = &ability_1_right_front;
+		flipX = true;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
 			current_turn = END_TURN;
@@ -311,7 +319,8 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::ABILITY_1_LEFT_BACK:
 		current_movement = ABILITY_1_LEFT_BACK;
-		current_animation = &ability_1_left_back;
+		current_animation = &ability_1_right_back;
+		flipX = true;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
 			current_turn = END_TURN;
@@ -345,7 +354,8 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::DEFEND_LEFT_FRONT:
 		current_movement = DEFEND_LEFT_FRONT;
-		current_animation = &defend_left_front;
+		current_animation = &defend_right_front;
+		flipX = true;
 		current_turn = END_TURN;
 		break;
 	case Entity::DEFEND_RIGHT_FRONT:
@@ -355,7 +365,8 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::DEFEND_LEFT_BACK:
 		current_movement = DEFEND_LEFT_BACK;
-		current_animation = &defend_left_back;
+		current_animation = &defend_right_back;
+		flipX = true;
 		current_turn = END_TURN;
 		break;
 	case Entity::DEFEND_RIGHT_BACK:
@@ -365,7 +376,8 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::DEAD_LEFT_FRONT:
 		current_movement = DEAD_LEFT_FRONT;
-		current_animation = &dead_left_front;
+		current_animation = &dead_right_front;
+		flipX = true;
 		current_state = DEATH;
 		break;
 	case Entity::DEAD_RIGHT_FRONT:
@@ -375,7 +387,8 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		break;
 	case Entity::DEAD_LEFT_BACK:
 		current_movement = DEAD_LEFT_BACK;
-		current_animation = &dead_left_back;
+		current_animation = &dead_right_back;
+		flipX = true;
 		current_state = DEATH;
 		break;
 	case Entity::DEAD_RIGHT_BACK:
