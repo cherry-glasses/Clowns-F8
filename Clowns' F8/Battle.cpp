@@ -142,6 +142,7 @@ bool Battle::Update(float _dt)
 					App->transition_manager->CreateFadeTransition(1, true, CHOOSE_MAP, White);
 					break;
 				case FOURTH_BATTLE:
+					App->scene_manager->victory = true;
 					App->transition_manager->CreateFadeTransition(2, true, INTRO, White);
 					break;
 				default:
