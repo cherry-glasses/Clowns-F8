@@ -41,6 +41,8 @@ public:
 	Language* language = nullptr;
 	SDL_Texture* objects_texture = nullptr;
 	
+	bool victory = false;
+
 	bool tutorial_block = true;
 	bool tutorial_block_actions = true;
 

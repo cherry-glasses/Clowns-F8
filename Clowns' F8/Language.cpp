@@ -86,6 +86,13 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		lines.push_back(config.child("intro_scene").child("line21").attribute("value").as_string(""));
 		lines.push_back(config.child("intro_scene").child("line22").attribute("value").as_string(""));
 
+		end_lines.push_back(config.child("ending_scene").child("line1").attribute("value").as_string(""));
+		end_lines.push_back(config.child("ending_scene").child("line2").attribute("value").as_string(""));
+		end_lines.push_back(config.child("ending_scene").child("line3").attribute("value").as_string(""));
+		end_lines.push_back(config.child("ending_scene").child("line4").attribute("value").as_string(""));
+		end_lines.push_back(config.child("ending_scene").child("line5").attribute("value").as_string(""));
+		end_lines.push_back(config.child("ending_scene").child("line6").attribute("value").as_string(""));
+
 		attack_sapphire = config.child("battle_scene").child("sapphire").attribute("attack").as_string("");
 		attack_iris = config.child("battle_scene").child("iris").attribute("attack").as_string("");
 		attack_storm = config.child("battle_scene").child("storm").attribute("attack").as_string("");

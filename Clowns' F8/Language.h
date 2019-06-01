@@ -52,6 +52,7 @@ public:
 
 	//intro
 	std::vector<std::string> lines;
+	std::vector<std::string> end_lines;
 
 	std::string attack_sapphire = "";
 	std::string ability1_sapphire = "";

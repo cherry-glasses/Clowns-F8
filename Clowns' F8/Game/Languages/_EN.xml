@@ -85,4 +85,12 @@
     <line21 value="makes sense, right? With beautiful knights and brave princesses... You would not put something too silly like a martial arts bunny, or a weeb ninja, this"/>
     <line22 value="would not make for much of a story... Whatever, it is not up to us anymore, good luck in your quest dear friend."/>
   </intro_scene>
+  <ending_scene>
+    <line1 value="Wait, what You've actually retrieved the clown's touch!! Slaying henchmen and monsters"/>
+    <line2 value="like a true warrior... Or not quite so... What is this You've gathered quite the crew here. Are"/>
+    <line3 value="these the mighty heroes who defeated Cherryblackglasses and his three captains Excuse"/>
+    <line4 value="us but we find it hard to believe. Where are the chivalrous knights Where are the skilled"/>
+    <line5 value="bowmen Whatever, it seems it's better to perhaps leave this for another story."/>
+    <line6 value="Now, congratulations on saving the kingdom!!"/>
+  </ending_scene>
 </language>

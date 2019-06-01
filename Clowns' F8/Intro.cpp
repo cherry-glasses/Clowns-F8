@@ -42,33 +42,59 @@ bool Intro::PreUpdate()
 bool Intro::Update(float _dt)
 {
 	bool ret = true;
-
-	if (which_text == 0)
+	if (!App->scene_manager->victory)
 	{
-		if (!lines_created)
+		if (which_text == 0)
 		{
-			for (int i = 0; i < 8; ++i)
+			if (!lines_created)
 			{
-				labels.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5, 300 + 40 * i, App->scene_manager->language->lines.at(i), { 255, 255, 255, 255 }, App->gui_manager->default_font_used));
-			}
+				for (int i = 0; i < 8; ++i)
+				{
+					labels.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5, 300 + 40 * i, App->scene_manager->language->lines.at(i), { 255, 255, 255, 255 }, App->gui_manager->default_font_used));
+				}
 
-			lines_created = true;
+				lines_created = true;
+			}
+			if (App->input->Accept())
+			{
+				which_text = 1;
+				lines_created = false;
+				App->gui_manager->DeleteAllGUIElements();
+				labels.clear();
+			}
 		}
-		if (App->input->Accept())
+		else if (which_text == 1)
 		{
-			which_text = 1;
-			lines_created = false;
-			App->gui_manager->DeleteAllGUIElements();
-			labels.clear();
+			if (!lines_created)
+			{
+				for (int i = 8; i < 22; ++i)
+				{
+					labels.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5, 300 + 40 * (i - 8), App->scene_manager->language->lines.at(i), { 255, 255, 255, 255 }, App->gui_manager->default_font_used));
+				}
+
+				lines_created = true;
+			}
+			if (App->input->Accept())
+			{
+				lines_created = false;
+				App->gui_manager->DeleteAllGUIElements();
+				labels.clear();
+				if (!App->scene_manager->changing)
+				{
+					App->transition_manager->CreateFadeTransition(1, true, CHOOSE_MAP, Black);
+					App->scene_manager->changing = true;
+				}
+			}
 		}
 	}
-	else if (which_text == 1)
+	else
 	{
 		if (!lines_created)
 		{
-			for (int i = 8; i < 22; ++i)
+			for (int i = 0; i < 6; ++i)
 			{
-				labels.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5, 300 + 40 * (i - 8), App->scene_manager->language->lines.at(i), { 255, 255, 255, 255 }, App->gui_manager->default_font_used));
+				if (i == 5) labels.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5, 300 + 40 * i + 40, App->scene_manager->language->end_lines.at(i), { 255, 255, 255, 255 }, App->gui_manager->default_font_used));
+				else labels.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5, 300 + 40 * i, App->scene_manager->language->end_lines.at(i), { 255, 255, 255, 255 }, App->gui_manager->default_font_used));
 			}
 
 			lines_created = true;
@@ -76,11 +102,12 @@ bool Intro::Update(float _dt)
 		if (App->input->Accept())
 		{
 			lines_created = false;
+			which_text = 0;
 			App->gui_manager->DeleteAllGUIElements();
 			labels.clear();
 			if (!App->scene_manager->changing)
 			{
-				App->transition_manager->CreateFadeTransition(1, true, CHOOSE_MAP, Black);
+				App->transition_manager->CreateFadeTransition(1, true, WIN_SCENE, Black);
 				App->scene_manager->changing = true;
 			}
 		}

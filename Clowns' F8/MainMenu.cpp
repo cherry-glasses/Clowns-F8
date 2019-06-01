@@ -55,6 +55,7 @@ bool MainMenu::Update(float _dt)
 		{
 			if (!App->scene_manager->changing)
 			{
+				App->scene_manager->victory = false;
 				App->transition_manager->CreateFadeTransition(1, true, INTRO, Black);
 				App->scene_manager->changing = true;
 			}
