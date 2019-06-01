@@ -155,10 +155,12 @@ bool Character::Update(float _dt) {
 
 
 bool Character::Load(pugi::xml_node& node) {
+	
 	return true;
 }
 
 bool Character::Save(pugi::xml_node& node) const {
+	
 	return true;
 }
 

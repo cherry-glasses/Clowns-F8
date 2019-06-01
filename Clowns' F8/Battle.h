@@ -129,7 +129,7 @@ protected:
 	GUIButton* volume_up_button = nullptr;
 	GUIButton* volume_down_button = nullptr;
 	GUIButton* resume_button = nullptr;
-	GUIButton* main_menu_button = nullptr;
+	GUIButton* choose_map_button = nullptr;
 
 	GUILabel* english_label = nullptr;
 	GUILabel* spanish_label = nullptr;
@@ -140,7 +140,7 @@ protected:
 	GUILabel* language_label = nullptr;
 	GUILabel* volume_label = nullptr;
 	GUILabel* resume_label = nullptr;
-	GUILabel* main_menu_label = nullptr;
+	GUILabel* choose_map_label = nullptr;
 
 	bool character_ability1up = false;
 	bool character_ability2up = false;

@@ -38,7 +38,7 @@ public:
 	std::string pause = "";
 	std::string select = "";
 	std::string resume = "";
-	std::string main_menu = "";
+	std::string choose_map = "";
 	std::string battle_abilities = "";
 	std::string defend = "";
 	std::string win_accept = "";
@@ -46,6 +46,9 @@ public:
 	std::string map2 = "";
 	std::string map3 = "";
 	std::string map4 = "";
+	std::string save_game = "";
+	std::string saved = "";
+	std::string main_menu = "";
 
 	//intro
 	std::vector<std::string> lines;

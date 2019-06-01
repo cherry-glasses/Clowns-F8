@@ -104,11 +104,11 @@ bool Battle::Update(float _dt)
 			}
 
 		}
-		else if (main_menu_button->has_been_clicked)
+		else if (choose_map_button->has_been_clicked)
 		{
 			if (!App->scene_manager->changing)
 			{
-				App->transition_manager->CreateFadeTransition(2, true, MAIN_MENU, Black);
+				App->transition_manager->CreateFadeTransition(2, true, CHOOSE_MAP, Black);
 				App->scene_manager->changing = true;
 			}
 		}
@@ -357,15 +357,15 @@ void Battle::CreateOptionsIngame()
 	buttons.push_back(volume_down_button);
 	resume_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 0 - (button.w / 2) , (screen_height / 2) + (option_background.h / 2) - button.h * 3.1 - screen_height / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(resume_button);
-	main_menu_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 0 - (button.w / 2) , (screen_height / 2) + (option_background.h / 2) - button.h * 1.7 - screen_height / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
-	buttons.push_back(main_menu_button);
+	choose_map_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 0 - (button.w / 2) , (screen_height / 2) + (option_background.h / 2) - button.h * 1.7 - screen_height / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	buttons.push_back(choose_map_button);
 
 	volume_up_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, volume_up_button->position.first + (button.w / 2), volume_up_button->position.second + (button.h / 2), "+", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	volume_down_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, volume_down_button->position.first + (button.w / 2), volume_down_button->position.second + (button.h / 2), "-", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 
 	english_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, english_button->position.first + (button.w / 2), english_button->position.second + (button.h / 2), App->scene_manager->language->english, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	spanish_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, spanish_button->position.first + (button.w / 2), spanish_button->position.second + (button.h / 2), App->scene_manager->language->spanish, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	main_menu_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, main_menu_button->position.first + (button.w / 2), main_menu_button->position.second + (button.h / 2), App->scene_manager->language->main_menu, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	choose_map_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, choose_map_button->position.first + (button.w / 2), choose_map_button->position.second + (button.h / 2), App->scene_manager->language->choose_map, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	resume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, resume_button->position.first + (button.w / 2), resume_button->position.second + (button.h / 2), App->scene_manager->language->resume, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	language_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 0, english_button->position.second + (button.h * 1.5) - screen_height / 8, App->scene_manager->language->choose_language, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	volume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 0, volume_up_button->position.second + (button.h * 1.5) - screen_height / 8, App->scene_manager->language->volume, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
@@ -528,13 +528,13 @@ void Battle::ShowEntityInfo(Entity* _entity)
 
 void Battle::LevelUp(bool _up)
 {
+	App->entity_manager->exp_sapphire = 0;
+	App->entity_manager->exp_iris = 0;
+	App->entity_manager->exp_storm = 0;
+	App->entity_manager->exp_georgeb = 0;
 	int i = 0;
 	for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 	{
-		App->entity_manager->exp_sapphire = 0;
-		App->entity_manager->exp_iris = 0;
-		App->entity_manager->exp_storm = 0;
-		App->entity_manager->exp_georgeb = 0;
 		if (i == 0 && _up && (*character)->level < 10)
 		{
 			App->entity_manager->LevelUP((*character)->levels.at((*character)->level - 1));
@@ -587,12 +587,12 @@ void Battle::DeleteOptionsIngame()
 	App->gui_manager->DeleteGUIElement(volume_up_button);
 	App->gui_manager->DeleteGUIElement(volume_down_button);
 	App->gui_manager->DeleteGUIElement(resume_button);
-	App->gui_manager->DeleteGUIElement(main_menu_button);
+	App->gui_manager->DeleteGUIElement(choose_map_button);
 	App->gui_manager->DeleteGUIElement(volume_up_label);
 	App->gui_manager->DeleteGUIElement(volume_down_label);
 	App->gui_manager->DeleteGUIElement(english_label);
 	App->gui_manager->DeleteGUIElement(spanish_label);
-	App->gui_manager->DeleteGUIElement(main_menu_label);
+	App->gui_manager->DeleteGUIElement(choose_map_label);
 	App->gui_manager->DeleteGUIElement(resume_label);
 	App->gui_manager->DeleteGUIElement(language_label);
 	App->gui_manager->DeleteGUIElement(volume_label);

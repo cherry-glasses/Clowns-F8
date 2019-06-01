@@ -188,12 +188,20 @@ bool ModuleEntityManager::CleanUp()
 // Load Game State
 bool ModuleEntityManager::Load(pugi::xml_node & _data)
 {
+	exp_sapphire = _data.child("sapphire").attribute("value").as_int();
+	exp_iris = _data.child("iris").attribute("value").as_int();
+	exp_storm = _data.child("storm").attribute("value").as_int();
+	exp_georgeb = _data.child("georgeb").attribute("value").as_int();
 	return true;
 }
 
 // Save Game State
 bool ModuleEntityManager::Save(pugi::xml_node & _data) const
 {
+	_data.append_child("sapphire").append_attribute("value") = exp_sapphire;
+	_data.append_child("iris").append_attribute("value") = exp_iris;
+	_data.append_child("storm").append_attribute("value") = exp_storm;
+	_data.append_child("georgeb").append_attribute("value") = exp_georgeb;
 	return true;
 }
 

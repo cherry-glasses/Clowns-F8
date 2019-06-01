@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <game_state>
-	<input />
 	<window />
+	<input />
 	<textures />
 	<audio>
 		<volume value="100" />
@@ -11,84 +11,18 @@
 	<fonts />
 	<map />
 	<pathfinding />
+	<scene_manager>
+		<battle1 value="false" />
+		<battle2 value="false" />
+		<battle3 value="false" />
+	</scene_manager>
+	<entity_manager>
+		<sapphire value="0" />
+		<iris value="0" />
+		<storm value="0" />
+		<georgeb value="0" />
+	</entity_manager>
 	<gui />
-	<scene>
-		<scene_actual value="1" />
-		<timeminute value="0" />
-		<timesecond value="4" />
-	</scene>
-	<scenemanager />
-	<entitymanager>
-		<player>
-			<position x="602.666992" y="173" />
-			<godmode value="false" />
-			<element value="0" />
-			<flipX value="false" />
-			<score value="100" />
-			<coin_counter value="1" />
-			<lifes value="3" />
-		</player>
-		<JrGargoyle>
-			<position x="3378.23999" y="136.363998" />
-		</JrGargoyle>
-		<JrGargoyle>
-			<position x="4039" y="223" />
-		</JrGargoyle>
-		<JrGargoyle>
-			<position x="4581" y="230" />
-		</JrGargoyle>
-		<JrGargoyle>
-			<position x="2696.76001" y="69.1514969" />
-		</JrGargoyle>
-		<OfficerSkeleton>
-			<position x="1899" y="454.333008" />
-		</OfficerSkeleton>
-		<OfficerSkeleton>
-			<position x="1028.35999" y="103.515198" />
-		</OfficerSkeleton>
-		<OfficerSkeleton>
-			<position x="1258" y="677" />
-		</OfficerSkeleton>
-		<OfficerSkeleton>
-			<position x="2347" y="134.332993" />
-		</OfficerSkeleton>
-		<OfficerSkeleton>
-			<position x="2256" y="679.333008" />
-		</OfficerSkeleton>
-		<OfficerSkeleton>
-			<position x="2805.33008" y="390" />
-		</OfficerSkeleton>
-		<Coin>
-			<position x="370" y="456" />
-		</Coin>
-		<Coin />
-		<Coin>
-			<position x="1688" y="468" />
-		</Coin>
-		<Coin>
-			<position x="2620" y="400" />
-		</Coin>
-		<Coin>
-			<position x="3146" y="546" />
-		</Coin>
-		<Coin>
-			<position x="3558" y="416" />
-		</Coin>
-		<Coin>
-			<position x="5648" y="418" />
-		</Coin>
-		<Coin>
-			<position x="4756" y="418" />
-		</Coin>
-		<Coin>
-			<position x="4182" y="406" />
-		</Coin>
-		<Coin>
-			<position x="1206" y="442" />
-		</Coin>
-	</entitymanager>
-	<collision />
-	<render>
-		<camera x="-363" y="0" />
-	</render>
+	<:anonymous />
+	<render />
 </game_state>

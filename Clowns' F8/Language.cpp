@@ -48,7 +48,7 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 
 		
 		resume = config.child("battle_scene").child("resume").attribute("value").as_string("");
-		main_menu = config.child("battle_scene").child("main_menu").attribute("value").as_string("");
+		choose_map = config.child("battle_scene").child("choose_map").attribute("value").as_string("");
 		battle_abilities = config.child("battle_scene").child("battle_abilities").attribute("value").as_string("");
 		defend = config.child("battle_scene").child("defend").attribute("value").as_string("");
 
@@ -58,6 +58,9 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		map2 = config.child("choose_map_scene").child("map2").attribute("value").as_string("");
 		map3 = config.child("choose_map_scene").child("map3").attribute("value").as_string("");
 		map4 = config.child("choose_map_scene").child("map4").attribute("value").as_string("");
+		save_game = config.child("choose_map_scene").child("save_game").attribute("value").as_string("");
+		saved = config.child("choose_map_scene").child("saved").attribute("value").as_string("");
+		main_menu = config.child("choose_map_scene").child("main_menu").attribute("value").as_string("");
 
 		lines.push_back(config.child("intro_scene").child("line1").attribute("value").as_string(""));
 		lines.push_back(config.child("intro_scene").child("line2").attribute("value").as_string(""));

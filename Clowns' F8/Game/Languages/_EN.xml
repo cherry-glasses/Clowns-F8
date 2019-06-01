@@ -23,7 +23,7 @@
   </main_menu_scene>
   <battle_scene>
     <resume value="RESUME"/>
-    <main_menu value="MAIN MENU"/>
+    <choose_map value="CHOOSE MAP"/>
     <battle_abilities value="Abilities"/>
     <defend value="Defend"/>
     <greating value="Aquí saludaré"/>
@@ -44,6 +44,9 @@
     <map2 value="BLAZELANDS"/>
     <map3 value="BLIZZLANDS"/>
     <map4 value="FINAL BOSS"/>
+    <save_game value="SAVE GAME"/>
+    <saved value="THE GAME HAS BEEN SAVED SUCCESSFULLY"/>
+    <main_menu value="MAIN MENU"/>
   </choose_map_scene>
   <intro_scene>
     <line1 value="Let us tell you a story. But not just any story. This may sound familiar to you, or perhaps not; for this"/>

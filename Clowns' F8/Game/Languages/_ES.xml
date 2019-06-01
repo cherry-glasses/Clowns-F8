@@ -23,7 +23,7 @@
   </main_menu_scene>
   <battle_scene>
     <resume value="CONTINUAR"/>
-    <main_menu value="MENU PRINCIPAL"/>
+    <choose_map value="SELECCIONAR MAPA"/>
     <battle_abilities value="Habilidades"/>
     <defend value="Defender"/>
     <greating value="Aquí saludaré"/>
@@ -44,5 +44,8 @@
     <map2 value="TIERRAS ABRASADAS"/>
     <map3 value="TIERRAS POLARES"/>
     <map4 value="JEFE FINAL"/>
+    <save_game value="GUARDAR PARTIDA"/>
+    <saved value="EL JUEGO SE HA GUARDADO CON ÉXITO"/>
+    <main_menu value="MENU PRINCIPAL"/>
   </choose_map_scene>
 </language>
