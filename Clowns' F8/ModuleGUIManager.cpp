@@ -217,7 +217,7 @@ void ModuleGUIManager::DeleteAllGUIElements()
 	{
 		if (gui_elements[i] != nullptr)
 		{
-			delete gui_elements[i];
+			//delete gui_elements[i];
 			gui_elements[i] = nullptr;
 		}
 	}

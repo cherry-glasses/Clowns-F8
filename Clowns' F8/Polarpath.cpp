@@ -243,7 +243,7 @@ void Polarpath::CurrentMovement(MOVEMENT _movement) {
 		current_movement = WALK_RIGHT_FRONT;
 		current_animation = &walk_left;
 		flipX = false;
-		position.first += 2;		//VIVAN LOS PUTOS NUMEROS MAGICOS XDDD
+		position.first += 2;		//VIVAN LOS PUTOS NUMEROS MAGICOS XDDD  //DEJA DE ESCRIBIR EN ESPAÑOL GUILLEM
 		position.second -= 1;
 		break;
 	case Entity::WALK_RIGHT_BACK:
