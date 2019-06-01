@@ -141,11 +141,12 @@ bool Entity::PostUpdate(float _dt) {
 
 			for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
 			{
-				if ((*entity)->position.first == position.first && (*entity)->position.second < position.second	&& 
-					(*entity)->position.second + 50 > position.second && current_turn == TURN::NONE	&& !(istargeted)
+				if ((*entity)->position.first + (*entity)->current.w / 2 >= position.first - (current.w / 2) && (*entity)->position.first - (*entity)->current.w / 2 <= position.first + (current.w / 2)
+					&& (*entity)->position.second < position.second && (*entity)->position.second > position.second - current.h + position_margin.second
+					&& current_turn == TURN::NONE	&& !(istargeted)
 					&& !(std::find(App->entity_manager->objects.begin(), App->entity_manager->objects.end(), (*entity)) != App->entity_manager->objects.end()))
 				{
-					SDL_SetTextureAlphaMod(entity_texture, Alpha_color.a);
+					SDL_SetTextureAlphaMod(entity_texture, 150);
 				}
 			}
 
@@ -154,19 +155,17 @@ bool Entity::PostUpdate(float _dt) {
 		}
 	}
 	else
-	{
-		SDL_Rect current_aux = current;
-		
+	{		
 		for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
 		{
-			if ((*entity)->position.first == position.first && (*entity)->position.second < position.second
-				&& (*entity)->position.second + 50 > position.second 
+			if ((*entity)->position.first >= position.first - (current.w/2) && (*entity)->position.first <= position.first + (current.w/2)
+				&& (*entity)->position.second < position.second	&& (*entity)->position.second > position.second - current.h + position_margin.second
 				&& !(std::find(App->entity_manager->objects.begin(), App->entity_manager->objects.end(), (*entity)) != App->entity_manager->objects.end()))
 			{
-				SDL_SetTextureAlphaMod(entity_texture, Alpha_color.a);
+				SDL_SetTextureAlphaMod(entity_texture, 50);
 			}
 		}
-		App->render->Blit(entity_texture, position.first - (current_aux.w / 2) + position_margin.first, position.second - current_aux.h + position_margin.second, &current_aux, 1.0f, flipX);
+		App->render->Blit(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second, &current, 1.0f, flipX);
 		SDL_SetTextureAlphaMod(entity_texture, 255);
 	}
 	
