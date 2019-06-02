@@ -123,11 +123,11 @@ GUIElement* ModuleGUIManager::CreateGUIButton(GUI_ELEMENT_TYPE type, int x, int 
 	return ret;
 }
 
-GUIElement* ModuleGUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, std::string text, SDL_Color color, _TTF_Font* font, int curr, int def, GUIElement* son)
+GUIElement* ModuleGUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, std::string text, SDL_Color color, _TTF_Font* font, int curr, int def, GUIElement* son, bool centrated)
 {
 	GUIElement* ret = nullptr;
 
-	ret = new GUILabel(x, y, text, color, font, curr, def, son);
+	ret = new GUILabel(x, y, text, color, font, curr, def, son, centrated);
 
 
 	if (ret != nullptr)
@@ -202,7 +202,7 @@ void ModuleGUIManager::DeleteGUIElement(GUIElement* e)
 	{
 		if ((*element) == e)
 		{
-			delete gui_elements[i];
+			//delete gui_elements[i];
 			gui_elements[i] = nullptr;
 			gui_elements.erase(element);
 			break;
@@ -217,7 +217,7 @@ void ModuleGUIManager::DeleteAllGUIElements()
 	{
 		if (gui_elements[i] != nullptr)
 		{
-			delete gui_elements[i];
+			//delete gui_elements[i];
 			gui_elements[i] = nullptr;
 		}
 	}

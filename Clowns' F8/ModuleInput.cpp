@@ -442,35 +442,118 @@ void ModuleInput::buttonForGamepad() {
 	}
 
 }
-bool ModuleInput::Left() {
 
-	if (GetKey(keyboard_buttons.buttons_to_use.LEFT) == KEY_DOWN || gamepad.CROSS_LEFT == GAMEPAD_STATE::PAD_BUTTON_DOWN || gamepad.JOYSTICK_LEFT == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+void ModuleInput::CleanCount() {
+
+	count_repeat = 0;
+	count_repeat_mix = 0;
+}
+
+bool ModuleInput::Left() {
+	
+	if ((GetKey(keyboard_buttons.buttons_to_use.LEFT) == KEY_REPEAT 
+		|| gamepad.JOYSTICK_LEFT == GAMEPAD_STATE::PAD_BUTTON_REPEAT) && count_repeat > MAX_COUNT_INPUT) 
+	{
+		CleanCount();
 		return true;
 	}
+	++count_repeat;
 	return false;
 }
 
 bool ModuleInput::Right() {
-
-	if (GetKey(keyboard_buttons.buttons_to_use.RIGHT) == KEY_DOWN || gamepad.CROSS_RIGHT == GAMEPAD_STATE::PAD_BUTTON_DOWN || gamepad.JOYSTICK_RIGHT == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+	
+	if ((GetKey(keyboard_buttons.buttons_to_use.RIGHT) == KEY_REPEAT
+		|| gamepad.JOYSTICK_RIGHT == GAMEPAD_STATE::PAD_BUTTON_REPEAT) && count_repeat > MAX_COUNT_INPUT) 
+	{
+		CleanCount();
 		return true;
 	}
+	++count_repeat;
 	return false;
 }
 
 bool ModuleInput::Down() {
-
-	if (GetKey(keyboard_buttons.buttons_to_use.DOWN) == KEY_DOWN ||gamepad.CROSS_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN || gamepad.JOYSTICK_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+	
+	if ((GetKey(keyboard_buttons.buttons_to_use.DOWN) == KEY_REPEAT
+		|| gamepad.JOYSTICK_DOWN == GAMEPAD_STATE::PAD_BUTTON_REPEAT) && count_repeat > MAX_COUNT_INPUT)
+	{
+		CleanCount();
 		return true;
 	}
+	++count_repeat;
 	return false;
 }
 
 bool ModuleInput::Up() {
-
-	if (GetKey(keyboard_buttons.buttons_to_use.UP) == KEY_DOWN || gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN || gamepad.JOYSTICK_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+	
+	if ((GetKey(keyboard_buttons.buttons_to_use.UP) == KEY_REPEAT
+		|| gamepad.JOYSTICK_UP == GAMEPAD_STATE::PAD_BUTTON_REPEAT) && count_repeat > MAX_COUNT_INPUT)
+	{
+		CleanCount();
 		return true;
 	}
+	++count_repeat;
+	return false;
+}
+
+bool ModuleInput::LeftUp() {
+
+	if (((GetKey(keyboard_buttons.buttons_to_use.LEFT) == KEY_REPEAT
+		&& GetKey(keyboard_buttons.buttons_to_use.UP) == KEY_REPEAT)
+		||	(gamepad.JOYSTICK_LEFT == GAMEPAD_STATE::PAD_BUTTON_REPEAT
+		&& gamepad.JOYSTICK_UP == GAMEPAD_STATE::PAD_BUTTON_REPEAT))
+		&& count_repeat_mix > MAX_COUNT_INPUT_MIX)
+	{
+		CleanCount();
+		return true;
+	}
+	++count_repeat_mix;
+	return false;
+}
+
+bool ModuleInput::RightUp() {
+
+	if (((GetKey(keyboard_buttons.buttons_to_use.RIGHT) == KEY_REPEAT
+		&& GetKey(keyboard_buttons.buttons_to_use.UP) == KEY_REPEAT)
+		|| (gamepad.JOYSTICK_RIGHT == GAMEPAD_STATE::PAD_BUTTON_REPEAT
+		&& gamepad.JOYSTICK_UP == GAMEPAD_STATE::PAD_BUTTON_REPEAT))
+		&& count_repeat_mix > MAX_COUNT_INPUT_MIX) 
+	{
+		CleanCount();
+		return true;
+	}
+	++count_repeat_mix;
+	return false;
+}
+
+bool ModuleInput::LeftDown() {
+
+	if (((GetKey(keyboard_buttons.buttons_to_use.LEFT) == KEY_REPEAT
+		&& GetKey(keyboard_buttons.buttons_to_use.DOWN) == KEY_REPEAT)
+		|| (gamepad.JOYSTICK_LEFT == GAMEPAD_STATE::PAD_BUTTON_REPEAT
+		&& gamepad.JOYSTICK_DOWN == GAMEPAD_STATE::PAD_BUTTON_REPEAT))
+		&& count_repeat_mix > MAX_COUNT_INPUT_MIX)
+	{
+		CleanCount();
+		return true;
+	}
+	++count_repeat_mix;
+	return false;
+}
+
+bool ModuleInput::RightDown() {
+
+	if (((GetKey(keyboard_buttons.buttons_to_use.RIGHT) == KEY_REPEAT
+		&& GetKey(keyboard_buttons.buttons_to_use.DOWN) == KEY_REPEAT)
+		|| (gamepad.JOYSTICK_RIGHT == GAMEPAD_STATE::PAD_BUTTON_REPEAT
+		&& gamepad.JOYSTICK_DOWN == GAMEPAD_STATE::PAD_BUTTON_REPEAT))
+		&& count_repeat_mix > MAX_COUNT_INPUT_MIX)
+	{
+		CleanCount();
+		return true;
+	}
+	++count_repeat_mix;
 	return false;
 }
 
@@ -501,6 +584,30 @@ bool ModuleInput::Pause() {
 	return false;
 }
 
+bool ModuleInput::LevelUp() {
+
+	if (GetKey(keyboard_buttons.buttons_to_use.LEVELUP) == KEY_DOWN || App->input->gamepad.CROSS_UP == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}
+
+bool ModuleInput::LevelDown() {
+
+	if (GetKey(keyboard_buttons.buttons_to_use.LEVELDOWN) == KEY_DOWN || App->input->gamepad.CROSS_DOWN == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}
+
+bool ModuleInput::AllMaps() {
+
+	if (GetKey(keyboard_buttons.buttons_to_use.ALLMAPS) == KEY_DOWN || App->input->gamepad.CROSS_RIGHT == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		return true;
+	}
+	return false;
+}
+
 void ModuleInput::Defaultcontrols() {
 
 
@@ -511,7 +618,9 @@ void ModuleInput::Defaultcontrols() {
 	keyboard_buttons.buttons_to_use.UP = SDL_SCANCODE_UP;
 	keyboard_buttons.buttons_to_use.DECLINE = SDL_SCANCODE_X;
 	keyboard_buttons.buttons_to_use.PAUSE = SDL_SCANCODE_ESCAPE;
-
+	keyboard_buttons.buttons_to_use.LEVELUP = SDL_SCANCODE_F4;
+	keyboard_buttons.buttons_to_use.LEVELDOWN = SDL_SCANCODE_F3;
+	keyboard_buttons.buttons_to_use.ALLMAPS = SDL_SCANCODE_F2;
 
 
 	keyboard_buttons.buttons_char.RIGHT == "RIGHT ARROW";

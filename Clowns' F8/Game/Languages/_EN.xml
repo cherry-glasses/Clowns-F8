@@ -23,9 +23,30 @@
   </main_menu_scene>
   <battle_scene>
     <resume value="RESUME"/>
-    <main_menu value="MAIN MENU"/>
+    <choose_map value="CHOOSE MAP"/>
     <battle_abilities value="Abilities"/>
     <defend value="Defend"/>
+    <greating value="Hello, welkome to the magnificient kingdom of Citemia"/>
+    <greating_2 value="my name is Alfred littletexts and I will teach you how to"/>
+    <greating_3 value="fight in this kingdom"/>
+    <move value="First of all let's move,"/>
+    <move_2 value="the character will move to the box marked in green"/>
+    <move_3 value="you can move the blue box with the little arrows"/>
+    <move_4 value="or with the right nunchuk of the command"/>
+    <move_5 value="you can only go to the boxes marked in blue"/>
+    <move_6 value="if you pass over some enemy he will give you his information"/>
+    <def value="This is the skills tab"/>
+    <def_2 value="for now you can only attack and defend yourself"/>
+    <def_3 value="but if you kill many enemies you will get skills"/>
+    <def_4 value="do not forget that using the -x-"/>
+    <def_5 value="You can go back between selections"/>
+    <def_6 value="as now there is no enemy usa defense to pass the turn"/>
+    <atq value="Aquí enseñaré como atacar"/>
+    <lets value="Lets do it!"/>
+    <sapphire attack="Flower attack" ability_1="Hammer time" ability_2="Surprise hat" ability_3="Water time"/>
+    <iris attack="Fist attack" ability_1="Rabbit kick" ability_2="Carrot time" ability_3="Rabbit rage"/>
+    <storm attack="Acid throw" ability_1="Snail charge" ability_2="Time to hide" ability_3="Vampiric snail"/>
+    <georgeb attack="Random throw" ability_1="Bear trap" ability_2="Cherry boom" ability_3="Flying birds"/>
   </battle_scene>
   <win_scene>
     <win_accept value="PRESS ACCEPT TO RETURN TO MAIN MENU"/>
@@ -35,5 +56,41 @@
     <map2 value="BLAZELANDS"/>
     <map3 value="BLIZZLANDS"/>
     <map4 value="FINAL BOSS"/>
+    <save_game value="SAVE GAME"/>
+    <saved value="THE GAME HAS BEEN SAVED SUCCESSFULLY"/>
+    <main_menu value="MAIN MENU"/>
   </choose_map_scene>
+  <intro_scene>
+    <line1 value="Let us tell you a story. But not just any story. This may sound familiar to you, or perhaps not; for this"/>
+    <line2 value="happened in a different time, in a different era, an era long gone, or an era that is still to come as it"/>
+    <line3 value="may be. Or perchance it was in a whole different world, who knows... But anyway, this is of little"/>
+    <line4 value="importance to you, I know, you are here for the story and I shall tell it to you. But please bear in "/>
+    <line5 value="mind: some stories come from legends, and legends fade from myths, and what is a myth, but an "/>
+    <line6 value="exaggeration of a great accomplishment made by somebody in another time... Who knows if the "/>
+    <line7 value="characters in this story ever existed or were inspired by some unusual folks... Oh my, we are rambling "/>
+    <line8 value="again aren't we? Why didn't you stop us? It is time already for the story to begin, don't you think?"/>
+    
+    <line9 value="It all happened in the kingdom of Citemia. As in all medieval stories there were two opposing forces, being two great mages, who coexisted in the same"/>
+    <line10 value="time in this strange kingdom. As you may know there is only place for one king in one kingdom. Well, the same is true for great mages, they are "/>
+    <line11 value="proud individuals who spend their life trying to be the wisest human beings, and as it happens, there can only be one wisest living soul. These two great"/>
+    <line12 value="mages answered to the names of Sapphire and CherryBlackGlasses. Sapphire was kind, known for his humor and his jokes, he would dress up as a "/>
+    <line13 value="clown and make people laugh. He was respected all over the kingdom, citizens would often come to him searching for advice or aid in their problems."/>
+    <line14 value="CherryBlackGlasses was the complete opposite, an evil mage known for his atrocities, cruelty and tyranny, even among his very own ill-called partners, "/>
+    <line15 value="making them work like slaves. Too focused on his goals he did not care about the means or consequences of his actions. Nobody wanted to have"/>
+    <line16 value="anything to do with him, and in the end, one by one, his companions left him. Unable to bear this burden of solitude and full of envy and hatred "/>
+    <line17 value="towards Sapphire, the evil sorcerer decided he would rewrite history. What if people's favorite clown mage was not so funny and cheerful as everyone"/>
+    <line18 value="thought? Hence, as his master move, he stole the touch of the clown. From now on, his jokes would not be funny anymore and instead of laugh, people "/>
+    <line19 value="would take pity on him... Wait, we just remembered that tomorrow is our Project II pitch presentation, and we still have not finished the wiki!!"/>
+    <line20 value="We are sorry but you will have to excuse us and find the ending of this story by yourself. We're sure you are going to come up with something that "/>
+    <line21 value="makes sense, right? With beautiful knights and brave princesses... You would not put something too silly like a martial arts bunny, or a weeb ninja, this"/>
+    <line22 value="would not make for much of a story... Whatever, it is not up to us anymore, good luck in your quest dear friend."/>
+  </intro_scene>
+  <ending_scene>
+    <line1 value="Wait, what You've actually retrieved the clown's touch!! Slaying henchmen and monsters"/>
+    <line2 value="like a true warrior... Or not quite so... What is this You've gathered quite the crew here. Are"/>
+    <line3 value="these the mighty heroes who defeated Cherryblackglasses and his three captains Excuse"/>
+    <line4 value="us but we find it hard to believe. Where are the chivalrous knights Where are the skilled"/>
+    <line5 value="bowmen Whatever, it seems it's better to perhaps leave this for another story."/>
+    <line6 value="Now, congratulations on saving the kingdom!!"/>
+  </ending_scene>
 </language>

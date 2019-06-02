@@ -49,6 +49,7 @@ typedef struct {
 	int DefF;
 	int DefS;
 	int Crit;
+	int Eva;
 	int Agi;
 
 	int Attack;
@@ -71,13 +72,9 @@ typedef struct {
 
 typedef struct {
 	std::string Attack_name;
-	std::string Ataque_nombre;
 	std::string Ability_1_name;
 	std::string Ability_2_name;
 	std::string Ability_3_name;
-	std::string Habilidad_1_nombre;
-	std::string Habilidad_2_nombre;
-	std::string Habilidad_3_nombre;
 	
 } Attacks_names;
 
@@ -86,9 +83,8 @@ typedef struct {
 	int Ability_1_SFX;
 	int Ability_2_SFX;
 	int Ability_3_SFX;
-
-	int Defend_SFX;
-	int Critic_SFX;
+	int	Defend_SFX;
+	int	Critic_SFX;
 	int Dead_SFX;
 
 } SFX;
@@ -107,7 +103,7 @@ public:
 	// Called each loop iteration
 	virtual bool PreUpdate() {return true;}
 	virtual bool Update(float _dt) {return true;}
-	virtual bool PostUpdate(float _dt) { return true; }
+	virtual bool PostUpdate(float _dt);
 	
 	//Move and Attack
 	virtual void SearchWalk() {}
@@ -132,7 +128,7 @@ public:
 
 	}
 
-	void AddFX(const int _channel, const int _repeat) const;
+	void PlaySFX(const int _channel, const int _repeat) const;
 	void LoadAnim(pugi::xml_node _config);
 	bool LoadAnimation(pugi::xml_node _node, Animation &_anim);
 
@@ -143,6 +139,7 @@ public:
 
 public:
 
+	SDL_Rect portrait;
 	Stats default_stats;
 	Stats current_stats;
 	Evolutions evolution_stats;
@@ -157,6 +154,7 @@ public:
 	int exp = 0;
 	int level = 1;
 	std::vector<int> levels;
+	std::pair<int, int> target;
 
 	enum STATE { ALIVE, DEATH };
 	enum TURN { SEARCH_MOVE, SELECT_MOVE, MOVE, SELECT_ACTION, SEARCH_ATTACK, SELECT_ATTACK, ATTACK, 
@@ -269,10 +267,13 @@ protected:
 	SDL_Rect circle_red;
 	SDL_Rect circle_blue;
 	SDL_Rect circle_yellow;
+
 	std::pair<int, int>  position;
 	std::vector<std::pair<int, int>>  objective_position;
 	int tiles_range_attk = 0;
 	std::pair<int, int>* range;
+
+	bool istargeted = false;
 
 	bool sound_fx = false;
 	

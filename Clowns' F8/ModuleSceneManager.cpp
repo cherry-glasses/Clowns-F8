@@ -8,7 +8,7 @@
 #include "Win.h"
 #include "Lose.h"
 #include "ChooseMap.h"
-#include "Language.h"
+#include "Intro.h"
 
 
 ModuleSceneManager::ModuleSceneManager()
@@ -54,14 +54,24 @@ bool ModuleSceneManager::CleanUp()
 	return current_scene->CleanUp();
 }
 
-bool ModuleSceneManager::Load(pugi::xml_node &xml)
+// Load
+bool ModuleSceneManager::Load(pugi::xml_node& _data)
 {
-	return current_scene->Load(xml);
+	battle1_passed = _data.child("battle1").attribute("value").as_bool();
+	battle2_passed = _data.child("battle2").attribute("value").as_bool();
+	battle3_passed = _data.child("battle3").attribute("value").as_bool();
+
+	return true;
 }
 
-bool ModuleSceneManager::Save(pugi::xml_node &xml) const
+//Save
+bool ModuleSceneManager::Save(pugi::xml_node& _data) const
 {
-	return current_scene->Save(xml);
+	_data.append_child("battle1").append_attribute("value") = battle1_passed;
+	_data.append_child("battle2").append_attribute("value") = battle2_passed;
+	_data.append_child("battle3").append_attribute("value") = battle3_passed;
+
+	return true;
 }
 
 //Scene unloads current scene, then creates and loads new scene.
@@ -97,6 +107,9 @@ void ModuleSceneManager::ChangeScene(SCENE_TYPE _type)
 		break;
 	case CHOOSE_MAP:
 		current_scene = new ChooseMap(_type, scene_configs);
+		break;
+	case INTRO:
+		current_scene = new Intro(_type, scene_configs);
 		break;
 	case NONE:
 		break;

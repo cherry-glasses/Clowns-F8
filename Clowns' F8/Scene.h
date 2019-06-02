@@ -16,6 +16,7 @@ enum SCENE_TYPE {
 	WIN_SCENE,
 	LOSE_SCENE,
 	CHOOSE_MAP,
+	INTRO,
 	NONE
 };
 
@@ -65,25 +66,15 @@ protected:
 	SDL_Rect small_button;
 	SDL_Rect cherry_glasses_logo;
 	SDL_Rect option_background;
-	SDL_Rect iris_portrait;
-	SDL_Rect sapphire_portrait;
-	SDL_Rect george_b_portrait;
-	SDL_Rect storm_portrait;
-	std::pair<int, int> portrait_margin;
-	std::pair<int, int> life_margin;
-	std::pair<int, int> mana_margin;
-	std::pair<int, int> port_margin;
-	std::pair<int, int> name_margin;
-	std::pair<int, int> actions_margin;
-	
-	
 
 	int button_margin;
 
 	int screen_width, screen_height;
 	
-	std::string	press_fx_name = "";
-
+	// Audios
+	int	press_sfx;
+	int	defend_sfx;
+	int	critic_sfx;
 
 };
 

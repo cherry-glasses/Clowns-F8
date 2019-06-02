@@ -4,6 +4,8 @@
 #include "ModuleRender.h"
 #include "Entity.h"
 #include "ModuleMap.h"
+#include "ModuleEntityManager.h"
+#include "Color.h"
 
 
 Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
@@ -45,6 +47,7 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	default_stats.DefF = _config.child("stats").attribute("def_f").as_int();
 	default_stats.DefS = _config.child("stats").attribute("def_s").as_int();
 	default_stats.Crit = _config.child("stats").attribute("crit").as_int();
+	default_stats.Eva = _config.child("stats").attribute("eva").as_int();
 	default_stats.Agi = _config.child("stats").attribute("agi").as_int();
 	default_stats.Attack = _config.child("stats").attribute("attack").as_int();
 	default_stats.Ability_1 = _config.child("stats").attribute("ability_1").as_int();
@@ -61,21 +64,17 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 
 	current_stats = default_stats;
 
-	//Names
-	attacks_names.Attack_name = _config.child("attacks_names").attribute("attack").as_string("Attack");
-	attacks_names.Ability_1_name = _config.child("attacks_names").attribute("ability_1").as_string("Ability 1");
-	attacks_names.Ability_2_name = _config.child("attacks_names").attribute("ability_2").as_string("Ability 2");
-	attacks_names.Ability_3_name = _config.child("attacks_names").attribute("ability_3").as_string("Ability 3");
-	attacks_names.Ataque_nombre = _config.child("attacks_names").attribute("ataque").as_string("Ataque");
-	attacks_names.Habilidad_1_nombre = _config.child("attacks_names").attribute("habilidad_1").as_string("Habilidad 1");
-	attacks_names.Habilidad_2_nombre = _config.child("attacks_names").attribute("habilidad_2").as_string("Habilidad 2");
-	attacks_names.Habilidad_3_nombre = _config.child("attacks_names").attribute("habilidad_3").as_string("Habilidad 3");
+	//Portraits
+	portrait = { _config.child("portrait").attribute("x").as_int(), _config.child("portrait").attribute("y").as_int(),
+		_config.child("portrait").attribute("w").as_int() , _config.child("portrait").attribute("h").as_int() };
 
 	//FXSounds
 	sfx.Attack_SFX = App->audio->LoadFx(_config.child("sfx").child("attack_sfx").attribute("value").as_string());
 	sfx.Ability_1_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_1_sfx").attribute("value").as_string());
 	sfx.Ability_2_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_2_sfx").attribute("value").as_string());
 	sfx.Ability_3_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_3_sfx").attribute("value").as_string());
+	sfx.Defend_SFX = App->audio->LoadFx(_config.child("sfx").child("defend_sfx").attribute("value").as_string());
+	sfx.Critic_SFX = App->audio->LoadFx(_config.child("sfx").child("critic_sfx").attribute("value").as_string());
 	sfx.Dead_SFX = App->audio->LoadFx(_config.child("sfx").child("dead_sfx").attribute("value").as_string());
 
 
@@ -92,6 +91,86 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 
 }
 
+bool Entity::PostUpdate(float _dt) {
+
+	if (!(std::find(App->entity_manager->objects.begin(), App->entity_manager->objects.end(), this) != App->entity_manager->objects.end()))
+	{
+		current = current_animation->GetCurrentFrame(_dt);
+		
+		if (entity_texture != nullptr)
+		{
+			if (critic)
+			{
+				App->render->Blit(debug_texture, position.first, position.second, &circle_yellow);
+			}
+			else
+			{
+				if (current_turn != NONE)
+				{
+					App->render->Blit(debug_texture, position.first, position.second, &circle_green);
+				}
+				else
+				{
+					App->render->Blit(debug_texture, position.first, position.second, &circle_blue);
+				}
+
+			}
+			
+			
+			
+			if (defend)
+			{
+				SDL_SetTextureColorMod(entity_texture, Defend_color.r, Defend_color.g, Defend_color.b);
+			}
+			else if (critic)
+			{
+				SDL_SetTextureColorMod(entity_texture, Crit_color.r, Crit_color.g, Crit_color.b);
+			}
+			else {
+				SDL_SetTextureColorMod(entity_texture, 255, 255, 255);
+			}
+
+			istargeted = false;
+			for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
+			{
+				if ((*entity)->target == position)
+				{
+					istargeted = true;
+				}
+			}
+
+			for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
+			{
+				if ((*entity)->position.first + (*entity)->current.w / 2 >= position.first - (current.w / 2) && (*entity)->position.first - (*entity)->current.w / 2 <= position.first + (current.w / 2)
+					&& (*entity)->position.second < position.second && (*entity)->position.second > position.second - current.h + position_margin.second
+					&& current_turn == TURN::NONE	&& !(istargeted)
+					&& !(std::find(App->entity_manager->objects.begin(), App->entity_manager->objects.end(), (*entity)) != App->entity_manager->objects.end()))
+				{
+					SDL_SetTextureAlphaMod(entity_texture, 150);
+				}
+			}
+
+			App->render->Blit(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second, &current, 1.0f, flipX);
+			SDL_SetTextureAlphaMod(entity_texture, 255);
+		}
+	}
+	else
+	{		
+		for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
+		{
+			if ((*entity)->position.first >= position.first - (current.w/2) && (*entity)->position.first <= position.first + (current.w/2)
+				&& (*entity)->position.second < position.second	&& (*entity)->position.second > position.second - current.h + position_margin.second
+				&& !(std::find(App->entity_manager->objects.begin(), App->entity_manager->objects.end(), (*entity)) != App->entity_manager->objects.end()))
+			{
+				SDL_SetTextureAlphaMod(entity_texture, 50);
+			}
+		}
+		App->render->Blit(entity_texture, position.first - (current.w / 2) + position_margin.first, position.second - current.h + position_margin.second, &current, 1.0f, flipX);
+		SDL_SetTextureAlphaMod(entity_texture, 255);
+	}
+	
+	return true;
+}
 
 bool Entity::Load(pugi::xml_node & _file)
 {
@@ -103,7 +182,9 @@ bool Entity::Save(pugi::xml_node & _file) const
 	return true;
 }
 
-void Entity::AddFX(const int _channel, const int _repeat) const
+
+
+void Entity::PlaySFX(const int _channel, const int _repeat) const
 {
 	App->audio->PlayFx(_channel, _repeat);
 }
@@ -135,6 +216,14 @@ bool Entity::CleanUp()
 		App->textures->UnLoad(debug_texture);
 		debug_texture = nullptr;
 	}
+
+	App->audio->UnloadFx(sfx.Attack_SFX);
+	App->audio->UnloadFx(sfx.Ability_1_SFX);
+	App->audio->UnloadFx(sfx.Ability_2_SFX);
+	App->audio->UnloadFx(sfx.Ability_3_SFX);
+	App->audio->UnloadFx(sfx.Defend_SFX);
+	App->audio->UnloadFx(sfx.Critic_SFX);
+	App->audio->UnloadFx(sfx.Dead_SFX);
 	
 	return true;
 }

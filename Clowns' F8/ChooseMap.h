@@ -34,6 +34,7 @@ private:
 
 	void NavigateMaps();
 	void CreateMenu();
+	void DeleteLabels();
 
 private:
 
@@ -46,8 +47,17 @@ private:
 	SDL_Rect alpha;
 	SDL_Rect map1, map2, map3, map4;
 	int map_selected;
-	
-	
+	bool debug_maps = false;
+	bool debug_map_1 = false;
+	bool debug_map_2 = false;
+	bool debug_map_3 = false;
+
+	GUIButton* main_menu_button = nullptr;
+	GUIButton* save_game_button = nullptr;
+	GUILabel* main_menu_label = nullptr;
+	GUILabel* save_game_label = nullptr;
+	GUILabel* saved_label = nullptr;
+
 };
 
 #endif //!__ChooseMap_H_

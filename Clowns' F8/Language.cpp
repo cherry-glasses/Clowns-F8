@@ -48,7 +48,7 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 
 		
 		resume = config.child("battle_scene").child("resume").attribute("value").as_string("");
-		main_menu = config.child("battle_scene").child("main_menu").attribute("value").as_string("");
+		choose_map = config.child("battle_scene").child("choose_map").attribute("value").as_string("");
 		battle_abilities = config.child("battle_scene").child("battle_abilities").attribute("value").as_string("");
 		defend = config.child("battle_scene").child("defend").attribute("value").as_string("");
 
@@ -58,6 +58,79 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		map2 = config.child("choose_map_scene").child("map2").attribute("value").as_string("");
 		map3 = config.child("choose_map_scene").child("map3").attribute("value").as_string("");
 		map4 = config.child("choose_map_scene").child("map4").attribute("value").as_string("");
+		save_game = config.child("choose_map_scene").child("save_game").attribute("value").as_string("");
+		saved = config.child("choose_map_scene").child("saved").attribute("value").as_string("");
+		main_menu = config.child("choose_map_scene").child("main_menu").attribute("value").as_string("");
+
+		lines.push_back(config.child("intro_scene").child("line1").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line2").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line3").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line4").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line5").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line6").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line7").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line8").attribute("value").as_string(""));
+
+		lines.push_back(config.child("intro_scene").child("line9").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line10").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line11").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line12").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line13").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line14").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line15").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line16").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line17").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line18").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line19").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line20").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line21").attribute("value").as_string(""));
+		lines.push_back(config.child("intro_scene").child("line22").attribute("value").as_string(""));
+
+		end_lines.push_back(config.child("ending_scene").child("line1").attribute("value").as_string(""));
+		end_lines.push_back(config.child("ending_scene").child("line2").attribute("value").as_string(""));
+		end_lines.push_back(config.child("ending_scene").child("line3").attribute("value").as_string(""));
+		end_lines.push_back(config.child("ending_scene").child("line4").attribute("value").as_string(""));
+		end_lines.push_back(config.child("ending_scene").child("line5").attribute("value").as_string(""));
+		end_lines.push_back(config.child("ending_scene").child("line6").attribute("value").as_string(""));
+
+		attack_sapphire = config.child("battle_scene").child("sapphire").attribute("attack").as_string("");
+		attack_iris = config.child("battle_scene").child("iris").attribute("attack").as_string("");
+		attack_storm = config.child("battle_scene").child("storm").attribute("attack").as_string("");
+		attack_georgeb = config.child("battle_scene").child("georgeb").attribute("attack").as_string("");
+
+		ability1_sapphire = config.child("battle_scene").child("sapphire").attribute("ability_1").as_string("");
+		ability1_iris = config.child("battle_scene").child("iris").attribute("ability_1").as_string("");
+		ability1_storm = config.child("battle_scene").child("storm").attribute("ability_1").as_string("");
+		ability1_georgeb = config.child("battle_scene").child("georgeb").attribute("ability_1").as_string("");
+
+		ability2_sapphire = config.child("battle_scene").child("sapphire").attribute("ability_2").as_string("");
+		ability2_iris = config.child("battle_scene").child("iris").attribute("ability_2").as_string("");
+		ability2_storm = config.child("battle_scene").child("storm").attribute("ability_2").as_string("");
+		ability2_georgeb = config.child("battle_scene").child("georgeb").attribute("ability_2").as_string("");
+
+		ability3_sapphire = config.child("battle_scene").child("sapphire").attribute("ability_3").as_string("");
+		ability3_iris = config.child("battle_scene").child("iris").attribute("ability_3").as_string("");
+		ability3_storm = config.child("battle_scene").child("storm").attribute("ability_3").as_string("");
+		ability3_georgeb = config.child("battle_scene").child("georgeb").attribute("ability_3").as_string("");
+
+		//tutorial
+
+		lets_do_it_tutorial = config.child("battle_scene").child("lets").attribute("value").as_string("");
+		greatings_tutorial = config.child("battle_scene").child("greating").attribute("value").as_string("");
+		movemnent_tutorial = config.child("battle_scene").child("move").attribute("value").as_string("");
+		defens_tutorial = config.child("battle_scene").child("def").attribute("value").as_string("");
+		greatings_2 = config.child("battle_scene").child("greating_2").attribute("value").as_string("");
+		greatings_3 = config.child("battle_scene").child("greating_3").attribute("value").as_string("");
+		movemnent_2 = config.child("battle_scene").child("move_2").attribute("value").as_string("");
+		movemnent_3 = config.child("battle_scene").child("move_3").attribute("value").as_string("");
+		movemnent_4 = config.child("battle_scene").child("move_4").attribute("value").as_string("");
+		movemnent_5 = config.child("battle_scene").child("move_5").attribute("value").as_string("");
+		movemnent_6 = config.child("battle_scene").child("move_6").attribute("value").as_string("");
+		defens_2 = config.child("battle_scene").child("def_2").attribute("value").as_string("");
+		defens_3 = config.child("battle_scene").child("def_3").attribute("value").as_string("");
+		defens_4 = config.child("battle_scene").child("def_4").attribute("value").as_string("");
+		defens_5 = config.child("battle_scene").child("def_5").attribute("value").as_string("");
+		defens_6 = config.child("battle_scene").child("def_6").attribute("value").as_string("");
 
 	}
 	

@@ -4,12 +4,32 @@
 #include "ModuleInput.h"
 #include "ModulePathfinding.h"
 #include "ModuleEntityManager.h"
+#include "ModuleSceneManager.h"
 
 
 CharacterSapphire::CharacterSapphire(ENTITY_TYPE _type, pugi::xml_node _config) : Character(_type, _config)
 {
 	CurrentMovement(IDLE_RIGHT_FRONT);
 	current = current_animation->GetCurrentFrame(1);
+	std::pair<int, int> pos = { 12,12 };
+	int x = 0;
+	int y = 0;
+	for (int i = 0; i < (25 * 25); i++)
+	{
+		possible_mov_list.push_back({ x, y });
+		++x;
+		if (x > 24) {
+			x = 0;
+			++y;
+		}
+		if (y > 24) {
+			y = 0;
+		}
+	}
+	attacks_names.Attack_name = App->scene_manager->language->attack_sapphire;
+	attacks_names.Ability_1_name = App->scene_manager->language->ability1_sapphire;
+	attacks_names.Ability_2_name = App->scene_manager->language->ability2_sapphire;
+	attacks_names.Ability_3_name = App->scene_manager->language->ability3_sapphire;
 }
 
 CharacterSapphire::~CharacterSapphire() {
@@ -20,20 +40,6 @@ void CharacterSapphire::SearchWalk() {
 
 	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
 	range = App->entity_manager->RangeOfAttack(pos, current_stats.PMove, tiles_range_attk);
-	int x = pos.first - current_stats.PMove;
-	int y = pos.second - current_stats.PMove;
-	for (int i = 0; i < ((current_stats.PMove * 2) + 1) * ((current_stats.PMove * 2) + 1); i++)
-	{
-		possible_mov_list.push_back({ x, y });
-		++x;
-		if (x > pos.first + current_stats.PMove) {
-			x = pos.first - current_stats.PMove;
-			++y;
-		}
-		if (y > pos.second + current_stats.PMove) {
-			y = pos.second - current_stats.PMove;
-		}
-	}
 
 	for (int i = 0; i < tiles_range_attk; i++) {
 		inrange_mov_list.push_back({ range[i].first, range[i].second });
@@ -50,20 +56,7 @@ void CharacterSapphire::SearchAttack() {
 
 	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
 	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAtk, tiles_range_attk);
-	int x = pos.first - current_stats.RangeAtk;
-	int y = pos.second - current_stats.RangeAtk;
-	for (int i = 0; i < ((current_stats.RangeAtk * 2) + 1) * ((current_stats.RangeAtk * 2) + 1); i++)
-	{
-		possible_mov_list.push_back({ x, y });
-		++x;
-		if (x > pos.first + current_stats.RangeAtk) {
-			x = pos.first - current_stats.RangeAtk;
-			++y;
-		}
-		if (y > pos.second + current_stats.RangeAtk) {
-			y = pos.second - current_stats.RangeAtk;
-		}
-	}
+	
 	for (int i = 0; i < tiles_range_attk; i++) {
 		inrange_mov_list.push_back({ range[i].first, range[i].second });
 	}
@@ -79,20 +72,7 @@ void CharacterSapphire::SearchAbility_1() {
 
 	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
 	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAbility_1, tiles_range_attk);
-	int x = pos.first - current_stats.RangeAbility_1;
-	int y = pos.second - current_stats.RangeAbility_1;
-	for (int i = 0; i < ((current_stats.RangeAbility_1 * 2) + 1) * ((current_stats.RangeAbility_1 * 2) + 1); i++)
-	{
-		possible_mov_list.push_back({ x, y });
-		++x;
-		if (x > pos.first + current_stats.RangeAbility_1) {
-			x = pos.first - current_stats.RangeAbility_1;
-			++y;
-		}
-		if (y > pos.second + current_stats.RangeAbility_1) {
-			y = pos.second - current_stats.RangeAbility_1;
-		}
-	}
+	
 	for (int i = 0; i < tiles_range_attk; i++) {
 		inrange_mov_list.push_back({ range[i].first, range[i].second });
 	}
@@ -108,20 +88,7 @@ void CharacterSapphire::SearchAbility_2() {
 
 	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
 	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAbility_2, tiles_range_attk);
-	int x = pos.first - current_stats.RangeAbility_2;
-	int y = pos.second - current_stats.RangeAbility_2;
-	for (int i = 0; i < ((current_stats.RangeAbility_2 * 2) + 1) * ((current_stats.RangeAbility_2 * 2) + 1); i++)
-	{
-		possible_mov_list.push_back({ x, y });
-		++x;
-		if (x > pos.first + current_stats.RangeAbility_2) {
-			x = pos.first - current_stats.RangeAbility_2;
-			++y;
-		}
-		if (y > pos.second + current_stats.RangeAbility_2) {
-			y = pos.second - current_stats.RangeAbility_2;
-		}
-	}
+	
 	for (int i = 0; i < tiles_range_attk; i++) {
 		inrange_mov_list.push_back({ range[i].first, range[i].second });
 	}
@@ -135,11 +102,8 @@ void CharacterSapphire::SearchAbility_2() {
 
 void CharacterSapphire::SearchAbility_3() {
 
-	possible_mov_list.push_back({ App->map->WorldToMap(position.first, position.second) });
 	inrange_mov_list.push_back({ App->map->WorldToMap(position.first, position.second) });
-
 	current_turn = Entity::SELECT_ABILITY_3;
-
 }
 
 
@@ -570,261 +534,5 @@ void CharacterSapphire::CurrentMovement(MOVEMENT _movement) {
 		break;
 	default:
 		break;
-	}
-}
-
-void CharacterSapphire::InputSelectMove() {
-
-	if (App->input->Left()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap - 1) {
-						if ((*possible_mov).first > (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
-						{
-							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
-								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end()
-								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
-							{
-								Cap -= 1;
-								i = possible_mov_list.size();
-							}
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-	else if (App->input->Right()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap + 1) {
-						if ((*possible_mov).first < (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
-						{
-							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
-								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end()
-								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
-							{
-								Cap += 1;
-								i = possible_mov_list.size();
-							}
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-	else if (App->input->Down()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap + sqrt(possible_mov_list.size())) {
-						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
-						{
-							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
-								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end()
-								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
-							{
-								Cap += sqrt(possible_mov_list.size());
-								i = possible_mov_list.size();
-							}
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-	else if (App->input->Up()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap - sqrt(possible_mov_list.size())) {
-						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
-						{
-							if (App->pathfinding->IsWalkable({ (*possible_mov_2).first , (*possible_mov_2).second })
-								&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end()
-								&& !App->pathfinding->IsUsed({ (*possible_mov_2).first , (*possible_mov_2).second }, this))
-							{
-								Cap -= sqrt(possible_mov_list.size());
-								i = possible_mov_list.size();
-							}
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-}
-
-void CharacterSapphire::InputSelectAttack() {
-	
-	if (App->input->Left()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap - 1) {
-						if ((*possible_mov).first > (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
-						{
-							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
-							{
-								Cap -= 1;
-								i = possible_mov_list.size();
-							}
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-	else if (App->input->Right()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap + 1) {
-						if ((*possible_mov).first < (*possible_mov_2).first && (*possible_mov).second == (*possible_mov_2).second)
-						{
-							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
-							{
-								Cap += 1;
-								i = possible_mov_list.size();
-							}
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-	else if (App->input->Down()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap + sqrt(possible_mov_list.size())) {
-						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second < (*possible_mov_2).second)
-						{
-							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
-							{
-								Cap += sqrt(possible_mov_list.size());
-								i = possible_mov_list.size();
-							}
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
-	}
-	else if (App->input->Up()) {
-
-		int i = 0;
-		for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
-		{
-			if (i >= possible_mov_list.size()) {
-				break;
-			}
-			else if (i == Cap)
-			{
-				int j = 0;
-				for (std::list<std::pair<int, int>>::iterator possible_mov_2 = possible_mov_list.begin(); possible_mov_2 != possible_mov_list.end(); ++possible_mov_2)
-				{
-					if (j == Cap - sqrt(possible_mov_list.size())) {
-						if ((*possible_mov).first == (*possible_mov_2).first && (*possible_mov).second > (*possible_mov_2).second)
-						{
-							if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov_2)) != inrange_mov_list.end())
-							{
-								Cap -= sqrt(possible_mov_list.size());
-								i = possible_mov_list.size();
-							}
-							break;
-						}
-					}
-					++j;
-				}
-			}
-			++i;
-		}
 	}
 }

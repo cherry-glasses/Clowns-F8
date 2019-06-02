@@ -43,13 +43,26 @@ protected:
 	void UpdateCharacterPortraits(Entity* _character, int _i);
 	void UpdateEnemyPortraits(Entity* _enemy, int _i);
 
+	void ShowEntityInfo(Entity* _entity);
+	void LevelUp(bool _up);
+
+	void DeleteEntityInfo();
 	void DeleteAttackMenu();
 	void DeleteAbilitiesMenu();
 	void DeleteOptionsIngame();
 
+	
+
 	void ActionsMenu();
 
 	void ControlLanguageAndMusic();
+
+	//tutorial
+
+	void Createtutorial();
+	void Tutoriallogic();
+	void Destroytutorial();
+
 
 protected:
 
@@ -68,23 +81,31 @@ protected:
 	GUIButton* ability1_button = nullptr;
 	GUIButton* ability2_button = nullptr;
 	GUIButton* ability3_button = nullptr;
+
+
+	std::pair<int, int> portrait_margin;
+	std::pair<int, int> life_margin;
+	std::pair<int, int> mana_margin;
+	std::pair<int, int> port_margin;
+	std::pair<int, int> name_margin;
+	std::pair<int, int> level_margin;
+	std::pair<int, int> actions_margin;
+
 	std::vector<GUIImage*> life;
 	std::vector<GUIImage*> enemies_life;
 	std::vector<GUIImage*> mana;
 	std::vector<GUIImage*> portrait;
 	std::vector<GUIImage*> port;
 	std::vector<GUILabel*> character_names;
+	std::vector<GUILabel*> character_levels;
 	std::vector<GUILabel*> life_numbers;
 	std::vector<GUILabel*> mana_numbers;
 	std::vector<int> life_x;
 	std::vector<int> mana_x;
 	std::vector<int> enemies_life_x;
-	std::vector<std::pair<int, int>> life_position;
-	std::vector<std::pair<int, int>> mana_position;
-	std::vector<std::pair<int, int>> port_position;
 	std::vector<std::pair<int, int>> portrait_position;
-	std::vector<std::pair<int, int>> name_position;
 	std::vector<std::pair<int, int>> act_menu_position;
+
 	bool waiting_for_input = false;
 
 	std::list<GUIButton*> buttons2;
@@ -108,7 +129,7 @@ protected:
 	GUIButton* volume_up_button = nullptr;
 	GUIButton* volume_down_button = nullptr;
 	GUIButton* resume_button = nullptr;
-	GUIButton* main_menu_button = nullptr;
+	GUIButton* choose_map_button = nullptr;
 
 	GUILabel* english_label = nullptr;
 	GUILabel* spanish_label = nullptr;
@@ -119,11 +140,75 @@ protected:
 	GUILabel* language_label = nullptr;
 	GUILabel* volume_label = nullptr;
 	GUILabel* resume_label = nullptr;
-	GUILabel* main_menu_label = nullptr;
+	GUILabel* choose_map_label = nullptr;
 
 	bool character_ability1up = false;
 	bool character_ability2up = false;
 	bool character_ability3up = false;
+
+	//Showing info entities
+	std::pair<int, int> aux_target = { 0,0 };
+	SDL_Rect board;
+	std::pair<int, int> port_board;
+	std::pair<int, int> name_board;
+	std::pair<int, int> life_board;
+	std::pair<int, int> mana_board;
+	std::pair<int, int> attack_board;
+	std::pair<int, int> ability_1_board;
+	std::pair<int, int> ability_2_board;
+	std::pair<int, int> ability_3_board;
+
+	GUIImage* board_entity = nullptr;
+	GUIImage* port_entity = nullptr;
+	GUILabel* name_entity = nullptr;
+	GUILabel* lvl_entity = nullptr;
+	GUILabel* exp_entity = nullptr;
+	GUILabel* life_entity = nullptr;
+	GUILabel* mana_entity = nullptr;
+	GUILabel* atk_f_entity = nullptr;
+	GUILabel* def_f_entity = nullptr;
+	GUILabel* atk_s_entity = nullptr;
+	GUILabel* def_s_entity = nullptr;
+	GUILabel* crit_entity = nullptr;
+	GUILabel* eva_entity = nullptr;
+	GUILabel* attack_entity = nullptr;
+	GUILabel* ability1_entity = nullptr;
+	GUILabel* ability2_entity = nullptr;
+	GUILabel* ability3_entity = nullptr;
+
+
+	//tutorial
+
+	std::list<GUIButton*> buttons_tutorial;
+	GUILabel* lets_label = nullptr;
+	GUILabel* tutorial_general_label = nullptr;
+	GUIButton* lets_button = nullptr;
+	GUILabel* tutorial_general_label_2 = nullptr;
+	GUILabel* tutorial_general_label_3 = nullptr;
+	GUILabel* tutorial_general_label_4 = nullptr;
+	GUILabel* tutorial_general_label_5 = nullptr;
+	GUILabel* tutorial_general_label_6 = nullptr;
+
+
+	//tutorial bools
+
+	bool Is_created_tut = false;
+	bool first_level_tut = true;
+	bool first_char = false;
+
+
+	//tutorial logic
+
+	enum TUTORIAL {
+		GRETTINGS,
+		MOVE,
+		DEFENS,
+		ATTACK,
+		OFF
+	};
+	
+	TUTORIAL logic = GRETTINGS;
+
 
 };
 

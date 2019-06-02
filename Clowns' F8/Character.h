@@ -18,7 +18,6 @@ public:
 	// Called each loop iteration
 	virtual bool PreUpdate();
 	virtual bool Update(float _dt);
-	virtual bool PostUpdate(float _dt);
 
 	// Character thinks
 	virtual void SearchWalk() {}
@@ -47,8 +46,7 @@ public:
 	virtual bool Save(pugi::xml_node&) const;
 
 	//Moves and Attack Select
-	virtual void InputSelectMove() {}
-	virtual void InputSelectAttack() {}
+	virtual void InputSelectMove();
 
 protected:
 

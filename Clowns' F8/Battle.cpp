@@ -3,7 +3,6 @@
 #include "ModuleSceneManager.h"
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
-#include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleMap.h"
 #include "ModuleEntityManager.h"
@@ -14,33 +13,51 @@
 
 Battle::Battle(SCENE_TYPE _type, pugi::xml_node& _config) : Scene(_type, _config)
 {
+	App->scene_manager->objects_texture = App->textures->Load(_config.child("texture").attribute("value").as_string());
+	press_sfx = App->audio->LoadFx(_config.child("press_fx_name").attribute("source").as_string());
+
+	life_margin = { _config.child("life_position").attribute("margin_x").as_int(), _config.child("life_position").attribute("margin_y").as_int() };
+	mana_margin = { _config.child("mana_position").attribute("margin_x").as_int(), _config.child("mana_position").attribute("margin_y").as_int() };
+	actions_margin = { _config.child("actions_position").attribute("margin_x").as_int(), _config.child("actions_position").attribute("margin_y").as_int() };
+	port_margin = { _config.child("port_position").attribute("margin_x").as_int(), _config.child("port_position").attribute("margin_y").as_int() };
+	portrait_margin = { _config.child("portrait_position").attribute("margin_x").as_int(), _config.child("portrait_position").attribute("margin_y").as_int() };
+	name_margin = { _config.child("name_position").attribute("margin_x").as_int(), _config.child("name_position").attribute("margin_y").as_int() };
+	level_margin = { _config.child("level_position").attribute("margin_x").as_int(), _config.child("level_position").attribute("margin_y").as_int() };
+
+	board = { _config.child("board").attribute("x").as_int(), _config.child("board").attribute("y").as_int(),
+		_config.child("board").attribute("w").as_int(), _config.child("board").attribute("h").as_int() };
+	port_board = { _config.child("board").child("port").attribute("margin_x").as_int(),  _config.child("board").child("port").attribute("margin_y").as_int() };
+	name_board = { _config.child("board").child("name").attribute("margin_x").as_int(),  _config.child("board").child("name").attribute("margin_y").as_int() };
+	life_board = { _config.child("board").child("life").attribute("margin_x").as_int(),  _config.child("board").child("life").attribute("margin_y").as_int() };
+	mana_board = { _config.child("board").child("mana").attribute("margin_x").as_int(),  _config.child("board").child("mana").attribute("margin_y").as_int() };
+	attack_board = { _config.child("board").child("attack").attribute("margin_x").as_int(),  _config.child("board").child("attack").attribute("margin_y").as_int() };
+	ability_1_board = { _config.child("board").child("ability_1").attribute("margin_x").as_int(),  _config.child("board").child("ability_1").attribute("margin_y").as_int() };
+	ability_2_board = { _config.child("board").child("ability_2").attribute("margin_x").as_int(),  _config.child("board").child("ability_2").attribute("margin_y").as_int() };
+	ability_3_board = { _config.child("board").child("ability_3").attribute("margin_x").as_int(),  _config.child("board").child("ability_3").attribute("margin_y").as_int() };
+
 	for (int i = 0; i < 4; i++)
 	{
 		switch (i)
 		{
 		case 0:
-			portrait_position.push_back({ portrait_margin.first - App->window->GetScreenWidth() / 2, portrait_margin.second - App->window->GetScreenHeight() / 8 });
+			portrait_position.push_back({ portrait_margin.first - screen_width / 2, portrait_margin.second - screen_height / 8 });
 			act_menu_position.push_back({ portrait_position.at(i).first + actions_margin.first, portrait_position.at(i).second + actions_margin.second });
 			break;
 		case 1:
-			portrait_position.push_back({ App->window->GetScreenWidth() / 2 - portrait_margin.first - 259, portrait_margin.second - App->window->GetScreenHeight() / 8 });
+			portrait_position.push_back({ screen_width / 2 - portrait_margin.first - 259, portrait_margin.second - screen_height / 8 });
 			act_menu_position.push_back({ portrait_position.at(i).first + actions_margin.first, portrait_position.at(i).second + actions_margin.second });
 			break;
 		case 2:
-			portrait_position.push_back({ portrait_margin.first - App->window->GetScreenWidth() / 2, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
+			portrait_position.push_back({ portrait_margin.first - screen_width / 2, screen_height - 300 });
 			act_menu_position.push_back({ portrait_position.at(i).first + actions_margin.first, portrait_position.at(i).second - actions_margin.second });
 			break;
 		case 3:
-			portrait_position.push_back({ App->window->GetScreenWidth() / 2 - portrait_margin.first - 259, App->window->GetScreenHeight() - App->window->GetScreenHeight() / 8 - 178 });
+			portrait_position.push_back({ screen_width / 2 - portrait_margin.first - 259, screen_height - 300 });
 			act_menu_position.push_back({ portrait_position.at(i).first + actions_margin.first, portrait_position.at(i).second - actions_margin.second });
 			break;
 		default:
 			break;
 		}
-		life_position.push_back({ portrait_position.at(i).first + life_margin.first, portrait_position.at(i).second + life_margin.second });
-		mana_position.push_back({ portrait_position.at(i).first + mana_margin.first, portrait_position.at(i).second + mana_margin.second });
-		port_position.push_back({ portrait_position.at(i).first + port_margin.first, portrait_position.at(i).second + port_margin.second });
-		name_position.push_back({ portrait_position.at(i).first + name_margin.first, portrait_position.at(i).second + name_margin.second });
 	}
 }
 
@@ -51,6 +68,11 @@ Battle::~Battle()
 bool Battle::Update(float _dt)
 {
 	bool ret = true;
+
+	if (first_level_tut == true) {
+		Tutoriallogic();
+	}
+
 
 	if (App->input->Pause() || ingame_options_menu_created)
 	{
@@ -82,11 +104,11 @@ bool Battle::Update(float _dt)
 			}
 
 		}
-		else if (main_menu_button->has_been_clicked)
+		else if (choose_map_button->has_been_clicked)
 		{
 			if (!App->scene_manager->changing)
 			{
-				App->transition_manager->CreateFadeTransition(2, true, MAIN_MENU, Black);
+				App->transition_manager->CreateFadeTransition(2, true, CHOOSE_MAP, Black);
 				App->scene_manager->changing = true;
 			}
 		}
@@ -120,7 +142,8 @@ bool Battle::Update(float _dt)
 					App->transition_manager->CreateFadeTransition(1, true, CHOOSE_MAP, White);
 					break;
 				case FOURTH_BATTLE:
-					App->transition_manager->CreateFadeTransition(2, true, WIN_SCENE, White);
+					App->scene_manager->victory = true;
+					App->transition_manager->CreateFadeTransition(2, true, INTRO, White);
 					break;
 				default:
 					break;
@@ -128,18 +151,52 @@ bool Battle::Update(float _dt)
 				App->scene_manager->changing = true;
 			}
 		}
-	//	else {
-			UpdateCharacters();
-			UpdateEnemies();
-			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
-			{
-				if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
-				{
-					ActionsMenu();
-				}
-			}
 
-		//}
+		if(App->input->LevelUp())
+		{
+			LevelUp(true);
+		}
+		else if(App->input->LevelDown())
+		{
+			LevelUp(false);
+		}
+
+		UpdateCharacters();
+		UpdateEnemies();
+		
+		for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+		{
+			if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+			{
+				if (!first_char) {
+					logic = DEFENS;
+					first_char = true;
+				}
+				
+				if (!App->scene_manager->tutorial_block_actions)
+					ActionsMenu();
+			}
+			if ((*character)->current_turn != Entity::TURN::NONE)
+			{
+				for (std::list<Entity*>::iterator entity = App->entity_manager->entities.begin(); entity != App->entity_manager->entities.end(); ++entity)
+				{
+					if ((*entity)->GetPosition() == (*character)->target && aux_target != (*character)->target
+						&& !(std::find(App->entity_manager->objects.begin(), App->entity_manager->objects.end(), (*entity)) != App->entity_manager->objects.end()))
+					{
+						aux_target = (*character)->target;
+						ShowEntityInfo((*entity));
+					}
+					else if(aux_target != (*character)->target)
+					{
+						DeleteEntityInfo();
+					}
+				}
+				aux_target = (*character)->target;
+			}
+			
+		}
+		
+
 		App->render->Blit(battle_background, 0 - (screen_width / 2), 0 - (screen_height / 8));
 		App->render->Blit(battle_grid, 0 - (screen_width / 2), 0 - (screen_height / 8));
 		App->map->Draw();
@@ -153,6 +210,7 @@ bool Battle::CleanUp()
 	App->textures->UnLoad(battle_menu_background);
 	App->textures->UnLoad(battle_background);
 	App->textures->UnLoad(battle_grid);
+	App->textures->UnLoad(App->scene_manager->objects_texture);
 	App->gui_manager->DeleteAllGUIElements();
 
 	App->map->CleanUp();
@@ -170,34 +228,21 @@ void Battle::CreateUIBattle()
 	{
 		life_x.push_back((124 * (*character)->current_stats.Hp) / (*character)->default_stats.Hp);
 		mana_x.push_back((124 * (*character)->current_stats.Mana) / (*character)->default_stats.Mana);
-		life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, life_position.at(i).first, life_position.at(i).second, { 0, 58, life_x.at(i), 29 }));
-		mana.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, mana_position.at(i).first, mana_position.at(i).second, { 0, 86, mana_x.at(i), 29 }));
+		life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, portrait_position.at(i).first + life_margin.first, portrait_position.at(i).second + life_margin.second, { 0, 58, life_x.at(i), 29 }));
+		mana.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, portrait_position.at(i).first + mana_margin.first, portrait_position.at(i).second + mana_margin.second, { 0, 86, mana_x.at(i), 29 }));
 		portrait.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, portrait_position.at(i).first, portrait_position.at(i).second, { 0, 134, 256, 128 }));
-		life_numbers.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, life_position.at(i).first + 60, life_position.at(i).second + 11, "0", { 100, 255, 100, 255 }, App->gui_manager->default_font_used, (*character)->current_stats.Hp, (*character)->default_stats.Hp));
-		mana_numbers.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, mana_position.at(i).first + 60, mana_position.at(i).second + 13, "0", { 255, 200, 255, 255 }, App->gui_manager->default_font_used, (*character)->current_stats.Mana, (*character)->default_stats.Mana));
+		life_numbers.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, life.at(i)->position.first + 60, life.at(i)->position.second + 11, "0", { 100, 255, 100, 255 }, App->gui_manager->default_font_used, (*character)->current_stats.Hp, (*character)->default_stats.Hp));
+		mana_numbers.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, mana.at(i)->position.first + 60, mana.at(i)->position.second + 13, "0", { 255, 200, 255, 255 }, App->gui_manager->default_font_used, (*character)->current_stats.Mana, (*character)->default_stats.Mana));
 		stun_image.push_back(nullptr);
 		defense_image.push_back(nullptr);
 		stun_image_created.push_back(false);
 		defense_image_created.push_back(false);
 		turn_created.push_back(false);
-		character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, name_position.at(i).first - (*character)->name.size(), name_position.at(i).second, (*character)->name.c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
-		switch ((*character)->GetType()) {
-		case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
-			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, port_position.at(i).first, port_position.at(i).second, sapphire_portrait));
-			break;
-		case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
-			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, port_position.at(i).first, port_position.at(i).second, iris_portrait));
-			break;
-		case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
-			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, port_position.at(i).first, port_position.at(i).second, george_b_portrait));
-			break;
-		case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
-			port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, port_position.at(i).first, port_position.at(i).second, storm_portrait));
-			break;
-		default:
-			break;
 
-		}
+		character_levels.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, portrait_position.at(i).first + level_margin.first, portrait_position.at(i).second + level_margin.second, "Lvl: " + std::to_string((*character)->level), { 255, 255, 0, 255 }, App->gui_manager->default_font_used));
+		character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, portrait_position.at(i).first + name_margin.first - (*character)->name.size(), portrait_position.at(i).second + name_margin.second, (*character)->name.c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+		port.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, portrait_position.at(i).first + port_margin.first, portrait_position.at(i).second + port_margin.second, (*character)->portrait));
+		
 		++i;
 	}
 	i = 0;
@@ -239,14 +284,8 @@ void Battle::CreateAttackMenu()
 			if ((*character)->level >= 2)
 				ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_button->position.first + (small_button.w * 0.5), ability_button->position.second + (small_button.h * 0.5), App->scene_manager->language->battle_abilities, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 			defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, defend_button->position.first + (small_button.w * 0.5), defend_button->position.second + (small_button.h * 0.5), App->scene_manager->language->defend, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-			if (App->scene_manager->language->type == LANGUAGE_TYPE::ENGLISH)
-			{
-				attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, attack_button->position.first + (small_button.w * 0.5), attack_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Attack_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-			}
-			else
-			{
-				attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, attack_button->position.first + (small_button.w * 0.5), attack_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ataque_nombre, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-			}
+			attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, attack_button->position.first + (small_button.w * 0.5), attack_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Attack_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+			
 		}
 		++i;
 	}
@@ -286,23 +325,14 @@ void Battle::CreateAbilitiesMenu()
 				character_ability3up = false;
 
 			ability1_button->Select(SELECTED);
-			if (App->scene_manager->language->type == LANGUAGE_TYPE::ENGLISH)
-			{
-				attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability1_button->position.first + (small_button.w * 0.5), ability1_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ability_1_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-				if ((*character)->level >= 4)
-					ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability2_button->position.first + (small_button.w * 0.5), ability2_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ability_2_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-				if ((*character)->level >= 7)
-					defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability3_button->position.first + (small_button.w * 0.5), ability3_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ability_3_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+			
+			attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability1_button->position.first + (small_button.w * 0.5), ability1_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ability_1_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+			if ((*character)->level >= 4)
+				ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability2_button->position.first + (small_button.w * 0.5), ability2_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ability_2_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+			if ((*character)->level >= 7)
+				defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability3_button->position.first + (small_button.w * 0.5), ability3_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Ability_3_name, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 
-			}
-			else
-			{
-				attack_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability1_button->position.first + (small_button.w * 0.5), ability1_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Habilidad_1_nombre, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-				if ((*character)->level >= 4)
-					ability_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability2_button->position.first + (small_button.w * 0.5), ability2_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Habilidad_2_nombre, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-				if ((*character)->level >= 7)
-					defend_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability3_button->position.first + (small_button.w * 0.5), ability3_button->position.second + (small_button.h * 0.5), (*character)->attacks_names.Habilidad_3_nombre, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-			}
+			
 		}
 		++j;
 	}
@@ -318,28 +348,28 @@ void Battle::CreateOptionsIngame()
 		UpdateEnemyPortraits(nullptr, i);
 		++i;
 	}
-	english_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2) - App->window->GetScreenWidth() / 2, (screen_height / 2) - (option_background.h / 2) + (button.h * 1.5) - App->window->GetScreenHeight() / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	english_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 0 - (button.w / 2) , (screen_height / 2) - (option_background.h / 2) + (button.h * 1.5) - screen_height / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(english_button);
-	spanish_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2) - App->window->GetScreenWidth() / 2, english_button->position.second + (button_margin * 1.5 + button.h * 2.5) - App->window->GetScreenHeight() / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	spanish_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 0 - (button.w / 2) , english_button->position.second + (button_margin * 1.5 + button.h * 2.5) - screen_height / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(spanish_button);
-	volume_up_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2) - App->window->GetScreenWidth() / 2, spanish_button->position.second + (button_margin + button.h * 3.5) - App->window->GetScreenHeight() / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	volume_up_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 0 - (button.w / 2) , spanish_button->position.second + (button_margin + button.h * 3.5) - screen_height / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(volume_up_button);
-	volume_down_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2) - App->window->GetScreenWidth() / 2, volume_up_button->position.second + (button_margin * 1.5 + button.h * 2.5) - App->window->GetScreenHeight() / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	volume_down_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 0 - (button.w / 2), volume_up_button->position.second + (button_margin * 1.5 + button.h * 2.5) - screen_height / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(volume_down_button);
-	resume_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2) - App->window->GetScreenWidth() / 2, (screen_height / 2) + (option_background.h / 2) - button.h * 3.1 - App->window->GetScreenHeight() / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	resume_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 0 - (button.w / 2) , (screen_height / 2) + (option_background.h / 2) - button.h * 3.1 - screen_height / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(resume_button);
-	main_menu_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2) - App->window->GetScreenWidth() / 2, (screen_height / 2) + (option_background.h / 2) - button.h * 1.7 - App->window->GetScreenHeight() / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
-	buttons.push_back(main_menu_button);
+	choose_map_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 0 - (button.w / 2) , (screen_height / 2) + (option_background.h / 2) - button.h * 1.7 - screen_height / 8, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	buttons.push_back(choose_map_button);
 
 	volume_up_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, volume_up_button->position.first + (button.w / 2), volume_up_button->position.second + (button.h / 2), "+", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	volume_down_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, volume_down_button->position.first + (button.w / 2), volume_down_button->position.second + (button.h / 2), "-", { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 
 	english_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, english_button->position.first + (button.w / 2), english_button->position.second + (button.h / 2), App->scene_manager->language->english, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	spanish_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, spanish_button->position.first + (button.w / 2), spanish_button->position.second + (button.h / 2), App->scene_manager->language->spanish, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	main_menu_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, main_menu_button->position.first + (button.w / 2), main_menu_button->position.second + (button.h / 2), App->scene_manager->language->main_menu, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	choose_map_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, choose_map_button->position.first + (button.w / 2), choose_map_button->position.second + (button.h / 2), App->scene_manager->language->choose_map, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	resume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, resume_button->position.first + (button.w / 2), resume_button->position.second + (button.h / 2), App->scene_manager->language->resume, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	language_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2) - App->window->GetScreenWidth() / 2, english_button->position.second + (button.h * 1.5) - App->window->GetScreenHeight() / 8, App->scene_manager->language->choose_language, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
-	volume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2) - App->window->GetScreenWidth() / 2, volume_up_button->position.second + (button.h * 1.5) - App->window->GetScreenHeight() / 8, App->scene_manager->language->volume, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	language_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 0, english_button->position.second + (button.h * 1.5) - screen_height / 8, App->scene_manager->language->choose_language, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+	volume_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 0, volume_up_button->position.second + (button.h * 1.5) - screen_height / 8, App->scene_manager->language->volume, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	
 	english_button->Select(SELECTED);
 }
@@ -429,25 +459,125 @@ void Battle::UpdateCharacterPortraits(Entity* _character, int _i)
 	App->gui_manager->DeleteGUIElement(mana.at(_i));
 	App->gui_manager->DeleteGUIElement(life_numbers.at(_i));
 	App->gui_manager->DeleteGUIElement(mana_numbers.at(_i));
+	App->gui_manager->DeleteGUIElement(character_levels.at(_i));
 	life_x.at(_i) = (124 * _character->current_stats.Hp) / _character->default_stats.Hp;
 	mana_x.at(_i) = (124 * _character->current_stats.Mana) / _character->default_stats.Mana;
-	life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, life_position.at(_i).first, life_position.at(_i).second, { 0, 58, life_x.at(_i), 29 });
-	mana.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, mana_position.at(_i).first, mana_position.at(_i).second, { 0, 86, mana_x.at(_i), 29 });
-	life_numbers.at(_i) = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, life_position.at(_i).first + 60, life_position.at(_i).second + 11, "0", { 100, 255, 100, 255 }, App->gui_manager->default_font_used, _character->current_stats.Hp, _character->default_stats.Hp);
-	mana_numbers.at(_i) = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, mana_position.at(_i).first + 60, mana_position.at(_i).second + 13, "0", { 255, 200, 255, 255 }, App->gui_manager->default_font_used, _character->current_stats.Mana, _character->default_stats.Mana);
+	life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, portrait_position.at(_i).first + life_margin.first, portrait_position.at(_i).second + life_margin.second, { 0, 58, life_x.at(_i), 29 });
+	mana.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, portrait_position.at(_i).first + mana_margin.first, portrait_position.at(_i).second + mana_margin.second, { 0, 86, mana_x.at(_i), 29 });
+	life_numbers.at(_i) = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, life.at(_i)->position.first + 60, life.at(_i)->position.second + 11, "0", { 100, 255, 100, 255 }, App->gui_manager->default_font_used, (_character)->current_stats.Hp, (_character)->default_stats.Hp);
+	mana_numbers.at(_i) = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, mana.at(_i)->position.first + 60, mana.at(_i)->position.second + 13, "0", { 255, 200, 255, 255 }, App->gui_manager->default_font_used, (_character)->current_stats.Mana, (_character)->default_stats.Mana);
+	character_levels.at(_i) = ((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, portrait_position.at(_i).first + level_margin.first, portrait_position.at(_i).second + level_margin.second, "Lvl: " + std::to_string((_character)->level), { 255, 255, 0, 255 }, App->gui_manager->default_font_used));
 }
 
 void Battle::UpdateEnemyPortraits(Entity* _enemy, int _i)
 {
 	App->gui_manager->DeleteGUIElement(enemies_life.at(_i));
 	enemies_life_x.at(_i) = 0;
-	if (_enemy != nullptr) {
+	if (_enemy != nullptr) 
+	{
 		enemies_life_x.at(_i) = (64 * _enemy->current_stats.Hp) / _enemy->default_stats.Hp;
 		enemies_life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, _enemy->GetPosition().first, _enemy->GetPosition().second + _enemy->position_margin.second - _enemy->current.h, { 0, 58, enemies_life_x.at(_i) , 5 });
 	}
 }
 
+// UTILITIES---------------------------------------------------------------------------------------
+void Battle::ShowEntityInfo(Entity* _entity)
+{
+	App->gui_manager->DeleteGUIElement(board_entity);
+	App->gui_manager->DeleteGUIElement(port_entity);
+	App->gui_manager->DeleteGUIElement(name_entity);
+	App->gui_manager->DeleteGUIElement(lvl_entity);
+	App->gui_manager->DeleteGUIElement(exp_entity);
+	App->gui_manager->DeleteGUIElement(life_entity);
+	App->gui_manager->DeleteGUIElement(mana_entity);
+	App->gui_manager->DeleteGUIElement(atk_f_entity);
+	App->gui_manager->DeleteGUIElement(def_f_entity);
+	App->gui_manager->DeleteGUIElement(atk_s_entity);
+	App->gui_manager->DeleteGUIElement(def_s_entity);
+	App->gui_manager->DeleteGUIElement(crit_entity);
+	App->gui_manager->DeleteGUIElement(eva_entity);
+	App->gui_manager->DeleteGUIElement(attack_entity);
+	App->gui_manager->DeleteGUIElement(ability1_entity);
+	App->gui_manager->DeleteGUIElement(ability2_entity);
+	App->gui_manager->DeleteGUIElement(ability3_entity);
+	if (_entity != nullptr) 
+	{
+		board_entity = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 0 - (board.w/2), screen_height - screen_height/7 - portrait_margin.second - board.h, board);
+		port_entity = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, board_entity->position.first + port_board.first , board_entity->position.second + port_board.second, _entity->portrait);
+		name_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + name_board.first, board_entity->position.second + name_board.second, _entity->name.c_str(), { 255, 255, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		lvl_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, port_entity->position.first, board_entity->position.second + (life_board.second * 24), "Lvl: " + std::to_string(_entity->level), { 0, 100, 200, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		exp_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lvl_entity->position.first + lvl_entity->area.w, board_entity->position.second + (life_board.second * 24), "Exp: " + std::to_string(_entity->exp), { 0, 100, 200, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		life_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + life_board.first, board_entity->position.second + life_board.second, "Hp: " + std::to_string(_entity->current_stats.Hp), { 0, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		mana_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + mana_board.first, board_entity->position.second + mana_board.second, "Mana: " + std::to_string(_entity->current_stats.Mana), { 0, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		atk_f_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + life_board.first, board_entity->position.second + (life_board.second * 7), "Atk_F: " + std::to_string(_entity->current_stats.AtkF), { 0, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		def_f_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + mana_board.first, board_entity->position.second + (mana_board.second * 7), "Def_F: " + std::to_string(_entity->current_stats.DefF), { 0, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		atk_s_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + life_board.first, board_entity->position.second + (life_board.second * 13), "Atk_S: " + std::to_string(_entity->current_stats.AtkS), { 0, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		def_s_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + mana_board.first, board_entity->position.second + (mana_board.second * 13), "Def_S: " + std::to_string(_entity->current_stats.DefS), { 0, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		crit_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + life_board.first, board_entity->position.second + (life_board.second * 19), "Crit: " + std::to_string(_entity->current_stats.Crit), { 0, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		eva_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + mana_board.first, board_entity->position.second + (mana_board.second * 19), "Eva: " + std::to_string(_entity->current_stats.Eva), { 0, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		attack_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + attack_board.first, board_entity->position.second + attack_board.second, ("Attack: " + _entity->attacks_names.Attack_name).c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		ability1_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + ability_1_board.first, board_entity->position.second + ability_1_board.second, ("Ability 1: " + _entity->attacks_names.Ability_1_name).c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		if (_entity->attacks_names.Ability_2_name != "")
+		{
+			ability2_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + ability_2_board.first, board_entity->position.second + ability_2_board.second, ("Ability 2: " + _entity->attacks_names.Ability_2_name).c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+			ability3_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + ability_3_board.first, board_entity->position.second + ability_3_board.second, ("Ability 3: " + _entity->attacks_names.Ability_3_name).c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		}
+		
+	}
+	
+}
+
+void Battle::LevelUp(bool _up)
+{
+	App->entity_manager->exp_sapphire = 0;
+	App->entity_manager->exp_iris = 0;
+	App->entity_manager->exp_storm = 0;
+	App->entity_manager->exp_georgeb = 0;
+	int i = 0;
+	for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+	{
+		if (i == 0 && _up && (*character)->level < 10)
+		{
+			App->entity_manager->LevelUP((*character)->levels.at((*character)->level - 1));
+		}
+		else if (i == 0 && !_up && (*character)->level > 2)
+		{
+			App->entity_manager->LevelUP((*character)->levels.at((*character)->level - 3));
+		}
+		else if (i == 0 && !_up)
+		{
+			App->entity_manager->LevelUP(0);
+		}
+		App->gui_manager->DeleteGUIElement(character_levels.at(i));
+		character_levels.at(i) = ((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, portrait_position.at(i).first + level_margin.first, portrait_position.at(i).second + level_margin.second, "Lvl: " + std::to_string((*character)->level), { 255, 255, 0, 255 }, App->gui_manager->default_font_used));
+		++i;
+	}
+	aux_target = { 0,0 };
+
+}
+
 // DELETES -------------------------------------------------------------------------------------------
+
+void Battle::DeleteEntityInfo()
+{
+	App->gui_manager->DeleteGUIElement(board_entity);
+	App->gui_manager->DeleteGUIElement(port_entity);
+	App->gui_manager->DeleteGUIElement(name_entity);
+	App->gui_manager->DeleteGUIElement(lvl_entity);
+	App->gui_manager->DeleteGUIElement(exp_entity);
+	App->gui_manager->DeleteGUIElement(life_entity);
+	App->gui_manager->DeleteGUIElement(mana_entity);
+	App->gui_manager->DeleteGUIElement(atk_f_entity);
+	App->gui_manager->DeleteGUIElement(def_f_entity);
+	App->gui_manager->DeleteGUIElement(atk_s_entity);
+	App->gui_manager->DeleteGUIElement(def_s_entity);
+	App->gui_manager->DeleteGUIElement(crit_entity);
+	App->gui_manager->DeleteGUIElement(eva_entity);
+	App->gui_manager->DeleteGUIElement(attack_entity);
+	App->gui_manager->DeleteGUIElement(ability1_entity);
+	App->gui_manager->DeleteGUIElement(ability2_entity);
+	App->gui_manager->DeleteGUIElement(ability3_entity);
+}
 
 void Battle::DeleteOptionsIngame()
 {
@@ -458,12 +588,12 @@ void Battle::DeleteOptionsIngame()
 	App->gui_manager->DeleteGUIElement(volume_up_button);
 	App->gui_manager->DeleteGUIElement(volume_down_button);
 	App->gui_manager->DeleteGUIElement(resume_button);
-	App->gui_manager->DeleteGUIElement(main_menu_button);
+	App->gui_manager->DeleteGUIElement(choose_map_button);
 	App->gui_manager->DeleteGUIElement(volume_up_label);
 	App->gui_manager->DeleteGUIElement(volume_down_label);
 	App->gui_manager->DeleteGUIElement(english_label);
 	App->gui_manager->DeleteGUIElement(spanish_label);
-	App->gui_manager->DeleteGUIElement(main_menu_label);
+	App->gui_manager->DeleteGUIElement(choose_map_label);
 	App->gui_manager->DeleteGUIElement(resume_label);
 	App->gui_manager->DeleteGUIElement(language_label);
 	App->gui_manager->DeleteGUIElement(volume_label);
@@ -586,7 +716,7 @@ void Battle::ActionsMenu()
 	//navigate for buttons2
 	if (App->input->Down())
 	{
-		App->audio->PlayFx(1, 0);
+		App->audio->PlayFx(press_sfx);
 		for (std::list<GUIButton*>::const_iterator it_vector = buttons2.begin(); it_vector != buttons2.end(); ++it_vector)
 		{
 			if ((*it_vector)->current_state == SELECTED) {
@@ -607,7 +737,7 @@ void Battle::ActionsMenu()
 	}
 	if (App->input->Up())
 	{
-		App->audio->PlayFx(1, 0);
+		App->audio->PlayFx(press_sfx);
 		for (std::list<GUIButton*>::const_iterator it_vector = buttons2.begin(); it_vector != buttons2.end(); ++it_vector)
 		{
 			if ((*it_vector)->current_state == SELECTED) {
@@ -655,4 +785,160 @@ void Battle::ControlLanguageAndMusic()
 		App->audio->VolumeDown();
 		volume_down_button->Select(SELECTED);
 	}
+}
+
+void Battle::Createtutorial()
+{
+	switch (logic)
+	{
+	case Battle::GRETTINGS:
+		lets_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (button.w / 2), (screen_height / 2) - (option_background.h / 2) + (button.h * 1.5), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+		buttons_tutorial.push_back(lets_button);
+		lets_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second + (button.h / 2), App->scene_manager->language->lets_do_it_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 3*(button.h / 2), App->scene_manager->language->greatings_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_2 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 2*(button.h / 2), App->scene_manager->language->greatings_2, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_3 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - (button.h / 2), App->scene_manager->language->greatings_3, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		lets_button->Select(SELECTED);
+		break;
+	case Battle::MOVE:
+		lets_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (button.w / 2), (screen_height / 2) - (option_background.h / 2) + (button.h * 1.5), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+		buttons_tutorial.push_back(lets_button);
+		lets_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second + (button.h / 2), App->scene_manager->language->lets_do_it_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 6*(button.h / 2), App->scene_manager->language->movemnent_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_2 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 5*(button.h / 2), App->scene_manager->language->movemnent_2, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_3 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 4*(button.h / 2), App->scene_manager->language->movemnent_3, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_4 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 3*(button.h / 2), App->scene_manager->language->movemnent_4, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_5 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 2*(button.h / 2), App->scene_manager->language->movemnent_5, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_6 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - (button.h / 2), App->scene_manager->language->movemnent_6, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		lets_button->Select(SELECTED);
+		break;
+	case Battle::DEFENS:
+		lets_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (button.w / 2), (screen_height / 2) - (option_background.h / 2) + (button.h * 1.5), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+		buttons_tutorial.push_back(lets_button);
+		lets_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second + (button.h / 2), App->scene_manager->language->lets_do_it_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 6 * (button.h / 2), App->scene_manager->language->defens_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_2 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 5 * (button.h / 2), App->scene_manager->language->defens_2, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_3 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 4 * (button.h / 2), App->scene_manager->language->defens_3, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_4 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 3 * (button.h / 2), App->scene_manager->language->defens_4, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_5 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 2 * (button.h / 2), App->scene_manager->language->defens_5, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		tutorial_general_label_6 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - (button.h / 2), App->scene_manager->language->defens_6, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
+		lets_button->Select(SELECTED);
+		lets_button->Select(SELECTED);
+		break;
+	case Battle::ATTACK:
+		break;
+	default:
+		break;
+	}
+
+	Is_created_tut = true;
+
+
+}
+
+void Battle::Tutoriallogic()
+{
+
+
+	switch (logic)
+	{
+	case Battle::GRETTINGS:
+		if (!Is_created_tut)
+			Createtutorial();
+		
+
+
+		if (lets_button->has_been_clicked) {
+			
+			Destroytutorial();
+			logic = MOVE;
+		}
+
+		break;
+	case Battle::MOVE:
+		if (!Is_created_tut)
+			Createtutorial();
+
+
+		if (lets_button->has_been_clicked) {
+			App->scene_manager->tutorial_block = false;
+			Destroytutorial();
+			logic = OFF;
+
+		}
+
+		break;
+	case Battle::DEFENS:
+		if (!Is_created_tut)
+			Createtutorial();
+
+
+		if (lets_button->has_been_clicked) {
+			App->scene_manager->tutorial_block_actions = false;
+			Destroytutorial();
+			logic = OFF;
+
+		}
+
+		break;
+	case Battle::ATTACK:
+		break;
+	case Battle::OFF:
+		break;
+	default:
+		break;
+	}
+
+	
+
+
+
+}
+
+void Battle::Destroytutorial()
+{
+	switch (logic)
+	{
+	case Battle::GRETTINGS:
+		App->gui_manager->DeleteGUIElement(tutorial_general_label);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_2);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_3);
+		App->gui_manager->DeleteGUIElement(lets_button);
+		App->gui_manager->DeleteGUIElement(lets_label);
+		buttons_tutorial.clear();
+
+		break;
+	case Battle::MOVE:
+		App->gui_manager->DeleteGUIElement(tutorial_general_label);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_2);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_3);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_4);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_5);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_6);
+		
+		App->gui_manager->DeleteGUIElement(lets_button);
+		App->gui_manager->DeleteGUIElement(lets_label);
+		buttons_tutorial.clear();
+
+		break;
+	case Battle::DEFENS:
+		App->gui_manager->DeleteGUIElement(tutorial_general_label);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_2);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_3);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_4);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_5);
+		App->gui_manager->DeleteGUIElement(tutorial_general_label_6);
+
+		App->gui_manager->DeleteGUIElement(lets_button);
+		App->gui_manager->DeleteGUIElement(lets_label);
+		buttons_tutorial.clear();
+
+		break;
+	case Battle::ATTACK:
+		break;
+	default:
+		break;
+	}
+
+	Is_created_tut = false;
 }

@@ -221,9 +221,7 @@ void ModuleAudio::UnloadAllFx()
 	{
 		Mix_FreeChunk(fx[i]);
 	}
-
 	fx.clear();
-
 }
 
 void ModuleAudio::StopMusic(int _mut)

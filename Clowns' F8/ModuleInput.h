@@ -7,6 +7,8 @@
 
 #define NUM_MOUSE_BUTTONS 5
 #define MAX_KEYS 300
+#define MAX_COUNT_INPUT 30
+#define MAX_COUNT_INPUT_MIX 26
 
 enum EVENT_WINDOW
 {
@@ -80,8 +82,9 @@ struct ButtonsToUse {
 	int CHARACABILITY;
 	int ABILITY;
 	int ABILITYTREE;
-	
-	
+	int LEVELUP;
+	int LEVELDOWN;
+	int ALLMAPS;
 
 };
 
@@ -98,6 +101,9 @@ struct ButtonChar {
 	char* ABILITY = nullptr;
 	char* CHARACABILITY = nullptr;
 	char* ABILITYTREE = nullptr;
+	char* LEVELUP = nullptr;
+	char* LEVELDOWN = nullptr;
+	char* ALLMAPS = nullptr;
 };
 
 struct KeyboardButtons {
@@ -175,6 +181,10 @@ public:
 	bool Right();
 	bool Down();
 	bool Up();
+	bool LeftUp();
+	bool RightUp();
+	bool LeftDown();
+	bool RightDown();
 	bool Accept();
 	bool Decline();
 	bool Pause();
@@ -183,6 +193,9 @@ public:
 	//bool Showcharacterabilities();
 	//bool Showabilities();
 	//
+	bool LevelUp();
+	bool LevelDown();
+	bool AllMaps();
 
 	int space;
 
@@ -200,6 +213,11 @@ private:
 	int			mouse_motion_y;
 	int			mouse_x;
 	int			mouse_y;
+	
+	int			count_repeat = 0;
+	int			count_repeat_mix = 0;
+
+	void CleanCount();
 
 	SDL_GameController* controller;
 	SDL_Joystick *joystick;

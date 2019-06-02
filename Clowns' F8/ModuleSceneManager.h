@@ -2,9 +2,10 @@
 #define __ModuleSceneManager_H__
 
 #include "Module.h"
+#include "Language.h"
 
-class Language;
 class Scene;
+struct SDL_Texture;
 enum SCENE_TYPE;
 
 class ModuleSceneManager :	public Module
@@ -32,13 +33,18 @@ public:
 	Scene* current_scene = nullptr;
 
 	bool changing = false;
+	bool loading = false;
 	bool battle1_passed = false;
 	bool battle2_passed = false;
 	bool battle3_passed = false;
 
 	Language* language = nullptr;
-
+	SDL_Texture* objects_texture = nullptr;
 	
+	bool victory = false;
+
+	bool tutorial_block = true;
+	bool tutorial_block_actions = true;
 
 private:
 	pugi::xml_node scene_configs;

@@ -52,7 +52,7 @@ bool ModuleEntityManager::PreUpdate()
 	if (entities.size() > 1) 
 	{
 		OrderEntitiesByAgility();
-		if (starting) 
+		if (starting && !App->scene_manager->tutorial_block) 
 		{
 			Entity *entityfirst = entities.front();
 			entityfirst->current_turn = Entity::TURN::SEARCH_MOVE;
@@ -78,20 +78,19 @@ bool ModuleEntityManager::PreUpdate()
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
 		
-		if ((*entity)->current_turn == Entity::TURN::END_TURN)
+		if ((*entity)->current_turn == Entity::TURN::END_TURN && !App->scene_manager->tutorial_block)
 		{
 			(*entity)->current_turn = Entity::TURN::NONE;
+			(*entity)->critic = false;
 			if (*entity != entities.back())
 			{
-				entity++;
+				++entity;
 				(*entity)->current_turn = Entity::TURN::SEARCH_MOVE;
 				StartingTurn((*entity));
 			}
 			else {
 				entities.front()->current_turn = Entity::TURN::SEARCH_MOVE;
-				(*entity)->current_stats.Mana += 10;
-				(*entity)->defend = false;
-				(*entity)->invulnerable = false;
+				StartingTurn(entities.front());
 			}
 		}
 		if ((*entity)->stunned == true && (*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
@@ -112,6 +111,8 @@ bool ModuleEntityManager::PreUpdate()
 				}
 			}
 		}
+
+		
 		
 		(*entity)->PreUpdate();
 		
@@ -187,12 +188,20 @@ bool ModuleEntityManager::CleanUp()
 // Load Game State
 bool ModuleEntityManager::Load(pugi::xml_node & _data)
 {
+	exp_sapphire = _data.child("sapphire").attribute("value").as_int();
+	exp_iris = _data.child("iris").attribute("value").as_int();
+	exp_storm = _data.child("storm").attribute("value").as_int();
+	exp_georgeb = _data.child("georgeb").attribute("value").as_int();
 	return true;
 }
 
 // Save Game State
 bool ModuleEntityManager::Save(pugi::xml_node & _data) const
 {
+	_data.append_child("sapphire").append_attribute("value") = exp_sapphire;
+	_data.append_child("iris").append_attribute("value") = exp_iris;
+	_data.append_child("storm").append_attribute("value") = exp_storm;
+	_data.append_child("georgeb").append_attribute("value") = exp_georgeb;
 	return true;
 }
 
@@ -283,8 +292,6 @@ std::pair<int, int> ModuleEntityManager::AiHeals(std::pair<int, int>* AttackRang
 					}
 				}
 			}
-
-
 		}
 
 	}
@@ -998,7 +1005,7 @@ void ModuleEntityManager::StartingTurn(Entity* _entity)
 {
 	_entity->current_stats.Mana += 10;
 	_entity->defend = false;
-
+	_entity->invulnerable = false;
 
 	std::default_random_engine generator;
 	std::uniform_int_distribution<int> distribution(1, 100);
@@ -1041,19 +1048,35 @@ void ModuleEntityManager::LevelUP(int _exp)
 				break;
 			}
 
-			if ((*character)->levels.at((*character)->level - 1) <= (*character)->exp) 
+			if ((*character)->level < 10 && (*character)->levels.at((*character)->level - 1) <= (*character)->exp)
 			{
-				++(*character)->level;
+				
 
-				(*character)->default_stats.Hp += (*character)->evolution_stats.Hp * (*character)->level;
-				(*character)->default_stats.Mana += (*character)->evolution_stats.Mana * (*character)->level;
-				(*character)->default_stats.AtkF += (*character)->evolution_stats.AtkF * (*character)->level;
-				(*character)->default_stats.AtkS += (*character)->evolution_stats.AtkS * (*character)->level;
-				(*character)->default_stats.DefF += (*character)->evolution_stats.DefF * (*character)->level;
-				(*character)->default_stats.DefS += (*character)->evolution_stats.DefS * (*character)->level;
-				(*character)->default_stats.Crit += (*character)->evolution_stats.Crit * (*character)->level;
+				(*character)->default_stats.Hp += (*character)->evolution_stats.Hp * (*character)->level * (*character)->level;
+				(*character)->default_stats.Mana += (*character)->evolution_stats.Mana * (*character)->level * (*character)->level;
+				(*character)->default_stats.AtkF += (*character)->evolution_stats.AtkF * (*character)->level * (*character)->level;
+				(*character)->default_stats.AtkS += (*character)->evolution_stats.AtkS * (*character)->level * (*character)->level;
+				(*character)->default_stats.DefF += (*character)->evolution_stats.DefF * (*character)->level * (*character)->level;
+				(*character)->default_stats.DefS += (*character)->evolution_stats.DefS * (*character)->level * (*character)->level;
+				(*character)->default_stats.Crit += (*character)->evolution_stats.Crit * (*character)->level * (*character)->level;
 
 				(*character)->current_stats = (*character)->default_stats;
+				++(*character)->level;
+			}
+			else if ((*character)->level > 1 && (*character)->levels.at((*character)->level - 2) > (*character)->exp)
+			{
+				--(*character)->level;
+
+				(*character)->default_stats.Hp -= (*character)->evolution_stats.Hp * (*character)->level * (*character)->level;
+				(*character)->default_stats.Mana -= (*character)->evolution_stats.Mana * (*character)->level * (*character)->level;
+				(*character)->default_stats.AtkF -= (*character)->evolution_stats.AtkF * (*character)->level * (*character)->level;
+				(*character)->default_stats.AtkS -= (*character)->evolution_stats.AtkS * (*character)->level * (*character)->level;
+				(*character)->default_stats.DefF -= (*character)->evolution_stats.DefF * (*character)->level * (*character)->level;
+				(*character)->default_stats.DefS -= (*character)->evolution_stats.DefS * (*character)->level * (*character)->level;
+				(*character)->default_stats.Crit -= (*character)->evolution_stats.Crit * (*character)->level * (*character)->level;
+
+				(*character)->current_stats = (*character)->default_stats;
+				
 			}
 			
 		}
