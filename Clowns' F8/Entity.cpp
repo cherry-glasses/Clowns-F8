@@ -99,6 +99,7 @@ bool Entity::PostUpdate(float _dt) {
 		
 		if (entity_texture != nullptr)
 		{
+			// CIRCLE
 			if (critic)
 			{
 				App->render->Blit(debug_texture, position.first, position.second, &circle_yellow);
@@ -116,9 +117,13 @@ bool Entity::PostUpdate(float _dt) {
 
 			}
 			
-			
-			
-			if (defend)
+			// DEFEND, CRITIC, DAMAGE
+			if (damaged)
+			{
+				SDL_SetTextureColorMod(entity_texture, Damaged_color.r, Damaged_color.g, Damaged_color.b);
+				damaged = false;
+			}
+			else if (defend)
 			{
 				SDL_SetTextureColorMod(entity_texture, Defend_color.r, Defend_color.g, Defend_color.b);
 			}

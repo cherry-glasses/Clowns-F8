@@ -145,6 +145,7 @@ public:
 	Evolutions evolution_stats;
 	Attacks_names attacks_names;
 	SFX sfx;
+	bool damaged = false;
 	bool defend = false;
 	bool stunned = false;
 	bool invulnerable = false;
@@ -272,6 +273,8 @@ protected:
 	std::vector<std::pair<int, int>>  objective_position;
 	int tiles_range_attk = 0;
 	std::pair<int, int>* range;
+
+	int start = 0;
 
 	bool istargeted = false;
 

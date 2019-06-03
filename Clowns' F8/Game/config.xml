@@ -377,7 +377,7 @@
         <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
         <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
         <ability_3_sfx value="Sapphire_Water_Time.wav"/>
-        <dead_sfx value="Sapphire_Dead.wav"/>
+        <dead_sfx value="Iris_Dead.wav"/>
       </sfx>
       <position x="11" y="19"/>
       <name value="Iris"/>
@@ -572,7 +572,7 @@
         <ability_1_sfx value="GeorgeB_Bear_Trap.wav"/>
         <ability_2_sfx value="GeorgeB_Cherry_Boom.wav"/>
         <ability_3_sfx value="GeorgeB_Flying_Birds.wav"/>
-        <dead_sfx value="Sapphire_Dead.wav"/>
+        <dead_sfx value="Storm_Dead.wav"/>
       </sfx>
       <position x="9" y="17"/>
       <name value="Storm"/>
@@ -582,56 +582,46 @@
       <evolution hp="5" mana="8" atk_f="4" atk_s="4" def_f="6" def_s="6" crit="2"/>
       <animations>
         <idle_right_front speed="5.0f" loop="true">
-          <frame x="64" y="0" width="64" height="64"/>
-          <frame x="192" y="0" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
         </idle_right_front>
         <idle_right_back speed="5.0f" loop="true">
-          <frame x="64" y="64" width="64" height="64"/>
-          <frame x="192" y="64" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
         </idle_right_back>
         <walk_right_front speed="5.0f" loop="true">
-          <frame x="320" y="0" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
         </walk_right_front>
         <walk_right_back speed="5.0f" loop="true">
-          <frame x="320" y="64" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
         </walk_right_back>
         <attack_right_front speed="5.0f" loop="false">
-          <frame x="64" y="128" width="64" height="64"/>
-          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
         </attack_right_front>
         <attack_right_back speed="5.0f" loop="false">
-          <frame x="64" y="192" width="64" height="64"/>
-          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
         </attack_right_back>
         <ability_1_right_front speed="5.0f" loop="false">
-          <frame x="64" y="128" width="64" height="64"/>
-          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
         </ability_1_right_front>
         <ability_1_right_back speed="5.0f" loop="false">
-          <frame x="64" y="192" width="64" height="64"/>
-          <frame x="64" y="192" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
         </ability_1_right_back>
         <ability_2_right_front speed="5.0f" loop="false">
-          <frame x="64" y="128" width="64" height="64"/>
-          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
         </ability_2_right_front>
         <ability_3_right_front speed="5.0f" loop="false">
-          <frame x="64" y="128" width="64" height="64"/>
-          <frame x="64" y="128" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
         </ability_3_right_front>
         <defend_right_front speed="5.0f" loop="true">
-          <frame x="64" y="0" width="64" height="64"/>
-          <frame x="192" y="0" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
         </defend_right_front>
         <defend_right_back speed="5.0f" loop="true">
-          <frame x="64" y="64" width="64" height="64"/>
-          <frame x="192" y="64" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
         </defend_right_back>
         <dead_right_front speed="5.0f" loop="false">
-          <frame x="192" y="128" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
         </dead_right_front>
         <dead_right_back speed="5.0f" loop="false">
-          <frame x="192" y="192" width="64" height="64"/>
+          <frame x="0" y="0" width="64" height="64"/>
         </dead_right_back>
       </animations>
     </storm>
@@ -639,11 +629,11 @@
       <texture value="Assets/Sprites/Main_Characters/George_Spritesheet.png"/>
       <portrait x="191" y="67" w="64" h="66"/>
       <sfx>
-        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
-        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
-        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
-        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
-        <dead_sfx value="Sapphire_Dead.wav"/>
+        <attack_sfx value="GeorgeB_Random_Throw.wav"/>
+        <ability_1_sfx value="GeorgeB_Bear_Trap.wav"/>
+        <ability_2_sfx value="GeorgeB_Cherry_Boom.wav"/>
+        <ability_3_sfx value="GeorgeB_Flying_Birds.wav"/>
+        <dead_sfx value="GeorgeB_Dead.wav"/>
       </sfx>
       <position x="8" y="20"/>
       <name value="George B."/>

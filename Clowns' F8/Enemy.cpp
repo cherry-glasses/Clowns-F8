@@ -24,7 +24,12 @@ bool Enemy::PreUpdate()
 
 		if (current_turn == SEARCH_MOVE)
 		{
-			SearchWalk();
+			++start;
+			if (start == START_TURN)
+			{
+				start = 0;
+				SearchWalk();
+			}
 		}
 		else if (current_turn == SEARCH_ATTACK)
 		{

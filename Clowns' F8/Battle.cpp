@@ -9,6 +9,7 @@
 #include "ModuleRender.h"
 #include "ModuleTransitionManager.h"
 #include "Language.h"
+#include "ModuleParticleSystem.h"
 
 
 Battle::Battle(SCENE_TYPE _type, pugi::xml_node& _config) : Scene(_type, _config)
@@ -72,6 +73,7 @@ bool Battle::Update(float _dt)
 	if (first_level_tut == true) {
 		Tutoriallogic();
 	}
+
 
 
 	if (App->input->Pause() || ingame_options_menu_created)
@@ -166,6 +168,7 @@ bool Battle::Update(float _dt)
 		
 		for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 		{
+
 			if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
 			{
 				if (!first_char) {

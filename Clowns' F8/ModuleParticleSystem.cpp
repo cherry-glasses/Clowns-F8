@@ -7,7 +7,7 @@
 
 ModuleParticleSystem::ModuleParticleSystem() : Module()
 {
-	name = "psystem";
+	name = "particle_system";
 
 	LOG("Loading Particle System");
 
@@ -24,14 +24,14 @@ bool ModuleParticleSystem::Awake(pugi::xml_node& config)
 
 	pugi::xml_document	psystem_config;
 	pugi::xml_node* node = &App->LoadEmitters(psystem_config);
-	nameParticleAtlas = node->child("particleAtlas").attribute("name").as_string();
+	nameParticleAtlas = node->child("particle_atlas").attribute("name").as_string();
 
-	for (pugi::xml_node emitters = node->child("particleAtlas").child("emitter"); emitters && ret; emitters = emitters.next_sibling("emitter"))
+	for (pugi::xml_node emitters = node->child("particle_atlas").child("emitter"); emitters && ret; emitters = emitters.next_sibling("emitter"))
 	{
 		std::string emitterType = emitters.attribute("type").as_string();
 
-		if (emitterType.compare("fire") == 0)
-			LoadEmitterData(emitters, EmitterType::EMITTER_TYPE_FIRE);
+		if (emitterType.compare("num") == 0)
+			LoadEmitterData(emitters, EmitterType::EMITTER_TYPE_NUM);
 		
 	}
 	return ret;
@@ -89,7 +89,7 @@ bool ModuleParticleSystem::PostUpdate(float _dt)
 			ret = (*it)->Draw(_dt);
 	}
 
-	return ret;
+	return true;
 }
 
 bool ModuleParticleSystem::CleanUp()

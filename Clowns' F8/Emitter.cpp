@@ -174,6 +174,18 @@ std::pair<int, int> Emitter::GetEmitterPos() const
 	return pos;
 }
 
+void Emitter::SetTextureRect(SDL_Rect _texture_rect)
+{
+	textureRect = _texture_rect;
+}
+
+void Emitter::SetColor(SDL_Color _start_color, SDL_Color _end_color, SDL_BlendMode _blendmode)
+{
+	startColor = _start_color;
+	endColor = _end_color;
+	blendMode = _blendmode;
+}
+
 void Emitter::VortexSensitive(bool sensitive)
 {
 	vortexSensitive = sensitive;

@@ -17,6 +17,7 @@ struct SDL_Color;
 enum EmitterType
 {
 	EMITTER_TYPE_NONE = -1,
+	EMITTER_TYPE_NUM,
 	EMITTER_TYPE_FIRE
 };
 

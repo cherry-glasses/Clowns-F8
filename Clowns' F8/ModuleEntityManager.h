@@ -55,6 +55,8 @@ public:
 
 	void ThrowAttack(std::vector<std::pair<int,int>> _positions, int _damage, ENTITY_TYPE _type, bool _special);
 
+	void ThrowParticleDamage(std::pair<int,int> _pos , int _damage);
+
 	void StartingTurn(Entity* _entity);
 
 	void LevelUP(int _exp);
