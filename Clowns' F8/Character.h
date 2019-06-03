@@ -53,6 +53,7 @@ protected:
 	int Cap = -1;
 	std::list<std::pair<int, int>> possible_mov_list;
 	std::list<std::pair<int, int>> inrange_mov_list;
+	std::list<std::pair<int, int>> nomov_list;
 	std::vector<std::pair<int, int>> possible_map;
 	std::pair<int, int> comeback_position;
 	MOVEMENT comeback_movement;

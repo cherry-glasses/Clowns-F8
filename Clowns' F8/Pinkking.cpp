@@ -313,7 +313,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		current_movement = DEAD_LEFT;
 		current_animation = &dead_left;
 		flipX = false;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
 		}
 		break;
@@ -321,7 +321,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		current_movement = DEAD_RIGHT;
 		current_animation = &dead_left;
 		flipX = true;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
 		}
 		break;
@@ -329,7 +329,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		current_movement = DEAD_FRONT;
 		current_animation = &dead_front;
 		flipX = false;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
 		}
 		break;
@@ -337,7 +337,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		current_movement = DEAD_BACK;
 		current_animation = &dead_back;
 		flipX = false;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
 		}
 		break;

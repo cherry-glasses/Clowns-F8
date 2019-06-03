@@ -343,28 +343,28 @@ void Boneyman::CurrentMovement(MOVEMENT _movement) {
 	case Entity::DEAD_LEFT_FRONT:
 		current_movement = DEAD_LEFT_FRONT;
 		current_animation = &dead_left_front;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
 		}
 		break;
 	case Entity::DEAD_RIGHT_FRONT:
 		current_movement = DEAD_RIGHT_FRONT;
 		current_animation = &dead_right_front;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
 		}
 		break;
 	case Entity::DEAD_LEFT_BACK:
 		current_movement = DEAD_LEFT_BACK;
 		current_animation = &dead_left_back;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
 		}
 		break;
 	case Entity::DEAD_RIGHT_BACK:
 		current_movement = DEAD_RIGHT_BACK;
 		current_animation = &dead_right_back;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
 		}
 		break;

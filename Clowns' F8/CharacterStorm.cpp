@@ -54,6 +54,7 @@ void CharacterStorm::SearchWalk() {
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	inrange_mov_list.push_back(tmp);
 
+	bool cutmove = false;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
 	{
@@ -61,11 +62,18 @@ void CharacterStorm::SearchWalk() {
 		if (!App->pathfinding->IsWalkable({ tmp.first , tmp.second })
 			|| App->pathfinding->IsUsed({ tmp.first , tmp.second }, this))
 		{
-			break;
+			cutmove = true;
 		}
-		inrange_mov_list.push_back(tmp);
+		if (cutmove)
+		{
+			nomov_list.push_back(tmp);
+		}
+		else
+		{
+			inrange_mov_list.push_back(tmp);
+		}
 	}
-
+	cutmove = false;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
 	{
@@ -73,11 +81,18 @@ void CharacterStorm::SearchWalk() {
 		if (!App->pathfinding->IsWalkable({ tmp.first , tmp.second })
 			|| App->pathfinding->IsUsed({ tmp.first , tmp.second }, this))
 		{
-			break;
+			cutmove = true;
 		}
-		inrange_mov_list.push_back(tmp);
+		if (cutmove)
+		{
+			nomov_list.push_back(tmp);
+		}
+		else
+		{
+			inrange_mov_list.push_back(tmp);
+		}
 	}
-
+	cutmove = false;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
 	{
@@ -85,11 +100,18 @@ void CharacterStorm::SearchWalk() {
 		if (!App->pathfinding->IsWalkable({ tmp.first , tmp.second })
 			|| App->pathfinding->IsUsed({ tmp.first , tmp.second }, this))
 		{
-			break;
+			cutmove = true;
 		}
-		inrange_mov_list.push_back(tmp);
+		if (cutmove)
+		{
+			nomov_list.push_back(tmp);
+		}
+		else
+		{
+			inrange_mov_list.push_back(tmp);
+		}
 	}
-
+	cutmove = false;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
 	{
@@ -97,9 +119,16 @@ void CharacterStorm::SearchWalk() {
 		if (!App->pathfinding->IsWalkable({ tmp.first , tmp.second })
 			|| App->pathfinding->IsUsed({ tmp.first , tmp.second }, this))
 		{
-			break;
+			cutmove = true;
 		}
-		inrange_mov_list.push_back(tmp);
+		if (cutmove)
+		{
+			nomov_list.push_back(tmp);
+		}
+		else
+		{
+			inrange_mov_list.push_back(tmp);
+		}
 	}
 
 	tmp.first = NULL;

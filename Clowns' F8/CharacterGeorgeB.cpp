@@ -44,6 +44,7 @@ void CharacterGeorgeB::SearchWalk() {
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	inrange_mov_list.push_back(tmp);
 
+	bool cutmove = false;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
 	{
@@ -52,11 +53,18 @@ void CharacterGeorgeB::SearchWalk() {
 		if (!App->pathfinding->IsWalkable({ tmp.first , tmp.second })
 			|| App->pathfinding->IsUsed({ tmp.first , tmp.second }, this))
 		{
-			break;
+			cutmove = true;
 		}
-		inrange_mov_list.push_back(tmp);
+		if (cutmove)
+		{
+			nomov_list.push_back(tmp);
+		}
+		else
+		{
+			inrange_mov_list.push_back(tmp);
+		}
 	}
-
+	cutmove = false;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
 	{
@@ -65,11 +73,18 @@ void CharacterGeorgeB::SearchWalk() {
 		if (!App->pathfinding->IsWalkable({ tmp.first , tmp.second })
 			|| App->pathfinding->IsUsed({ tmp.first , tmp.second }, this))
 		{
-			break;
+			cutmove = true;
 		}
-		inrange_mov_list.push_back(tmp);
+		if (cutmove)
+		{
+			nomov_list.push_back(tmp);
+		}
+		else
+		{
+			inrange_mov_list.push_back(tmp);
+		}
 	}
-
+	cutmove = false;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
 	{
@@ -78,11 +93,18 @@ void CharacterGeorgeB::SearchWalk() {
 		if (!App->pathfinding->IsWalkable({ tmp.first , tmp.second })
 			|| App->pathfinding->IsUsed({ tmp.first , tmp.second }, this))
 		{
-			break;
+			cutmove = true;
 		}
-		inrange_mov_list.push_back(tmp);
+		if (cutmove)
+		{
+			nomov_list.push_back(tmp);
+		}
+		else
+		{
+			inrange_mov_list.push_back(tmp);
+		}
 	}
-
+	cutmove = false;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
 	{
@@ -91,9 +113,16 @@ void CharacterGeorgeB::SearchWalk() {
 		if (!App->pathfinding->IsWalkable({ tmp.first , tmp.second })
 			|| App->pathfinding->IsUsed({ tmp.first , tmp.second }, this))
 		{
-			break;
+			cutmove = true;
 		}
-		inrange_mov_list.push_back(tmp);
+		if (cutmove)
+		{
+			nomov_list.push_back(tmp);
+		}
+		else
+		{
+			inrange_mov_list.push_back(tmp);
+		}
 	}
 
 	tmp.first = NULL;
@@ -505,25 +534,33 @@ void CharacterGeorgeB::CurrentMovement(MOVEMENT _movement) {
 		current_movement = DEAD_LEFT;
 		current_animation = &dead_right;
 		flipX = true;
-		current_state = DEATH;
+		if (current_animation->isDone()) {
+			current_state = DEATH;
+		}
 		break;
 	case Entity::DEAD_RIGHT:
 		current_movement = DEAD_RIGHT;
 		current_animation = &dead_right;
 		flipX = false;
-		current_state = DEATH;
+		if (current_animation->isDone()) {
+			current_state = DEATH;
+		}
 		break;
 	case Entity::DEAD_FRONT:
 		current_movement = DEAD_FRONT;
 		current_animation = &dead_front;
 		flipX = false;
-		current_state = DEATH;
+		if (current_animation->isDone()) {
+			current_state = DEATH;
+		}
 		break;
 	case Entity::DEAD_BACK:
 		current_movement = DEAD_BACK;
 		current_animation = &dead_back;
 		flipX = false;
-		current_state = DEATH;
+		if (current_animation->isDone()) {
+			current_state = DEATH;
+		}
 		break;
 	default:
 		break;
