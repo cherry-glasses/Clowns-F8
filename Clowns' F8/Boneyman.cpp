@@ -146,7 +146,7 @@ void Boneyman::Attack(const std::vector<std::pair<int, int>> *_path)
 			CurrentMovement(ATTACK_LEFT_FRONT);
 		}
 
-
+		
 		if (current_animation->isDone()) {
 			//Skill_1
 			timer_skill_1++;
