@@ -199,6 +199,7 @@ void Polarpath::Ability_1(const std::vector<std::pair<int, int>>* _path)
 		objective_position.push_back(abil_1_arr[i]);
 
 	CurrentMovement(ATTACK_FRONT);
+	current_turn = END_TURN; // guillem
 
 	if (current_animation->isDone()) {
 		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_POLARPATH,true); //objective_position
