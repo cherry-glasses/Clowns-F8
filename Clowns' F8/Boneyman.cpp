@@ -46,6 +46,9 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 		}
 	}
 
+	if (App->pathfinding->IsUsed(_path->at(1), this))
+		current_turn = SEARCH_ATTACK;
+
 	//Pawn walk
 	if ((_path->size() > 3 && (_path->at(0).first == _path->at(2).first || _path->at(0).second == _path->at(2).second)) && !App->pathfinding->IsUsed(_path->at(2), this) && !App->pathfinding->IsUsed(_path->at(1), this))
 	{
