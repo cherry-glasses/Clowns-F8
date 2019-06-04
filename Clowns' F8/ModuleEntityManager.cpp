@@ -70,6 +70,7 @@ bool ModuleEntityManager::PreUpdate()
 				{
 					++enemy;
 					(*enemy)->current_turn = Entity::TURN::SEARCH_MOVE;
+					--enemy;
 				}
 			}
 			// Level up and clean enemy

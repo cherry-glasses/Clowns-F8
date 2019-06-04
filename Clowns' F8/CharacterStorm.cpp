@@ -335,7 +335,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		flipX = true;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_1_RIGHT_FRONT:
@@ -343,7 +343,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_1_right_front;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_1_LEFT_BACK:
@@ -352,7 +352,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		flipX = true;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_1_RIGHT_BACK:
@@ -360,7 +360,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_1_right_back;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_2_RIGHT:

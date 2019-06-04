@@ -279,38 +279,10 @@
           <frame x="220" y="256" width="110" height="128"/>
           <frame x="220" y="256" width="110" height="128"/>
         </ability_2_back>
-        <ability_3_left_front speed="5.0f" loop="false">
-          <frame x="220" y="384" width="110" height="128"/>
-          <frame x="220" y="384" width="110" height="128"/>
-        </ability_3_left_front>
-        <ability_3_right_front speed="5.0f" loop="false">
-          <frame x="330" y="384" width="110" height="128"/>
-          <frame x="330" y="384" width="110" height="128"/>
-        </ability_3_right_front>
-        <ability_3_left_back speed="5.0f" loop="false">
-          <frame x="220" y="256" width="110" height="128"/>
-          <frame x="220" y="256" width="110" height="128"/>
-        </ability_3_left_back>
-        <ability_3_right_back speed="5.0f" loop="false">
-          <frame x="330" y="256" width="110" height="128"/>
-          <frame x="330" y="256" width="110" height="128"/>
-        </ability_3_right_back>
-        <ability_3_left speed="5.0f" loop="false">
-          <frame x="220" y="384" width="110" height="128"/>
-          <frame x="220" y="384" width="110" height="128"/>
-        </ability_3_left>
         <ability_3_right speed="5.0f" loop="false">
           <frame x="330" y="384" width="110" height="128"/>
           <frame x="330" y="384" width="110" height="128"/>
         </ability_3_right>
-        <ability_3_front speed="5.0f" loop="false">
-          <frame x="220" y="384" width="110" height="128"/>
-          <frame x="220" y="384" width="110" height="128"/>
-        </ability_3_front>
-        <ability_3_back speed="5.0f" loop="false">
-          <frame x="220" y="256" width="110" height="128"/>
-          <frame x="220" y="256" width="110" height="128"/>
-        </ability_3_back>
         <defend_left_front speed="2.0f" loop="true">
           <frame x="0" y="128" width="110" height="128"/>
           <frame x="110" y="128" width="110" height="128"/>

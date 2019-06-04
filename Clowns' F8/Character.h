@@ -4,6 +4,8 @@
 #include "Animation.h"
 #include "Entity.h"
 
+class Emitter;
+
 class Character : public Entity
 {
 public:
@@ -57,6 +59,10 @@ protected:
 	std::vector<std::pair<int, int>> possible_map;
 	std::pair<int, int> comeback_position;
 	MOVEMENT comeback_movement;
+
+	bool finish_attack = false;
+	Emitter* emitter = nullptr;
+
 };
 
 #endif // !__Character_H__
