@@ -340,7 +340,7 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &attack_left_front;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ATTACK_RIGHT_FRONT:
@@ -348,7 +348,7 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &attack_right_front;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ATTACK_LEFT_BACK:
@@ -356,7 +356,7 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &attack_left_back;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ATTACK_RIGHT_BACK:
@@ -364,7 +364,7 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &attack_right_back;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_1_LEFT_FRONT:
@@ -372,7 +372,7 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_1_left_front;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_1_RIGHT_FRONT:
@@ -380,7 +380,7 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_1_right_front;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_1_LEFT_BACK:
@@ -388,7 +388,7 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_1_left_back;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_1_RIGHT_BACK:
@@ -396,7 +396,7 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_1_right_back;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_2_RIGHT:
@@ -405,7 +405,7 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 		if (current_animation->isDone()) {
 			objective_position.clear();
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_2, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_3_LEFT_FRONT:
@@ -413,7 +413,7 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_3_left_front;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_3_RIGHT_FRONT:
@@ -421,7 +421,7 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_3_right_front;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_3_LEFT_BACK:
@@ -429,7 +429,7 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_3_left_back;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_3_RIGHT_BACK:
@@ -437,7 +437,7 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_3_right_back;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_3 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::DEFEND_LEFT_FRONT:
