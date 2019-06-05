@@ -155,16 +155,22 @@ bool MainMenu::Update(float _dt)
 // Called before all Updates
 bool MainMenu::PostUpdate(float dt)
 {
-	App->render->Blit(main_menu_background, 0, 0);
+	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
+		pruebita = false;
+	}
+	if (pruebita) {
+		App->render->Blit(main_menu_background, 0, 0);
 
-	if (option_menu_created || controls_menu_created)
-	{
-		App->render->Blit(option_menu_background, (screen_width / 2) - (option_background.w / 2), (screen_height / 2) - (option_background.h / 2));
+		if (option_menu_created || controls_menu_created)
+		{
+			App->render->Blit(option_menu_background, (screen_width / 2) - (option_background.w / 2), (screen_height / 2) - (option_background.h / 2));
+		}
+		else if (credits_menu_created)
+		{
+			App->render->Blit(credits_menu_background, (screen_width / 2) - (option_background.w / 2), (screen_height / 2) - (option_background.h / 2));
+		}
 	}
-	else if(credits_menu_created)
-	{
-		App->render->Blit(credits_menu_background, (screen_width / 2) - (option_background.w / 2), (screen_height / 2) - (option_background.h / 2));
-	}
+	
 
 	return true;
 }

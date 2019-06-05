@@ -225,6 +225,9 @@
     <ClInclude Include="Intro.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Clowns%27 F8\ModuleVideo.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Clowns%27 F8\Application.cpp">
@@ -397,6 +400,9 @@
     </ClCompile>
     <ClCompile Include="Intro.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Clowns%27 F8\ModuleVideo.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

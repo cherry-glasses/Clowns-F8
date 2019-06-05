@@ -118,6 +118,8 @@ private:
 
 	bool credits_menu_created = false;
 
+	bool pruebita = true; //guillem
+
 
 };
 
