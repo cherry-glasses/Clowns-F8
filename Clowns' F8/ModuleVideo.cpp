@@ -22,6 +22,7 @@ extern "C" {
 #include "ModuleWindow.h"
 #include "Log.h"
 #include "ModuleVideo.h"
+#include "ModuleSceneManager.h"
 
 #define DEFAULT_AUDIO_BUF_SIZE 1024
 #define MAX_AUDIOQ_SIZE (5 * 256 * 1024)
@@ -138,12 +139,16 @@ bool ModuleVideo::PreUpdate()
 bool ModuleVideo::Update(float dt)
 {
 	//DEBUG INPUTS
-	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	if (App->scene_manager->i_want_a_trailer)
 		PlayVideo("Videos/World of Warcraft Wrath of the Lich King Intro Trailer.mp4");
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		Pause();
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	/*if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		Pause();*/
+	if (App->input->Decline() == KEY_DOWN) {
 		CloseVideo();
+		App->scene_manager->trailer = false;
+		App->scene_manager->i_want_a_trailer = false;
+	}
+		
 
 	//Update texture
 	if (refresh)
@@ -151,8 +156,12 @@ bool ModuleVideo::Update(float dt)
 		DecodeVideo();
 		refresh = false;
 	}
-	if (quit && audio.finished && video.finished)
+	if (quit && audio.finished && video.finished) {
 		CloseVideo();
+		App->scene_manager->trailer = false;
+		App->scene_manager->i_want_a_trailer = false;
+	}
+		
 
 	return true;
 }

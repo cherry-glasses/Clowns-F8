@@ -155,10 +155,8 @@ bool MainMenu::Update(float _dt)
 // Called before all Updates
 bool MainMenu::PostUpdate(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
-		pruebita = false;
-	}
-	if (pruebita) {
+	
+	if (!App->scene_manager->trailer) {
 		App->render->Blit(main_menu_background, 0, 0);
 
 		if (option_menu_created || controls_menu_created)

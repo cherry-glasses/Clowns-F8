@@ -45,6 +45,8 @@ public:
 
 	bool tutorial_block = true;
 	bool tutorial_block_actions = true;
+	bool trailer = true;
+	bool i_want_a_trailer = true;
 
 private:
 	pugi::xml_node scene_configs;
