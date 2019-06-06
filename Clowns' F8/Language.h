@@ -13,6 +13,12 @@ public:
 	Language();
 	~Language() {
 		lines.clear();
+		end_lines.clear();
+		range_val.clear();
+		target_val.clear();
+		ability_type_val.clear();
+		effect_val.clear();
+		amount_val.clear();
 	};
 
 	void SetLanguage(LANGUAGE_TYPE language);
@@ -49,6 +55,19 @@ public:
 	std::string save_game = "";
 	std::string saved = "";
 	std::string main_menu = "";
+
+	//ability info
+	std::string range = "";
+	std::string target = "";
+	std::string ability_type = "";
+	std::string effect = "";
+	std::string amount = "";
+
+	std::vector<std::string> range_val;
+	std::vector<std::string> target_val;
+	std::vector<std::string> ability_type_val;
+	std::vector<std::string> effect_val;
+	std::vector<std::string> amount_val;
 
 	//intro
 	std::vector<std::string> lines;
