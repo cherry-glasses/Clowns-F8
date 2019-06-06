@@ -43,18 +43,22 @@ Battle::Battle(SCENE_TYPE _type, pugi::xml_node& _config) : Scene(_type, _config
 		case 0:
 			portrait_position.push_back({ portrait_margin.first - screen_width / 2, portrait_margin.second - screen_height / 8 });
 			act_menu_position.push_back({ portrait_position.at(i).first + actions_margin.first, portrait_position.at(i).second + actions_margin.second });
+			ability_board_position.push_back({ portrait_position.at(i).first + 256 + 5, portrait_position.at(i).second });
 			break;
 		case 1:
 			portrait_position.push_back({ screen_width / 2 - portrait_margin.first - 259, portrait_margin.second - screen_height / 8 });
 			act_menu_position.push_back({ portrait_position.at(i).first + actions_margin.first, portrait_position.at(i).second + actions_margin.second });
+			ability_board_position.push_back({ portrait_position.at(i).first - 301 - 5, portrait_position.at(i).second });
 			break;
 		case 2:
 			portrait_position.push_back({ portrait_margin.first - screen_width / 2, screen_height - 300 });
 			act_menu_position.push_back({ portrait_position.at(i).first + actions_margin.first, portrait_position.at(i).second - actions_margin.second });
+			ability_board_position.push_back({ portrait_position.at(i).first + 256 + 5, portrait_position.at(i).second + 128 - 170 });
 			break;
 		case 3:
 			portrait_position.push_back({ screen_width / 2 - portrait_margin.first - 259, screen_height - 300 });
 			act_menu_position.push_back({ portrait_position.at(i).first + actions_margin.first, portrait_position.at(i).second - actions_margin.second });
+			ability_board_position.push_back({ portrait_position.at(i).first - 301 - 5, portrait_position.at(i).second + 128 - 170 });
 			break;
 		default:
 			break;
@@ -626,18 +630,38 @@ void Battle::DeleteAbilitiesMenu()
 	buttons2.clear();
 }
 
+void Battle::DeleteAbilityInfo()
+{
+	attack_info_created = false;
+	App->gui_manager->DeleteGUIElement(ability_board);
+	App->gui_manager->DeleteGUIElement(ability_range);
+	App->gui_manager->DeleteGUIElement(ability_target);
+	App->gui_manager->DeleteGUIElement(ability_type);
+	App->gui_manager->DeleteGUIElement(ability_effect);
+	App->gui_manager->DeleteGUIElement(ability_amount);
+}
+
 void Battle::ActionsMenu()
 {
 
 	if (!waiting_for_input && !ability_menu_created)
 	{
 		CreateAttackMenu();
+		character_attackup = true;
 	}
 
 	if (!ability_menu_created)
 	{
+		if (attack_button->current_state == SELECTED && !attack_info_created)
+		{
+			CreateAbilityInfo();
+		}
+		else if (attack_button->current_state != SELECTED && attack_info_created) DeleteAbilityInfo();
+
 		if (attack_button->has_been_clicked)
 		{
+			if (attack_info_created) DeleteAbilityInfo();
+			character_attackup = false;
 			DeleteAttackMenu();
 			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 			{
@@ -650,11 +674,13 @@ void Battle::ActionsMenu()
 		}
 		else if (character_ability1up && ability_button->has_been_clicked)
 		{
+			character_attackup = false;
 			DeleteAttackMenu();
 			CreateAbilitiesMenu();
 		}
 		else if (defend_button->has_been_clicked)
 		{
+			character_attackup = false;
 			DeleteAttackMenu();
 			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 			{
@@ -667,6 +693,8 @@ void Battle::ActionsMenu()
 		else if (App->input->Decline()) {
 			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 			{
+				character_attackup = false;
+				if (attack_info_created) DeleteAbilityInfo();
 				if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
 				{
 					(*character)->ComeBack();
@@ -677,11 +705,17 @@ void Battle::ActionsMenu()
 	}
 	else if (ability_menu_created)
 	{
+		if (!attack_info_created)
+		{
+			CreateAbilityInfo();
+		}
 		if (App->input->Decline()) {
+			if (attack_info_created) DeleteAbilityInfo();
 			DeleteAbilitiesMenu();
 		}
 		if (character_ability1up && ability1_button->has_been_clicked)
 		{
+			if (attack_info_created) DeleteAbilityInfo();
 			DeleteAbilitiesMenu();
 			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 			{
@@ -693,6 +727,7 @@ void Battle::ActionsMenu()
 		}
 		else if (character_ability2up && ability2_button->has_been_clicked)
 		{
+			if (attack_info_created) DeleteAbilityInfo();
 			DeleteAbilitiesMenu();
 			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 			{
@@ -704,6 +739,7 @@ void Battle::ActionsMenu()
 		}
 		else if (character_ability3up && ability3_button->has_been_clicked)
 		{
+			if (attack_info_created) DeleteAbilityInfo();
 			DeleteAbilitiesMenu();
 			for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 			{
@@ -736,6 +772,11 @@ void Battle::ActionsMenu()
 				}
 			}
 		}
+		if (ability_menu_created)
+		{
+			DeleteAbilityInfo();
+			CreateAbilityInfo();
+		}
 	}
 	if (App->input->Up())
 	{
@@ -759,6 +800,60 @@ void Battle::ActionsMenu()
 				}
 			}
 		}
+		if (ability_menu_created)
+		{
+			DeleteAbilityInfo();
+			CreateAbilityInfo();
+		}
+	}
+}
+
+void Battle::CreateAbilityInfo()
+{
+	attack_info_created = true;
+	int i = 0;
+	for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
+	{
+		if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
+		{
+			if (character_attackup && attack_button->current_state == SELECTED)
+			{
+				ability_board = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, ability_board_position.at(i).first, ability_board_position.at(i).second, { 0, 392, 301, 170 });
+				ability_range = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 5, App->scene_manager->language->range + App->scene_manager->language->range_val.at(i * 4), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+				ability_target = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 35, App->scene_manager->language->target + App->scene_manager->language->target_val.at(i * 4), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+				ability_type = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 65, App->scene_manager->language->ability_type + App->scene_manager->language->ability_type_val.at(i * 4), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+				ability_effect = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 95, App->scene_manager->language->effect + App->scene_manager->language->effect_val.at(i * 4), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+				ability_amount = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 125, App->scene_manager->language->amount + App->scene_manager->language->amount_val.at(i * 4), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+			}
+			else if (character_ability1up && ability1_button->current_state == SELECTED)
+			{
+				ability_board = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, ability_board_position.at(i).first, ability_board_position.at(i).second, { 0, 392, 301, 170 });
+				ability_range = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 5, App->scene_manager->language->range + App->scene_manager->language->range_val.at(i * 4 + 1), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+				ability_target = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 35, App->scene_manager->language->target + App->scene_manager->language->target_val.at(i * 4 + 1), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+				ability_type = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 65, App->scene_manager->language->ability_type + App->scene_manager->language->ability_type_val.at(i * 4 + 1), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+				ability_effect = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 95, App->scene_manager->language->effect + App->scene_manager->language->effect_val.at(i * 4 + 1), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+				ability_amount = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 125, App->scene_manager->language->amount + App->scene_manager->language->amount_val.at(i * 4 + 1), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+			}
+			else if (character_ability2up && ability2_button->current_state == SELECTED)
+			{
+				ability_board = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, ability_board_position.at(i).first, ability_board_position.at(i).second, { 0, 392, 301, 170 });
+				ability_range = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 5, App->scene_manager->language->range + App->scene_manager->language->range_val.at(i * 4 + 2), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+				ability_target = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 35, App->scene_manager->language->target + App->scene_manager->language->target_val.at(i * 4 + 2), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+				ability_type = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 65, App->scene_manager->language->ability_type + App->scene_manager->language->ability_type_val.at(i * 4 + 2), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+				ability_effect = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 95, App->scene_manager->language->effect + App->scene_manager->language->effect_val.at(i * 4 + 2), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+				ability_amount = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 125, App->scene_manager->language->amount + App->scene_manager->language->amount_val.at(i * 4 + 2), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+			}
+			else if (character_ability3up && ability3_button->current_state == SELECTED)
+			{
+				ability_board = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, ability_board_position.at(i).first, ability_board_position.at(i).second, { 0, 392, 301, 170 });
+				ability_range = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 5, App->scene_manager->language->range + App->scene_manager->language->range_val.at(i * 4 + 3), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+				ability_target = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 35, App->scene_manager->language->target + App->scene_manager->language->target_val.at(i * 4 + 3), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+				ability_type = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 65, App->scene_manager->language->ability_type + App->scene_manager->language->ability_type_val.at(i * 4 + 3), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+				ability_effect = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 95, App->scene_manager->language->effect + App->scene_manager->language->effect_val.at(i * 4 + 3), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+				ability_amount = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, ability_board_position.at(i).first + 8, ability_board_position.at(i).second + 125, App->scene_manager->language->amount + App->scene_manager->language->amount_val.at(i * 4 + 3), { 255, 255, 255, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+			}
+		}
+		++i;
 	}
 }
 

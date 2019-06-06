@@ -51,7 +51,8 @@ protected:
 	void DeleteAbilitiesMenu();
 	void DeleteOptionsIngame();
 
-	
+	void CreateAbilityInfo();
+	void DeleteAbilityInfo();
 
 	void ActionsMenu();
 
@@ -176,6 +177,16 @@ protected:
 	GUILabel* ability2_entity = nullptr;
 	GUILabel* ability3_entity = nullptr;
 
+	//abilities info
+	bool attack_info_created = false;
+	bool character_attackup = false;
+	GUIImage* ability_board = nullptr;
+	GUILabel* ability_range = nullptr;
+	GUILabel* ability_target = nullptr;
+	GUILabel* ability_type = nullptr;
+	GUILabel* ability_effect = nullptr;
+	GUILabel* ability_amount = nullptr;
+	std::vector<std::pair<int, int>> ability_board_position;
 
 	//tutorial
 
