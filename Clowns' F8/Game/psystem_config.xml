@@ -75,13 +75,13 @@
       <emitter type ="ability3">
         <angleRange min ="0" max ="0"/>
         <rotSpeed value ="0" randMin = "-1" randMax ="1"/>
-        <startSpeed value ="500" randMin = "0" randMax ="1"/>
-        <endSpeed value ="500" randMin = "0" randMax ="1"/>
-        <startSize value ="1920" randMin ="0" randMax ="1"/>
-        <endSize value =" 1920" randMin ="0" randMax ="1"/>
+        <startSpeed value ="50" randMin = "0" randMax ="1"/>
+        <endSpeed value ="50" randMin = "0" randMax ="1"/>
+        <startSize value ="512" randMin ="0" randMax ="1"/>
+        <endSize value =" 5000" randMin ="0" randMax ="1"/>
         <emitNumber value ="1"/>
         <emitVariance value ="0" randMin = "0" randMax ="1"/>
-        <maxParticleLife value ="3000" randMin = "0" randMax ="1"/>
+        <maxParticleLife value ="300" randMin = "0" randMax ="1"/>
         <textureRect x="0" y="0" w="64" h="64"/>
         <startColor r ="255" g="255" b="255" a="255"/>
         <endColor r ="255" g="255" b="255" a ="100"/>

@@ -4,7 +4,7 @@
 #include "Module.h"
 #include "SDL\include\SDL_pixels.h"
 
-#define DEFAULT_FONT "Assets/Fonts/HighVoltage_Rough.ttf"
+#define DEFAULT_FONT "Assets/Fonts/duality.ttf"
 #define DEFAULT_FONT_SIZE 25
 
 struct SDL_Texture;

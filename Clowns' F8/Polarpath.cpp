@@ -224,13 +224,11 @@ void Polarpath::CurrentMovement(MOVEMENT _movement) {
 	{
 	case Entity::IDLE_LEFT:
 		current_movement = IDLE_LEFT;
-		current_animation = &idle_left;
-		flipX = false;
+		current_animation = &idle_front;
 		break;
 	case Entity::IDLE_RIGHT:
 		current_movement = IDLE_RIGHT;
-		current_animation = &idle_left;
-		flipX = true;
+		current_animation = &idle_front;
 		break;
 	case Entity::IDLE_FRONT:
 		current_movement = IDLE_FRONT;
@@ -242,89 +240,75 @@ void Polarpath::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &idle_back;
 		flipX = false;
 		break;
-	case Entity::WALK_RIGHT_FRONT:									//------- MOVIMIENTO
+	case Entity::WALK_RIGHT_FRONT:									
 		current_movement = WALK_RIGHT_FRONT;
-		current_animation = &walk_left;
-		flipX = false;
-		position.first += 2;		//VIVAN LOS PUTOS NUMEROS MAGICOS XDDD  //DEJA DE ESCRIBIR EN ESPAÑOL GUILLEM
+		current_animation = &walk_front;
+		position.first += 2;		
 		position.second -= 1;
 		break;
 	case Entity::WALK_RIGHT_BACK:
 		current_movement = WALK_RIGHT_BACK;
-		current_animation = &walk_left;
+		current_animation = &walk_back;
 		position.first += 2;
 		position.second += 1;
-		flipX = true;
 		break;
 	case Entity::WALK_LEFT_BACK:
 		current_movement = WALK_LEFT_BACK;
-		current_animation = &walk_front;
-		flipX = false;
+		current_animation = &walk_back;
 		position.first -= 2;
 		position.second += 1;
 		break;
-	case Entity::WALK_LEFT_FRONT:								//------------MOVIMIENTO
+	case Entity::WALK_LEFT_FRONT:								
 		current_movement = WALK_LEFT_FRONT;
-		current_animation = &walk_back;
-		flipX = false;
+		current_animation = &walk_front;
 		position.first -= 2;
 		position.second -= 1;
 		break;
 	case Entity::ATTACK_LEFT:
 		current_movement = ATTACK_LEFT;
-		current_animation = &attack_left;
-		flipX = false;
+		current_animation = &attack_front;
 		break;
 	case Entity::ATTACK_RIGHT:
 		current_movement = ATTACK_RIGHT;
-		current_animation = &attack_left;
-		flipX = true;
+		current_animation = &attack_front;
 		break;
 	case Entity::ATTACK_FRONT:
 		current_movement = ATTACK_FRONT;
 		current_animation = &attack_front;
-		flipX = false;
 		break;
 	case Entity::ATTACK_BACK:
 		current_movement = ATTACK_BACK;
 		current_animation = &attack_back;
-		flipX = false;
 		break;
 	case Entity::ABILITY_1_LEFT:
 		current_movement = ABILITY_1_LEFT;
-		current_animation = &ability_1_left;
-		flipX = false;
+		current_animation = &ability_1_front;
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_RIGHT:
 		current_movement = ABILITY_1_RIGHT;
-		current_animation = &ability_1_left;
-		flipX = true;
+		current_animation = &ability_1_front;
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_FRONT:
 		current_movement = ABILITY_1_FRONT;
 		current_animation = &ability_1_front;
-		flipX = false;
 		break;
 	case Entity::ABILITY_1_BACK:
 		current_movement = ABILITY_1_BACK;
 		current_animation = &ability_1_back;
-		flipX = false;
 		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_LEFT:
 		current_movement = DEAD_LEFT;
-		current_animation = &dead_left;
-		flipX = false;
+		current_animation = &dead_front;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
 		}
 		break;
 	case Entity::DEAD_RIGHT:
 		current_movement = DEAD_RIGHT;
-		current_animation = &dead_left;
-		flipX = true;
+		current_animation = &dead_front;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
 		}
@@ -332,7 +316,6 @@ void Polarpath::CurrentMovement(MOVEMENT _movement) {
 	case Entity::DEAD_FRONT:
 		current_movement = DEAD_FRONT;
 		current_animation = &dead_front;
-		flipX = false;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
 		}
@@ -340,7 +323,6 @@ void Polarpath::CurrentMovement(MOVEMENT _movement) {
 	case Entity::DEAD_BACK:
 		current_movement = DEAD_BACK;
 		current_animation = &dead_back;
-		flipX = false;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
 		}
