@@ -51,10 +51,10 @@
     <level_position margin_x="40" margin_y="110"/>
     <actions_position margin_x="20" margin_y="145"/>
     <press_fx_name source="UI_FX_Selection.wav"/>
-    <map1 x="699" y="0" w="172" h="109"/>
-    <map2 x="400" y="0" w="107" h="96"/>
-    <map3 x="507" y="0" w="192" h="112"/>
-    <map4 x="871" y="0" w=" 251" h="99"/>
+    <map1 x="0" y="805" w="688" h="436"/>
+    <map2 x="0" y="0" w="420" h="377"/>
+    <map3 x="0" y="377" w="760" h="428"/>
+    <map4 x="0" y="1241" w=" 1004" h="396"/>
     <board x="320" y="160" w="750" h="170">
       <port margin_x="10" margin_y="40"/>
       <name margin_x="10" margin_y="5"/>
