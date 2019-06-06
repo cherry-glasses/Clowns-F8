@@ -140,7 +140,7 @@ bool ModuleVideo::Update(float dt)
 {
 	//DEBUG INPUTS
 	if (App->scene_manager->i_want_a_trailer)
-		PlayVideo("Videos/World of Warcraft Wrath of the Lich King Intro Trailer.mp4");
+		PlayVideo("Videos/intro_clowns_F8.mp4");
 	/*if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		Pause();*/
 	if (App->input->Decline() == KEY_DOWN) {
