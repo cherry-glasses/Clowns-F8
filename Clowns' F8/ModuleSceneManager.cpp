@@ -9,6 +9,8 @@
 #include "Lose.h"
 #include "ChooseMap.h"
 #include "Intro.h"
+#include "ModuleInput.h"
+
 
 
 ModuleSceneManager::ModuleSceneManager()
@@ -31,26 +33,41 @@ bool ModuleSceneManager::Awake(pugi::xml_node & _config)
 bool ModuleSceneManager::Start()
 {
 	language = new Language();
+	App->input->Defaultcontrols();
+	if (i_want_a_trailer)
+		return true;
 	return current_scene->Start();
 }
 
 bool ModuleSceneManager::PreUpdate()
 {
+	if (i_want_a_trailer)
+		return true;
+	if (trailer == false) {
+		current_scene->Start();
+		trailer = true;
+	}
 	return current_scene->PreUpdate();
 }
 
 bool ModuleSceneManager::Update(float dt)
 {
+	if (i_want_a_trailer)
+		return true;
 	return current_scene->Update(dt);
 }
 
 bool ModuleSceneManager::PostUpdate(float _dt)
 {
+	if (i_want_a_trailer)
+		return true;
 	return current_scene->PostUpdate(_dt);
 }
 
 bool ModuleSceneManager::CleanUp()
 {
+	if (i_want_a_trailer)
+		return true;
 	return current_scene->CleanUp();
 }
 

@@ -29,7 +29,7 @@ bool MainMenu::Start()
 
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
-	App->input->Defaultcontrols();
+	
 
 	App->audio->PlayMusic("Main_menu_8_bits.ogg");
 
@@ -156,18 +156,17 @@ bool MainMenu::Update(float _dt)
 bool MainMenu::PostUpdate(float dt)
 {
 	
-	if (!App->scene_manager->trailer) {
-		App->render->Blit(main_menu_background, 0, 0);
+	App->render->Blit(main_menu_background, 0, 0);
 
-		if (option_menu_created || controls_menu_created)
-		{
-			App->render->Blit(option_menu_background, (screen_width / 2) - (option_background.w / 2), (screen_height / 2) - (option_background.h / 2));
-		}
-		else if (credits_menu_created)
-		{
-			App->render->Blit(credits_menu_background, (screen_width / 2) - (option_background.w / 2), (screen_height / 2) - (option_background.h / 2));
-		}
+	if (option_menu_created || controls_menu_created)
+	{
+		App->render->Blit(option_menu_background, (screen_width / 2) - (option_background.w / 2), (screen_height / 2) - (option_background.h / 2));
 	}
+	else if (credits_menu_created)
+	{
+		App->render->Blit(credits_menu_background, (screen_width / 2) - (option_background.w / 2), (screen_height / 2) - (option_background.h / 2));
+	}
+	
 	
 
 	return true;
