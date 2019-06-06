@@ -143,7 +143,7 @@ bool ModuleVideo::Update(float dt)
 		PlayVideo("Videos/intro_clowns_F8.mp4");
 	/*if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		Pause();*/
-	if (App->input->Decline() && App->scene_manager->trailer) {
+	if (App->input->Decline() && App->scene_manager->i_want_a_trailer) {
 		CloseVideo();
 		App->scene_manager->trailer = false;
 		App->scene_manager->i_want_a_trailer = false;
