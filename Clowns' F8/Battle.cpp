@@ -74,8 +74,6 @@ bool Battle::Update(float _dt)
 		Tutoriallogic();
 	}
 
-
-
 	if (App->input->Pause() || ingame_options_menu_created)
 	{
 		App->render->Blit(battle_menu_background, 0 - (option_background.w / 2), (screen_height / 2.7) - (option_background.h / 2));
@@ -551,6 +549,7 @@ void Battle::LevelUp(bool _up)
 		{
 			App->entity_manager->LevelUP(0);
 		}
+		UpdateCharacterPortraits((*character), i);
 		App->gui_manager->DeleteGUIElement(character_levels.at(i));
 		character_levels.at(i) = ((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, portrait_position.at(i).first + level_margin.first, portrait_position.at(i).second + level_margin.second, "Lvl: " + std::to_string((*character)->level), { 255, 255, 0, 255 }, App->gui_manager->default_font_used));
 		++i;

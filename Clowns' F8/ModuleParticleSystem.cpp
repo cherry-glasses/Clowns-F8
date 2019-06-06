@@ -34,8 +34,14 @@ bool ModuleParticleSystem::Awake(pugi::xml_node& config)
 			LoadEmitterData(emitters, EmitterType::EMITTER_TYPE_NUM);
 		else if (emitterType.compare("attack") == 0)
 			LoadEmitterData(emitters, EmitterType::EMITTER_TYPE_ATTACK);
+		else if (emitterType.compare("ability1") == 0)
+			LoadEmitterData(emitters, EmitterType::EMITTER_TYPE_ABILITY1);
+		else if (emitterType.compare("ability2") == 0)
+			LoadEmitterData(emitters, EmitterType::EMITTER_TYPE_ABILITY2);
 		else if (emitterType.compare("ability3") == 0)
 			LoadEmitterData(emitters, EmitterType::EMITTER_TYPE_ABILITY3);
+		else if (emitterType.compare("effects") == 0)
+			LoadEmitterData(emitters, EmitterType::EMITTER_TYPE_EFFECTS);
 		
 	}
 	return ret;

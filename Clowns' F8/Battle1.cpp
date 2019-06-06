@@ -66,8 +66,9 @@ void Battle1::CreateBattle1()
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE1);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE2);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE3);
-
+	App->entity_manager->LevelUP(0);
 	CreateUIBattle();
+	
 
 }
 

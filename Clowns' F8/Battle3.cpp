@@ -65,9 +65,9 @@ void Battle3::CreateBattle3()
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_POLARPATH);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_ICE);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_MOUNTAIN);
-
+	App->entity_manager->LevelUP(0);
 	CreateUIBattle();
-
+	
 }
 
 

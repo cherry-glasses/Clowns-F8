@@ -70,9 +70,9 @@ void Battle4::CreateBattle4()
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_STONE3);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_STALAGMITE);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_BLOODSTREAM);
-
+	App->entity_manager->LevelUP(0);
 	CreateUIBattle();
-
+	
 }
 
 

@@ -61,6 +61,7 @@ protected:
 	MOVEMENT comeback_movement;
 
 	bool finish_attack = false;
+	bool sapphire_ability = false;
 	Emitter* emitter = nullptr;
 
 };

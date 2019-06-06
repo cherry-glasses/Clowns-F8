@@ -196,6 +196,11 @@ void Emitter::SetSize(int _start, int _end)
 	endSize = _end;
 }
 
+int Emitter::GetTime() const
+{
+	return lifetime;
+}
+
 void Emitter::VortexSensitive(bool sensitive)
 {
 	vortexSensitive = sensitive;

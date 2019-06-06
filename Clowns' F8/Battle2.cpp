@@ -64,9 +64,9 @@ void Battle2::CreateBattle2()
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_HOTDOG);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_STONE);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_VOLCANO);
-
+	App->entity_manager->LevelUP(0);
 	CreateUIBattle();
-
+	
 }
 
 

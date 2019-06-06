@@ -93,6 +93,8 @@ public:
 	void SetPosition(std::pair<int, int> _pos);
 	void SetSize(int _start, int _end);
 
+	int GetTime() const;
+
 	void VortexSensitive(bool sensitive);
 };
 
