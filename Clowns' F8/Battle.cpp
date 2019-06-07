@@ -15,7 +15,6 @@
 Battle::Battle(SCENE_TYPE _type, pugi::xml_node& _config) : Scene(_type, _config)
 {
 	App->scene_manager->objects_texture = App->textures->Load(_config.child("texture").attribute("value").as_string());
-	press_sfx = App->audio->LoadFx(_config.child("press_fx_name").attribute("source").as_string());
 
 	life_margin = { _config.child("life_position").attribute("margin_x").as_int(), _config.child("life_position").attribute("margin_y").as_int() };
 	mana_margin = { _config.child("mana_position").attribute("margin_x").as_int(), _config.child("mana_position").attribute("margin_y").as_int() };
@@ -754,7 +753,7 @@ void Battle::ActionsMenu()
 	//navigate for buttons2
 	if (App->input->Down())
 	{
-		App->audio->PlayFx(press_sfx);
+		App->audio->PlayFx(App->scene_manager->move_sfx);
 		for (std::list<GUIButton*>::const_iterator it_vector = buttons2.begin(); it_vector != buttons2.end(); ++it_vector)
 		{
 			if ((*it_vector)->current_state == SELECTED) {
@@ -780,7 +779,7 @@ void Battle::ActionsMenu()
 	}
 	if (App->input->Up())
 	{
-		App->audio->PlayFx(press_sfx);
+		App->audio->PlayFx(App->scene_manager->move_sfx);
 		for (std::list<GUIButton*>::const_iterator it_vector = buttons2.begin(); it_vector != buttons2.end(); ++it_vector)
 		{
 			if ((*it_vector)->current_state == SELECTED) {

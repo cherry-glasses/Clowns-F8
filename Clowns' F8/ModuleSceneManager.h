@@ -48,6 +48,14 @@ public:
 	bool trailer = true;
 	bool i_want_a_trailer = true;
 
+	// Audios
+	int accept_sfx;
+	int decline_sfx;
+	int	move_sfx;
+	int	defend_sfx;
+	int	critic_sfx;
+	int	levelup_sfx;
+
 private:
 	pugi::xml_node scene_configs;
 

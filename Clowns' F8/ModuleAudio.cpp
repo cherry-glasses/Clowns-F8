@@ -23,7 +23,7 @@ bool ModuleAudio::Awake(pugi::xml_node& _config)
 	bool ret = true;
 
 	volume = _config.child("volume").attribute("value").as_uint();
-	volume_fx = _config.child("volume").attribute("value").as_uint();
+	volume_fx = 60 + _config.child("volume").attribute("value").as_uint();
 	max_volume = _config.child("volume").attribute("value").as_uint();
 	default_music_fade_time = _config.child("default_music_fade_time").attribute("value").as_float();
 	volume_change_ratio = _config.child("volume_change_ratio").attribute("value").as_uint();
@@ -39,7 +39,6 @@ bool ModuleAudio::Awake(pugi::xml_node& _config)
 	else
 	{
 		Mix_VolumeMusic(volume);
-
 	}
 
 	SDL_Init(0);
@@ -189,6 +188,11 @@ bool ModuleAudio::PlayFx(unsigned int _id, int _repeat)
 		Mix_PlayChannel(-1, fx[_id - 1], _repeat);
 	}
 
+	for (int id = 0; id < fx.size(); id++)
+	{
+		Mix_VolumeChunk(fx[id], volume_fx);
+	}
+
 	return ret;
 }
 
@@ -284,9 +288,10 @@ void ModuleAudio::StopMusic(int _mut)
 void ModuleAudio::VolumeUp()
 {
 	volume += volume_change_ratio;
-	if (volume > 120) {
-		volume = 120;
+	if (volume > 60) {
+		volume = 60;
 	}
+	SliderVolumeFx(volume);
 	Mix_VolumeMusic(volume);
 }
 
@@ -296,16 +301,25 @@ void ModuleAudio::VolumeDown()
 	if (volume < 0) {
 		volume = 0;
 	}
+	SliderVolumeFx(volume);
 	Mix_VolumeMusic(volume);
 }
 
 void ModuleAudio::SliderVolumeFx(int _vol)
 {
+	if (volume == 0) {
+		volume_fx = 0;
+	}
+	else
+	{
+		volume_fx = _vol + 60;
+	}
+
 	for (int id = 0; id < fx.size(); id++)
 	{
-		Mix_VolumeChunk(fx[id], _vol);
+		Mix_VolumeChunk(fx[id], volume_fx);
 	}
-	volume_fx = _vol;
+	
 }
 
 bool ModuleAudio::Load(pugi::xml_node& _data)

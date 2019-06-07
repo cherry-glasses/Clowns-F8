@@ -22,7 +22,6 @@ ChooseMap::ChooseMap(SCENE_TYPE _type, pugi::xml_node& _config) : Scene(_type, _
 	map4 = { _config.child("map4").attribute("x").as_int(), _config.child("map4").attribute("y").as_int(),
 		_config.child("map4").attribute("w").as_int(), _config.child("map4").attribute("h").as_int() };
 
-	press_sfx = App->audio->LoadFx(_config.child("press_fx_name").attribute("source").as_string());
 }
 
 // Destructor
@@ -295,12 +294,12 @@ void ChooseMap::NavigateMaps()
 	if (App->input->Right())
 	{
 		if (map_selected == 1 && App->scene_manager->battle1_passed) {
-			App->audio->PlayFx(press_sfx);
+			App->audio->PlayFx(App->scene_manager->move_sfx);
 			map_selected = 3;
 		}
 		else if ((map_selected == 2 || map_selected == 3) && App->scene_manager->battle3_passed && App->scene_manager->battle2_passed)
 		{
-			App->audio->PlayFx(press_sfx);
+			App->audio->PlayFx(App->scene_manager->move_sfx);
 			map_selected = 4;
 		}
 		DeleteLabels();
@@ -309,12 +308,12 @@ void ChooseMap::NavigateMaps()
 	{
 		if (map_selected == 2 || map_selected == 3)
 		{
-			App->audio->PlayFx(press_sfx);
+			App->audio->PlayFx(App->scene_manager->move_sfx);
 			map_selected = 1;
 		}
 		else if (map_selected == 4)
 		{
-			App->audio->PlayFx(press_sfx);
+			App->audio->PlayFx(App->scene_manager->move_sfx);
 			--map_selected;
 		}
 		DeleteLabels();
@@ -322,7 +321,7 @@ void ChooseMap::NavigateMaps()
 	else if (App->input->Up())
 	{
 		if ((map_selected == 1 && App->scene_manager->battle1_passed) || map_selected == 3 || map_selected == 4) {
-			App->audio->PlayFx(press_sfx);
+			App->audio->PlayFx(App->scene_manager->move_sfx);
 			map_selected = 2;
 		}
 		else
@@ -343,7 +342,7 @@ void ChooseMap::NavigateMaps()
 	else if (App->input->Down())
 	{
 		if ((map_selected == 1 && App->scene_manager->battle1_passed) || map_selected == 2 || map_selected == 4) {
-			App->audio->PlayFx(press_sfx);
+			App->audio->PlayFx(App->scene_manager->move_sfx);
 			map_selected = 3;
 		}
 		else

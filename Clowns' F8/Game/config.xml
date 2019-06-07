@@ -51,6 +51,10 @@
     <level_position margin_x="40" margin_y="110"/>
     <actions_position margin_x="20" margin_y="145"/>
     <press_fx_name source="UI_FX_Selection.wav"/>
+    <decline_fx_name source="UI_FX_Selection.wav"/>
+    <move_fx_name source="UI_FX_Selection.wav"/>
+    <defend_fx_name source="UI_FX_Selection.wav"/>
+    <critic_fx_name source="UI_FX_Selection.wav"/>
     <map1 x="0" y="805" w="688" h="436"/>
     <map2 x="0" y="0" w="420" h="377"/>
     <map3 x="0" y="377" w="760" h="428"/>
@@ -69,7 +73,7 @@
 
   <audio>
     <default_music_fade_time value="2.0"/>
-    <volume value="100"/>
+    <volume value="60"/>
 	  <volume_change_ratio value="10"/>
     <mute value="false"/>
 	  <music> 

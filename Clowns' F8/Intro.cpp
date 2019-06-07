@@ -27,7 +27,7 @@ bool Intro::Start()
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
 
-	App->audio->PlayMusic("Main_menu_8_bits.ogg");
+	App->audio->PlayMusic("Battle_1_Intro.ogg");
 
 	return true;
 }

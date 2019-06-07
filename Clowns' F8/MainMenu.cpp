@@ -12,7 +12,7 @@
 
 MainMenu::MainMenu(SCENE_TYPE _type, pugi::xml_node& _config) : Scene(_type, _config)
 {
-	press_sfx = App->audio->LoadFx(_config.child("press_fx_name").attribute("source").as_string());
+	
 }
 
 // Destructor
@@ -94,7 +94,7 @@ bool MainMenu::Update(float _dt)
 	{
 		ControlLanguageAndMusic();
 
-		if (back_option_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		if (back_option_button->has_been_clicked || App->input->Decline())
 		{
 			Delete();
 			CreateMainMenu();
@@ -132,7 +132,7 @@ bool MainMenu::Update(float _dt)
 			ChangeControls(App->input->keyboard_buttons.buttons_to_use.ABILITYTREE, select_button);
 		}
 
-		else if (back_controls_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		else if (back_controls_button->has_been_clicked || App->input->Decline())
 		{
 			Delete();
 			CreateOptionMenu();
@@ -140,7 +140,7 @@ bool MainMenu::Update(float _dt)
 	}
 	else if (credits_menu_created)
 	{
-		if (back_credits_button->has_been_clicked || App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		if (back_credits_button->has_been_clicked || App->input->Decline())
 		{
 			Delete();
 			CreateMainMenu();
