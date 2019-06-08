@@ -1139,11 +1139,8 @@
     <hotdog>
       <texture value="Assets/Sprites/Enemies/Hotdog_Spritesheet.png"/>
       <sfx>
-        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
-        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
-        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
-        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
-        <dead_sfx value="Sapphire_Dead.wav"/>
+        <attack_sfx value="Hotdog_Attack.wav"/>
+        <ability_1_sfx value="Hotdog_Ability.wav"/>
       </sfx>
       <position x="14" y="3"/>
       <name value="Hotdog"/>
@@ -1352,11 +1349,8 @@
     <polarpath>
       <texture value="Assets/Sprites/Enemies/Polarpath_Spritesheet.png"/>
       <sfx>
-        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
-        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
-        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
-        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
-        <dead_sfx value="Sapphire_Dead.wav"/>
+        <attack_sfx value="Polarpath_Attack.wav"/>
+        <ability_1_sfx value="Polarpath_Ability.wav"/>
       </sfx>
       <position x="22" y="8"/>
       <name value="Polar Path"/>
