@@ -20,6 +20,7 @@
 #include "Scene.h"
 #include "Entity.h"
 #include "ModuleParticleSystem.h"
+#include "ModuleAudio.h"
 #include "Emitter.h"
 #include <random>
 
@@ -708,7 +709,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 						if ((*character)->defend) {
 							if (_special)
 							{
-								if ((*character)->current_stats.Hp < _damage - ((*character)->current_stats.DefS * 1.25))
+								if (0 < _damage - ((*character)->current_stats.DefS * 1.25))
 								{
 									(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefS * 1.25);
 									ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, _damage - (*character)->current_stats.DefS * 1.25);
@@ -722,7 +723,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 							}
 							else
 							{
-								if ((*character)->current_stats.Hp < _damage - ((*character)->current_stats.DefF * 1.25))
+								if (0 < _damage - ((*character)->current_stats.DefF * 1.25))
 								{
 									(*character)->current_stats.Hp -= _damage - ((*character)->current_stats.DefF * 1.25);
 									ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, _damage - (*character)->current_stats.DefF * 1.25);
@@ -739,7 +740,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 						else {
 							if (_special)
 							{
-								if ((*character)->current_stats.Hp < _damage - (*character)->current_stats.DefS)
+								if (0 < _damage - (*character)->current_stats.DefS)
 								{
 									(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
 									ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, _damage - (*character)->current_stats.DefS);
@@ -752,7 +753,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 							}
 							else
 							{
-								if ((*character)->current_stats.Hp < _damage - (*character)->current_stats.DefF)
+								if (0 < _damage - (*character)->current_stats.DefF)
 								{
 									(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
 									ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, _damage - (*character)->current_stats.DefF);
@@ -779,7 +780,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				{
 					if (_special)
 					{
-						if ((*character)->current_stats.Hp < _damage - (*character)->current_stats.DefS)
+						if (0 < _damage - (*character)->current_stats.DefS)
 						{
 							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
 							ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, _damage - (*character)->current_stats.DefS);
@@ -793,7 +794,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 					}
 					else
 					{
-						if ((*character)->current_stats.Hp < _damage - (*character)->current_stats.DefF)
+						if (0 < _damage - (*character)->current_stats.DefF)
 						{
 							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
 							ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, _damage - (*character)->current_stats.DefF);
@@ -1102,6 +1103,9 @@ void ModuleEntityManager::LevelUP(int _exp)
 
 				(*character)->current_stats = (*character)->default_stats;
 				++(*character)->level;
+				Emitter* emitter = App->particle_system->AddEmiter({ (*character)->GetPosition().first + 32, (*character)->GetPosition().second - (*character)->current.h } , EmitterType::EMITTER_TYPE_EFFECTS);
+				emitter->SetTextureRect({341, 105, 12, 13});
+				emitter->SetSize(20, 20);
 			}
 			
 			while ((*character)->level > 1 && (*character)->levels.at((*character)->level - 2) > (*character)->exp)

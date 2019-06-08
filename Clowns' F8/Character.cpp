@@ -671,7 +671,7 @@ void Character::Ability_1()
 			if (current_animation->GetCurrentFrameIndex() == 1)
 			{
 				emitter = App->particle_system->AddEmiter({ position.first + 16, position.second }, EmitterType::EMITTER_TYPE_ABILITY1);
-				emitter->SetTextureRect({ 384, 64, 62, 53 });
+				emitter->SetTextureRect({ 512, 0, 23, 29 });
 				emitter->SetSize(62, 62);
 				emitter->SetPosition({ objective_position.front().first + 32 , objective_position.front().second - 16 });
 			}
@@ -875,7 +875,7 @@ void Character::Ability_2()
 			if (current_animation->GetCurrentFrameIndex() == 1)
 			{
 				emitter = App->particle_system->AddEmiter({ position.first + 32, position.second - 64 }, EmitterType::EMITTER_TYPE_ABILITY2);
-				emitter->SetTextureRect({ 448, 0, 64, 64 });
+				emitter->SetTextureRect({ 535, 0, 29, 27 });
 			}
 			break;
 		default:

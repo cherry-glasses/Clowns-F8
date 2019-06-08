@@ -5,6 +5,7 @@
 #include "Entity.h"
 #include "ModuleMap.h"
 #include "ModuleEntityManager.h"
+#include "ModuleSceneManager.h"
 #include "Color.h"
 
 
@@ -73,8 +74,8 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	sfx.Ability_1_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_1_sfx").attribute("value").as_string());
 	sfx.Ability_2_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_2_sfx").attribute("value").as_string());
 	sfx.Ability_3_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_3_sfx").attribute("value").as_string());
-	sfx.Defend_SFX = App->audio->LoadFx(_config.child("sfx").child("defend_sfx").attribute("value").as_string());
-	sfx.Critic_SFX = App->audio->LoadFx(_config.child("sfx").child("critic_sfx").attribute("value").as_string());
+	sfx.Defend_SFX = App->scene_manager->defend_sfx;
+	sfx.Critic_SFX = App->scene_manager->critic_sfx;
 	sfx.Dead_SFX = App->audio->LoadFx(_config.child("sfx").child("dead_sfx").attribute("value").as_string());
 
 
