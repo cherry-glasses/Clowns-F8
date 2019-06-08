@@ -3,6 +3,7 @@
 
 #include "Animation.h"
 
+class Emitter;
 struct SDL_Texture;
 struct SDL_Rect;
 
@@ -172,6 +173,7 @@ public:
 
 	std::pair<int, int>  position_margin;
 	std::string name;
+	std::string type_move;
 
 protected:
 
@@ -280,6 +282,8 @@ protected:
 	bool istargeted = false;
 
 	bool sound_fx = false;
+
+	Emitter* emitter = nullptr;
 	
 	
 };

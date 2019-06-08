@@ -59,15 +59,11 @@
     <map2 x="0" y="0" w="420" h="377"/>
     <map3 x="0" y="377" w="760" h="428"/>
     <map4 x="0" y="1241" w=" 1004" h="396"/>
-    <board x="703" y="487" w="575" h="252">
-      <port margin_x="10" margin_y="40"/>
-      <name margin_x="10" margin_y="5"/>
-      <life margin_x="450" margin_y="5"/>
-      <mana margin_x="600" margin_y="5"/>
-      <attack margin_x="120" margin_y="5"/>
-      <ability_1 margin_x="120" margin_y="35"/>
-      <ability_2 margin_x="120" margin_y="65"/>
-      <ability_3 margin_x="120" margin_y="95"/>
+    <board x="703" y="487" w="712" h="252">
+      <port margin_x="45" margin_y="45"/>
+      <name margin_x="230" margin_y="45"/>
+      <life margin_x="400" margin_y="45"/>
+      <mana margin_x="550" margin_y="45"/>
     </board>
   </scene_manager>
 
@@ -108,7 +104,7 @@
     </levelup>
     <sapphire>
       <texture value="Assets/Sprites/Main_Characters/Sapphire_Spritesheet.png"/>
-      <portrait x="124" y="67" w="64" h="66"/>
+      <portrait x="518" y="343" w="168" h="168"/>
       <sfx>
         <attack_sfx value="Sapphire_Flower_Attack.wav"/>
         <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
@@ -118,6 +114,7 @@
       </sfx>
       <position x="6" y="18"/>
       <name value="Sapphire"/>
+      <type value="King"/>
       <exp value="0"/>
       <stats hp="79" mana="120" p_move="1" atk_f="60" atk_s="84" range_atk="5" range_ability_1="2" range_ability_2="5"
              range_ability_3="15" def_f="70" def_s="80" crit="10" eva="25" agi="11" attack ="25" ability_1="26" ability_2="30" ability_3="35"/>
@@ -347,7 +344,7 @@
     </sapphire>
     <iris>
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
-      <portrait x="124" y="0" w="64" h="66"/>
+      <portrait x="0" y="337" w="168" h="168"/>
       <sfx>
         <attack_sfx value="Sapphire_Flower_Attack.wav"/>
         <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
@@ -357,6 +354,7 @@
       </sfx>
       <position x="11" y="19"/>
       <name value="Iris"/>
+      <type value="Knight"/>
       <exp value="0"/>
       <stats hp="78" mana="85" p_move="1" atk_f="82" atk_s="60" range_atk="1" range_ability_1="1" range_ability_2="0"
              range_ability_3="1" def_f="80" def_s="76" crit="20" eva="40" agi="13" attack ="24" ability_1="25" ability_2="10" ability_3="40"/>
@@ -542,7 +540,7 @@
     </iris>
     <storm>
       <texture value="Assets/Sprites/Main_Characters/Storm_Spritesheet.png"/>
-      <portrait x="191" y="0" w="64" h="66"/>
+      <portrait x="352" y="348" w="168" h="168"/>
       <sfx>
         <attack_sfx value="GeorgeB_Random_Throw.wav"/>
         <ability_1_sfx value="GeorgeB_Bear_Trap.wav"/>
@@ -552,6 +550,7 @@
       </sfx>
       <position x="9" y="17"/>
       <name value="Storm"/>
+      <type value="Rook"/>
       <exp value="0"/>
       <stats hp="90" mana="80" p_move="4" atk_f="75" atk_s="74" range_atk="1" range_ability_1="3" range_ability_2="7"
              range_ability_3="7" def_f="85" def_s="83" crit="10" eva="15" agi="10" attack ="20" ability_1="0" ability_2="0" ability_3="0"/>
@@ -665,7 +664,7 @@
     </storm>
     <georgeb>
       <texture value="Assets/Sprites/Main_Characters/George_Spritesheet.png"/>
-      <portrait x="191" y="67" w="64" h="66"/>
+      <portrait x="172" y="348" w="168" h="168"/>
       <sfx>
         <attack_sfx value="GeorgeB_Random_Throw.wav"/>
         <ability_1_sfx value="GeorgeB_Bear_Trap.wav"/>
@@ -675,6 +674,7 @@
       </sfx>
       <position x="8" y="20"/>
       <name value="George B."/>
+      <type value="Bishop"/>
       <exp value="0"/>
       <stats hp="75" mana="95" p_move="4" atk_f="75" atk_s="75" range_atk="4" range_ability_1="6" range_ability_2="4"
              range_ability_3="3" def_f="75" def_s="75" crit="8" eva="20" agi="12" attack ="25" ability_1="25" ability_2="33" ability_3="38"/>
@@ -830,6 +830,7 @@
       <position x="15" y="13"/>
       <position x="20" y="17"/>
       <name value="Boneyman"/>
+      <type value="Pawn"/>
       <exp value="10"/>
       <stats hp="75" mana="70" p_move="2" atk_f="75" atk_s="75" def_f="65" def_s="65" crit="0.3" agi="8" attack ="20" ability_1="30"/>/>
       <animations>
@@ -942,6 +943,7 @@
       </sfx>
       <position x="17" y="9"/>
       <name value="PinkKing"/>
+      <type value="Bishop"/>
       <exp value="50"/>
       <stats hp="90" mana="120" p_move="5" atk_f="80" atk_s="80" range_atk="4" def_f="80" def_s="80" crit="0.3" agi="9" attack ="30" ability_1="35"/>/>
       <animations>
@@ -1051,6 +1053,7 @@
       <position x="14" y="8"/>
       <position x="19" y="4"/>
       <name value="Burgdog"/>
+      <type value="Pawn"/>
       <exp value="20"/>
       <stats hp="80" mana="90" p_move="3" atk_f="75" atk_s="75" def_f="78" def_s="78" crit="0.3" agi="8" attack ="25" ability_1="35"/>
       <animations>
@@ -1147,6 +1150,7 @@
       </sfx>
       <position x="14" y="3"/>
       <name value="Hotdog"/>
+      <type value="Knight"/>
       <exp value="100"/>
       <stats hp="120" mana="120" p_move="6" atk_f="85" atk_s="85" range_atk="4" def_f="85" def_s="85" crit="0.2" agi="9" attack ="35" ability_1="40"/>
       <animations>
@@ -1262,6 +1266,7 @@
       <position x="19" y="10"/>
       <position x="22" y="12"/>
       <name value="Polar Bear"/>
+      <type value="Pawn"/>
       <exp value="20"/>
       <stats hp="80" mana="90" p_move="3" atk_f="75" atk_s="75" def_f="78" def_s="78" crit="0.3" agi="8" attack ="30" ability_1="40"/>
       <animations>
@@ -1358,6 +1363,7 @@
       </sfx>
       <position x="22" y="8"/>
       <name value="Polar Path"/>
+      <type value="Rook"/>
       <exp value="100"/>
       <stats hp="120" mana="120" p_move="6" atk_f="85" atk_s="85" range_atk="4" def_f="85" def_s="85" crit="0.2" agi="9" attack ="45" ability_1="45"/>
       <animations>
@@ -1434,6 +1440,7 @@
       </sfx>
       <position x="18" y="4"/>
       <name value="Cherry Black Glasses"/>
+      <type value="King"/>
       <exp value="400"/>
       <stats hp="150" mana="120" p_move="6" atk_f="95" atk_s="95" range_atk="7" def_f="95" def_s="95" crit="0.2" agi="5" attack ="50" ability_1="60"/>
       <animations>

@@ -139,7 +139,7 @@ void CharacterGeorgeB::SearchAttack() {
 
 	std::pair<int, int> tmp;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	inrange_mov_list.push_back(tmp);
+	//inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.RangeAtk; i++)
@@ -242,7 +242,7 @@ void CharacterGeorgeB::SearchAbility_2() {
 
 	std::pair<int, int> tmp;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	inrange_mov_list.push_back(tmp);
+	//inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.RangeAbility_2; i++)
