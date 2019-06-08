@@ -232,6 +232,7 @@ void Polarpath::Ability_1(const std::vector<std::pair<int, int>>* _path)
 	for (int i = 0; i < 8; i++)
 		objective_position.push_back(abil_1_arr[i]);
 
+	App->audio->PlayFx(sfx.Ability_1_SFX);
 	CurrentMovement(ATTACK_FRONT);
 	current_turn = END_TURN; // guillem
 
