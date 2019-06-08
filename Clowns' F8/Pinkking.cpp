@@ -6,6 +6,7 @@
 #include "ModuleMap.h"
 #include "ModuleParticleSystem.h"
 #include "Emitter.h"
+#include "ModuleAudio.h"
 #include "Log.h"
 
 
@@ -162,6 +163,10 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 	else 
 		CurrentMovement(ATTACK_BACK);
 
+	if (!sound_fx) {
+		App->audio->PlayFx(sfx.Attack_SFX);
+		sound_fx = true;
+	}
 	
 	if (current_animation->isDone()) {
 		
@@ -191,6 +196,7 @@ void Pinkking::Ability_1(const std::vector<std::pair<int, int>> *_path)
 		emitter->SetTextureRect({ 320, 0, 128, 64 });
 		emitter->SetSize(128, 128);
 
+		App->audio->PlayFx(sfx.Ability_1_SFX);
 	}
 	if (emitter != nullptr)
 	{

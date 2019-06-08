@@ -111,6 +111,9 @@ bool ModuleEntityManager::PreUpdate()
 		}
 		if ((*entity)->stunned == true && (*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
 			(*entity)->current_turn = Entity::TURN::END_TURN;
+			Emitter* emitter = App->particle_system->AddEmiter({ (*entity)->GetPosition().first, (*entity)->GetPosition().second - 70 }, EmitterType::EMITTER_TYPE_EFFECTS);
+			emitter->SetTextureRect({ 341, 89, 11, 13 });
+			emitter->SetSize(40, 40);
 			(*entity)->stunned = false;
 		}
 

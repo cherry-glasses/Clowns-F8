@@ -935,11 +935,8 @@
     <pinkking>
       <texture value="Assets/Sprites/Enemies/Pinkking_Spritesheet.png"/>
       <sfx>
-        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
-        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
-        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
-        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
-        <dead_sfx value="Sapphire_Dead.wav"/>
+        <attack_sfx value="Pinkking_Attack.wav"/>
+        <ability_1_sfx value="Pinkking_Ability.wav"/>
       </sfx>
       <position x="17" y="9"/>
       <name value="PinkKing"/>
