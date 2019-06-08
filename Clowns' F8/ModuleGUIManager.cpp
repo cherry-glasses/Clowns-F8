@@ -28,7 +28,7 @@ return true;
 
 bool ModuleGUIManager::Start()
 {
-	image_textures = App->textures->Load("Assets/Sprites/UI/UI_sprites.png");
+	image_textures = App->textures->Load("Assets/Sprites/UI/character_info.png");
 	button_textures = App->textures->Load("Assets/Sprites/UI/buttons.png");
 	return true;
 }

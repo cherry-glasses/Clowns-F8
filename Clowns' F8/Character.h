@@ -63,6 +63,7 @@ protected:
 	bool finish_attack = false;
 	bool sapphire_ability = false;
 	Emitter* emitter = nullptr;
+	
 
 };
 

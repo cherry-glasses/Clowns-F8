@@ -153,6 +153,7 @@ public:
 	bool critic = false;
 	bool flipX = false;
 	int exp = 0;
+	int exp_aux = 0;
 	int level = 1;
 	std::vector<int> levels;
 	std::pair<int, int> target;

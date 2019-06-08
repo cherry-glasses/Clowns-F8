@@ -386,7 +386,8 @@ void Battle::UpdateCharacters()
 	for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 	{
 		if (life_x.at(i) != ((124 * (*character)->current_stats.Hp) / (*character)->default_stats.Hp)
-			|| mana_x.at(i) != ((124 * (*character)->current_stats.Mana) / (*character)->default_stats.Mana))
+			|| mana_x.at(i) != ((124 * (*character)->current_stats.Mana) / (*character)->default_stats.Mana)
+			|| (*character)->exp != (*character)->exp_aux)
 		{
 			UpdateCharacterPortraits(*character, i);
 		}
@@ -459,6 +460,7 @@ void Battle::UpdateEnemies()
 
 void Battle::UpdateCharacterPortraits(Entity* _character, int _i)
 {
+	_character->exp_aux = _character->exp;
 	App->gui_manager->DeleteGUIElement(life.at(_i));
 	App->gui_manager->DeleteGUIElement(mana.at(_i));
 	App->gui_manager->DeleteGUIElement(life_numbers.at(_i));

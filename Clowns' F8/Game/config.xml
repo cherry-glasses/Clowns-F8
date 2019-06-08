@@ -59,7 +59,7 @@
     <map2 x="0" y="0" w="420" h="377"/>
     <map3 x="0" y="377" w="760" h="428"/>
     <map4 x="0" y="1241" w=" 1004" h="396"/>
-    <board x="320" y="160" w="750" h="170">
+    <board x="703" y="487" w="575" h="252">
       <port margin_x="10" margin_y="40"/>
       <name margin_x="10" margin_y="5"/>
       <life margin_x="450" margin_y="5"/>
