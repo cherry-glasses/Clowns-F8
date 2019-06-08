@@ -46,7 +46,22 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		pause = config.child("main_menu_scene").child("pause").attribute("value").as_string("");
 		select = config.child("main_menu_scene").child("select").attribute("value").as_string("");
 
-		
+		//credits
+		credits_lines.push_back(config.child("main_menu_scene").child("credits0").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits1").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits2").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits3").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits4").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits5").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits6").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits7").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits8").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits9").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits10").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits11").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits12").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits13").attribute("value").as_string(""));
+
 		resume = config.child("battle_scene").child("resume").attribute("value").as_string("");
 		choose_map = config.child("battle_scene").child("choose_map").attribute("value").as_string("");
 		battle_abilities = config.child("battle_scene").child("battle_abilities").attribute("value").as_string("");
@@ -250,7 +265,16 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		defens_6 = config.child("battle_scene").child("def_6").attribute("value").as_string("");
 
 	}
-	
+}
 
-
+void Language::change_language()
+{
+	lines.clear();
+	end_lines.clear();
+	range_val.clear();
+	target_val.clear();
+	ability_type_val.clear();
+	effect_val.clear();
+	amount_val.clear();
+	credits_lines.clear();
 }
