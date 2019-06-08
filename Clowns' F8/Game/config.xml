@@ -1052,7 +1052,7 @@
       <position x="19" y="4"/>
       <name value="Burgdog"/>
       <exp value="20"/>
-      <stats hp="80" mana="90" p_move="3" atk_f="75" atk_s="75" def_f="78" def_s="78" crit="0.3" agi="8"/>
+      <stats hp="80" mana="90" p_move="3" atk_f="75" atk_s="75" def_f="78" def_s="78" crit="0.3" agi="8" attack ="25" ability_1="35"/>
       <animations>
         <idle_left_front speed="5.0f" loop="true">
           <frame x="0" y="128" width="64" height="64"/>
@@ -1148,7 +1148,7 @@
       <position x="14" y="3"/>
       <name value="Hotdog"/>
       <exp value="100"/>
-      <stats hp="120" mana="120" p_move="6" atk_f="85" atk_s="85" range_atk="4" def_f="85" def_s="85" crit="0.2" agi="9"/>
+      <stats hp="120" mana="120" p_move="6" atk_f="85" atk_s="85" range_atk="4" def_f="85" def_s="85" crit="0.2" agi="9" attack ="35" ability_1="40"/>
       <animations>
         <idle_left speed="5.0f" loop="true">
           <frame x="0" y="128" width="64" height="64"/>
@@ -1263,7 +1263,7 @@
       <position x="22" y="12"/>
       <name value="Polar Bear"/>
       <exp value="20"/>
-      <stats hp="80" mana="90" p_move="3" atk_f="75" atk_s="75" def_f="78" def_s="78" crit="0.3" agi="8"/>
+      <stats hp="80" mana="90" p_move="3" atk_f="75" atk_s="75" def_f="78" def_s="78" crit="0.3" agi="8" attack ="30" ability_1="40"/>
       <animations>
         <idle_left_front speed="5.0f" loop="true">
           <frame x="0" y="128" width="64" height="64"/>
@@ -1359,7 +1359,7 @@
       <position x="22" y="8"/>
       <name value="Polar Path"/>
       <exp value="100"/>
-      <stats hp="120" mana="120" p_move="6" atk_f="85" atk_s="85" range_atk="4" def_f="85" def_s="85" crit="0.2" agi="9"/>
+      <stats hp="120" mana="120" p_move="6" atk_f="85" atk_s="85" range_atk="4" def_f="85" def_s="85" crit="0.2" agi="9" attack ="45" ability_1="45"/>
       <animations>
         <idle_front speed="5.0f" loop="true">
           <frame x="64" y="64" width="64" height="64"/>
@@ -1435,7 +1435,7 @@
       <position x="18" y="4"/>
       <name value="Cherry Black Glasses"/>
       <exp value="400"/>
-      <stats hp="150" mana="120" p_move="6" atk_f="95" atk_s="95" range_atk="7" def_f="95" def_s="95" crit="0.2" agi="5"/>
+      <stats hp="150" mana="120" p_move="6" atk_f="95" atk_s="95" range_atk="7" def_f="95" def_s="95" crit="0.2" agi="5" attack ="50" ability_1="60"/>
       <animations>
         <idle_left_front speed="5.0f" loop="true">
           <frame x="0" y="128" width="110" height="128"/>

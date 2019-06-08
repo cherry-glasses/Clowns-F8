@@ -180,7 +180,7 @@ void Pinkking::SearchAbility_1()
 void Pinkking::Ability_1(const std::vector<std::pair<int, int>> *_path)
 {
 	objective_position.push_back(nearposition);
-	App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkS*1.5, ENTITY_TYPE::ENTITY_ENEMY_PINKKING, true);
+	App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING, true);
 	current_turn = END_TURN;
 }
 

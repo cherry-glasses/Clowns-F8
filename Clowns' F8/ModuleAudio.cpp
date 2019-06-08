@@ -23,7 +23,7 @@ bool ModuleAudio::Awake(pugi::xml_node& _config)
 	bool ret = true;
 
 	volume = _config.child("volume").attribute("value").as_uint();
-	volume_fx = 60 + _config.child("volume").attribute("value").as_uint();
+	volume_fx = _config.child("volume").attribute("value").as_uint() * 2;
 	max_volume = _config.child("volume").attribute("value").as_uint();
 	default_music_fade_time = _config.child("default_music_fade_time").attribute("value").as_float();
 	volume_change_ratio = _config.child("volume_change_ratio").attribute("value").as_uint();
@@ -288,8 +288,8 @@ void ModuleAudio::StopMusic(int _mut)
 void ModuleAudio::VolumeUp()
 {
 	volume += volume_change_ratio;
-	if (volume > 60) {
-		volume = 60;
+	if (volume > max_volume) {
+		volume = max_volume;
 	}
 	SliderVolumeFx(volume);
 	Mix_VolumeMusic(volume);
@@ -312,7 +312,7 @@ void ModuleAudio::SliderVolumeFx(int _vol)
 	}
 	else
 	{
-		volume_fx = _vol + 60;
+		volume_fx = _vol * 2;
 	}
 
 	for (int id = 0; id < fx.size(); id++)

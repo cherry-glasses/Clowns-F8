@@ -150,7 +150,7 @@ void Polarpath::Attack(const std::vector<std::pair<int, int>>* _path) {
 		CurrentMovement(ATTACK_BACK);
 
 	if (current_animation->isDone()) {
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_POLARPATH, false); //objective_position
+		App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_POLARPATH, false); //objective_position
 		current_animation->Reset();
 		if (current_movement == ATTACK_FRONT)
 			CurrentMovement(IDLE_RIGHT);
@@ -204,7 +204,7 @@ void Polarpath::Ability_1(const std::vector<std::pair<int, int>>* _path)
 	current_turn = END_TURN; // guillem
 
 	if (current_animation->isDone()) {
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_POLARPATH,true); //objective_position
+		App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_POLARPATH,true); //objective_position
 		current_animation->Reset();
 
 		CurrentMovement(IDLE_LEFT);
