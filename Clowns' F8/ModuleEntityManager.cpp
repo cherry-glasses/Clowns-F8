@@ -92,7 +92,23 @@ bool ModuleEntityManager::PreUpdate()
 	}
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
-		
+		if ((*entity)->stunned == true)
+		{
+			if (stun_fx == START_TURN * 2)
+			{
+				Emitter* emitter1 = App->particle_system->AddEmiter({ (*entity)->GetPosition().first + 16, (*entity)->GetPosition().second - 60 }, EmitterType::EMITTER_TYPE_EFFECTS);
+				emitter1->SetTextureRect({ 341, 89, 11, 13 });
+				emitter1->SetSize(15, 15);
+			}
+			else if (stun_fx == START_TURN * 4)
+			{
+				Emitter* emitter2 = App->particle_system->AddEmiter({ (*entity)->GetPosition().first + 48, (*entity)->GetPosition().second - 60 }, EmitterType::EMITTER_TYPE_EFFECTS);
+				emitter2->SetTextureRect({ 341, 89, 11, 13 });
+				emitter2->SetSize(15, 15);
+				stun_fx = 0;
+			}
+			++stun_fx;
+		}
 		if ((*entity)->current_turn == Entity::TURN::END_TURN && !App->scene_manager->tutorial_block)
 		{
 			(*entity)->current_turn = Entity::TURN::NONE;
@@ -111,9 +127,6 @@ bool ModuleEntityManager::PreUpdate()
 		}
 		if ((*entity)->stunned == true && (*entity)->current_turn == Entity::TURN::SEARCH_MOVE) {
 			(*entity)->current_turn = Entity::TURN::END_TURN;
-			Emitter* emitter = App->particle_system->AddEmiter({ (*entity)->GetPosition().first, (*entity)->GetPosition().second - 70 }, EmitterType::EMITTER_TYPE_EFFECTS);
-			emitter->SetTextureRect({ 341, 89, 11, 13 });
-			emitter->SetSize(40, 40);
 			(*entity)->stunned = false;
 		}
 
@@ -1106,9 +1119,12 @@ void ModuleEntityManager::LevelUP(int _exp)
 
 				(*character)->current_stats = (*character)->default_stats;
 				++(*character)->level;
-				Emitter* emitter = App->particle_system->AddEmiter({ (*character)->GetPosition().first + 32, (*character)->GetPosition().second - (*character)->current.h } , EmitterType::EMITTER_TYPE_EFFECTS);
-				emitter->SetTextureRect({341, 105, 12, 13});
-				emitter->SetSize(20, 20);
+				Emitter* emitter1 = App->particle_system->AddEmiter({ (*character)->GetPosition().first + 16, (*character)->GetPosition().second - (*character)->current.h } , EmitterType::EMITTER_TYPE_EFFECTS);
+				emitter1->SetTextureRect({341, 105, 12, 13});
+				emitter1->SetSize(20, 20);
+				Emitter* emitter2 = App->particle_system->AddEmiter({ (*character)->GetPosition().first + 48, (*character)->GetPosition().second - (*character)->current.h }, EmitterType::EMITTER_TYPE_EFFECTS);
+				emitter2->SetTextureRect({ 341, 105, 12, 13 });
+				emitter2->SetSize(20, 20);
 			}
 			
 			while ((*character)->level > 1 && (*character)->levels.at((*character)->level - 2) > (*character)->exp)
