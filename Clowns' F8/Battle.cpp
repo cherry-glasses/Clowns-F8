@@ -239,7 +239,7 @@ void Battle::CreateUIBattle()
 		stun_image_created.push_back(false);
 		defense_image_created.push_back(false);
 		turn_created.push_back(false);
-
+		
 		character_levels.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, portrait_position.at(i).first + level_margin.first, portrait_position.at(i).second + level_margin.second, "Lvl: " + std::to_string((*character)->level), { 255, 255, 0, 255 }, App->gui_manager->default_font_used));
 		character_names.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, portrait_position.at(i).first + name_margin.first - (*character)->name.size(), portrait_position.at(i).second + name_margin.second, (*character)->name.c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
 		
@@ -381,8 +381,8 @@ void Battle::UpdateCharacters()
 	int i = 0;
 	for (std::list<Entity*>::iterator character = App->entity_manager->characters.begin(); character != App->entity_manager->characters.end(); ++character)
 	{
-		if (life_x.at(i) != ((124 * (*character)->current_stats.Hp) / (*character)->default_stats.Hp)
-			|| mana_x.at(i) != ((124 * (*character)->current_stats.Mana) / (*character)->default_stats.Mana)
+		if (life_x.at(i) != ((249 * (*character)->current_stats.Hp) / (*character)->default_stats.Hp)
+			|| mana_x.at(i) != ((249 * (*character)->current_stats.Mana) / (*character)->default_stats.Mana)
 			|| (*character)->exp != (*character)->exp_aux)
 		{
 			UpdateCharacterPortraits(*character, i);
@@ -777,6 +777,7 @@ void Battle::ActionsMenu()
 			CreateAbilityInfo();
 		}
 	}
+
 }
 
 void Battle::CreateAbilityInfo()
