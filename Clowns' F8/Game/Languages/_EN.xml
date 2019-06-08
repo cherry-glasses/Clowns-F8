@@ -20,6 +20,20 @@
     <abilities value="ABILITIES"/>
     <pause value="PAUSE"/>
     <select value="SELECT"/>
+    <credits0 value="CHERRY GLASSES TEAM"/>
+    <credits1 value="LEAD: Cere Venteo"/>
+    <credits2 value="MANAGEMENT: Gerard Berenguer"/>
+    <credits3 value="GAME DESIGN: Aleix Castillo"/>
+    <credits4 value="UI: Martí Torras"/>
+    <credits5 value="CODE: Guillem Sánchez"/>
+    <credits6 value="ART: Kevin Muñoz"/>
+    <credits7 value="ART: Eric Jiménez"/>
+    <credits8 value="QA: Ricky Castro"/>
+    <credits9 value="This team is composed by CITM (UPC) "/>
+    <credits10 value="students of the videogame design and"/>
+    <credits11 value=" developement degree in Terrassa, Barcelona."/>
+    <credits12 value="Our motto:"/>
+    <credits13 value="JUST GET IT POSSIBLE!"/>
   </main_menu_scene>
   <battle_scene>
     <resume value="RESUME"/>

@@ -47,7 +47,6 @@ private:
 
 	SDL_Texture* main_menu_background = nullptr;
 	SDL_Texture* option_menu_background = nullptr;
-	SDL_Texture* credits_menu_background = nullptr;
 
 	//Main menu UI
 	GUIButton* cherry_glasses_logo_button = nullptr;
@@ -112,6 +111,7 @@ private:
 	bool controls_menu_created = false;
 
 	// Credits Menu UI
+	std::vector<GUILabel*> credits_text;
 	GUIButton* back_credits_button = nullptr;
 
 	GUILabel* back_credits_label = nullptr;

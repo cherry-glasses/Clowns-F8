@@ -25,7 +25,6 @@ bool MainMenu::Start()
 {
 	main_menu_background = App->textures->Load("Assets/Sprites/UI/main_menu_background.png");
 	option_menu_background = App->textures->Load("Assets/Sprites/UI/option_menu_background.png");
-	credits_menu_background = App->textures->Load("Assets/Sprites/UI/credits_menu_background.png");
 
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
@@ -158,16 +157,10 @@ bool MainMenu::PostUpdate(float dt)
 	
 	App->render->Blit(main_menu_background, 0, 0);
 
-	if (option_menu_created || controls_menu_created)
+	if (option_menu_created || controls_menu_created || credits_menu_created)
 	{
 		App->render->Blit(option_menu_background, (screen_width / 2) - (option_background.w / 2), (screen_height / 2) - (option_background.h / 2));
-	}
-	else if (credits_menu_created)
-	{
-		App->render->Blit(credits_menu_background, (screen_width / 2) - (option_background.w / 2), (screen_height / 2) - (option_background.h / 2));
-	}
-	
-	
+	}	
 
 	return true;
 }
@@ -177,7 +170,6 @@ bool MainMenu::CleanUp()
 {
 	App->textures->UnLoad(main_menu_background);
 	App->textures->UnLoad(option_menu_background);
-	App->textures->UnLoad(credits_menu_background);
 	App->audio->UnloadAllFx();
 	Delete();
 	return true;
@@ -288,7 +280,17 @@ void MainMenu::CreateControlsMenu()
 void MainMenu::CreateCreditsMenu()
 {
 	credits_menu_created = true;
-	back_credits_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), (screen_height / 2) + (option_background.h / 2) - button.h * 2, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	for (int i = 0; i < 14; ++i)
+	{
+		if(i == 0)
+			credits_text.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width / 2, (screen_height / 2) - (option_background.h / 2) + 40, App->scene_manager->language->credits_lines.at(i), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+		else if (i >= 12)
+			credits_text.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width / 2, (screen_height / 2) - (option_background.h / 2) + (i * 40) + 70, App->scene_manager->language->credits_lines.at(i), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+		else
+			credits_text.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width / 2, (screen_height / 2) - (option_background.h / 2) + (i * 40) + 50, App->scene_manager->language->credits_lines.at(i), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+
+	}
+	back_credits_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), (screen_height / 2) + (option_background.h / 2) - button.h * 1.5, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(back_credits_button);
 	back_credits_button->Select(SELECTED);
 	back_credits_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, back_credits_button->position.first + (button.w / 2), back_credits_button->position.second + (button.h / 2), App->scene_manager->language->back, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
@@ -310,12 +312,14 @@ void MainMenu::ControlLanguageAndMusic()
 {
 	if (english_button->has_been_clicked)
 	{
+		App->scene_manager->language->change_language();
 		App->scene_manager->language->SetLanguage(LANGUAGE_TYPE::ENGLISH);
 		Delete();
 		CreateOptionMenu();
 	}
 	else if (spanish_button->has_been_clicked)
 	{
+		App->scene_manager->language->change_language();
 		App->scene_manager->language->SetLanguage(LANGUAGE_TYPE::SPANISH);
 		Delete();
 		CreateOptionMenu();

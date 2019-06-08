@@ -833,12 +833,14 @@ void Battle::ControlLanguageAndMusic()
 {
 	if (english_button->has_been_clicked)
 	{
+		App->scene_manager->language->change_language();
 		App->scene_manager->language->SetLanguage(LANGUAGE_TYPE::ENGLISH);
 		DeleteOptionsIngame();
 		CreateOptionsIngame();
 	}
 	else if (spanish_button->has_been_clicked)
 	{
+		App->scene_manager->language->change_language();
 		App->scene_manager->language->SetLanguage(LANGUAGE_TYPE::SPANISH);
 		DeleteOptionsIngame();
 		CreateOptionsIngame();

@@ -19,10 +19,11 @@ public:
 		ability_type_val.clear();
 		effect_val.clear();
 		amount_val.clear();
+		credits_lines.clear();
 	};
 
 	void SetLanguage(LANGUAGE_TYPE language);
-
+	void change_language();
 public:
 	LANGUAGE_TYPE type = ENGLISH;
 	std::string new_game = "";
@@ -38,6 +39,7 @@ public:
 	std::string back = "";
 	std::string accept = "";
 	std::string decline = "";
+	std::vector<std::string> credits_lines;
 	std::string character_stats = "";
 	std::string character_abilities = "";
 	std::string abilities = "";
