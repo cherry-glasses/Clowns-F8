@@ -29,15 +29,14 @@ void CherryBlackGlasses::SearchWalk()
 	App->pathfinding->CreatePathQueen(App->map->WorldToMap(position.first, position.second), nearposition, current_stats.PMove);
 
 	//Skill_1
-	/*if (timer_skill_1 == 3) {
+	if (current_stats.Hp <= default_stats.Hp/2 && !ultimateeeee) {
 		current_turn = SEARCH_ABILITY_1;
-		timer_skill_1 = 0;
+
+		ultimateeeee = true;
 	}
 	else
 		current_turn = MOVE;
-	timer_skill_1++;*/
-	current_turn = MOVE;
-
+	
 }
 
 void CherryBlackGlasses::Walk(const std::vector<std::pair<int, int>> *_path)
@@ -197,13 +196,15 @@ void CherryBlackGlasses::SearchAbility_1()
 {
 	objective_position.clear();
 	nearposition = App->entity_manager->NearestCharacter(position);
-	current_turn = ATTACK;
+	current_turn = ABILITY_1;
 
 }
 
 void CherryBlackGlasses::Ability_1(const std::vector<std::pair<int, int>> *_path)
 {
-
+	objective_position.clear();
+	App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_CHERRYBLACKGLASSES, true);
+	current_turn = END_TURN;
 }
 
 

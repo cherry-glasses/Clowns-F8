@@ -794,16 +794,28 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			{
 				if (!(*character)->invulnerable)
 				{
-					for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
+					
+					if (_special)
 					{
-
-						if (_special)
-						{
 						
-						if (0 < _damage - (*character)->current_stats.DefS)
+					if (0 < _damage - (*character)->current_stats.DefS)
+					{
+						(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
+						ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, _damage - (*character)->current_stats.DefS);
+					}
+					else
+					{
+						ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, 0);
+					}
+
+					(*character)->damaged = true;
+					}
+					else
+					{
+						if (0 < _damage - (*character)->current_stats.DefF)
 						{
-							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
-							ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, _damage - (*character)->current_stats.DefS);
+							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
+							ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, _damage - (*character)->current_stats.DefF);
 						}
 						else
 						{
@@ -811,22 +823,8 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 						}
 
 						(*character)->damaged = true;
-						}
-						else
-						{
-							if (0 < _damage - (*character)->current_stats.DefF)
-							{
-								(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefF;
-								ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, _damage - (*character)->current_stats.DefF);
-							}
-							else
-							{
-								ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, 0);
-							}
-
-							(*character)->damaged = true;
-						}
 					}
+					
 				}
 			}
 			for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)

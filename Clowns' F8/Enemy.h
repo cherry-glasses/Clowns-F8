@@ -52,6 +52,7 @@ protected:
 	bool new_path = false;
 	int timer_skill_1 = 0;
 	int timer_skill_2 = 0;
+	bool ultimateeeee = false;
 
 };
 
