@@ -44,12 +44,12 @@
     <main_menu start_pos="300"/>
     <options_menu start_pos="270"/>
     <portrait_position margin_x="20" margin_y="12"/>
-    <life_position margin_x="130" margin_y="66"/>
-    <mana_position margin_x="130" margin_y="97"/>
-    <port_position margin_x="9" margin_y="1"/>
-    <name_position margin_x="200" margin_y="45"/>
-    <level_position margin_x="40" margin_y="110"/>
-    <actions_position margin_x="20" margin_y="145"/>
+    <life_position margin_x="40" margin_y="73"/>
+    <mana_position margin_x="40" margin_y="157"/>
+    <port_position margin_x="385" margin_y="49"/>
+    <name_position margin_x="262" margin_y="28"/>
+    <level_position margin_x="510" margin_y="190"/>
+    <actions_position margin_x="20" margin_y="227"/>
     <press_fx_name source="Accept.wav"/>
     <decline_fx_name source="Decline.wav"/>
     <move_fx_name source="Sonido_de_seleccion_en_F.wav"/>
