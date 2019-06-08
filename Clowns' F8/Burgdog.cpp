@@ -156,7 +156,7 @@ void Burgdog::Attack(const std::vector<std::pair<int, int>> *_path)
 
 
 			current_animation->Reset();
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BURGDOG, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_BURGDOG, false);
 			if (current_movement == ATTACK_LEFT_FRONT)
 			{
 				CurrentMovement(IDLE_LEFT_FRONT);
@@ -228,7 +228,7 @@ void Burgdog::Ability_1(const std::vector<std::pair<int, int>> *_path)
 		if (current_animation->isDone()) {
 			current_animation->Reset();
 			timer_skill_1 = 0;
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF*1.5, ENTITY_TYPE::ENTITY_ENEMY_BURGDOG, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_BURGDOG, false);
 			if (current_movement == ABILITY_1_LEFT_FRONT)
 			{
 				CurrentMovement(IDLE_LEFT_FRONT);

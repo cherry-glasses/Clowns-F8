@@ -185,7 +185,7 @@ void Hotdog::Attack(const std::vector<std::pair<int, int>>* _path)
 
 	if (current_animation->isDone()) {
 
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_HOTDOG, false);	//hay que cambiar esto
+		App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_HOTDOG, false);	//hay que cambiar esto
 
 		current_animation->Reset();
 		if (current_movement == ATTACK_FRONT)
