@@ -91,7 +91,23 @@ bool ModuleEntityManager::PreUpdate()
 	}
 	for (std::list<Entity*>::iterator entity = entities.begin(); entity != entities.end(); ++entity)
 	{
-		
+		if ((*entity)->stunned == true)
+		{
+			if (stun_fx == START_TURN * 2)
+			{
+				Emitter* emitter1 = App->particle_system->AddEmiter({ (*entity)->GetPosition().first + 16, (*entity)->GetPosition().second - 60 }, EmitterType::EMITTER_TYPE_EFFECTS);
+				emitter1->SetTextureRect({ 341, 89, 11, 13 });
+				emitter1->SetSize(15, 15);
+			}
+			else if (stun_fx == START_TURN * 4)
+			{
+				Emitter* emitter2 = App->particle_system->AddEmiter({ (*entity)->GetPosition().first + 48, (*entity)->GetPosition().second - 60 }, EmitterType::EMITTER_TYPE_EFFECTS);
+				emitter2->SetTextureRect({ 341, 89, 11, 13 });
+				emitter2->SetSize(15, 15);
+				stun_fx = 0;
+			}
+			++stun_fx;
+		}
 		if ((*entity)->current_turn == Entity::TURN::END_TURN && !App->scene_manager->tutorial_block)
 		{
 			(*entity)->current_turn = Entity::TURN::NONE;
@@ -780,19 +796,21 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				{
 					for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
 					{
+
 						if (_special)
 						{
-							if (0 < _damage - (*character)->current_stats.DefS)
-							{
-								(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
-								ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, _damage - (*character)->current_stats.DefS);
-							}
-							else
-							{
-								ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, 0);
-							}
+						
+						if (0 < _damage - (*character)->current_stats.DefS)
+						{
+							(*character)->current_stats.Hp -= _damage - (*character)->current_stats.DefS;
+							ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, _damage - (*character)->current_stats.DefS);
+						}
+						else
+						{
+							ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, 0);
+						}
 
-							(*character)->damaged = true;
+						(*character)->damaged = true;
 						}
 						else
 						{
@@ -817,7 +835,8 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				{
 					if ((*enemie)->GetPosition() == (*position))
 					{
-						if ((*enemie)->GetPosition() == (*position))
+						if (0 < _damage - (*enemie)->current_stats.DefF)
+
 						{
 							(*enemie)->current_stats.Hp += _damage / 2;
 							ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, -(_damage / 2));
@@ -1183,6 +1202,12 @@ void ModuleEntityManager::LevelUP(int _exp)
 
 				(*character)->current_stats = (*character)->default_stats;
 				++(*character)->level;
+				Emitter* emitter1 = App->particle_system->AddEmiter({ (*character)->GetPosition().first + 16, (*character)->GetPosition().second - (*character)->current.h } , EmitterType::EMITTER_TYPE_EFFECTS);
+				emitter1->SetTextureRect({341, 105, 12, 13});
+				emitter1->SetSize(20, 20);
+				Emitter* emitter2 = App->particle_system->AddEmiter({ (*character)->GetPosition().first + 48, (*character)->GetPosition().second - (*character)->current.h }, EmitterType::EMITTER_TYPE_EFFECTS);
+				emitter2->SetTextureRect({ 341, 105, 12, 13 });
+				emitter2->SetSize(20, 20);
 			}
 			
 			while ((*character)->level > 1 && (*character)->levels.at((*character)->level - 2) > (*character)->exp)

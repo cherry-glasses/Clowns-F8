@@ -51,7 +51,7 @@
     <iris_info>
       <attack range="1" target="enemy" type ="single" effect="damage" amount="24 + ATK F."/>
       <ability1 range="1" target="enemy" type ="area" effect="damage" amount="25 + ATK F."/>
-      <ability2 range="0" target="self" type ="single" effect="power up" amount="+10 ATK F.DEF F."/>
+      <ability2 range="0" target="self" type ="single" effect="power up" amount="+10 ATK F. DEF F."/>
       <ability3 range="1" target="enemy" type ="area" effect="damage" amount="40 + ATK F."/>
     </iris_info>
     <georgeb_info>

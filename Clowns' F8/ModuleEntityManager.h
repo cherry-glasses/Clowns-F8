@@ -79,6 +79,7 @@ private:
 	pugi::xml_node entity_configs;
 
 	bool starting = true;
+	int stun_fx = 0;
 	
 };
 #endif // !__ModuleEntityManager_H__

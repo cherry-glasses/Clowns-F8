@@ -4,6 +4,8 @@
 #include "ModulePathfinding.h"
 #include "ModuleRender.h"
 #include "ModuleMap.h"
+#include "ModuleParticleSystem.h"
+#include "Emitter.h"
 #include "Log.h"
 
 
@@ -169,7 +171,13 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 	else 
 		CurrentMovement(ATTACK_BACK);
 
+	if (!sound_fx) {
+		PlaySFX(sfx.Attack_SFX);
+		sound_fx = true;
+	}
+	
 	if (current_animation->isDone()) {
+		
 		App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING, false);
 		current_animation->Reset();
 		if (current_movement == ATTACK_FRONT)
@@ -177,6 +185,7 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 		else
 			CurrentMovement(IDLE_LEFT);
 		current_turn = END_TURN;
+		
 	}
 }
 
@@ -189,8 +198,37 @@ void Pinkking::SearchAbility_1()
 void Pinkking::Ability_1(const std::vector<std::pair<int, int>> *_path)
 {
 	objective_position.push_back(nearposition);
-	App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING, true);
-	current_turn = END_TURN;
+	if (emitter == nullptr)
+	{
+		emitter = App->particle_system->AddEmiter(position, EmitterType::EMITTER_TYPE_ATTACK);
+		emitter->SetTextureRect({ 320, 0, 128, 64 });
+		emitter->SetSize(128, 128);
+
+		PlaySFX(sfx.Ability_1_SFX);
+	}
+	if (emitter != nullptr)
+	{
+		if (emitter->GetEmitterPos().first < objective_position.back().first + 10)
+			emitter->SetPosition({ emitter->GetEmitterPos().first + 8, emitter->GetEmitterPos().second });
+		if (emitter->GetEmitterPos().first > objective_position.back().first + 10)
+			emitter->SetPosition({ emitter->GetEmitterPos().first - 8, emitter->GetEmitterPos().second });
+		if (emitter->GetEmitterPos().second < objective_position.back().second - 16)
+			emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second + 20 });
+		if (emitter->GetEmitterPos().second > objective_position.back().second - 16)
+			emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second - 20 });
+		if ((emitter->GetEmitterPos().first <= objective_position.back().first + 20) && (emitter->GetEmitterPos().first >= objective_position.back().first)
+			&& (emitter->GetEmitterPos().second >= objective_position.back().second - 32) && (emitter->GetEmitterPos().second <= objective_position.back().second))
+		{
+			emitter->StopEmission();
+			emitter = nullptr;
+		}
+
+	}
+	if (emitter == nullptr)
+	{
+		App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING, true);
+		current_turn = END_TURN;
+	}
 }
 
 

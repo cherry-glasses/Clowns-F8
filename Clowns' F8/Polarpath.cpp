@@ -4,6 +4,8 @@
 #include "ModulePathfinding.h"
 #include "ModuleRender.h"
 #include "ModuleMap.h"
+#include "ModuleParticleSystem.h"
+#include "Emitter.h"
 
 Polarpath::Polarpath(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config) {
 	CurrentMovement(IDLE_LEFT);
@@ -142,21 +144,54 @@ void Polarpath::Attack(const std::vector<std::pair<int, int>>* _path) {
 	std::pair<int, int> car = App->entity_manager->CharactersPrioritzationAttack(range, tiles_range_attk);
 	objective_position.push_back(car);
 
+
 	
 
-	if (nearposition.first > pos.first)
-		CurrentMovement(ATTACK_FRONT);
-	else
-		CurrentMovement(ATTACK_BACK);
+	if (emitter == nullptr)
+	{
+		emitter = App->particle_system->AddEmiter({ objective_position.back().first , objective_position.back().second - 500 }, EmitterType::EMITTER_TYPE_ATTACK);
+		emitter->SetTextureRect({ 448, 64, 64, 64 });
+		emitter->SetSize(128, 128);
 
-	if (current_animation->isDone()) {
-		App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_POLARPATH, false); //objective_position
-		current_animation->Reset();
-		if (current_movement == ATTACK_FRONT)
-			CurrentMovement(IDLE_RIGHT);
+
+		PlaySFX(sfx.Attack_SFX);
+	}
+	if (emitter != nullptr)
+	{
+		if (emitter->GetEmitterPos().first < objective_position.back().first + 10)
+			emitter->SetPosition({ emitter->GetEmitterPos().first + 8, emitter->GetEmitterPos().second });
+		if (emitter->GetEmitterPos().first > objective_position.back().first + 10)
+			emitter->SetPosition({ emitter->GetEmitterPos().first - 8, emitter->GetEmitterPos().second });
+		if (emitter->GetEmitterPos().second < objective_position.back().second - 16)
+			emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second + 20 });
+		if (emitter->GetEmitterPos().second > objective_position.back().second - 16)
+			emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second - 20 });
+		if ((emitter->GetEmitterPos().first <= objective_position.back().first + 20) && (emitter->GetEmitterPos().first >= objective_position.back().first)
+			&& (emitter->GetEmitterPos().second >= objective_position.back().second - 32) && (emitter->GetEmitterPos().second <= objective_position.back().second))
+		{
+			emitter->StopEmission();
+			emitter = nullptr;
+		}
+
+	}
+	if (emitter == nullptr)
+	{
+		current_turn = END_TURN; //guillem
+
+		if (nearposition.first > pos.first)
+			CurrentMovement(ATTACK_FRONT);
 		else
-			CurrentMovement(IDLE_LEFT);
-		current_turn = END_TURN;
+			CurrentMovement(ATTACK_BACK);
+
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_POLARPATH, false); //objective_position
+			current_animation->Reset();
+			if (current_movement == ATTACK_FRONT)
+				CurrentMovement(IDLE_RIGHT);
+			else
+				CurrentMovement(IDLE_LEFT);
+			current_turn = END_TURN;
+		}
 	}
 
 }
@@ -200,6 +235,7 @@ void Polarpath::Ability_1(const std::vector<std::pair<int, int>>* _path)
 	for (int i = 0; i < 8; i++)
 		objective_position.push_back(abil_1_arr[i]);
 
+	PlaySFX(sfx.Ability_1_SFX);
 	CurrentMovement(ATTACK_FRONT);
 	current_turn = END_TURN; // guillem
 

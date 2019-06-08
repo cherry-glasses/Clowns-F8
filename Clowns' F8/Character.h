@@ -4,8 +4,6 @@
 #include "Animation.h"
 #include "Entity.h"
 
-class Emitter;
-
 class Character : public Entity
 {
 public:
@@ -62,7 +60,8 @@ protected:
 
 	bool finish_attack = false;
 	bool sapphire_ability = false;
-	Emitter* emitter = nullptr;
+	
+	
 
 };
 

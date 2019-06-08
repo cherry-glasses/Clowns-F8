@@ -40,7 +40,7 @@
       </emitter>
       <emitter type ="ability1">
         <angleRange min ="0" max ="0"/>
-        <rotSpeed value ="10" randMin = "-1" randMax ="1"/>
+        <rotSpeed value ="5" randMin = "-1" randMax ="1"/>
         <startSpeed value ="0" randMin = "0" randMax ="1"/>
         <endSpeed value ="0" randMin = "0" randMax ="1"/>
         <startSize value ="128" randMin ="0" randMax ="1"/>

@@ -154,14 +154,11 @@ protected:
 	std::pair<int, int> name_board;
 	std::pair<int, int> life_board;
 	std::pair<int, int> mana_board;
-	std::pair<int, int> attack_board;
-	std::pair<int, int> ability_1_board;
-	std::pair<int, int> ability_2_board;
-	std::pair<int, int> ability_3_board;
 
 	GUIImage* board_entity = nullptr;
 	GUIImage* port_entity = nullptr;
 	GUILabel* name_entity = nullptr;
+	GUILabel* type_entity = nullptr;
 	GUILabel* lvl_entity = nullptr;
 	GUILabel* exp_entity = nullptr;
 	GUILabel* life_entity = nullptr;
@@ -172,10 +169,6 @@ protected:
 	GUILabel* def_s_entity = nullptr;
 	GUILabel* crit_entity = nullptr;
 	GUILabel* eva_entity = nullptr;
-	GUILabel* attack_entity = nullptr;
-	GUILabel* ability1_entity = nullptr;
-	GUILabel* ability2_entity = nullptr;
-	GUILabel* ability3_entity = nullptr;
 
 	//abilities info
 	bool attack_info_created = false;
