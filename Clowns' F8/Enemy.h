@@ -40,6 +40,7 @@ public:
 	//Save and Load
 	virtual bool Load(pugi::xml_node&);
 	virtual bool Save(pugi::xml_node&) const;
+	virtual std::pair<int, int> Path2_0(std::pair<int,int> position, std::pair<int, int> objective);
 
 protected:
 	std::pair<int, int> nearposition;
@@ -48,7 +49,7 @@ protected:
 	std::pair<int, int> pos;
 	bool inDanger = false;
 	bool inRange = false;
-
+	bool new_path = false;
 	int timer_skill_1 = 0;
 	int timer_skill_2 = 0;
 

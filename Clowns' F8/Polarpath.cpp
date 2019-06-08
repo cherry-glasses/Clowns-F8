@@ -142,7 +142,7 @@ void Polarpath::Attack(const std::vector<std::pair<int, int>>* _path) {
 	std::pair<int, int> car = App->entity_manager->CharactersPrioritzationAttack(range, tiles_range_attk);
 	objective_position.push_back(car);
 
-	current_turn = END_TURN; //guillem
+	
 
 	if (nearposition.first > pos.first)
 		CurrentMovement(ATTACK_FRONT);

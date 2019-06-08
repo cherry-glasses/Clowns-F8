@@ -25,6 +25,9 @@ public:
 
 
 	void CurrentMovement(MOVEMENT _movement);
+private:
+	std::pair <int, int> skill_1[5];
+
 };
 
 #endif // 

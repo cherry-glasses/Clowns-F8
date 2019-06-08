@@ -57,58 +57,72 @@ void CherryBlackGlasses::Walk(const std::vector<std::pair<int, int>> *_path)
 	nearposition = App->entity_manager->NearestCharacter(position);
 	nearposition = App->map->WorldToMap(nearposition.first, nearposition.second);
 
-	std::pair<int, int> object;
+
 
 
 	if (_path->size() > 1)
 	{
-		if (!App->pathfinding->IsUsed(_path->at(1), this))
+		if (App->pathfinding->IsUsed(_path->at(1), this) && !new_path)
 		{
-			if (!inRange) {
+			if (App->entity_manager->CalculateDistance(pos, nearposition) <= current_stats.RangeAtk)
+				current_turn = SEARCH_ATTACK;
+			else {
+				std::pair<int,int>helperrr = Path2_0(pos, _path->at(1));
+				objective_position.push_back(App->map->MapToWorld(helperrr.first, helperrr.second));
+				new_path = true;
+			}
+
+		}
+		else {
+		
+
+			if (!new_path) {
 				objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
 
 			}
 
 
 			inRange = false;
-
-			if (_path->at(0).first > _path->at(1).first && _path->at(0).second < _path->at(1).second) {
-				CurrentMovement(WALK_LEFT);
-			}
-			else if (_path->at(0).first > _path->at(1).first && _path->at(0).second > _path->at(1).second) {
-				CurrentMovement(WALK_BACK);
-			}
-			else if (_path->at(0).first < _path->at(1).first && _path->at(0).second < _path->at(1).second) {
-				CurrentMovement(WALK_FRONT);
-			}
-			else if (_path->at(0).first < _path->at(1).first && _path->at(0).second > _path->at(1).second) {
-				CurrentMovement(WALK_RIGHT);
-			}
-			if (_path->at(0).second > _path->at(1).second && _path->at(0).first == _path->at(1).first) {
-				CurrentMovement(WALK_RIGHT_FRONT);
-			}
-			else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-				CurrentMovement(WALK_RIGHT_BACK);
-			}
-			else if (_path->at(0).second < _path->at(1).second && _path->at(0).first == _path->at(1).first) {
-				CurrentMovement(WALK_LEFT_BACK);
-			}
-			else if (_path->at(0).first > _path->at(1).first &&_path->at(0).second == _path->at(1).second) {
-				CurrentMovement(WALK_LEFT_FRONT);
-			}
-			current_turn = MOVE;
-			pos = App->map->WorldToMap(position.first, position.second);
 			if (App->entity_manager->CalculateDistance(pos, nearposition) < current_stats.RangeAtk && (App->map->MapToWorld(pos.first, pos.second) == position)) {
 				current_turn = SEARCH_ATTACK;
 
 			}
+			else {
+				if (_path->at(0).first > _path->at(1).first && _path->at(0).second < _path->at(1).second) {
+					CurrentMovement(WALK_LEFT);
+				}
+				else if (_path->at(0).first > _path->at(1).first && _path->at(0).second > _path->at(1).second) {
+					CurrentMovement(WALK_BACK);
+				}
+				else if (_path->at(0).first < _path->at(1).first && _path->at(0).second < _path->at(1).second) {
+					CurrentMovement(WALK_FRONT);
+				}
+				else if (_path->at(0).first < _path->at(1).first && _path->at(0).second > _path->at(1).second) {
+					CurrentMovement(WALK_RIGHT);
+				}
+				if (_path->at(0).second > _path->at(1).second && _path->at(0).first == _path->at(1).first) {
+					CurrentMovement(WALK_RIGHT_FRONT);
+				}
+				else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+					CurrentMovement(WALK_RIGHT_BACK);
+				}
+				else if (_path->at(0).second < _path->at(1).second && _path->at(0).first == _path->at(1).first) {
+					CurrentMovement(WALK_LEFT_BACK);
+				}
+				else if (_path->at(0).first > _path->at(1).first &&_path->at(0).second == _path->at(1).second) {
+					CurrentMovement(WALK_LEFT_FRONT);
+				}
+				current_turn = MOVE;
+				pos = App->map->WorldToMap(position.first, position.second);
+			}
 
-			std::pair<int, int> cancer = App->map->MapToWorld(pos.first, pos.second);
 
-			LOG("posii %i , %i , cancer %i ,%i", position.first, position.second, cancer.first, cancer.second);
+
+
+
 			//std::pair<int, int> yoooo = App->map->WorldToMap(objective_position.back().first, objective_position.back().second);
 			if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
-
+				new_path = false;
 				if (current_movement == WALK_LEFT)
 				{
 					CurrentMovement(IDLE_LEFT);
@@ -127,18 +141,12 @@ void CherryBlackGlasses::Walk(const std::vector<std::pair<int, int>> *_path)
 				}
 
 				inDanger = false;
-				if (inRange)
+				if (App->entity_manager->CalculateDistance(pos, nearposition) <= current_stats.RangeAtk)
 					current_turn = SEARCH_ATTACK;
 				else
 					current_turn = END_TURN;
 			}
-
-		}
-		else {
-			if (App->entity_manager->CalculateDistance(pos, nearposition) <= current_stats.RangeAtk)
-				current_turn = SEARCH_ATTACK;
-			else
-				current_turn = END_TURN;
+				
 		}
 
 
@@ -187,6 +195,9 @@ void CherryBlackGlasses::Attack(const std::vector<std::pair<int, int>> *_path)
 
 void CherryBlackGlasses::SearchAbility_1()
 {
+	objective_position.clear();
+	nearposition = App->entity_manager->NearestCharacter(position);
+	current_turn = ATTACK;
 
 }
 

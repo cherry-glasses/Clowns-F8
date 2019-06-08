@@ -17,7 +17,8 @@ public:
 	void Walk(const std::vector<std::pair<int, int>> *_path);
 	void SearchAttack();
 	void Attack(const std::vector<std::pair<int, int>> *_path);
-
+	void SearchAbility_1();
+	void Ability_1(const std::vector<std::pair<int, int>> *_path);
 	//void Hability_1() {}
 	//void Hability_2() {}
 	//void Hability_3() {}
@@ -28,6 +29,10 @@ private:
 
 	bool first = false;
 	bool second = false;
+
+	std::pair<int, int> they_see_me_rolling;
+	bool is_fucking_walkeable;
+	int ability_1_range = 3;
 
 };
 
