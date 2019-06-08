@@ -120,7 +120,7 @@ void CharacterIris::SearchAttack() {
 
 	std::pair<int, int> tmp;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	inrange_mov_list.push_back(tmp);
+	//inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.RangeAtk; i++)
@@ -164,7 +164,7 @@ void CharacterIris::SearchAbility_1() {
 
 	std::pair<int, int> tmp;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	inrange_mov_list.push_back(tmp);
+	//inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.RangeAbility_1; i++)
@@ -214,7 +214,7 @@ void CharacterIris::SearchAbility_3() {
 
 	std::pair<int, int> tmp;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	inrange_mov_list.push_back(tmp);
+	//inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.RangeAtk; i++)
@@ -364,6 +364,22 @@ void CharacterIris::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &attack_right_back;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
+			finish_attack = true;
+		}
+		break;/*
+	case Entity::ABILITY_1_LEFT:
+		current_movement = ABILITY_1_LEFT;
+		current_animation = &ability_1_left_front;
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
+			finish_attack = true;
+		}
+		break;*/
+	case Entity::ABILITY_1_RIGHT:
+		current_movement = ABILITY_1_RIGHT;
+		current_animation = &ability_1_right_front;
+		if (current_animation->isDone()) {
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_IRIS, false);
 			finish_attack = true;
 		}
 		break;

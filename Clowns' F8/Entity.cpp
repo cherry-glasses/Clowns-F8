@@ -33,6 +33,7 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 		_config.parent().child("circle_yellow").attribute("width").as_int(), _config.parent().child("circle_yellow").attribute("height").as_int() };
 
 	name = _config.child("name").attribute("value").as_string("");
+	type_move = _config.child("type").attribute("value").as_string("");
 	position_margin = { _config.parent().child("position_margin").attribute("x").as_int(), _config.parent().child("position_margin").attribute("y").as_int() };
 	position =  App->map->MapToWorld(_config.child("position").attribute("x").as_int(), _config.child("position").attribute("y").as_int());
 	

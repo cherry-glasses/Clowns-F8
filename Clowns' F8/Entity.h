@@ -3,6 +3,7 @@
 
 #include "Animation.h"
 
+class Emitter;
 struct SDL_Texture;
 struct SDL_Rect;
 
@@ -153,6 +154,7 @@ public:
 	bool critic = false;
 	bool flipX = false;
 	int exp = 0;
+	int exp_aux = 0;
 	int level = 1;
 	std::vector<int> levels;
 	std::pair<int, int> target;
@@ -171,6 +173,7 @@ public:
 
 	std::pair<int, int>  position_margin;
 	std::string name;
+	std::string type_move;
 
 protected:
 
@@ -279,6 +282,8 @@ protected:
 	bool istargeted = false;
 
 	bool sound_fx = false;
+
+	Emitter* emitter = nullptr;
 	
 	
 };

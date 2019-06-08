@@ -152,6 +152,7 @@ void Polarbear::Attack(const std::vector<std::pair<int, int>> *_path)
 
 
 		if (current_animation->isDone()) {
+			
 			//Skill_1
 			timer_skill_1++;
 
@@ -175,6 +176,7 @@ void Polarbear::Attack(const std::vector<std::pair<int, int>> *_path)
 				CurrentMovement(IDLE_RIGHT_BACK);
 			}
 			current_turn = END_TURN;
+			
 		}
 	}
 	else
