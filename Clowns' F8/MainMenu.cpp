@@ -85,7 +85,7 @@ bool MainMenu::Update(float _dt)
 		}
 		else if (cherry_glasses_logo_button->has_been_clicked)
 		{
-			ShellExecuteA(NULL, "open", "https://github.com/cherry-glasses/Clowns-F8/wiki", NULL, NULL, SW_SHOWNORMAL);
+			ShellExecuteA(NULL, "open", "https://cherry-glasses.github.io/Clowns-F8/", NULL, NULL, SW_SHOWNORMAL);
 			cherry_glasses_logo_button->Select(SELECTED);
 		}
 	}
@@ -210,7 +210,7 @@ void MainMenu::CreateMainMenu()
 	credits_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, credits_button->position.first + (button.w / 2), credits_button->position.second + (button.h / 2), App->scene_manager->language->credits, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	exit_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, exit_button->position.first + (button.w / 2), exit_button->position.second + (button.h / 2), App->scene_manager->language->exit, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 	
-	cherry_glasses_logo_image = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, cherry_glasses_logo_button->position.first + (button.w / 2) - (cherry_glasses_logo.w / 2), cherry_glasses_logo_button->position.second + (button.h / 2) - (cherry_glasses_logo.h / 2), { 0, 0, 102, 58 });
+	cherry_glasses_logo_image = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, cherry_glasses_logo_button->position.first + (button.w / 2) - (cherry_glasses_logo.w / 2), cherry_glasses_logo_button->position.second + (button.h / 2) - (cherry_glasses_logo.h / 2), { 352, 231, 105, 59 });
 	
 	new_game_button->Select(SELECTED);
 }
