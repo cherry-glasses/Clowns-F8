@@ -144,11 +144,15 @@ void Polarpath::Attack(const std::vector<std::pair<int, int>>* _path) {
 	std::pair<int, int> car = App->entity_manager->CharactersPrioritzationAttack(range, tiles_range_attk);
 	objective_position.push_back(car);
 
+
+	
+
 	if (emitter == nullptr)
 	{
 		emitter = App->particle_system->AddEmiter({ objective_position.back().first , objective_position.back().second - 500 }, EmitterType::EMITTER_TYPE_ATTACK);
 		emitter->SetTextureRect({ 448, 64, 64, 64 });
 		emitter->SetSize(128, 128);
+
 
 		PlaySFX(sfx.Attack_SFX);
 	}
