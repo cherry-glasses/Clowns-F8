@@ -129,7 +129,7 @@ public:
 
 	}
 
-	void PlaySFX(const int _channel, const int _repeat) const;
+	void PlaySFX(const int _channel, const int _repeat = 0) const;
 	void LoadAnim(pugi::xml_node _config);
 	bool LoadAnimation(pugi::xml_node _node, Animation &_anim);
 

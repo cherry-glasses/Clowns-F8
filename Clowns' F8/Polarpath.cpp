@@ -6,7 +6,6 @@
 #include "ModuleMap.h"
 #include "ModuleParticleSystem.h"
 #include "Emitter.h"
-#include "ModuleAudio.h"
 
 Polarpath::Polarpath(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config) {
 	CurrentMovement(IDLE_LEFT);
@@ -151,7 +150,7 @@ void Polarpath::Attack(const std::vector<std::pair<int, int>>* _path) {
 		emitter->SetTextureRect({ 448, 64, 64, 64 });
 		emitter->SetSize(128, 128);
 
-		App->audio->PlayFx(sfx.Attack_SFX);
+		PlaySFX(sfx.Attack_SFX);
 	}
 	if (emitter != nullptr)
 	{
@@ -232,7 +231,7 @@ void Polarpath::Ability_1(const std::vector<std::pair<int, int>>* _path)
 	for (int i = 0; i < 8; i++)
 		objective_position.push_back(abil_1_arr[i]);
 
-	App->audio->PlayFx(sfx.Ability_1_SFX);
+	PlaySFX(sfx.Ability_1_SFX);
 	CurrentMovement(ATTACK_FRONT);
 	current_turn = END_TURN; // guillem
 

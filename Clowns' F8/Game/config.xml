@@ -44,12 +44,12 @@
     <main_menu start_pos="300"/>
     <options_menu start_pos="270"/>
     <portrait_position margin_x="20" margin_y="12"/>
-    <life_position margin_x="40" margin_y="73"/>
-    <mana_position margin_x="40" margin_y="157"/>
-    <port_position margin_x="385" margin_y="49"/>
-    <name_position margin_x="262" margin_y="28"/>
-    <level_position margin_x="510" margin_y="190"/>
-    <actions_position margin_x="20" margin_y="227"/>
+    <life_position margin_x="130" margin_y="66"/>
+    <mana_position margin_x="130" margin_y="97"/>
+    <port_position margin_x="9" margin_y="1"/>
+    <name_position margin_x="200" margin_y="45"/>
+    <level_position margin_x="40" margin_y="110"/>
+    <actions_position margin_x="20" margin_y="145"/>
     <press_fx_name source="Accept.wav"/>
     <decline_fx_name source="Decline.wav"/>
     <move_fx_name source="Sonido_de_seleccion_en_F.wav"/>
@@ -104,7 +104,7 @@
     </levelup>
     <sapphire>
       <texture value="Assets/Sprites/Main_Characters/Sapphire_Spritesheet.png"/>
-      <portrait x="520" y="346" w="162" h="162"/>
+      <portrait x="518" y="343" w="168" h="168"/>
       <sfx>
         <attack_sfx value="Sapphire_Flower_Attack.wav"/>
         <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
@@ -344,13 +344,11 @@
     </sapphire>
     <iris>
       <texture value="Assets/Sprites/Main_Characters/Iris_Spritesheet.png"/>
-      <portrait x="0" y="338" w="162" h="162"/>
+      <portrait x="0" y="337" w="168" h="168"/>
       <sfx>
-        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
-        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
-        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
-        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
-        <dead_sfx value="Iris_Dead.wav"/>
+        <attack_sfx value="Iris_Attack.wav"/>
+        <ability_1_sfx value="Iris_Ability.wav"/>
+        <death_sfx value="Iris_Death.wav"/>
       </sfx>
       <position x="11" y="19"/>
       <name value="Iris"/>
@@ -540,7 +538,7 @@
     </iris>
     <storm>
       <texture value="Assets/Sprites/Main_Characters/Storm_Spritesheet.png"/>
-      <portrait x="351" y="350" w="162" h="162"/>
+      <portrait x="352" y="348" w="168" h="168"/>
       <sfx>
         <attack_sfx value="GeorgeB_Random_Throw.wav"/>
         <ability_1_sfx value="GeorgeB_Bear_Trap.wav"/>
@@ -664,7 +662,7 @@
     </storm>
     <georgeb>
       <texture value="Assets/Sprites/Main_Characters/George_Spritesheet.png"/>
-      <portrait x="174" y="352" w="162" h="162"/>
+      <portrait x="172" y="348" w="168" h="168"/>
       <sfx>
         <attack_sfx value="GeorgeB_Random_Throw.wav"/>
         <ability_1_sfx value="GeorgeB_Bear_Trap.wav"/>
@@ -819,11 +817,9 @@
     <boneyman>
       <texture value="Assets/Sprites/Enemies/Boneyman_Spritesheet.png"/>
       <sfx>
-        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
-        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
-        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
-        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
-        <dead_sfx value="Sapphire_Dead.wav"/>
+        <attack_sfx value="Boneyman_Attack.wav"/>
+        <ability_1_sfx value="Boneyman_Ability.wav"/>
+        <death_sfx value="Boneyman_Death.wav"/>
       </sfx>
       <position x="5" y="8"/>
       <position x="11" y="11"/>
@@ -937,6 +933,7 @@
       <sfx>
         <attack_sfx value="Pinkking_Attack.wav"/>
         <ability_1_sfx value="Pinkking_Ability.wav"/>
+        <death_sfx value="Boneyman_Death.wav"/>
       </sfx>
       <position x="17" y="9"/>
       <name value="PinkKing"/>
@@ -1039,11 +1036,9 @@
     <burgdog>
       <texture value="Assets/Sprites/Enemies/Burgdog_Spritesheet.png"/>
       <sfx>
-        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
-        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
-        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
-        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
-        <dead_sfx value="Sapphire_Dead.wav"/>
+        <attack_sfx value="Burgdog_Attack.wav"/>
+        <ability_1_sfx value="Burgdog_Ability.wav"/>
+        <death_sfx value="Burgdog_Death.wav"/>
       </sfx>
       <position x="4" y="8"/>
       <position x="9" y="4"/>
@@ -1141,6 +1136,7 @@
       <sfx>
         <attack_sfx value="Hotdog_Attack.wav"/>
         <ability_1_sfx value="Hotdog_Ability.wav"/>
+        <death_sfx value="Burgdog_Death.wav"/>
       </sfx>
       <position x="14" y="3"/>
       <name value="Hotdog"/>
@@ -1249,11 +1245,9 @@
     <polarbear>
       <texture value="Assets/Sprites/Enemies/Polarbear_Spritesheet.png"/>
       <sfx>
-        <attack_sfx value="Sapphire_Flower_Attack.wav"/>
-        <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>
-        <ability_2_sfx value="Sapphire_Surprise_Hat.wav"/>
-        <ability_3_sfx value="Sapphire_Water_Time.wav"/>
-        <dead_sfx value="Sapphire_Dead.wav"/>
+        <attack_sfx value="Polarbear_Attack.wav"/>
+        <ability_1_sfx value="Polarbear_Ability.wav"/>
+        <death_sfx value="Polarbear_Death.wav"/>
       </sfx>
       <position x="16" y="4"/>
       <position x="17" y="7"/>
@@ -1351,6 +1345,7 @@
       <sfx>
         <attack_sfx value="Polarpath_Attack.wav"/>
         <ability_1_sfx value="Polarpath_Ability.wav"/>
+        <death_sfx value="Polarbear_Death.wav"/>
       </sfx>
       <position x="22" y="8"/>
       <name value="Polar Path"/>
