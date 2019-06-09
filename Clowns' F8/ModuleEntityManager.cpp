@@ -292,7 +292,7 @@ std::pair<int, int> ModuleEntityManager::CharactersPrioritzationAttack(std::pair
 					Charrr = (*character);
 				}
 				else {
-					if ((*Charrr).current_stats.DefF >= (*character)->current_stats.DefF) {
+					if ((*Charrr).current_stats.DefF >= (*character)->current_stats.DefF && (*character)->current_stats.Hp > 0) {
 						Charrr = (*character);
 					}
 				}
