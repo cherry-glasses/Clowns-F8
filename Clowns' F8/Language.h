@@ -39,6 +39,8 @@ public:
 	std::string back = "";
 	std::string accept = "";
 	std::string decline = "";
+	std::string keyboard = "";
+	std::string gamepad = "";
 	std::vector<std::string> credits_lines;
 	std::string character_stats = "";
 	std::string character_abilities = "";

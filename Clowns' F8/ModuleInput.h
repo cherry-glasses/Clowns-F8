@@ -188,11 +188,6 @@ public:
 	bool Accept();
 	bool Decline();
 	bool Pause();
-	//bool Select();
-	//bool Showcharacterstats();
-	//bool Showcharacterabilities();
-	//bool Showabilities();
-	//
 	bool LevelUp();
 	bool LevelDown();
 	bool AllMaps();
@@ -200,6 +195,7 @@ public:
 	int space;
 
 	KeyboardButtons keyboard_buttons;
+	ControllerButtons controller_buttons;
 	KEY_STATE*	keyboard;
 	SDL_Scancode scancode;
 	bool keyPressed = false;

@@ -40,6 +40,8 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		back = config.child("main_menu_scene").child("back").attribute("value").as_string("");
 		accept = config.child("main_menu_scene").child("accept").attribute("value").as_string("");
 		decline = config.child("main_menu_scene").child("decline").attribute("value").as_string("");
+		keyboard = config.child("main_menu_scene").child("keyboard").attribute("value").as_string("");
+		gamepad = config.child("main_menu_scene").child("gamepad").attribute("value").as_string("");
 		character_stats = config.child("main_menu_scene").child("character_stats").attribute("value").as_string("");
 		character_abilities = config.child("main_menu_scene").child("character_abilities").attribute("value").as_string("");
 		abilities = config.child("main_menu_scene").child("abilities").attribute("value").as_string("");
