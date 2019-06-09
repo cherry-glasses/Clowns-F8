@@ -64,7 +64,7 @@ bool ModuleEntityManager::PreUpdate()
 	for (std::list<Entity*>::iterator enemy = enemies.begin(); enemy != enemies.end(); ++enemy)
 	{
 		if ((*enemy)->current_state == Entity::STATE::DEATH) {
-			if ((*enemy)->current_turn == Entity::TURN::END_TURN)
+			if ((*enemy)->current_turn == Entity::TURN::SEARCH_MOVE || (*enemy)->current_turn == Entity::TURN::END_TURN)
 			{
 				if (*enemy != enemies.back())
 				{
