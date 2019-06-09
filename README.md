@@ -27,12 +27,12 @@ We are very motivated to do a great job and that everyone who tries our game has
 [GitHub Account](https://github.com/AleixCas95)
 
 ### UI: `Martí Torras`
-<img src="https://github.com/cherry-glasses/Project-2-Game/blob/master/Documents/Wiki_Resources/img/marti_photo.jpg" width="160" height="160">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Wiki_Resources/img/marti_photo.jpg" width="160" height="160">
 
 [GitHub Account](https://github.com/martitorras)
 
 ### Code: `Guillem Sánchez`
-![Guillem Sánchez Screenshot](https://github.com/cherry-glasses/Project-2-Game/blob/master/Documents/Wiki_Resources/img/Guillem.jpg)
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Wiki_Resources/img/Guillem.jpg" width="160" height="160">
 
 [GitHub Account](https://github.com/guillemsanchez)
 
@@ -42,13 +42,12 @@ We are very motivated to do a great job and that everyone who tries our game has
 [GitHub Account](https://github.com/dusthandler)
 
 ### Code-UI-Art Coordinator: `Eric Jiménez`
-<img src="https://github.com/cherry-glasses/Project-2-Game/blob/master/Documents/Wiki_Resources/img/BunnyDormido.png" width="160" height="160">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Wiki_Resources/img/BunnyDormido.png" width="160" height="160">
 
 [GitHub Account](https://github.com/EricJPbunny)
 
 ### QA: `Ricky Castro`
-![Ricky Castro Screenshot](https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Wiki_Resources/img/Ricky.jpg)
-https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Wiki_Resources/img/Ricky.jpg
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Wiki_Resources/img/Ricky.jpg" width="160" height="160">
 
 [GitHub Account](https://github.com/ricardocv2)
 
