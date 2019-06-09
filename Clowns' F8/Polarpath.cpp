@@ -146,45 +146,41 @@ void Polarpath::Attack(const std::vector<std::pair<int, int>>* _path) {
 	objective_position.push_back(car);
 
 
-	
+	if (nearposition.first > pos.first)
+		CurrentMovement(ATTACK_FRONT);
+	else
+		CurrentMovement(ATTACK_BACK);
 
-	if (emitter == nullptr)
-	{
-		emitter = App->particle_system->AddEmiter({ objective_position.back().first , objective_position.back().second - 500 }, EmitterType::EMITTER_TYPE_ATTACK);
-		emitter->SetTextureRect({ 448, 64, 64, 64 });
-		emitter->SetSize(128, 128);
-
-
-		PlaySFX(sfx.Attack_SFX);
-	}
-	if (emitter != nullptr)
-	{
-		if (emitter->GetEmitterPos().first < objective_position.back().first + 10)
-			emitter->SetPosition({ emitter->GetEmitterPos().first + 8, emitter->GetEmitterPos().second });
-		if (emitter->GetEmitterPos().first > objective_position.back().first + 10)
-			emitter->SetPosition({ emitter->GetEmitterPos().first - 8, emitter->GetEmitterPos().second });
-		if (emitter->GetEmitterPos().second < objective_position.back().second - 16)
-			emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second + 20 });
-		if (emitter->GetEmitterPos().second > objective_position.back().second - 16)
-			emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second - 20 });
-		if ((emitter->GetEmitterPos().first <= objective_position.back().first + 20) && (emitter->GetEmitterPos().first >= objective_position.back().first)
-			&& (emitter->GetEmitterPos().second >= objective_position.back().second - 32) && (emitter->GetEmitterPos().second <= objective_position.back().second))
+	if (current_animation->isDone()) {
+		if (emitter == nullptr)
 		{
-			emitter->StopEmission();
-			emitter = nullptr;
+			emitter = App->particle_system->AddEmiter({ objective_position.back().first , objective_position.back().second - 500 }, EmitterType::EMITTER_TYPE_ATTACK);
+			emitter->SetTextureRect({ 448, 64, 64, 64 });
+			emitter->SetSize(128, 128);
+
+
+			PlaySFX(sfx.Attack_SFX);
 		}
+		if (emitter != nullptr)
+		{
+			if (emitter->GetEmitterPos().first < objective_position.back().first + 10)
+				emitter->SetPosition({ emitter->GetEmitterPos().first + 8, emitter->GetEmitterPos().second });
+			if (emitter->GetEmitterPos().first > objective_position.back().first + 10)
+				emitter->SetPosition({ emitter->GetEmitterPos().first - 8, emitter->GetEmitterPos().second });
+			if (emitter->GetEmitterPos().second < objective_position.back().second - 16)
+				emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second + 20 });
+			if (emitter->GetEmitterPos().second > objective_position.back().second - 16)
+				emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second - 20 });
+			if ((emitter->GetEmitterPos().first <= objective_position.back().first + 20) && (emitter->GetEmitterPos().first >= objective_position.back().first)
+				&& (emitter->GetEmitterPos().second >= objective_position.back().second - 32) && (emitter->GetEmitterPos().second <= objective_position.back().second))
+			{
+				emitter->StopEmission();
+				emitter = nullptr;
+			}
 
-	}
-	if (emitter == nullptr)
-	{
-
-
-		if (nearposition.first > pos.first)
-			CurrentMovement(ATTACK_FRONT);
-		else
-			CurrentMovement(ATTACK_BACK);
-
-		if (current_animation->isDone()) {
+		}
+		if (emitter == nullptr)
+		{
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_POLARPATH, false); //objective_position
 			current_animation->Reset();
 			if (current_movement == ATTACK_FRONT)
@@ -193,6 +189,7 @@ void Polarpath::Attack(const std::vector<std::pair<int, int>>* _path) {
 				CurrentMovement(IDLE_LEFT);
 			current_turn = END_TURN;
 		}
+		
 	}
 
 }
