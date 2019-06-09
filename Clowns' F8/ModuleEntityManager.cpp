@@ -553,8 +553,15 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			}
 			for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
 			{
-				(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
-				ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h },_damage - (*enemie)->current_stats.DefS);
+				if (0 < _damage - (*enemie)->current_stats.DefS)
+				{
+					(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
+					ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, _damage - (*enemie)->current_stats.DefS);
+				}
+				else
+				{
+					ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, 0);
+				}
 				(*enemie)->damaged = true;
 			}
 		}
@@ -578,14 +585,28 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 					{
 						if (_special)
 						{
-							(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
-							ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, _damage - (*enemie)->current_stats.DefS);
+							if (0 < _damage - (*enemie)->current_stats.DefS)
+							{
+								(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
+								ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, _damage - (*enemie)->current_stats.DefS);
+							}
+							else
+							{
+								ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, 0);
+							}
 							(*enemie)->damaged = true;
 						}
 						else
 						{
-							(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
-							ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, _damage - (*enemie)->current_stats.DefF);
+							if (0 < _damage - (*enemie)->current_stats.DefF)
+							{
+								(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
+								ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, _damage - (*enemie)->current_stats.DefF);
+							}
+							else
+							{
+								ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, 0);
+							}
 							(*enemie)->damaged = true;
 						}
 
@@ -613,8 +634,15 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 				{
 					if ((*enemie)->GetPosition() == (*position))
 					{
-						(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
-						ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, _damage - (*enemie)->current_stats.DefF);
+						if (0 < _damage - (*enemie)->current_stats.DefF)
+						{
+							(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
+							ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, _damage - (*enemie)->current_stats.DefF);
+						}
+						else
+						{
+							ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, 0);
+						}
 						(*enemie)->damaged = true;
 					}
 				}
@@ -657,8 +685,15 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 						}
 						else 
 						{ // Attack and Ability 3 Suck
-							(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
-							ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, _damage - (*enemie)->current_stats.DefF);
+							if (0 < _damage - (*enemie)->current_stats.DefF)
+							{
+								(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
+								ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, _damage - (*enemie)->current_stats.DefF);
+							}
+							else
+							{
+								ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, 0);
+							}
 							(*enemie)->damaged = true;
 
 							for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
@@ -692,14 +727,28 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 					{
 						if (_special)
 						{
-							(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
-							ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, _damage - (*enemie)->current_stats.DefS);
+							if (0 < _damage - (*enemie)->current_stats.DefS)
+							{
+								(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefS;
+								ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, _damage - (*enemie)->current_stats.DefS);
+							}
+							else
+							{
+								ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, 0);
+							}
 							(*enemie)->damaged = true;
 						}
 						else
 						{
-							(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
-							ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, _damage - (*enemie)->current_stats.DefF);
+							if (0 < _damage - (*enemie)->current_stats.DefF)
+							{
+								(*enemie)->current_stats.Hp -= _damage - (*enemie)->current_stats.DefF;
+								ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, _damage - (*enemie)->current_stats.DefF);
+							}
+							else
+							{
+								ThrowParticleDamage({ (*enemie)->GetPosition().first, (*enemie)->GetPosition().second - (*enemie)->current.h }, 0);
+							}
 							(*enemie)->damaged = true;
 						}
 					}
