@@ -440,7 +440,7 @@ For this game we recommend to play with gamepad, it can be also played with keyb
 
 **Gamepad:**
 
- <img src="https://github.com/cherry-glasses/Project-2-Game/blob/master/Documents/gdd/Xbox-360-S-Controller.png" width="140" height="120">
+ <img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/gdd/Xbox-360-S-Controller.png" width="140" height="120">
 
 Gamepad is the main controller for this game, the main controls are:
 
@@ -453,7 +453,7 @@ Gamepad is the main controller for this game, the main controls are:
 
 **Keyboard:**
 
-<img src="https://github.com/cherry-glasses/Project-2-Game/blob/master/Documents/gdd/keyboard.png" width="170" height="100">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/gdd/keyboard.png" width="170" height="100">
 
 Keyboard is the secundary controller for the game if you do not have a gamepad controller.
 
