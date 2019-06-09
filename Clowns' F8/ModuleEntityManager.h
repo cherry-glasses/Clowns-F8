@@ -60,6 +60,10 @@ public:
 	void StartingTurn(Entity* _entity);
 
 	void LevelUP(int _exp);
+
+
+	//returns true if there are characters around the position
+	bool Characters_around(std::pair<int, int> position);
 	
 public:
 	std::list<Entity*> characters;

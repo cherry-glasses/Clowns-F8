@@ -21,8 +21,8 @@ void Polarpath::SearchWalk() {
 	nearposition = App->entity_manager->NearestCharacter(position);
 	nearposition = App->map->WorldToMap(nearposition.first, nearposition.second);
 	App->pathfinding->CreatePathTower(App->map->WorldToMap(position.first, position.second), nearposition, current_stats.PMove);
-
-	if (timer_skill_1 >= 2) {
+	pos = App->map->WorldToMap(position.first, position.second);
+	if (timer_skill_1 >= 2 && App->entity_manager->Characters_around(pos)) {
 		current_turn = SEARCH_ABILITY_1;
 		timer_skill_1 = 0;
 	}

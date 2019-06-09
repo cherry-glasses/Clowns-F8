@@ -1224,3 +1224,50 @@ void ModuleEntityManager::LevelUP(int _exp)
 		}
 	}
 }
+
+bool ModuleEntityManager::Characters_around(std::pair<int, int> position)
+{
+	bool flag = false;
+	std::pair<int, int> Array[8];
+
+	Array[0].first = position.first + 1;
+	Array[0].second = position.second;
+
+	Array[1].first = position.first +1;
+	Array[1].second = position.second + 1;
+
+	Array[3].first = position.first;
+	Array[3].second = position.second +1 ;
+
+	Array[4].first = position.first-1;
+	Array[4].second = position.second+1;
+
+	Array[4].first = position.first-1;
+	Array[4].second = position.second;
+
+	Array[5].first = position.first-1;
+	Array[5].second = position.second-1;
+
+	Array[6].first = position.first;
+	Array[6].second = position.second-1;
+
+	Array[7].first = position.first+1;
+	Array[7].second = position.second-1;
+
+	for (int i = 0; i < 8; i++) {
+		Array[i] = App->map->MapToWorld(Array[i].first, Array[i].second);
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character) {
+			std::pair<int, int> helper = (*character)->GetPosition();
+			if (Array[i].first == helper.first && Array[i].second == helper.second && (*character)->current_stats.Hp > 0) {
+				flag = true;
+				break;
+
+			}
+		}
+		if (flag)
+			break;
+
+	}
+
+	return flag;
+}
