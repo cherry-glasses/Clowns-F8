@@ -62,7 +62,7 @@
     <board x="703" y="487" w="712" h="252">
       <port margin_x="45" margin_y="45"/>
       <name margin_x="230" margin_y="45"/>
-      <life margin_x="400" margin_y="45"/>
+      <life margin_x="420" margin_y="45"/>
       <mana margin_x="550" margin_y="45"/>
     </board>
   </scene_manager>
@@ -818,6 +818,7 @@
     </georgeb>
     <boneyman>
       <texture value="Assets/Sprites/Enemies/Boneyman_Spritesheet.png"/>
+      <portrait x="330" y="557" w="168" h="168"/>
       <sfx>
         <attack_sfx value="Boneyman_Attack.wav"/>
         <ability_1_sfx value="Boneyman_Ability.wav"/>
@@ -932,6 +933,7 @@
     </boneyman>
     <pinkking>
       <texture value="Assets/Sprites/Enemies/Pinkking_Spritesheet.png"/>
+      <portrait x="0" y="551" w="168" h="168"/>
       <sfx>
         <attack_sfx value="Pinkking_Attack.wav"/>
         <ability_1_sfx value="Pinkking_Ability.wav"/>
@@ -1037,6 +1039,7 @@
     </pinkking>
     <burgdog>
       <texture value="Assets/Sprites/Enemies/Burgdog_Spritesheet.png"/>
+      <portrait x="165" y="551" w="168" h="168"/>
       <sfx>
         <attack_sfx value="Burgdog_Attack.wav"/>
         <ability_1_sfx value="Burgdog_Ability.wav"/>
@@ -1135,6 +1138,7 @@
     </burgdog>
     <hotdog>
       <texture value="Assets/Sprites/Enemies/Hotdog_Spritesheet.png"/>
+      <portrait x="1417" y="42" w="168" h="168"/>
       <sfx>
         <attack_sfx value="Hotdog_Attack.wav"/>
         <ability_1_sfx value="Hotdog_Ability.wav"/>
@@ -1246,6 +1250,7 @@
     </hotdog>
     <polarbear>
       <texture value="Assets/Sprites/Enemies/Polarbear_Spritesheet.png"/>
+      <portrait x="1213" y="42" w="168" h="168"/>
       <sfx>
         <attack_sfx value="Polarbear_Attack.wav"/>
         <ability_1_sfx value="Polarbear_Ability.wav"/>
@@ -1344,6 +1349,7 @@
     </polarbear>
     <polarpath>
       <texture value="Assets/Sprites/Enemies/Polarpath_Spritesheet.png"/>
+      <portrait x="517" y="561" w="168" h="168"/>
       <sfx>
         <attack_sfx value="Polarpath_Attack.wav"/>
         <ability_1_sfx value="Polarpath_Ability.wav"/>
@@ -1419,6 +1425,7 @@
     </polarpath>
     <cherryblackglasses>
       <texture value="Assets/Sprites/Enemies/Cherryblackglasses_Spritesheet.png"/>
+      <portrait x="1222" y="277" w="168" h="168"/>
       <sfx>
         <attack_sfx value="Sapphire_Flower_Attack.wav"/>
         <ability_1_sfx value="Sapphire_Hammer_Time.wav"/>

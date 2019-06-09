@@ -87,6 +87,8 @@ bool Battle::Update(float _dt)
 			{
 				DeleteAbilitiesMenu();
 			}
+			DeleteEntityInfo();
+			DeleteAbilityInfo();
 		}
 
 		ControlLanguageAndMusic();
@@ -498,14 +500,18 @@ void Battle::UpdateEnemyPortraits(Entity* _enemy, int _i)
 void Battle::ShowEntityInfo(Entity* _entity)
 {
 	DeleteEntityInfo();
-	if (_entity != nullptr) 
+	if (_entity != nullptr)
 	{
+		if(_entity->level < 10)	next_lvl = _entity->levels.at(_entity->level - 1) - _entity->exp;
+		else next_lvl = 0;
+
 		board_entity = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 0 - (board.w/2), screen_height - screen_height/7 - portrait_margin.second - board.h, board);
 		port_entity = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, board_entity->position.first + port_board.first , board_entity->position.second + port_board.second, _entity->portrait);
 		name_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + name_board.first, board_entity->position.second + name_board.second, _entity->name.c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
 		type_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + name_board.first, board_entity->position.second + (life_board.second * 2), ("Type: " + _entity->type_move).c_str(), { 0, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
-		lvl_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + name_board.first, board_entity->position.second + (life_board.second * 4), "Lvl: " + std::to_string(_entity->level), { 50, 50, 200, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
-		exp_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lvl_entity->position.first + lvl_entity->area.w + 10, board_entity->position.second + (life_board.second * 4), "Exp: " + std::to_string(_entity->exp), { 0, 100, 50, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		lvl_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + name_board.first, board_entity->position.second + (life_board.second * 3), "Lvl: " + std::to_string(_entity->level), { 50, 50, 200, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		exp_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lvl_entity->position.first + lvl_entity->area.w + 10, board_entity->position.second + (life_board.second * 3), "Exp: " + std::to_string(_entity->exp), { 50, 50, 200, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
+		next_lvl_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + name_board.first, board_entity->position.second + (life_board.second * 4), "Next Lvl: " + std::to_string(next_lvl), { 0, 100, 50, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
 		life_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + life_board.first, board_entity->position.second + life_board.second, "Hp: " + std::to_string(_entity->current_stats.Hp), { 100, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
 		mana_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + mana_board.first, board_entity->position.second + mana_board.second, "Mana: " + std::to_string(_entity->current_stats.Mana), { 0, 0, 100, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
 		atk_f_entity = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, board_entity->position.first + life_board.first, board_entity->position.second + (life_board.second * 2), "Atk_F: " + std::to_string(_entity->current_stats.AtkF), { 100, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false);
@@ -558,6 +564,7 @@ void Battle::DeleteEntityInfo()
 	App->gui_manager->DeleteGUIElement(type_entity);
 	App->gui_manager->DeleteGUIElement(lvl_entity);
 	App->gui_manager->DeleteGUIElement(exp_entity);
+	App->gui_manager->DeleteGUIElement(next_lvl_entity);
 	App->gui_manager->DeleteGUIElement(life_entity);
 	App->gui_manager->DeleteGUIElement(mana_entity);
 	App->gui_manager->DeleteGUIElement(atk_f_entity);

@@ -164,6 +164,7 @@ protected:
 	GUILabel* type_entity = nullptr;
 	GUILabel* lvl_entity = nullptr;
 	GUILabel* exp_entity = nullptr;
+	GUILabel* next_lvl_entity = nullptr;
 	GUILabel* life_entity = nullptr;
 	GUILabel* mana_entity = nullptr;
 	GUILabel* atk_f_entity = nullptr;
@@ -172,6 +173,8 @@ protected:
 	GUILabel* def_s_entity = nullptr;
 	GUILabel* crit_entity = nullptr;
 	GUILabel* eva_entity = nullptr;
+
+	int next_lvl = 0;
 
 	//abilities info
 	bool attack_info_created = false;
