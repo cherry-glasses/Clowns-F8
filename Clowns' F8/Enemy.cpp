@@ -12,7 +12,7 @@
 
 bool Enemy::PreUpdate()
 {
-	if (current_state == ALIVE) {
+	if (current_state == ALIVE && App->entity_manager->ThereAreCharAlive()) {
 
 		objective_position.clear();
 		objective_position.push_back(position);
