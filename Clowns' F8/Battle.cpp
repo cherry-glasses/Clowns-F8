@@ -107,6 +107,7 @@ bool Battle::Update(float _dt)
 		}
 		else if (choose_map_button->has_been_clicked)
 		{
+			App->scene_manager->tutorial_hype = true;
 			if (!App->scene_manager->changing)
 			{
 				App->transition_manager->CreateFadeTransition(2, true, CHOOSE_MAP, Black);
@@ -203,7 +204,7 @@ bool Battle::Update(float _dt)
 		App->render->Blit(battle_grid, 0 - (screen_width / 2), 0 - (screen_height / 8));
 		App->map->Draw();
 	}
-	if (first_level_tut == true) {
+	if (first_level_tut == true && !App->scene_manager->tutorial_hype) {
 		Tutoriallogic();
 
 	}

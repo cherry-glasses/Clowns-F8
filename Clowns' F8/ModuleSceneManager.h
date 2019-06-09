@@ -56,6 +56,7 @@ public:
 	bool tutorial_block_actions = true;
 	bool trailer = true;
 	bool i_want_a_trailer = true;
+	bool tutorial_hype = false;
 
 	// Audios
 	int accept_sfx;
