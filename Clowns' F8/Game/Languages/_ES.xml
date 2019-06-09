@@ -5,17 +5,17 @@
     <new_game value="NUEVA PARTIDA"/>
     <load_game value="CARGAR PARTIDA"/>
     <options value="OPCIONES"/>
-    <credits value="CREDITOS"/>
+    <credits value="CRÉDITOS"/>
     <exit value="SALIR"/>
     <choose_language value="IDIOMA"/>
-    <english value="INGLES"/>
+    <english value="INGLÉS"/>
     <spanish value="ESPAÑOL"/>
     <volume value="VOLUMEN"/>
     <controls value="CONTROLES"/>
-    <back value="ATRAS"/>
+    <back value="ATRÁS"/>
     <accept value="ACEPTAR"/>
     <decline value="DECLINAR"/>
-    <character_stats value="ESTADISTICAS PERSONAJES"/>
+    <character_stats value="ESTADÍSTICAS PERSONAJES"/>
     <character_abilities value="HABILIDADES PERSONAJES"/>
     <abilities value="HABILIDADES"/>
     <pause value="PAUSA"/>
@@ -24,12 +24,12 @@
     <credits1 value="LÍDER Y ADMINISTRACIÓN: Cere Venteo"/>
     <credits2 value="DISEÑADOR: Aleix Castillo"/>
     <credits3 value="UI: Martí Torras"/>
-    <credits4 value="CODIGO: Guillem Sánchez"/>
+    <credits4 value="CÓDIGO: Guillem Sánchez"/>
     <credits5 value="ARTE: Kevin Muñoz"/>
-    <credits6 value="COORDINADOR DE ARTE + CODIGO + UI: Eric Jiménez"/>
-    <credits7 value="AUDIO: Kevin Muñoz"/>
+    <credits6 value="COORDINADOR DE ARTE + CÓDIGO + UI: Eric Jiménez"/>
+    <credits7 value="AUDIO: Ivan Jiménez Fernández"/>
     <credits8 value="QA: Ricky Castro"/>
-    <credits9 value="Este equipo esta formado por estudiantes del"/>
+    <credits9 value="Este equipo está formado por estudiantes del"/>
     <credits10 value="grado de diseño y desarrollo de videojuegos"/>
     <credits11 value="del CITM (UPC) en Tarrassa, Barcelona."/>
     <credits12 value="Nuestro lema:"/>
@@ -40,30 +40,30 @@
     <choose_map value="SELECCIONAR MAPA"/>
     <battle_abilities value="Habilidades"/>
     <defend value="Defender"/>
-    <greating value="Hola, bienvenido al magnifico reino de Citemia"/>
+    <greating value="Hola, bienvenido al magnífico reino de Citemia"/>
     <greating_2 value="mi nombre es Alfred el Textitos y te voy a enseñar"/>
     <greating_3 value="a pelear en este reino, dale a espacio"/>
     <move value="En primer lugar vamos a movernos,"/>
-    <move_2 value="el personaje se movera a la casilla marcada en verde"/>
+    <move_2 value="el personaje se moverá a la casilla marcada en verde"/>
     <move_3 value="puedes mover la casilla azul con las flechitas"/>
     <move_4 value="o con el joystick izquierdo del mando"/>
     <move_5 value="solo puedes ir a las casillas marcadas en azul"/>
-    <move_6 value="si pasas por encima de algun enemigo te dara su informacion"/>
-    <def value="Esta es la pestaña de habilidades"/>
+    <move_6 value="si pasas por encima de algun enemigo te dara su información"/>
+    <def value="Ésta es la pestaña de habilidades"/>
     <def_2 value="por ahora solo puedes atacar y defenderte"/>
-    <def_3 value="pero si matas muchos enemigos obtendras habilidades"/>
+    <def_3 value="pero si matas muchos enemigos obtendrás habilidades"/>
     <def_4 value="que no se te olvide que utilizando la -x- "/>
     <def_5 value="puedes retroceder entre selecciones"/>
     <def_6 value="como ahora no hay ningun enemigo usa la defensa para pasar de turno"/>
-    <atq value="Aqui enseñare como atacar"/>
+    <atq value="Aquí enseñare como atacar"/>
     <lets value="Lets do it!"/>
     <sapphire attack="Floretazo" ability_1="Martillazo" ability_2="Sombrero sorpresa" ability_3="Hora de Jugar"/>
     <iris attack="Golpe de karate" ability_1="Patada conejil" ability_2="Hora de zanahoria" ability_3="Rabia Conejil"/>
-    <storm attack="Escupitajo" ability_1="Caracol paralizante" ability_2="Hora del escondite" ability_3="Caracol vampirico"/>
+    <storm attack="Escupitajo" ability_1="Caracol paralizante" ability_2="Hora del escondite" ability_3="Caracol vampírico"/>
     <georgeb attack="Tiro aleatorio" ability_1="Trampa de oso" ability_2="Bomba cereza" ability_3="Hora de Hitchcock"/>
   </battle_scene>
   <win_scene>
-    <press_accept value="PULSA ACEPTAR PARA VOLVER AL MENU PRINCIPAL"/>
+    <press_accept value="PULSA ACEPTAR PARA VOLVER AL MENÚ PRINCIPAL"/>
   </win_scene>
   <choose_map_scene>
     <map1 value="TIERRAS DEL ESTE"/>
@@ -71,7 +71,7 @@
     <map3 value="TIERRAS POLARES"/>
     <map4 value="JEFE FINAL"/>
     <save_game value="GUARDAR PARTIDA"/>
-    <saved value="EL JUEGO SE HA GUARDADO CON EXITO"/>
-    <main_menu value="MENU PRINCIPAL"/>
+    <saved value="EL JUEGO SE HA GUARDADO CON ÉXITO"/>
+    <main_menu value="MENÚ PRINCIPAL"/>
   </choose_map_scene>
 </language>

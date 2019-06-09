@@ -88,7 +88,7 @@ bool ModuleFonts::Unload(_TTF_Font * font)
 SDL_Texture* ModuleFonts::Print(const char* _text, SDL_Color _color, TTF_Font* _font)
 {
 	SDL_Texture* ret = NULL;
-	SDL_Surface* surface = TTF_RenderText_Blended((_font) ? _font : default_font, _text, _color);
+	SDL_Surface* surface = TTF_RenderUTF8_Blended((_font) ? _font : default_font, _text, _color);
 
 	if (surface == NULL)
 	{

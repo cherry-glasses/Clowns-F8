@@ -330,11 +330,13 @@ void ChooseMap::NavigateMaps()
 		{
 			if (main_menu_button->current_state == SELECTED)
 			{
+				App->audio->PlayFx(App->scene_manager->move_sfx);
 				main_menu_button->Select(NORMAL);
 				save_game_button->Select(SELECTED);
 			}
 			else if (save_game_button->current_state == SELECTED)
 			{
+				App->audio->PlayFx(App->scene_manager->move_sfx);
 				save_game_button->Select(NORMAL);
 				map_selected = 1;
 			}
@@ -351,11 +353,13 @@ void ChooseMap::NavigateMaps()
 		{
 			if (save_game_button->current_state != SELECTED && main_menu_button->current_state != SELECTED)
 			{
+				App->audio->PlayFx(App->scene_manager->move_sfx);
 				map_selected = 0;
 				save_game_button->Select(SELECTED);
 			}
 			else
 			{
+				App->audio->PlayFx(App->scene_manager->move_sfx);
 				save_game_button->Select(NORMAL);
 				main_menu_button->Select(SELECTED);
 			}
