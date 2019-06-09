@@ -222,7 +222,16 @@ Backspace Key	To show ability tree
 
 ## Debug controls
 
+Keyboard:
+
 - F1: debug mode
+- F2: all maps unlocked
+- F3: low level characters
+- F4: Level up characters
+
+Gamepad:
+
+- Left arrows of the gamepad 
 
 If debug mode is on:
 
@@ -238,10 +247,7 @@ The gameplay of the game is based on role-playing tactical games, ability trees 
 **1. Role-playing tactical games**
 The bases of the mechanics will be the same of the original final fantasy tactics. Turn based combat. We will add different movement for each character and some original abilities.
 
-**2. Ability trees**
-One of the core things of the game is the ability trees where the player can choose how to build his character. Every character will have to different ways to build, offensive or defensive.
-
-**3. Isometric view**
+**2. Isometric view**
 The combats will be on an isometric map to be loyal of the originals tactics games.
 
 
