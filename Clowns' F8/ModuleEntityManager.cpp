@@ -315,13 +315,16 @@ std::pair<int, int> ModuleEntityManager::AiHeals(std::pair<int, int>* AttackRang
 		std::pair<int, int> pos = App->map->MapToWorld(AttackRange[i].first, AttackRange[i].second);
 		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character) {
 			if (pos == (*character)->GetPosition()) {
-				if (Charrr == nullptr) {
+				if (Charrr == nullptr && (*character)->current_stats.Hp > 0) {
 					Charrr = (*character);
 				}
 				else {
-					if ((*Charrr).current_stats.DefF >= (*character)->current_stats.DefF && (*character)->current_stats.Hp > 0) {
-						Charrr = (*character);
+					if (Charrr != nullptr) {
+						if ((*Charrr).current_stats.DefF >= (*character)->current_stats.DefF && (*character)->current_stats.Hp > 0) {
+							Charrr = (*character);
+						}
 					}
+					
 				}
 			}
 		}
