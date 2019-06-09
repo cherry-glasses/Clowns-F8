@@ -112,7 +112,7 @@
         <ability_3_sfx value="Sapphire_Water_Time.wav"/>
         <dead_sfx value="Sapphire_Dead.wav"/>
       </sfx>
-      <position x="9" y="1"/>
+      <position x="6" y="18/>
       <name value="Sapphire"/>
       <type value="King"/>
       <exp value="0"/>
@@ -1138,7 +1138,7 @@
         <ability_1_sfx value="Hotdog_Ability.wav"/>
         <death_sfx value="Burgdog_Death.wav"/>
       </sfx>
-      <position x="9" y="9"/>
+      <position x="14" y="3"/>
       <name value="Hotdog"/>
       <type value="Knight"/>
       <exp value="100"/>
