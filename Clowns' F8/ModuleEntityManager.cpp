@@ -136,7 +136,7 @@ bool ModuleEntityManager::PreUpdate()
 					for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character) {
 						if ((*character)->GetType() == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB) {
 							(*entity)->current_stats.Hp -= 25 + (*character)->current_stats.AtkF - (*entity)->current_stats.DefF;
-							ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, 25 + (*character)->current_stats.AtkF - (*entity)->current_stats.DefF);
+							ThrowParticleDamage({ (*entity)->GetPosition().first, (*entity)->GetPosition().second - (*entity)->current.h }, 25 + (*character)->current_stats.AtkF - (*entity)->current_stats.DefF);
 							((Object*)*object)->used = true;
 						}
 					}
@@ -548,8 +548,11 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 		if (_positions.empty()) { //Ability 3
 			for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
 			{
-				(*character)->current_stats.Hp += _damage / 2;
-				ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, -(_damage / 2));
+				if ((*character)->current_stats.Hp > 0)
+				{
+					(*character)->current_stats.Hp += _damage / 2;
+					ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, -(_damage / 2));
+				}
 			}
 			for (std::list<Entity*>::iterator enemie = enemies.begin(); enemie != enemies.end(); ++enemie)
 			{
@@ -570,7 +573,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 			{
 				for (std::vector<std::pair<int, int>>::iterator position = _positions.begin(); position != _positions.end(); ++position)
 				{
-					if ((*character)->GetPosition() == (*position))
+					if ((*character)->GetPosition() == (*position) && (*character)->current_stats.Hp > 0)
 					{
 						(*character)->current_stats.Hp += _damage / 2;
 						ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, -(_damage / 2));
@@ -1210,6 +1213,24 @@ void ModuleEntityManager::StartingTurn(Entity* _entity)
 
 void ModuleEntityManager::LevelUP(int _exp)
 {
+	if (App->scene_manager->current_scene->type == SCENE_TYPE::FOURTH_BATTLE)
+	{
+		for (std::list<Entity*>::iterator enemy = enemies.begin(); enemy != enemies.end(); ++enemy)
+		{
+			if ((*enemy)->GetType() != ENTITY_TYPE::ENTITY_ENEMY_CHERRYBLACKGLASSES)
+			{
+				(*enemy)->default_stats.Hp += (*enemy)->default_stats.Hp * 3;
+				(*enemy)->default_stats.Mana += (*enemy)->default_stats.Mana * 3;
+				(*enemy)->default_stats.AtkF += (*enemy)->default_stats.AtkF * 3;
+				(*enemy)->default_stats.AtkS += (*enemy)->default_stats.AtkS * 3;
+				(*enemy)->default_stats.DefF += (*enemy)->default_stats.DefF * 3;
+				(*enemy)->default_stats.DefS += (*enemy)->default_stats.DefS * 3;
+				(*enemy)->default_stats.Crit += (*enemy)->default_stats.Crit * 3;
+
+				(*enemy)->current_stats = (*enemy)->default_stats;
+			}
+		}
+	}
 	for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
 	{
 		if ((*character)->current_state == Entity::ALIVE) 
