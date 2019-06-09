@@ -168,9 +168,9 @@ void Polarpath::Attack(const std::vector<std::pair<int, int>>* _path) {
 			if (emitter->GetEmitterPos().first > objective_position.back().first + 10)
 				emitter->SetPosition({ emitter->GetEmitterPos().first - 8, emitter->GetEmitterPos().second });
 			if (emitter->GetEmitterPos().second < objective_position.back().second - 16)
-				emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second + 20 });
+				emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second + 30 });
 			if (emitter->GetEmitterPos().second > objective_position.back().second - 16)
-				emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second - 20 });
+				emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second - 30 });
 			if ((emitter->GetEmitterPos().first <= objective_position.back().first + 20) && (emitter->GetEmitterPos().first >= objective_position.back().first)
 				&& (emitter->GetEmitterPos().second >= objective_position.back().second - 32) && (emitter->GetEmitterPos().second <= objective_position.back().second))
 			{

@@ -1316,7 +1316,7 @@ void Character::EndTurn() {
 	possible_map.clear();
 	objective_position.clear();
 	Cap = -1;
-	current_animation->Reset();
+	if(current_state == ALIVE)	current_animation->Reset();
 	target = { 0,0 };
 	sound_fx = false;
 	finish_attack = false;
