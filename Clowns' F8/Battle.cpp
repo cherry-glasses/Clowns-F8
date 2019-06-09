@@ -169,7 +169,7 @@ bool Battle::Update(float _dt)
 			if ((*character)->current_turn == Entity::TURN::SELECT_ACTION)
 			{
 				if (!first_char) {
-					logic = DEFENS;
+					App->scene_manager->logic = DEFENS;
 					first_char = true;
 				}
 				
@@ -868,9 +868,9 @@ void Battle::ControlLanguageAndMusic()
 
 void Battle::Createtutorial()
 {
-	switch (logic)
+	switch (App->scene_manager->logic)
 	{
-	case Battle::GRETTINGS:
+	case TUTORIAL::GRETTINGS:
 		lets_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, -(button.w / 2),(screen_height/1.25), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 		buttons_tutorial.push_back(lets_button);
 		lets_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second + (button.h / 2), App->scene_manager->language->lets_do_it_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
@@ -879,7 +879,7 @@ void Battle::Createtutorial()
 		tutorial_general_label_3 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - (button.h / 2), App->scene_manager->language->greatings_3, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 		lets_button->Select(SELECTED);
 		break;
-	case Battle::MOVE:
+	case TUTORIAL::MOVE:
 		lets_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, -(button.w / 2) , (screen_height / 1.25), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 		buttons_tutorial.push_back(lets_button);
 		lets_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second + (button.h / 2), App->scene_manager->language->lets_do_it_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
@@ -891,7 +891,7 @@ void Battle::Createtutorial()
 		tutorial_general_label_6 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - (button.h / 2), App->scene_manager->language->movemnent_6, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 		lets_button->Select(SELECTED);
 		break;
-	case Battle::DEFENS:
+	case TUTORIAL::DEFENS:
 		lets_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, -(button.w / 2), (screen_height / 1.25), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 		buttons_tutorial.push_back(lets_button);
 		lets_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second + (button.h / 2), App->scene_manager->language->lets_do_it_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
@@ -904,7 +904,7 @@ void Battle::Createtutorial()
 		lets_button->Select(SELECTED);
 		
 		break;
-	case Battle::ATTACK:
+	case TUTORIAL::ATTACK:
 		break;
 	default:
 		break;
@@ -919,9 +919,9 @@ void Battle::Tutoriallogic()
 {
 
 
-	switch (logic)
+	switch (App->scene_manager->logic)
 	{
-	case Battle::GRETTINGS:
+	case TUTORIAL::GRETTINGS:
 		if (!Is_created_tut)
 			Createtutorial();
 
@@ -931,11 +931,11 @@ void Battle::Tutoriallogic()
 		if (lets_button->has_been_clicked) {
 			
 			Destroytutorial();
-			logic = MOVE;
+			App->scene_manager->logic = MOVE;
 		}
 
 		break;
-	case Battle::MOVE:
+	case TUTORIAL::MOVE:
 		if (!Is_created_tut)
 			Createtutorial();
 		App->render->Blit(Tutorial_background, -598/2, (screen_height / 1.25) - 360 / 1.5);
@@ -943,12 +943,12 @@ void Battle::Tutoriallogic()
 		if (lets_button->has_been_clicked) {
 			App->scene_manager->tutorial_block = false;
 			Destroytutorial();
-			logic = OFF;
+			App->scene_manager->logic = OFF;
 
 		}
 
 		break;
-	case Battle::DEFENS:
+	case TUTORIAL::DEFENS:
 		if (!Is_created_tut)
 			Createtutorial();
 		App->render->Blit(Tutorial_background, -598 / 2, (screen_height / 1.25) - 360 / 1.5);
@@ -956,15 +956,15 @@ void Battle::Tutoriallogic()
 		if (lets_button->has_been_clicked) {
 			App->scene_manager->tutorial_block_actions = false;
 			Destroytutorial();
-			logic = OFF;
+			App->scene_manager->logic = OFF;
 			first_level_tut = false;
 
 		}
 
 		break;
-	case Battle::ATTACK:
+	case TUTORIAL::ATTACK:
 		break;
-	case Battle::OFF:
+	case TUTORIAL::OFF:
 		break;
 	default:
 		break;
@@ -978,9 +978,9 @@ void Battle::Tutoriallogic()
 
 void Battle::Destroytutorial()
 {
-	switch (logic)
+	switch (App->scene_manager->logic)
 	{
-	case Battle::GRETTINGS:
+	case TUTORIAL::GRETTINGS:
 		App->gui_manager->DeleteGUIElement(tutorial_general_label);
 		App->gui_manager->DeleteGUIElement(tutorial_general_label_2);
 		App->gui_manager->DeleteGUIElement(tutorial_general_label_3);
@@ -989,7 +989,7 @@ void Battle::Destroytutorial()
 		buttons_tutorial.clear();
 
 		break;
-	case Battle::MOVE:
+	case TUTORIAL::MOVE:
 		App->gui_manager->DeleteGUIElement(tutorial_general_label);
 		App->gui_manager->DeleteGUIElement(tutorial_general_label_2);
 		App->gui_manager->DeleteGUIElement(tutorial_general_label_3);
@@ -1002,7 +1002,7 @@ void Battle::Destroytutorial()
 		buttons_tutorial.clear();
 
 		break;
-	case Battle::DEFENS:
+	case TUTORIAL::DEFENS:
 		App->gui_manager->DeleteGUIElement(tutorial_general_label);
 		App->gui_manager->DeleteGUIElement(tutorial_general_label_2);
 		App->gui_manager->DeleteGUIElement(tutorial_general_label_3);
@@ -1015,7 +1015,7 @@ void Battle::Destroytutorial()
 		buttons_tutorial.clear();
 
 		break;
-	case Battle::ATTACK:
+	case TUTORIAL::ATTACK:
 		break;
 	default:
 		break;

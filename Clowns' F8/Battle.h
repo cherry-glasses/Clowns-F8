@@ -6,6 +6,8 @@
 class Entity;
 struct SDL_Texture;
 
+enum TUTORIAL;
+
 class Battle : public Scene
 {
 public:
@@ -204,15 +206,8 @@ protected:
 
 	//tutorial logic
 
-	enum TUTORIAL {
-		GRETTINGS,
-		MOVE,
-		DEFENS,
-		ATTACK,
-		OFF
-	};
 	
-	TUTORIAL logic = GRETTINGS;
+
 
 
 };

@@ -8,6 +8,15 @@ class Scene;
 struct SDL_Texture;
 enum SCENE_TYPE;
 
+
+enum TUTORIAL {
+	GRETTINGS,
+	MOVE,
+	DEFENS,
+	ATTACK,
+	OFF
+};
+
 class ModuleSceneManager :	public Module
 {
 public:
@@ -55,6 +64,8 @@ public:
 	int	defend_sfx;
 	int	critic_sfx;
 	int	levelup_sfx;
+
+	TUTORIAL logic = TUTORIAL::GRETTINGS;
 
 private:
 	pugi::xml_node scene_configs;
