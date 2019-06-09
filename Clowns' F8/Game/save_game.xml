@@ -4,8 +4,8 @@
 	<input />
 	<textures />
 	<audio>
-		<volume value="100" />
-		<volume_fx value="100" />
+		<volume value="30" />
+		<volume_fx value="120" />
 		<mute value="false" />
 	</audio>
 	<fonts />
@@ -17,12 +17,14 @@
 		<battle3 value="false" />
 	</scene_manager>
 	<entity_manager>
-		<sapphire value="0" />
-		<iris value="0" />
-		<storm value="0" />
-		<georgeb value="0" />
+		<sapphire value="130" />
+		<iris value="130" />
+		<storm value="130" />
+		<georgeb value="130" />
 	</entity_manager>
 	<gui />
+	<:anonymous />
+	<particle_system />
 	<:anonymous />
 	<render />
 </game_state>
