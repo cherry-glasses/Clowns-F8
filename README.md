@@ -22,7 +22,7 @@ We are very motivated to do a great job and that everyone who tries our game has
 [GitHub Account](https://github.com/CereVenteo)
 
 ### Game Design: `Aleix Castillo`
-<img src="https://github.com/cherry-glasses/Project-2-Game/blob/master/Documents/Wiki_Resources/img/fotoaleix.JPG" width="160" height="160">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Wiki_Resources/img/fotoaleix.JPG" width="160" height="160">
 
 [GitHub Account](https://github.com/AleixCas95)
 
