@@ -58,47 +58,53 @@ void Boneyman::Walk(const std::vector<std::pair<int, int>> *_path)
 	{
 		objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
 	}
-
-	if (_path->size() > 2) {
-		if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
-			CurrentMovement(WALK_LEFT_FRONT);
-		}
-		else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-			CurrentMovement(WALK_RIGHT_FRONT);
-		}
-		else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-			CurrentMovement(WALK_LEFT_BACK);
-		}
-		else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
-			CurrentMovement(WALK_RIGHT_BACK);
-		}
-		//current_turn = MOVE;
+	if (objective_position.size() < 2) {
+		current_turn = SEARCH_ATTACK;
 	}
 	else {
-		current_turn = SEARCH_ATTACK;
-	}
+		if (_path->size() > 2) {
+			if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
+				CurrentMovement(WALK_LEFT_FRONT);
+			}
+			else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+				CurrentMovement(WALK_RIGHT_FRONT);
+			}
+			else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+				CurrentMovement(WALK_LEFT_BACK);
+			}
+			else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
+				CurrentMovement(WALK_RIGHT_BACK);
+			}
+			//current_turn = MOVE;
+		}
+		else {
+			current_turn = SEARCH_ATTACK;
+		}
 
-	if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
-		if (current_movement == WALK_LEFT_FRONT)
-		{
-			CurrentMovement(IDLE_LEFT_FRONT);
+		if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
+			if (current_movement == WALK_LEFT_FRONT)
+			{
+				CurrentMovement(IDLE_LEFT_FRONT);
+			}
+			else if (current_movement == WALK_RIGHT_FRONT)
+			{
+				CurrentMovement(IDLE_RIGHT_FRONT);
+			}
+			else if (current_movement == WALK_LEFT_BACK)
+			{
+				CurrentMovement(IDLE_LEFT_BACK);
+			}
+			else if (current_movement == WALK_RIGHT_BACK)
+			{
+				CurrentMovement(IDLE_RIGHT_BACK);
+			}
+			//current_turn = SEARCH_MOVE;
+			current_turn = SEARCH_ATTACK;
 		}
-		else if (current_movement == WALK_RIGHT_FRONT)
-		{
-			CurrentMovement(IDLE_RIGHT_FRONT);
-		}
-		else if (current_movement == WALK_LEFT_BACK)
-		{
-			CurrentMovement(IDLE_LEFT_BACK);
-		}
-		else if (current_movement == WALK_RIGHT_BACK)
-		{
-			CurrentMovement(IDLE_RIGHT_BACK);
-		}
-		//current_turn = SEARCH_MOVE;
-		current_turn = SEARCH_ATTACK;
+		LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
 	}
-	LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
+	
+	
 }
 
 void Boneyman::SearchAttack()
