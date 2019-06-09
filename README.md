@@ -10,11 +10,15 @@ The player will have to think about finding more than one way in order to overco
 
 # The team: Cherry Glasses
 
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Wiki_Resources/img/group.jpg" width="240" height="240">
+
+
 Cherry Glasses is a team formed by university students of the CITM (UPC), located in Terrassa, Barcelona. This is the first time we work together but we will do our best to make the project go ahead and achieve with the help of the whole team to create a great game.
 Our intention is to create a game based on the famous game Final Fantasy Tactics that makes the user experience enriching and entertaining.
 We are very motivated to do a great job and that everyone who tries our game has a lot of fun.
 
 ## Team Members
+
 
 ### Lead and Management: `Cere Venteo`
 ![Cere Venteo Screenshot](https://raw.githubusercontent.com/AlmaCeax/ProjectI-AlmaCeax/master/Wiki/0.Home/cere.jpg)
