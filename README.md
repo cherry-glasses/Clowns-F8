@@ -446,7 +446,8 @@ Gamepad is the main controller for this game, the main controls are:
 
 |**xbox360**|**Button**|
 | --- | ---|
-| **Arrows** |To move options in all directions |
+| **Arrows** |To use debug features |
+| **Joystick** |To move in any direction |
 | **A** |To accept actions|
 | **B** |To decline actions|
 | **Start**|To show pause menu|
@@ -466,7 +467,10 @@ The main keys are:
 | **X** |To decline actions|
 | **Tab**|To show abilities|
 | **Enter**|To show pause menu|
-
+| **F1** |Debug mode|
+| **F2** |To unlock all maps|
+| **F3**|To low levels|
+| **F4**|To up levels|
 
 
 ## Who made what
