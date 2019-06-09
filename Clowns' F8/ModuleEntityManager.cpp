@@ -1219,84 +1219,95 @@ void ModuleEntityManager::LevelUP(int _exp)
 {
 	if (App->scene_manager->current_scene->type == SCENE_TYPE::FOURTH_BATTLE)
 	{
-		for (std::list<Entity*>::iterator enemy = enemies.begin(); enemy != enemies.end(); ++enemy)
+		if (App->scene_manager->start_fourth_game)
 		{
-			if ((*enemy)->GetType() != ENTITY_TYPE::ENTITY_ENEMY_CHERRYBLACKGLASSES)
+			for (std::list<Entity*>::iterator enemy = enemies.begin(); enemy != enemies.end(); ++enemy)
 			{
-				(*enemy)->default_stats.Hp += (*enemy)->default_stats.Hp * 3;
-				(*enemy)->default_stats.Mana += (*enemy)->default_stats.Mana * 3;
-				(*enemy)->default_stats.AtkF += (*enemy)->default_stats.AtkF * 3;
-				(*enemy)->default_stats.AtkS += (*enemy)->default_stats.AtkS * 3;
-				(*enemy)->default_stats.DefF += (*enemy)->default_stats.DefF * 3;
-				(*enemy)->default_stats.DefS += (*enemy)->default_stats.DefS * 3;
-				(*enemy)->default_stats.Crit += (*enemy)->default_stats.Crit * 3;
+				if ((*enemy)->GetType() != ENTITY_TYPE::ENTITY_ENEMY_CHERRYBLACKGLASSES)
+				{
+					(*enemy)->default_stats.Hp += (*enemy)->default_stats.Hp * 3;
+					(*enemy)->default_stats.Mana += (*enemy)->default_stats.Mana * 3;
+					(*enemy)->default_stats.AtkF += (*enemy)->default_stats.AtkF * 3;
+					(*enemy)->default_stats.AtkS += (*enemy)->default_stats.AtkS * 3;
+					(*enemy)->default_stats.DefF += (*enemy)->default_stats.DefF * 3;
+					(*enemy)->default_stats.DefS += (*enemy)->default_stats.DefS * 3;
+					(*enemy)->default_stats.Crit += (*enemy)->default_stats.Crit * 3;
 
-				(*enemy)->current_stats = (*enemy)->default_stats;
+					(*enemy)->current_stats = (*enemy)->default_stats;
+				}
 			}
+			App->scene_manager->start_fourth_game = false;
 		}
 	}
-	for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
+
+	if (!App->scene_manager->start_new_game)
 	{
-		if ((*character)->current_state == Entity::ALIVE) 
+		
+		for (std::list<Entity*>::iterator character = characters.begin(); character != characters.end(); ++character)
 		{
-
-			switch ((*character)->GetType())
+			if ((*character)->current_state == Entity::ALIVE)
 			{
-			case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
-				exp_sapphire += _exp;
-				(*character)->exp = exp_sapphire;
-				break;
-			case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
-				exp_iris += _exp;
-				(*character)->exp = exp_iris;
-				break;
-			case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
-				exp_storm += _exp;
-				(*character)->exp = exp_storm;
-				break;
-			case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
-				exp_georgeb += _exp;
-				(*character)->exp = exp_georgeb;
-				break;
-			default:
-				break;
-			}
 
-			while ((*character)->level < 10 && (*character)->levels.at((*character)->level - 1) <= (*character)->exp)
-			{
-				(*character)->default_stats.Hp += (*character)->evolution_stats.Hp * (*character)->level;
-				(*character)->default_stats.Mana += (*character)->evolution_stats.Mana * (*character)->level;
-				(*character)->default_stats.AtkF += (*character)->evolution_stats.AtkF * (*character)->level;
-				(*character)->default_stats.AtkS += (*character)->evolution_stats.AtkS * (*character)->level;
-				(*character)->default_stats.DefF += (*character)->evolution_stats.DefF * (*character)->level;
-				(*character)->default_stats.DefS += (*character)->evolution_stats.DefS * (*character)->level;
-				(*character)->default_stats.Crit += (*character)->evolution_stats.Crit * (*character)->level;
+				switch ((*character)->GetType())
+				{
+				case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
+					exp_sapphire += _exp;
+					(*character)->exp = exp_sapphire;
+					break;
+				case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
+					exp_iris += _exp;
+					(*character)->exp = exp_iris;
+					break;
+				case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
+					exp_storm += _exp;
+					(*character)->exp = exp_storm;
+					break;
+				case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
+					exp_georgeb += _exp;
+					(*character)->exp = exp_georgeb;
+					break;
+				default:
+					break;
+				}
 
-				(*character)->current_stats = (*character)->default_stats;
-				++(*character)->level;
-				Emitter* emitter1 = App->particle_system->AddEmiter({ (*character)->GetPosition().first + 16, (*character)->GetPosition().second - (*character)->current.h } , EmitterType::EMITTER_TYPE_EFFECTS);
-				emitter1->SetTextureRect({341, 105, 12, 13});
-				emitter1->SetSize(20, 20);
-				Emitter* emitter2 = App->particle_system->AddEmiter({ (*character)->GetPosition().first + 48, (*character)->GetPosition().second - (*character)->current.h }, EmitterType::EMITTER_TYPE_EFFECTS);
-				emitter2->SetTextureRect({ 341, 105, 12, 13 });
-				emitter2->SetSize(20, 20);
-			}
-			
-			while ((*character)->level > 1 && (*character)->levels.at((*character)->level - 2) > (*character)->exp)
-			{
-				--(*character)->level;
-				(*character)->default_stats.Hp -= (*character)->evolution_stats.Hp * (*character)->level;
-				(*character)->default_stats.Mana -= (*character)->evolution_stats.Mana * (*character)->level;
-				(*character)->default_stats.AtkF -= (*character)->evolution_stats.AtkF * (*character)->level;
-				(*character)->default_stats.AtkS -= (*character)->evolution_stats.AtkS * (*character)->level;
-				(*character)->default_stats.DefF -= (*character)->evolution_stats.DefF * (*character)->level;
-				(*character)->default_stats.DefS -= (*character)->evolution_stats.DefS * (*character)->level;
-				(*character)->default_stats.Crit -= (*character)->evolution_stats.Crit * (*character)->level;
+				while ((*character)->level < 10 && (*character)->levels.at((*character)->level - 1) <= (*character)->exp)
+				{
+					(*character)->default_stats.Hp += (*character)->evolution_stats.Hp * (*character)->level;
+					(*character)->default_stats.Mana += (*character)->evolution_stats.Mana * (*character)->level;
+					(*character)->default_stats.AtkF += (*character)->evolution_stats.AtkF * (*character)->level;
+					(*character)->default_stats.AtkS += (*character)->evolution_stats.AtkS * (*character)->level;
+					(*character)->default_stats.DefF += (*character)->evolution_stats.DefF * (*character)->level;
+					(*character)->default_stats.DefS += (*character)->evolution_stats.DefS * (*character)->level;
+					(*character)->default_stats.Crit += (*character)->evolution_stats.Crit * (*character)->level;
 
-				(*character)->current_stats = (*character)->default_stats;
+					(*character)->current_stats = (*character)->default_stats;
+					++(*character)->level;
+					Emitter* emitter1 = App->particle_system->AddEmiter({ (*character)->GetPosition().first + 16, (*character)->GetPosition().second - (*character)->current.h }, EmitterType::EMITTER_TYPE_EFFECTS);
+					emitter1->SetTextureRect({ 341, 105, 12, 13 });
+					emitter1->SetSize(20, 20);
+					Emitter* emitter2 = App->particle_system->AddEmiter({ (*character)->GetPosition().first + 48, (*character)->GetPosition().second - (*character)->current.h }, EmitterType::EMITTER_TYPE_EFFECTS);
+					emitter2->SetTextureRect({ 341, 105, 12, 13 });
+					emitter2->SetSize(20, 20);
+				}
+
+				while ((*character)->level > 1 && (*character)->levels.at((*character)->level - 2) > (*character)->exp)
+				{
+					--(*character)->level;
+					(*character)->default_stats.Hp -= (*character)->evolution_stats.Hp * (*character)->level;
+					(*character)->default_stats.Mana -= (*character)->evolution_stats.Mana * (*character)->level;
+					(*character)->default_stats.AtkF -= (*character)->evolution_stats.AtkF * (*character)->level;
+					(*character)->default_stats.AtkS -= (*character)->evolution_stats.AtkS * (*character)->level;
+					(*character)->default_stats.DefF -= (*character)->evolution_stats.DefF * (*character)->level;
+					(*character)->default_stats.DefS -= (*character)->evolution_stats.DefS * (*character)->level;
+					(*character)->default_stats.Crit -= (*character)->evolution_stats.Crit * (*character)->level;
+
+					(*character)->current_stats = (*character)->default_stats;
+				}
 			}
 		}
 	}
+	App->scene_manager->start_new_game = false;
+	
 }
 
 bool ModuleEntityManager::Characters_around(std::pair<int, int> position)

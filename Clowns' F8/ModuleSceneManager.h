@@ -52,6 +52,9 @@ public:
 	
 	bool victory = false;
 
+	bool start_new_game = true;
+	bool start_fourth_game = true;
+
 	bool tutorial_block = true;
 	bool tutorial_block_actions = true;
 	bool trailer = true;
