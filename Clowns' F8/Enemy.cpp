@@ -21,24 +21,25 @@ bool Enemy::PreUpdate()
 		{
 			Die();
 		}
-
-		if (current_turn == SEARCH_MOVE)
+		else
 		{
-			++start;
-			if (start == START_TURN)
+			if (current_turn == SEARCH_MOVE)
 			{
-				start = 0;
-				SearchWalk();
+				++start;
+				if (start == START_TURN)
+				{
+					start = 0;
+					SearchWalk();
+				}
+			}
+			else if (current_turn == SEARCH_ATTACK)
+			{
+				SearchAttack();
+			}
+			else if (current_turn == SEARCH_ABILITY_1) {
+				SearchAbility_1();
 			}
 		}
-		else if (current_turn == SEARCH_ATTACK)
-		{
-			SearchAttack();
-		}
-		else if (current_turn == SEARCH_ABILITY_1) {
-			SearchAbility_1();
-		}
-
 	}
 	else if (current_turn == SEARCH_MOVE)
 	{
