@@ -376,6 +376,14 @@ void Polarbear::CurrentMovement(MOVEMENT _movement) {
 			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
+	case Entity::DEAD_DEFAULT:
+		current_movement = DEAD_LEFT_FRONT;
+		current_animation = &dead_left_front;
+		if (current_animation->isDone()) {
+			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
+		}
+		break;
 	default:
 		break;
 	}

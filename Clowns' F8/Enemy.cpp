@@ -205,7 +205,7 @@ void Enemy::Die()
 	}
 	else
 	{
-		CurrentMovement(DEAD_RIGHT_BACK);
+		CurrentMovement(DEAD_DEFAULT);
 	}
 
 

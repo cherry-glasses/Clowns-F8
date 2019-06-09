@@ -253,6 +253,8 @@ void ChooseMap::NavigateMaps()
 	//DEBUG MODE
 	if (App->input->AllMaps() && !debug_maps)
 	{
+		App->scene_manager->tutorial_block = false;
+		App->scene_manager->tutorial_block_actions = false;
 		if (!App->scene_manager->battle1_passed)
 		{
 			App->scene_manager->battle1_passed = true;
