@@ -139,6 +139,7 @@ void Polarpath::SearchAttack() {
 }
 
 void Polarpath::Attack(const std::vector<std::pair<int, int>>* _path) {
+
 	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
 	range = App->entity_manager->RangeOfAttack(pos, 1, tiles_range_attk);
 	std::pair<int, int> car = App->entity_manager->CharactersPrioritzationAttack(range, tiles_range_attk);
@@ -176,7 +177,7 @@ void Polarpath::Attack(const std::vector<std::pair<int, int>>* _path) {
 	}
 	if (emitter == nullptr)
 	{
-		current_turn = END_TURN; //guillem
+
 
 		if (nearposition.first > pos.first)
 			CurrentMovement(ATTACK_FRONT);
@@ -236,7 +237,7 @@ void Polarpath::Ability_1(const std::vector<std::pair<int, int>>* _path)
 		objective_position.push_back(abil_1_arr[i]);
 
 	CurrentMovement(ATTACK_FRONT);
-	current_turn = END_TURN; // guillem
+
 
 	if (current_animation->isDone()) {
 		PlaySFX(sfx.Ability_1_SFX);
