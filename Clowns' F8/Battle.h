@@ -70,6 +70,7 @@ protected:
 	SDL_Texture * battle_menu_background = nullptr;
 	SDL_Texture* battle_background = nullptr;
 	SDL_Texture* battle_grid = nullptr;
+	SDL_Texture* Tutorial_background = nullptr;
 
 
 	GUIImage* action_menu = nullptr;

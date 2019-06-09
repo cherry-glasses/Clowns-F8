@@ -69,13 +69,13 @@ bool Battle::Update(float _dt)
 {
 	bool ret = true;
 
-	if (first_level_tut == true) {
-		Tutoriallogic();
-	}
+	
 
 	if (App->input->Pause() || ingame_options_menu_created)
 	{
+
 		App->render->Blit(battle_menu_background, 0 - (option_background.w / 2), (screen_height / 2.7) - (option_background.h / 2));
+		
 		if (!ingame_options_menu_created)
 		{
 			CreateOptionsIngame();
@@ -201,15 +201,23 @@ bool Battle::Update(float _dt)
 		App->render->Blit(battle_grid, 0 - (screen_width / 2), 0 - (screen_height / 8));
 		App->map->Draw();
 	}
+	if (first_level_tut == true) {
+		Tutoriallogic();
+
+	}
+	
 
 	return ret;
 }
+
+
 
 bool Battle::CleanUp()
 {
 	App->textures->UnLoad(battle_menu_background);
 	App->textures->UnLoad(battle_background);
 	App->textures->UnLoad(battle_grid);
+	App->textures->UnLoad(Tutorial_background);
 	App->textures->UnLoad(App->scene_manager->objects_texture);
 	App->gui_manager->DeleteAllGUIElements();
 
@@ -863,7 +871,7 @@ void Battle::Createtutorial()
 	switch (logic)
 	{
 	case Battle::GRETTINGS:
-		lets_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (button.w / 2), (screen_height / 2) - (option_background.h / 2) + (button.h * 1.5), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+		lets_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, -(button.w / 2),(screen_height/1.25), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 		buttons_tutorial.push_back(lets_button);
 		lets_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second + (button.h / 2), App->scene_manager->language->lets_do_it_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 		tutorial_general_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 3*(button.h / 2), App->scene_manager->language->greatings_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
@@ -872,7 +880,7 @@ void Battle::Createtutorial()
 		lets_button->Select(SELECTED);
 		break;
 	case Battle::MOVE:
-		lets_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (button.w / 2), (screen_height / 2) - (option_background.h / 2) + (button.h * 1.5), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+		lets_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, -(button.w / 2) , (screen_height / 1.25), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 		buttons_tutorial.push_back(lets_button);
 		lets_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second + (button.h / 2), App->scene_manager->language->lets_do_it_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 		tutorial_general_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 6*(button.h / 2), App->scene_manager->language->movemnent_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
@@ -884,7 +892,7 @@ void Battle::Createtutorial()
 		lets_button->Select(SELECTED);
 		break;
 	case Battle::DEFENS:
-		lets_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (button.w / 2), (screen_height / 2) - (option_background.h / 2) + (button.h * 1.5), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+		lets_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, -(button.w / 2), (screen_height / 1.25), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 		buttons_tutorial.push_back(lets_button);
 		lets_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second + (button.h / 2), App->scene_manager->language->lets_do_it_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 		tutorial_general_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 6 * (button.h / 2), App->scene_manager->language->defens_tutorial, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
@@ -894,7 +902,7 @@ void Battle::Createtutorial()
 		tutorial_general_label_5 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - 2 * (button.h / 2), App->scene_manager->language->defens_5, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 		tutorial_general_label_6 = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, lets_button->position.first + (button.w / 2), lets_button->position.second - (button.h / 2), App->scene_manager->language->defens_6, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
 		lets_button->Select(SELECTED);
-		lets_button->Select(SELECTED);
+		
 		break;
 	case Battle::ATTACK:
 		break;
@@ -916,7 +924,8 @@ void Battle::Tutoriallogic()
 	case Battle::GRETTINGS:
 		if (!Is_created_tut)
 			Createtutorial();
-		
+
+		App->render->Blit(Tutorial_background, -598/2, (screen_height / 1.25) - 360/1.5);
 
 
 		if (lets_button->has_been_clicked) {
@@ -929,7 +938,7 @@ void Battle::Tutoriallogic()
 	case Battle::MOVE:
 		if (!Is_created_tut)
 			Createtutorial();
-
+		App->render->Blit(Tutorial_background, -598/2, (screen_height / 1.25) - 360 / 1.5);
 
 		if (lets_button->has_been_clicked) {
 			App->scene_manager->tutorial_block = false;
@@ -942,12 +951,13 @@ void Battle::Tutoriallogic()
 	case Battle::DEFENS:
 		if (!Is_created_tut)
 			Createtutorial();
-
+		App->render->Blit(Tutorial_background, -598 / 2, (screen_height / 1.25) - 360 / 1.5);
 
 		if (lets_button->has_been_clicked) {
 			App->scene_manager->tutorial_block_actions = false;
 			Destroytutorial();
 			logic = OFF;
+			first_level_tut = false;
 
 		}
 

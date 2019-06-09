@@ -22,6 +22,7 @@ bool Battle1::Start()
 	battle_background = App->textures->Load("Assets/Maps/map_level_1.png");
 	battle_grid = App->textures->Load("Assets/Maps/grid_level_1.png");
 	battle_menu_background = App->textures->Load("Assets/Sprites/UI/option_menu_background.png");
+	Tutorial_background = App->textures->Load("Assets/Sprites/UI/Tutorial_image.png");
 
 	App->audio->PlayMusic("Battle_1_Song.ogg");
 	CreateBattle1();

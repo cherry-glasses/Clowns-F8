@@ -55,6 +55,7 @@ bool Battle2::Save(pugi::xml_node& _data) const
 
 void Battle2::CreateBattle2()
 {
+	first_level_tut = false;
 	App->map->Load("map_level2.tmx");
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_CHARACTER_IRIS);
