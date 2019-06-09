@@ -542,10 +542,10 @@
       <texture value="Assets/Sprites/Main_Characters/Storm_Spritesheet.png"/>
       <portrait x="352" y="348" w="168" h="168"/>
       <sfx>
-        <attack_sfx value="GeorgeB_Random_Throw.wav"/>
-        <ability_1_sfx value="GeorgeB_Bear_Trap.wav"/>
-        <ability_2_sfx value="GeorgeB_Cherry_Boom.wav"/>
-        <ability_3_sfx value="GeorgeB_Flying_Birds.wav"/>
+        <attack_sfx value="Storm_Acid_Throw.wav"/>
+        <ability_1_sfx value="Storm_Snail_Charge.wav"/>
+        <ability_2_sfx value="Storm_Time_to_Hide.wav"/>
+        <ability_3_sfx value="Storm_Vampiric_snail.wav"/>
         <dead_sfx value="Storm_Dead.wav"/>
       </sfx>
       <position x="9" y="17"/>
@@ -831,7 +831,7 @@
       <name value="Boneyman"/>
       <type value="Pawn"/>
       <exp value="10"/>
-      <stats hp="75" mana="70" p_move="2" atk_f="80" atk_s="80" def_f="65" def_s="65" crit="0.3" agi="8" attack ="20" ability_1="30"/>/>
+      <stats hp="75" mana="70" p_move="2" atk_f="90" atk_s="90" def_f="65" def_s="65" crit="0.3" agi="8" attack ="20" ability_1="30"/>/>
       <animations>
         <idle_left_front speed="2.0f" loop="true">
           <frame x="0" y="64" width="64" height="64"/>

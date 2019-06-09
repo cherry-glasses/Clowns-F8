@@ -1284,6 +1284,27 @@ void Character::Die()
 	case Entity::DEFEND_BACK:
 		CurrentMovement(DEAD_BACK);
 		break;
+	case Entity::DEAD_RIGHT_FRONT:
+		CurrentMovement(DEAD_RIGHT_FRONT);
+		break;
+	case Entity::DEAD_LEFT_BACK:
+		CurrentMovement(DEAD_LEFT_BACK);
+		break;
+	case Entity::DEAD_RIGHT_BACK:
+		CurrentMovement(DEAD_RIGHT_BACK);
+		break;
+	case Entity::DEAD_LEFT:
+		CurrentMovement(DEAD_LEFT);
+		break;
+	case Entity::DEAD_RIGHT:
+		CurrentMovement(DEAD_RIGHT);
+		break;
+	case Entity::DEAD_FRONT:
+		CurrentMovement(DEAD_FRONT);
+		break;
+	case Entity::DEAD_BACK:
+		CurrentMovement(DEAD_BACK);
+		break;
 	default:
 		break;
 	}
