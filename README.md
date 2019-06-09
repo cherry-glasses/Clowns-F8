@@ -87,44 +87,6 @@ The player will have to think about finding more than one way in order to overco
 (No need for any additional installation)
 
 
-## Default controls
-
-For this game we recommend to play with gamepad, it can be also played with keyboard but not with mouse. Mouse will be disabled once the game starts.
-
-Gamepad:
-
-
-Gamepad is the main controller for this game, the main controls are:
-
-xbox360	Button
-
-Arrows	To move options in all directions
-A	To accept actions
-B	To decline actions
-L1	To show character stats
-L2	To show character abilities
-R1	To show abilities
-Start	To show pause menu
-Select	To show ability tree
-
-Keyboard:
-
-Keyboard is the secundary controller for the game if you do not have a gamepad controller.
-
-The main keys are:
-
-Keyboard	Key
-Keyboard Arrows	To move options in all directions
-Space	To accept actions
-X	To decline actions
-Control	To show character stats
-Left alt	To show character abilities
-Tab	To show abilities
-Enter/ESC	To show pause menu
-Backspace Key	To show ability tree
-
-
-
 
 
 ### Win/Loose condition
@@ -144,9 +106,11 @@ In order to loose:
   • Player can not loose the main character.
 
 
-## Controls
+
+## Default controls
 
 For this game we recommend to play with gamepad, it can be also played with keyboard but not with mouse. Mouse will be disabled once the game starts.
+
 
 **Gamepad:**
 
