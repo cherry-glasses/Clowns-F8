@@ -305,7 +305,7 @@ In those areas player will evolve his characters and become stronger to fight th
 
 ## The main characters
 
-Sapphire(King):
+# Sapphire(King):
 
 Basic attack: Flower attack - 25 DMG/HEAL(ATK.S):
 · Ranged attack, shoots water from a flower, which can damage enemies or heal allies, from 1 to 5 tileds from the character in any direction.
@@ -319,7 +319,7 @@ Special attack 2: Surprise hat 30 DMG(ATK.S):
 Ultimate: Water time 35 DMG(ATK.S):
 · Ranged attack, creates a Tsunami 3 tileds of width and 4 of heigh that deals damages to the enemies and heals the allies.
 
-Iris(Knight):
+# Iris(Knight):
 
 Basic attack: Fist attack - 24 DMG(ATK.F):
 · Melee attack, 1 tiled from the character( Front, Back, Left, Right)
@@ -334,7 +334,7 @@ Ultimate: Rabbit rage 40 DMG(ATK.F):
 · Melee attack, take of the mask and hit multiple times the enemies delaing high damages, 1 tiled from the character( Front, Back, Left, Right)
 
 
-Geroge. B(Bishop):
+# Geroge. B(Bishop):
 
 Basic attack: Random throw - 25 DMG (ATK.S):
 · Ranged attack, throws 1 random item(can, tin, pan) to an enemy dealing damages, 1-4 tileds form the character in anydirection.
@@ -348,7 +348,7 @@ Special attack 2: Cherry boom - 33 DMG(ATK.S):
 Ultimate: Flying birds 38 DMG(ATK.S):
 · Ranged attack, a lot of birds come from inside the bush and deal high amount of damage to the enemies in an area of 3x3.
 
-Storm(Rook):
+# Storm(Rook):
 
 Basic attack: Acid throw - 20DMG(ATK.F):
 · Melee attack, hitting and enemy 1 tiled away from the character in any derection.
@@ -365,7 +365,7 @@ Ultimate: Vampiric snail - HEALS 50% DMG DEALT:
 
 ## The enemies
 
-Boneyman(Pawns):
+# Boneyman(Pawns):
 
 Basic attack: Melee attack - 20 DMG(ATK.F):
 · Melee attack, hitting and enemy with his bone 1 tiled away from the character in any derection.
@@ -373,7 +373,7 @@ Basic attack: Melee attack - 20 DMG(ATK.F):
 Secondary attack - 30 DMG(ATK.F):
 ·The skelly attacks with his sword dealing more damage.
 
-PinkKing(Bishop):
+# PinkKing(Bishop):
 
 Basic attack: Crown attack - 30 DMG(ATK.F):
 · Ranged attack, throws his crown like a boomerang, 4 tileds away form the character in any direction.
@@ -384,7 +384,7 @@ Special attack 1: With the shadows 35 DMG(ATK.S).
 Special Attack 2: Boneys invade:
 · PinkKing summon to boneymans.
 
-Burg Dog(Pawns):
+# Burg Dog(Pawns):
 
 Basic attack: Melee attack - 25 DMG(ATK.F):
 · Melee attack, hitting and enemy with his teeth 1 tiled away from the character in any derection.
@@ -392,7 +392,7 @@ Basic attack: Melee attack - 25 DMG(ATK.F):
 Secondary attack - 35 DMG(ATK.F):
 . The Burg dog bites twice a player dealing dmg 1 tiled away form eany character.
 
-Hot Dog(Knight):
+# Hot Dog(Knight):
 
 Basic attack: Sausage Bite - 35 DMG(ATK.F):
 · Melee attack, bites the enemy dealing damages.
@@ -403,7 +403,7 @@ Special attack 1: Sausage throw 40 DMG(ATK.S).
 Special Attack 2: Sausage Roll 45 DMG(ATK.F):
 · Rolls to an enemi dealing dmg, 1-5 tileds.
 
-Polar Bear(Pawns):
+# Polar Bear(Pawns):
 
 Basic attack: Melee attack - 30 DMG(ATK.F):
 · Melee attack, hitting and enemy with his teeth 1 tiled away from the character in any derection.
@@ -411,7 +411,7 @@ Basic attack: Melee attack - 30 DMG(ATK.F):
 Secondary attack - 40 DMG(ATK.F):
 . Frozen claw that hit and deals dmg to a character 1 tiled away in any direction.
 
-Polar Path(Rook):
+# Polar Path(Rook):
 
 Basic attack: Polar Claw - 45 DMG(ATK.F):
 · Melee attack, hits with with frozen claw 1 tiled away form any character.
@@ -419,7 +419,7 @@ Basic attack: Polar Claw - 45 DMG(ATK.F):
 Special attack 1: Polar berg 45 DMG(ATK.S).
 · Ranged attack, Throws an iceberg in a zone of "1-4 tileds" dealing dmg to the enemies.
 
-- Black Cherry Glasses(King):
+# Black Cherry Glasses(King):
 
 Same attack and abilities than saphire but stronger
 
@@ -473,7 +473,11 @@ The main keys are:
 | **F4**|To up levels|
 
 
+
+
 ## Who made what
+
+
 
 
 ## MIT License
