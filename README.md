@@ -79,10 +79,6 @@ The player will have to think about finding more than one way in order to overco
 **Game Release**
 [Clowns F8 lastet release]  ******
 
-# Version 1.0
-
-The goal of the player in this gold version is to defeat the final boss, defeating before an amount of enemies that want to stop you. Your team is a squad of diferent heroes with diferent abilities and movement.
-In order to complete the objective, the player will have to combine them and advance to the victory. If the player looses he can restart the game and try a new strategy. Game will change depends on the player movements.
 
 # Instructions on installation:
 
