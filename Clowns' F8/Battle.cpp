@@ -205,6 +205,10 @@ bool Battle::Update(float _dt)
 		Tutoriallogic();
 
 	}
+	else {
+		App->scene_manager->tutorial_block = false;
+		App->scene_manager->tutorial_block_actions = false;
+	}
 	
 
 	return ret;
