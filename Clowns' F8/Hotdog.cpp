@@ -181,7 +181,7 @@ void Hotdog::SearchAttack() {
 void Hotdog::Attack(const std::vector<std::pair<int, int>>* _path)
 {
 	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
-	range = App->entity_manager->RangeOfAttack(pos, 3, tiles_range_attk);	//cambiar por el rango del boss
+	range = App->entity_manager->RangeOfAttack(pos, current_stats.RangeAtk, tiles_range_attk);	//cambiar por el rango del boss
 	std::pair<int, int> car = App->entity_manager->CharactersPrioritzationAttack(range, tiles_range_attk);
 	objective_position.push_back(car);
 	car = App->map->WorldToMap(car.first, car.second);
