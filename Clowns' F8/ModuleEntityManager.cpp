@@ -827,6 +827,7 @@ void ModuleEntityManager::ThrowAttack(std::vector<std::pair<int, int>> _position
 									ThrowParticleDamage({ (*character)->GetPosition().first, (*character)->GetPosition().second - (*character)->current.h }, 0);
 								}
 								(*character)->damaged = true;
+								
 							}
 						}
 
