@@ -182,6 +182,7 @@ void CherryBlackGlasses::Attack(const std::vector<std::pair<int, int>> *_path)
 		CurrentMovement(ATTACK_BACK);
 
 	if (current_animation->isDone()) {
+		PlaySFX(sfx.Attack_SFX);
 		App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_CHERRYBLACKGLASSES, false);
 		current_animation->Reset();
 		if (current_movement == ATTACK_FRONT)
@@ -203,6 +204,7 @@ void CherryBlackGlasses::SearchAbility_1()
 void CherryBlackGlasses::Ability_1(const std::vector<std::pair<int, int>> *_path)
 {
 	objective_position.clear();
+	PlaySFX(sfx.Ability_1_SFX);
 	App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_CHERRYBLACKGLASSES, true);
 	current_turn = END_TURN;
 }
@@ -340,6 +342,7 @@ void CherryBlackGlasses::CurrentMovement(MOVEMENT _movement) {
 		flipX = false;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_RIGHT:
@@ -348,6 +351,7 @@ void CherryBlackGlasses::CurrentMovement(MOVEMENT _movement) {
 		flipX = true;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_FRONT:
@@ -356,6 +360,7 @@ void CherryBlackGlasses::CurrentMovement(MOVEMENT _movement) {
 		flipX = false;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_BACK:
@@ -364,6 +369,7 @@ void CherryBlackGlasses::CurrentMovement(MOVEMENT _movement) {
 		flipX = false;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	default:

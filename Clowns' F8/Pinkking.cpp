@@ -170,14 +170,9 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 		CurrentMovement(ATTACK_FRONT);
 	else 
 		CurrentMovement(ATTACK_BACK);
-
-	if (!sound_fx) {
-		PlaySFX(sfx.Attack_SFX);
-		sound_fx = true;
-	}
 	
 	if (current_animation->isDone()) {
-		
+		PlaySFX(sfx.Attack_SFX);
 		App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING, false);
 		current_animation->Reset();
 		if (current_movement == ATTACK_FRONT)
@@ -362,6 +357,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		flipX = false;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_RIGHT:
@@ -370,6 +366,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		flipX = true;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_FRONT:
@@ -378,6 +375,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		flipX = false;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_BACK:
@@ -386,6 +384,7 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		flipX = false;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	default:

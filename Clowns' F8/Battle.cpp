@@ -258,8 +258,8 @@ void Battle::CreateUIBattle()
 	{
 		enemy_stun_image.push_back(nullptr);
 		enemy_stun_image_created.push_back(false);
-		enemies_life_x.push_back((64 * (*enemy)->current_stats.Hp) / (*enemy)->default_stats.Hp);
-		enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, (*enemy)->GetPosition().first, (*enemy)->GetPosition().second + (*enemy)->position_margin.second - (*enemy)->current.h, { 45, 248, enemies_life_x.at(i) , 5 }));
+		//enemies_life_x.push_back((64 * (*enemy)->current_stats.Hp) / (*enemy)->default_stats.Hp);
+		//enemies_life.push_back((GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, (*enemy)->GetPosition().first, (*enemy)->GetPosition().second + (*enemy)->position_margin.second - (*enemy)->current.h, { 45, 248, enemies_life_x.at(i) , 5 }));
 		++i;
 	}
 }
@@ -436,12 +436,12 @@ void Battle::UpdateEnemies()
 	int i = 0;
 	for (std::list<Entity*>::iterator enemy = App->entity_manager->enemies.begin(); enemy != App->entity_manager->enemies.end(); ++enemy)
 	{
-		if (enemies_life_x.at(i) != ((64 * (*enemy)->current_stats.Hp) / (*enemy)->default_stats.Hp)
+		/*if (enemies_life_x.at(i) != ((64 * (*enemy)->current_stats.Hp) / (*enemy)->default_stats.Hp)
 			|| enemies_life.at(i)->position.first != (*enemy)->GetPosition().first ||
 			enemies_life.at(i)->position.second != (*enemy)->GetPosition().second + (*enemy)->position_margin.second - (*enemy)->current.h)
 		{
 			UpdateEnemyPortraits(*enemy, i);
-		}
+		}*/
 		if ((*enemy)->stunned && !enemy_stun_image_created.at(i))
 		{
 			enemy_stun_image.at(i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, (*enemy)->GetPosition().first + 70, (*enemy)->GetPosition().second + (*enemy)->position_margin.second - (*enemy)->current.h, { 302, 238, 16, 16 });
@@ -455,11 +455,11 @@ void Battle::UpdateEnemies()
 		++i;
 	}
 	
-	if (enemies_life.size() > App->entity_manager->enemies.size())
+	/*if (enemies_life.size() > App->entity_manager->enemies.size())
 	{
 		App->gui_manager->DeleteGUIElement(enemies_life.back());
 		enemies_life.pop_back();
-	}
+	}*/
 }
 
 void Battle::UpdateCharacterPortraits(Entity* _character, int _i)
@@ -481,13 +481,13 @@ void Battle::UpdateCharacterPortraits(Entity* _character, int _i)
 
 void Battle::UpdateEnemyPortraits(Entity* _enemy, int _i)
 {
-	App->gui_manager->DeleteGUIElement(enemies_life.at(_i));
+	/*App->gui_manager->DeleteGUIElement(enemies_life.at(_i));
 	enemies_life_x.at(_i) = 0;
 	if (_enemy != nullptr) 
 	{
 		enemies_life_x.at(_i) = (64 * _enemy->current_stats.Hp) / _enemy->default_stats.Hp;
 		enemies_life.at(_i) = (GUIImage*)App->gui_manager->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, _enemy->GetPosition().first, _enemy->GetPosition().second + _enemy->position_margin.second - _enemy->current.h, { 45, 248, enemies_life_x.at(_i) , 5 });
-	}
+	}*/
 }
 
 // UTILITIES---------------------------------------------------------------------------------------

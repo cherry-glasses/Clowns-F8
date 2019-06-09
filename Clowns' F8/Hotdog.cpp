@@ -192,7 +192,7 @@ void Hotdog::Attack(const std::vector<std::pair<int, int>>* _path)
 		CurrentMovement(ATTACK_BACK);
 
 	if (current_animation->isDone()) {
-
+		PlaySFX(sfx.Attack_SFX);
 		App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_HOTDOG, false);	//hay que cambiar esto
 
 		current_animation->Reset();
@@ -308,6 +308,7 @@ void Hotdog::Ability_1(const std::vector<std::pair<int, int>>* _path)
 		
 	
 	if (position.first == meta.first && position.second == meta.second) {
+		PlaySFX(sfx.Ability_1_SFX);
 		App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_HOTDOG, false);
 		if (current_movement == ABILITY_1_RIGHT) {
 			CurrentMovement(IDLE_BACK);
@@ -441,6 +442,7 @@ void Hotdog::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &dead_left;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_RIGHT:
@@ -448,6 +450,7 @@ void Hotdog::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &dead_right;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_FRONT:
@@ -455,6 +458,7 @@ void Hotdog::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &dead_front;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_BACK:
@@ -462,6 +466,7 @@ void Hotdog::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &dead_back;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	default:

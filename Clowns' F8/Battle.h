@@ -94,7 +94,7 @@ protected:
 	std::pair<int, int> actions_margin;
 
 	std::vector<GUIImage*> life;
-	std::vector<GUIImage*> enemies_life;
+	//std::vector<GUIImage*> enemies_life;
 	std::vector<GUIImage*> mana;
 	std::vector<GUIImage*> portrait;
 	std::vector<GUIImage*> port;
@@ -104,7 +104,7 @@ protected:
 	std::vector<GUILabel*> mana_numbers;
 	std::vector<int> life_x;
 	std::vector<int> mana_x;
-	std::vector<int> enemies_life_x;
+	//std::vector<int> enemies_life_x;
 	std::vector<std::pair<int, int>> portrait_position;
 	std::vector<std::pair<int, int>> act_menu_position;
 

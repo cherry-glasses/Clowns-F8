@@ -235,11 +235,11 @@ void Polarpath::Ability_1(const std::vector<std::pair<int, int>>* _path)
 	for (int i = 0; i < 8; i++)
 		objective_position.push_back(abil_1_arr[i]);
 
-	PlaySFX(sfx.Ability_1_SFX);
 	CurrentMovement(ATTACK_FRONT);
 	current_turn = END_TURN; // guillem
 
 	if (current_animation->isDone()) {
+		PlaySFX(sfx.Ability_1_SFX);
 		App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_POLARPATH,true); //objective_position
 		current_animation->Reset();
 
@@ -340,6 +340,7 @@ void Polarpath::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &dead_front;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_RIGHT:
@@ -347,6 +348,7 @@ void Polarpath::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &dead_front;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_FRONT:
@@ -354,6 +356,7 @@ void Polarpath::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &dead_front;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_BACK:
@@ -361,6 +364,7 @@ void Polarpath::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &dead_back;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	default:

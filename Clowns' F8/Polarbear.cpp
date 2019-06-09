@@ -156,7 +156,7 @@ void Polarbear::Attack(const std::vector<std::pair<int, int>> *_path)
 			//Skill_1
 			timer_skill_1++;
 
-
+			PlaySFX(sfx.Attack_SFX);
 			current_animation->Reset();
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_POLARBEAR, false);
 			if (current_movement == ATTACK_LEFT_FRONT)
@@ -229,6 +229,7 @@ void Polarbear::Ability_1(const std::vector<std::pair<int, int>> *_path)
 
 
 		if (current_animation->isDone()) {
+			PlaySFX(sfx.Ability_1_SFX);
 			current_animation->Reset();
 			timer_skill_1 = 0;
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_POLARBEAR, false);
@@ -348,6 +349,7 @@ void Polarbear::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &dead_left_front;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_RIGHT_FRONT:
@@ -355,6 +357,7 @@ void Polarbear::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &dead_right_front;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_LEFT_BACK:
@@ -362,6 +365,7 @@ void Polarbear::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &dead_left_back;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_RIGHT_BACK:
@@ -369,6 +373,7 @@ void Polarbear::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &dead_right_back;
 		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	default:
