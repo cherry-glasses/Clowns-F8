@@ -6,6 +6,7 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "Language.h"
+#include "Color.h"
 #include "ModuleTransitionManager.h"
 
 
@@ -21,7 +22,6 @@ ChooseMap::ChooseMap(SCENE_TYPE _type, pugi::xml_node& _config) : Scene(_type, _
 	map4 = { _config.child("map4").attribute("x").as_int(), _config.child("map4").attribute("y").as_int(),
 		_config.child("map4").attribute("w").as_int(), _config.child("map4").attribute("h").as_int() };
 
-	press_sfx = App->audio->LoadFx(_config.child("press_fx_name").attribute("source").as_string());
 }
 
 // Destructor
@@ -32,7 +32,7 @@ ChooseMap::~ChooseMap()
 // Called before the first frame
 bool ChooseMap::Start()
 {
-	maps_texture = App->textures->Load("Assets/Sprites/UI/UI_sprites.png");
+	maps_texture = App->textures->Load("Assets/Maps/maps.png");
 
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
@@ -81,13 +81,53 @@ bool ChooseMap::Update(float _dt)
 	else
 	{
 		NavigateMaps();
+		App->render->DrawQuad(alpha, 50, 50, 50, 255);
 
-		if (map_selected != 2) App->render->Blit(maps_texture, (screen_width / 2) - (map2.w / 2), (screen_height / 2) - map2.h, &map2);
-		if (map_selected != 4) App->render->Blit(maps_texture, (screen_width / 2) - (map2.w / 2), (screen_height / 2) - (map4.h / 5), &map4);
-		if (map_selected != 3) App->render->Blit(maps_texture, (screen_width / 2) - (map3.w / 2) - (map3.w / 5), (screen_height / 2), &map3);
-		if (map_selected != 1) App->render->Blit(maps_texture, (screen_width / 2) - map1.w - (map1.w / 5), (screen_height / 2) - (map1.h / 2), &map1);
-
-		App->render->DrawQuad(alpha, 0, 0, 0, 180);
+		if (!App->scene_manager->battle1_passed)
+		{
+			SDL_SetTextureColorMod(maps_texture, 0, 0, 0);
+			App->render->Blit(maps_texture, (screen_width / 2) - (map2.w / 2), (screen_height / 2) - map2.h, &map2);
+			App->render->Blit(maps_texture, (screen_width / 2) - (map2.w / 2), (screen_height / 2) - (map4.h / 5), &map4);
+			App->render->Blit(maps_texture, (screen_width / 2) - (map3.w / 2) - (map3.w / 5), (screen_height / 2), &map3);
+			SDL_SetTextureColorMod(maps_texture, 255, 255, 255);
+		}
+		else if (!App->scene_manager->battle2_passed || !App->scene_manager->battle3_passed)
+		{
+			SDL_SetTextureColorMod(maps_texture, 0, 0, 0);
+			App->render->Blit(maps_texture, (screen_width / 2) - (map2.w / 2), (screen_height / 2) - (map4.h / 5), &map4);
+			SDL_SetTextureColorMod(maps_texture, 255, 255, 255);
+		}
+			
+			
+		if (map_selected != 2 && App->scene_manager->battle1_passed)
+		{
+			SDL_SetTextureAlphaMod(maps_texture, 50);
+			App->render->Blit(maps_texture, (screen_width / 2) - (map2.w / 2), (screen_height / 2) - map2.h, &map2);
+			SDL_SetTextureAlphaMod(maps_texture, 255);
+		}
+			
+		if (map_selected != 4 && App->scene_manager->battle2_passed
+			&& App->scene_manager->battle3_passed)
+		{
+			SDL_SetTextureAlphaMod(maps_texture, 50);
+			App->render->Blit(maps_texture, (screen_width / 2) - (map2.w / 2), (screen_height / 2) - (map4.h / 5), &map4);
+			SDL_SetTextureAlphaMod(maps_texture, 255);
+		}
+			
+		if (map_selected != 3 && App->scene_manager->battle1_passed)
+		{
+			SDL_SetTextureAlphaMod(maps_texture, 50);
+			App->render->Blit(maps_texture, (screen_width / 2) - (map3.w / 2) - (map3.w / 5), (screen_height / 2), &map3);
+			SDL_SetTextureAlphaMod(maps_texture, 255);
+		}
+			
+		if (map_selected != 1)
+		{
+			SDL_SetTextureAlphaMod(maps_texture, 50);
+			App->render->Blit(maps_texture, (screen_width / 2) - map1.w - (map1.w / 5), (screen_height / 2) - (map1.h / 2), &map1);
+			SDL_SetTextureAlphaMod(maps_texture, 255);
+		}
+			
 		switch (map_selected)
 		{
 		case 1:
@@ -171,11 +211,11 @@ bool ChooseMap::Save(pugi::xml_node& _data) const
 void ChooseMap::CreateMenu()
 {
 	
-	map1_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2) - (map1.w * 1.6), (screen_height / 2) + (map1.h / 3), App->scene_manager->language->map1, { 194, 213, 231, 255 }, App->gui_manager->default_font_used);
+	map1_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2) - (map1.w * 1.1), (screen_height / 2) + ((map1.h/3) * 2) , App->scene_manager->language->map1, { 194, 213, 231, 255 }, App->gui_manager->default_font_used);
 	
-	save_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), screen_height - (screen_height / 4), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	save_game_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, screen_width - (screen_width / 5) - (button.w / 2), screen_height - (screen_height / 5), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(save_game_button);
-	main_menu_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), save_game_button->position.second + (button_margin + button.h), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
+	main_menu_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, screen_width - (screen_width / 5) - (button.w / 2), save_game_button->position.second + (button_margin + button.h), { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
 	buttons.push_back(main_menu_button);
 	
 	save_game_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, save_game_button->position.first + (button.w / 2), save_game_button->position.second + (button.h / 2), App->scene_manager->language->save_game, { 0, 0, 0, 255 }, App->gui_manager->default_font_used);
@@ -194,16 +234,16 @@ void ChooseMap::DeleteLabels()
 	switch (map_selected)
 	{
 	case 1:
-		map1_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2) - (map1.w * 1.6), (screen_height / 2) + (map1.h / 3), App->scene_manager->language->map1, { 194, 213, 231, 255 }, App->gui_manager->default_font_used);
+		map1_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2) - (map1.w * 1.1), (screen_height / 2) + ((map1.h / 3) * 2), App->scene_manager->language->map1, { 226, 232, 234, 255 }, App->gui_manager->default_font_used);
 		break;
 	case 2:
-		map2_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2), (screen_height / 2) - map2.h - (map2.h / 10), App->scene_manager->language->map2, { 178, 2, 2, 255 }, App->gui_manager->default_font_used);
+		map2_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2), (screen_height / 2) - map2.h - (map2.h / 10), App->scene_manager->language->map2, { 226, 232, 234, 255 }, App->gui_manager->default_font_used);
 		break;
 	case 3:
 		map3_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2) - (map3.w / 5), (screen_height / 2) + map3.h + (map3.h / 8), App->scene_manager->language->map3, { 226, 232, 234, 255 }, App->gui_manager->default_font_used);
 		break;
 	case 4:
-		map4_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2) + map4.w, (screen_height / 2), App->scene_manager->language->map4, { 254, 0, 114, 255 }, App->gui_manager->default_font_used);
+		map4_label = (GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, (screen_width / 2) + (map4.w / 2), (screen_height / 2) - (map4.h/3), App->scene_manager->language->map4, { 226, 232, 234, 255 }, App->gui_manager->default_font_used);
 		break;
 	}
 }
@@ -213,6 +253,8 @@ void ChooseMap::NavigateMaps()
 	//DEBUG MODE
 	if (App->input->AllMaps() && !debug_maps)
 	{
+		App->scene_manager->tutorial_block = false;
+		App->scene_manager->tutorial_block_actions = false;
 		if (!App->scene_manager->battle1_passed)
 		{
 			App->scene_manager->battle1_passed = true;
@@ -254,12 +296,12 @@ void ChooseMap::NavigateMaps()
 	if (App->input->Right())
 	{
 		if (map_selected == 1 && App->scene_manager->battle1_passed) {
-			App->audio->PlayFx(press_sfx);
+			App->audio->PlayFx(App->scene_manager->move_sfx);
 			map_selected = 3;
 		}
 		else if ((map_selected == 2 || map_selected == 3) && App->scene_manager->battle3_passed && App->scene_manager->battle2_passed)
 		{
-			App->audio->PlayFx(press_sfx);
+			App->audio->PlayFx(App->scene_manager->move_sfx);
 			map_selected = 4;
 		}
 		DeleteLabels();
@@ -268,12 +310,12 @@ void ChooseMap::NavigateMaps()
 	{
 		if (map_selected == 2 || map_selected == 3)
 		{
-			App->audio->PlayFx(press_sfx);
+			App->audio->PlayFx(App->scene_manager->move_sfx);
 			map_selected = 1;
 		}
 		else if (map_selected == 4)
 		{
-			App->audio->PlayFx(press_sfx);
+			App->audio->PlayFx(App->scene_manager->move_sfx);
 			--map_selected;
 		}
 		DeleteLabels();
@@ -281,18 +323,20 @@ void ChooseMap::NavigateMaps()
 	else if (App->input->Up())
 	{
 		if ((map_selected == 1 && App->scene_manager->battle1_passed) || map_selected == 3 || map_selected == 4) {
-			App->audio->PlayFx(press_sfx);
+			App->audio->PlayFx(App->scene_manager->move_sfx);
 			map_selected = 2;
 		}
 		else
 		{
 			if (main_menu_button->current_state == SELECTED)
 			{
+				App->audio->PlayFx(App->scene_manager->move_sfx);
 				main_menu_button->Select(NORMAL);
 				save_game_button->Select(SELECTED);
 			}
 			else if (save_game_button->current_state == SELECTED)
 			{
+				App->audio->PlayFx(App->scene_manager->move_sfx);
 				save_game_button->Select(NORMAL);
 				map_selected = 1;
 			}
@@ -302,18 +346,20 @@ void ChooseMap::NavigateMaps()
 	else if (App->input->Down())
 	{
 		if ((map_selected == 1 && App->scene_manager->battle1_passed) || map_selected == 2 || map_selected == 4) {
-			App->audio->PlayFx(press_sfx);
+			App->audio->PlayFx(App->scene_manager->move_sfx);
 			map_selected = 3;
 		}
 		else
 		{
 			if (save_game_button->current_state != SELECTED && main_menu_button->current_state != SELECTED)
 			{
+				App->audio->PlayFx(App->scene_manager->move_sfx);
 				map_selected = 0;
 				save_game_button->Select(SELECTED);
 			}
 			else
 			{
+				App->audio->PlayFx(App->scene_manager->move_sfx);
 				save_game_button->Select(NORMAL);
 				main_menu_button->Select(SELECTED);
 			}

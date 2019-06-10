@@ -12,7 +12,7 @@
 
 bool Enemy::PreUpdate()
 {
-	if (current_state == ALIVE) {
+	if (current_state == ALIVE && App->entity_manager->ThereAreCharAlive()) {
 
 		objective_position.clear();
 		objective_position.push_back(position);
@@ -21,19 +21,25 @@ bool Enemy::PreUpdate()
 		{
 			Die();
 		}
-
-		if (current_turn == SEARCH_MOVE)
+		else
 		{
-			SearchWalk();
+			if (current_turn == SEARCH_MOVE)
+			{
+				++start;
+				if (start == START_TURN)
+				{
+					start = 0;
+					SearchWalk();
+				}
+			}
+			else if (current_turn == SEARCH_ATTACK)
+			{
+				SearchAttack();
+			}
+			else if (current_turn == SEARCH_ABILITY_1) {
+				SearchAbility_1();
+			}
 		}
-		else if (current_turn == SEARCH_ATTACK)
-		{
-			SearchAttack();
-		}
-		else if (current_turn == SEARCH_ABILITY_1) {
-			SearchAbility_1();
-		}
-
 	}
 	else if (current_turn == SEARCH_MOVE)
 	{
@@ -89,6 +95,75 @@ bool Enemy::Save(pugi::xml_node& node) const
 	return ret;
 }
 
+std::pair<int, int> Enemy::Path2_0(std::pair<int, int> position, std::pair<int, int> objective)
+{
+	std::pair<int, int> returner = objective;
+	if ((this)->type == ENTITY_TYPE::ENTITY_ENEMY_HOTDOG)
+	{
+
+	}
+	else 
+	{
+		std::pair<int, int> helper;
+		helper.first = objective.first - position.first;
+		helper.second = objective.second - position.second;
+		int helper_2 = sqrt(helper.first*helper.first + helper.second*helper.second);
+		
+
+		int i = 1;
+		
+		while (App->pathfinding->IsUsed(returner, this)) {
+			if (helper.first > 0 && helper.second == 0) // derecha
+			{
+				returner.first = objective.first - i;
+				returner.second = objective.second;
+			}
+			if (helper.first < 0 && helper.second == 0) // izquierda
+			{
+				returner.first = objective.first + i;
+				returner.second = objective.second;
+			}
+			if (helper.first == 0 && helper.second > 0) // arriba
+			{
+				returner.first = objective.first;
+				returner.second = objective.second - i;
+			}
+			if (helper.first == 0 && helper.second < 0) // abajo
+			{
+				returner.first = objective.first;
+				returner.second = objective.second + i;
+			}
+			if (helper.first > 0 && helper.second > 0) // diagonal / arriba
+			{
+				returner.first = objective.first - i;
+				returner.second = objective.second - i;
+			}
+			if (helper.first < 0 && helper.second < 0) // diagonal / abajo
+			{
+				returner.first = objective.first + i;
+				returner.second = objective.second + i;
+			}
+			if (helper.first < 0 && helper.second > 0) // diagonal \ arriba
+			{
+				returner.first = objective.first + i;
+				returner.second = objective.second - i;
+			}
+			if (helper.first > 0 && helper.second < 0) // diagonal \ abajo
+			{
+				returner.first = objective.first - i;
+				returner.second = objective.second + i;
+			}
+			i++;
+		}
+
+
+		
+	}
+
+
+	return returner;
+}
+
 
 void Enemy::Die()
 {
@@ -131,7 +206,7 @@ void Enemy::Die()
 	}
 	else
 	{
-		CurrentMovement(DEAD_RIGHT_BACK);
+		CurrentMovement(DEAD_DEFAULT);
 	}
 
 

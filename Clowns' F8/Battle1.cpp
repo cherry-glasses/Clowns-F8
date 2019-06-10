@@ -22,6 +22,7 @@ bool Battle1::Start()
 	battle_background = App->textures->Load("Assets/Maps/map_level_1.png");
 	battle_grid = App->textures->Load("Assets/Maps/grid_level_1.png");
 	battle_menu_background = App->textures->Load("Assets/Sprites/UI/option_menu_background.png");
+	Tutorial_background = App->textures->Load("Assets/Sprites/UI/Tutorial_image.png");
 
 	App->audio->PlayMusic("Battle_1_Song.ogg");
 	CreateBattle1();
@@ -66,8 +67,10 @@ void Battle1::CreateBattle1()
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE1);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE2);
 	App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_OBJECT_TREE3);
-
+	/*App->entity_manager->CreateEntity(ENTITY_TYPE::ENTITY_ENEMY_CHERRYBLACKGLASSES);*/
+	App->entity_manager->LevelUP(0);
 	CreateUIBattle();
+	
 
 }
 

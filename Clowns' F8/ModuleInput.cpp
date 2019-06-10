@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
+#include "ModuleAudio.h"
+#include "ModuleSceneManager.h"
 #include "SDL/include/SDL.h"
 #include "SDL/include/SDL_gamecontroller.h"
 
@@ -560,6 +562,7 @@ bool ModuleInput::RightDown() {
 bool ModuleInput::Accept() {
 
 	if (GetKey(keyboard_buttons.buttons_to_use.ACCEPT) == KEY_DOWN ||gamepad.A == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		App->audio->PlayFx(App->scene_manager->accept_sfx);
 		return true;
 	}
 
@@ -570,6 +573,7 @@ bool ModuleInput::Accept() {
 bool ModuleInput::Decline() {
 
 	if (GetKey(keyboard_buttons.buttons_to_use.DECLINE) == KEY_DOWN || gamepad.B == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
+		App->audio->PlayFx(App->scene_manager->decline_sfx);
 		return true;
 	}
 
@@ -651,35 +655,4 @@ void ModuleInput::GetKeyPressed() {
 
 }
 
-//bool ModuleInput::Select() {
-//
-//	if (GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN || App->input->gamepad.SELECT == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
-//		return true;
-//	}
-//	return false;
-//}
-//
-//bool ModuleInput::Showcharacterstats() {
-//
-//	if (GetKey(SDL_SCANCODE_LCTRL) == KEY_DOWN || App->input->gamepad.L1 == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
-//		return true;
-//	}
-//	return false;
-//}
-//
-//bool ModuleInput::Showcharacterabilities() {
-//
-//	if (GetKey(SDL_SCANCODE_LALT) == KEY_DOWN || App->input->gamepad.L2 == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
-//		return true;
-//	}
-//	return false;
-//}
-//
-//bool ModuleInput::Showabilities() {
-//
-//	if (GetKey(SDL_SCANCODE_TAB) == KEY_DOWN || App->input->gamepad.R1 == GAMEPAD_STATE::PAD_BUTTON_DOWN) {
-//		return true;
-//	}
-//	return false;
-//}
 

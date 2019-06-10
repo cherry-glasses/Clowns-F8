@@ -87,6 +87,14 @@ public:
 	void MoveEmitter(std::pair<int, int> newPos);
 	std::pair<int, int> GetEmitterPos() const;
 
+	// Setters
+	void SetTextureRect(SDL_Rect _texture_rect);
+	void SetColor(SDL_Color _start_color = { 0, 0, 0, 0 },SDL_Color _end_color = { 0, 0, 0, 0 }, SDL_BlendMode _blendmode = SDL_BlendMode::SDL_BLENDMODE_ADD);
+	void SetPosition(std::pair<int, int> _pos);
+	void SetSize(int _start, int _end);
+
+	int GetTime() const;
+
 	void VortexSensitive(bool sensitive);
 };
 

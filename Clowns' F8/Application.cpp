@@ -13,6 +13,11 @@
 #include "ModuleGUIManager.h"
 #include "ModulePathfinding.h"
 #include "ModuleParticleSystem.h"
+#include "ModuleVideo.h"
+
+#include <iostream> 
+#include <sstream> 
+#include <time.h>
 
 
 
@@ -33,7 +38,8 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	gui_manager = new ModuleGUIManager();
 	pathfinding = new ModulePathfinding();
 	transition_manager = new ModuleTransitionManager();
-//	particle_system = new ModuleParticleSystem();
+	particle_system = new ModuleParticleSystem();
+	video_player = new ModuleVideo();
 	
 
 	// Ordered for awake / Start / Update
@@ -49,7 +55,8 @@ Application::Application(int _argc, char* _args[]) : argc(argc), args(args)
 	AddModule(entity_manager);
 	AddModule(gui_manager);
 	AddModule(transition_manager);
-//	AddModule(particle_system);
+	AddModule(particle_system);
+	AddModule(video_player);
 
 	// render last to swap buffer
 	AddModule(render);

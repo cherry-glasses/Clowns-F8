@@ -6,7 +6,8 @@
 #include "ModuleInput.h"
 #include "ModulePathfinding.h"
 #include "ModuleAudio.h"
-
+#include "ModuleParticleSystem.h"
+#include "Emitter.h"
 
 bool Character::PreUpdate() {
 
@@ -16,27 +17,36 @@ bool Character::PreUpdate() {
 		{
 			Die();
 		}
+		else
+		{
+			if (current_turn == SEARCH_MOVE)
+			{
+				++start;
+				if (start == START_TURN)
+				{
+					start = 0;
+					SearchWalk();
+				}
 
-		if (current_turn == SEARCH_MOVE)
-		{
-			SearchWalk();
+			}
+			else if (current_turn == SEARCH_ATTACK)
+			{
+				SearchAttack();
+			}
+			else if (current_turn == SEARCH_ABILITY_1)
+			{
+				SearchAbility_1();
+			}
+			else if (current_turn == SEARCH_ABILITY_2)
+			{
+				SearchAbility_2();
+			}
+			else if (current_turn == SEARCH_ABILITY_3)
+			{
+				SearchAbility_3();
+			}
 		}
-		else if (current_turn == SEARCH_ATTACK)
-		{
-			SearchAttack();
-		}
-		else if (current_turn == SEARCH_ABILITY_1)
-		{
-			SearchAbility_1();
-		}
-		else if (current_turn == SEARCH_ABILITY_2)
-		{
-			SearchAbility_2();
-		}
-		else if (current_turn == SEARCH_ABILITY_3)
-		{
-			SearchAbility_3();
-		}
+		
 	}
 	else if (current_turn == SEARCH_MOVE)
 	{
@@ -177,7 +187,7 @@ void Character::SelectWalk() {
 		possible_map.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
 
 		if (i != Cap && (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end()
-			))
+			|| std::find(nomov_list.begin(), nomov_list.end(), (*possible_mov)) != nomov_list.end()))
 		{
 			if (App->pathfinding->IsWalkable({ (*possible_mov).first , (*possible_mov).second })
 				&& !App->pathfinding->IsUsed({ (*possible_mov).first , (*possible_mov).second }, this)
@@ -317,6 +327,7 @@ void Character::SelectAttack() {
 	App->render->Blit(debug_texture, possible_map.at(Cap).first, possible_map.at(Cap).second, &debug_green);
 
 	InputSelectMove();
+	
 
 	if (App->input->Accept() && App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second) , type)
 		&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)) != inrange_mov_list.end())	
@@ -329,6 +340,7 @@ void Character::SelectAttack() {
 		EndTurn();
 		current_turn = SELECT_ACTION;
 	}
+
 }
 
 void Character::Attack()
@@ -337,37 +349,87 @@ void Character::Attack()
 		App->audio->PlayFx(sfx.Attack_SFX);
 		sound_fx = true;
 	}
-	
-	if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
-		CurrentMovement(ATTACK_LEFT_FRONT);
+	if (!finish_attack)
+	{
+		if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
+			CurrentMovement(ATTACK_LEFT_FRONT);
+		}
+		else if (objective_position.back().first > position.first && objective_position.back().second > position.second) {
+			CurrentMovement(ATTACK_RIGHT_FRONT);
+		}
+		else if (objective_position.back().first < position.first && objective_position.back().second < position.second) {
+			CurrentMovement(ATTACK_LEFT_BACK);
+		}
+		else if (objective_position.back().first > position.first && objective_position.back().second < position.second) {
+			CurrentMovement(ATTACK_RIGHT_BACK);
+		}
+		else if (objective_position.back().first == position.first && objective_position.back().second > position.second) {
+			CurrentMovement(ATTACK_FRONT);
+		}
+		else if (objective_position.back().first == position.first && objective_position.back().second < position.second) {
+			CurrentMovement(ATTACK_BACK);
+		}
+		else if (objective_position.back().first < position.first && objective_position.back().second == position.second) {
+			CurrentMovement(ATTACK_LEFT);
+		}
+		else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
+			CurrentMovement(ATTACK_RIGHT);
+		}
+		else {
+			CurrentMovement(ATTACK_RIGHT_FRONT);
+		}
 	}
-	else if (objective_position.back().first > position.first && objective_position.back().second > position.second) {
-		CurrentMovement(ATTACK_RIGHT_FRONT);
+	if (emitter == nullptr)
+	{
+		switch (type)
+		{
+		case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
+			if (current_animation->GetCurrentFrameIndex() == 1)
+			{
+				emitter = App->particle_system->AddEmiter({ position.first + 50, position.second - 80 }, EmitterType::EMITTER_TYPE_ATTACK);
+				emitter->SetTextureRect({ 356, 78, 16, 14 });
+			}
+			break;
+		case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
+			if (current_animation->GetCurrentFrameIndex() == 2)
+			{
+				emitter = App->particle_system->AddEmiter({ position.first + 16, position.second - 16 }, EmitterType::EMITTER_TYPE_ATTACK);
+				emitter->SetTextureRect({ 356, 78, 16, 14 });
+				emitter->SetColor({ 100, 80, 10, 255 }, { 100, 80, 10, 255 }, SDL_BlendMode::SDL_BLENDMODE_BLEND);
+			}
+			break;
+		case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
+			if (current_animation->GetCurrentFrameIndex() == 2)
+			{
+				emitter = App->particle_system->AddEmiter({ position.first + 32, position.second - 16 }, EmitterType::EMITTER_TYPE_ATTACK);
+				emitter->SetTextureRect({ 364, 94, 7, 7 });
+			}
+			break;
+		default:
+			break;
+		}
 	}
-	else if (objective_position.back().first < position.first && objective_position.back().second < position.second) {
-		CurrentMovement(ATTACK_LEFT_BACK);
-	}
-	else if (objective_position.back().first > position.first && objective_position.back().second < position.second) {
-		CurrentMovement(ATTACK_RIGHT_BACK);
-	}
-	else if (objective_position.back().first == position.first && objective_position.back().second > position.second) {
-		CurrentMovement(ATTACK_FRONT);
-	}
-	else if (objective_position.back().first == position.first && objective_position.back().second < position.second) {
-		CurrentMovement(ATTACK_BACK);
-	}
-	else if (objective_position.back().first < position.first && objective_position.back().second == position.second) {
-		CurrentMovement(ATTACK_LEFT);
-	}
-	else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
-		CurrentMovement(ATTACK_RIGHT);
-	}
-	else {
-		CurrentMovement(ATTACK_RIGHT_FRONT);
-	}
+	if (emitter != nullptr)
+	{
 
+		if (emitter->GetEmitterPos().first < objective_position.back().first + 10)
+			emitter->SetPosition({ emitter->GetEmitterPos().first + 4, emitter->GetEmitterPos().second });
+		if (emitter->GetEmitterPos().first > objective_position.back().first + 10)
+			emitter->SetPosition({ emitter->GetEmitterPos().first - 4, emitter->GetEmitterPos().second });
+		if (emitter->GetEmitterPos().second < objective_position.back().second - 16)
+			emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second + 4 });
+		if (emitter->GetEmitterPos().second > objective_position.back().second - 16)
+			emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second - 4 });
+		if ((emitter->GetEmitterPos().first <= objective_position.back().first + 20) && (emitter->GetEmitterPos().first >= objective_position.back().first)
+			&& (emitter->GetEmitterPos().second >= objective_position.back().second - 32) && (emitter->GetEmitterPos().second <= objective_position.back().second))
+		{
+			emitter->StopEmission();
+			emitter = nullptr;
+		}
+	}
 	// Ending attack and start idle animation
-	if (current_animation->isDone()) {
+	if (finish_attack && emitter == nullptr) {
+		
 		EndTurn();
 		if (current_movement == ATTACK_LEFT_FRONT)
 		{
@@ -411,11 +473,15 @@ void Character::SelectAbility_1() {
 		Cap = tmp.first + (tmp.second * 25);
 	}
 
+	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
+	{
+		possible_map.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
+	}
+
 	int i = 0;
 	int mod = sqrt(possible_mov_list.size());
 	for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 	{
-		possible_map.push_back(App->map->MapToWorld((*possible_mov).first, (*possible_mov).second));
 
 		if (i != Cap && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 		{
@@ -434,30 +500,38 @@ void Character::SelectAbility_1() {
 		switch (type)
 		{
 		case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
-			if ((i == Cap + 1) && ((Cap + 1) % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
+			if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)) != inrange_mov_list.end()
+				&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 			{
-				App->render->Blit(debug_texture, possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second, &debug_green);
-			}
-			else if ((i == Cap - 1) && (Cap % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-			{
-				App->render->Blit(debug_texture, possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second, &debug_green);
-			}
-			else if ((i == Cap + mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-			{
-				App->render->Blit(debug_texture, possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second, &debug_green);
-			}
-			else if ((i == Cap - mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-			{
-				App->render->Blit(debug_texture, possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second, &debug_green);
+				if (i == Cap + 1)
+				{
+					App->render->Blit(debug_texture, possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second, &debug_green);
+				}
+				else if (i == Cap - 1)
+				{
+					App->render->Blit(debug_texture, possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second, &debug_green);
+				}
+				else if (i == Cap + mod)
+				{
+					App->render->Blit(debug_texture, possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second, &debug_green);
+				}
+				else if (i == Cap - mod)
+				{
+					App->render->Blit(debug_texture, possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second, &debug_green);
+				}
 			}
 			break;
 		case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
-			if (i == Cap) {
-				if (Cap == mod || Cap - 2 == mod) {
+			if (i == Cap && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)) != inrange_mov_list.end()) {
+				if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap - 2).first, possible_map.at(Cap - 2).second)) != inrange_mov_list.end()
+					|| std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap + 2).first, possible_map.at(Cap + 2).second)) != inrange_mov_list.end())
+				{
 					App->render->Blit(debug_texture, possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second, &debug_green);
 					App->render->Blit(debug_texture, possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second, &debug_green);
 				}
-				else if (Cap == (mod / 2) || Cap + 1 == possible_mov_list.size() - (mod / 2)) {
+				else if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap - (mod*2)).first, possible_map.at(Cap - (mod * 2)).second)) != inrange_mov_list.end()
+					|| std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap + (mod*2)).first, possible_map.at(Cap + (mod * 2)).second)) != inrange_mov_list.end())
+				{
 					App->render->Blit(debug_texture, possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second, &debug_green);
 					App->render->Blit(debug_texture, possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second, &debug_green);
 				}
@@ -478,6 +552,7 @@ void Character::SelectAbility_1() {
 	if (App->input->Accept() 
 		&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)) != inrange_mov_list.end()
 			&&(App->pathfinding->IsAttackable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second), type)
+			|| (type == ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE || type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS)
 			|| (type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB && App->pathfinding->IsWalkable(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second))
 			&& App->pathfinding->CanTrap(App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)))))
 	{
@@ -490,21 +565,25 @@ void Character::SelectAbility_1() {
 		case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
 			for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 			{
-				if ((i == Cap + 1) && ((Cap + 1) % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
+				if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)) != inrange_mov_list.end()
+					&& std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
 				{
-					objective_position.push_back({ possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second });
-				}
-				else if ((i == Cap - 1) && (Cap % mod != 0) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-				{
-					objective_position.push_back({ possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second });
-				}
-				else if ((i == Cap + mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-				{
-					objective_position.push_back({ possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second });
-				}
-				else if ((i == Cap - mod) && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
-				{
-					objective_position.push_back({ possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second });
+					if (i == Cap + 1)
+					{
+						objective_position.push_back({ possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second });
+					}
+					else if (i == Cap - 1)
+					{
+						objective_position.push_back({ possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second });
+					}
+					else if (i == Cap + mod)
+					{
+						objective_position.push_back({ possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second });
+					}
+					else if (i == Cap - mod)
+					{
+						objective_position.push_back({ possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second });
+					}
 				}
 				++i;
 			}
@@ -512,12 +591,17 @@ void Character::SelectAbility_1() {
 		case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
 			for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 			{
-				if (i == Cap) {
-					if (Cap == mod || Cap - 2 == mod) {
+				if (i == Cap && std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap).first, possible_map.at(Cap).second)) != inrange_mov_list.end()) 
+				{
+					if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap - 2).first, possible_map.at(Cap - 2).second)) != inrange_mov_list.end()
+						|| std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap + 2).first, possible_map.at(Cap + 2).second)) != inrange_mov_list.end())
+					{
 						objective_position.push_back({ possible_map.at(Cap + mod).first, possible_map.at(Cap + mod).second });
 						objective_position.push_back({ possible_map.at(Cap - mod).first, possible_map.at(Cap - mod).second });
 					}
-					else if (Cap == (mod / 2) || Cap + 1 == possible_mov_list.size() - (mod / 2)) {
+					else if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap - (mod * 2)).first, possible_map.at(Cap - (mod * 2)).second)) != inrange_mov_list.end()
+						|| std::find(inrange_mov_list.begin(), inrange_mov_list.end(), App->map->WorldToMap(possible_map.at(Cap + (mod * 2)).first, possible_map.at(Cap + (mod * 2)).second)) != inrange_mov_list.end())
+					{
 						objective_position.push_back({ possible_map.at(Cap + 1).first, possible_map.at(Cap + 1).second });
 						objective_position.push_back({ possible_map.at(Cap - 1).first, possible_map.at(Cap - 1).second });
 					}
@@ -536,6 +620,7 @@ void Character::SelectAbility_1() {
 		EndTurn();
 		current_turn = SELECT_ACTION;
 	}
+
 }
 
 void Character::Ability_1()
@@ -545,32 +630,35 @@ void Character::Ability_1()
 			App->audio->PlayFx(sfx.Ability_1_SFX);
 			sound_fx = true;
 		}
-		if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
-			CurrentMovement(ABILITY_1_LEFT_FRONT);
-		}
-		else if (objective_position.back().first > position.first && objective_position.back().second > position.second) {
-			CurrentMovement(ABILITY_1_RIGHT_FRONT);
-		}
-		else if (objective_position.back().first < position.first && objective_position.back().second < position.second) {
-			CurrentMovement(ABILITY_1_LEFT_BACK);
-		}
-		else if (objective_position.back().first > position.first && objective_position.back().second < position.second) {
-			CurrentMovement(ABILITY_1_RIGHT_BACK);
-		}
-		else if (objective_position.back().first == position.first && objective_position.back().second > position.second) {
-			CurrentMovement(ABILITY_1_FRONT);
-		}
-		else if (objective_position.back().first == position.first && objective_position.back().second < position.second) {
-			CurrentMovement(ABILITY_1_BACK);
-		}
-		else if (objective_position.back().first < position.first && objective_position.back().second == position.second) {
-			CurrentMovement(ABILITY_1_LEFT);
-		}
-		else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
-			CurrentMovement(ABILITY_1_RIGHT);
-		}
-		else {
-			CurrentMovement(ABILITY_1_RIGHT);
+		if (!finish_attack)
+		{
+			if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
+				CurrentMovement(ABILITY_1_LEFT_FRONT);
+			}
+			else if (objective_position.back().first > position.first && objective_position.back().second > position.second) {
+				CurrentMovement(ABILITY_1_RIGHT_FRONT);
+			}
+			else if (objective_position.back().first < position.first && objective_position.back().second < position.second) {
+				CurrentMovement(ABILITY_1_LEFT_BACK);
+			}
+			else if (objective_position.back().first > position.first && objective_position.back().second < position.second) {
+				CurrentMovement(ABILITY_1_RIGHT_BACK);
+			}
+			else if (objective_position.back().first == position.first && objective_position.back().second > position.second) {
+				CurrentMovement(ABILITY_1_FRONT);
+			}
+			else if (objective_position.back().first == position.first && objective_position.back().second < position.second) {
+				CurrentMovement(ABILITY_1_BACK);
+			}
+			else if (objective_position.back().first < position.first && objective_position.back().second == position.second) {
+				CurrentMovement(ABILITY_1_LEFT);
+			}
+			else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
+				CurrentMovement(ABILITY_1_RIGHT);
+			}
+			else {
+				CurrentMovement(ABILITY_1_RIGHT);
+			}
 		}
 	}
 	else {
@@ -578,9 +666,61 @@ void Character::Ability_1()
 		current_turn = SELECT_ACTION;
 	}
 	
-
+	if (emitter == nullptr)
+	{
+		switch (type)
+		{
+		case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
+			if (current_animation->GetCurrentFrameIndex() == 1)
+			{
+				emitter = App->particle_system->AddEmiter({ position.first + 16, position.second }, EmitterType::EMITTER_TYPE_ABILITY1);
+				emitter->SetTextureRect({ 512, 0, 23, 29 });
+				emitter->SetSize(62, 62);
+				emitter->SetPosition({ objective_position.front().first + 32 , objective_position.front().second - 16 });
+			}
+			break;
+		case ENTITY_TYPE::ENTITY_CHARACTER_STORM:
+			if (current_animation->GetCurrentFrameIndex() == 2)
+			{
+				emitter = App->particle_system->AddEmiter({ position.first + 16, position.second}, EmitterType::EMITTER_TYPE_ATTACK);
+				emitter->SetTextureRect({ 384, 64, 62, 53 });
+				emitter->SetSize(62, 62);
+			}
+			break;
+		default:
+			break;
+		}
+	}
+	if (emitter != nullptr)
+	{
+		if (type == ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE)
+		{
+			if (emitter->GetTime() <= 0)
+			{
+				emitter->StopEmission();
+				emitter = nullptr;
+			}
+		}
+		else
+		{
+			if (emitter->GetEmitterPos().first < objective_position.back().first + 10)
+				emitter->SetPosition({ emitter->GetEmitterPos().first + 4, emitter->GetEmitterPos().second });
+			if (emitter->GetEmitterPos().first > objective_position.back().first + 10)
+				emitter->SetPosition({ emitter->GetEmitterPos().first - 4, emitter->GetEmitterPos().second });
+			if (emitter->GetEmitterPos().second < objective_position.back().second - 16)
+				emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second + 4 });
+			if (emitter->GetEmitterPos().second > objective_position.back().second - 16)
+				emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second - 4 });
+			if ((emitter->GetEmitterPos().first <= objective_position.back().first + 20) && (emitter->GetEmitterPos().first >= objective_position.back().first)
+				&& (emitter->GetEmitterPos().second >= objective_position.back().second - 32) && (emitter->GetEmitterPos().second <= objective_position.back().second))
+			{
+				emitter->StopEmission();
+				emitter = nullptr;
+			}
+		}
+	}
 	// Ending attack and start idle animation
-	if (current_animation->isDone()) {
+	if (finish_attack && emitter == nullptr) {
 		current_stats.Mana -= 25;
 		EndTurn();
 		if (current_movement == ABILITY_1_LEFT_FRONT)
@@ -667,6 +807,7 @@ void Character::SelectAbility_2() {
 		EndTurn();
 		current_turn = SELECT_ACTION;
 	}
+
 }
 
 void Character::Ability_2()
@@ -676,32 +817,35 @@ void Character::Ability_2()
 			App->audio->PlayFx(sfx.Ability_2_SFX);
 			sound_fx = true;
 		}
-		if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
-			CurrentMovement(ABILITY_2_LEFT_FRONT);
-		}
-		else if (objective_position.back().first > position.first && objective_position.back().second > position.second) {
-			CurrentMovement(ABILITY_2_RIGHT_FRONT);
-		}
-		else if (objective_position.back().first < position.first && objective_position.back().second < position.second) {
-			CurrentMovement(ABILITY_2_LEFT_BACK);
-		}
-		else if (objective_position.back().first > position.first && objective_position.back().second < position.second) {
-			CurrentMovement(ABILITY_2_RIGHT_BACK);
-		}
-		else if (objective_position.back().first == position.first && objective_position.back().second > position.second) {
-			CurrentMovement(ABILITY_2_FRONT);
-		}
-		else if (objective_position.back().first == position.first && objective_position.back().second < position.second) {
-			CurrentMovement(ABILITY_2_BACK);
-		}
-		else if (objective_position.back().first < position.first && objective_position.back().second == position.second) {
-			CurrentMovement(ABILITY_2_LEFT);
-		}
-		else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
-			CurrentMovement(ABILITY_2_RIGHT);
-		}
-		else {
-			CurrentMovement(ABILITY_2_RIGHT);
+		if (!finish_attack)
+		{
+			if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
+				CurrentMovement(ABILITY_2_LEFT_FRONT);
+			}
+			else if (objective_position.back().first > position.first && objective_position.back().second > position.second) {
+				CurrentMovement(ABILITY_2_RIGHT_FRONT);
+			}
+			else if (objective_position.back().first < position.first && objective_position.back().second < position.second) {
+				CurrentMovement(ABILITY_2_LEFT_BACK);
+			}
+			else if (objective_position.back().first > position.first && objective_position.back().second < position.second) {
+				CurrentMovement(ABILITY_2_RIGHT_BACK);
+			}
+			else if (objective_position.back().first == position.first && objective_position.back().second > position.second) {
+				CurrentMovement(ABILITY_2_FRONT);
+			}
+			else if (objective_position.back().first == position.first && objective_position.back().second < position.second) {
+				CurrentMovement(ABILITY_2_BACK);
+			}
+			else if (objective_position.back().first < position.first && objective_position.back().second == position.second) {
+				CurrentMovement(ABILITY_2_LEFT);
+			}
+			else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
+				CurrentMovement(ABILITY_2_RIGHT);
+			}
+			else {
+				CurrentMovement(ABILITY_2_RIGHT);
+			}
 		}
 	}
 	else {
@@ -709,9 +853,76 @@ void Character::Ability_2()
 		current_turn = SELECT_ACTION;
 	}
 
-
+	if (emitter == nullptr)
+	{
+		switch (type)
+		{
+		case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
+			if (current_animation->GetCurrentFrameIndex() == 1)
+			{
+				emitter = App->particle_system->AddEmiter({ position.first + 64, position.second - 64 }, EmitterType::EMITTER_TYPE_ABILITY2);
+				emitter->SetTextureRect({ 320, 78, 13, 11 });
+				emitter->SetSize(32, 32);
+				sapphire_ability = true;
+			}
+			break;
+		case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
+			if (current_animation->GetCurrentFrameIndex() == 1)
+			{
+				emitter = App->particle_system->AddEmiter({ position.first + 32, position.second }, EmitterType::EMITTER_TYPE_ATTACK);
+				emitter->SetTextureRect({ 448, 0, 64, 64 });
+				emitter->SetSize(64, 128);
+			}
+			break;
+		case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
+			if (current_animation->GetCurrentFrameIndex() == 1)
+			{
+				emitter = App->particle_system->AddEmiter({ position.first + 32, position.second - 64 }, EmitterType::EMITTER_TYPE_ABILITY2);
+				emitter->SetTextureRect({ 535, 0, 29, 27 });
+			}
+			break;
+		default:
+			break;
+		}
+	}
+	if (emitter != nullptr)
+	{
+		if (type == ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE || type == ENTITY_TYPE::ENTITY_CHARACTER_IRIS)
+		{
+			if (emitter->GetTime() <= 0)
+			{
+				emitter->StopEmission();
+				emitter = nullptr;
+				if (sapphire_ability)
+				{
+					emitter = App->particle_system->AddEmiter({ position.first + 16, position.second }, EmitterType::EMITTER_TYPE_ABILITY2);
+					emitter->SetTextureRect({ 338, 80, 11, 9 });
+					emitter->SetSize(62, 62);
+					emitter->SetPosition({ objective_position.front().first + 32 , objective_position.front().second + 62 });
+					sapphire_ability = false;
+				}
+			}
+		}
+		else
+		{
+			if (emitter->GetEmitterPos().first < objective_position.back().first + 10)
+				emitter->SetPosition({ emitter->GetEmitterPos().first + 4, emitter->GetEmitterPos().second });
+			if (emitter->GetEmitterPos().first > objective_position.back().first + 10)
+				emitter->SetPosition({ emitter->GetEmitterPos().first - 4, emitter->GetEmitterPos().second });
+			if (emitter->GetEmitterPos().second < objective_position.back().second - 16)
+				emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second + 4 });
+			if (emitter->GetEmitterPos().second > objective_position.back().second - 16)
+				emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second - 4 });
+			if ((emitter->GetEmitterPos().first <= objective_position.back().first + 20) && (emitter->GetEmitterPos().first >= objective_position.back().first)
+				&& (emitter->GetEmitterPos().second >= objective_position.back().second - 32) && (emitter->GetEmitterPos().second <= objective_position.back().second))
+			{
+				emitter->StopEmission();
+				emitter = nullptr;
+			}
+		}
+	}
 	// Ending attack and start idle animation
-	if (current_animation->isDone()) {
+	if (finish_attack && emitter == nullptr) {
 		current_stats.Mana -= 50;
 		EndTurn();
 		if (current_movement == ABILITY_2_LEFT_FRONT)
@@ -792,7 +1003,10 @@ void Character::SelectAbility_3() {
 			i = 0;
 			for (std::list<std::pair<int, int>>::iterator possible_mov = possible_mov_list.begin(); possible_mov != possible_mov_list.end(); ++possible_mov)
 			{
-				objective_position.push_back({ possible_map.at(i).first, possible_map.at(i).second });
+				if (std::find(inrange_mov_list.begin(), inrange_mov_list.end(), (*possible_mov)) != inrange_mov_list.end())
+				{
+					objective_position.push_back({ possible_map.at(i).first, possible_map.at(i).second });
+				}
 				++i;
 			}
 		}
@@ -806,6 +1020,7 @@ void Character::SelectAbility_3() {
 		EndTurn();
 		current_turn = SELECT_ACTION;
 	}
+
 }
 
 void Character::Ability_3()
@@ -815,32 +1030,35 @@ void Character::Ability_3()
 			App->audio->PlayFx(sfx.Ability_3_SFX);
 			sound_fx = true;
 		}
-		if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
-			CurrentMovement(ABILITY_3_LEFT_FRONT);
-		}
-		else if (objective_position.back().first > position.first && objective_position.back().second > position.second) {
-			CurrentMovement(ABILITY_3_RIGHT_FRONT);
-		}
-		else if (objective_position.back().first < position.first && objective_position.back().second < position.second) {
-			CurrentMovement(ABILITY_3_LEFT_BACK);
-		}
-		else if (objective_position.back().first > position.first && objective_position.back().second < position.second) {
-			CurrentMovement(ABILITY_3_RIGHT_BACK);
-		}
-		else if (objective_position.back().first == position.first && objective_position.back().second > position.second) {
-			CurrentMovement(ABILITY_3_FRONT);
-		}
-		else if (objective_position.back().first == position.first && objective_position.back().second < position.second) {
-			CurrentMovement(ABILITY_3_BACK);
-		}
-		else if (objective_position.back().first < position.first && objective_position.back().second == position.second) {
-			CurrentMovement(ABILITY_3_LEFT);
-		}
-		else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
-			CurrentMovement(ABILITY_3_RIGHT);
-		}
-		else {
-			CurrentMovement(ABILITY_3_RIGHT);
+		if (!finish_attack)
+		{
+			if (objective_position.back().first < position.first && objective_position.back().second > position.second) {
+				CurrentMovement(ABILITY_3_LEFT_FRONT);
+			}
+			else if (objective_position.back().first > position.first && objective_position.back().second > position.second) {
+				CurrentMovement(ABILITY_3_RIGHT_FRONT);
+			}
+			else if (objective_position.back().first < position.first && objective_position.back().second < position.second) {
+				CurrentMovement(ABILITY_3_LEFT_BACK);
+			}
+			else if (objective_position.back().first > position.first && objective_position.back().second < position.second) {
+				CurrentMovement(ABILITY_3_RIGHT_BACK);
+			}
+			else if (objective_position.back().first == position.first && objective_position.back().second > position.second) {
+				CurrentMovement(ABILITY_3_FRONT);
+			}
+			else if (objective_position.back().first == position.first && objective_position.back().second < position.second) {
+				CurrentMovement(ABILITY_3_BACK);
+			}
+			else if (objective_position.back().first < position.first && objective_position.back().second == position.second) {
+				CurrentMovement(ABILITY_3_LEFT);
+			}
+			else if (objective_position.back().first > position.first && objective_position.back().second == position.second) {
+				CurrentMovement(ABILITY_3_RIGHT);
+			}
+			else {
+				CurrentMovement(ABILITY_3_RIGHT);
+			}
 		}
 	}
 	else {
@@ -849,8 +1067,63 @@ void Character::Ability_3()
 	}
 
 
+	if (emitter == nullptr)
+	{
+		switch (type)
+		{
+		case ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE:
+			if (current_animation->GetCurrentFrameIndex() == 1)
+			{
+				emitter = App->particle_system->AddEmiter({ -(App->window->GetScreenWidth()/2), 400 }, EmitterType::EMITTER_TYPE_ABILITY3);
+				emitter->SetTextureRect({ 0, 128, 512, 384 });
+			}
+			break;
+		case ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB:
+			if (current_animation->GetCurrentFrameIndex() == 1)
+			{
+				emitter = App->particle_system->AddEmiter({ position.first + 32, position.second - 16 }, EmitterType::EMITTER_TYPE_ABILITY3);
+				emitter->SetTextureRect({ 364, 94, 7, 7 });
+			}
+			break;
+		case ENTITY_TYPE::ENTITY_CHARACTER_IRIS:
+			if (current_animation->GetCurrentFrameIndex() == 2)
+			{
+				emitter = App->particle_system->AddEmiter({ position.first + 32, position.second - 16 }, EmitterType::EMITTER_TYPE_ABILITY2);
+				emitter->SetTextureRect({ 364, 94, 7, 7 });
+			}
+			break;
+		default:
+			break;
+		}
+	}
+	if (emitter != nullptr)
+	{
+		if ((emitter->GetEmitterPos().first + 800 > App->window->GetScreenWidth()/6 && type == ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE) || type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB)
+		{
+			emitter->StopEmission();
+			emitter = nullptr;
+		}
+		else
+		{
+			if (emitter->GetEmitterPos().first < objective_position.back().first + 10)
+				emitter->SetPosition({ emitter->GetEmitterPos().first + 4, emitter->GetEmitterPos().second });
+			if (emitter->GetEmitterPos().first > objective_position.back().first + 10)
+				emitter->SetPosition({ emitter->GetEmitterPos().first - 4, emitter->GetEmitterPos().second });
+			if (emitter->GetEmitterPos().second < objective_position.back().second - 16)
+				emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second + 4 });
+			if (emitter->GetEmitterPos().second > objective_position.back().second - 16)
+				emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second - 4 });
+			if ((emitter->GetEmitterPos().first <= objective_position.back().first + 20) && (emitter->GetEmitterPos().first >= objective_position.back().first)
+				&& (emitter->GetEmitterPos().second >= objective_position.back().second - 32) && (emitter->GetEmitterPos().second <= objective_position.back().second))
+			{
+				emitter->StopEmission();
+				emitter = nullptr;
+			}
+		}
+	}
+	
 	// Ending attack and start idle animation
-	if (current_animation->isDone()) {
+	if (finish_attack && emitter == nullptr) {
 		current_stats.Mana -= 100;
 		EndTurn();
 		if (current_movement == ABILITY_3_LEFT_FRONT)
@@ -953,6 +1226,7 @@ void Character::ComeBack()
 	position = comeback_position;
 	CurrentMovement(comeback_movement);
 	inrange_mov_list.clear();
+	nomov_list.clear();
 	possible_map.clear();
 	objective_position.clear();
 	Cap = -1;
@@ -1013,6 +1287,27 @@ void Character::Die()
 	case Entity::DEFEND_BACK:
 		CurrentMovement(DEAD_BACK);
 		break;
+	case Entity::DEAD_RIGHT_FRONT:
+		CurrentMovement(DEAD_RIGHT_FRONT);
+		break;
+	case Entity::DEAD_LEFT_BACK:
+		CurrentMovement(DEAD_LEFT_BACK);
+		break;
+	case Entity::DEAD_RIGHT_BACK:
+		CurrentMovement(DEAD_RIGHT_BACK);
+		break;
+	case Entity::DEAD_LEFT:
+		CurrentMovement(DEAD_LEFT);
+		break;
+	case Entity::DEAD_RIGHT:
+		CurrentMovement(DEAD_RIGHT);
+		break;
+	case Entity::DEAD_FRONT:
+		CurrentMovement(DEAD_FRONT);
+		break;
+	case Entity::DEAD_BACK:
+		CurrentMovement(DEAD_BACK);
+		break;
 	default:
 		break;
 	}
@@ -1020,12 +1315,15 @@ void Character::Die()
 
 void Character::EndTurn() {
 	inrange_mov_list.clear();
+	nomov_list.clear();
 	possible_map.clear();
 	objective_position.clear();
 	Cap = -1;
-	current_animation->Reset();
+	if(current_state == ALIVE)	current_animation->Reset();
 	target = { 0,0 };
 	sound_fx = false;
+	finish_attack = false;
+	current_turn = END_TURN;
 }
 
 void Character::InputSelectMove() {

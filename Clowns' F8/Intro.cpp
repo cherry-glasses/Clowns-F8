@@ -27,7 +27,7 @@ bool Intro::Start()
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
 
-	App->audio->PlayMusic("Main_menu_8_bits.ogg");
+	App->audio->PlayMusic("Battle_1_Intro.ogg");
 
 	return true;
 }
@@ -50,7 +50,7 @@ bool Intro::Update(float _dt)
 			{
 				for (int i = 0; i < 8; ++i)
 				{
-					labels.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5, 300 + 40 * i, App->scene_manager->language->lines.at(i), { 255, 255, 255, 255 }, App->gui_manager->default_font_used));
+					labels.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width * 0.5, 350 + 40 * i, App->scene_manager->language->lines.at(i), { 255, 255, 255, 255 }, App->gui_manager->default_font_used));
 				}
 
 				lines_created = true;

@@ -3,6 +3,7 @@
 
 #include "Animation.h"
 
+class Emitter;
 struct SDL_Texture;
 struct SDL_Rect;
 
@@ -128,7 +129,7 @@ public:
 
 	}
 
-	void PlaySFX(const int _channel, const int _repeat) const;
+	void PlaySFX(const int _channel, const int _repeat = 0) const;
 	void LoadAnim(pugi::xml_node _config);
 	bool LoadAnimation(pugi::xml_node _node, Animation &_anim);
 
@@ -145,6 +146,7 @@ public:
 	Evolutions evolution_stats;
 	Attacks_names attacks_names;
 	SFX sfx;
+	bool damaged = false;
 	bool defend = false;
 	bool stunned = false;
 	bool invulnerable = false;
@@ -152,6 +154,7 @@ public:
 	bool critic = false;
 	bool flipX = false;
 	int exp = 0;
+	int exp_aux = 0;
 	int level = 1;
 	std::vector<int> levels;
 	std::pair<int, int> target;
@@ -170,6 +173,7 @@ public:
 
 	std::pair<int, int>  position_margin;
 	std::string name;
+	std::string type_move;
 
 protected:
 
@@ -180,7 +184,7 @@ protected:
 		ABILITY_2_LEFT_FRONT, ABILITY_2_RIGHT_FRONT, ABILITY_2_LEFT_BACK, ABILITY_2_RIGHT_BACK, ABILITY_2_LEFT, ABILITY_2_RIGHT, ABILITY_2_FRONT, ABILITY_2_BACK,
 		ABILITY_3_LEFT_FRONT, ABILITY_3_RIGHT_FRONT, ABILITY_3_LEFT_BACK, ABILITY_3_RIGHT_BACK, ABILITY_3_LEFT, ABILITY_3_RIGHT, ABILITY_3_FRONT, ABILITY_3_BACK,
 		DEFEND_LEFT_FRONT, DEFEND_RIGHT_FRONT, DEFEND_LEFT_BACK, DEFEND_RIGHT_BACK, DEFEND_LEFT, DEFEND_RIGHT, DEFEND_FRONT, DEFEND_BACK,
-		DEAD_LEFT_FRONT, DEAD_RIGHT_FRONT, DEAD_LEFT_BACK, DEAD_RIGHT_BACK, DEAD_LEFT, DEAD_RIGHT, DEAD_FRONT, DEAD_BACK,
+		DEAD_LEFT_FRONT, DEAD_RIGHT_FRONT, DEAD_LEFT_BACK, DEAD_RIGHT_BACK, DEAD_LEFT, DEAD_RIGHT, DEAD_FRONT, DEAD_BACK, DEAD_DEFAULT,
 	};
 
 	MOVEMENT current_movement = IDLE_LEFT_BACK;
@@ -273,9 +277,13 @@ protected:
 	int tiles_range_attk = 0;
 	std::pair<int, int>* range;
 
+	int start = 0;
+
 	bool istargeted = false;
 
 	bool sound_fx = false;
+
+	Emitter* emitter = nullptr;
 	
 	
 };

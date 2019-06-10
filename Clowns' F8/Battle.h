@@ -6,6 +6,8 @@
 class Entity;
 struct SDL_Texture;
 
+enum TUTORIAL;
+
 class Battle : public Scene
 {
 public:
@@ -51,7 +53,8 @@ protected:
 	void DeleteAbilitiesMenu();
 	void DeleteOptionsIngame();
 
-	
+	void CreateAbilityInfo();
+	void DeleteAbilityInfo();
 
 	void ActionsMenu();
 
@@ -69,6 +72,7 @@ protected:
 	SDL_Texture * battle_menu_background = nullptr;
 	SDL_Texture* battle_background = nullptr;
 	SDL_Texture* battle_grid = nullptr;
+	SDL_Texture* Tutorial_background = nullptr;
 
 
 	GUIImage* action_menu = nullptr;
@@ -92,7 +96,7 @@ protected:
 	std::pair<int, int> actions_margin;
 
 	std::vector<GUIImage*> life;
-	std::vector<GUIImage*> enemies_life;
+	//std::vector<GUIImage*> enemies_life;
 	std::vector<GUIImage*> mana;
 	std::vector<GUIImage*> portrait;
 	std::vector<GUIImage*> port;
@@ -102,7 +106,7 @@ protected:
 	std::vector<GUILabel*> mana_numbers;
 	std::vector<int> life_x;
 	std::vector<int> mana_x;
-	std::vector<int> enemies_life_x;
+	//std::vector<int> enemies_life_x;
 	std::vector<std::pair<int, int>> portrait_position;
 	std::vector<std::pair<int, int>> act_menu_position;
 
@@ -153,16 +157,14 @@ protected:
 	std::pair<int, int> name_board;
 	std::pair<int, int> life_board;
 	std::pair<int, int> mana_board;
-	std::pair<int, int> attack_board;
-	std::pair<int, int> ability_1_board;
-	std::pair<int, int> ability_2_board;
-	std::pair<int, int> ability_3_board;
 
 	GUIImage* board_entity = nullptr;
 	GUIImage* port_entity = nullptr;
 	GUILabel* name_entity = nullptr;
+	GUILabel* type_entity = nullptr;
 	GUILabel* lvl_entity = nullptr;
 	GUILabel* exp_entity = nullptr;
+	GUILabel* next_lvl_entity = nullptr;
 	GUILabel* life_entity = nullptr;
 	GUILabel* mana_entity = nullptr;
 	GUILabel* atk_f_entity = nullptr;
@@ -171,11 +173,19 @@ protected:
 	GUILabel* def_s_entity = nullptr;
 	GUILabel* crit_entity = nullptr;
 	GUILabel* eva_entity = nullptr;
-	GUILabel* attack_entity = nullptr;
-	GUILabel* ability1_entity = nullptr;
-	GUILabel* ability2_entity = nullptr;
-	GUILabel* ability3_entity = nullptr;
 
+	int next_lvl = 0;
+
+	//abilities info
+	bool attack_info_created = false;
+	bool character_attackup = false;
+	GUIImage* ability_board = nullptr;
+	GUILabel* ability_range = nullptr;
+	GUILabel* ability_target = nullptr;
+	GUILabel* ability_type = nullptr;
+	GUILabel* ability_effect = nullptr;
+	GUILabel* ability_amount = nullptr;
+	std::vector<std::pair<int, int>> ability_board_position;
 
 	//tutorial
 
@@ -199,15 +209,8 @@ protected:
 
 	//tutorial logic
 
-	enum TUTORIAL {
-		GRETTINGS,
-		MOVE,
-		DEFENS,
-		ATTACK,
-		OFF
-	};
 	
-	TUTORIAL logic = GRETTINGS;
+
 
 
 };

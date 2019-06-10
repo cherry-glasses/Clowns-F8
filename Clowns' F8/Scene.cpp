@@ -22,6 +22,13 @@ Scene::Scene(SCENE_TYPE _type, pugi::xml_node& _config)
 	option_background = { _config.child("option_background").attribute("x").as_int(), _config.child("option_background").attribute("y").as_int(),
 		_config.child("option_background").attribute("w").as_int() , _config.child("option_background").attribute("h").as_int() };
 
+	//Audios
+	App->scene_manager->move_sfx = App->audio->LoadFx(_config.child("move_fx_name").attribute("source").as_string());
+	App->scene_manager->accept_sfx = App->audio->LoadFx(_config.child("press_fx_name").attribute("source").as_string());
+	App->scene_manager->decline_sfx = App->audio->LoadFx(_config.child("decline_fx_name").attribute("source").as_string());
+	App->scene_manager->defend_sfx = App->audio->LoadFx(_config.child("defend_fx_name").attribute("source").as_string());
+	App->scene_manager->critic_sfx = App->audio->LoadFx(_config.child("critic_fx_name").attribute("source").as_string());
+
 	screen_width = App->window->GetScreenWidth();
 	screen_height = App->window->GetScreenHeight();
 
@@ -48,7 +55,7 @@ void Scene::Navigate()
 
 void Scene::NavigateDown()
 {
-	App->audio->PlayFx(press_sfx);
+	App->audio->PlayFx(App->scene_manager->move_sfx);
 	for (std::list<GUIButton*>::const_iterator it_vector = buttons.begin(); it_vector != buttons.end(); ++it_vector)
 	{
 		if ((*it_vector)->current_state == SELECTED) {
@@ -70,7 +77,7 @@ void Scene::NavigateDown()
 
 void Scene::NavigateUp()
 {
-	App->audio->PlayFx(press_sfx);
+	App->audio->PlayFx(App->scene_manager->move_sfx);
 	for (std::list<GUIButton*>::const_iterator it_vector = buttons.begin(); it_vector != buttons.end(); ++it_vector)
 	{
 		if ((*it_vector)->current_state == SELECTED) {

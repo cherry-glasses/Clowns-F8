@@ -55,9 +55,15 @@ public:
 
 	void ThrowAttack(std::vector<std::pair<int,int>> _positions, int _damage, ENTITY_TYPE _type, bool _special);
 
+	void ThrowParticleDamage(std::pair<int,int> _pos , int _damage);
+
 	void StartingTurn(Entity* _entity);
 
 	void LevelUP(int _exp);
+
+
+	//returns true if there are characters around the position
+	bool Characters_around(std::pair<int, int> position);
 	
 public:
 	std::list<Entity*> characters;
@@ -77,6 +83,7 @@ private:
 	pugi::xml_node entity_configs;
 
 	bool starting = true;
+	int stun_fx = 0;
 	
 };
 #endif // !__ModuleEntityManager_H__
