@@ -12,12 +12,15 @@ Here are some of the enemies that i like special (code that i did):
 
 BoneyMan:
 
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Production%20plan/Hours/Guillem_1.png" width="200" height="158">
+
 Hotdog:
 
-Polarpath:
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Production%20plan/Hours/Guillem_2.png" width="300" height="226">
 
 Cherryblackglasses:
 
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Production%20plan/Hours/Guillem_3.png" width="200" height="223">
 
 ### Tutorial
 
@@ -25,6 +28,9 @@ I also did the tutorial (code Ui)
 
 
 Tutorial:
+
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Production%20plan/Hours/Guillem_4.png" width="648" height="357">
+
 
 ### Pathfinding
 
@@ -37,4 +43,4 @@ This is included in the ennemies, but is one of the things that i give it more t
 Here there is an image where you can see all the tasks that i did and how much time did it took:
 
 
-<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Production%20plan/Hours/marti_hours.png" width="720" height="360">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Production%20plan/Hours/Guillem_hours.png" width="1840" height="657">

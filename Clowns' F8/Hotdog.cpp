@@ -170,6 +170,8 @@ void Hotdog::Walk(const std::vector<std::pair<int, int>>* _path) {
 				current_turn = END_TURN;
 		}
 	}
+	else
+		current_turn = END_TURN;
 }
 
 
