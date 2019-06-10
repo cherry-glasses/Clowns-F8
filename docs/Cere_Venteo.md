@@ -13,7 +13,7 @@ Our team had a low management staff, so as the team leader I decided to take on 
 - Tasks Organization
 - Control work hours of each member
 
-<img src="Documents/Production%20plan/Hours/hacknplan.png">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Production%20plan/Hours/hacknplan.png" width="720" height="360">
 
 ### Code
 
@@ -37,7 +37,7 @@ we have created good synergies to work in a team in an efficient way.
 - All levels code 
 - Choose map scene
 
-<img src="Documents/Production%20plan/Hours/choosemap.png">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Production%20plan/Hours/choosemap.png" width="720" height="360">
 
 - Bugfix
 - Polish
@@ -48,12 +48,12 @@ we have created good synergies to work in a team in an efficient way.
 ### UI
 
 - Target entities info
-<img src="Documents/Production%20plan/Hours/uitarget.png">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Production%20plan/Hours/uitarget.png" width="720" height="360">
 - Configurable Inputs
 - Language System
 
 
-<img src="Documents/Production%20plan/Hours/CereVenteo.png">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Production%20plan/Hours/CereVenteo.png" width="720" height="360">
 
 
 
