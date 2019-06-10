@@ -45,42 +45,25 @@ void Hotdog::Walk(const std::vector<std::pair<int, int>>* _path) {
 	nearposition = App->entity_manager->NearestCharacter(position);
 	nearposition = App->map->WorldToMap(nearposition.first, nearposition.second); //posicion en mapa del enemigo mas cercano a Hotdog
 
+	if (_path->size() > 1) {
 
-	if (!App->pathfinding->IsUsed(_path->at(1), this)) //si no esta en una casilla adyacente al enemigo
-	{
-		if (!inRange) {
-			objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
-		}
-
-		pos = App->map->WorldToMap(position.first, position.second);
-		inRange = false;
-
-
-		if (_path->at(0).first == (_path->at(1).first + 2)) {
-
-
-			//por que no entra en el if de abajo del todo, de cuando llega a la posicion exacta de pixeles
-
-			if (position != App->map->MapToWorld(_path->at(0).first - 2, _path->at(0).second) && !first && !second) //que este en el mismo eje x que la posicion final
-				CurrentMovement(WALK_LEFT_FRONT);
-			else if ((pos.second < _path->at(1).second) || first) //pa'rriba
-			{
-				first = true;
-				CurrentMovement(WALK_LEFT_BACK);
+		if (!App->pathfinding->IsUsed(_path->at(1), this)) //si no esta en una casilla adyacente al enemigo
+		{
+			if (!inRange) {
+				objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
 			}
 
-			else if ((pos.second > _path->at(1).second) || second) //pa'bajo
-			{
-				second = true;
-				CurrentMovement(WALK_RIGHT_FRONT);
-			}
-			//else
-				//current_turn = END_TURN;
-		}
-		else
-			if (_path->at(0).first == (_path->at(1).first - 2)) {
-				if (position != App->map->MapToWorld(_path->at(0).first + 2, _path->at(0).second) && !first && !second) //que este en el mismo eje x que la posicion final
-					CurrentMovement(WALK_RIGHT_BACK);
+			pos = App->map->WorldToMap(position.first, position.second);
+			inRange = false;
+
+
+			if (_path->at(0).first == (_path->at(1).first + 2)) {
+
+
+				//por que no entra en el if de abajo del todo, de cuando llega a la posicion exacta de pixeles
+
+				if (position != App->map->MapToWorld(_path->at(0).first - 2, _path->at(0).second) && !first && !second) //que este en el mismo eje x que la posicion final
+					CurrentMovement(WALK_LEFT_FRONT);
 				else if ((pos.second < _path->at(1).second) || first) //pa'rriba
 				{
 					first = true;
@@ -92,29 +75,30 @@ void Hotdog::Walk(const std::vector<std::pair<int, int>>* _path) {
 					second = true;
 					CurrentMovement(WALK_RIGHT_FRONT);
 				}
+				//else
+					//current_turn = END_TURN;
 			}
 			else
-				if (_path->at(0).second == (_path->at(1).second - 2)) {		//este va bien
-
-					if (position != App->map->MapToWorld(_path->at(0).first, _path->at(0).second + 2) && !first && !second) //que este en el mismo eje x que la posicion final
-						CurrentMovement(WALK_LEFT_BACK);
-					else if ((pos.first < _path->at(1).first) || first) //pa'rriba
+				if (_path->at(0).first == (_path->at(1).first - 2)) {
+					if (position != App->map->MapToWorld(_path->at(0).first + 2, _path->at(0).second) && !first && !second) //que este en el mismo eje x que la posicion final
+						CurrentMovement(WALK_RIGHT_BACK);
+					else if ((pos.second < _path->at(1).second) || first) //pa'rriba
 					{
 						first = true;
-						CurrentMovement(WALK_RIGHT_BACK);
+						CurrentMovement(WALK_LEFT_BACK);
 					}
 
-					else if ((pos.first > _path->at(1).first) || second) //pa'bajo
+					else if ((pos.second > _path->at(1).second) || second) //pa'bajo
 					{
 						second = true;
-						CurrentMovement(WALK_LEFT_FRONT);
+						CurrentMovement(WALK_RIGHT_FRONT);
 					}
 				}
 				else
-					if (_path->at(0).second == (_path->at(1).second + 2)) {
+					if (_path->at(0).second == (_path->at(1).second - 2)) {		//este va bien
 
-						if (position != App->map->MapToWorld(_path->at(0).first, _path->at(0).second - 2) && !first && !second) //que este en el mismo eje x que la posicion final
-							CurrentMovement(WALK_RIGHT_FRONT);
+						if (position != App->map->MapToWorld(_path->at(0).first, _path->at(0).second + 2) && !first && !second) //que este en el mismo eje x que la posicion final
+							CurrentMovement(WALK_LEFT_BACK);
 						else if ((pos.first < _path->at(1).first) || first) //pa'rriba
 						{
 							first = true;
@@ -127,46 +111,64 @@ void Hotdog::Walk(const std::vector<std::pair<int, int>>* _path) {
 							CurrentMovement(WALK_LEFT_FRONT);
 						}
 					}
+					else
+						if (_path->at(0).second == (_path->at(1).second + 2)) {
 
-		current_turn = MOVE;
+							if (position != App->map->MapToWorld(_path->at(0).first, _path->at(0).second - 2) && !first && !second) //que este en el mismo eje x que la posicion final
+								CurrentMovement(WALK_RIGHT_FRONT);
+							else if ((pos.first < _path->at(1).first) || first) //pa'rriba
+							{
+								first = true;
+								CurrentMovement(WALK_RIGHT_BACK);
+							}
 
-		if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
+							else if ((pos.first > _path->at(1).first) || second) //pa'bajo
+							{
+								second = true;
+								CurrentMovement(WALK_LEFT_FRONT);
+							}
+						}
 
-			if (current_movement == WALK_LEFT_FRONT)
-			{
-				CurrentMovement(IDLE_FRONT);
-			}
-			else if (current_movement == WALK_RIGHT_FRONT)
-			{
-				CurrentMovement(IDLE_BACK);
-			}
-			else if (current_movement == WALK_RIGHT_BACK)
-			{
-				CurrentMovement(IDLE_BACK);
-			}
-			else if (current_movement == WALK_LEFT_BACK)
-			{
-				CurrentMovement(IDLE_FRONT);
-			}
-			inDanger = false;
+			current_turn = MOVE;
 
+			if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
+
+				if (current_movement == WALK_LEFT_FRONT)
+				{
+					CurrentMovement(IDLE_FRONT);
+				}
+				else if (current_movement == WALK_RIGHT_FRONT)
+				{
+					CurrentMovement(IDLE_BACK);
+				}
+				else if (current_movement == WALK_RIGHT_BACK)
+				{
+					CurrentMovement(IDLE_BACK);
+				}
+				else if (current_movement == WALK_LEFT_BACK)
+				{
+					CurrentMovement(IDLE_FRONT);
+				}
+				inDanger = false;
+
+				pos = App->map->WorldToMap(position.first, position.second);
+
+				inRange = (App->entity_manager->CalculateDistance(pos, nearposition) <= current_stats.RangeAtk);	//cambiar por el rango del boss
+				if (inRange)
+					current_turn = SEARCH_ATTACK;
+				else
+					current_turn = END_TURN;
+			}
+
+		}
+		else {
 			pos = App->map->WorldToMap(position.first, position.second);
-
 			inRange = (App->entity_manager->CalculateDistance(pos, nearposition) <= current_stats.RangeAtk);	//cambiar por el rango del boss
 			if (inRange)
 				current_turn = SEARCH_ATTACK;
 			else
 				current_turn = END_TURN;
 		}
-
-	}
-	else {
-		pos = App->map->WorldToMap(position.first, position.second);
-		inRange = (App->entity_manager->CalculateDistance(pos, nearposition) <= current_stats.RangeAtk);	//cambiar por el rango del boss
-		if (inRange)
-			current_turn = SEARCH_ATTACK;
-		else
-			current_turn = END_TURN;
 	}
 }
 
