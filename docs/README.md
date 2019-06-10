@@ -82,10 +82,17 @@ The player will have to think about finding more than one way in order to overco
 
 
 # Instructions on installation:
+## Option 1
+- Download [Here](https://github.com/cherry-glasses/Clowns-F8/releases/download/Gold/CherryGlasses_ClownsF8_1.0_Gold.zip) the 
+project zip.
+- Unzip it.
+- Click on "Clowns F8.exe" executable to enjoy the game.
 
-- Open "Clowns F8.exe" executable inside the decompressed folder.
-- Play!
-(No need for any additional installation)
+## Option 2
+- Download [Here](https://github.com/cherry-glasses/Clowns-F8/releases/download/Gold/ClownsF8_Installer.msi) the intallation
+program.
+- Execute and follow the instructions.
+- When the installation finished, click on the icon game to execute game.
 
 # Trailer
 
