@@ -1227,11 +1227,11 @@ void ModuleEntityManager::LevelUP(int _exp)
 				{
 					(*enemy)->default_stats.Hp += (*enemy)->default_stats.Hp * 3;
 					(*enemy)->default_stats.Mana += (*enemy)->default_stats.Mana * 3;
-					(*enemy)->default_stats.AtkF += (*enemy)->default_stats.AtkF * 3;
-					(*enemy)->default_stats.AtkS += (*enemy)->default_stats.AtkS * 3;
-					(*enemy)->default_stats.DefF += (*enemy)->default_stats.DefF * 3;
-					(*enemy)->default_stats.DefS += (*enemy)->default_stats.DefS * 3;
-					(*enemy)->default_stats.Crit += (*enemy)->default_stats.Crit * 3;
+					(*enemy)->default_stats.AtkF += (*enemy)->default_stats.AtkF * 2;
+					(*enemy)->default_stats.AtkS += (*enemy)->default_stats.AtkS * 2;
+					(*enemy)->default_stats.DefF += (*enemy)->default_stats.DefF * 2;
+					(*enemy)->default_stats.DefS += (*enemy)->default_stats.DefS * 2;
+					(*enemy)->default_stats.Crit += (*enemy)->default_stats.Crit * 2;
 
 					(*enemy)->current_stats = (*enemy)->default_stats;
 				}
