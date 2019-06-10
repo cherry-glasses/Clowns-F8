@@ -88,11 +88,11 @@ The player will have to think about finding more than one way in order to overco
 
 # Trailer
 
-<iframe width="2114" height="908" src="https://www.youtube.com/embed/ePTkOImwbuM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315"  src="https://www.youtube.com/embed/ePTkOImwbuM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 # Gameplay
 
-<iframe width="2114" height="908" src="https://www.youtube.com/embed/Zs0J4tGE2c4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315"  src="https://www.youtube.com/embed/Zs0J4tGE2c4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 
