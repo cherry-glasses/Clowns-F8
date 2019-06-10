@@ -43,4 +43,4 @@ This is included in the ennemies, but is one of the things that i give it more t
 Here there is an image where you can see all the tasks that i did and how much time did it took:
 
 
-<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Production%20plan/Hours/Guillem_hours.png" width="1840" height="657">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Production%20plan/Hours/Guillem_hours.png" width="1191" height="393">
