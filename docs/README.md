@@ -78,7 +78,7 @@ The player will have to think about finding more than one way in order to overco
 [Cherry Glasses wiki homepage](https://github.com/cherry-glasses/Clowns-F8/wiki)
 
 **Game Release**
-[Clowns F8 lastet release]  ******
+[Clowns F8 lastet release](https://github.com/cherry-glasses/Clowns-F8/releases/tag/Gold)
 
 
 # Instructions on installation:
