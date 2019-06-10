@@ -15,6 +15,13 @@ Our team had a low management staff, so as the team leader I decided to take on 
 
 <img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Production%20plan/Hours/hacknplan.png" width="720" height="360">
 
+### UI
+
+- Target entities info
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Production%20plan/Hours/uitarget.png" width="720" height="360">
+- Configurable Inputs
+- Language System
+
 ### Code
 
 The most remarkable role of those that I have made is that of Code. 
@@ -45,14 +52,9 @@ we have created good synergies to work in a team in an efficient way.
 - Debug System (path, level up, level down, maps unlock)
 - Load and Save
 
-### UI
-
-- Target entities info
-<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Production%20plan/Hours/uitarget.png" width="720" height="360">
-- Configurable Inputs
-- Language System
 
 
+### My Hours Stadistics
 <img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Production%20plan/Hours/CereVenteo.png" width="720" height="360">
 
 
