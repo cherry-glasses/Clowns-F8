@@ -74,7 +74,7 @@ bool Particle::Draw()
 	float centerY = pState.pLive.pos.second + ((tmpRect.h - pState.pLive.rectSize.h) / 2.0f);
 
 	// Color interpolation, only if the particle has enough life
-	SDL_Color resColor;
+	SDL_Color resColor = pState.pLive.startColor;
 
 	if (pState.pLive.startLife > MIN_LIFE_TO_INTERPOLATE)
 		resColor = RgbInterpolation(pState.pLive.startColor, pState.pLive.t, pState.pLive.endColor);

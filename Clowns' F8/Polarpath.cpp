@@ -4,6 +4,8 @@
 #include "ModulePathfinding.h"
 #include "ModuleRender.h"
 #include "ModuleMap.h"
+#include "ModuleParticleSystem.h"
+#include "Emitter.h"
 
 Polarpath::Polarpath(ENTITY_TYPE _type, pugi::xml_node _config) : Enemy(_type, _config) {
 	CurrentMovement(IDLE_LEFT);
@@ -19,8 +21,8 @@ void Polarpath::SearchWalk() {
 	nearposition = App->entity_manager->NearestCharacter(position);
 	nearposition = App->map->WorldToMap(nearposition.first, nearposition.second);
 	App->pathfinding->CreatePathTower(App->map->WorldToMap(position.first, position.second), nearposition, current_stats.PMove);
-
-	if (timer_skill_1 >= 2) {
+	pos = App->map->WorldToMap(position.first, position.second);
+	if (timer_skill_1 >= 2 && App->entity_manager->Characters_around(pos)) {
 		current_turn = SEARCH_ABILITY_1;
 		timer_skill_1 = 0;
 	}
@@ -137,10 +139,23 @@ void Polarpath::SearchAttack() {
 }
 
 void Polarpath::Attack(const std::vector<std::pair<int, int>>* _path) {
+
 	std::pair<int, int> pos = App->map->WorldToMap(position.first, position.second);
 	range = App->entity_manager->RangeOfAttack(pos, 1, tiles_range_attk);
 	std::pair<int, int> car = App->entity_manager->CharactersPrioritzationAttack(range, tiles_range_attk);
 	objective_position.push_back(car);
+
+	if (emitter != nullptr)
+	{
+		if (emitter->GetEmitterPos().first < objective_position.back().first + 10)
+			emitter->SetPosition({ emitter->GetEmitterPos().first + 8, emitter->GetEmitterPos().second });
+		if (emitter->GetEmitterPos().first > objective_position.back().first + 10)
+			emitter->SetPosition({ emitter->GetEmitterPos().first - 8, emitter->GetEmitterPos().second });
+		if (emitter->GetEmitterPos().second < objective_position.back().second - 16)
+			emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second + 30 });
+		if (emitter->GetEmitterPos().second > objective_position.back().second - 16)
+			emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second - 30 });
+	}
 
 	if (nearposition.first > pos.first)
 		CurrentMovement(ATTACK_FRONT);
@@ -148,13 +163,35 @@ void Polarpath::Attack(const std::vector<std::pair<int, int>>* _path) {
 		CurrentMovement(ATTACK_BACK);
 
 	if (current_animation->isDone()) {
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_POLARPATH, false); //objective_position
-		current_animation->Reset();
-		if (current_movement == ATTACK_FRONT)
-			CurrentMovement(IDLE_RIGHT);
-		else
-			CurrentMovement(IDLE_LEFT);
-		current_turn = END_TURN;
+		if (emitter == nullptr)
+		{
+			emitter = App->particle_system->AddEmiter({ objective_position.back().first , objective_position.back().second - 500 }, EmitterType::EMITTER_TYPE_ATTACK);
+			emitter->SetTextureRect({ 448, 64, 64, 64 });
+			emitter->SetSize(128, 128);
+
+
+			PlaySFX(sfx.Attack_SFX);
+		}
+		if (emitter != nullptr)
+		{
+			if ((emitter->GetEmitterPos().first <= objective_position.back().first + 20) && (emitter->GetEmitterPos().first >= objective_position.back().first)
+				&& (emitter->GetEmitterPos().second >= objective_position.back().second - 32) && (emitter->GetEmitterPos().second <= objective_position.back().second))
+			{
+				emitter->StopEmission();
+				emitter = nullptr;
+			}
+		}
+		if (emitter == nullptr)
+		{
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_POLARPATH, false); //objective_position
+			current_animation->Reset();
+			if (current_movement == ATTACK_FRONT)
+				CurrentMovement(IDLE_RIGHT);
+			else
+				CurrentMovement(IDLE_LEFT);
+			current_turn = END_TURN;
+		}
+		
 	}
 
 }
@@ -200,8 +237,10 @@ void Polarpath::Ability_1(const std::vector<std::pair<int, int>>* _path)
 
 	CurrentMovement(ATTACK_FRONT);
 
+
 	if (current_animation->isDone()) {
-		App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_POLARPATH,true); //objective_position
+		PlaySFX(sfx.Ability_1_SFX);
+		App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_POLARPATH,true); //objective_position
 		current_animation->Reset();
 
 		CurrentMovement(IDLE_LEFT);
@@ -221,13 +260,11 @@ void Polarpath::CurrentMovement(MOVEMENT _movement) {
 	{
 	case Entity::IDLE_LEFT:
 		current_movement = IDLE_LEFT;
-		current_animation = &idle_left;
-		flipX = false;
+		current_animation = &idle_front;
 		break;
 	case Entity::IDLE_RIGHT:
 		current_movement = IDLE_RIGHT;
-		current_animation = &idle_left;
-		flipX = true;
+		current_animation = &idle_front;
 		break;
 	case Entity::IDLE_FRONT:
 		current_movement = IDLE_FRONT;
@@ -239,107 +276,103 @@ void Polarpath::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &idle_back;
 		flipX = false;
 		break;
-	case Entity::WALK_RIGHT_FRONT:									//------- MOVIMIENTO
+	case Entity::WALK_RIGHT_FRONT:									
 		current_movement = WALK_RIGHT_FRONT;
-		current_animation = &walk_left;
-		flipX = false;
-		position.first += 2;		//VIVAN LOS PUTOS NUMEROS MAGICOS XDDD  //DEJA DE ESCRIBIR EN ESPAÑOL GUILLEM
+		current_animation = &walk_front;
+		position.first += 2;		
 		position.second -= 1;
 		break;
 	case Entity::WALK_RIGHT_BACK:
 		current_movement = WALK_RIGHT_BACK;
-		current_animation = &walk_left;
+		current_animation = &walk_back;
 		position.first += 2;
 		position.second += 1;
-		flipX = true;
 		break;
 	case Entity::WALK_LEFT_BACK:
 		current_movement = WALK_LEFT_BACK;
-		current_animation = &walk_front;
-		flipX = false;
+		current_animation = &walk_back;
 		position.first -= 2;
 		position.second += 1;
 		break;
-	case Entity::WALK_LEFT_FRONT:								//------------MOVIMIENTO
+	case Entity::WALK_LEFT_FRONT:								
 		current_movement = WALK_LEFT_FRONT;
-		current_animation = &walk_back;
-		flipX = false;
+		current_animation = &walk_front;
 		position.first -= 2;
 		position.second -= 1;
 		break;
 	case Entity::ATTACK_LEFT:
 		current_movement = ATTACK_LEFT;
-		current_animation = &attack_left;
-		flipX = false;
+		current_animation = &attack_front;
 		break;
 	case Entity::ATTACK_RIGHT:
 		current_movement = ATTACK_RIGHT;
-		current_animation = &attack_left;
-		flipX = true;
+		current_animation = &attack_front;
 		break;
 	case Entity::ATTACK_FRONT:
 		current_movement = ATTACK_FRONT;
 		current_animation = &attack_front;
-		flipX = false;
 		break;
 	case Entity::ATTACK_BACK:
 		current_movement = ATTACK_BACK;
 		current_animation = &attack_back;
-		flipX = false;
 		break;
 	case Entity::ABILITY_1_LEFT:
 		current_movement = ABILITY_1_LEFT;
-		current_animation = &ability_1_left;
-		flipX = false;
+		current_animation = &ability_1_front;
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_RIGHT:
 		current_movement = ABILITY_1_RIGHT;
-		current_animation = &ability_1_left;
-		flipX = true;
+		current_animation = &ability_1_front;
 		current_turn = END_TURN;
 		break;
 	case Entity::ABILITY_1_FRONT:
 		current_movement = ABILITY_1_FRONT;
 		current_animation = &ability_1_front;
-		flipX = false;
 		break;
 	case Entity::ABILITY_1_BACK:
 		current_movement = ABILITY_1_BACK;
 		current_animation = &ability_1_back;
-		flipX = false;
 		current_turn = END_TURN;
 		break;
 	case Entity::DEAD_LEFT:
 		current_movement = DEAD_LEFT;
-		current_animation = &dead_left;
-		flipX = false;
-		if (current_animation->Finished()) {
+		current_animation = &dead_front;
+		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_RIGHT:
 		current_movement = DEAD_RIGHT;
-		current_animation = &dead_left;
-		flipX = true;
-		if (current_animation->Finished()) {
+		current_animation = &dead_front;
+		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_FRONT:
 		current_movement = DEAD_FRONT;
 		current_animation = &dead_front;
-		flipX = false;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_BACK:
 		current_movement = DEAD_BACK;
 		current_animation = &dead_back;
-		flipX = false;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
+		}
+		break;
+	case Entity::DEAD_DEFAULT:
+		current_movement = DEAD_FRONT;
+		current_animation = &dead_front;
+		if (current_animation->isDone()) {
+			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	default:

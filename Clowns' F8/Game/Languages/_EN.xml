@@ -15,11 +15,28 @@
     <back value="BACK"/>
     <accept value="ACCEPT"/>
     <decline value="DECLINE"/>
+    <keyboard value="KEYBOARD"/>
+    <gamepad value="GAMEPAD"/>
     <character_stats value="CHARACTER STATS"/>
     <character_abilities value="CHARACTER ABILITIES"/>
     <abilities value="ABILITIES"/>
     <pause value="PAUSE"/>
     <select value="SELECT"/>
+    <credits0 value="CHERRY GLASSES TEAM"/>
+    <credits1 value="LEAD AND MANAGEMENT: Cere Venteo"/>
+    <credits2 value="GAME DESIGN: Aleix Castillo"/>
+    <credits3 value="UI: Martí Torras"/>
+    <credits4 value="CODE: Guillem Sánchez"/>
+    <credits5 value="ART: Kevin Muñoz"/>
+    <credits6 value="ART COORDINATOR + CODE + UI:"/>
+    <credits7 value="Eric Jiménez"/>
+    <credits8 value="AUDIO: Iván Jiménez Fernández"/>
+    <credits9 value="QA: Ricky Castro"/>
+    <credits10 value="This team is composed by CITM (UPC) "/>
+    <credits11 value="students of the videogame design and"/>
+    <credits12 value=" developement degree in Terrassa, Barcelona."/>
+    <credits13 value="Our motto:"/>
+    <credits14 value="JUST GET IT POSSIBLE!"/>
   </main_menu_scene>
   <battle_scene>
     <resume value="RESUME"/>
@@ -47,6 +64,31 @@
     <iris attack="Fist attack" ability_1="Rabbit kick" ability_2="Carrot time" ability_3="Rabbit rage"/>
     <storm attack="Acid throw" ability_1="Snail charge" ability_2="Time to hide" ability_3="Vampiric snail"/>
     <georgeb attack="Random throw" ability_1="Bear trap" ability_2="Cherry boom" ability_3="Flying birds"/>
+    <ability_info range="Range: " target="Target: " type="Type: " effect="Effect: " amount="Amount: "/>
+    <iris_info>
+      <attack range="1" target="enemy" type ="single" effect="damage" amount="24 + ATK F."/>
+      <ability1 range="1" target="enemy" type ="area" effect="damage" amount="25 + ATK F."/>
+      <ability2 range="0" target="self" type ="single" effect="power up" amount="+10 ATK F. DEF F."/>
+      <ability3 range="1" target="enemy" type ="area" effect="damage" amount="40 + ATK F."/>
+    </iris_info>
+    <georgeb_info>
+      <attack range="4" target="enemy" type ="single" effect="damage" amount="25 + ATK S."/>
+      <ability1 range="6" target="enemy" type ="single" effect="damage" amount="25 + ATK F."/>
+      <ability2 range="4" target="enemy" type ="area" effect="damage" amount="33 + ATK S."/>
+      <ability3 range="3" target="enemy" type ="area" effect="damage" amount=" 35 + ATK S."/>
+    </georgeb_info>
+    <sapphire_info>
+      <attack range="5" target="ally/enemy" type ="single" effect="heal/damage" amount="25 + ATK S."/>
+      <ability1 range="2" target="enemy" type ="area" effect="damage" amount="26 + ATK F."/>
+      <ability2 range="5" target="ally/enemy" type ="single" effect="heal/damage" amount="30 + ATK S."/>
+      <ability3 range="a lot" target="ally/enemy" type ="moving area" effect="heal/damage" amount="35 + ATK S."/>
+    </sapphire_info>
+    <storm_info>
+      <attack range="1" target="enemy" type ="single" effect="damage" amount="20 + ATK F."/>
+      <ability1 range="3" target="enemy" type ="single" effect="stun" amount="1 turn"/>
+      <ability2 range="0" target="self" type ="single" effect="invulnerability" amount="1 turn"/>
+      <ability3 range="0" target="self" type ="single" effect="heal when attack" amount="50% dmg dealt"/>
+    </storm_info>
   </battle_scene>
   <win_scene>
     <win_accept value="PRESS ACCEPT TO RETURN TO MAIN MENU"/>
@@ -80,17 +122,17 @@
     <line16 value="anything to do with him, and in the end, one by one, his companions left him. Unable to bear this burden of solitude and full of envy and hatred "/>
     <line17 value="towards Sapphire, the evil sorcerer decided he would rewrite history. What if people's favorite clown mage was not so funny and cheerful as everyone"/>
     <line18 value="thought? Hence, as his master move, he stole the touch of the clown. From now on, his jokes would not be funny anymore and instead of laugh, people "/>
-    <line19 value="would take pity on him... Wait, we just remembered that tomorrow is our Project II pitch presentation, and we still have not finished the wiki!!"/>
+    <line19 value="would take pity on him... Wait, we just remembered that tomorrow is our Project II presentation, and we still have not solved all the bugs!!"/>
     <line20 value="We are sorry but you will have to excuse us and find the ending of this story by yourself. We're sure you are going to come up with something that "/>
-    <line21 value="makes sense, right? With beautiful knights and brave princesses... You would not put something too silly like a martial arts bunny, or a weeb ninja, this"/>
-    <line22 value="would not make for much of a story... Whatever, it is not up to us anymore, good luck in your quest dear friend."/>
+    <line21 value="makes sense, right? With beautiful knights and brave princesses... You would not put something too silly like a martial arts bunny, or a bush with legs,"/>
+    <line22 value="this would not make for much of a story... Whatever, it is not up to us anymore, good luck in your quest dear friend."/>
   </intro_scene>
   <ending_scene>
-    <line1 value="Wait, what You've actually retrieved the clown's touch!! Slaying henchmen and monsters"/>
-    <line2 value="like a true warrior... Or not quite so... What is this You've gathered quite the crew here. Are"/>
-    <line3 value="these the mighty heroes who defeated Cherryblackglasses and his three captains Excuse"/>
-    <line4 value="us but we find it hard to believe. Where are the chivalrous knights Where are the skilled"/>
-    <line5 value="bowmen Whatever, it seems it's better to perhaps leave this for another story."/>
+    <line1 value="Wait, what? You've actually retrieved the clown's touch!! Slaying henchmen and monsters"/>
+    <line2 value="like a true warrior... Maybe... What is this? You've gathered quite the crew here. Are"/>
+    <line3 value="these the mighty heroes who defeated Cherryblackglasses and his three captains? Excuse"/>
+    <line4 value="us but we find it hard to believe. Where are the chivalrous knights? Where are the skilled"/>
+    <line5 value="bowmen? Whatever, it seems it's better to perhaps leave this for another story."/>
     <line6 value="Now, congratulations on saving the kingdom!!"/>
   </ending_scene>
 </language>

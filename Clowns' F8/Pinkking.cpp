@@ -4,6 +4,8 @@
 #include "ModulePathfinding.h"
 #include "ModuleRender.h"
 #include "ModuleMap.h"
+#include "ModuleParticleSystem.h"
+#include "Emitter.h"
 #include "Log.h"
 
 
@@ -59,43 +61,58 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 	std::pair<int, int> object;
 
 
-	if (_path->size() > 1 )
+	if (_path->size() > 1)
 	{
-		if (!App->pathfinding->IsUsed(_path->at(1), this)) 
+		if (App->pathfinding->IsUsed(_path->at(1), this) && !new_path)
 		{
-			if (!inRange) {
-				objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
-				
+			if (App->entity_manager->CalculateDistance(pos, nearposition) <= current_stats.RangeAtk)
+				current_turn = SEARCH_ATTACK;
+			else {
+				std::pair<int, int>helperrr = Path2_0(pos, _path->at(1));
+				objective_position.push_back(App->map->MapToWorld(helperrr.first, helperrr.second));
+				new_path = true;
 			}
-				
+
+		}
+		else {
+
+
+			if (!new_path) {
+				objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
+
+			}
+
 
 			inRange = false;
-			
-			if (_path->at(0).first >= _path->at(1).first && _path->at(0).second <= _path->at(1).second) {
-				CurrentMovement(WALK_LEFT);
-			}
-			else if (_path->at(0).first >= _path->at(1).first && _path->at(0).second >= _path->at(1).second) {
-				CurrentMovement(WALK_BACK);
-			}
-			else if (_path->at(0).first <= _path->at(1).first && _path->at(0).second <= _path->at(1).second) {
-				CurrentMovement(WALK_FRONT);
-			}
-			else if (_path->at(0).first <= _path->at(1).first && _path->at(0).second >= _path->at(1).second) {
-				CurrentMovement(WALK_RIGHT);
-			}
-			current_turn = MOVE;
-			pos = App->map->WorldToMap(position.first, position.second);
-			if (App->entity_manager->CalculateDistance(pos, nearposition) < current_stats.RangeAtk && (App->map->MapToWorld(pos.first, pos.second) == position)){
+			if (App->entity_manager->CalculateDistance(pos, nearposition) < current_stats.RangeAtk && (App->map->MapToWorld(pos.first, pos.second) == position)) {
 				current_turn = SEARCH_ATTACK;
 
 			}
+			else {
+				if (_path->at(0).first > _path->at(1).first && _path->at(0).second < _path->at(1).second) {
+					CurrentMovement(WALK_LEFT);
+				}
+				else if (_path->at(0).first > _path->at(1).first && _path->at(0).second > _path->at(1).second) {
+					CurrentMovement(WALK_BACK);
+				}
+				else if (_path->at(0).first < _path->at(1).first && _path->at(0).second < _path->at(1).second) {
+					CurrentMovement(WALK_FRONT);
+				}
+				else if (_path->at(0).first < _path->at(1).first && _path->at(0).second > _path->at(1).second) {
+					CurrentMovement(WALK_RIGHT);
+				}
+				
+				current_turn = MOVE;
+				pos = App->map->WorldToMap(position.first, position.second);
+			}
 
-			std::pair<int, int> cancer = App->map->MapToWorld(pos.first,pos.second);
-			
-			LOG("posii %i , %i , cancer %i ,%i", position.first, position.second,cancer.first, cancer.second);
+
+
+
+
 			//std::pair<int, int> yoooo = App->map->WorldToMap(objective_position.back().first, objective_position.back().second);
 			if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
-				
+				new_path = false;
 				if (current_movement == WALK_LEFT)
 				{
 					CurrentMovement(IDLE_LEFT);
@@ -112,24 +129,18 @@ void Pinkking::Walk(const std::vector<std::pair<int, int>> *_path)
 				{
 					CurrentMovement(IDLE_LEFT);
 				}
+
 				inDanger = false;
-				if (inRange)
+				if (App->entity_manager->CalculateDistance(pos, nearposition) <= current_stats.RangeAtk)
 					current_turn = SEARCH_ATTACK;
 				else
 					current_turn = END_TURN;
 			}
 
 		}
-		else {
-			if (App->entity_manager->CalculateDistance(pos, nearposition) <= current_stats.RangeAtk)
-				current_turn = SEARCH_ATTACK;
-			else
-				current_turn = END_TURN;
-		}
 
 
 	}
-
 	else {
 		if (App->entity_manager->CalculateDistance(pos, nearposition) <= current_stats.RangeAtk)
 			current_turn = SEARCH_ATTACK;
@@ -159,8 +170,9 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 		CurrentMovement(ATTACK_FRONT);
 	else 
 		CurrentMovement(ATTACK_BACK);
-
+	
 	if (current_animation->isDone()) {
+		PlaySFX(sfx.Attack_SFX);
 		App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_PINKKING, false);
 		current_animation->Reset();
 		if (current_movement == ATTACK_FRONT)
@@ -168,6 +180,7 @@ void Pinkking::Attack(const std::vector<std::pair<int, int>> *_path)
 		else
 			CurrentMovement(IDLE_LEFT);
 		current_turn = END_TURN;
+		
 	}
 }
 
@@ -180,8 +193,37 @@ void Pinkking::SearchAbility_1()
 void Pinkking::Ability_1(const std::vector<std::pair<int, int>> *_path)
 {
 	objective_position.push_back(nearposition);
-	App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkS*1.5, ENTITY_TYPE::ENTITY_ENEMY_PINKKING, true);
-	current_turn = END_TURN;
+	if (emitter == nullptr)
+	{
+		emitter = App->particle_system->AddEmiter(position, EmitterType::EMITTER_TYPE_ATTACK);
+		emitter->SetTextureRect({ 320, 0, 128, 64 });
+		emitter->SetSize(128, 128);
+
+		PlaySFX(sfx.Ability_1_SFX);
+	}
+	if (emitter != nullptr)
+	{
+		if (emitter->GetEmitterPos().first < objective_position.back().first + 10)
+			emitter->SetPosition({ emitter->GetEmitterPos().first + 8, emitter->GetEmitterPos().second });
+		if (emitter->GetEmitterPos().first > objective_position.back().first + 10)
+			emitter->SetPosition({ emitter->GetEmitterPos().first - 8, emitter->GetEmitterPos().second });
+		if (emitter->GetEmitterPos().second < objective_position.back().second - 16)
+			emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second + 20 });
+		if (emitter->GetEmitterPos().second > objective_position.back().second - 16)
+			emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second - 20 });
+		if ((emitter->GetEmitterPos().first <= objective_position.back().first + 20) && (emitter->GetEmitterPos().first >= objective_position.back().first)
+			&& (emitter->GetEmitterPos().second >= objective_position.back().second - 32) && (emitter->GetEmitterPos().second <= objective_position.back().second))
+		{
+			emitter->StopEmission();
+			emitter = nullptr;
+		}
+
+	}
+	if (emitter == nullptr)
+	{
+		App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_PINKKING, true);
+		current_turn = END_TURN;
+	}
 }
 
 
@@ -313,32 +355,44 @@ void Pinkking::CurrentMovement(MOVEMENT _movement) {
 		current_movement = DEAD_LEFT;
 		current_animation = &dead_left;
 		flipX = false;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_RIGHT:
 		current_movement = DEAD_RIGHT;
 		current_animation = &dead_left;
 		flipX = true;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_FRONT:
 		current_movement = DEAD_FRONT;
 		current_animation = &dead_front;
 		flipX = false;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_BACK:
 		current_movement = DEAD_BACK;
 		current_animation = &dead_back;
 		flipX = false;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
+		}
+		break;
+	case Entity::DEAD_DEFAULT:
+		current_movement = DEAD_FRONT;
+		current_animation = &dead_front;
+		if (current_animation->isDone()) {
+			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	default:

@@ -15,38 +15,80 @@
     <back value="ATRÁS"/>
     <accept value="ACEPTAR"/>
     <decline value="DECLINAR"/>
+    <keyboard value="TECLADO"/>
+    <gamepad value="MANDO"/>
     <character_stats value="ESTADÍSTICAS PERSONAJES"/>
     <character_abilities value="HABILIDADES PERSONAJES"/>
     <abilities value="HABILIDADES"/>
     <pause value="PAUSA"/>
     <select value="SELECT"/>
+    <credits0 value="CHERRY GLASSES TEAM"/>
+    <credits1 value="LÍDER Y ADMINISTRACIÓN: Cere Venteo"/>
+    <credits2 value="DISEÑADOR: Aleix Castillo"/>
+    <credits3 value="UI: Martí Torras"/>
+    <credits4 value="CÓDIGO: Guillem Sánchez"/>
+    <credits5 value="ARTE: Kevin Muñoz"/>
+    <credits6 value="COORDINADOR DE ARTE + CÓDIGO + UI:"/>
+    <credits7 value="Eric Jiménez"/>
+    <credits8 value="AUDIO: Ivan Jiménez Fernández"/>
+    <credits9 value="QA: Ricky Castro"/>
+    <credits10 value="Este equipo está formado por estudiantes del"/>
+    <credits11 value="grado de diseño y desarrollo de videojuegos"/>
+    <credits12 value="del CITM (UPC) en Tarrassa, Barcelona."/>
+    <credits13 value="Nuestro lema:"/>
+    <credits14 value="TAN SOLO HAZLO POSIBLE!"/>
   </main_menu_scene>
   <battle_scene>
     <resume value="CONTINUAR"/>
     <choose_map value="SELECCIONAR MAPA"/>
     <battle_abilities value="Habilidades"/>
     <defend value="Defender"/>
-    <greating value="Hola, bienvenido a el magnifico reino de Citemia"/>
+    <greating value="Hola, bienvenido al magnífico reino de Citemia"/>
     <greating_2 value="mi nombre es Alfred el Textitos y te voy a enseñar"/>
     <greating_3 value="a pelear en este reino, dale a espacio"/>
     <move value="En primer lugar vamos a movernos,"/>
-    <move_2 value="el personaje se movera a la casilla marcada en verde"/>
+    <move_2 value="el personaje se moverá a la casilla marcada en verde"/>
     <move_3 value="puedes mover la casilla azul con las flechitas"/>
-    <move_4 value="o con el nunchuk derecho del mando"/>
+    <move_4 value="o con el joystick izquierdo del mando"/>
     <move_5 value="solo puedes ir a las casillas marcadas en azul"/>
-    <move_6 value="si pasas por encima de algun enemigo te dara su informacion"/>
-    <def value="Esta es la pestaña de habilidades"/>
+    <move_6 value="si pasas por encima de algun enemigo te dara su información"/>
+    <def value="Ésta es la pestaña de habilidades"/>
     <def_2 value="por ahora solo puedes atacar y defenderte"/>
-    <def_3 value="pero si matas muchos enemigos obtendras habilidades"/>
+    <def_3 value="pero si matas muchos enemigos obtendrás habilidades"/>
     <def_4 value="que no se te olvide que utilizando la -x- "/>
     <def_5 value="puedes retroceder entre selecciones"/>
-    <def_6 value="como ahora no hay ningun enmigo usa la defensa para pasar de turno"/>
-    <atq value="Aquí enseñaré como atacar"/>
+    <def_6 value="como ahora no hay ningun enemigo usa la defensa para pasar de turno"/>
+    <atq value="Aquí enseñare como atacar"/>
     <lets value="Lets do it!"/>
-    <sapphire attack="Floretazo" ability_1="Martillazo" ability_2="Sombrero sorpresa" ability_3="Hora del Jugar"/>
+    <sapphire attack="Floretazo" ability_1="Martillazo" ability_2="Sombrero sorpresa" ability_3="Hora de Jugar"/>
     <iris attack="Golpe de karate" ability_1="Patada conejil" ability_2="Hora de zanahoria" ability_3="Rabia Conejil"/>
     <storm attack="Escupitajo" ability_1="Caracol paralizante" ability_2="Hora del escondite" ability_3="Caracol vampírico"/>
     <georgeb attack="Tiro aleatorio" ability_1="Trampa de oso" ability_2="Bomba cereza" ability_3="Hora de Hitchcock"/>
+    <ability_info range="Rango: " target="Objetivo: " type="Tipo: " effect="Efecto: " amount="Cantidad: "/>
+    <iris_info>
+      <attack range="1" target="enemigo" type ="único" effect="daño" amount="24 + ATK F."/>
+      <ability1 range="1" target="enemigo" type ="area" effect="daño" amount="25 + ATK F."/>
+      <ability2 range="0" target="tú" type ="único" effect="mejora" amount="+10 ATK F. DEF F."/>
+      <ability3 range="1" target="enemigo" type ="area" effect="daño" amount="40 + ATK F."/>
+    </iris_info>
+    <georgeb_info>
+      <attack range="4" target="enemigo" type ="único" effect="daño" amount="25 + ATK S."/>
+      <ability1 range="6" target="enemigo" type ="único" effect="daño" amount="25 + ATK F."/>
+      <ability2 range="4" target="enemigo" type ="area" effect="daño" amount="33 + ATK S."/>
+      <ability3 range="3" target="enemigo" type ="area" effect="daño" amount=" 35 + ATK S."/>
+    </georgeb_info>
+    <sapphire_info>
+      <attack range="5" target="aliado/enemigo" type ="único" effect="cura/daño" amount="25 + ATK S."/>
+      <ability1 range="2" target="enemigo" type ="area" effect="daño" amount="26 + ATK F."/>
+      <ability2 range="5" target="aliado/enemigo" type ="único" effect="cura/daño" amount="30 + ATK S."/>
+      <ability3 range="a lot" target="aliado/enemigo" type ="area avanzando" effect="cura/daño" amount="35 + ATK S."/>
+    </sapphire_info>
+    <storm_info>
+      <attack range="1" target="enemigo" type ="único" effect="daño" amount="20 + ATK F."/>
+      <ability1 range="3" target="enemigo" type ="único" effect="aturdir" amount="1 turn"/>
+      <ability2 range="0" target="tú" type ="único" effect="invulnerabilidad" amount="1 turn"/>
+      <ability3 range="0" target="tú" type ="único" effect="cura al atacar" amount="50% del daño"/>
+    </storm_info>
   </battle_scene>
   <win_scene>
     <press_accept value="PULSA ACEPTAR PARA VOLVER AL MENÚ PRINCIPAL"/>
@@ -58,6 +100,39 @@
     <map4 value="JEFE FINAL"/>
     <save_game value="GUARDAR PARTIDA"/>
     <saved value="EL JUEGO SE HA GUARDADO CON ÉXITO"/>
-    <main_menu value="MENU PRINCIPAL"/>
+    <main_menu value="MENÚ PRINCIPAL"/>
   </choose_map_scene>
+  <intro_scene>
+    <line1 value="Déjanos contarte una historia. Pero no cualquier historia. Puede que esto te suene, o tal vez no, pues pasó"/>
+    <line2 value="en otro tiempo, en otra era, una era transcurrida hace mucho, o una era que aun ha de venir. O puede que"/>
+    <line3 value="esto pasara en un mundo completamente distinto, quien sabe... De todas formas, esto poco te importa, lo"/>
+    <line4 value="sabemos. Estas aquí por una historia, y te la vamos a contar. Ten presente, algunas historias provienen"/>
+    <line5 value="de leyendas, las leyendas devienen de mitos, y qué es un mito sino una exageración de una gran hazaña"/>
+    <line6 value="realizada por alguien en otro tiempo... Quién sabe si los personajes de esta historia pudieron haber"/>
+    <line7 value="existido o fueron inspirados por algunos extraños individuos... Ostras, ¿nos estamos esta yendo por"/>
+    <line8 value="las ramas, verdad? ¿Por qué no nos paraste? Es hora de empezar nuestra historia, ¿no te parece?"/>
+
+    <line9 value="Todo pasó en el reino de Citemia. Como en todas las historias de fantasía, había dos fuerzas opuestas, siendo dos grandes magos, quienes coexistían"/>
+    <line10 value="en el mismo tiempo en este extraño reino. Como bién sabrás, solo hay lugar para un rey en un reino, pues lo mismo pasa con los grandes magos."/>
+    <line11 value="Estos son orgullosos individuos que se pasan la vida intentando ser el más sabio de los seres humanos, pero el titulo del más sabio solo lo puede"/>
+    <line12 value="llevar una persona. Estos dos grandes magos se llamaban Sapphire y CheryyBlackGlasses. Sapphire era amable, conocido por su humor y sus bromas"/>
+    <line13 value="se vestía de payaso y hacia reír a la gente. Era respetado por todo el reino y los habitantes solían ir a visitarlo para pedirle consejo o ayuda"/>
+    <line14 value="con sus problemas. CherryBlackGlasses era su antítesis, un mago malvado conocido por sus atrocidades, crueldad y tiranía, incluso entre sus mal"/>
+    <line15 value="llamados amigos, haciéndolos trabajar como esclavos. Tan centrado en sus objetivos, no le preocupaban los medios o las consecuencias de sus"/>
+    <line16 value="actos. Nadie quería acercarse a él y al final, uno o uno, sus compañeros lo fueron abandonando. Incapaz de soportar la soledad y lleno de"/>
+    <line17 value="envidia y odio hacia Sapphire, su eterno rival, el malvado hechicero decidió cambiar la historia. ¿Qué pasaría si el amado hechicero del reino"/>
+    <line18 value="ya no fuese tan gracioso y animado como todo el mundo pensaba? Consiguientemente, como su jugada maestra, robó la gracia del payaso. De ahora en"/>
+    <line19 value="adelante, sus bromas ya no harían reír a la gente, sino que estos sentirían lástima por él... Un momento, acabamos de recordar que mañana es la"/>
+    <line20 value="presentación de Proyecto II, ¡¡y aún no hemos corregido todos los bugs!! Lo sentimos, pero nos habrás de excusar y encontrar un final de la historia"/>
+    <line21 value="por ti mismo. Estamos seguros de que se te ocurrirá algo con sentido, ¿verdad? Con bellos caballeros y valientes princesas... No imaginaras algo"/>
+    <line22 value="demasiado loco como un conejo artista marcial o un arbusto con patas... De todos modos, ya no es cosa nuestra. Buena suerte en tu aventura amigo"/>
+  </intro_scene>
+  <ending_scene>
+    <line1 value="Espera, ¿Lo has logrado? ¡¡Has realmente recuperado la gracia del payaso!! Luchando contra esbirros"/>
+    <line2 value="y monstruos como un verdadero guerrero... Mas o menos... ¿Qué es esto? Vaya con el equipo que has"/>
+    <line3 value="reunido. Sinceramente encontramos difícil de creer que estos sean los poderosos héroes que han"/>
+    <line4 value="derrotado a CherryBlackGlasses y sus tres capitanes. ¿Dónde están los caballerosos caballeros? "/>
+    <line5 value="¿O los diestros arqueros? Hmm, parece que esta es otra historia para otro día."/>
+    <line6 value="¡Ahora, felicidades! ¡Has conseguido salvar el reino!"/>
+  </ending_scene>
 </language>

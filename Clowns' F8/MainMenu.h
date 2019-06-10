@@ -36,7 +36,7 @@ private:
 	void CreateOptionMenu();
 	void CreateControlsMenu();
 	void CreateCreditsMenu();
-	void ChangeControls(int &control, GUIButton* button);
+	void ChangeControls(int &control, GUIButton* button, bool keyboard, GUILabel* label);
 	void Delete();
 
 	void ControlLanguageAndMusic();
@@ -47,7 +47,6 @@ private:
 
 	SDL_Texture* main_menu_background = nullptr;
 	SDL_Texture* option_menu_background = nullptr;
-	SDL_Texture* credits_menu_background = nullptr;
 
 	//Main menu UI
 	GUIButton* cherry_glasses_logo_button = nullptr;
@@ -93,30 +92,45 @@ private:
 	//Controls menu options UI
 	GUIButton* accept_button = nullptr;
 	GUIButton* decline_button = nullptr;
-	GUIButton* character_stats_button = nullptr;
-	GUIButton* characeter_abilities_button = nullptr;
-	GUIButton* abilities_button = nullptr;
 	GUIButton* start_button = nullptr;
-	GUIButton* select_button = nullptr;
+	GUIButton* accept_button2 = nullptr;
+	GUIButton* decline_button2 = nullptr;
+	GUIButton* start_button2 = nullptr;
 	GUIButton* back_controls_button = nullptr;
+
+	GUILabel* control_label = nullptr;
 
 	GUILabel* accept_label = nullptr;
 	GUILabel* decline_label = nullptr;
-	GUILabel* character_stats_label = nullptr;
-	GUILabel* character_abilites_label = nullptr;
-	GUILabel* abilities_label = nullptr;
 	GUILabel* start_label = nullptr;
-	GUILabel* select_label = nullptr;
+
+	GUILabel* control_label2 = nullptr;
+
+	GUILabel* accept_label2 = nullptr;
+	GUILabel* decline_label2 = nullptr;
+	GUILabel* start_label2 = nullptr;
+
 	GUILabel* back_controls_label = nullptr;
+
+	GUILabel* accept_label3 = nullptr;
+	GUILabel* decline_label3 = nullptr;
+	GUILabel* start_label3 = nullptr;
+
+	GUILabel* accept_label4 = nullptr;
+	GUILabel* decline_label4 = nullptr;
+	GUILabel* start_label4 = nullptr;
 
 	bool controls_menu_created = false;
 
 	// Credits Menu UI
+	std::vector<GUILabel*> credits_text;
 	GUIButton* back_credits_button = nullptr;
 
 	GUILabel* back_credits_label = nullptr;
 
 	bool credits_menu_created = false;
+
+	bool pruebita = true; //guillem
 
 
 };

@@ -77,7 +77,6 @@ void Emitter::Update(float dt)
 			float randEnd = startSize * RangeRandomNum(startSizeRand.first, startSizeRand.second);
 			float randRadius = RangeRandomNum(randStart, randEnd);
 			double randRotSpeed = rotSpeed * RangeRandomNum(rotSpeedRand.first, rotSpeedRand.second);
-
 			emitterPool->Generate(pos, tmpStartSpeed, tmpEndSpeed, randAngle, randRotSpeed, randRadius, endSize, maxParticleLife, textureRect, startColor, endColor, blendMode, vortexSensitive);
 			timeStep += timeStep;
 		}
@@ -172,6 +171,34 @@ void Emitter::MoveEmitter(std::pair<int, int> newPos)
 std::pair<int, int> Emitter::GetEmitterPos() const
 {
 	return pos;
+}
+
+void Emitter::SetTextureRect(SDL_Rect _texture_rect)
+{
+	textureRect = _texture_rect;
+}
+
+void Emitter::SetColor(SDL_Color _start_color, SDL_Color _end_color, SDL_BlendMode _blendmode)
+{
+	startColor = _start_color;
+	endColor = _end_color;
+	blendMode = _blendmode;
+}
+
+void Emitter::SetPosition(std::pair<int, int> _pos)
+{
+	pos = _pos;
+}
+
+void Emitter::SetSize(int _start, int _end)
+{
+	startSize = _start;
+	endSize = _end;
+}
+
+int Emitter::GetTime() const
+{
+	return lifetime;
 }
 
 void Emitter::VortexSensitive(bool sensitive)

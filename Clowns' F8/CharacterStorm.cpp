@@ -54,6 +54,7 @@ void CharacterStorm::SearchWalk() {
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	inrange_mov_list.push_back(tmp);
 
+	bool cutmove = false;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
 	{
@@ -61,11 +62,18 @@ void CharacterStorm::SearchWalk() {
 		if (!App->pathfinding->IsWalkable({ tmp.first , tmp.second })
 			|| App->pathfinding->IsUsed({ tmp.first , tmp.second }, this))
 		{
-			break;
+			cutmove = true;
 		}
-		inrange_mov_list.push_back(tmp);
+		if (cutmove)
+		{
+			nomov_list.push_back(tmp);
+		}
+		else
+		{
+			inrange_mov_list.push_back(tmp);
+		}
 	}
-
+	cutmove = false;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
 	{
@@ -73,11 +81,18 @@ void CharacterStorm::SearchWalk() {
 		if (!App->pathfinding->IsWalkable({ tmp.first , tmp.second })
 			|| App->pathfinding->IsUsed({ tmp.first , tmp.second }, this))
 		{
-			break;
+			cutmove = true;
 		}
-		inrange_mov_list.push_back(tmp);
+		if (cutmove)
+		{
+			nomov_list.push_back(tmp);
+		}
+		else
+		{
+			inrange_mov_list.push_back(tmp);
+		}
 	}
-
+	cutmove = false;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
 	{
@@ -85,11 +100,18 @@ void CharacterStorm::SearchWalk() {
 		if (!App->pathfinding->IsWalkable({ tmp.first , tmp.second })
 			|| App->pathfinding->IsUsed({ tmp.first , tmp.second }, this))
 		{
-			break;
+			cutmove = true;
 		}
-		inrange_mov_list.push_back(tmp);
+		if (cutmove)
+		{
+			nomov_list.push_back(tmp);
+		}
+		else
+		{
+			inrange_mov_list.push_back(tmp);
+		}
 	}
-
+	cutmove = false;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.PMove; i++)
 	{
@@ -97,9 +119,16 @@ void CharacterStorm::SearchWalk() {
 		if (!App->pathfinding->IsWalkable({ tmp.first , tmp.second })
 			|| App->pathfinding->IsUsed({ tmp.first , tmp.second }, this))
 		{
-			break;
+			cutmove = true;
 		}
-		inrange_mov_list.push_back(tmp);
+		if (cutmove)
+		{
+			nomov_list.push_back(tmp);
+		}
+		else
+		{
+			inrange_mov_list.push_back(tmp);
+		}
 	}
 
 	tmp.first = NULL;
@@ -117,7 +146,7 @@ void CharacterStorm::SearchAttack() {
 
 	std::pair<int, int> tmp;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	inrange_mov_list.push_back(tmp);
+	//inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.RangeAtk; i++)
@@ -164,7 +193,7 @@ void CharacterStorm::SearchAbility_1() {
 	
 	std::pair<int, int> tmp;
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
-	inrange_mov_list.push_back(tmp);
+	//inrange_mov_list.push_back(tmp);
 
 	tmp = App->map->WorldToMap((int)position.first, (int)position.second);
 	for (int i = 1; i <= current_stats.RangeAbility_1; i++)
@@ -272,7 +301,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		flipX = true;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ATTACK_RIGHT_FRONT:
@@ -280,7 +309,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &attack_right_front;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ATTACK_LEFT_BACK:
@@ -289,7 +318,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		flipX = true;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ATTACK_RIGHT_BACK:
@@ -297,7 +326,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &attack_right_back;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_1_LEFT_FRONT:
@@ -306,7 +335,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		flipX = true;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_1_RIGHT_FRONT:
@@ -314,7 +343,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_1_right_front;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_1_LEFT_BACK:
@@ -323,7 +352,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		flipX = true;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_1_RIGHT_BACK:
@@ -331,7 +360,7 @@ void CharacterStorm::CurrentMovement(MOVEMENT _movement) {
 		current_animation = &ability_1_right_back;
 		if (current_animation->isDone()) {
 			App->entity_manager->ThrowAttack(objective_position, 0, ENTITY_TYPE::ENTITY_CHARACTER_STORM, false);
-			current_turn = END_TURN;
+			finish_attack = true;
 		}
 		break;
 	case Entity::ABILITY_2_RIGHT:

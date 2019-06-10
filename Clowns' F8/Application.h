@@ -24,6 +24,7 @@ class ModuleGUIManager;
 class ModulePathfinding;
 class ModuleTransitionManager;
 class ModuleParticleSystem;
+class ModuleVideo;
 
 
 
@@ -107,6 +108,7 @@ public:
 	ModulePathfinding* pathfinding = nullptr;
 	ModuleTransitionManager *transition_manager = nullptr;
 	ModuleParticleSystem	*particle_system	= nullptr;
+	ModuleVideo *video_player = nullptr;
 
 	bool debug = false;
 

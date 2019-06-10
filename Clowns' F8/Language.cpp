@@ -40,13 +40,31 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		back = config.child("main_menu_scene").child("back").attribute("value").as_string("");
 		accept = config.child("main_menu_scene").child("accept").attribute("value").as_string("");
 		decline = config.child("main_menu_scene").child("decline").attribute("value").as_string("");
+		keyboard = config.child("main_menu_scene").child("keyboard").attribute("value").as_string("");
+		gamepad = config.child("main_menu_scene").child("gamepad").attribute("value").as_string("");
 		character_stats = config.child("main_menu_scene").child("character_stats").attribute("value").as_string("");
 		character_abilities = config.child("main_menu_scene").child("character_abilities").attribute("value").as_string("");
 		abilities = config.child("main_menu_scene").child("abilities").attribute("value").as_string("");
 		pause = config.child("main_menu_scene").child("pause").attribute("value").as_string("");
 		select = config.child("main_menu_scene").child("select").attribute("value").as_string("");
 
-		
+		//credits
+		credits_lines.push_back(config.child("main_menu_scene").child("credits0").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits1").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits2").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits3").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits4").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits5").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits6").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits7").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits8").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits9").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits10").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits11").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits12").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits13").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits14").attribute("value").as_string(""));
+
 		resume = config.child("battle_scene").child("resume").attribute("value").as_string("");
 		choose_map = config.child("battle_scene").child("choose_map").attribute("value").as_string("");
 		battle_abilities = config.child("battle_scene").child("battle_abilities").attribute("value").as_string("");
@@ -113,6 +131,123 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		ability3_storm = config.child("battle_scene").child("storm").attribute("ability_3").as_string("");
 		ability3_georgeb = config.child("battle_scene").child("georgeb").attribute("ability_3").as_string("");
 
+		//ability info
+		range = config.child("battle_scene").child("ability_info").attribute("range").as_string("");
+		target = config.child("battle_scene").child("ability_info").attribute("target").as_string("");
+		ability_type = config.child("battle_scene").child("ability_info").attribute("type").as_string("");
+		effect = config.child("battle_scene").child("ability_info").attribute("effect").as_string("");
+		amount = config.child("battle_scene").child("ability_info").attribute("amount").as_string("");
+
+		//range values
+
+		range_val.push_back(config.child("battle_scene").child("iris_info").child("attack").attribute("range").as_string(""));
+		range_val.push_back(config.child("battle_scene").child("iris_info").child("ability1").attribute("range").as_string(""));
+		range_val.push_back(config.child("battle_scene").child("iris_info").child("ability2").attribute("range").as_string(""));
+		range_val.push_back(config.child("battle_scene").child("iris_info").child("ability3").attribute("range").as_string(""));
+
+		range_val.push_back(config.child("battle_scene").child("georgeb_info").child("attack").attribute("range").as_string(""));
+		range_val.push_back(config.child("battle_scene").child("georgeb_info").child("ability1").attribute("range").as_string(""));
+		range_val.push_back(config.child("battle_scene").child("georgeb_info").child("ability2").attribute("range").as_string(""));
+		range_val.push_back(config.child("battle_scene").child("georgeb_info").child("ability3").attribute("range").as_string(""));
+
+		range_val.push_back(config.child("battle_scene").child("sapphire_info").child("attack").attribute("range").as_string(""));
+		range_val.push_back(config.child("battle_scene").child("sapphire_info").child("ability1").attribute("range").as_string(""));
+		range_val.push_back(config.child("battle_scene").child("sapphire_info").child("ability2").attribute("range").as_string(""));
+		range_val.push_back(config.child("battle_scene").child("sapphire_info").child("ability3").attribute("range").as_string(""));
+
+		range_val.push_back(config.child("battle_scene").child("storm_info").child("attack").attribute("range").as_string(""));
+		range_val.push_back(config.child("battle_scene").child("storm_info").child("ability1").attribute("range").as_string(""));
+		range_val.push_back(config.child("battle_scene").child("storm_info").child("ability2").attribute("range").as_string(""));
+		range_val.push_back(config.child("battle_scene").child("storm_info").child("ability3").attribute("range").as_string(""));
+
+		//target values
+
+		target_val.push_back(config.child("battle_scene").child("iris_info").child("attack").attribute("target").as_string(""));
+		target_val.push_back(config.child("battle_scene").child("iris_info").child("ability1").attribute("target").as_string(""));
+		target_val.push_back(config.child("battle_scene").child("iris_info").child("ability2").attribute("target").as_string(""));
+		target_val.push_back(config.child("battle_scene").child("iris_info").child("ability3").attribute("target").as_string(""));
+
+		target_val.push_back(config.child("battle_scene").child("georgeb_info").child("attack").attribute("target").as_string(""));
+		target_val.push_back(config.child("battle_scene").child("georgeb_info").child("ability1").attribute("target").as_string(""));
+		target_val.push_back(config.child("battle_scene").child("georgeb_info").child("ability2").attribute("target").as_string(""));
+		target_val.push_back(config.child("battle_scene").child("georgeb_info").child("ability3").attribute("target").as_string(""));
+
+		target_val.push_back(config.child("battle_scene").child("sapphire_info").child("attack").attribute("target").as_string(""));
+		target_val.push_back(config.child("battle_scene").child("sapphire_info").child("ability1").attribute("target").as_string(""));
+		target_val.push_back(config.child("battle_scene").child("sapphire_info").child("ability2").attribute("target").as_string(""));
+		target_val.push_back(config.child("battle_scene").child("sapphire_info").child("ability3").attribute("target").as_string(""));
+
+		target_val.push_back(config.child("battle_scene").child("storm_info").child("attack").attribute("target").as_string(""));
+		target_val.push_back(config.child("battle_scene").child("storm_info").child("ability1").attribute("target").as_string(""));
+		target_val.push_back(config.child("battle_scene").child("storm_info").child("ability2").attribute("target").as_string(""));
+		target_val.push_back(config.child("battle_scene").child("storm_info").child("ability3").attribute("target").as_string(""));
+
+		//type values
+
+		ability_type_val.push_back(config.child("battle_scene").child("iris_info").child("attack").attribute("type").as_string(""));
+		ability_type_val.push_back(config.child("battle_scene").child("iris_info").child("ability1").attribute("type").as_string(""));
+		ability_type_val.push_back(config.child("battle_scene").child("iris_info").child("ability2").attribute("type").as_string(""));
+		ability_type_val.push_back(config.child("battle_scene").child("iris_info").child("ability3").attribute("type").as_string(""));
+
+		ability_type_val.push_back(config.child("battle_scene").child("georgeb_info").child("attack").attribute("type").as_string(""));
+		ability_type_val.push_back(config.child("battle_scene").child("georgeb_info").child("ability1").attribute("type").as_string(""));
+		ability_type_val.push_back(config.child("battle_scene").child("georgeb_info").child("ability2").attribute("type").as_string(""));
+		ability_type_val.push_back(config.child("battle_scene").child("georgeb_info").child("ability3").attribute("type").as_string(""));
+
+		ability_type_val.push_back(config.child("battle_scene").child("sapphire_info").child("attack").attribute("type").as_string(""));
+		ability_type_val.push_back(config.child("battle_scene").child("sapphire_info").child("ability1").attribute("type").as_string(""));
+		ability_type_val.push_back(config.child("battle_scene").child("sapphire_info").child("ability2").attribute("type").as_string(""));
+		ability_type_val.push_back(config.child("battle_scene").child("sapphire_info").child("ability3").attribute("type").as_string(""));
+
+		ability_type_val.push_back(config.child("battle_scene").child("storm_info").child("attack").attribute("type").as_string(""));
+		ability_type_val.push_back(config.child("battle_scene").child("storm_info").child("ability1").attribute("type").as_string(""));
+		ability_type_val.push_back(config.child("battle_scene").child("storm_info").child("ability2").attribute("type").as_string(""));
+		ability_type_val.push_back(config.child("battle_scene").child("storm_info").child("ability3").attribute("type").as_string(""));
+
+		//effect values
+
+		effect_val.push_back(config.child("battle_scene").child("iris_info").child("attack").attribute("effect").as_string(""));
+		effect_val.push_back(config.child("battle_scene").child("iris_info").child("ability1").attribute("effect").as_string(""));
+		effect_val.push_back(config.child("battle_scene").child("iris_info").child("ability2").attribute("effect").as_string(""));
+		effect_val.push_back(config.child("battle_scene").child("iris_info").child("ability3").attribute("effect").as_string(""));
+
+		effect_val.push_back(config.child("battle_scene").child("georgeb_info").child("attack").attribute("effect").as_string(""));
+		effect_val.push_back(config.child("battle_scene").child("georgeb_info").child("ability1").attribute("effect").as_string(""));
+		effect_val.push_back(config.child("battle_scene").child("georgeb_info").child("ability2").attribute("effect").as_string(""));
+		effect_val.push_back(config.child("battle_scene").child("georgeb_info").child("ability3").attribute("effect").as_string(""));
+
+		effect_val.push_back(config.child("battle_scene").child("sapphire_info").child("attack").attribute("effect").as_string(""));
+		effect_val.push_back(config.child("battle_scene").child("sapphire_info").child("ability1").attribute("effect").as_string(""));
+		effect_val.push_back(config.child("battle_scene").child("sapphire_info").child("ability2").attribute("effect").as_string(""));
+		effect_val.push_back(config.child("battle_scene").child("sapphire_info").child("ability3").attribute("effect").as_string(""));
+
+		effect_val.push_back(config.child("battle_scene").child("storm_info").child("attack").attribute("effect").as_string(""));
+		effect_val.push_back(config.child("battle_scene").child("storm_info").child("ability1").attribute("effect").as_string(""));
+		effect_val.push_back(config.child("battle_scene").child("storm_info").child("ability2").attribute("effect").as_string(""));
+		effect_val.push_back(config.child("battle_scene").child("storm_info").child("ability3").attribute("effect").as_string(""));
+
+		//amount values
+
+		amount_val.push_back(config.child("battle_scene").child("iris_info").child("attack").attribute("amount").as_string(""));
+		amount_val.push_back(config.child("battle_scene").child("iris_info").child("ability1").attribute("amount").as_string(""));
+		amount_val.push_back(config.child("battle_scene").child("iris_info").child("ability2").attribute("amount").as_string(""));
+		amount_val.push_back(config.child("battle_scene").child("iris_info").child("ability3").attribute("amount").as_string(""));
+
+		amount_val.push_back(config.child("battle_scene").child("georgeb_info").child("attack").attribute("amount").as_string(""));
+		amount_val.push_back(config.child("battle_scene").child("georgeb_info").child("ability1").attribute("amount").as_string(""));
+		amount_val.push_back(config.child("battle_scene").child("georgeb_info").child("ability2").attribute("amount").as_string(""));
+		amount_val.push_back(config.child("battle_scene").child("georgeb_info").child("ability3").attribute("amount").as_string(""));
+
+		amount_val.push_back(config.child("battle_scene").child("sapphire_info").child("attack").attribute("amount").as_string(""));
+		amount_val.push_back(config.child("battle_scene").child("sapphire_info").child("ability1").attribute("amount").as_string(""));
+		amount_val.push_back(config.child("battle_scene").child("sapphire_info").child("ability2").attribute("amount").as_string(""));
+		amount_val.push_back(config.child("battle_scene").child("sapphire_info").child("ability3").attribute("amount").as_string(""));
+
+		amount_val.push_back(config.child("battle_scene").child("storm_info").child("attack").attribute("amount").as_string(""));
+		amount_val.push_back(config.child("battle_scene").child("storm_info").child("ability1").attribute("amount").as_string(""));
+		amount_val.push_back(config.child("battle_scene").child("storm_info").child("ability2").attribute("amount").as_string(""));
+		amount_val.push_back(config.child("battle_scene").child("storm_info").child("ability3").attribute("amount").as_string(""));
+
 		//tutorial
 
 		lets_do_it_tutorial = config.child("battle_scene").child("lets").attribute("value").as_string("");
@@ -133,7 +268,16 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		defens_6 = config.child("battle_scene").child("def_6").attribute("value").as_string("");
 
 	}
-	
+}
 
-
+void Language::change_language()
+{
+	lines.clear();
+	end_lines.clear();
+	range_val.clear();
+	target_val.clear();
+	ability_type_val.clear();
+	effect_val.clear();
+	amount_val.clear();
+	credits_lines.clear();
 }

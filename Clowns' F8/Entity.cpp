@@ -5,6 +5,7 @@
 #include "Entity.h"
 #include "ModuleMap.h"
 #include "ModuleEntityManager.h"
+#include "ModuleSceneManager.h"
 #include "Color.h"
 
 
@@ -32,6 +33,7 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 		_config.parent().child("circle_yellow").attribute("width").as_int(), _config.parent().child("circle_yellow").attribute("height").as_int() };
 
 	name = _config.child("name").attribute("value").as_string("");
+	type_move = _config.child("type").attribute("value").as_string("");
 	position_margin = { _config.parent().child("position_margin").attribute("x").as_int(), _config.parent().child("position_margin").attribute("y").as_int() };
 	position =  App->map->MapToWorld(_config.child("position").attribute("x").as_int(), _config.child("position").attribute("y").as_int());
 	
@@ -73,8 +75,8 @@ Entity::Entity(ENTITY_TYPE _type, pugi::xml_node _config)
 	sfx.Ability_1_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_1_sfx").attribute("value").as_string());
 	sfx.Ability_2_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_2_sfx").attribute("value").as_string());
 	sfx.Ability_3_SFX = App->audio->LoadFx(_config.child("sfx").child("ability_3_sfx").attribute("value").as_string());
-	sfx.Defend_SFX = App->audio->LoadFx(_config.child("sfx").child("defend_sfx").attribute("value").as_string());
-	sfx.Critic_SFX = App->audio->LoadFx(_config.child("sfx").child("critic_sfx").attribute("value").as_string());
+	sfx.Defend_SFX = App->scene_manager->defend_sfx;
+	sfx.Critic_SFX = App->scene_manager->critic_sfx;
 	sfx.Dead_SFX = App->audio->LoadFx(_config.child("sfx").child("dead_sfx").attribute("value").as_string());
 
 
@@ -99,6 +101,7 @@ bool Entity::PostUpdate(float _dt) {
 		
 		if (entity_texture != nullptr)
 		{
+			// CIRCLE
 			if (critic)
 			{
 				App->render->Blit(debug_texture, position.first, position.second, &circle_yellow);
@@ -116,9 +119,13 @@ bool Entity::PostUpdate(float _dt) {
 
 			}
 			
-			
-			
-			if (defend)
+			// DEFEND, CRITIC, DAMAGE
+			if (damaged)
+			{
+				SDL_SetTextureColorMod(entity_texture, Damaged_color.r, Damaged_color.g, Damaged_color.b);
+				damaged = false;
+			}
+			else if (defend)
 			{
 				SDL_SetTextureColorMod(entity_texture, Defend_color.r, Defend_color.g, Defend_color.b);
 			}

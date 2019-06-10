@@ -48,7 +48,11 @@ void Polarbear::Walk(const std::vector<std::pair<int, int>> *_path)
 	}
 
 	//Pawn walk
-	if ((_path->size() > 3 && (_path->at(0).first == _path->at(2).first || _path->at(0).second == _path->at(2).second)) && !App->pathfinding->IsUsed(_path->at(2), this))
+	if (App->pathfinding->IsUsed(_path->at(1), this))
+		current_turn = SEARCH_ATTACK;
+
+	//Pawn walk
+	if ((_path->size() > 3 && (_path->at(0).first == _path->at(2).first || _path->at(0).second == _path->at(2).second)) && !App->pathfinding->IsUsed(_path->at(2), this) && !App->pathfinding->IsUsed(_path->at(1), this))
 	{
 		objective_position.push_back(App->map->MapToWorld(_path->at(2).first, _path->at(2).second));
 	}
@@ -57,46 +61,53 @@ void Polarbear::Walk(const std::vector<std::pair<int, int>> *_path)
 		objective_position.push_back(App->map->MapToWorld(_path->at(1).first, _path->at(1).second));
 	}
 
-	if (_path->size() > 2) {
-		if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
-			CurrentMovement(WALK_LEFT_FRONT);
-		}
-		else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-			CurrentMovement(WALK_RIGHT_FRONT);
-		}
-		else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
-			CurrentMovement(WALK_LEFT_BACK);
-		}
-		else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
-			CurrentMovement(WALK_RIGHT_BACK);
-		}
-		current_turn = MOVE;
+	if (objective_position.size() < 2) {
+		current_turn = SEARCH_ATTACK;
 	}
 	else {
-		current_turn = SEARCH_ATTACK;
-	}
-
-	if (objective_position.back().first == position.first || objective_position.back().second == position.second) {
-		if (current_movement == WALK_LEFT_FRONT)
-		{
-			CurrentMovement(IDLE_LEFT_FRONT);
+		if (_path->size() > 2) {
+			if (_path->at(0).first == _path->at(1).first && _path->at(0).second < _path->at(1).second) {
+				CurrentMovement(WALK_LEFT_FRONT);
+			}
+			else if (_path->at(0).first < _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+				CurrentMovement(WALK_RIGHT_FRONT);
+			}
+			else if (_path->at(0).first > _path->at(1).first && _path->at(0).second == _path->at(1).second) {
+				CurrentMovement(WALK_LEFT_BACK);
+			}
+			else if (_path->at(0).first == _path->at(1).first && _path->at(0).second > _path->at(1).second) {
+				CurrentMovement(WALK_RIGHT_BACK);
+			}
+			//current_turn = MOVE;
 		}
-		else if (current_movement == WALK_RIGHT_FRONT)
-		{
-			CurrentMovement(IDLE_RIGHT_FRONT);
-		}
-		else if (current_movement == WALK_LEFT_BACK)
-		{
-			CurrentMovement(IDLE_LEFT_BACK);
-		}
-		else if (current_movement == WALK_RIGHT_BACK)
-		{
-			CurrentMovement(IDLE_RIGHT_BACK);
+		else {
+			current_turn = SEARCH_ATTACK;
 		}
 
-		current_turn = SEARCH_ATTACK;
+		if (objective_position.back().first == position.first && objective_position.back().second == position.second) {
+			if (current_movement == WALK_LEFT_FRONT)
+			{
+				CurrentMovement(IDLE_LEFT_FRONT);
+			}
+			else if (current_movement == WALK_RIGHT_FRONT)
+			{
+				CurrentMovement(IDLE_RIGHT_FRONT);
+			}
+			else if (current_movement == WALK_LEFT_BACK)
+			{
+				CurrentMovement(IDLE_LEFT_BACK);
+			}
+			else if (current_movement == WALK_RIGHT_BACK)
+			{
+				CurrentMovement(IDLE_RIGHT_BACK);
+			}
+			//current_turn = SEARCH_MOVE;
+			current_turn = SEARCH_ATTACK;
+		}
+		LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
 	}
-	LOG("current position: x. %i y. %i  objective position: x. %i y. %i", position.first, position.second, objective_position.back().first, objective_position.back().second);
+
+
 }
 
 void Polarbear::SearchAttack()
@@ -148,12 +159,13 @@ void Polarbear::Attack(const std::vector<std::pair<int, int>> *_path)
 
 
 		if (current_animation->isDone()) {
+			
 			//Skill_1
 			timer_skill_1++;
 
-
+			PlaySFX(sfx.Attack_SFX);
 			current_animation->Reset();
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_POLARBEAR, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Attack + current_stats.AtkF, ENTITY_TYPE::ENTITY_ENEMY_POLARBEAR, false);
 			if (current_movement == ATTACK_LEFT_FRONT)
 			{
 				CurrentMovement(IDLE_LEFT_FRONT);
@@ -171,6 +183,7 @@ void Polarbear::Attack(const std::vector<std::pair<int, int>> *_path)
 				CurrentMovement(IDLE_RIGHT_BACK);
 			}
 			current_turn = END_TURN;
+			
 		}
 	}
 	else
@@ -223,9 +236,10 @@ void Polarbear::Ability_1(const std::vector<std::pair<int, int>> *_path)
 
 
 		if (current_animation->isDone()) {
+			PlaySFX(sfx.Ability_1_SFX);
 			current_animation->Reset();
 			timer_skill_1 = 0;
-			App->entity_manager->ThrowAttack(objective_position, current_stats.AtkF*1.5, ENTITY_TYPE::ENTITY_ENEMY_POLARBEAR, false);
+			App->entity_manager->ThrowAttack(objective_position, current_stats.Ability_1 + current_stats.AtkS, ENTITY_TYPE::ENTITY_ENEMY_POLARBEAR, false);
 			if (current_movement == ABILITY_1_LEFT_FRONT)
 			{
 				CurrentMovement(IDLE_LEFT_FRONT);
@@ -340,29 +354,41 @@ void Polarbear::CurrentMovement(MOVEMENT _movement) {
 	case Entity::DEAD_LEFT_FRONT:
 		current_movement = DEAD_LEFT_FRONT;
 		current_animation = &dead_left_front;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_RIGHT_FRONT:
 		current_movement = DEAD_RIGHT_FRONT;
 		current_animation = &dead_right_front;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_LEFT_BACK:
 		current_movement = DEAD_LEFT_BACK;
 		current_animation = &dead_left_back;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	case Entity::DEAD_RIGHT_BACK:
 		current_movement = DEAD_RIGHT_BACK;
 		current_animation = &dead_right_back;
-		if (current_animation->Finished()) {
+		if (current_animation->isDone()) {
 			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
+		}
+		break;
+	case Entity::DEAD_DEFAULT:
+		current_movement = DEAD_LEFT_FRONT;
+		current_animation = &dead_left_front;
+		if (current_animation->isDone()) {
+			current_state = DEATH;
+			PlaySFX(sfx.Dead_SFX);
 		}
 		break;
 	default:

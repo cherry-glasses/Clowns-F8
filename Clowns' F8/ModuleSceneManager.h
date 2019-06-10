@@ -8,6 +8,15 @@ class Scene;
 struct SDL_Texture;
 enum SCENE_TYPE;
 
+
+enum TUTORIAL {
+	GRETTINGS,
+	MOVE,
+	DEFENS,
+	ATTACK,
+	OFF
+};
+
 class ModuleSceneManager :	public Module
 {
 public:
@@ -43,8 +52,24 @@ public:
 	
 	bool victory = false;
 
+	bool start_new_game = true;
+	bool start_fourth_game = true;
+
 	bool tutorial_block = true;
 	bool tutorial_block_actions = true;
+	bool trailer = true;
+	bool i_want_a_trailer = true;
+	bool tutorial_hype = false;
+
+	// Audios
+	int accept_sfx;
+	int decline_sfx;
+	int	move_sfx;
+	int	defend_sfx;
+	int	critic_sfx;
+	int	levelup_sfx;
+
+	TUTORIAL logic = TUTORIAL::GRETTINGS;
 
 private:
 	pugi::xml_node scene_configs;

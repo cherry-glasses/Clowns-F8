@@ -3,7 +3,6 @@
 #include "ModuleGUIManager.h"
 #include "GUIElement.h"
 #include "GUIButton.h"
-#include "ModuleAudio.h"
 
 GUIButton::GUIButton(int x, int y, SDL_Rect image_area, SDL_Rect image_area_hover, SDL_Rect image_area_pressed, GUIElement* son) : GUIElement(type, x, y, area, son)
 {

@@ -13,10 +13,17 @@ public:
 	Language();
 	~Language() {
 		lines.clear();
+		end_lines.clear();
+		range_val.clear();
+		target_val.clear();
+		ability_type_val.clear();
+		effect_val.clear();
+		amount_val.clear();
+		credits_lines.clear();
 	};
 
 	void SetLanguage(LANGUAGE_TYPE language);
-
+	void change_language();
 public:
 	LANGUAGE_TYPE type = ENGLISH;
 	std::string new_game = "";
@@ -32,6 +39,9 @@ public:
 	std::string back = "";
 	std::string accept = "";
 	std::string decline = "";
+	std::string keyboard = "";
+	std::string gamepad = "";
+	std::vector<std::string> credits_lines;
 	std::string character_stats = "";
 	std::string character_abilities = "";
 	std::string abilities = "";
@@ -49,6 +59,19 @@ public:
 	std::string save_game = "";
 	std::string saved = "";
 	std::string main_menu = "";
+
+	//ability info
+	std::string range = "";
+	std::string target = "";
+	std::string ability_type = "";
+	std::string effect = "";
+	std::string amount = "";
+
+	std::vector<std::string> range_val;
+	std::vector<std::string> target_val;
+	std::vector<std::string> ability_type_val;
+	std::vector<std::string> effect_val;
+	std::vector<std::string> amount_val;
 
 	//intro
 	std::vector<std::string> lines;

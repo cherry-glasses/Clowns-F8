@@ -71,10 +71,7 @@ protected:
 
 	int screen_width, screen_height;
 	
-	// Audios
-	int	press_sfx;
-	int	defend_sfx;
-	int	critic_sfx;
+	
 
 };
 
