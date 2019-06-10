@@ -160,6 +160,7 @@ The main keys are:
 ## Who made what
 
 
+* [Individual Contribution Aleix](https://cherry-glasses.github.io/Clowns-F8/Aleix_Castillo)
 
 
 ## MIT License
