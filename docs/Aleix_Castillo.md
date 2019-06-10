@@ -4,7 +4,8 @@
 
 GDD:
 
-My work was mainly to do the GDD where all the members of the group could go to see the guidelines to be able to advance with their individual work. Teher you can find the organization of the maps, levels and all the features taht appears on the game.
+My work was mainly to do the GDD where all the members of the group could go to see the guidelines to be able to advance with their individual work. There you can find the organization of the maps, levels and all the features taht appears on the game. 
+Everything updated as the project was moving forward.
 
 [GGD](https://github.com/cherry-glasses/Clowns-F8/wiki/Game-Design-Document)
 
