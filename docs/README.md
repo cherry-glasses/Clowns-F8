@@ -161,7 +161,7 @@ The main keys are:
 
 
 * [Individual Contribution Aleix](https://cherry-glasses.github.io/Clowns-F8/Aleix_Castillo)
-* [Individual Contribution Ricky](https://github.com/cherry-glasses/Clowns-F8/Ricardo_Castro)
+* [Individual Contribution Ricky](https://cherry-glasses.github.io/Clowns-F8/Ricardo_Castro)
 
 
 ## MIT License
