@@ -68,7 +68,7 @@ The player will have to think about finding more than one way in order to overco
 * **Social Networks**:
  [Twitter](https://twitter.com/CherryGlasses_)
  [Instagram](https://www.instagram.com/cherryglasses_)
- [Gmail](cherryglassesgroup@gmail.com)
+ [Gmail](wearecherryglasses@gmail.com)
 
 * **GitHub repository**: 
 [Cherry Glasses](https://github.com/cherry-glasses/Clowns-F8)
