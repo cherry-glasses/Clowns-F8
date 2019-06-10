@@ -119,6 +119,9 @@
                         <Component Id="cmp0AD268B29ACB44F0098BDC51273C16A3" Guid="*">
                             <File Id="fil6EB3623385E537B3EBD171AB8F4C402E" KeyPath="yes" Source="$(var.HarvestPath)\Assets\Audio\Music\Battle_3_Song.ogg" />
                         </Component>
+                        <Component Id="cmp951E5E3B3B2D7A4FC803FC69097EFFE3" Guid="*">
+                            <File Id="filAE5585B3EFC23C16B7DBB9802074672B" KeyPath="yes" Source="$(var.HarvestPath)\Assets\Audio\Music\Battle_4_Song.ogg" />
+                        </Component>
                         <Component Id="cmp65A9D0DAF609337A22C55FB4B78E8AA1" Guid="*">
                             <File Id="fil5CB5EBA75CCAAF2B1C6FCA45ACEA925C" KeyPath="yes" Source="$(var.HarvestPath)\Assets\Audio\Music\Main_menu_8_bits.ogg" />
                         </Component>
@@ -423,6 +426,7 @@
             <ComponentRef Id="cmpBDC5570E8B671DE9D0014B0D6F20AA8A" />
             <ComponentRef Id="cmpD86E9348149E58F133D077CF264F4114" />
             <ComponentRef Id="cmp0AD268B29ACB44F0098BDC51273C16A3" />
+            <ComponentRef Id="cmp951E5E3B3B2D7A4FC803FC69097EFFE3" />
             <ComponentRef Id="cmp65A9D0DAF609337A22C55FB4B78E8AA1" />
             <ComponentRef Id="cmp2060C112BEB18A0597E8005ABEEB9BBF" />
             <ComponentRef Id="cmp8D586457701EC2D1EA584413772FD59B" />
