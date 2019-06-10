@@ -7,12 +7,12 @@ In the final stage of the project made sure that I created as much outside testi
 I wanted to make sure that the people gave every information they could as possible so we could evolve ourselves and improve the work we were doing so also the creation of a inquiry for the testers to give all the feedback they could. 
 Also during the outside tests I had to create an average number of all the gameplays we had to make sure that the game had enough play time but not too much, this was the result
 ### Testings
-<img src="https://github.com/cherry-glasses/Clowns-F8/blob/master/Documents/Production%20plan/Hours/Averagetime.jpg" height="500" width="600">
+<img src="https://github.com/cherry-glasses/Clowns-F8/blob/master/Documents/Production%20plan/Hours/Averagetime.jpg?raw=true" height="500" width="600">
 
 The presenations held in every different delivery were created by me and Eric Jimenez, and our main focus was to give all the information possible that we had done during the process of creation and to express what changes or what problems we preceed during the process of working.
 At the end the main job was to ensure the correct function of the game adn to make possible that all the team members could afford that information, the main format for that was held by this factors:
  ### QA Tests
- <img src="https://github.com/cherry-glasses/Clowns-F8/blob/master/Documents/Production%20plan/Hours/Testsexample.jpg" height="500" width="600">
+ <img src="https://github.com/cherry-glasses/Clowns-F8/blob/master/Documents/Production%20plan/Hours/Testsexample.jpg?raw=true" height="500" width="600">
  
 Through the process of delivering to my team members the information about the errors occurred during the testing, we found out that this was the best way of letting them know by levels what were the problems and which ones were the most important to solve as soon as possible, we tried different ways of delivering and this happened to be the most optimal.
 
@@ -20,4 +20,4 @@ At the end all the job that every member did was written down and my personal re
 
 ### Final Ricky recap:
 
-![](https://github.com/cherry-glasses/Clowns-F8/blob/master/Documents/Production%20plan/Hours/RicardoCastro.jpg)
+![](https://github.com/cherry-glasses/Clowns-F8/blob/master/Documents/Production%20plan/Hours/RicardoCastro.jpg?raw=true)
