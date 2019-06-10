@@ -171,8 +171,7 @@ The main keys are:
 * [Individual Contribution Ricky](https://cherry-glasses.github.io/Clowns-F8/Ricardo_Castro)
 * [Individual Contribution Martí](https://cherry-glasses.github.io/Clowns-F8/Marti_Torras)
 * [Individual Contribution Guillem](https://cherry-glasses.github.io/Clowns-F8/Guillem_Sanchez)
-* [Individual Contribution Eric](https://cherry-glasses.github.io/Clowns-F8/Eric_Jimenez)
-* [Individual Contribution Kevin](https://cherry-glasses.github.io/Clowns-F8/Kevin_Munoz)
+
 
 
 ## MIT License
