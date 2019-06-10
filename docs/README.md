@@ -68,6 +68,7 @@ The player will have to think about finding more than one way in order to overco
 * **Social Networks**:
  [Twitter](https://twitter.com/CherryGlasses_)
  [Instagram](https://www.instagram.com/cherryglasses_)
+ [Facebook](https://www.facebook.com/Cherry-Glasses-347489312627682/)
  [Gmail](wearecherryglasses@gmail.com)
 
 * **GitHub repository**: 
