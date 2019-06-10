@@ -1098,7 +1098,7 @@ void Character::Ability_3()
 	}
 	if (emitter != nullptr)
 	{
-		if ((emitter->GetEmitterPos().first > App->window->GetScreenWidth()/2 && type == ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE) || type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB)
+		if ((emitter->GetEmitterPos().first + 800 > App->window->GetScreenWidth()/6 && type == ENTITY_TYPE::ENTITY_CHARACTER_SAPPHIRE) || type == ENTITY_TYPE::ENTITY_CHARACTER_GEORGEB)
 		{
 			emitter->StopEmission();
 			emitter = nullptr;

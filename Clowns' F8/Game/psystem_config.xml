@@ -75,8 +75,8 @@
       <emitter type ="ability3">
         <angleRange min ="0" max ="0"/>
         <rotSpeed value ="0" randMin = "-1" randMax ="1"/>
-        <startSpeed value ="50" randMin = "0" randMax ="1"/>
-        <endSpeed value ="50" randMin = "0" randMax ="1"/>
+        <startSpeed value ="100" randMin = "0" randMax ="1"/>
+        <endSpeed value ="300" randMin = "0" randMax ="1"/>
         <startSize value ="512" randMin ="0" randMax ="1"/>
         <endSize value =" 5000" randMin ="0" randMax ="1"/>
         <emitNumber value ="1"/>
