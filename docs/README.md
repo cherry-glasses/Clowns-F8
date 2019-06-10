@@ -159,7 +159,7 @@ The main keys are:
 
 ## Who made what
 
-
+* [Individual Contribution Cere](https://cherry-glasses.github.io/Clowns-F8/Cere_Venteo)
 * [Individual Contribution Aleix](https://cherry-glasses.github.io/Clowns-F8/Aleix_Castillo)
 * [Individual Contribution Ricky](https://cherry-glasses.github.io/Clowns-F8/Ricardo_Castro)
 * [Individual Contribution Martí](https://cherry-glasses.github.io/Clowns-F8/Marti_Torras)
