@@ -2,12 +2,20 @@
 
 ## Individual Contribution
 
-Basically, my responsability in this project was to make the UI.
+Basically, my responsability in this project was to make the UI. I did the User Interface Document.
 
 ### Menus
 
-I had to make the menus in the game. First, I thought about the flow of the menus and how to interact with them.
+I had to make the menus in the game. First, I thought about the flow of the menus and how to interact with them. Then using enitities in forms of labels, buttons and images I programed the menu. I made three big menus: the main menu, the options menu and the in-game menu. 
+I also programed part of the logic of the map selection.
 
+<img src="https://github.com/cherry-glasses/Clowns-F8/blob/master/Documents/Production%20plan/Hours/main_menu.png?raw=true" height="720" width="360">
+
+###Ingame UI
+
+This is a very tactical game, therefore I had to make sure that the player had the information he needed when playing. I designed and programed the action menus in-game and the HUDS where you can see the life and mana.
+
+<img src="https://github.com/cherry-glasses/Clowns-F8/blob/master/Documents/Production%20plan/Hours/ingame_ui.png?raw=true" height="720" width="360">
 
 ###Story
 
