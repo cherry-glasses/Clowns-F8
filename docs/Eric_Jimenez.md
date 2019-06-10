@@ -12,7 +12,8 @@ During the sprints my main focus was to deliver, and to make sure the other arti
 
 The presenations held in every different delivery were created by Ricardo Castro and me, and our main focus was to give all the information possible that we had done during the process of creation and to express what changes or what problems we preceed during the process of working.
 At the end the main job was to ensure the correct function of the game and to make possible that all the team members could afford that information.
- 
+ ## My work during the development process:
+ ![](https://github.com/cherry-glasses/Clowns-F8/blob/master/Documents/Production%20plan/Hours/unknown.jpg)
 
 
 Check my work at: 
