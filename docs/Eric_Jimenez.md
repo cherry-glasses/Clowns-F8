@@ -4,11 +4,11 @@ My job during the process of the game development was to make sure all the asset
 I also helped edit and rework some sections of the wiki, specially the art bible.
 During the sprints my main focus was to deliver, and to make sure the other artists also delivered, all the assets needed for that sprint, here is some of my work:
 ### Spritesheets:
-
+![](https://github.com/cherry-glasses/Clowns-F8/blob/master/Clowns'%20F8/Game/Assets/Sprites/Main_Characters/George_Spritesheet.png)
 ### Maps:
-
+![](https://github.com/cherry-glasses/Clowns-F8/blob/master/Clowns'%20F8/Game/Assets/Maps/map_level_1.png)
 ### UI:
-
+![](https://github.com/cherry-glasses/Clowns-F8/blob/master/Clowns'%20F8/Game/Assets/Sprites/UI/character_info.png)
 
 The presenations held in every different delivery were created by Ricardo Castro and me, and our main focus was to give all the information possible that we had done during the process of creation and to express what changes or what problems we preceed during the process of working.
 At the end the main job was to ensure the correct function of the game and to make possible that all the team members could afford that information.
