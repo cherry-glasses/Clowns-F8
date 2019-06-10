@@ -10,7 +10,7 @@ The player will have to think about finding more than one way in order to overco
 
 # The team: Cherry Glasses
 
-<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/docs/Wiki_Resources/img/group.jpg" width="720" height="360">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Wiki_Resources/img/group.jpg" width="720" height="360">
 
 
 Cherry Glasses is a team formed by university students of the CITM (UPC), located in Terrassa, Barcelona. This is the first time we work together but we will do our best to make the project go ahead and achieve with the help of the whole team to create a great game.
@@ -26,17 +26,17 @@ We are very motivated to do a great job and that everyone who tries our game has
 [GitHub Account](https://github.com/CereVenteo)
 
 ### Game Design: `Aleix Castillo`
-<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/docs/Wiki_Resources/img/fotoaleix.JPG" width="160" height="160">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Wiki_Resources/img/fotoaleix.JPG" width="160" height="160">
 
 [GitHub Account](https://github.com/AleixCas95)
 
 ### UI: `Martí Torras`
-<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/docs/Wiki_Resources/img/marti_photo.jpg" width="160" height="160">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Wiki_Resources/img/marti_photo.jpg" width="160" height="160">
 
 [GitHub Account](https://github.com/martitorras)
 
 ### Code: `Guillem Sánchez`
-<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/docs/Wiki_Resources/img/Guillem.jpg" width="160" height="160">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Wiki_Resources/img/Guillem.jpg" width="160" height="160">
 
 [GitHub Account](https://github.com/guillemsanchez)
 
@@ -46,12 +46,12 @@ We are very motivated to do a great job and that everyone who tries our game has
 [GitHub Account](https://github.com/dusthandler)
 
 ### Code-UI-Art Coordinator: `Eric Jiménez`
-<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/docs/Wiki_Resources/img/BunnyDormido.png" width="160" height="160">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Wiki_Resources/img/BunnyDormido.png" width="160" height="160">
 
 [GitHub Account](https://github.com/EricJPbunny)
 
 ### QA: `Ricky Castro`
-<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/docs/Wiki_Resources/img/Ricky.jpg" width="160" height="160">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/Wiki_Resources/img/Ricky.jpg" width="160" height="160">
 
 [GitHub Account](https://github.com/ricardocv2)
 
@@ -121,7 +121,7 @@ For this game we recommend to play with gamepad, it can be also played with keyb
 
 **Gamepad:**
 
- <img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/docs/gdd/Xbox-360-S-Controller.png" width="140" height="120">
+ <img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/gdd/Xbox-360-S-Controller.png" width="140" height="120">
 
 Gamepad is the main controller for this game, the main controls are:
 
@@ -135,7 +135,7 @@ Gamepad is the main controller for this game, the main controls are:
 
 **Keyboard:**
 
-<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/docs/gdd/keyboard.png" width="170" height="100">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/Documents/gdd/keyboard.png" width="170" height="100">
 
 Keyboard is the secundary controller for the game if you do not have a gamepad controller.
 
