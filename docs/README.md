@@ -51,7 +51,7 @@ We are very motivated to do a great job and that everyone who tries our game has
 [GitHub Account](https://github.com/EricJPbunny)
 
 ### QA: `Ricky Castro`
-<img src=https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/docs/Wiki_Resources/img/Ricky.jpg" width="160" height="160">
+<img src="https://raw.githubusercontent.com/cherry-glasses/Clowns-F8/master/docs/Wiki_Resources/img/Ricky.jpg" width="160" height="160">
 
 [GitHub Account](https://github.com/ricardocv2)
 
