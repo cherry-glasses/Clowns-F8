@@ -1,5 +1,5 @@
 ﻿### Clowns F8
-
+.
 # Clowns F8 is a game that is based on final fantasy tactics.
 Clowns' F8 is a tactical role-playing game based on the game Final Fantasy Tactics. We want to make the game’s playability around 20 – 30 minutes of duration, keeping the bases of the original game adding new techniques that will give more dynamism to the game. The player will be able to control four characters of his choice in order to defeat the enemies that he will find.
 
