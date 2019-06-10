@@ -24,8 +24,8 @@ We are very motivated to do a great job and that everyone who tries our game has
 * **Wiki**: 
 [Cherry Glasses wiki homepage](https://github.com/cherry-glasses/Clowns-F8/wiki)
 
-**Game Release**
-[Clowns F8 lastet release]  ******
+* **Game Release**:
+[Clowns F8 lastet release](https://github.com/cherry-glasses/Clowns-F8/releases/tag/Gold)
 
 # Version 1.0
 
