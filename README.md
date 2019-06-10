@@ -425,7 +425,7 @@ Audios(cusi del eric)
 [Aleix Castillo](https://github.com/AleixCas95)
 
 ### UI: `Martí Torras`
-[Martí Torra](https://github.com/martitorras)
+[Martí Torras](https://github.com/martitorras)
 
 ### Code: `Guillem Sánchez`
 [Guillem Sánchez](https://github.com/guillemsanchez)
