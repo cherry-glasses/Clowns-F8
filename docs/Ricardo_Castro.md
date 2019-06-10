@@ -15,3 +15,9 @@ At the end the main job was to ensure the correct function of the game adn to ma
  <img src="https://github.com/cherry-glasses/Clowns-F8/blob/master/Documents/Production%20plan/Hours/Testsexample.jpg" height="500" width="600">
  
 Through the process of delivering to my team members the information about the errors occurred during the testing, we found out that this was the best way of letting them know by levels what were the problems and which ones were the most important to solve as soon as possible, we tried different ways of delivering and this happened to be the most optimal.
+
+At the end all the job that every member did was written down and my personal result was this one:
+
+### Final Ricky recap:
+
+![](https://github.com/cherry-glasses/Clowns-F8/blob/master/Documents/Production%20plan/Hours/RicardoCastro.jpg)
