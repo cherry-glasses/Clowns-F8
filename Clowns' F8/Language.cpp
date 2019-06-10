@@ -63,6 +63,7 @@ void Language::SetLanguage(LANGUAGE_TYPE _language)
 		credits_lines.push_back(config.child("main_menu_scene").child("credits11").attribute("value").as_string(""));
 		credits_lines.push_back(config.child("main_menu_scene").child("credits12").attribute("value").as_string(""));
 		credits_lines.push_back(config.child("main_menu_scene").child("credits13").attribute("value").as_string(""));
+		credits_lines.push_back(config.child("main_menu_scene").child("credits14").attribute("value").as_string(""));
 
 		resume = config.child("battle_scene").child("resume").attribute("value").as_string("");
 		choose_map = config.child("battle_scene").child("choose_map").attribute("value").as_string("");

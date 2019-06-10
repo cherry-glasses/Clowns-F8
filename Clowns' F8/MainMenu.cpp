@@ -296,14 +296,14 @@ void MainMenu::CreateControlsMenu()
 void MainMenu::CreateCreditsMenu()
 {
 	credits_menu_created = true;
-	for (int i = 0; i < 14; ++i)
+	for (int i = 0; i < 15; ++i)
 	{
 		if(i == 0)
-			credits_text.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width / 2, (screen_height / 2) - (option_background.h / 2) + 40, App->scene_manager->language->credits_lines.at(i), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
-		else if (i >= 12)
-			credits_text.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width / 2, (screen_height / 2) - (option_background.h / 2) + (i * 40) + 70, App->scene_manager->language->credits_lines.at(i), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+			credits_text.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width / 2, (screen_height / 2) - (option_background.h / 2) + 35, App->scene_manager->language->credits_lines.at(i), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
+		else if (i >= 13)
+			credits_text.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width / 2, (screen_height / 2) - (option_background.h / 2) + (i * 38) + 55, App->scene_manager->language->credits_lines.at(i), { 0, 0, 0, 255 }, App->gui_manager->default_font_used));
 		else
-			credits_text.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width / 2 - (screen_width / 9), (screen_height / 2) - (option_background.h / 2) + (i * 40) + 50, App->scene_manager->language->credits_lines.at(i), { 0, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false));
+			credits_text.push_back((GUILabel*)App->gui_manager->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, screen_width / 2 - (screen_width / 8), (screen_height / 2) - (option_background.h / 2) + (i * 38) + 35, App->scene_manager->language->credits_lines.at(i), { 0, 0, 0, 255 }, App->gui_manager->default_font_used, -1000, -1000, nullptr, false));
 
 	}
 	back_credits_button = (GUIButton*)App->gui_manager->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, (screen_width / 2) - (button.w / 2), (screen_height / 2) + (option_background.h / 2) - button.h * 1.5, { 0, 0, 288, 64 }, { 0, 64, 288, 64 }, { 0, 128, 288, 64 });
