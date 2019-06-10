@@ -1148,7 +1148,7 @@
       <name value="Hotdog"/>
       <type value="Knight"/>
       <exp value="400"/>
-      <stats hp="400" mana="120" p_move="6" atk_f="175" atk_s="175" range_atk="4" def_f="125" def_s="125" crit="0.2" agi="9" attack ="35" ability_1="40"/>
+      <stats hp="300" mana="120" p_move="6" atk_f="175" atk_s="175" range_atk="4" def_f="125" def_s="125" crit="0.2" agi="9" attack ="35" ability_1="40"/>
       <animations>
         <idle_left speed="5.0f" loop="true">
           <frame x="0" y="128" width="64" height="64"/>
@@ -1359,7 +1359,7 @@
       <name value="Polar Path"/>
       <type value="Rook"/>
       <exp value="400"/>
-      <stats hp="120" mana="120" p_move="6" atk_f="175" atk_s="175" range_atk="4" def_f="125" def_s="125" crit="0.2" agi="9" attack ="45" ability_1="45"/>
+      <stats hp="300" mana="120" p_move="6" atk_f="175" atk_s="175" range_atk="4" def_f="125" def_s="125" crit="0.2" agi="9" attack ="45" ability_1="45"/>
       <animations>
         <idle_front speed="5.0f" loop="true">
           <frame x="64" y="64" width="64" height="64"/>
@@ -1437,7 +1437,7 @@
       <name value="Cherry Black Glasses"/>
       <type value="King"/>
       <exp value="4000"/>
-      <stats hp="1500" mana="120" p_move="6" atk_f="225" atk_s="225" range_atk="7" def_f="200" def_s="200" crit="0.2" agi="5" attack ="50" ability_1="60"/>
+      <stats hp="1500" mana="320" p_move="6" atk_f="400" atk_s="400" range_atk="7" def_f="300" def_s="300" crit="0.2" agi="5" attack ="50" ability_1="60"/>
       <animations>
         <idle_left_front speed="2.0f" loop="true">
           <frame x="0" y="75" width="64" height="75"/>

@@ -1226,12 +1226,12 @@ void ModuleEntityManager::LevelUP(int _exp)
 				if ((*enemy)->GetType() != ENTITY_TYPE::ENTITY_ENEMY_CHERRYBLACKGLASSES)
 				{
 					(*enemy)->default_stats.Hp += (*enemy)->default_stats.Hp * 3;
-					(*enemy)->default_stats.Mana += (*enemy)->default_stats.Mana * 3;
-					(*enemy)->default_stats.AtkF += (*enemy)->default_stats.AtkF * 2;
-					(*enemy)->default_stats.AtkS += (*enemy)->default_stats.AtkS * 2;
-					(*enemy)->default_stats.DefF += (*enemy)->default_stats.DefF * 2;
-					(*enemy)->default_stats.DefS += (*enemy)->default_stats.DefS * 2;
-					(*enemy)->default_stats.Crit += (*enemy)->default_stats.Crit * 2;
+					(*enemy)->default_stats.Mana += (*enemy)->default_stats.Mana;
+					(*enemy)->default_stats.AtkF += (*enemy)->default_stats.AtkF;
+					(*enemy)->default_stats.AtkS += (*enemy)->default_stats.AtkS;
+					(*enemy)->default_stats.DefF += (*enemy)->default_stats.DefF;
+					(*enemy)->default_stats.DefS += (*enemy)->default_stats.DefS;
+					(*enemy)->default_stats.Crit += (*enemy)->default_stats.Crit;
 
 					(*enemy)->current_stats = (*enemy)->default_stats;
 				}
@@ -1272,7 +1272,7 @@ void ModuleEntityManager::LevelUP(int _exp)
 
 				while ((*character)->level < 10 && (*character)->levels.at((*character)->level - 1) <= (*character)->exp)
 				{
-					(*character)->default_stats.Hp += (*character)->evolution_stats.Hp * (*character)->level;
+					(*character)->default_stats.Hp += (*character)->evolution_stats.Hp * (*character)->level * 2;
 					(*character)->default_stats.Mana += (*character)->evolution_stats.Mana * (*character)->level;
 					(*character)->default_stats.AtkF += (*character)->evolution_stats.AtkF * (*character)->level;
 					(*character)->default_stats.AtkS += (*character)->evolution_stats.AtkS * (*character)->level;

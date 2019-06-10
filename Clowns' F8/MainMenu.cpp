@@ -59,6 +59,7 @@ bool MainMenu::Update(float _dt)
 				App->scene_manager->battle1_passed = false;
 				App->scene_manager->battle2_passed = false;
 				App->scene_manager->battle3_passed = false;
+				App->scene_manager->start_fourth_game = true;
 				App->transition_manager->CreateFadeTransition(1, true, INTRO, Black);
 				App->scene_manager->changing = true;
 			}

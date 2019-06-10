@@ -145,6 +145,17 @@ void Polarpath::Attack(const std::vector<std::pair<int, int>>* _path) {
 	std::pair<int, int> car = App->entity_manager->CharactersPrioritzationAttack(range, tiles_range_attk);
 	objective_position.push_back(car);
 
+	if (emitter != nullptr)
+	{
+		if (emitter->GetEmitterPos().first < objective_position.back().first + 10)
+			emitter->SetPosition({ emitter->GetEmitterPos().first + 8, emitter->GetEmitterPos().second });
+		if (emitter->GetEmitterPos().first > objective_position.back().first + 10)
+			emitter->SetPosition({ emitter->GetEmitterPos().first - 8, emitter->GetEmitterPos().second });
+		if (emitter->GetEmitterPos().second < objective_position.back().second - 16)
+			emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second + 30 });
+		if (emitter->GetEmitterPos().second > objective_position.back().second - 16)
+			emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second - 30 });
+	}
 
 	if (nearposition.first > pos.first)
 		CurrentMovement(ATTACK_FRONT);
@@ -163,21 +174,12 @@ void Polarpath::Attack(const std::vector<std::pair<int, int>>* _path) {
 		}
 		if (emitter != nullptr)
 		{
-			if (emitter->GetEmitterPos().first < objective_position.back().first + 10)
-				emitter->SetPosition({ emitter->GetEmitterPos().first + 8, emitter->GetEmitterPos().second });
-			if (emitter->GetEmitterPos().first > objective_position.back().first + 10)
-				emitter->SetPosition({ emitter->GetEmitterPos().first - 8, emitter->GetEmitterPos().second });
-			if (emitter->GetEmitterPos().second < objective_position.back().second - 16)
-				emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second + 30 });
-			if (emitter->GetEmitterPos().second > objective_position.back().second - 16)
-				emitter->SetPosition({ emitter->GetEmitterPos().first, emitter->GetEmitterPos().second - 30 });
 			if ((emitter->GetEmitterPos().first <= objective_position.back().first + 20) && (emitter->GetEmitterPos().first >= objective_position.back().first)
 				&& (emitter->GetEmitterPos().second >= objective_position.back().second - 32) && (emitter->GetEmitterPos().second <= objective_position.back().second))
 			{
 				emitter->StopEmission();
 				emitter = nullptr;
 			}
-
 		}
 		if (emitter == nullptr)
 		{
