@@ -89,7 +89,7 @@ project zip.
 - Click on "Clowns F8.exe" executable to enjoy the game.
 
 ## Option 2
-- Download  the intallation
+- Download [Here](https://github.com/cherry-glasses/Clowns-F8/releases/download/Gold/ClownsF8_Installer.msi) the intallation
 program.
 - Execute and follow the instructions.
 - When the installation finished, click on the icon game to execute game.
@@ -172,7 +172,7 @@ The main keys are:
 * [Individual Contribution Martí](https://cherry-glasses.github.io/Clowns-F8/Marti_Torras)
 * [Individual Contribution Guillem](https://cherry-glasses.github.io/Clowns-F8/Guillem_Sanchez)
 * [Individual Contribution Eric](https://cherry-glasses.github.io/Clowns-F8/Eric_Jimenez)
-* [Individual Contribution Kevin](https://cherry-glasses.github.io/Clowns-F8/Kevin_Munoz)
+
 
 
 ## MIT License
